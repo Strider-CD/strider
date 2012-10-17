@@ -1,0 +1,132 @@
+.bbf-form {
+    margin: 0;
+    padding: 0;
+    border: none;
+}
+
+
+.bbf-field {
+    margin: 1em 0;
+    list-style-type: none;
+    position: relative;
+    clear: both;
+}
+
+    .bbf-field label {
+        float: left;
+        width: 25%;
+    }
+    
+    .bbf-field .bbf-editor {
+        margin-left: 25%;
+        width: 74%;
+    }
+        
+        .bbf-field input, .bbf-field textarea, .bbf-field select {
+            width: 100%;
+        }
+    
+    .bbf-field .bbf-help {
+        margin-left: 25%;
+        width: 74%;
+        color: #999;
+    }
+
+    .bbf-field.bbf-error .bbf-editor {
+        outline: 1px solid red;
+    }
+
+
+
+.bbf-date input, .bbf-datetime input {
+    width: 100px;
+    text-align: center;
+}
+
+    .bbf-datetime input {
+        margin-right: 1em;
+    }
+
+    .bbf-datetime select {
+        width: 50px;
+        text-align: center;
+    }
+    
+    
+
+.bbf-list {
+    list-style-type: none;
+}
+    
+    .bbf-list ul {
+        border: 1px solid #ccc;
+        border-bottom: none;
+        max-height: 150px;
+        overflow: auto;
+        margin: 0;
+        padding: 0;
+    }
+
+    .bbf-list li {
+        border-top: 1px solid #ccc;
+        border-bottom: 1px solid #ccc;
+        height: 16px;
+        background: #fff;
+        padding: 4px;
+        margin: 0;
+        list-style-type: none;
+        margin-top: -1px;
+        position: relative;
+        
+    }    
+        .bbf-list-sortable li {
+            cursor: move;
+        }
+        
+        .bbf-list .bbf-list-actions {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+        }
+    
+        .bbf-list .bbf-list-actions button {
+            width: 19px;
+            height: 19px;
+        }
+    
+        .bbf-list .bbf-list-add {
+            width: 100%;
+            height: 20px;
+            margin-top: -2px;
+        }
+        
+    .bbf-list-editor {
+        width: 98%;
+    }
+
+
+.bbf-radio {
+    list-style-type: none;
+}
+
+    .bbf-radio input {
+        width: auto;
+    }
+
+    .bbf-radio label {
+        float: none;
+    }
+
+
+
+.bbf-checkboxes {
+    list-style-type: none;
+}
+
+    .bbf-checkboxes input {
+        width: auto;
+    }
+
+    .bbf-checkboxes label {
+        float: none;
+    }

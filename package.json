@@ -1,0 +1,52 @@
+{
+  "name": "strider",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "ansiparse": "0.0.5-1",
+    "apres": "git://github.com/apres/apres.github.com#74ed051edf4b8b42ce98d6e881d06f20b813969e",
+    "express": "2.x.x",
+    "stylus": ">= 0.0.1",
+    "jade": ">= 0.0.1",
+    "mongoose-auth": "git://github.com/niallo/mongoose-auth",
+    "mongoose": "3.x.x",
+    "everyauth": "git://github.com/niallo/everyauth",
+    "bcrypt": ">=0.5.0",
+    "connect-mongo": ">=0.1.7",
+    "request": ">=2.9.100",
+    "async": ">=0.1.15",
+    "underscore": ">=1.3.1",
+    "socket.io": "0.9.10",
+    "connect": ">= 1.8.5 < 2",
+    "step": ">=0.0.5",
+    "loggly": ">=0.3.11",
+    "mailer": ">=0.6.7",
+    "moment": ">=1.6.2",
+    "validator": ">=0.4.2",
+    "winston": "==0.5.11",
+    "nodemailer": ">=0.3.20",
+    "optimist": "0.3.x",
+    "strider-extension-loader": ">=0.0.13",
+    "everypaas": "0.0.x",
+    "strider-simple-worker": "git://github.com/Strider-CD/strider-simple-worker.git",
+    "strider-sauce": "git://github.com/Strider-CD/strider-sauce"
+  },
+  "devDependencies": {
+    "mocha": ">=0.11.0",
+    "mock-request": ">=0.1.2",
+    "sandboxed-module": ">=0.1.2",
+    "should": ">=0.5.1",
+    "sinon": ">=1.3.1",
+    "commander": ">=0.5.2"
+  },
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha -R tap && node_modules/mocha/bin/mocha -R tap --ignore-leaks test/functional/test.js"
+  },
+  "bin": {
+    "strider": "bin/strider"
+  },
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}

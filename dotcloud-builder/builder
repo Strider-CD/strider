@@ -1,0 +1,35 @@
+#!/bin/bash
+
+packages_dir=node_modules
+node_root=/opt/node
+
+[ "$SERVICE_NODE_VERSION" ] && 
+[ "$SERVICE_NODE_VERSION" != "$(node --version)" ] &&
+(
+    rm -rf $node_root/*
+    cd $node_root
+    curl -L https://nodeload.github.com/joyent/node/tarball/v0.8.9 | tar -zxf-
+    cd joyent-node-*
+    ./configure --prefix=$node_root
+    make
+    make install
+)
+
+cd ${SERVICE_APPROOT:=.}
+
+# Some user have their packages in their repository let's remove them,
+# there is good chances that we are on a different architecture anyway.
+[ -e "$packages_dir" ] && rm -rf "$packages_dir"
+
+# Copy code to $HOME.
+rsync -aH ./ $HOME/
+
+# Install the specified dependencies.
+# This will re-use already installed dependencies.
+# To force the use of the latest version of a package:
+# - specify a version specification in package.json;
+# - or push with the "--clean" flag to discard the incremental build.
+cd $HOME
+[ -f package.json ] && npm install
+
+

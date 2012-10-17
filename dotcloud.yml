@@ -1,0 +1,10 @@
+www:
+  type: custom
+  buildscript: dotcloud-builder/builder
+  node_version: v0.8.x
+  process: env PORT=$PORT_WWW node bin/strider
+  ports:
+    www: http
+
+data:
+  type: mongodb

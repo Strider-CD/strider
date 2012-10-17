@@ -1,0 +1,20 @@
+script.template#project-config-app(type="text/template")
+  .span12
+    .row-fluid
+      .span8
+        .row-fluid
+          .span10
+            h3 Available Repositories:
+          .span2
+            a.btn.refresh-button.repo-action
+              i.icon-refresh
+        hr
+        #repo-list
+        .row-fluid
+          .span8
+            p Configure a project manually
+          .span4
+            a.btn.btn-inverse.start-manual-setup(href="/manual_setup") Start
+        .row-fluid
+          .span12
+            hr

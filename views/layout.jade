@@ -1,0 +1,9 @@
+!!! 5
+- var apresController = apresController;
+if (apresController !== undefined)
+  <html data-apres-controller="#{apresController}" data-controller-params='!{apresParams}'>
+  include layout_include
+  </html>
+else
+  html
+    include layout_include
