@@ -29,7 +29,8 @@
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
     "strider-simple-worker": "git://github.com/Strider-CD/strider-simple-worker.git",
-    "strider-sauce": "git://github.com/Strider-CD/strider-sauce"
+    "strider-sauce": "git://github.com/Strider-CD/strider-sauce",
+    "strider-env": "git://github.com/Strider-CD/strider-env"
   },
   "devDependencies": {
     "mocha": ">=0.11.0",
