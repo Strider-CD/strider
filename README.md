@@ -26,7 +26,8 @@ SendGrid or MailGun.
 
 - Register for a free Heroku account at http://heroku.com
 - Install the Heroku toolbelt on your machine from https://toolbelt.heroku.com
-- Clone this repository
+- Clone this repository:
+  `git clone git://github.com/Strider-CD/strider.git`
 - `cd` into the clone and log into Heroku:
     `heroku login`
 - Create a new Heroku app for Strider:
@@ -51,7 +52,7 @@ Example session:
 
 ```bash
 
-$ git clone git@github.com:Strider-CD/strider.git
+$ git clone git://github.com/Strider-CD/strider.git
 Cloning into 'strider'...
 remote: Counting objects: 558, done.
 remote: Compressing objects: 100% (409/409), done.
