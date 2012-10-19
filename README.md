@@ -13,7 +13,8 @@ major differences:
 * Deployable & usable on Heroku free plan
 * Intended for deployment on private infrastructure
 * An emphasis on extensibility
-* Out-of-the-box support for Node.JS, Python/Django projects and Selenium/Sauce Labs tests
+* Out-of-the-box support for Node.JS projects and Selenium/Sauce Labs tests
+* Support for Python/Django, Ruby/Rails and more coming soon in form of extensions
 * Commercial support, consulting & hosting available
 
 
