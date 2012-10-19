@@ -31,6 +31,13 @@ SendGrid or MailGun.
     `heroku login`
 - Create a new Heroku app for Strider:
     `heroku create`
+- Edit `config.js` and set the following values:
+  - Server name. Address at which server will be accessible on the Internet. E.g. https://mystrider.herokuapp.com/
+  - Github app id & secret for your Heroku app - you can register a new one 
+  at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
+  and the callback URL should be server name with the path /auth/github/callback.
+  E.g. https://mystrider.herokuapp.com/auth/github/callback
+- Commit the `config.js` changes locally
 - Provision a free MongoDB database:
     `heroku addons:add mongolab:starter`
 - Provision a free SendGrid SMTP server:
