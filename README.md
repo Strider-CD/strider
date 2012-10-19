@@ -95,16 +95,30 @@ by executing::
 
     npm install
 
-We also recommend installing the useful development wrapper, `nodemon` ::
-
-    sudo npm install -g nodemon
-
 
 Configuring
 ===========
 
-`Strider` configuration is stored in the `config.js` file. Most of the default values
-should work fine for development.
+`Strider` configuration is stored in the `config.js` file. Most of the default
+values should work fine for running on localhost, however for an
+Internet-accessible deployment the following values will need to be configured:
+
+- In `config.js` file you'll need to set:
+
+  - MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
+  - Server name. Address at which server will be accessible on the Internet. E.g. https://strider.example.com/
+  - Github app id & secret (assuming not running on localhost:3000) - you can register a new one 
+  at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
+  and the callback URL should be server name with the path /auth/github/callback.
+  E.g. https://strider.example.com/auth/github/callback
+  - Sendgrid credentials (for SMTP - free account is fine). Soon you will be able to specify any SMTP server, not just Sendgrid.
+
+Executing
+=========
+
+Once `Strider` has been installed and configured, it can be started with::
+
+    node bin/strider
 
 Tests
 =====
@@ -119,15 +133,4 @@ http://sinonjs.org
 To start the tests, just run::
 
     npm test
-
-Executing
-=========
-
-Once `Strider` has been installed and configured, it can be started with::
-
-    node bin/strider
-
-Or, if you have installed the `nodemon` tool as suggested::
-
-    nodemon bin/strider  -w . -w views -w routes
 
