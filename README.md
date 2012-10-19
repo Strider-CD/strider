@@ -37,7 +37,8 @@ SendGrid or MailGun.
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://mystrider.herokuapp.com/auth/github/callback
-- Commit the `config.js` changes locally
+- Commit the `config.js` changes locally:
+    `git commit -m'add my config' config.js`
 - Provision a free MongoDB database:
     `heroku addons:add mongolab:starter`
 - Provision a free SendGrid SMTP server:
@@ -50,14 +51,14 @@ Example session:
 
 ```bash
 
-$ git clone git@github.com:Strider-CD/Strider-FOSS.git
-Cloning into 'Strider-FOSS'...
+$ git clone git@github.com:Strider-CD/strider.git
+Cloning into 'strider'...
 remote: Counting objects: 558, done.
 remote: Compressing objects: 100% (409/409), done.
 remote: Total 558 (delta 211), reused 480 (delta 133)
 Receiving objects: 100% (558/558), 546.24 KiB | 630 KiB/s, done.
 Resolving deltas: 100% (211/211), done.
-$ cd Strider-FOSS/
+$ cd strider/
 $ heroku login
 Enter your Heroku credentials.
 Email: foo@example.com
@@ -67,6 +68,8 @@ $ heroku create
 Creating intense-reef-4414... done, stack is cedar
 http://intense-reef-4414.herokuapp.com/ | git@heroku.com:intense-reef-4414.git
 Git remote heroku added
+$ vim config.js
+$ commit -m'add my config' config.js
 $ heroku addons:add mongolab:starter
 Adding mongolab:starter on intense-reef-4414... done, v2 (free)
 Welcome to MongoLab.
