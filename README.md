@@ -124,9 +124,10 @@ Support & Help
 ==============
 
 IRC: irc.freenode.org #strider
+
 Google Group: https://groups.google.com/d/forum/strider-users
 
-For commercial support enquiries please email sales@beyondfog.com
+For commercial support & hosting enquiries please email sales@beyondfog.com
 
 Tests
 =====
