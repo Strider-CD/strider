@@ -28,7 +28,7 @@ SendGrid or MailGun.
 - Register for a free Heroku account at http://heroku.com
 - Install the Heroku toolbelt on your machine from https://toolbelt.heroku.com
 - Clone this repository:
-  `git clone https://github.com/Strider-CD/strider.git
+  `git clone https://github.com/Strider-CD/strider.git`
 - `cd` into the clone and log into Heroku:
     `heroku login`
 - Create a new Heroku app for Strider:
