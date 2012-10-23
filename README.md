@@ -248,7 +248,9 @@ We are using [Mocha](http://visionmedia.github.com/mocha/) in this example but a
 
 ### Database Connectivity
 
-When your tests run, Strider exports a number of UNIX environment variables which you can use to connect to the test database. Strider supports setting environment variables per-project. Simply browse to the "Environment" tab on the project config page to set these.
+When your tests run, Strider exports a number of UNIX environment variables which you can use to connect to the test database. Strider supports setting environment variables per-project. Simply browse to the "Environment" tab on the project config page to set these:
+
+![Strider Environment Config Screenshot](http://unworkable.org/~niallo/strider4.png)
 
 #### MongoDB:
 
