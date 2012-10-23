@@ -3,21 +3,93 @@
 var argv = require('optimist')
       .usage('Strider Continuous Deployment CLI\nUsage: $0 [options]')
       .argv,
-    common = require('../common'),
-    main = require('../main'),
-    path = require('path');
+    config = require('../config'),
+    everypaas = require('everypaas'),
+    mongoose = require('mongoose'),
+    pw = require('pw'),
+    readline = require('readline'),
+    User = require('../models').User;
 
-// Extensions are either in ../node_modules (if local)
-// or __dirname/../
-var extdir = path.resolve(__dirname + "../node_modules");
-try {
-  fs.statSync(extdir);
-} catch(e) {
-  extdir = path.resolve(__dirname + "/../node_modules");
+function connect() {
+  var mongodbUrl = everypaas.getMongodbUrl() || config.db_uri;
+  if (everypaas.isDotCloud()) {
+    mongodbUrl += "/strider";
+  }
+  console.log("Connecting to MongoDB URL: %s", mongodbUrl);
+  mongoose.connect(mongodbUrl);
 }
 
-// Save extension dir
-common.extdir = extdir;
+function addUser(email, password, level, cb) {
+  var u = new User();
+  u.email = email;
+  u.password = password;
+  u.account_level = level;
+  u.save(cb);
+}
 
-// Load & initialize extensions
-main(extdir);
+
+// Management mode
+if (argv._.length > 0) {
+  // adduser with no arguments - prompt
+  if (argv._.indexOf('adduser') !== -1 && argv._.length === 1) {
+    var rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+    rl.question("Enter email []: ", function(email) {
+      rl.question("Is admin? (y/n) [n]: ", function(isAdmin) {
+        if (isAdmin === 'y') { 
+          isAdmin = true;
+        } else {
+          isAdmin = false;
+        }
+        rl.close();
+        process.stdout.write("Enter password []: ");
+        pw(function(password) {
+          process.stdout.write("\nEmail:\t\t" + email + "\n");
+          process.stdout.write("Password:\t" + password.replace(/.*/, '****') + "\n");
+          process.stdout.write("isAdmin:\t" + isAdmin + "\n");
+          var rl = readline.createInterface({
+            input: process.stdin,
+            output: process.stdout
+          });
+          rl.question("OK? (y/n) [y]:", function(ok) {
+            if (ok === 'y' || ok === '') {
+              connect();
+              addUser(email, password, isAdmin ? 1 : 0, function(err) {
+                if (err) {
+                  console.log("Error adding user:", err);
+                  process.exit(1);
+                }
+                console.log("User added successfully! Enjoy.");
+                process.exit(0);
+              });
+            } else {
+              console.log("Goodbye!");
+              process.exit(0);
+            }
+            rl.close();
+          });
+
+        });
+      })
+    });
+  }
+} else {
+  // Load & initialize extensions
+  var common = require('../common'),
+      path = require('path'),
+      main = require('../main');
+  // Extensions are either in ../node_modules (if local)
+  // or __dirname/../
+  var extdir = path.resolve(__dirname + "../node_modules");
+  try {
+    fs.statSync(extdir);
+  } catch(e) {
+    extdir = path.resolve(__dirname + "/../node_modules");
+  }
+
+  // Save extension dir
+  common.extdir = extdir;
+  main(extdir);
+}
