@@ -2,7 +2,7 @@ Overview
 ========
 
 
-![Strider Screenshot](http://unworkable.org/~niallo/strider2.png)
+![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
 
 `Strider` is an Open Source Continuous Deployment / Continuous Integration
 platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
