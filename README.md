@@ -47,7 +47,9 @@ SendGrid or MailGun.
     `heroku addons:add sendgrid:starter`
 - Deploy Strider:
     `git push heroku master`
-- Your personal Strider instance is now running on the Internet! Visit it.
+- Add an initial (admin) user:
+    `heroku run bin/node bin/strider adduser`
+- Your personal Strider instance is now running on the Internet! Visit it and log in with the email & password you just created an account for.
 
 Example session:
 
@@ -90,6 +92,18 @@ $ git push heroku master
 
 To git@heroku.com:intense-reef-4414.git
  * [new branch]      master -> master
+$ heroku run bin/node bin/strider adduser
+Running `bin/node bin/strider adduser` attached to terminal... up, run.1
+Enter email []: niallo@example.com
+Is admin? (y/n) [n]: y
+Enter password []: *******
+
+Email:		niallo@example.com
+Password:	****
+isAdmin:	true
+OK? (y/n) [y]:
+23 Oct 04:00:18 - info: Connecting to MongoDB URL: mongodb://heroku_app:secret@dsfoo.mongolab.com:39707/heroku_app8501609
+23 Oct 04:00:18 - info: User added successfully! Enjoy.
 ```
 
 
