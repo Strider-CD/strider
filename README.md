@@ -261,8 +261,6 @@ Here is example code for MongoDB where we check for the presence of a MongoDB en
 var db_uri = process.env.MONGODB_URI || config.default_db_uri;
 </pre>
 
-_MONGOLAB_URI is the Heroku/MongoLab equivalent of Strider's MONGODB_URI. MONGOLAB_URI will also work on Strider._
-
 #### Sample MongoDB Apps
 If you aren't sure how to create a database connection from a database URI, have a look at one of our sample apps:
 
