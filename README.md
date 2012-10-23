@@ -139,6 +139,31 @@ Internet-accessible deployment the following values will need to be configured:
   E.g. https://strider.example.com/auth/github/callback
   - Sendgrid credentials (for SMTP - free account is fine). Soon you will be able to specify any SMTP server, not just Sendgrid.
 
+Adding Initial Admin User
+=========================
+
+`Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
+other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
+
+    node bin/strider adduser
+
+Example run:
+
+```bash
+$ node bin/strider adduser
+Enter email []: strider@example.com
+Is admin? (y/n) [n]: y
+Enter password []: *******
+
+Email:		strider@example.com
+Password:	****
+isAdmin:	true
+OK? (y/n) [y]:
+22 Oct 21:21:01 - info: Connecting to MongoDB URL: mongodb://localhost/strider-foss
+22 Oct 21:21:01 - info: User added successfully! Enjoy.
+```
+
+
 Executing
 =========
 
