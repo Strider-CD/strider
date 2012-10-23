@@ -45,11 +45,6 @@ function init(schema, userf, InviteCode, mongoose_auth) {
             }
             var promise = this.Promise();
 
-            // custom code for lxjs instance
-            if (invite_code == "LXJS2012") {
-              return promise.fulfill([]);
-            }
-
             InviteCode.findOne({code:invite_code, consumed_timestamp:null},
               function(err, inviteCode) {
               if (err || !inviteCode) {
@@ -96,10 +91,6 @@ function init(schema, userf, InviteCode, mongoose_auth) {
 
               }
 
-              // custom code for LXJS
-              if (invite_code == "LXJS2012") {
-                promise.fulfill(createdUser);
-              } else {
 
               InviteCode.update({code:invite_code},
               {"$set": {consumed_timestamp:new Date(), consumed_by_user:createdUser._id}}, {}, function(err, num) {
@@ -107,7 +98,6 @@ function init(schema, userf, InviteCode, mongoose_auth) {
                   console.log(err);
               });
               promise.fulfill(createdUser);
-              }
             });
           });
           return promise;
