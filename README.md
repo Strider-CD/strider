@@ -29,8 +29,8 @@ major differences:
     - [Starting Strider](#startup)
 - [Support & Help](#support)
 - [Getting Started with Strider Guide](#gettingstarted)
-    - [Node.js: Continuous Integration](#ci_nodejs)
-    - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#cd_nodejs)
+    - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
+    - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
 
 <a name="heroku" />
 Running on Heroku
