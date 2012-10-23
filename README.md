@@ -28,7 +28,9 @@ major differences:
     - [Adding Users](#adduser)
     - [Starting Strider](#startup)
 - [Support & Help](#support)
-- [Tests](#tests)
+- [Getting Started with Strider Guide](#gettingstarted)
+    - [Node.js: Continuous Integration](#ci_nodejs)
+    - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#cd_nodejs)
 
 <a name="heroku" />
 Running on Heroku
@@ -210,19 +212,116 @@ Google Group: https://groups.google.com/d/forum/strider-users
 
 For commercial support & hosting enquiries please email sales@beyondfog.com
 
-<a name="tests" />
-Tests
-=====
+<a name="gettingstarted" />
+Getting Started With Strider
+============================
 
+Getting a project up and running on Strider is very easy. After you create your account, follow the prompts to link your Github account using OAuth2. Strider will then fetch the list of Github repositories for which you have admin rights. Select the initial Github repository that you would like to test (and optionally deploy) with Strider. On the next screen you can add any additional members of the team to the project.
 
-`Strider` tests live in the `test` subdirectory. They are written using `should.js`
-BDD-style and utilize the Mocha test framework and `sinon.js` test library.
+If you would like Strider to deploy to Heroku automatically when tests pass (AKA deploy-on-green), click 'continue to deployment configuration'. You will then need to enter your Heroku API key. You can find your API key about halfway down the '[My Account](https://api.heroku.com/account)' page on Heroku ([why do we need your Heroku API key?](why_heroku_api_key)). Then select from an existing Heroku app or enter the name for a new app. 
 
-http://visionmedia.github.com/mocha/
+The final step is to modify your project so that it will work properly with Strider. This won't take long but is specific to your language and framework, so please click on the appropriate link below.
 
-http://sinonjs.org
+### I would like to configure my project for...
+<br/>
 
-To start the tests, just run::
+- [Node.js: Continuous Integration](#ci_nodejs)
 
-    npm test
+- [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#cd_nodejs)
 
+<h2 id="ci_nodejs" class="docs-section">Getting Started: Continuous Integration for node.js</h2>
+
+### npm install
+
+Strider will run ['npm install'](http://npmjs.org/doc/install.html) to install all of your packages as specified in [package.json](http://npmjs.org/doc/json.html) and [npm-shrinkwrap.json](http://npmjs.org/doc/shrinkwrap.html) (if present).
+
+### npm test / package.json
+
+Once all of the modules are installed, Strider will run the command ['npm test'](http://npmjs.org/doc/test.html) to execute your node.js automated tests. npm will look for a [scripts key](http://npmjs.org/doc/scripts.html) in packages.json that should look something like this:
+
+<pre class="prettyprint">
+"scripts": {
+  "test": "node_modules/mocha/bin/mocha -R tap"
+} 
+</pre>
+
+We are using [Mocha](http://visionmedia.github.com/mocha/) in this example but any test framework will work as long as it can be called from the command line.
+
+### Database Connectivity
+
+When your tests run, Strider exports a number of UNIX environment variables which you can use to connect to the test database. Strider supports setting environment variables per-project. Simply browse to the "Environment" tab on the project config page to set these.
+
+#### MongoDB:
+
+Here is example code for MongoDB where we check for the presence of a MongoDB environment variable, and if it does not exist, we use the URI value from the config file:
+
+<pre class="prettyprint">
+var db_uri = process.env.MONGODB_URI || config.default_db_uri;
+</pre>
+
+_MONGOLAB_URI is the Heroku/MongoLab equivalent of Strider's MONGODB_URI. MONGOLAB_URI will also work on Strider._
+
+#### Sample MongoDB Apps
+If you aren't sure how to create a database connection from a database URI, have a look at one of our sample apps:
+
+- [BeyondFog/strider-nodejs-mongodb-test](https://github.com/BeyondFog/strider-nodejs-mongodb-test/blob/master/test/test_mongodb.js) - very simple app that connects to MongoDB in the test script 
+- [BeyondFog/Poang](https://github.com/BeyondFog/Poang) - sample node.js app built with MongoDB using Express web framework, Mongoose ODM and Everyauth authentication/account plugin.
+
+#### PostgreSQL:
+
+Here is example code for PostgreSQL where we check for the presence of a PostgreSQL environment variable, and if it does not exist, we use the URI value from the config file:
+
+<pre class="prettyprint">
+var db_uri = process.env.POSTGRESQL_URI || config.default_db_uri;
+</pre>
+
+#### Sample PostgreSQL App
+
+If you aren't sure how to create a database connection from a database URI, have a look at the sample app:
+
+- [BeyondFog/strider-nodejs-postgresql-test](https://github.com/BeyondFog/strider-nodejs-mongodb-test/blob/master/test/test_postgresql.js) - very simple app that connects to PostgreSQL in the test script
+
+#### Redis:
+
+Here is example code for Redis where we check for the presence of a Redis environment variable, and if it does not exist, we use the URI value from the config file:
+
+<pre class="prettyprint">
+var db_uri = process.env.REDIS_URI || config.default_db_uri;
+</pre>
+
+#### Sample Redis App
+If you aren't sure how to create a database connection from a database URI, have a look at this sample app:
+
+- [BeyondFog/strider-nodejs-redis-test](https://github.com/BeyondFog/strider-nodejs-mongodb-test/blob/master/test/test_redis.js) - very simple app that connects to Redis in the test script
+
+<h2 id="cd_nodejs" class="docs-section">Getting Started: Continuous Deployment for node.js</h2>
+
+Once you have finished setting up your node.js app for continuous integration with Strider, you are only a few steps away from continuous deployment to [Heroku](http://heroku.com).
+
+### Procfile
+
+Heroku requires that you have a [Procfile](https://devcenter.heroku.com/articles/procfile) with the command to start your web app. It should look like this:
+
+<pre class="prettyprint">
+web: node app.js
+</pre>
+    
+### MongoLab Addon (MongoDB in Heroku)
+
+If you would like to use the (free) [MongoLab addon](https://addons.heroku.com/mongolab) with your app, you will need to use the [Heroku Toolbelt](https://toolbelt.heroku.com/) from your command line to add it to your project. After the Heroku app has been created (either by Strider or via the command line), run the following command:
+
+<pre class="prettyprint">
+heroku addons:add mongolab:starter --app [your_app_name]
+</pre>
+    
+### Deploy on Green
+
+Once you have added a Procfile and confirmed that you are using the Heroku environment variables, your app should be ready to go for continuous deployment to Heroku. By default, Strider will deploy to Heroku on green, ie if all of the tests pass.
+
+If you would prefer to only deploy to Heroku on demand, you can turn off 'deploy on green' in the project configuration settings.
+
+Once you turn off 'deploy on green', Strider will deploy the project to Heroku ONLY when you manually trigger a 'test and deploy' job from the Strider interface.
+
+## More Information
+
+For more information on how to configure a node.js app to work on Heroku, see [Getting Started with Node.js on Heroku/Cedar](https://devcenter.heroku.com/articles/nodejs).
