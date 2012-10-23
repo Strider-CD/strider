@@ -167,7 +167,7 @@ OK? (y/n) [y]:
 Starting Strider
 ================
 
-Once `Strider` has been installed and configured, it can be started with::
+Once `Strider` has been installed and configured, it can be started with:
 
     node bin/strider
 
