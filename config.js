@@ -11,16 +11,18 @@ exports.session_secret = "8L8BudMkqBUqrz";
 // Server port
 exports.server_port = 3000;
 
+// Server URL on the Internet
+var sm = exports.strider_server_name = "http://localhost:3000";
+
 // Github OAuth2 API config
 // Register your own at: https://github.com/settings/applications/new
 exports.github = {
     appId: "a3af4568e9d8ca4165fe",
     appSecret: "18651128b57787a3336094e2ba1af240dfe44f6c",
-    myHostname: "http://localhost:" + exports.server_port
+    // Re-use strider_server_name
+    myHostname: sm
 };
 
-// Server URL on the Internet
-exports.strider_server_name = "http://localhost:3000";
 
 // ZeroMQ bind address
 exports.zeromq_addr = "tcp://0.0.0.0:31012";
