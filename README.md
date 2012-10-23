@@ -218,7 +218,7 @@ Getting Started With Strider
 
 Getting a project up and running on Strider is very easy. After you create your account, follow the prompts to link your Github account using OAuth2. Strider will then fetch the list of Github repositories for which you have admin rights. Select the initial Github repository that you would like to test (and optionally deploy) with Strider. On the next screen you can add any additional members of the team to the project.
 
-If you would like Strider to deploy to Heroku automatically when tests pass (AKA deploy-on-green), click 'continue to deployment configuration'. You will then need to enter your Heroku API key. You can find your API key about halfway down the '[My Account](https://api.heroku.com/account)' page on Heroku ([why do we need your Heroku API key?](why_heroku_api_key)). Then select from an existing Heroku app or enter the name for a new app. 
+If you would like Strider to deploy to Heroku automatically when tests pass (AKA deploy-on-green), click 'continue to deployment configuration'. You will then need to enter your Heroku API key. You can find your API key about halfway down the '[My Account](https://api.heroku.com/account)' page on Heroku. Then select from an existing Heroku app or enter the name for a new app. 
 
 The final step is to modify your project so that it will work properly with Strider. This won't take long but is specific to your language and framework, so please click on the appropriate link below.
 
