@@ -140,10 +140,11 @@ http://www.mongodb.org/downloads
 Next you will need Node.JS. You can get binary packages for most platforms at
 http://nodejs.org
 
-Once you have Node.JS on your system, you can fetch & install all the dependencies for Strider
-by executing::
+Once you have Node.JS on your system, you can fetch & install all the dependencies for your Strider clone
+by executing:
 
     npm install
+
 
 
 <a name="configuring" />
