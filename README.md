@@ -27,7 +27,7 @@ Running on Heroku
 free MongoDB database add-on from MongoLab and a free SMTP server add-on from
 SendGrid or MailGun. 
 
-*Note*: At this this time due to Heroku platform
+**Note**: At this this time due to Heroku platform
 restrictions, Sauce Labs tests can not run correctly when Strider is deployed
 on Heroku. Heroku have a fix which removes this restriction, but it is unknown
 when they will make it available to the general public.
