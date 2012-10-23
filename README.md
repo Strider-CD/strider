@@ -141,7 +141,7 @@ Next you will need Node.JS. You can get binary packages for most platforms at
 http://nodejs.org
 
 Once you have Node.JS on your system, you can fetch & install all the dependencies for your Strider clone
-by executing:
+by executing the following command in the project root:
 
     npm install
 
