@@ -19,9 +19,21 @@ major differences:
 * Support for Python/Django, Ruby/Rails and more coming soon in form of extensions
 * Commercial support, consulting & hosting available
 
+## README Contents
+
+- [Running on Heroku](#heroku)
+    - [Sample Heroku Deploy](#heroku-sample)
+- [Running on Infrastructure](#infrastructure)
+    - [Configuring](#configuration)
+    - [Adding Users](#adduser)
+    - [Starting Strider](#startup)
+- [Support & Help](#support)
+- [Tests](#tests)
 
 Running on Heroku
 =================
+
+<a name="#heroku" />
 
 `Strider` can be deployed to Heroku easily, with minimal configuration, using a
 free MongoDB database add-on from MongoLab and a free SMTP server add-on from
@@ -58,6 +70,7 @@ when they will make it available to the general public.
     `heroku run bin/node bin/strider adduser`
 - Your personal Strider instance is now running on the Internet! Visit it and log in with the email & password you just created an account for.
 
+<a name="#heroku-sample" />
 Example session:
 
 ```bash
@@ -117,6 +130,8 @@ OK? (y/n) [y]:
 Running on Infrastructure
 =========================
 
+<a name="#infrastructure" />
+
 Make sure you have MongoDB installed on your system. You can get the latest version at
 http://www.mongodb.org/downloads
 
@@ -131,6 +146,8 @@ by executing::
 
 Configuring
 ===========
+
+<a name="#configuring" />
 
 `Strider` configuration is stored in the `config.js` file. Most of the default
 values should work fine for running on localhost, however for an
@@ -148,6 +165,8 @@ Internet-accessible deployment the following values will need to be configured:
 
 Adding Initial Admin User
 =========================
+
+<a name="#adduser" />
 
 `Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
 other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
@@ -174,12 +193,16 @@ OK? (y/n) [y]:
 Starting Strider
 ================
 
+<a name="#startup" />
+
 Once `Strider` has been installed and configured, it can be started with:
 
     node bin/strider
 
 Support & Help
 ==============
+
+<a name="#help" />
 
 IRC: irc.freenode.org #strider
 
@@ -189,6 +212,8 @@ For commercial support & hosting enquiries please email sales@beyondfog.com
 
 Tests
 =====
+
+<a name="#tests" />
 
 `Strider` tests live in the `test` subdirectory. They are written using `should.js`
 BDD-style and utilize the Mocha test framework and `sinon.js` test library.
