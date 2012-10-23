@@ -223,11 +223,10 @@ If you would like Strider to deploy to Heroku automatically when tests pass (AKA
 The final step is to modify your project so that it will work properly with Strider. This won't take long but is specific to your language and framework, so please click on the appropriate link below.
 
 ### I would like to configure my project for...
-<br/>
 
-- [Node.js: Continuous Integration](#ci_nodejs)
+- [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
 
-- [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#cd_nodejs)
+- [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
 
 <h2 id="ci_nodejs" class="docs-section">Getting Started: Continuous Integration for node.js</h2>
 
