@@ -207,7 +207,7 @@ Support & Help
 ==============
 
 
-IRC: irc.freenode.org #strider
+IRC: irc.freenode.net #strider
 
 Google Group: https://groups.google.com/d/forum/strider-users
 
