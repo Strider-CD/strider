@@ -202,7 +202,7 @@ Once `Strider` has been installed and configured, it can be started with:
 
     node bin/strider
 
-<a name="help" />
+<a name="support" />
 Support & Help
 ==============
 
