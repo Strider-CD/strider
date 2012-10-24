@@ -24,7 +24,7 @@ major differences:
 - [Running on Heroku](#heroku)
     - [Sample Heroku Deploy](#heroku-sample)
 - [Running on Infrastructure](#infrastructure)
-    - [Configuring](#configuration)
+    - [Configuring](#configuring)
     - [Adding Users](#adduser)
     - [Starting Strider](#startup)
 - [Support & Help](#support)
