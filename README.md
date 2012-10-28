@@ -15,9 +15,9 @@ major differences:
 * Deployable & usable on Heroku free plan
 * Intended for deployment on private infrastructure
 * An emphasis on extensibility. Plugins are powerful, easy to write and simple to install.
-* Out-of-the-box support for Node.JS projects and Selenium/Sauce Labs tests
+* Out-of-the-box support for projects written in Node.JS, Python (generic and Django/Pyramid) and Selenium/Sauce Labs tests
 * Commercial support, consulting & hosting available
-* Coming soon: Support for Python/Django, Ruby/Rails and more
+* Coming soon: Ruby/Rails, JVM languages, PHP and more
 
 ## README Contents
 
