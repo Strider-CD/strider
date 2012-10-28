@@ -31,6 +31,7 @@
     "strider-simple-worker": "git://github.com/Strider-CD/strider-simple-worker.git",
     "strider-sauce": "git://github.com/Strider-CD/strider-sauce",
     "strider-env": "git://github.com/Strider-CD/strider-env",
+    "strider-python": "git://github.com/Strider-CD/strider-python",
     "pw": "0.0.4"
   },
   "devDependencies": {
