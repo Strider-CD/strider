@@ -47,6 +47,14 @@
   "bin": {
     "strider": "bin/strider"
   },
+  "description": "Brilliant continuous deployment platform",
+  "keywords": [
+    "strider",
+    "continuous integration",
+    "continuous deployment",
+    "testing",
+    "deployment"
+  ],
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
