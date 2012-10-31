@@ -53,7 +53,7 @@ when they will make it available to the general public.
 - `cd` into the clone and log into Heroku:
     `heroku login`
 - Create a new Heroku app w/ custom buildpack (enables native NPM modules to be built) for Strider:
-    `heroku create --stack cedar --buildpack http://github.com/Strider-CD/heroku-buildpack-nodejs.git`
+    `heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-buildpack-nodejs`
 - Edit `config.js` and set the following values:
   - Server name. Address at which server will be accessible on the Internet. E.g. https://mystrider.herokuapp.com/
   - Github app id & secret for your Heroku app - you can register a new one 
@@ -90,7 +90,7 @@ Enter your Heroku credentials.
 Email: foo@example.com
 Password (typing will be hidden): 
 Authentication successful.
-$ heroku create --stack cedar --buildpack http://github.com/Strider-CD/heroku-buildpack-nodejs.git
+$ heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-buildpack-nodejs
 Creating intense-reef-4414... done, stack is cedar
 http://intense-reef-4414.herokuapp.com/ | git@heroku.com:intense-reef-4414.git
 Git remote heroku added
