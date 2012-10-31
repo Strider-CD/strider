@@ -90,7 +90,7 @@ Enter your Heroku credentials.
 Email: foo@example.com
 Password (typing will be hidden): 
 Authentication successful.
-$ heroku create
+$ heroku create --stack cedar --buildpack http://github.com/Strider-CD/heroku-buildpack-nodejs.git
 Creating intense-reef-4414... done, stack is cedar
 http://intense-reef-4414.herokuapp.com/ | git@heroku.com:intense-reef-4414.git
 Git remote heroku added
