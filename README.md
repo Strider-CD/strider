@@ -52,8 +52,8 @@ when they will make it available to the general public.
   `git clone https://github.com/Strider-CD/strider.git`
 - `cd` into the clone and log into Heroku:
     `heroku login`
-- Create a new Heroku app for Strider:
-    `heroku create`
+- Create a new Heroku app w/ custom buildpack (enables native NPM modules to be built) for Strider:
+    `heroku create --stack cedar --buildpack http://github.com/Strider-CD/heroku-buildpack-nodejs.git`
 - Edit `config.js` and set the following values:
   - Server name. Address at which server will be accessible on the Internet. E.g. https://mystrider.herokuapp.com/
   - Github app id & secret for your Heroku app - you can register a new one 
