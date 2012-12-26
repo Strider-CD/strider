@@ -30,8 +30,26 @@ function addUser(email, password, level, cb) {
 
 // Management mode
 if (argv._.length > 0) {
-  // adduser with no arguments - prompt
-  if (argv._.indexOf('adduser') !== -1 && argv._.length === 1) {
+  // -l <email>
+  // -p <password>
+  // -a
+  if (argv.l && argv.p) {
+    connect();
+    var level = 0
+    if (argv.a) {
+      level = 1;
+    }
+    addUser(argv.l, argv.p, level, function(err) {
+      if (err) {
+        console.log("Error adding user:", err);
+        process.exit(1);
+      }
+      console.log("User added successfully! Enjoy.");
+      process.exit(0);
+    });
+  } else if (argv._.indexOf('adduser') !== -1 && argv._.length === 1) {
+  // no arguments - 'adduser' subcommand means prompt
+
     var rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
