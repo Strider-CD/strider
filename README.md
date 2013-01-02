@@ -222,7 +222,7 @@ IRC: irc.freenode.net #strider
 
 Google Group: https://groups.google.com/d/forum/strider-users
 
-For commercial support & hosting enquiries please email sales@beyondfog.com
+For commercial support & hosting enquiries please email hello@stridercd.com
 
 <a name="gettingstarted" />
 Getting Started With Strider
