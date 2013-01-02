@@ -21,6 +21,7 @@ major differences:
 
 ## README Contents
 
+- [2 Minute Install from Web](#2minute)
 - [Running on Heroku](#heroku)
     - [Sample Heroku Deploy](#heroku-sample)
 - [Running on Infrastructure](#infrastructure)
@@ -31,6 +32,16 @@ major differences:
 - [Getting Started with Strider Guide](#gettingstarted)
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
     - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
+
+<a name="2minute" />
+2 Minute Install from Web
+=========================
+
+By far the easiest way to get a personal Strider instance up and running is to
+use the [Beta Web Installer](https://getstrider.herokuapp.com). This assumes
+you have a [Heroku](http://heroku.com) account (free).
+
+The web installer will perform all the same steps as a manual Heroku install, but with a nice UI.
 
 <a name="heroku" />
 Running on Heroku
