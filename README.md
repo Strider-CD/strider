@@ -22,7 +22,7 @@ major differences:
 ## README Contents
 
 - [2 Minute Install from Web](#2minute)
-- [Running on Heroku](#heroku)
+- [Manual Instale to Heroku](#heroku)
     - [Sample Heroku Deploy](#heroku-sample)
 - [Running on Infrastructure](#infrastructure)
     - [Configuring](#configuring)
@@ -44,13 +44,13 @@ you have a [Heroku](http://heroku.com) account (free).
 The web installer will perform all the same steps as a manual Heroku install, but with a nice UI.
 
 <a name="heroku" />
-Running on Heroku
-=================
+Manual install to Heroku
+========================
 
-
-`Strider` can be deployed to Heroku easily, with minimal configuration, using a
-free MongoDB database add-on from MongoLab and a free SMTP server add-on from
-SendGrid or MailGun. 
+Alternatively if you don't want to use the web installer, `Strider` can be
+deployed to Heroku easily, with minimal configuration, using a free MongoDB
+database add-on from MongoLab and a free SMTP server add-on from SendGrid or
+MailGun. 
 
 **Note**: At this this time due to Heroku platform
 restrictions, Sauce Labs tests can not run correctly when Strider is deployed
