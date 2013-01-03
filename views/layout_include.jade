@@ -33,13 +33,11 @@ body
                   a(href='/docs#Webhooks') Webhook/Custom Deployments
                 li
                   a(href='/docs#Collaborators') Collaborators
-            - if (everyauth.user === undefined)
-              li
-                a(href='mailto:hello@stridercd.com') Get Help
-            - else
+            li
+              a(href='mailto:hello@stridercd.com') Get Help
+            - if (everyauth.user !== undefined)
               li
                 a(href="/account") Account
-            - if (everyauth.user !== undefined)
                 - if (everyauth.user.account_level > 0)
                   li.dropdown 
                     a(href='#').dropdown-toggle(data-toggle="dropdown") Admin
