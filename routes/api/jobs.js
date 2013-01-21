@@ -2,7 +2,7 @@
  * routes/api/jobs.js
  */
 
-var BASE_PATH = '../../';
+var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , Step = require('step')
@@ -13,7 +13,7 @@ var _ = require('underscore')
   , email = require(BASE_PATH + 'email')
   , gh = require(BASE_PATH + 'github')
   , heroku = require(BASE_PATH + 'heroku')
-  , humane = require(BASE_PATH + 'lib/humane')
+  , humane = require(BASE_PATH + 'humane')
   , jobs = require(BASE_PATH + 'jobs')
   , Job = require(BASE_PATH + 'models').Job
   , logging = require(BASE_PATH + 'logging')

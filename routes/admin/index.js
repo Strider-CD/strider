@@ -2,17 +2,16 @@
  * routes/admin/index.js
  */
 
-var BASE_PATH = "../../";
+var BASE_PATH = "../../lib/";
 
 var  _ = require('underscore')
   , crypto = require('crypto')
   , Step = require('step')
-  , humane = require(BASE_PATH + 'lib/humane')
   , feature = require(BASE_PATH + 'feature')
   , gh = require(BASE_PATH + 'github')
-  , humane = require(BASE_PATH + 'lib/humane')
+  , humane = require(BASE_PATH + 'humane')
   , logging = require(BASE_PATH + 'logging')
-  , nibbler = require(BASE_PATH + 'lib/nibbler')
+  , nibbler = require(BASE_PATH + 'nibbler')
   , email = require(BASE_PATH + 'email')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
   , Job = require(BASE_PATH + 'models').Job

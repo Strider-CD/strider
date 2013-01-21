@@ -1,10 +1,9 @@
-var BASE_PATH = "../../../";
+var BASE_PATH = "../../../lib/";
 var _ = require('underscore')
   , models = require(BASE_PATH + 'models')
-  , config = require(BASE_PATH + 'config')
   , crypto = require('crypto')
   , logging = require(BASE_PATH + 'logging')
-  , nibbler = require(BASE_PATH + 'lib/nibbler')
+  , nibbler = require(BASE_PATH + 'nibbler')
   , Step = require('step')
   , mail = require(BASE_PATH + 'email')
   ;

@@ -2,12 +2,12 @@
  * routes/api/admin/index.js
  */
 
-var BASE_PATH = '../../../';
+var BASE_PATH = '../../../lib/';
 
 var _ = require('underscore')
   , crypto = require('crypto')
   , auth = require(BASE_PATH + 'auth')
-  , humane = require(BASE_PATH + 'lib/humane')
+  , humane = require(BASE_PATH + 'humane')
   , User = require(BASE_PATH + 'models').User
   , Job = require(BASE_PATH + 'models').Job
 

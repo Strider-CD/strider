@@ -2,19 +2,13 @@
  * routes/api/github.js
  */
 
-var BASE_PATH = '../../';
+var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
-  , crypto = require('crypto')
-  , check = require('validator').check
   , Step = require('step')
-
-  , email = require(BASE_PATH + 'email')
   , gh = require(BASE_PATH + 'github')
-  , heroku = require(BASE_PATH + 'heroku')
   , logging = require(BASE_PATH + 'logging')
   , User = require(BASE_PATH + 'models').User
-  , humane = require(BASE_PATH + 'lib/humane')
 
 ;
 

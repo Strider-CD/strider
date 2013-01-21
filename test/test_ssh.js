@@ -1,6 +1,6 @@
 var assert = require('assert')
   , fs = require('fs')
-  , ssh = require('../ssh')
+  , ssh = require('../lib/ssh')
 ;
 
 describe('ssh', function() {

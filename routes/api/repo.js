@@ -4,7 +4,7 @@
  */
 
 
-var BASE_PATH = '../../';
+var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')

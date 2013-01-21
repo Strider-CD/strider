@@ -1,12 +1,12 @@
-var app = require('./app'),
-    backchannel = require('./backchannel'),
-    common = require('./common'),
+var app = require('lib/app'),
+    backchannel = require('lib/backchannel'),
+    common = require('lib/common'),
     config = require('./config'),
     loader = require('strider-extension-loader'),
-    middleware = require('./middleware'),
-    models = require('./models'),
+    middleware = require('lib/middleware'),
+    models = require('lib/models'),
     Step = require('step'),
-    websockets = require('./websockets');
+    websockets = require('lib/websockets');
 
 common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];

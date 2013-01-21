@@ -2,7 +2,7 @@
  * routes/api/webhooks.js
  */
 
-var BASE_PATH = '../../';
+var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , crypto = require('crypto')

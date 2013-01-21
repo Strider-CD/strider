@@ -2,7 +2,7 @@
  * routes/index.js
  */
 
-var BASE_PATH = "../"
+var BASE_PATH = "../lib/"
 
 var _ = require('underscore')
   , Step = require('step')

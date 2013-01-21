@@ -2,7 +2,7 @@
  * routes/jobs/index.js
  */
 
-var BASE_PATH = "../../"
+var BASE_PATH = "../../lib/"
 
 var  _ = require('underscore')
    , crypto = require('crypto')
@@ -10,9 +10,8 @@ var  _ = require('underscore')
    , feature = require(BASE_PATH + 'feature')
    , filter = require(BASE_PATH + 'ansi')
    , gh = require(BASE_PATH + 'github')
-   , humane = require(BASE_PATH + 'lib/humane')
+   , humane = require(BASE_PATH + 'humane')
    , logging = require(BASE_PATH + 'logging')
-   , nibbler = require(BASE_PATH + 'lib/nibbler')
    , Step = require('step')
    , Job = require(BASE_PATH + 'models').Job
    ;

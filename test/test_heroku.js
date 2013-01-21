@@ -2,13 +2,13 @@ var  _ = require('underscore')
   , Step = require('step')
   , assert = require('assert')
   , fs = require('fs')
-  , heroku = require('../heroku')
+  , heroku = require('../lib/heroku')
   , mockrequest = require('mock-request')
-  , models = require('../models')
+  , models = require('../lib/models')
   , sandboxed_module = require('sandboxed-module')
   , should = require('should')
   , sinon = require('sinon')
-  , ssh = require('../ssh')
+  , ssh = require('../lib/ssh')
   ;
 
 
@@ -168,7 +168,7 @@ describe('heroku', function() {
         .post('/user/keys?')
         .respond(200)
         .run();
-      var heroku = sandboxed_module.require('../heroku.js', {
+      var heroku = sandboxed_module.require('../lib/heroku.js', {
         requires: {'request':monkey_request}
       });
 

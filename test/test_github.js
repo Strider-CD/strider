@@ -1,7 +1,7 @@
 var assert = require('assert')
   , crypto = require('crypto')
   , fs = require('fs')
-  , github = require('../github')
+  , github = require('../lib/github')
   , path = require('path')
   , request = require('request')
   , should = require('should')

@@ -1,8 +1,8 @@
 var assert = require('assert')
-  , common = require('../common')
+  , common = require('../lib/common')
   , EventEmitter = require('events').EventEmitter
   , index = require('../routes')
-  , gh = require('../github')
+  , gh = require('../lib/github')
   , sandboxed_module = require('sandboxed-module')
   , should = require('should')
   , sinon = require('sinon')
@@ -47,7 +47,7 @@ describe('index', function() {
         webhook_extract_latest_commit_info:function() {}
       };
       var index = sandboxed_module.require('../routes', {
-        requires: {'../jobs':jobs_api, '../github':gh_api, '../common':common }
+        requires: {'../lib/jobs':jobs_api, '../lib/github':gh_api, '../lib/common':common }
       });
       index.webhook_signature(mock_req, response_api);
       mock_jobs.verify();

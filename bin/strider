@@ -8,7 +8,7 @@ var argv = require('optimist')
     mongoose = require('mongoose'),
     pw = require('pw'),
     readline = require('readline'),
-    User = require('../models').User;
+    User = require('../lib/models').User;
 
 function connect() {
   var mongodbUrl = everypaas.getMongodbUrl() || config.db_uri;

@@ -21,7 +21,7 @@ define(
 
       // Render the table
       function render(results) {
-        // Reset contents of table
+        // Reset contents of elem
         table.html("");
         // Reset id -> item map
         id_item_map = {};

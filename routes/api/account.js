@@ -2,7 +2,7 @@
  * routes/api/account.js
  */
 
-var BASE_PATH = '../../';
+var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , crypto = require('crypto')
@@ -16,8 +16,6 @@ var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
 
   , api = require('./index.js')
-
-  , humane = require(BASE_PATH + 'lib/humane')
   ;
 
 

@@ -2,13 +2,13 @@
  * routes/api/index.js
  */
 
-var BASE_PATH = '../../';
+var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , crypto = require('crypto')
   , check = require('validator').check
   , Step = require('step')
-  , humane = require(BASE_PATH + 'lib/humane')
+  , humane = require(BASE_PATH + 'humane')
   , email = require(BASE_PATH + 'email')
   , gh = require(BASE_PATH + 'github')
   , heroku = require(BASE_PATH + 'heroku')

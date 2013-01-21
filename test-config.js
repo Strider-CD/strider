@@ -3,7 +3,7 @@
 //------------------------------------
 
 // MongoDB connection URI for the app
-exports.db_uri = "mongodb://localhost/stridertest";
+exports.db_uri = "mongodb://localhost/stridercdtest";
 
 // Session store secret
 exports.session_secret = "ZZZ";

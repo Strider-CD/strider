@@ -14,7 +14,7 @@ describe('feature', function() {
     };
 
 
-    var feature = sandboxed_module.require('../feature.js', {
+    var feature = sandboxed_module.require('../lib/feature.js', {
       requires: {'./models':{Feature:fake_feature}}
     });
 
@@ -36,7 +36,7 @@ describe('feature', function() {
     };
 
 
-    var feature = sandboxed_module.require('../feature.js', {
+    var feature = sandboxed_module.require('../lib/feature.js', {
       requires: {'./models':{Feature:fake_feature}}
     });
 
@@ -61,7 +61,7 @@ describe('feature', function() {
       }
     };
 
-    var feature = sandboxed_module.require('../feature.js', {
+    var feature = sandboxed_module.require('../lib/feature.js', {
       requires: {'./models':{Feature:fake_feature}}
     });
 
@@ -86,7 +86,7 @@ describe('feature', function() {
       }
     };
 
-    var feature = sandboxed_module.require('../feature.js', {
+    var feature = sandboxed_module.require('../lib/feature.js', {
       requires: {'./models':{Feature:fake_feature}}
     });
 
@@ -113,7 +113,7 @@ describe('feature', function() {
       }
     };
 
-    var feature = sandboxed_module.require('../feature.js', {
+    var feature = sandboxed_module.require('../lib/feature.js', {
       requires: {'./models':{Feature:fake_feature}}
     });
 
@@ -140,7 +140,7 @@ describe('feature', function() {
       }
     };
 
-    var feature = sandboxed_module.require('../feature.js', {
+    var feature = sandboxed_module.require('../lib/feature.js', {
       requires: {'./models':{Feature:fake_feature}}
     });
 
