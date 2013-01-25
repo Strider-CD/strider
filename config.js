@@ -12,7 +12,7 @@ exports.session_secret = "8L8BudMkqBUqrz";
 exports.server_port = 3000;
 
 // Server URL on the Internet
-var sm = exports.strider_server_name = "http://localhost:3000/";
+var sm = exports.strider_server_name = "http://localhost:3000";
 
 // Github OAuth2 API config
 // Register your own at: https://github.com/settings/applications/new
