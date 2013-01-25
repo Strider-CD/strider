@@ -95,7 +95,7 @@ if (argv._.length > 0) {
   }
 } else {
   // Load & initialize extensions
-  var common = require('../common'),
+  var common = require('../lib/common'),
       path = require('path'),
       main = require('../main');
   // Extensions are either in ../node_modules (if local)
