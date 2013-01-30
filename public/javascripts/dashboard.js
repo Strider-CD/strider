@@ -148,6 +148,7 @@ $(function() {
         var job = JobList.find(function(item) {
           return item.get('repo_url') === url;
         });
+        status_msg("Running job...", "info", "#spinner-msg");
 
         startProgressMeter(job);
       },
