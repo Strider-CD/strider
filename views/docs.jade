@@ -47,6 +47,19 @@ div.span8.docs
     li
       a(href="https://github.com/BeyondFog/strider-nodejs-postgresql-test") Sample Node.JS test app with Strider PostgreSQL support
 
+  h2.docs-section#Webhooks Environment Variables
+  img(src="http://cl.ly/image/3Q3C3A2B0y3r/Screen%20Shot%202013-01-30%20at%2012.42.08%20PM.png")
+
+  p Strider lets you set private environment variables on a per-project basis.
+  p This can be useful for things that you may not wish or be able to keep in version control, yet your tests need to function, such as:
+
+  ul
+    li Database URLs
+    li Access Credentials
+    li Special flags
+
+  p When Strider runs your tests, it will populate the UNIX environment with those variables specified. These can be configured on the project configuration page.
+
   h2.docs-section#Webhooks Webhooks/Custom Deployments
   img(src="http://cl.ly/1q1R1K333m0I2P0D3C1y/Screen%20Shot%202012-07-01%20at%203.24.14%20PM.png")
   p In addition to integration with Heroku, Strider supports custom deployments through Webhooks. Webhook is a HTTP POST request to a target URL which you specify. Each time Strider runs your tests, target URLs will receive a HTTP POST from Strider with a JSON payload on each project test run.  These enable you to receive and process real-time push notifications from our system.
