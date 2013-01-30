@@ -149,7 +149,7 @@ function init_manual_setup() {
         'click .continue' : function(ev) {
           
           $.ajax("/api/jobs/start", {
-            data: {url: github_url.toLowerCase(), type:"PROJECT_TYPE_AUTODETECT"},
+            data: {url: github_url.toLowerCase(), type:"TEST_ONLY"},
             dataType: "text",
             type: "POST",
             error: function(xhr, ts, e) {
@@ -157,34 +157,11 @@ function init_manual_setup() {
             },
             success: function(data, ts, xhr) {
 
-              console.log("success with job start autodetect"); 
+              console.log("success with job start "); 
               // route to setup complete page
               // ideally we would test the webhook and deploy key too
 
               window.location.href="/";
-              
-              // now kickoff the first test run
-              $.ajax("/api/jobs/start", {
-                data: {url: github_url.toLowerCase(), type:"TEST_ONLY"},
-                dataType: "text",
-                type: "POST",
-                error: function(xhr, ts, e) {
-                  console.log("job start failure: " + xhr.responseText);
-                },
-                success: function(data, ts, xhr) {
-
-                  console.log("success with test run start"); 
-                  // route to setup complete page
-                  // ideally we would test the webhook and deploy key too
-
-                  
-
-                }
-              });
-              
-
-
-              //window.app_router.navigate("setup_complete", {trigger: true});
             }
           });
 
