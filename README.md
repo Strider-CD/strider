@@ -175,7 +175,7 @@ Internet-accessible deployment the following values will need to be configured:
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://strider.example.com/auth/github/callback
-  - Sendgrid credentials (for SMTP - free account is fine). Soon you will be able to specify any SMTP server, not just Sendgrid.
+  - SMTP server (recommend Mailgun for SMTP if you need a server - free account gives 200 emails / day).
 
 <a name="adduser" />
 Adding Initial Admin User
