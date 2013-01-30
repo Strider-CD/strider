@@ -28,9 +28,11 @@ exports.github = {
 exports.zeromq_addr = "tcp://0.0.0.0:31012";
 
 // Email settings
-exports.sendgrid = {
-    username: "foobar"
-  , password: "setme"
+exports.smtp = {
+    host: "smtp.foo.com",
+    port: 587,
+    username: "foobar",
+    password: "setme"
 };
 
 // Logging configuration
