@@ -10,8 +10,9 @@
     .hero-unit
       h1 Brilliant Continuous Deployment.
       br
-      p Strider is a hosted continuous delivery platform for Python and Node.js. 
-      p Strider is curently in private beta.
+      p Strider is a continuous delivery platform.
+      p Learn more at 
+      a(href='http://github.com/Strider-CD/strider') github.com/Strider-CD/strider
   .span3
     .row-fluid.hero-subunit
       h3 Existing User?
@@ -31,16 +32,6 @@
       br
       br
       br
-    .row-fluid.hero-subunit
-      form.validate(action="https://docs.google.com/a/beyondfog.com/spreadsheet/formResponse?formkey=dGo4TkN0ZlhTSHdzbzBjRHNoTHltTHc6MQ&ifq", method="post")
-        h3 Request invite:
-        br
-        input.email(type='email', placeholder="Email Address", name="entry.0.single")
-        div.actions
-          input.btn.primary(type="submit", value="request code", name="submit")
-          input(type='hidden', name='pageNumber', value='0')
-          input(type='hidden', name='backupCache', value='')
-
 
 script
   $(document).ready(function() {
