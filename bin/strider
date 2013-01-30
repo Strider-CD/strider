@@ -12,9 +12,6 @@ var argv = require('optimist')
 
 function connect() {
   var mongodbUrl = everypaas.getMongodbUrl() || config.db_uri;
-  if (everypaas.isDotCloud()) {
-    mongodbUrl += "/strider";
-  }
   console.log("Connecting to MongoDB URL: %s", mongodbUrl);
   mongoose.connect(mongodbUrl);
 }
