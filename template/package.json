@@ -1,0 +1,14 @@
+{
+  "name": "strider-hosted",
+  "version": "1.0.0",
+  "dependencies": {
+    "strider": "~1.0.0",
+    "strider-simple-worker": "~0.3.0"
+  },
+  "description": "Brilliant continuous deployment platform",
+  "keywords": [],
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}

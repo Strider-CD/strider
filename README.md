@@ -60,19 +60,18 @@ when they will make it available to the general public.
 - Register for a free Heroku account at http://heroku.com
 - Install the Heroku toolbelt on your machine from https://toolbelt.heroku.com
 - Clone this repository:
-  `git clone https://github.com/Strider-CD/strider.git`
+  `git clone https://github.com/Strider-CD/strider-template.git`
 - `cd` into the clone and log into Heroku:
     `heroku login`
 - Create a new Heroku app w/ custom buildpack (enables native NPM modules to be built) for Strider:
     `heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-buildpack-nodejs`
-- Edit `config.js` and set the following values:
-  - Server name. Address at which server will be accessible on the Internet. E.g. https://mystrider.herokuapp.com/
-  - Github app id & secret for your Heroku app - you can register a new one 
+- Set the following environment variables
+ - SERVER_NAME: Address at which server will be accessible on the Internet. E.g. https://mystrider.herokuapp.com/
+ - GITHUB_APP_ID: See GITHUB_APP_SECRET
+ - GITHUB_APP_SECRET: you can register a new one 
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://mystrider.herokuapp.com/auth/github/callback
-- Commit the `config.js` changes locally:
-    `git commit -m'add my config' config.js`
 - Provision a free MongoDB database:
     `heroku addons:add mongolab:starter`
 - Provision a free SendGrid SMTP server:
@@ -80,7 +79,7 @@ when they will make it available to the general public.
 - Deploy Strider:
     `git push heroku master`
 - Add an initial (admin) user:
-    `heroku run bin/node bin/strider adduser`
+    `heroku run strider adduser`
 - Your personal Strider instance is now running on the Internet! Visit it and log in with the email & password you just created an account for.
 
 <a name="heroku-sample" />
@@ -88,31 +87,30 @@ Example session:
 
 ```bash
 
-$ git clone https://github.com/Strider-CD/strider.git
-Cloning into 'strider'...
+$ git clone https://github.com/Strider-CD/strider-template.git my-strider
+Cloning into 'my-strider'...
 remote: Counting objects: 558, done.
 remote: Compressing objects: 100% (409/409), done.
 remote: Total 558 (delta 211), reused 480 (delta 133)
 Receiving objects: 100% (558/558), 546.24 KiB | 630 KiB/s, done.
 Resolving deltas: 100% (211/211), done.
-$ cd strider/
+$ cd my-strider/
 $ heroku login
 Enter your Heroku credentials.
 Email: foo@example.com
 Password (typing will be hidden): 
 Authentication successful.
-$ heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-buildpack-nodejs
-Creating intense-reef-4414... done, stack is cedar
-http://intense-reef-4414.herokuapp.com/ | git@heroku.com:intense-reef-4414.git
+$ heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-buildpack-nodejs my-strider
+Creating my-strider... done, stack is cedar
+http://my-strider.herokuapp.com/ | git@heroku.com:my-strider.git
 Git remote heroku added
-$ vim config.js
-$ commit -m'add my config' config.js
+$ heroku config:set SERVER_NAME=http://my-strider.herokuapp.com GITHUB_APP_ID=a3af4568e9d8ca4165fe GITHUB_APP_SECRET=18651128b57787a3336094e2ba1af240dfe44f6c
 $ heroku addons:add mongolab:starter
-Adding mongolab:starter on intense-reef-4414... done, v2 (free)
+Adding mongolab:starter on my-strider... done, v2 (free)
 Welcome to MongoLab.
 Use `heroku addons:docs mongolab:starter` to view documentation.
 $ heroku addons:add sendgrid:starter
-Adding sendgrid:starter on intense-reef-4414... done, v3 (free)
+Adding sendgrid:starter on my-strider... done, v3 (free)
 Use `heroku addons:docs sendgrid:starter` to view documentation.
 $ git push heroku master
 <... lots of deploy output ... >
@@ -121,12 +119,12 @@ $ git push heroku master
        Procfile declares types -> web
 -----> Compiled slug size is 32.7MB
 -----> Launching... done, v5
-       http://intense-reef-4414.herokuapp.com deployed to Heroku
+       http://my-strider.herokuapp.com deployed to Heroku
 
-To git@heroku.com:intense-reef-4414.git
+To git@heroku.com:my-strider.git
  * [new branch]      master -> master
-$ heroku run bin/node bin/strider adduser
-Running `bin/node bin/strider adduser` attached to terminal... up, run.1
+$ heroku run strider adduser
+Running `strider adduser` attached to terminal... up, run.1
 Enter email []: niallo@example.com
 Is admin? (y/n) [n]: y
 Enter password []: *******
@@ -185,12 +183,12 @@ Adding Initial Admin User
 `Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
 other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
 
-    node bin/strider adduser
+    strider adduser
 
 Example run:
 
 ```bash
-$ node bin/strider adduser
+$ strider adduser
 Enter email []: strider@example.com
 Is admin? (y/n) [n]: y
 Enter password []: *******
@@ -211,7 +209,7 @@ Starting Strider
 
 Once `Strider` has been installed and configured, it can be started with:
 
-    node bin/strider
+    ./node_modules/.bin/strider
 
 <a name="support" />
 Support & Help
@@ -230,7 +228,7 @@ Getting Started With Strider
 
 Getting a project up and running on Strider is very easy. After you create your account, follow the prompts to link your Github account using OAuth2. Strider will then fetch the list of Github repositories for which you have admin rights. Select the initial Github repository that you would like to test (and optionally deploy) with Strider. On the next screen you can add any additional members of the team to the project.
 
-If you would like Strider to deploy to Heroku automatically when tests pass (AKA deploy-on-green), click 'continue to deployment configuration'. You will then need to enter your Heroku API key. You can find your API key about halfway down the '[My Account](https://api.heroku.com/account)' page on Heroku. Then select from an existing Heroku app or enter the name for a new app. 
+If you would like Strider to deploy to Heroku automatically when tests pass (AKA deploy-on-green), click 'continue to deployment configuration'. You will then need to enter your Heroku API key. You can find your API key about halfway down the '[My Account](https://api.heroku.com/account)' page on Heroku. Then select from an existing Heroku app or enter the name for a new app.
 
 The final step is to modify your project so that it will work properly with Strider. This won't take long but is specific to your language and framework, so please click on the appropriate link below.
 
