@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "dependencies": {
     "ansiparse": "0.0.5-1",
-    "apres": "git://github.com/apres/apres.github.com#74ed051edf4b8b42ce98d6e881d06f20b813969e",
+    "apres": "https://github.com/apres/apres.github.com/archive/74ed051edf4b8b42ce98d6e881d06f20b813969e.tar.gz",
     "express": "2.x.x",
     "stylus": ">= 0.0.1",
     "jade": ">= 0.0.1",
-    "mongoose-auth": "git://github.com/niallo/mongoose-auth",
+    "mongoose-auth": "https://github.com/niallo/mongoose-auth/archive/master.tar.gz",
     "mongoose": "3.x.x",
-    "everyauth": "git://github.com/niallo/everyauth",
+    "everyauth": "https://github.com/niallo/everyauth/archive/master.tar.gz",
     "bcrypt": ">=0.5.0",
     "connect-mongo": ">=0.1.7",
     "request": ">=2.9.100",
@@ -27,10 +27,6 @@
     "optimist": "0.3.x",
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
-    "strider-simple-worker": "~0.3.0",
-    "strider-sauce": "git://github.com/Strider-CD/strider-sauce",
-    "strider-env": "git://github.com/Strider-CD/strider-env",
-    "strider-python": "git://github.com/Strider-CD/strider-python",
     "pw": "0.0.4"
   },
   "devDependencies": {

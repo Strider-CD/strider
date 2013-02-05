@@ -95,14 +95,9 @@ if (argv._.length > 0) {
   var common = require('../lib/common'),
       path = require('path'),
       main = require('../main');
-  // Extensions are either in ../node_modules (if local)
+  // Extensions are either in /node_modules (if local)
   // or __dirname/../
-  var extdir = path.resolve(__dirname + "../node_modules");
-  try {
-    fs.statSync(extdir);
-  } catch(e) {
-    extdir = path.resolve(__dirname + "/../node_modules");
-  }
+  var extdir = path.join(process.cwd(), "node_modules");
 
   // Save extension dir
   common.extdir = extdir;
