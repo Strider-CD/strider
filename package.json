@@ -27,7 +27,7 @@
     "optimist": "0.3.x",
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
-    "strider-simple-worker": "~0.3.0",
+    "strider-simple-worker": "~0.4.0",
     "strider-sauce": "git://github.com/Strider-CD/strider-sauce",
     "strider-env": "git://github.com/Strider-CD/strider-env",
     "strider-python": "git://github.com/Strider-CD/strider-python",
