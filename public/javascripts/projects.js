@@ -192,3 +192,27 @@ $(function() {
   window.DashboardApp = new DashboardAppView();
 
 });
+
+
+// == Dirty Filter Box
+$(function(){
+  $('#dashboard').on('keyup', '.repoFilters', function(){
+    var filterText = $(this).val();
+    console.log("Filter", filterText);
+
+    $('#repo-list>div').each(function(){
+      if (filterText == ''){
+        $(this).show()
+      } else {
+        var found = $(this).find(":contains(" + filterText + ")").length
+        if (found > 0){
+          $(this).show()
+        } else {
+          $(this).hide()
+        }
+      }
+    })
+
+  })
+
+})
