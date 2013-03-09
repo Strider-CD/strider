@@ -3,13 +3,15 @@
 packages_dir=node_modules
 node_root=/opt/node
 
+NODE_VERSION=v0.8.22
+
 [ "$SERVICE_NODE_VERSION" ] && 
 [ "$SERVICE_NODE_VERSION" != "$(node --version)" ] &&
 (
     rm -rf $node_root/*
     cd $node_root
-    curl -L https://nodeload.github.com/joyent/node/tarball/v0.8.9 | tar -zxf-
-    cd joyent-node-*
+    curl -L http://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION.tar.gz | tar -zxf-
+    cd node-$NODE_VERSION
     ./configure --prefix=$node_root
     make
     make install
