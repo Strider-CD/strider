@@ -3,8 +3,10 @@ script.template#project-config-app(type="text/template")
     .row-fluid
       .span8
         .row-fluid
-          .span10
+          .span6
             h3 Available Repositories:
+          .span4
+            input.repoFilters(placeholder="filter")
           .span2
             a.btn.refresh-button.repo-action
               i.icon-refresh
