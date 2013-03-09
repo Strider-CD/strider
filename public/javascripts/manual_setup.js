@@ -72,7 +72,7 @@ function init_manual_setup() {
 
           console.log("starting manual setup for: " + github_url);
           
-          var ghRegexp1 = /(?:https*\:\/\/)*github\.com\/(\w+)\/(\w+)\/?/;
+          var ghRegexp1 = /(?:https*:\/\/)*github.com\/(\S+)\/(\S+)\/?/;;
           var match1 = ghRegexp1.exec(github_url);
           
           var control_group = $(this.el).find('div.control-group');
