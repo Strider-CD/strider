@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "apres": "git://github.com/apres/apres.github.com#74ed051edf4b8b42ce98d6e881d06f20b813969e",
