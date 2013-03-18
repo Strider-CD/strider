@@ -1,7 +1,7 @@
 var app = require('./lib/app'),
     backchannel = require('./lib/backchannel'),
     common = require('./lib/common'),
-    config = require('./config'),
+    config = require('./lib/config'),
     loader = require('strider-extension-loader'),
     middleware = require('./lib/middleware'),
     models = require('./lib/models'),
@@ -101,7 +101,7 @@ module.exports = function(extdir) {
       // Comes after extensions in middleware chain as they may have
       // loaded static servers.
       appInstance.use(middleware.custom404);
-      var port = process.env.PORT || config.server_port;
+      var port = config.server_port;
       appInstance.listen(port);
       // Initialize socket.io
       websockets.init(appInstance, common.session_store);
