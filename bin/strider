@@ -3,7 +3,6 @@
 var argv = require('optimist')
       .usage('Strider Continuous Deployment CLI\nUsage: $0 [options]')
       .argv,
-    config = require('../config'),
     everypaas = require('everypaas'),
     mongoose = require('mongoose'),
     pw = require('pw'),
@@ -11,7 +10,7 @@ var argv = require('optimist')
     User = require('../lib/models').User;
 
 function connect() {
-  var mongodbUrl = everypaas.getMongodbUrl() || config.db_uri;
+  var mongodbUrl = everypaas.getMongodbUrl();
   console.log("Connecting to MongoDB URL: %s", mongodbUrl);
   mongoose.connect(mongodbUrl);
 }

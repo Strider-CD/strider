@@ -65,14 +65,12 @@ when they will make it available to the general public.
     `heroku login`
 - Create a new Heroku app w/ custom buildpack (enables native NPM modules to be built) for Strider:
     `heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-buildpack-nodejs`
-- Edit `config.js` and set the following values:
+- Export environment variables for the following values:
   - Server name. Address at which server will be accessible on the Internet. E.g. https://mystrider.herokuapp.com/
   - Github app id & secret for your Heroku app - you can register a new one 
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://mystrider.herokuapp.com/auth/github/callback
-- Commit the `config.js` changes locally:
-    `git commit -m'add my config' config.js`
 - Provision a free MongoDB database:
     `heroku addons:add mongolab:starter`
 - Provision a free SendGrid SMTP server:
@@ -105,8 +103,7 @@ $ heroku create --stack cedar --buildpack https://github.com/Strider-CD/heroku-b
 Creating intense-reef-4414... done, stack is cedar
 http://intense-reef-4414.herokuapp.com/ | git@heroku.com:intense-reef-4414.git
 Git remote heroku added
-$ vim config.js
-$ commit -m'add my config' config.js
+$ export DB_URI="mongodb://foo:bar@mongoserver"
 $ heroku addons:add mongolab:starter
 Adding mongolab:starter on intense-reef-4414... done, v2 (free)
 Welcome to MongoLab.
@@ -163,15 +160,13 @@ Configuring
 ===========
 
 
-`Strider` configuration is stored in the `config.js` file. Most of the default
+`Strider` configuration comes from environment variables. Most of the default
 values should work fine for running on localhost, however for an
-Internet-accessible deployment the following values will need to be configured:
+Internet-accessible deployment the following variables will need to be exported:
 
-- In `config.js` file you'll need to set:
-
-  - MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
-  - Server name. Address at which server will be accessible on the Internet. E.g. https://strider.example.com/
-  - Github app id & secret (assuming not running on localhost:3000) - you can register a new one 
+  - `DB_URI` : MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
+  - `SERVER_NAME` : Address at which server will be accessible on the Internet. E.g. https://strider.example.com/
+  - `GITHUB_APP_ID`, `GITHUB_SECRET` Github app id & secret (assuming not running on localhost:3000) - you can register a new one 
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://strider.example.com/auth/github/callback
@@ -266,11 +261,7 @@ When your tests run, Strider exports a number of UNIX environment variables whic
 
 #### MongoDB:
 
-Here is example code for MongoDB where we check for the presence of a MongoDB environment variable, and if it does not exist, we use the URI value from the config file:
-
-<pre class="prettyprint">
-var db_uri = process.env.MONGODB_URI || config.default_db_uri;
-</pre>
+Specify the url with the environment variable `DB_URI`
 
 #### Sample MongoDB Apps
 If you aren't sure how to create a database connection from a database URI, have a look at one of our sample apps:
@@ -278,27 +269,12 @@ If you aren't sure how to create a database connection from a database URI, have
 - [BeyondFog/strider-nodejs-mongodb-test](https://github.com/BeyondFog/strider-nodejs-mongodb-test/blob/master/test/test_mongodb.js) - very simple app that connects to MongoDB in the test script 
 - [BeyondFog/Poang](https://github.com/BeyondFog/Poang) - sample node.js app built with MongoDB using Express web framework, Mongoose ODM and Everyauth authentication/account plugin.
 
-#### PostgreSQL:
-
-Here is example code for PostgreSQL where we check for the presence of a PostgreSQL environment variable, and if it does not exist, we use the URI value from the config file:
-
-<pre class="prettyprint">
-var db_uri = process.env.POSTGRESQL_URI || config.default_db_uri;
-</pre>
 
 #### Sample PostgreSQL App
 
 If you aren't sure how to create a database connection from a database URI, have a look at the sample app:
 
 - [BeyondFog/strider-nodejs-postgresql-test](https://github.com/BeyondFog/strider-nodejs-mongodb-test/blob/master/test/test_postgresql.js) - very simple app that connects to PostgreSQL in the test script
-
-#### Redis:
-
-Here is example code for Redis where we check for the presence of a Redis environment variable, and if it does not exist, we use the URI value from the config file:
-
-<pre class="prettyprint">
-var db_uri = process.env.REDIS_URI || config.default_db_uri;
-</pre>
 
 #### Sample Redis App
 If you aren't sure how to create a database connection from a database URI, have a look at this sample app:
