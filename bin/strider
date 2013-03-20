@@ -10,7 +10,7 @@ var argv = require('optimist')
     User = require('../lib/models').User;
 
 function connect() {
-  var mongodbUrl = everypaas.getMongodbUrl();
+  var mongodbUrl = process.env.DB_URI || everypaas.getMongodbUrl();
   console.log("Connecting to MongoDB URL: %s", mongodbUrl);
   mongoose.connect(mongodbUrl);
 }
