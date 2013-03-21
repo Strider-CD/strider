@@ -155,7 +155,7 @@ Internet-accessible deployment the following variables will need to be exported:
 
   - `DB_URI` : MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
   - `SERVER_NAME` : Address at which server will be accessible on the Internet. E.g. https://strider.example.com/
-  - `GITHUB_APP_ID`, `GITHUB_APP_SECRET`, `GITHUB_HOSTNAME`, Github app id & secret (assuming not running on localhost:3000) - you can register a new one 
+  - `GITHUB_APP_ID`, `GITHUB_APP_SECRET`: Github app id & secret (assuming not running on localhost:3000) - you can register a new one 
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://strider.example.com/auth/github/callback
