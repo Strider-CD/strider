@@ -124,7 +124,7 @@ initialization shim like the following:
 
 var strider = require('strider')
 
-var instance = strider("/path/to/extensions/dir", config, cb(err, initialized, appInstance) {
+var instance = strider("/path/to/extensions/dir", config, function(err, initialized, appInstance) {
     console.log("Strider is now running")
 })
 
