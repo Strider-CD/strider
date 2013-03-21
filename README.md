@@ -25,6 +25,7 @@ major differences:
     - [Configuring](#configuring)
     - [Adding Users](#adduser)
     - [Starting Strider](#startup)
+- [Require()'ing Strider](#library)
 - [Support & Help](#support)
 - [Getting Started with Strider Guide](#gettingstarted)
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
@@ -34,7 +35,6 @@ major differences:
 <a name="infrastructure" />
 Running on Infrastructure
 =========================
-
 
 Make sure you have MongoDB installed on your system. You can get the latest version at
 http://www.mongodb.org/downloads
@@ -47,12 +47,9 @@ by executing the following command in the project root:
 
     npm install
 
-
-
 <a name="configuring" />
 Configuring
 ===========
-
 
 `Strider` configuration comes from environment variables. Most of the default
 values should work fine for running on localhost, however for an
@@ -75,7 +72,6 @@ Internet-accessible deployment the following variables will need to be exported:
 <a name="adduser" />
 Adding Initial Admin User
 =========================
-
 
 `Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
 other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
@@ -108,6 +104,32 @@ Once `Strider` has been installed and configured, it can be started with:
 
     node bin/strider
 
+<a name="library" />
+Require()'ing Strider 
+=====================
+
+Strider can be `required()` like any other NPM module. This is particularly useful when you want to
+
+- Make Strider a dependency at a specific version
+- Choose exactly which plugins to install
+- Customize configuration
+- Do other crazy stuff
+
+For example, you could have a project with its own `package.json` that depends
+on `strider` at a specific version, along with any other extensions you choose
+loaded from a particular filesystem location. Then you could write a simple
+initialization shim like the following:
+
+```JavaScript
+
+var strider = require('strider')
+
+var instance = strider("/path/to/extensions/dir", config, cb(err, initialized, appInstance) {
+    console.log("Strider is now running")
+})
+
+```
+
 <a name="support" />
 Support & Help
 ==============
@@ -118,6 +140,7 @@ IRC: irc.freenode.net #strider
 Google Group: https://groups.google.com/d/forum/strider-users
 
 For commercial support & hosting enquiries please email hello@stridercd.com
+
 
 <a name="gettingstarted" />
 Getting Started With Strider
