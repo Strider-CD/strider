@@ -38,10 +38,10 @@ exports.index = function(req, res){
       if (req.user != undefined) {
         req.user.get_repo_config_list(function(err, repo_list) {
           if (err) throw err;
-          res.render('index',{total_configured_projects:repo_list.length});
+          res.render('index.html',{total_configured_projects:repo_list.length});
         });
       } else {
-        res.render('index');
+        res.render('index.html');
       }
     }
 

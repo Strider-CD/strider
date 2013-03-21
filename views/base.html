@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+{% if apresController %}
+  <html data-apres-controller="{{apresController}}" data-controller-params="{{apresParams}}">
+{% else %}
+  <html>
+{% endif %}
+  <head>
+    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <title>Strider: Brilliant Continuous Deployment</title>
+    {% include "bootstrap.html" %}
+  </head>
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a href="/" class="brand">Strider</a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a href="/">Home</a></li>
+              <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Docs</a>
+                <ul class="dropdown-menu">
+                  <li><a href="/docs/getting_started">Getting Started</a></li>
+                  <li><a href="/docs#Security">Security</a></li>
+                  <li><a href="/docs#Languages">Language Support</a></li>
+                  <li><a href="/docs#Environment">Environment Variables</a></li>
+                  <li><a href="/docs#Webhooks">Webhook/Custom Deployments</a></li>
+                  <li><a href="/docs#Collaborators">Collaborators</a></li>
+                </ul>
+              </li>
+              <li><a href="mailto:hello@stridercd.com">Get Help</a></li>
+              {% if user %}
+              {% endif %}
+            </ul>
+
+            {% if !user %}
+            <form id="navbar-signin-form" 
+               action="/login" method="post" class="navbar-form pull-right">
+              <input type="text" placeholder="Email" name="email" class="input-small">
+              <input type="password" 
+                  placeholder="Password" name="password" class="input-small">
+              <button type="submit" class="btn">Sign In</button>
+            </form><!--/.nav-collapse -->
+          {% endif %}
+          </div>
+        </div>     
+      </div>
+    </div>
+    <div class="container">
+      <div class="header">
+        <div class="row">
+          <div class="span12"><br>
+            <h1 id="layout-header">Brilliant Continuous Deployment</h1>
+          </div>
+        </div>
+      </div>
+      <div class="body-content">
+        <div class="row">
+
+          {% block bodyContent %}
+          {% endblock %}
+  
+        </div>
+      </div>
+    </div>
+    <footer>
+      <p>Strider-CD</p>
+    </footer>
+  </body>
+</html>
