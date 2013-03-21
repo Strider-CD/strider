@@ -5,7 +5,6 @@ var app = require('./lib/app'),
     loader = require('strider-extension-loader'),
     middleware = require('./lib/middleware'),
     models = require('./lib/models'),
-    Step = require('step'),
     websockets = require('./lib/websockets');
 
 common.workerMessageHooks = [];
@@ -61,54 +60,37 @@ function registerWorkerMessageHook(f) {
   common.workerMessageHooks.push(f);
 }
 
-// Initialize the (web) app
-var appInstance = app.init(config);
 
-//
-// ### Strider Context Object
-//
-// Context object is passed to each extension.  It carries various config
-// settings, as well as handles to enable functions to register things.
-// Context can also be accessed as a singleton within Strider as
-// common.context.
-var context = {
-  config: config,
-  emitter: common.emitter,
-  extensionRoutes: [],
-  extdir: common.extdir,
-  loader: loader,
-  models: models,
-  middleware: middleware,
-  registerWorkerMessageHook: registerWorkerMessageHook,
-  registerWorkerMessagePostProcessor: registerWorkerMessagePostProcessor,
-  registerPanel: registerPanel,
-};
+module.exports = function(extdir, c, cb) {
+  var appConfig = c || config;
+  // Initialize the (web) app
+  var appInstance = app.init(appConfig);
 
-// Make extension context available throughout application.
-common.context = context;
-
-module.exports = function(extdir) {
+  //
+  // ### Strider Context Object
+  //
+  // Context object is passed to each extension.  It carries various config
+  // settings, as well as handles to enable functions to register things.
+  // Context can also be accessed as a singleton within Strider as
+  // common.context.
+  var context = {
+    config: appConfig,
+    emitter: common.emitter,
+    extensionRoutes: [],
+    extdir: common.extdir,
+    loader: loader,
+    models: models,
+    middleware: middleware,
+    registerWorkerMessageHook: registerWorkerMessageHook,
+    registerWorkerMessagePostProcessor: registerWorkerMessagePostProcessor,
+    registerPanel: registerPanel,
+  };
   context.extdir = extdir;
-  Step(
-    function() {
-      // Initialize only "webapp" extensions here.
-      // Worker is a separate process, it initializes "worker" extensions.
-      loader.initExtensions(extdir, "webapp", context, appInstance, this);
-    },
-    function(err, initialized) {
 
-      // Handle GET 404s with custom page.
-      // Comes after extensions in middleware chain as they may have
-      // loaded static servers.
-      appInstance.use(middleware.custom404);
-      var port = config.server_port;
-      appInstance.listen(port);
-      // Initialize socket.io
-      websockets.init(appInstance, common.session_store);
-      backchannel.init();
-      console.info("Express server listening on port %d in %s mode",
-        port, appInstance.settings.env);
-      //console.log("Environment: %j", process.env);
-    }
-  );
+  // Make extension context available throughout application.
+  common.context = context;
+  loader.initExtensions(extdir, "webapp", context, appInstance,
+    function(err, initialized) { cb(err, initialized, appInstance) });
+
+  return appInstance;
 };

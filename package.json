@@ -47,6 +47,7 @@
   "bin": {
     "strider": "bin/strider"
   },
+  "main": "main.js",
   "description": "Brilliant continuous deployment platform",
   "keywords": [
     "strider",
