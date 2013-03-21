@@ -108,7 +108,7 @@ Once `Strider` has been installed and configured, it can be started with:
 Require()'ing Strider 
 =====================
 
-Strider can be `required()` like any other NPM module. This is particularly useful when you want to
+Strider can be `require()`-ed like any other NPM module. This is particularly useful when you want to
 
 - Make Strider a dependency at a specific version
 - Choose exactly which plugins to install
