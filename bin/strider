@@ -97,15 +97,10 @@ if (argv._.length > 0) {
   }
 } else {
   // Load & initialize extensions
-  var backchannel = require('../lib/backchannel');
   var common = require('../lib/common');
-  var config = require('../lib/config');
-  var loader = require('strider-extension-loader');
-  var middleware = require('../lib/middleware');
-  var models = require('../lib/models');
-  var websockets = require('../lib/websockets');
   var path = require('path');
   var main = require('../main');
+
   // Extensions are either in ../node_modules (if local)
   // or __dirname/../
   var extdir = path.resolve(__dirname + "../node_modules");
@@ -117,18 +112,5 @@ if (argv._.length > 0) {
 
   // Save extension dir
   common.extdir = extdir;
-  main(extdir, null, function(err, initialized, appInstance) {
-    // Handle GET 404s with custom page.
-    // Comes after extensions in middleware chain as they may have
-    // loaded static servers.
-    appInstance.use(middleware.custom404);
-    var port = config.server_port;
-    appInstance.listen(port);
-    // Initialize socket.io
-    websockets.init(appInstance, common.session_store);
-    backchannel.init();
-    console.info("Express server listening on port %d in %s mode",
-      port, appInstance.settings.env);
-    //console.log("Environment: %j", process.env);
-  })
+  main(extdir)
 }

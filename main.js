@@ -61,10 +61,11 @@ function registerWorkerMessageHook(f) {
 }
 
 
-module.exports = function(extdir, c, cb) {
+module.exports = function(extdir, c, callback) {
   var appConfig = c || config;
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
+  var cb = callback || function() {}
 
   //
   // ### Strider Context Object
@@ -90,7 +91,24 @@ module.exports = function(extdir, c, cb) {
   // Make extension context available throughout application.
   common.context = context;
   loader.initExtensions(extdir, "webapp", context, appInstance,
-    function(err, initialized) { cb(err, initialized, appInstance) });
+    function(err, initialized) { 
+      if (err) {
+        return cb(err)
+      }
+      // Handle GET 404s with custom page.
+      // Comes after extensions in middleware chain as they may have
+      // loaded static servers.
+      appInstance.use(middleware.custom404);
+      var port = config.server_port;
+      appInstance.listen(port);
+      // Initialize socket.io
+      websockets.init(appInstance, common.session_store);
+      backchannel.init();
+      console.info("Express server listening on port %d in %s mode",
+        port, appInstance.settings.env);
+
+      cb(err, initialized, appInstance) 
+  });
 
   return appInstance;
 };
