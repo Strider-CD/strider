@@ -1,6 +1,6 @@
 script(src='/socket.io/socket.io.v0.9.10.js')
 script(src='/javascripts/jquery.scrollTo-1.4.2-min.js')
-- if (everyauth.user === undefined)
+- if (currentUser.user === undefined)
   .span10.offset1
     - if ('undefined' !== typeof errors && errors.length)
       .alert.alert-error
@@ -17,8 +17,8 @@ script(src='/javascripts/jquery.scrollTo-1.4.2-min.js')
         center
           form.form-inline(action='/register', method='POST')             
             input.xlarge(type='text', name='invite_code', placeholder='Invite Code') 
-            input.xlarge(type='text', name=everyauth.password.loginFormFieldName, placeholder='Email')
-            input.xlarge(type='password', name=everyauth.password.passwordFormFieldName, placeholder='Password')
+            input.xlarge(type='text', name=currentUser.password.loginFormFieldName, placeholder='Email')
+            input.xlarge(type='password', name=currentUser.password.passwordFormFieldName, placeholder='Password')
             input.btn.primary(type='submit', value='Register')
   
   
@@ -29,9 +29,9 @@ script(src='/javascripts/jquery.scrollTo-1.4.2-min.js')
     });
 
 
-- else if (everyauth.user.github.id === undefined && total_configured_projects == 0)
+- else if (currentUser.user.github.id === undefined && total_configured_projects == 0)
   .span7.well
-    h3  Welcome to Strider, #{everyauth.user.email}! 
+    h3  Welcome to Strider, #{currentUser.user.email}! 
     br
     p It looks like you haven't yet linked your Github account. Press the button below to get started.
       .actions
@@ -41,7 +41,7 @@ script(src='/javascripts/jquery.scrollTo-1.4.2-min.js')
         &nbsp;&nbsp;&nbsp;
         a.btn.btn(href='/manual_setup') Manual Setup
         
-- else if (everyauth.user.github.id !== undefined || total_configured_projects > 0)
+- else if (currentUser.user.github.id !== undefined || total_configured_projects > 0)
   .span12
     .row-fluid
       .span10
