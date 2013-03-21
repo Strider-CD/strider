@@ -28,10 +28,11 @@
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
     "strider-simple-worker": "~0.4.0",
-    "strider-sauce": "git://github.com/Strider-CD/strider-sauce",
-    "strider-env": "git://github.com/Strider-CD/strider-env",
-    "strider-python": "git://github.com/Strider-CD/strider-python",
-    "pw": "0.0.4"
+    "strider-env": "~0.1.0",
+    "pw": "0.0.4",
+    "strider-sauce": "~0.1.1",
+    "strider-python": "0.0.2",
+    "strider-custom": "~0.1.1"
   },
   "devDependencies": {
     "mocha": ">=0.11.0",
