@@ -41,7 +41,7 @@
             {% if !user %}
             <form id="navbar-signin-form" 
                action="/login" method="post" class="navbar-form pull-right">
-              <input type="text" placeholder="Email" name="email" class="input-small">
+              <input type="text" placeholder="Email" name="username" class="input-small">
               <input type="password" 
                   placeholder="Password" name="password" class="input-small">
               <button type="submit" class="btn">Sign In</button>
@@ -51,11 +51,12 @@
         </div>     
       </div>
     </div>
+    {% block fillContent%} 
     <div class="container">
       <div class="header">
         <div class="row">
           <div class="span12"><br>
-            <h1 id="layout-header">Brilliant Continuous Deployment</h1>
+            <h1 id="layout-header">Brilliant Continuous Deployment...</h1>
           </div>
         </div>
       </div>
@@ -68,6 +69,7 @@
         </div>
       </div>
     </div>
+    {% endblock %}
     <footer>
       <p>Strider-CD</p>
     </footer>

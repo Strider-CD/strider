@@ -1,1 +1,70 @@
 {% extends "base.html" %}
+
+{% block fillContent %}
+{% if !currentUser.user %} 
+      <div class='span10 offset1'>
+        {% if errors %}
+      .alert.alert-error
+        - each error in errors
+          = error
+          br
+
+          {% endif %}
+
+      <div class = "span10 offset1">
+        <div class='hero-unit'>
+          <h1>Brilliant Continuous Deployment.</h1>
+      
+          {% include "partials/_strider_copy.html" %}
+        <center>
+          <form class='form-inline' action='/register' method='POST'>             
+            <input class="xlarge" type='text' name='invite_code' placeholder='Invite Code' /> 
+            <input class="xlarge" type='text' name="email" placeholder='Email' />
+            <input class="xlarge" type='password' name="password" placeholder='Password' />
+            <input class="btn primary" type='submit' value='Register' />
+          </form>
+        </center>
+        </div>
+      </div>
+
+
+  <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
+  <script>
+    $(document).ready(function() {
+      $('#layout-header').hide();
+      $('#invite-box').height($('#signup-box').height());   
+    });
+  </script>
+
+
+  {% else if !currentUser.user.github.id && total_configured_projects == 0 %}
+<div class="span7 well">
+  <h3>Welcome to Strider, {{currentUser.user.email}}!</h3> 
+  <p> It looks like you haven't yet linked your Github account. Press the button below to get started.
+  </p>
+  <div class= "actions">
+    <a class="btn btn-success" href='/auth/github'>
+      <i class="icon-ok">
+          |  Link Github account 
+        &nbsp;&nbsp;&nbsp;
+      </i>
+    </a>
+    <a  class="btn" href='/manual_setup'>Manual Setup</a>
+        
+{% else %}
+  .span12
+    .row-fluid
+      .span10
+    // Spinner
+    .row-fluid
+      .span9
+        div#spinner.alert.alert-info
+    p
+    include dashboard_templates
+    // For the backbone dashboard
+    div#dashboard
+  script(src="/javascripts/dashboard.js")
+
+  
+  {% endif %}
+  {% endblock %}

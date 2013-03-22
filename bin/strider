@@ -13,6 +13,7 @@ var argv = require('optimist')
     websockets = require('../lib/websockets');
     pw = require('pw'),
     readline = require('readline'),
+    bcrypt = require('bcrypt'),
     User = require('../lib/models').User;
 
 function connect() {
@@ -22,9 +23,11 @@ function connect() {
 }
 
 function addUser(email, password, level, cb) {
+  console.log("!!!", email, password, level);
   var u = new User();
   u.email = email;
-  u.password = password;
+  u.set('password', password);
+  console.log("!!", u.get('hash'))
   u.account_level = level;
   u.save(cb);
 }
