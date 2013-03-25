@@ -34,11 +34,13 @@
                 </ul>
               </li>
               <li><a href="mailto:hello@stridercd.com">Get Help</a></li>
-              {% if user %}
-              {% endif %}
             </ul>
+            {% if currentUser %}
+              <p class='navbar-text pull-right'>Logged in as {{ currentUser.user.email }}
+              |  (<a href="/logout">logout</a>)</p>
+            {% endif %}
 
-            {% if !user %}
+            {% if not currentUser %}
             <form id="navbar-signin-form" 
                action="/login" method="post" class="navbar-form pull-right">
               <input type="text" placeholder="Email" name="username" class="input-small">
