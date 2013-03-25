@@ -2,33 +2,9 @@
 
 {% block fillContent %}
 {% if !currentUser.user %} 
-      <div class='span10 offset1'>
-        {% if errors %}
-      .alert.alert-error
-        - each error in errors
-          = error
-          br
+      {% include "partials/errors.html" %}
+      {% include "partials/signupform.html" %}
 
-          {% endif %}
-
-      <div class = "span10 offset1">
-        <div class='hero-unit'>
-          <h1>Brilliant Continuous Deployment.</h1>
-      
-          {% include "partials/_strider_copy.html" %}
-        <center>
-          <form class='form-inline' action='/register' method='POST'>             
-            <input class="xlarge" type='text' name='invite_code' placeholder='Invite Code' /> 
-            <input class="xlarge" type='text' name="email" placeholder='Email' />
-            <input class="xlarge" type='password' name="password" placeholder='Password' />
-            <input class="btn primary" type='submit' value='Register' />
-          </form>
-        </center>
-        </div>
-      </div>
-
-
-  <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
   <script>
     $(document).ready(function() {
       $('#layout-header').hide();
