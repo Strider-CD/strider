@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+
+{% block bodyContent %}
+
+{% if !currentUser.user.github.id %}
+<div class ='span7 well'>
+  <p>Hi, {{ currentUser.user.email }}, it looks like you haven't yet linked your Github account. Press the button below to get started.</p>
+  <p> If you don't want to link your Github account at this time, you can configure a project manually. </p>
+  <p>&nbsp;
+  <div class ='actions'>
+    <a class='btn btn-primary' href='/auth/github'>Link Github account</a> 
+        &nbsp;&nbsp;&nbsp;
+        <a class='btn' href='/manual_setup'> Manual Setup</a>
+      </div>
+  </p>
+</div>
+{% else %}
+
+  {% include "partials/spinner.html" %}
+  {% include "projects_templates/projects_app.html" %}
+  <script src="/javascripts/projects.js"></script>
+
+{% endif %}
+{% endblock %}

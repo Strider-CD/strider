@@ -5,7 +5,7 @@
   <html>
 {% endif %}
   <head>
-    <meta name="viewport" content="width=device-width; initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Strider: Brilliant Continuous Deployment</title>
     {% include "bootstrap.html" %}
   </head>
@@ -75,6 +75,11 @@
     {% endblock %}
     <footer>
       <p>Strider-CD</p>
+
+    {% block footerScripts %}
+      <script src='/socket.io/socket.io.js'></script>
+      <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
+    {% endblock %}
     </footer>
   </body>
 </html>

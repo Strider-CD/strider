@@ -1,7 +1,7 @@
 // Use Backbone.js to render the project_config dashboard.
 
 $(function() {
-  
+  console.log("!!")  
   function status_msg(msg, alertclass, templateselector) {
     var el;
     if (templateselector === undefined) {
