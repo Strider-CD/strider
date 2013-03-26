@@ -100,9 +100,9 @@ module.exports = function(extdir, c, callback) {
       // loaded static servers.
       appInstance.use(middleware.custom404);
       var port = config.server_port;
-      appInstance.listen(port);
+      var server = appInstance.listen(port);
       // Initialize socket.io
-      websockets.init(appInstance, common.session_store);
+      websockets.init(appInstance, server, common.session_store);
       backchannel.init();
       console.info("Express server listening on port %d in %s mode",
         port, appInstance.settings.env);
