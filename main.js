@@ -95,17 +95,8 @@ module.exports = function(extdir, c, callback) {
       if (err) {
         return cb(err)
       }
-      // Handle GET 404s with custom page.
-      // Comes after extensions in middleware chain as they may have
-      // loaded static servers.
-      appInstance.use(middleware.custom404);
-      var port = config.server_port;
-      var server = appInstance.listen(port);
-      // Initialize socket.io
-      websockets.init(appInstance, server, common.session_store);
-      backchannel.init();
-      console.info("Express server listening on port %d in %s mode",
-        port, appInstance.settings.env);
+      
+      app.run(appInstance);
 
       cb(err, initialized, appInstance) 
   });
