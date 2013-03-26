@@ -10,14 +10,13 @@ NODE_VERSION=v0.8.22
 (
     rm -rf $node_root/*
     cd $node_root
-    curl -L http://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION.tar.gz | tar -zxf-
-    cd node-$NODE_VERSION
-    ./configure --prefix=$node_root
-    make
-    make install
+    # use binary packages
+    curl -L http://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.gz | tar -zxf-
+    mv node-$NODE_VERSION-linux-x64/* $node_root
 )
 
 cd ${SERVICE_APPROOT:=.}
+
 
 # Some user have their packages in their repository let's remove them,
 # there is good chances that we are on a different architecture anyway.
