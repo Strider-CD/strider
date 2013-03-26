@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block fillContent %}
+{% block bodyContent %}
 {% if !currentUser.user %} 
       {% include "partials/errors.html" %}
       {% include "partials/signupform.html" %}
@@ -27,19 +27,16 @@
     <a class="btn" href='/manual_setup'>Manual Setup</a>
         
 {% else %}
-  .span12
-    .row-fluid
-      .span10
-    // Spinner
-    .row-fluid
-      .span9
-        div#spinner.alert.alert-info
-    p
-    include dashboard_templates
-    // For the backbone dashboard
-    div#dashboard
-  script(src="/javascripts/dashboard.js")
-
+<div class='row-fluid'>
+  <div>
+    <div id='spinner' class='alert alert-info' ></div>
+  </div>
+  {% include "dashboard_templates/dashboard_app.html" %}
+  <div id = "dashboard">
+  </div>
+</div>
+ 
+<script src="/javascripts/dashboard.js"></script>
   
-  {% endif %}
-  {% endblock %}
+{% endif %}
+{% endblock %}
