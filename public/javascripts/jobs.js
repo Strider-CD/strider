@@ -1,27 +1,7 @@
+//requires models
+
 
 $(function(){
-
-
-  var Job = Backbone.Model.extend({
-
-    initialize: function() {
-      //nothing here yet      
-    }
-  });
-
-  // The collection of jobs is backed by api.js pulling from mongodb
-  var JobList = Backbone.Collection.extend({
-
-    // Reference to this collection's model.
-
-      model: Job,
-      url: "/api/admin/jobs",
-      parse: function(response) {
-        return response;
-      }
-    });
-
-
 
   // Create our global collection of **Jobs**.
   var Jobs = new JobList();
