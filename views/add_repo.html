@@ -3,9 +3,9 @@
 
 {% block bodyContent %}
 
-{% if !currentUser.user.github.id %}
+{% if !currentUser.github.id %}
 <div class ='span7 well'>
-  <p>Hi, {{ currentUser.user.email }}, it looks like you haven't yet linked your Github account. Press the button below to get started.</p>
+  <p>Hi, {{ currentUser.email }}, it looks like you haven't yet linked your Github account. Press the button below to get started.</p>
   <p> If you don't want to link your Github account at this time, you can configure a project manually. </p>
   <p>&nbsp;
   <div class ='actions'>

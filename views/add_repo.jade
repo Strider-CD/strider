@@ -1,7 +1,7 @@
 script(src='/socket.io/socket.io.js')
 script(src='/javascripts/jquery.scrollTo-1.4.2-min.js')
 
--  if (everyauth.user.github.id === undefined)
+-  if (currentUser.github.id === undefined)
   .span7.well
     p  Hi, #{everyauth.user.email}, it looks like you haven't yet linked your Github account. Press the button below to get started.
     p If you don't want to link your Github account at this time, you can configure a project manually. 
@@ -11,7 +11,7 @@ script(src='/javascripts/jquery.scrollTo-1.4.2-min.js')
         &nbsp;&nbsp;&nbsp;
         a.btn.btn(href='/manual_setup') Manual Setup
         
-- else if (everyauth.user.github.id !== undefined)
+- else if (currentUser.github.id !== undefined)
   // Spinner
   .row-fluid
     .span1
