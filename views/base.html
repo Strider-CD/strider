@@ -34,6 +34,21 @@
                 </ul>
               </li>
               <li><a href="mailto:hello@stridercd.com">Get Help</a></li>
+
+              {% if currentUser %}
+                <li><a href="/account">Account</a></li>
+                {% if currentUser.user.account_level > 0 %}
+                  <li class='dropdown'>
+                    <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
+                    <ul class='dropdown-menu'>
+                      <li><a href='/admin/invites'>Invites</a></li>
+                      <li><a href='/admin/users'>Users</a></li>
+                      <li><a href='/admin/projects'>Projects</a></li>
+                      <li><a href='/admin/jobs'>Jobs</a></li>
+                    </ul>
+                {% endif %}
+              {% endif %}
+
             </ul>
             {% if currentUser %}
               <p class='navbar-text pull-right'>Logged in as {{ currentUser.email }}

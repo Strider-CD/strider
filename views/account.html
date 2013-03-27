@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+
+<div class='span8'>
+  <div id="settings"></div>
+</div>
+
+<div class='span12'>
+  <h3>Account Management:</h3>
+  <p>
+  <div class="tabbable tabs-left">
+    <ul class='nav nav-tabs'>
+      <li class='active'><a href='#email' data-toggle='tab'>Email Address</a></li>
+      <li><a href='#password' data-toggle='tab'>Password</a></li>
+      <li><a href='#notifications' data-toggle='tab'>Notifications</a></li>
+      <li><a href='#github' data-toggle='tab'>Github Config</a></li>
+    </ul>
+
+    <div class='tab-content'>
+      <div id="email" class="tab-pane active">
+        <div id="account_email" class="span8">
+          <div class='email-message'>
+            <div class='well'>
+              <fieldset>
+                <legend>Change Email</legend>
+                <div class="control-group email">
+                  <label class='control-label'for='email'>New Email Address</label>
+                </div>
+                <div class='controls'>
+                  <input class="xlarge" type='text' name='email' />
+                  <span class="help-inline email"></span>
+                </div>
+                <div class="actions">
+                  <button class='btn'>Change Email</button>
+                </div>
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div id="password" class="tab-pane">
+        <div id="change_password" class="span8">
+          <div class='password-message'>
+            <div class='well'>
+              <fieldset>
+                <legend>Change Password</legend>
+                <div class='control-group password'>
+                  <label class='control-label' for='password'>New Password</label>
+                </div>
+                <div class="controls">
+                  <input class="xlarge" type='password' name='password' />
+                  <span class="help-inline password"></span>
+                </div>
+                <div class="control-group password-confirm">
+                  <label class="control-label" for='password_confirm'>New Password Confirm</label>
+                </div>
+                <div class='controls'>
+                  <input class="xlarge" type='password' name='password_confirm' />
+                  <span class='help-inline password-confirm'>
+                </div>
+                <div class="actions">
+                  <button class="btn">Change Password</a>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="notifications" class="tab-pane span8">
+          <div class="well">
+            <legend>Notifications (Coming Soon)</legend>
+              <li> Emails after every job or just after failures
+              <li> push notifications for mobile
+            </div>
+      </div>
+
+      <div id="github" class="tab-pane span8">
+        <div class="well">
+          <legend>Github Config (Coming Soon)</legend>
+              <li> Associate with a different github account. 
+          </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block pageScripts %}
+<script src="/javascripts/account.js" type="text/javascript"></script>
+{% endblock %}

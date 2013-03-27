@@ -103,9 +103,8 @@ exports.kickoff = function(req, res, github) {
 /*
  * GET /account - account settings page
  */
-exports.account = function(req, res)
-{
-  res.render('account');
+exports.account = function(req, res){
+  res.render('account.html');
 };
 
 /*
