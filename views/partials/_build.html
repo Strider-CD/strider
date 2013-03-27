@@ -9,21 +9,16 @@
       </div>
     </div>
     <div class='row-fluid' id='build-metadata'>
-      {% if results_detail.test_exitcode!=0 %}
       <div class='span2'>
-        <h3 class='failure-text'>FAILURE</h3>
+        {% if results_detail.test_exitcode!=0 %}
+          <h3 class='failure-text'>FAILURE</h3>
+        {% else %}
+          <h3 class='success-text'>SUCCESS</h3>
+        {% endif%}
       </div>
       <div class='span10'>
-          include _build_results_detail
+          {% include "partials/_build_results_detail.html" %}
       </div>
-      {% else %}
-      <div class='span2'>
-        <h3 class='success-text'>SUCCESS</h3>
-      </div>
-      <div class='span10'>
-          include _build_results_detail
-      </div>
-      {% endif%}
     </div>
 
     <div class='row'>
@@ -59,18 +54,15 @@
       {% for job in jobs %} 
       <div class='row-fluid build-list-item'>
         <div class='span1'>
-        {% if job.test_exitcode!=0 %}
           <a href={{ job.url }} title="View Build Detail">
+          {% if job.test_exitcode!=0 %}
             <i class='icon-remove icon-red'></i>
-          </a>
-            include _build_history_item
-        {% else %}
-          <a href={{ job.url }} title="View Build Detail">
+          {% else %}
             <i class='icon-ok icon-green'></i>
+          {% endif %}
           </a>
-            include _build_history_item
-        {% endif %}
         </div>
+        {% include "partials/_build_history_item.html" %}
       </div>
       {% endfor %}
       </div>
@@ -78,6 +70,7 @@
 </div>
         
 <script type="text/javascript">
+$(document).ready(function() {
   function status_msg(msg, alertclass, templateselector) {
     var el;
     if (templateselector === undefined) {
@@ -151,7 +144,6 @@
     });
   };
 
-  $(document).ready(function() {
     $("a.btn.deploy").click(function() {
       startJob("#{repo_url}");
       $("a.btn.deploy").attr('disabled', 'disabled');
