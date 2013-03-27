@@ -157,35 +157,6 @@ $(function() {
   };
 
   // One job status of one repo
-  window.Job = Backbone.Model.extend({
-
-    defaults: function() {
-      return {
-        enabled: false,
-        progress: 0,
-        in_progress: false
-      };
-    }
-  });
-
-
-  // All job status items
-  window.JobListCollection = Backbone.Collection.extend({
-    model: Job,
-    url: "/api/jobs"
-
-  });
-
-  window.JobList = new JobListCollection();
-
-  //sort in reverse chron order
-  JobList.comparator = function(job1,job2) {
-    if (job1.get("created_timestamp")<=job2.get("created_timestamp")) {
-      return 1;
-    } else {
-      return -1;
-    }
-  };
 
   // Represents an individual Job in the list
   window.JobView = Backbone.View.extend({

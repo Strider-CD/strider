@@ -145,14 +145,14 @@ $(document).ready(function() {
   };
 
     $("a.btn.deploy").click(function() {
-      startJob("#{repo_url}");
+      startJob( '{{ repo_url}}' );
       $("a.btn.deploy").attr('disabled', 'disabled');
       $("a.btn.test").attr('disabled', 'disabled');
       status_msg("Job submitted...", "info", "#spinner-msg");
     });
 
     $("a.btn.test").click(function() {
-      startJob("#{repo_url}", "TEST_ONLY");
+        startJob( "{{repo_url}}" , "TEST_ONLY");
       $("a.btn.test").attr('disabled', 'disabled');
       $("a.btn.deploy").attr('disabled', 'disabled');
       status_msg("Job submitted...", "info", "#spinner-msg");
