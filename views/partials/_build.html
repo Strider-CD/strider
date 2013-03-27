@@ -87,7 +87,7 @@ $(document).ready(function() {
     window.socket = io.connect();
     var started = false;
     window.socket.on('start', function(data) {
-      if (data.repo_url === "#{repo_url}") {
+      if (data.repo_url === "{{repo_url}}") {
         $("pre.console-output").html("");
         $("#build-metadata").hide();
         status_msg("Running job...", "info", "#spinner-msg");
@@ -95,7 +95,7 @@ $(document).ready(function() {
       }
     });
     window.socket.on('update', function(data) {
-      if (data.repo_url === "#{repo_url}") {
+      if (data.repo_url === "{{repo_url}}") {
         if (!started) {
           $("pre.console-output").html("");
           status_msg("Running job...", "info", "#spinner-msg");
@@ -110,7 +110,7 @@ $(document).ready(function() {
       }
     });
     window.socket.on('done', function(data) {
-      if (data.repo_url === "#{repo_url}") {
+      if (data.repo_url === "{{repo_url}}") {
         $("pre.console-output").append(data.msg);
         var offset = $('pre.console-output').prop('scrollHeight');
         $('pre.console-output').scrollTop(offset);
