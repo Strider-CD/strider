@@ -79,7 +79,7 @@ exports.latest_build = function(req, res)
 
       results[0].output = filter(results[0].stdmerged);
 
-      res.render('latest_build',
+      res.render('latest_build.html',
         {
           admin_view: false,
           jobs: results,
