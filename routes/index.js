@@ -88,9 +88,9 @@ exports.kickoff = function(req, res, github) {
     // Check whether someone else has already configured this repository
     User.findOne({'github_config.url':trepo.url.toLowerCase()}, function(err, user) {
       if (!user) {
-        res.render('kickoff', {repo: trepo })
+        res.render('kickoff.html', {repo: JSON.stringify(trepo)})
       } else {
-        res.render('kickoff-conflict', {repo: trepo});
+        res.render('kickoff-conflict.html', {repo: JSON.stringify(trepo)});
       }
     });
 
