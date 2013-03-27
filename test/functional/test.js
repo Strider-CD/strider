@@ -95,14 +95,13 @@ describe('functional', function() {
 
     });
 
-    it("bad login should return 200 with an error", function(done) {
+    it("bad login should return 302 with an error", function(done) {
         request.post({
             url:TEST_BASE_URL + "login",
             form:{email:"bad", password:"bad"}
           }, function (e, r, body) {
-          r.statusCode.should.eql(200);
-          r.should.be.html;
-          body.should.match(/.*User with login bad does not exist.*/);
+          r.statusCode.should.eql(302);
+          r.headers.location.should.eql("/login#fail");
           done();
         });
     });
@@ -125,7 +124,7 @@ describe('functional', function() {
             if (e) {
               throw e;
             }
-            if (r.statusCode !== 303) {
+            if (r.statusCode !== 302 || r.headers.location !== '/') {
               throw new Error("Test collaborator couldn't log in! Status code: " + r.statusCode + " email: " + email);
             }
             complete++;
@@ -408,7 +407,8 @@ describe('functional', function() {
           },
           function(e, r, b) {
             if (e) throw e;
-            r.statusCode.should.eql(303);
+            r.statusCode.should.eql(302);
+            r.headers.location.should.eql('/');
             // Verify the new user can see the poang repository it should be a collaborator for
             request.get({
               url: TEST_BASE_URL + "api/collaborators",
