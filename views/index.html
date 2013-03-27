@@ -25,18 +25,18 @@
       &nbsp;&nbsp;&nbsp;
     </a>
     <a class="btn" href='/manual_setup'>Manual Setup</a>
-        
+
 {% else %}
 <div class='row-fluid'>
   <div>
     <div id='spinner' class='alert alert-info' ></div>
   </div>
-  {% include "dashboard_templates/dashboard_app.html" %}
+  {% include "dashboard_templates.html" %}
   <div id = "dashboard">
   </div>
 </div>
- 
+
 <script src="/javascripts/dashboard.js"></script>
-  
+
 {% endif %}
 {% endblock %}

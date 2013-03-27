@@ -1,0 +1,9 @@
+{% includeJade "dashboard_templates/dashboard_item.jade" %}
+{% includeJade "dashboard_templates/dashboard_job_item.jade" %}
+{% includeJade "dashboard_templates/dashboard_app.jade" %}
+
+{% include "partials/spinnermsg.html" %}
+
+<script class='template' id='job-output' type="text/template">
+  <%= message %>
+</script>
