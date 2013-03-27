@@ -36,7 +36,7 @@
               <li><a href="mailto:hello@stridercd.com">Get Help</a></li>
             </ul>
             {% if currentUser %}
-              <p class='navbar-text pull-right'>Logged in as {{ currentUser.user.email }}
+              <p class='navbar-text pull-right'>Logged in as {{ currentUser.email }}
               |  (<a href="/logout">logout</a>)</p>
             {% endif %}
 
