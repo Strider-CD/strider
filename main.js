@@ -85,18 +85,26 @@ module.exports = function(extdir, c, callback) {
     registerWorkerMessageHook: registerWorkerMessageHook,
     registerWorkerMessagePostProcessor: registerWorkerMessagePostProcessor,
     registerPanel: registerPanel,
+    registerPluginTemplate: require('./lib/pluginTemplates').register
   };
   context.extdir = extdir;
 
   // Make extension context available throughout application.
   common.context = context;
   loader.initExtensions(extdir, "webapp", context, appInstance,
-    function(err, initialized) { 
+    function(err, initialized, templates) { 
       if (err) {
         return cb(err)
       }
       
       app.run(appInstance);
+      console.log("!!>", initialized, templates);
+      if (templates){
+        var pluginTemplates = require('./lib/pluginTemplates')
+        for (var k in templates){
+          pluginTemplates.register(k, templates[k]);
+        }
+      }
 
       cb(err, initialized, appInstance) 
   });
