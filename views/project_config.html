@@ -213,14 +213,21 @@
         <li><a href="#github_config" data-toggle="tab">Github Config</a></li>
         <li><a href="#webhooks" data-toggle="tab">Webhooks</a></li>
         <li><a href="#deactivate" data-toggle="tab">Deactivate</a></li>
-        <!--each panel in panels-->
-        <!-- li-->
-        <!--    a(href="#{'#' + panel.id}", data-toggle='tab') {{panel.title}}-->
+        {% for panel in panels %}
+        <li><a href="#{{panel.id}}" data-toggle="tab">{{panel.title}}</a></li>
+        {% endfor %}
       </ul>
       <div class="tab-content">
         <!--each panel in panels-->
         <!--  div(id="#{panel.id}").tab-pane-->
         <!--   !{panel.contents}-->
+        {% for panel in panels %}
+        <div id="{{panel.id}}" class="tab-pane">
+        {% autoescape false %}
+        {{panel.contents}}
+        {% endautoescape %}
+        </div>
+        {% endfor %}
         <div id="collaborators" class="tab-pane active">
           <div id="project_config_collaborators" data-widget="/javascripts/apres/widget/collaborators.js" class="widget span8">
             <div class="well">
