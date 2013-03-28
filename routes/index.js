@@ -181,11 +181,11 @@ exports.config = function(req, res)
               return res.end("Error handling request");
             }
             r.panels = panels;
-            return res.render('project_config', r);
+            return res.render('project_config.html', r);
           }
         );
       } else {
-        return res.render('project_config', r);
+        return res.render('project_config.html', r);
       }
     }
   );

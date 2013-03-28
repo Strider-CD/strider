@@ -12,7 +12,7 @@ script.template#remove-github-webhooks-template(type="text/template")
 
     p Are you sure you want to remove the Github webhooks for the project 
       b
-        a(href="") #{display_name}
+        a(href="") {{display_name}}
       ?
   div.modal-footer
     a.btn(data-dismiss="modal") No
@@ -60,7 +60,7 @@ script.template#confirm-remove-collaborator-template(type="text/template")
     button.close(data-dismiss="modal")x
     h3 Remove <%= email %>
   div.modal-body
-      p Are you sure you want to remove <%= email %> from  #{display_name}?
+    p Are you sure you want to remove <%= email %> from  {{display_name}}?
   div.modal-footer
       a.btn(data-dismiss="modal") No
       a.btn.btn-primary Yes, I'm sure
@@ -94,7 +94,7 @@ script.template#confirm-remove-webhooks-template(type="text/template")
     button.close(data-dismiss="modal")x
     h3 Remove <%= target_url %>
   div.modal-body
-      p Are you sure you want to remove <%= target_url %> webhook from  #{display_name}?
+    p Are you sure you want to remove <%= target_url %> webhook from  {{display_name}}?
   div.modal-footer
       a.btn(data-dismiss="modal") No
       a.btn.btn-primary Yes, I'm sure
@@ -136,9 +136,9 @@ script.template#webhook-table-row(type="text/template")
 script.template#confirm-delete-project-template(type="text/template")
   div.modal-header
     button.close(data-dismiss="modal")x
-    h3 Delete #{display_name}
+    h3 Delete {{display_name}}
   div.modal-body
-    p Are you sure you want to delete #{display_name}?
+    p Are you sure you want to delete {{display_name}}?
   div.modal-footer
       a.btn(data-dismiss="modal") No
       a.btn.btn-primary.btn-delete-project Yes, I'm sure
@@ -154,7 +154,7 @@ script.template#deactivate-project(type="text/template")
   | <% } %>
   hr
   strong Delete Project
-  p Permanently remove #{display_name} from Strider
+  p Permanently remove {{display_name}} from Strider
   a(data-toggle="modal",href="#confirm-delete-project",class="btn btn-danger") Delete Project
   hr
   div#confirm-delete-project.modal.fade
@@ -167,7 +167,7 @@ script.template#deactivate-loading(type="text/template")
 
 .span12
   h3 Configuration - 
-    font.header-emphasis #{display_name}
+    font.header-emphasis {{display_name}}
   p
     .tabbable.tabs-left
         ul.nav.nav-tabs
@@ -182,15 +182,15 @@ script.template#deactivate-loading(type="text/template")
             a(href='#webhooks', data-toggle='tab') Webhooks
           li
             a(href='#deactivate', data-toggle='tab') Deactivate
-          each panel in panels
-            li
-              a(href="#{'#' + panel.id}", data-toggle='tab') #{panel.title}
+          //each panel in panels
+          // li
+          //    a(href="#{'#' + panel.id}", data-toggle='tab') {{panel.title}}
 
 
         .tab-content
-          each panel in panels
-            div(id="#{panel.id}").tab-pane
-              !{panel.contents}
+          //each panel in panels
+          //  div(id="#{panel.id}").tab-pane
+          //   !{panel.contents}
 
           #collaborators.tab-pane.active
             div#project_config_collaborators.widget(data-widget="/javascripts/apres/widget/collaborators.js").span8
