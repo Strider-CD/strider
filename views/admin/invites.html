@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+<div class="span8">
+  <form action="/api/admin/invite/new" method="POST">
+    <div class="clearfix">
+      <label for="code">Invite Code</label>
+      <div class="input">
+        <input type="text" name="invite_code" value="{{invite_code}}" class="xlarge"/>
+      </div>
+    </div>
+    <div class="clearfix">
+      <label for="email">Recipient Email</label>
+      <div class="input">
+        <input type="text" name="email" class="xlarge"/>
+      </div>
+    </div>
+    <div class="actions">
+      <input type="submit" value="Send Invitation" class="btn primary"/>
+    </div>
+  </form>
+</div>
+<div class="span12">
+  <table class="table-bordered table-striped table">
+    <caption>Invite Codes</caption>
+    <thead>
+      <tr>
+        <th>Code</th>
+        <th>Created Date</th>
+        <th>Emailed To</th>
+        <th>Consumed By</th>
+        <th>Consumed Date</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+</div>
+{% endblock %}
