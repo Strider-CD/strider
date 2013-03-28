@@ -201,11 +201,12 @@ exports.job = function(req, res)
         var has_prod_deploy_target = false;
         var admin_view = true;
 
-        res.render('job',
+        res.render('job.html',
           {
             admin_view: admin_view,
             jobs: results,
             results_detail: results_detail,
+            job_id:results[0].id.substr(0,8),
             triggered_by_commit: triggered_by_commit,
             org:org,
             repo:repo,
