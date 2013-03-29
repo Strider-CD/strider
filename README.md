@@ -1,4 +1,4 @@
-# Strider ![Strider Logo](https://raw.github.com/Strider-CD/strider/master/public/images/logo-250x250.png)
+# Strider ![Strider Logo](https://raw.github.com/Strider-CD/strider/passportAuth/public/images/logo-250x250.png)
 
 
 ![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
