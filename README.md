@@ -1,3 +1,9 @@
+# ![Strider Logo](https://raw.github.com/Strider-CD/strider/passportAuth/public/images/logo-100x100.png) Strider
+
+
+---
+
+
 ![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
 
 Overview
