@@ -47,7 +47,8 @@
     "commander": ">=0.5.2"
   },
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha -R tap && node_modules/mocha/bin/mocha -R tap --ignore-leaks test/functional/test.js"
+    "test": "node_modules/mocha/bin/mocha -R tap && node_modules/mocha/bin/mocha -R tap --ignore-leaks test/functional/test.js",
+    "start": "bin/strider"
   },
   "bin": {
     "strider": "bin/strider"
