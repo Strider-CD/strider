@@ -188,6 +188,14 @@ $(function() {
 
 // == Dirty Filter Box
 $(function(){
+  // 'containsi' case-insensitive version of 'contains'
+  $.extend($.expr[':'], {
+    'containsi': function(elem, i, match, array)
+    {
+      return (elem.textContent || elem.innerText || '').toLowerCase()
+      .indexOf((match[3] || "").toLowerCase()) >= 0;
+    }
+  });
   $('#dashboard').on('keyup', '.repoFilters', function(){
     var filterText = $(this).val();
     console.log("Filter", filterText);
@@ -196,7 +204,7 @@ $(function(){
       if (filterText == ''){
         $(this).show()
       } else {
-        var found = $(this).find(":contains(" + filterText + ")").length
+        var found = $(this).find(":containsi(" + filterText + ")").length
         if (found > 0){
           $(this).show()
         } else {
