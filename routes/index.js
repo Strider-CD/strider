@@ -33,7 +33,7 @@ exports.index = function(req, res){
     var code = "";
     if (req.param('code') !== undefined) {
       code = req.param('code');
-          res.render('register', {code:code});
+          res.render('register.html', {code:code});
     } else {
       if (req.user != undefined) {
         req.user.get_repo_config_list(function(err, repo_list) {
