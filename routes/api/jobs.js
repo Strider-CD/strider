@@ -67,9 +67,13 @@ exports.jobs_start = function(req, res) {
       res.statusCode = 400;
       return res.end("you must configure " + url + " before you can start a job for it");
     }
-    var repo_metadata = _.find(origin_user_obj.github_metadata[origin_user_obj.github.id].repos, function(item) {
-        return repo_config.url == item.html_url.toLowerCase();
-    });
+    var repo_metadata = null;
+    // We don't have github metadata unless we have a linked github account.
+    if (origin_user_obj.github.id) {
+        repo_metadata = _.find(origin_user_obj.github_metadata[origin_user_obj.github.id].repos, function(item) {
+            return repo_config.url == item.html_url.toLowerCase();
+        });
+    }
     var repo_ssh_url;
     // If we have Github metadata, use that. It is loosely coupled and can self-heal things like
     // a configured Github Repo being renamed in Github (such as happened with Klingsbo)
