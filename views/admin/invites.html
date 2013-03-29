@@ -24,15 +24,32 @@
   <table class="table-bordered table-striped table">
     <caption>Invite Codes</caption>
     <thead>
-      <tr>
-        <th>Code</th>
-        <th>Created Date</th>
-        <th>Emailed To</th>
-        <th>Consumed By</th>
-        <th>Consumed Date</th>
-      </tr>
+        <tr>
+          <th>Code</th>
+          <th>Created Date</th>
+          <th>Emailed To</th>
+          <th>Consumed By</th>
+          <th>Consumed Date</th>
+        </tr>
     </thead>
     <tbody>
+        {% for invite in invite_codes %}
+        <tr>
+            <td>{{invite.code}}</td>
+            <td>{{invite.created}}</td>
+            <td>{{invite.emailed_to}}</td>
+            {% if invite.consumed_by_user %}
+            <td>{{invite.consumed_by_user.email}}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+            {% if invite.consumed %}
+            <td>{{invite.consumed}}</td>
+            {% else %}
+            <td>-</td>
+            {% endif %}
+        </tr>
+        {% endfor %}
     </tbody>
   </table>
 </div>
