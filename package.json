@@ -26,7 +26,7 @@
     "optimist": "0.3.x",
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
-    "strider-simple-worker": "~0.4.0",
+    "strider-simple-worker": "~0.5.1",
     "strider-env": "~0.1.0",
     "pw": "0.0.4",
     "strider-sauce": "~0.1.1",
