@@ -6,10 +6,11 @@
 {% endif %}
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strider: Brilliant Continuous Deployment</title>
+    <title>Strider: {% block title %}Brilliant Continuous Deployment{% endblock %}</title>
     {% include "bootstrap.html" %}
   </head>
   <body>
+    <div class='wrap'>
     <div class="navbar navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container">
@@ -21,9 +22,7 @@
           <a href="/" class="brand">Strider</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li><a href="/">Home</a></li>
-              <li><a href="https://github.com/Strider-CD/strider/blob/master/README.md">Docs</a></li>
-              <li><a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a></li>
+              <li><a href="/">Dashboard</a></li>
 
               {% if currentUser %}
                 <li><a href="/account">Account</a></li>
@@ -59,14 +58,7 @@
       </div>
     </div>
     {% block fillContent%} 
-    <div class="container">
-      <div class="header">
-        <div class="row">
-          <div class="span12"><br>
-            <h1 id="layout-header">Brilliant Continuous Deployment...</h1>
-          </div>
-        </div>
-      </div>
+    <div class="content container">
       <div class="body-content">
         <div class="row">
           <div class='span12'>
@@ -78,8 +70,13 @@
       </div>
     </div>
     {% endblock %}
+  </div>
     <footer>
-      <p>Strider-CD</p>
+    <p>
+      <a href = 'https://github.com/Strider-CD/strider'>Strider-CD</a>
+    | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
+    | <a href="https://github.com/Strider-CD/strider/blob/master/README.md">Docs</a>
+    </p>
 
     {% block footerScripts %}
       <script src='/socket.io/socket.io.v0.9.13.js'></script>
@@ -88,8 +85,6 @@
     {% endblock %}
     {% block pageScripts %}
     {% endblock %}
-
-
     </footer>
   </body>
 </html>

@@ -1,7 +1,17 @@
-html,
-body {
+html, body {
+  height:100%;
+}
+body{
   background-color: #fff;
 }
+.wrap {
+  min-height:100% !important;
+}
+.body-content{
+  margin-top:20px;
+
+}
+
 .docs-section {
   padding-top: 40px;
 }
@@ -23,6 +33,14 @@ img.manual_setup {
 .failure-text {
   color: #9d261d;
 }
+
+footer {
+  border-top:1px solid #ddd;
+  background-color:#f0f0f0;
+  margin-top:30px;
+  padding:10px;
+}
+
 footer p {
   text-align: center;
   /* center align it with the container */
