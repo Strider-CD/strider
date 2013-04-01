@@ -6,7 +6,7 @@
 {% endif %}
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strider: Brilliant Continuous Deployment</title>
+    <title class='StriderBlock_title'>{% pluginblock title %}Strider: Brilliant Continuous Deployment{% endpluginblock %}</title>
     {% include "bootstrap.html" %}
   </head>
   <body>
@@ -18,7 +18,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a href="/" class="brand">{% pluginblock brand %}Strider{% endpluginblock %}</a>
+          <a href="/" class="brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
           <div class="nav-collapse">
             <ul class="nav">
               <li><a href="/">Home</a></li>
