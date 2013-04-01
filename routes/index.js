@@ -319,19 +319,15 @@ exports.status = function(req, res) {
     return res.end(JSON.stringify(resp));
   }
 
-  try {
-    User.findOne(function(err, user) {
-      if (err) {
-        return error("error retrieving user from DB: " + err);
-      }
-      if (!user) {
-        return error("no users found in DB - mis-configured?")
-      }
-      return ok();
-    });
-  } catch(e) {
-    console.log("exception: %s", e);
-  }
+  User.findOne(function(err, user) {
+    if (err) {
+      return error("error retrieving user from DB: " + err);
+    }
+    if (!user) {
+      return error("no users found in DB - mis-configured?")
+    }
+    return ok();
+  });
 
 };
 
