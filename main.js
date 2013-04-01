@@ -63,7 +63,13 @@ function registerWorkerMessageHook(f) {
 
 
 module.exports = function(extdir, c, callback) {
-  var appConfig = c || config;
+  var appConfig = config;
+  // override with c
+  for (var k in c){
+    appConfig[k] = c[k];
+  }
+
+
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
   var cb = callback || function() {}
@@ -103,8 +109,6 @@ module.exports = function(extdir, c, callback) {
           pluginTemplates.registerTemplate(k, templates[k]);
         }
       }
-
-      console.log("!!>", templates);
 
       app.run(appInstance);
       cb(err, initialized, appInstance) 
