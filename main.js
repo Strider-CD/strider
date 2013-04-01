@@ -5,7 +5,8 @@ var app = require('./lib/app'),
     loader = require('strider-extension-loader'),
     middleware = require('./lib/middleware'),
     models = require('./lib/models'),
-    websockets = require('./lib/websockets');
+    websockets = require('./lib/websockets')
+    , pluginTemplates = require('./lib/pluginTemplates')
 
 common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];
@@ -85,7 +86,7 @@ module.exports = function(extdir, c, callback) {
     registerWorkerMessageHook: registerWorkerMessageHook,
     registerWorkerMessagePostProcessor: registerWorkerMessagePostProcessor,
     registerPanel: registerPanel,
-    registerPluginTemplate: require('./lib/pluginTemplates').register
+    registerBlock: pluginTemplates.registerBlock,
   };
   context.extdir = extdir;
 
@@ -96,16 +97,16 @@ module.exports = function(extdir, c, callback) {
       if (err) {
         return cb(err)
       }
-      
-      app.run(appInstance);
-      console.log("!!>", initialized, templates);
+
       if (templates){
-        var pluginTemplates = require('./lib/pluginTemplates')
         for (var k in templates){
-          pluginTemplates.register(k, templates[k]);
+          pluginTemplates.registerTemplate(k, templates[k]);
         }
       }
 
+      console.log("!!>", templates);
+
+      app.run(appInstance);
       cb(err, initialized, appInstance) 
   });
 
