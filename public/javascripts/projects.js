@@ -1,23 +1,16 @@
 // Use Backbone.js to render the project_config dashboard.
 
 $(function() {
-  function status_msg(msg, alertclass, templateselector) {
-    var el;
-    if (templateselector === undefined) {
-      el = $("#job-output");
-    } else {
-      el = $(templateselector);
-
-    }
-    $("#spinner").html(_.template(el.html(), {message:msg}));
-    $("#spinner").removeClass().addClass("alert alert-"+alertclass);
-    $("#spinner").show();
+  function status_msg(msg, alertclass, id) {
+    $(id).html(msg);
+    $(id).removeClass().addClass("alert alert-"+alertclass);
+    $(id).show();
   }
 
   if (window.socket === undefined) {
     window.socket = io.connect();
     window.socket.on('start', function(data) {
-      status_msg("Running job...", "info", "#spinner-msg");
+      status_msg("Running job...", "info", "#spinner");
       $("#output").html("");
       $("#output").show();
 
@@ -44,7 +37,7 @@ $(function() {
   }
 
   window.startJob = function(url, job_type) {
-    status_msg("Sending start message...", "info", "#spinner-msg");
+    status_msg("Sending start message...", "info", "#spinner");
 
 
     // Default job type is TEST_AND_DEPLOY
@@ -133,7 +126,7 @@ $(function() {
       "click .refresh-button" : "refresh"
     },
     refresh: function ( event ){
-      status_msg("Refreshing repository list...", "info", "#spinner-msg");
+      status_msg("Refreshing repository list...", "info", "#spinner");
       $.ajax("/api/github/metadata?refresh=1", {
             success: function(data, ts, xhr) {
                 RepoList.fetch();
@@ -151,7 +144,7 @@ $(function() {
       RepoList.bind('all', this.render, this);
       RepoList.bind('reset', this.addData, this);
 
-      status_msg("Fetching available repository information from Github...", "info", "#spinner-msg");
+      status_msg("Fetching available repository information from Github...", "info", "#spinner");
 
       RepoList.fetch();
 
@@ -195,6 +188,14 @@ $(function() {
 
 // == Dirty Filter Box
 $(function(){
+  // 'containsi' case-insensitive version of 'contains'
+  $.extend($.expr[':'], {
+    'containsi': function(elem, i, match, array)
+    {
+      return (elem.textContent || elem.innerText || '').toLowerCase()
+      .indexOf((match[3] || "").toLowerCase()) >= 0;
+    }
+  });
   $('#dashboard').on('keyup', '.repoFilters', function(){
     var filterText = $(this).val();
     console.log("Filter", filterText);
@@ -203,7 +204,7 @@ $(function(){
       if (filterText == ''){
         $(this).show()
       } else {
-        var found = $(this).find(":contains(" + filterText + ")").length
+        var found = $(this).find(":containsi(" + filterText + ")").length
         if (found > 0){
           $(this).show()
         } else {

@@ -33,7 +33,7 @@ exports.index = function(req, res){
     var code = "";
     if (req.param('code') !== undefined) {
       code = req.param('code');
-          res.render('register', {code:code});
+          res.render('register.html', {invite_code:code});
     } else {
       if (req.user != undefined) {
         req.user.get_repo_config_list(function(err, repo_list) {
@@ -288,4 +288,46 @@ exports.delete_project = function(req,res) {
     res.redirect("/");
   });
 }
+
+/*
+ * /status endpoint
+ * Executes a simple database query to verify that system is operational.
+ * Assumes there is at least 1 user in the system.
+ * Returns 200 on success.
+ *
+ * This is for use by Pingdom and similar monitoring systems.
+ */
+exports.status = function(req, res) {
+
+  function error(message) {
+    res.statusCode = 500;
+    var resp = {
+      status: "error",
+      results: [],
+      errors: [{message:message}]
+    }
+    return res.end(JSON.stringify(resp));
+  }
+
+  function ok() {
+    res.statusCode = 200;
+    var resp = {
+      status: "ok",
+      results: [{message:"system operational"}],
+      errors: []
+    }
+    return res.end(JSON.stringify(resp));
+  }
+
+  User.findOne(function(err, user) {
+    if (err) {
+      return error("error retrieving user from DB: " + err);
+    }
+    if (!user) {
+      return error("no users found in DB - mis-configured?")
+    }
+    return ok();
+  });
+
+};
 

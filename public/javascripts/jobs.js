@@ -4,7 +4,7 @@
 $(function(){
 
   // Create our global collection of **Jobs**.
-  var Jobs = new JobList();
+  var Jobs = new AdminJobListCollection();
 
   // Job Item View
   // --------------

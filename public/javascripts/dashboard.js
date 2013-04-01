@@ -233,11 +233,18 @@ $(function() {
     },
 
     addJobs: function() {
-      JobList.each(function(job) {
-        var view = new JobView({model: job});
-        var jobel = view.render().el;
-        $("#job-list").append(jobel);
-      });
+      $("#job-list .empty").remove();
+      if (JobList.length > 0){
+        JobList.each(function(job) {
+          var view = new JobView({model: job});
+          var jobel = view.render().el;
+          $("#job-list").append(jobel);
+        });
+      } else {
+        $("#job-list").append(
+          _.template($("#dashboard-no-jobs").html())
+        );
+      }
     }
   });
 

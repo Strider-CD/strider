@@ -12,8 +12,9 @@
     });
   </script>
 
+{% else %}
 
-  {% else if !currentUser.github.id %}
+{% if !currentUser.github.id %}
 <div class="span7 well">
   <h3>Welcome to Strider, {{currentUser.email}}!</h3> 
   <p> It looks like you haven't yet linked your Github account. Press the button below to get started.
@@ -21,12 +22,14 @@
   <div class= "actions">
     <a class="btn btn-success" href='/auth/github'>
       <i class="icon-ok"></i>
-      |  Link Github account 
+      Link Github account 
       &nbsp;&nbsp;&nbsp;
     </a>
     <a class="btn" href='/manual_setup'>Manual Setup</a>
+  </div>
+</div>
+{% endif %}
 
-{% else %}
 <div class='row-fluid'>
   <div>
     <div id='spinner' class='alert alert-info' ></div>
