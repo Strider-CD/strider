@@ -289,3 +289,45 @@ exports.delete_project = function(req,res) {
   });
 }
 
+/*
+ * /status endpoint
+ * Executes a simple database query to verify that system is operational.
+ * Assumes there is at least 1 user in the system.
+ * Returns 200 on success.
+ *
+ * This is for use by Pingdom and similar monitoring systems.
+ */
+exports.status = function(req, res) {
+
+  function error(message) {
+    res.statusCode = 500;
+    var resp = {
+      status: "error",
+      results: [],
+      errors: [{message:message}]
+    }
+    return res.end(JSON.stringify(resp));
+  }
+
+  function ok() {
+    res.statusCode = 200;
+    var resp = {
+      status: "ok",
+      results: [{message:"system operational"}],
+      errors: []
+    }
+    return res.end(JSON.stringify(resp));
+  }
+
+  User.findOne(function(err, user) {
+    if (err) {
+      return error("error retrieving user from DB: " + err);
+    }
+    if (!user) {
+      return error("no users found in DB - mis-configured?")
+    }
+    return ok();
+  });
+
+};
+
