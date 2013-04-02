@@ -4,12 +4,8 @@ $(function() {
     events: {
         "click .btn": "submit"
     },
-    template: _.template($("#change-password").html()),
-    initialize: function() {
-        this.render();
-    },
     render: function() {
-      $(this.el).html(this.template());
+      $(this.el).html(_.template($("#change-password").html()));
       return this;
     },
 
@@ -59,12 +55,8 @@ $(function() {
     events: {
         "click .btn": "submit"
     },
-    template: _.template($("#change-email").html()),
-    initialize: function() {
-        this.render();
-    },
     render: function() {
-      $(this.el).html(this.template());
+      $(this.el).html(_.template($("#change-email").html()));
       return this;
     },
 
