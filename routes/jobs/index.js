@@ -6,15 +6,35 @@ var BASE_PATH = "../../lib/"
 
 var  _ = require('underscore')
    , crypto = require('crypto')
-   , email = require(BASE_PATH + 'email')
-   , feature = require(BASE_PATH + 'feature')
    , filter = require(BASE_PATH + 'ansi')
-   , gh = require(BASE_PATH + 'github')
    , humane = require(BASE_PATH + 'humane')
    , logging = require(BASE_PATH + 'logging')
+   , mongoose = require('mongoose')
    , Step = require('step')
    , Job = require(BASE_PATH + 'models').Job
+   , User = require(BASE_PATH + 'models').User
    ;
+
+function lookup(case_insensitive_url, cb) {
+  User.findOne({
+      "github_config.url":case_insensitive_url.toLowerCase(),
+    }, function(err, user_obj) {
+    if (err || !user_obj) {
+      console.debug("user.get_repo_config() - did not find a repo matching %s for any user",
+        case_insensitive_url);
+      return cb("no repo found", null);
+    }
+    var repo = _.find(user_obj.github_config, function(repo_config) {
+      return case_insensitive_url.toLowerCase() == repo_config.url;
+    });
+    if (!repo) {
+      console.error(
+        "user.get_repo_config() - Error finding matching github_config despite DB query success!");
+      return cb("no repo found", null);
+    }
+    return cb(null, repo);
+  });
+};
 
 
 /*
@@ -28,13 +48,12 @@ exports.latest_build = function(req, res)
   var repo = req.params.repo;
   var repo_url = "https://github.com/" + org + "/" + repo;
 
-  req.user.get_repo_config(repo_url, function(err, repo_config) {
+  lookup(repo_url, function(err, repo_config) {
     if (err || repo_config === undefined) {
       res.statusCode = 500;
       res.end("you must configure " + repo_url + " before you can use it");
       return;
     }
-
     Job.find()
         .sort({'finished_timestamp': -1})
         .where('finished_timestamp').ne(null)
@@ -106,9 +125,17 @@ exports.job = function(req, res)
   var job_id = req.params.job_id;
   var repo_url = "https://github.com/" + org + "/" + repo;
 
+  // Ignore if can't parse as ObjectID
+  try {
+    job_id = mongoose.Types.ObjectId(job_id);
+  } catch(e) {
+    res.statusCode = 400;
+    return res.end("job_id must be a valid ObjectId");
+  }
+
   Step(
     function getRepoConfig() {
-      req.user.get_repo_config(repo_url, this);
+      lookup(repo_url, this);
     },
     function runQueries(err, repo_config){
       if (err || !repo_config) {
