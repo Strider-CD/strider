@@ -277,7 +277,7 @@ exports.webhook_secret = function(req, res)
         // Manual setup case - try to synthesize a Github SSH url from the display URL.
         // This is brittle because display urls can change, and the user (currently) has
         // no way to change them (other than deleting and re-adding project).
-        var p = gh.parse_github_url(repo_config.display_url);
+        var p = gh.parse_github_url(repo.display_url);
         repo_ssh_url = gh.make_ssh_url(p.org, p.repo);
       }
       console.debug("POST to Github /webhook payload: %j", payload);
