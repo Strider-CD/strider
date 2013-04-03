@@ -265,7 +265,7 @@ exports.webhook_secret = function(req, res)
       var repo_ssh_url;
       if (user.github.id) {
           repo_metadata = _.find(user.github_metadata[user.github.id].repos, function(item) {
-              return repo_config.url == item.html_url.toLowerCase();
+              return repo.url == item.html_url.toLowerCase();
           });
       }
       // If we have Github metadata, use that. It is loosely coupled and can self-heal things like
