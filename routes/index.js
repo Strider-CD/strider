@@ -213,12 +213,24 @@ exports.webhook_signature = function(req, res)
       console.log("received a correctly signed webhook for repo %s on master branch - starting task on user %s's behalf", repo.url, user.email);
       var github_commit_id = payload.after;
       var github_commit_info = gh.webhook_extract_latest_commit_info(payload);
-      var repo_metadata = _.find(user.github_metadata[user.github.id].repos, function(item) {
-        return repo.url == item.html_url.toLowerCase();
-      });
       var repo_ssh_url;
+      var repo_metadata;
+      if (user.github.id) {
+        repo_metadata = _.find(user.github_metadata[user.github.id].repos, function(item) {
+          return repo.url == item.html_url.toLowerCase();
+        });
+      }
+      // If we have Github metadata, use that. It is loosely coupled and can self-heal things like
+      // a configured Github Repo being renamed in Github (such as happened with Klingsbo)
+      // We do not have metadata in the manual setup case
       if (repo_metadata) {
         repo_ssh_url = repo_metadata.ssh_url;
+      } else {
+        // Manual setup case - try to synthesize a Github SSH url from the display URL.
+        // This is brittle because display urls can change, and the user (currently) has
+        // no way to change them (other than deleting and re-adding project).
+        var p = gh.parse_github_url(repo_config.display_url);
+        repo_ssh_url = gh.make_ssh_url(p.org, p.repo);
       }
       console.debug("POST to Github /webhook payload: %j", payload);
       if (repo.has_prod_deploy_target) {
@@ -248,10 +260,26 @@ exports.webhook_secret = function(req, res)
       console.log("received a correctly signed webhook for repo %s on master branch - starting task on user %s's behalf", repo.url, user.email);
       var github_commit_id = payload.after;
       var github_commit_info = gh.webhook_extract_latest_commit_info(payload);
-      var repo_metadata = _.find(user.github_metadata[user.github.id].repos, function(item) {
-        return repo.url == item.html_url.toLowerCase();
-      });
-      var repo_ssh_url = repo_metadata.ssh_url;
+      // We don't have github metadata unless we have a linked github account.
+      var repo_mdatadata;
+      var repo_ssh_url;
+      if (user.github.id) {
+          repo_metadata = _.find(user.github_metadata[user.github.id].repos, function(item) {
+              return repo_config.url == item.html_url.toLowerCase();
+          });
+      }
+      // If we have Github metadata, use that. It is loosely coupled and can self-heal things like
+      // a configured Github Repo being renamed in Github (such as happened with Klingsbo)
+      // We do not have metadata in the manual setup case
+      if (repo_metadata) {
+        repo_ssh_url = repo_metadata.ssh_url;
+      } else {
+        // Manual setup case - try to synthesize a Github SSH url from the display URL.
+        // This is brittle because display urls can change, and the user (currently) has
+        // no way to change them (other than deleting and re-adding project).
+        var p = gh.parse_github_url(repo_config.display_url);
+        repo_ssh_url = gh.make_ssh_url(p.org, p.repo);
+      }
       console.debug("POST to Github /webhook payload: %j", payload);
       if (repo.has_prod_deploy_target) {
         var deploy_config = _.find(user[repo.prod_deploy_target.provider], function(item) {
