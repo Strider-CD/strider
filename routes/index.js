@@ -258,6 +258,7 @@ exports.webhook_secret = function(req, res)
       active = true;
     if (active && isOk && gh.webhook_commit_is_to_master(payload)) {
       console.log("received a correctly signed webhook for repo %s on master branch - starting task on user %s's behalf", repo.url, user.email);
+      console.log(repo);
       var github_commit_id = payload.after;
       var github_commit_info = gh.webhook_extract_latest_commit_info(payload);
       // We don't have github metadata unless we have a linked github account.
