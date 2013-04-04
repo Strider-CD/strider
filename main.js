@@ -4,6 +4,7 @@ var app = require('./lib/app'),
     config = require('./lib/config'),
     loader = require('strider-extension-loader'),
     middleware = require('./lib/middleware'),
+    auth = require('./lib/auth')
     models = require('./lib/models'),
     websockets = require('./lib/websockets')
     , pluginTemplates = require('./lib/pluginTemplates')
@@ -89,6 +90,7 @@ module.exports = function(extdir, c, callback) {
     loader: loader,
     models: models,
     middleware: middleware,
+    auth: auth, //TODO - may want to make this a subset of the auth module
     registerWorkerMessageHook: registerWorkerMessageHook,
     registerWorkerMessagePostProcessor: registerWorkerMessagePostProcessor,
     registerPanel: registerPanel,
