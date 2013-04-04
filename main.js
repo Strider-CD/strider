@@ -109,7 +109,6 @@ module.exports = function(extdir, c, callback) {
           pluginTemplates.registerTemplate(k, templates[k]);
         }
       }
-
       app.run(appInstance);
       cb(err, initialized, appInstance) 
   });
