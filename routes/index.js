@@ -261,7 +261,7 @@ exports.webhook_secret = function(req, res)
       var github_commit_id = payload.after;
       var github_commit_info = gh.webhook_extract_latest_commit_info(payload);
       // We don't have github metadata unless we have a linked github account.
-      var repo_mdatadata;
+      var repo_metadata;
       var repo_ssh_url;
       if (user.github.id) {
           repo_metadata = _.find(user.github_metadata[user.github.id].repos, function(item) {
