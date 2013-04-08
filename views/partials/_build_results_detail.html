@@ -4,32 +4,31 @@
       <a href="https://github.com/{{ results_detail.github_commit_info.author.username }}">
         <img src="{{ results_detail.gravatar_url }}&s=40'" class='gravatar' />
       </a>
-    <div class='span1'>1
+    </div>
+    <div class='span11'>
       <div class='row-fluid'>
         <div class='span6'>
           <div class='repo-branch'>
             <strong>Branch:</strong>
             <a>master</a>
           </div>
+        </div>
         <div class='span6'>
           <div id="commit-id">
             <strong>Commit-ID:</strong>
             <a href="https://github.com/{{ org }}/{{ repo }}/commit/{{ results_detail.github_commit_info.id }}"> {{ results_detail.github_commit_info.id }}</a>
           </div>
-       <div class='row-fluid'>
-          <div class='span1'>
-            <div id ="repo-branch">
-              <strong> 
-                {% if results_detail.committer_is_username %}
-                <a href="https://github.com/{{ results_detail.committer }}"> {{ results_detail.committer }}</a>
-                  {% else %}
-                | {{ results_detail.committer }}
-                {% endif %}
-              </strong>
-              | :&nbsp; {{ results_detail.github_commit_info.message }}
-            </div>
-          </div>
         </div>
+      </div>
+      <div class='row-fluid' id ="repo-branch">
+        <strong> 
+          {% if results_detail.committer_is_username %}
+          <a href="https://github.com/{{ results_detail.committer }}"> {{ results_detail.committer }}</a>
+            {% else %}
+          | {{ results_detail.committer }}
+          {% endif %}
+        </strong>
+        | :&nbsp; {{ results_detail.github_commit_info.message }}
       </div>
     </div>
   </div>
@@ -49,15 +48,15 @@
     </div>
   </div>
 {% endif %}
-<div class='row-fluid results-detail-times'>
-  <div class='span6'>
-    <div id="finished-at">
-      <h3>{{ results_detail.finished_at }}</h3>
+  <div class='row-fluid results-detail-times'>
+    <div class='span6'>
+      <div id="finished-at">
+        <h3>{{ results_detail.finished_at }}</h3>
+      </div>
+    </div>
+    <div class='span6'>
+      <div id="build-duration">
+        <h3>{{ results_detail.duration }}s</h3>
+      </div>
     </div>
   </div>
-  <div class='span6'>
-    <div id="build-duration">
-      <h3>{{ results_detail.duration }}s</h3>
-    </div>
-  </div>
-</div>
