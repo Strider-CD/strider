@@ -14,7 +14,8 @@ var argv = require('optimist')
     pw = require('pw'),
     readline = require('readline'),
     bcrypt = require('bcrypt'),
-    User = require('../lib/models').User;
+    User = require('../lib/models').User,
+    Step = require('step')
 
 function connect() {
   var mongodbUrl = config.db_uri;
@@ -22,29 +23,18 @@ function connect() {
   mongoose.connect(mongodbUrl);
 }
 
-function addUser(email, password, level, cb) {
-  console.log("!!!", email, password, level);
-  var u = new User();
-  u.email = email;
-  u.set('password', password);
-  console.log("!!", u.get('hash'))
-  u.account_level = level;
-  u.save(cb);
-}
+function addUser(argv) {
+  var email = argv.l // -l <email>
+    , password = argv.p // -p <pwd>
+    , level = argv.a ? 1 : undefined; // -a
 
-
-// Management mode
-if (argv._.length > 0) {
-  // -l <email>
-  // -p <password>
-  // -a
-  if (argv.l && argv.p) {
-    connect();
-    var level = 0
-    if (argv.a) {
-      level = 1;
-    }
-    addUser(argv.l, argv.p, level, function(err) {
+  var add  = function(){
+    connect()
+    var u = new User();
+    u.email = email;
+    u.set('password', password);
+    u.account_level = level || 0;
+    u.save(function(err) {
       if (err) {
         console.log("Error adding user:", err);
         process.exit(1);
@@ -52,52 +42,80 @@ if (argv._.length > 0) {
       console.log("User added successfully! Enjoy.");
       process.exit(0);
     });
-  } else if (argv._.indexOf('adduser') !== -1 && argv._.length === 1) {
-  // no arguments - 'adduser' subcommand means prompt
+  }
 
+
+  if (!email || !password){
     var rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout
     });
-    rl.question("Enter email []: ", function(email) {
-      rl.question("Is admin? (y/n) [n]: ", function(isAdmin) {
-        if (isAdmin === 'y') { 
-          isAdmin = true;
-        } else {
-          isAdmin = false;
-        }
-        rl.close();
-        process.stdout.write("Enter password []: ");
-        pw(function(password) {
-          process.stdout.write("\nEmail:\t\t" + email + "\n");
-          process.stdout.write("Password:\t" + password.replace(/.*/, '****') + "\n");
-          process.stdout.write("isAdmin:\t" + isAdmin + "\n");
-          var rl = readline.createInterface({
-            input: process.stdin,
-            output: process.stdout
-          });
-          rl.question("OK? (y/n) [y]:", function(ok) {
-            if (ok === 'y' || ok === '') {
-              connect();
-              addUser(email, password, isAdmin ? 1 : 0, function(err) {
-                if (err) {
-                  console.log("Error adding user:", err);
-                  process.exit(1);
-                }
-                console.log("User added successfully! Enjoy.");
-                process.exit(0);
-              });
-            } else {
-              console.log("Goodbye!");
-              process.exit(0);
-            }
-            rl.close();
-          });
 
-        });
-      })
-    });
+    Step(
+        function getEmail(){
+          var next = this;
+          if (email){
+            next();
+          } else {
+            rl.question("Enter email []: ", function(em){
+              email = em;
+              next();
+            });
+          }
+        }
+      , function getAdmin(){
+          var next = this;
+          if (level){
+            next()
+          } else {
+            rl.question("Is admin? (y/n) [n]", function(a){
+              level = a ? 1 : undefined;
+              next();
+            });
+          }
+        }
+      , function getPwd(){
+          var next = this;
+          if (password){
+            next();
+          } else {
+            rl.close();
+            process.stdout.write("Enter password []: ");
+            pw(function(pwd){
+              password = pwd;
+              rl = readline.createInterface({
+                input: process.stdin,
+                output: process.stdout
+              });
+              next();
+            })
+          }
+        }
+      , function confirm(){
+        var next = this;
+        process.stdout.write("\nEmail:\t\t" + email + "\n");
+        process.stdout.write("Password:\t" + password.replace(/.*/, '****') + "\n");
+        process.stdout.write("isAdmin:\t" + (level ? 'y' : 'n') + "\n");
+        rl.question("OK? (y/n) [y]", function(ok){
+          if (ok === 'y' || ok === ''){
+            next();
+          } else {
+            console.log("Goodbye!");
+            process.exit(0);
+          }
+        })
+      }
+      , add
+    );
+  } else {
+    add();
   }
+}
+
+
+// Management mode
+if (argv._.length > 0) {
+  addUser(argv);
 } else {
   // Load & initialize extensions
   var common = require('../lib/common');
