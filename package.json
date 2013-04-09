@@ -23,7 +23,7 @@
     "validator": ">=0.4.2",
     "winston": "==0.5.11",
     "nodemailer": ">=0.3.20",
-    "optimist": "0.3.x",
+    "nomnom": "1.6.x",
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
     "strider-simple-worker": "~0.5.1",

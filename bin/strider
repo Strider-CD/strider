@@ -1,32 +1,20 @@
 #!/usr/bin/env node
 
-var argv = require('optimist')
-      .usage('Strider Continuous Deployment CLI\nUsage: $0 [options]')
-      .argv,
-    backchannel = require('../lib/backchannel'),
-    everypaas = require('everypaas'),
-    mongoose = require('mongoose'),
-    config = require('../lib/config'),
-    loader = require('strider-extension-loader'),
-    middleware = require('../lib/middleware'),
-    models = require('../lib/models'),
-    websockets = require('../lib/websockets');
-    pw = require('pw'),
-    readline = require('readline'),
-    bcrypt = require('bcrypt'),
-    User = require('../lib/models').User,
-    Step = require('step')
+var connect = function() {
+  var mongoose = require('mongoose'),
+      mongodbUrl = require('../lib/config').db_uri;
 
-function connect() {
-  var mongodbUrl = config.db_uri;
   console.log("Connecting to MongoDB URL: %s", mongodbUrl);
   mongoose.connect(mongodbUrl);
 }
 
-function addUser(argv) {
-  var email = argv.l // -l <email>
-    , password = argv.p // -p <pwd>
-    , level = argv.a ? 1 : undefined; // -a
+function addUser(email, password, admin) {
+  var Step = require('step')
+    , readline = require('readline')
+    , User = require('../lib/models').User
+    , pw = require('pw')
+
+  var level = admin ? 1 : 0;
 
   var add  = function(){
     connect()
@@ -113,11 +101,7 @@ function addUser(argv) {
 }
 
 
-// Management mode
-if (argv._.length > 0) {
-  addUser(argv);
-} else {
-  // Load & initialize extensions
+var start = function(path){
   var common = require('../lib/common');
   var path = require('path');
   var main = require('../main');
@@ -135,3 +119,36 @@ if (argv._.length > 0) {
   common.extdir = extdir;
   main(extdir)
 }
+
+
+// Parse Arguments and run...
+
+var parser= require('nomnom', {
+  nocommand: 'start'
+})
+
+parser.command('addUser')
+  .option('email', {
+      abbr: 'l'
+    , help: "User's email"
+  })
+  .option('password', {
+      abbr: 'p'
+    , help: "User's password"
+  })
+  .callback(function(opts){
+    addUser(opts.email, opts.password, opts.admin);
+  })
+  .help("Create a Strider user")
+
+parser.nocommand('start')
+  .option('extension_path', {
+      abbr: 'm'
+    , help: "Specify path to extensions (defaults to node_modules)"
+  })
+  .callback(function(opts){
+    start(opts.extension_path);
+  });
+
+parser.parse();
+
