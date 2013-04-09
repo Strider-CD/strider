@@ -101,7 +101,7 @@ function addUser(email, password, admin) {
 }
 
 
-var start = function(path){
+var start = function(extpath){
   var common = require('../lib/common');
   var path = require('path');
   var main = require('../main');
@@ -115,6 +115,10 @@ var start = function(path){
     extdir = path.resolve(__dirname + "/../node_modules");
   }
 
+  if (extpath){
+    extdir = [path.resolve(extpath), extdir];
+  }
+
   // Save extension dir
   common.extdir = extdir;
   main(extdir)
@@ -123,9 +127,7 @@ var start = function(path){
 
 // Parse Arguments and run...
 
-var parser= require('nomnom', {
-  nocommand: 'start'
-})
+var parser= require('nomnom')
 
 parser.command('addUser')
   .option('email', {

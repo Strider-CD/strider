@@ -86,7 +86,7 @@ module.exports = function(extdir, c, callback) {
     config: appConfig,
     emitter: common.emitter,
     extensionRoutes: [],
-    extdir: common.extdir,
+    extdir: extdir,
     loader: loader,
     models: models,
     middleware: middleware,
@@ -96,7 +96,6 @@ module.exports = function(extdir, c, callback) {
     registerPanel: registerPanel,
     registerBlock: pluginTemplates.registerBlock,
   };
-  context.extdir = extdir;
 
   // Make extension context available throughout application.
   common.context = context;
