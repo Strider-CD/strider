@@ -20,7 +20,7 @@ function lookup(case_insensitive_url, cb) {
       "github_config.url":case_insensitive_url.toLowerCase(),
     }, function(err, user_obj) {
     if (err || !user_obj) {
-      console.debug("user.get_repo_config() - did not find a repo matching %s for any user",
+      console.debug("lookup() - did not find a repo matching %s for any user",
         case_insensitive_url);
       return cb("no repo found", null);
     }
@@ -29,7 +29,7 @@ function lookup(case_insensitive_url, cb) {
     });
     if (!repo) {
       console.error(
-        "user.get_repo_config() - Error finding matching github_config despite DB query success!");
+        "lookup() - Error finding matching github_config despite DB query success!");
       return cb("no repo found", null);
     }
     return cb(null, repo);
