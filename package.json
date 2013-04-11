@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.2.7",
+  "version": "1.2.8",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "apres": "git://github.com/apres/apres.github.com#74ed051edf4b8b42ce98d6e881d06f20b813969e",
@@ -26,7 +26,7 @@
     "nomnom": "1.6.x",
     "strider-extension-loader": ">=0.0.13",
     "everypaas": "0.0.x",
-    "strider-simple-worker": "~0.5.1",
+    "strider-simple-worker": "~0.6.0",
     "strider-env": "~0.1.0",
     "pw": "0.0.4",
     "strider-sauce": "~0.1.1",
