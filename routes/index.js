@@ -13,6 +13,7 @@ var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
   , User = require(BASE_PATH + 'models').User
   , Job = require(BASE_PATH + 'models').Job
+  , pjson = require('../package.json')
   ;
 
 var TEST_ONLY = "TEST_ONLY";
@@ -331,20 +332,22 @@ exports.status = function(req, res) {
     res.statusCode = 500;
     var resp = {
       status: "error",
+      version: "StriderCD (http://stridercd.com) " + pjson.version,
       results: [],
       errors: [{message:message}]
     }
-    return res.end(JSON.stringify(resp));
+    return res.end(JSON.stringify(resp, null, "\t"));
   }
 
   function ok() {
     res.statusCode = 200;
     var resp = {
       status: "ok",
+      version: "StriderCD (http://stridercd.com) " + pjson.version,
       results: [{message:"system operational"}],
       errors: []
     }
-    return res.end(JSON.stringify(resp));
+    return res.end(JSON.stringify(resp, null, "\t"));
   }
 
   User.findOne(function(err, user) {
