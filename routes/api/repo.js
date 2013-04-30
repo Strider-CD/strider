@@ -211,24 +211,46 @@ var ok = function(results, res){
   return res.end(JSON.stringify(r, null, '\t'));
 }
 
+
+var getRepo = function(req, url){
+  return function(){
+    req.user.get_repo_config(url, this);
+  }
+}
+
 exports.getPlugins = function(req, res, next){
   var url = req.param("repo");
 
-  Step(
-    function() {
-        req.user.get_repo_config(url, this);
-    },
-    function(err, repo_config, my_access_level, owner_object) {
-      if (err) {
-        return error("Plugins.get", "Error fetching Repo Config for url " + url + ": " + err, res);
-      }
-      return ok(repo_config.plugins, res);
-    }
-  );
+  Step(getRepo(req, url),
+    function(err, repo, access, owner) {
+      if (err) 
+        return error("Plugins.get"
+          , "Repo Err: " + url + ": " + err, res);
 
+      return ok(repo.plugins, res);
+    });
 }
 
 exports.postPlugins = function(req, res, next){
+  var url = req.param("repo")
+    , plugins = req.param("plugins");
+
+  Step(getRepo,
+    function(err, repo, access, owner) {
+      if (err) 
+        return error("Plugins.get"
+          , "Repo Err: " + url + ": " + err, res);
+
+      // Check each plugin exists...
+      
+      repo.plugins = plugins;
+      repo.save(this);
+    }
+   , function(err){ 
+     if (err) return error("Plugins.get", err, res);
+     return ok([], res);
+   }
+    );
 }
 
 
