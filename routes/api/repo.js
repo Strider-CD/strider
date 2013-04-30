@@ -191,7 +191,41 @@ exports.delete_index = function(req, res) {
 };
 
 
+var error = function(ctx, err_msg, res){
+  console.error(ctx, err_msg);
+  var r = {
+    errors: [err_msg],
+    status: "error"
+  };
+  res.statusCode = 400;
+  return res.end(JSON.stringify(r, null, '\t'));
+}
+
+var ok = function(results, res){
+  var r = {
+    errors: [],
+    status: "ok",
+    results: results
+  }
+  res.statusCode = 200;
+  return res.end(JSON.stringify(r, null, '\t'));
+}
+
 exports.getPlugins = function(req, res, next){
+  var url = req.param("repo");
+
+  Step(
+    function() {
+        req.user.get_repo_config(url, this);
+    },
+    function(err, repo_config, my_access_level, owner_object) {
+      if (err) {
+        return error("Plugins.get", "Error fetching Repo Config for url " + url + ": " + err, res);
+      }
+      return ok(repo_config.plugins, res);
+    }
+  );
+
 }
 
 exports.postPlugins = function(req, res, next){
