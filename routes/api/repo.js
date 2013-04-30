@@ -189,3 +189,12 @@ exports.delete_index = function(req, res) {
   );
 
 };
+
+
+exports.getPlugins = function(req, res, next){
+}
+
+exports.postPlugins = function(req, res, next){
+}
+
+
