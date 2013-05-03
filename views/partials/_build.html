@@ -29,7 +29,9 @@
 
     <div class='row'>
       <div class='span12'>
+      {%autoescape false %}
         <pre class='console-output'>{{ results_detail.output }}</pre>
+      {%endautoescape %}
       </div>
     </div>
   </div>
