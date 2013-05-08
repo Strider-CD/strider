@@ -82,12 +82,12 @@ Adding Initial Admin User
 `Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
 other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
 
-    node bin/strider adduser
+    node bin/strider addUser
 
 Example run:
 
 ```bash
-$ node bin/strider adduser
+$ node bin/strider addUser
 Enter email []: strider@example.com
 Is admin? (y/n) [n]: y
 Enter password []: *******
