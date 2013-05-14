@@ -6,7 +6,7 @@
     "apres": "git+https://github.com/apres/apres.github.com#74ed051edf4b8b42ce98d6e881d06f20b813969e",
     "stylus": ">= 0.0.1",
     "jade": ">= 0.0.1",
-    "mongoose": "3.x.x",
+    "mongoose": "~3.6.10",
     "passport": "0.1.16",
     "passport-github": "git+https://github.com/lyatiss/passport-github.git#useragent",
     "passport-local": "0.1.6",
