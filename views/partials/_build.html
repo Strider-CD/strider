@@ -1,7 +1,10 @@
 {% include "partials/spinnermsg.html" %}
 
-<div class='row-fluid'>
-  <div class='span8'>
+<div class='row-fluid job-wrap'>
+  <div class='job-details'>
+  {% pluginblock JobPagePreCols %}
+  {% endpluginblock %}
+  <div class='span8 job-left-col'>
     <div class='row-fluid'>
       <div class='span12'>
         <div id='spinner' class='alert alert-info'>
@@ -21,13 +24,15 @@
       </div>
     </div>
 
-    <div class='row'>
-      <div class='span12'>
+    <div class='row job-pre-console'>
+      <div class='span12 job-pre-console-inner'>
+        {% pluginblock JobPagePreConsole %}
+        {% endpluginblock %}
         <br />
       </div>
     </div>
 
-    <div class='row'>
+    <div class='row job-console-container'>
       <div class='span12'>
       {%autoescape false %}
         <pre class='console-output'>{{ results_detail.output }}</pre>
@@ -36,7 +41,7 @@
     </div>
   </div>
 
-  <div class='span4'>
+  <div class='span4 job-detail-sidebar'>
     <div id='build-detail-buttons'>
       {% if !admin_view %}
         <a class='btn btn-primary test'>Test</a>
@@ -69,6 +74,7 @@
       {% endfor %}
       </div>
   </div>
+</div>
 </div>
         
 <script type="text/javascript">
