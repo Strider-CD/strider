@@ -165,7 +165,12 @@ exports.job = function(req, res)
       _.each(results, function(job) {
         job.id = job._id.toString();
         job.duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000);
-        job.finished_at = humane.humaneDate(job.finished_timestamp);
+        // Some jobs never finish, to due a crash or other error condition
+        if (!results_detail.finished_timestamp) {
+          results_detail.finished_at = "Did not finish"
+        } else {
+          results_detail.finished_at = humane.humaneDate(results_detail.finished_timestamp);
+        }
         if (job.github_commit_info !== undefined && job.github_commit_info.id !== undefined) {
           job.triggered_by_commit = true;
           job.gravatar_url = 'https://secure.gravatar.com/avatar/'
@@ -204,7 +209,12 @@ exports.job = function(req, res)
           }
         }
 
-        results_detail.output = filter(results_detail.stdmerged);
+        // Jobs which have not finished have no output
+        if (!results_detail.stdmerged) {
+          results_detail.output = "[STRIDER] This job has no output."
+        } else {
+          results_detail.output = filter(results_detail.stdmerged);
+        }
 
         res.render('job.html',
           {
