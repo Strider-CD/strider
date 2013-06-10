@@ -3,7 +3,7 @@
   "version": "1.2.15",
   "dependencies": {
     "ansiparse": "0.0.5-1",
-    "apres": "git+https://github.com/apres/apres.github.com#74ed051edf4b8b42ce98d6e881d06f20b813969e",
+    "apres": "0.0.2",
     "stylus": ">= 0.0.1",
     "jade": ">= 0.0.1",
     "mongoose": "~3.6.10",
