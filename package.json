@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "apres": "0.0.2",
