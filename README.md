@@ -36,6 +36,7 @@ major differences:
 - [Getting Started with Strider Guide](#gettingstarted)
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
     - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
+    - [strider-custom.json configuration](#strider-customjson-configuration)
 
 
 <a name="infrastructure" />
@@ -241,3 +242,17 @@ Once you turn off 'deploy on green', Strider will deploy the project to Heroku O
 ## More Information
 
 For more information on how to configure a node.js app to work on Heroku, see [Getting Started with Node.js on Heroku/Cedar](https://devcenter.heroku.com/articles/nodejs).
+
+<h2 id="cd_nodejs" class="docs-section">strider-custom.json configuration</h2>
+[Strider-custom](https://github.com/Strider-CD/strider-custom) is a plugin that comes bundled with strider and allows you to specify custom prepare, test, and deploy scripts via a `strider-custom.json` file in your project, similar to a `.travis.yml` file for travis-ci.
+
+Example:
+
+```json
+{
+  "prepare": "echo executed prepare statement!",
+  "test": "echo executed deploy statement!",
+  "deploy": "echo deploy && git push heroku master --force"
+}
+```
+
