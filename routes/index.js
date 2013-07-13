@@ -7,6 +7,7 @@ var BASE_PATH = "../lib/"
 var _ = require('underscore')
   , Step = require('step')
   , common = require(BASE_PATH + 'common')
+  , config = require(BASE_PATH + 'config')
   , fs = require('fs')
   , gh = require(BASE_PATH + 'github')
   , jobs = require(BASE_PATH + 'jobs')
@@ -148,6 +149,7 @@ exports.config = function(req, res)
       var r = {
          // May be undefined if not configured
          display_name: wrepo_config.display_name,
+         badge_url: config.strider_server_name + '/' + req.user.id + '/' + req.params.org + '/' + req.params.repo + '/badge',
          repo_org: req.params.org,
          repo_name: req.params.repo,
          apresController: "/javascripts/apres/controller/project_config.js",

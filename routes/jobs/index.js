@@ -114,6 +114,48 @@ exports.latest_build = function(req, res)
 };
 
 /*
+ * index.badge - redirect to the right badge
+ */
+exports.badge = function(req, res) {
+  res.statusCode = 200;
+  var user = req.params.user;
+  var org = req.params.org;
+  var repo = req.params.repo;
+  var repo_url = "https://github.com/" + org + "/" + repo;
+
+  function sendBadge(name) {
+    return res.redirect('/images/badges/build_' + name + '.png');
+  }
+
+  // Ignore if can't parse as ObjectID
+  try {
+    user = new mongoose.Types.ObjectId(user);
+  } catch(e) {
+    console.debug('[badge] invalid user ObjectID', user);
+    return sendBadge('unknown');
+  }
+
+  Job.findOne()
+    .sort({'finished_timestamp': -1})
+    .where('finished_timestamp').ne(null)
+    .where('archived_timestamp', null)
+    // FIXME: is it always lowercase?
+    .where('repo_url', repo_url.toLowerCase())
+    .where('_owner', user)
+    .where('type').in(['TEST_ONLY','TEST_AND_DEPLOY'])
+    .exec(function(err, job) {
+      if (err || !job) {
+        if (err) {
+          console.debug('[badge] error looking for latest build', err.message);
+        }
+        return sendBadge('unknown');
+      }
+      if (job.test_exitcode === 0) return sendBadge('passing');
+      return sendBadge('failing');
+    });
+};
+
+/*
  * index.job - build the job detail page
  */
 
