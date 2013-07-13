@@ -154,6 +154,7 @@ exports.jobs = function(req, res) {
           job.id = job._id.toString();
 
           var duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000);
+          // do we need this anymore?
           var finished_at = humane.humaneDate(job.finished_timestamp);
 
           // find the corrent project display name
@@ -219,14 +220,13 @@ exports.jobs = function(req, res) {
         _.each(this.repo_list, function(configured_repo) {
           var match = false;
 
-          // this is inefficient but unless there are a huge number of configured repos, should be fast enough
-          // XXX: replace with _.find to be faster? this requires us to iterate through the entire list
-          // _.find will stop when it finds a match.
-          _.each(l, function(l_item) {
-            if (l_item.repo_url === configured_repo.url) {
+          for (var i=0; i<l.length; i++) {
+            if (l[i].repo_url === configured_repo.url) {
               match = true;
+              break;
             }
-          });
+          }
+
           if (!match) {
             var project_name = configured_repo.display_url.replace(/^.*com\//gi, '');
             var obj = {
@@ -240,6 +240,9 @@ exports.jobs = function(req, res) {
             l.push(obj);
           }
 
+        });
+        l.sort(function(a, b) {
+          return a.finished_timestamp.getTime() < b.finished_timestamp.getTime();
         });
         // look at l
         var output = JSON.stringify(l, null, '\t');

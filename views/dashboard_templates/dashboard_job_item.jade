@@ -1,42 +1,24 @@
 script.template#dashboard-job-item(type="text/template")
-  .row-fluid
+  .row-fluid.build
     .span2
       .btn-group.dashboard-button
         | <% if (success===true) {%>
         |   <a href="<%= "/" + project_name + "/latest_build" %>" class="btn btn-success">View</a>
-        |   <button class="btn btn-success dropdown-toggle" data-toggle="dropdown">
-        |     <span class="caret"></span>
-        |   </button>
-        |  <ul class="dropdown-menu">
-        |    <li><a class="test-only-action" href="javascript:;"><i class="icon-refresh"></i> Test only</a></li>
-        |    <li><a class="test-and-deploy-action" href="javascript:;"><i class="icon-share-alt"></i> Test & deploy</a></li>
-        |    <li><a class="configure-action" href="<%= "/" + project_name + "/config" %>"><i class="icon-cog"></i> Configure</a></li>
-        |  </ul>
         | <% } else if (success==="N/A") { %>
         |   <a class="btn btn-primary test-only-action" href="javascript:;">Test </a>
-        |   <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-        |     <span class="caret"></span>
-        |   </button>
-        |  <ul class="dropdown-menu">
-        |    <li><a class="test-only-action" href="javascript:;"><i class="icon-refresh"></i> Test only</a></li>
-        |    <li><a class="test-and-deploy-action" href="javascript:;"><i class="icon-share-alt"></i> Test & deploy</a></li>
-        |    <li><a class="configure-action" href="<%= "/" + project_name + "/config" %>"><i class="icon-cog"></i> Configure</a></li>
-        |  </ul>
         | <% } else {%>
         |   <a href="<%= "/" + project_name + "/latest_build" %>" class="btn btn-danger">View</a>
-        |   <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
-        |     <span class="caret"></span>
-        |   </button>
-        |  <ul class="dropdown-menu">
-        |    <li><a class="test-only-action" href="javascript:;"><i class="icon-refresh"></i> Test only</a></li>
-        |    <li><a class="test-and-deploy-action" href="javascript:;"><i class="icon-share-alt"></i> Test & deploy</a></li>
-        |    <li><a class="configure-action" href="<%= "/" + project_name + "/config" %>"><i class="icon-cog"></i> Configure</a></li>
-        |  </ul>
         | <% } %>
+        button.btn.test-only-action(data-toggle='tooltip', title='Test only'): i.icon-refresh
+        button.btn.test-and-deploy-action(data-toggle='tooltip', title='Test & Deploy'): i.icon-share-alt
     .span10
       .row-fluid
         .span9
-          h3 <%= project_name %> (<a href="<%= repo_url %>" target="_blank">github</a>)
+          h3
+            a(href!='/<%=project_name%>/latest_build') <%= project_name %>
+            a.github-link(href!='<%=repo_url%>', target="_blank") (github)
+            a.configure-action(href!='/<%=project_name%>/config', data-toggle='tooltip', title='Configure')
+              i.icon-cog
         .span3
           .job-notice
             | <% if (success===true) {%>
@@ -72,17 +54,16 @@ script.template#dashboard-job-item(type="text/template")
         |   </div>
         | </div>
         | <% }} %>
-        
 
       .row-fluid
         .span6
           #finished-at
             strong Finished: 
-            <%= finished_at %>
+            time.timeago(data-toggle='tooltip', data-placement='right', datetime!='<%= finished_timestamp %>')
         .span6
           #build-duration
             strong Running Time: 
-            <%= duration_text  %>s
+            | <%= duration_text === 'N/A' ? '' : duration_text + 's' %>
       .row-fluid
         .span6
           .progress-meter.hide
