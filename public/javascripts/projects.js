@@ -103,7 +103,7 @@ $(function() {
 
       var data = this.model.toJSON();
       data.short_url = this.model.short_url();
-      $(this.el).html(this.template(data));
+      $(this.el).html(this.template(data)).addClass('project');
       $(this.el).find(".test-only-action").click($.proxy(function() {
         startJob(this.model.attributes.html_url, "TEST_ONLY");
       }, this));
@@ -197,22 +197,23 @@ $(function(){
     }
   });
   $('#dashboard').on('keyup', '.repoFilters', function(){
-    var filterText = $(this).val();
+    var filterText = $.trim($(this).val());
+
+    if (!filterText) {
+      [].slice.call(document.querySelectorAll('#repo-list .project.hide')).forEach(function (item) {
+        item.classList.remove('hide');
+      });
+      return;
+    }
+    [].slice.call(document.querySelectorAll('#repo-list .project')).forEach(function (item) {
+      if (item.innerText.toLowerCase().indexOf(filterText) === -1) {
+        item.classList.add('hide');
+      } else {
+        item.classList.remove('hide');
+      }
+    });
     console.log("Filter", filterText);
 
-    $('#repo-list>div').each(function(){
-      if (filterText == ''){
-        $(this).show()
-      } else {
-        var found = $(this).find(":containsi(" + filterText + ")").length
-        if (found > 0){
-          $(this).show()
-        } else {
-          $(this).hide()
-        }
-      }
-    })
-
-  })
+  });
 
 })
