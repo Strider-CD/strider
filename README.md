@@ -23,7 +23,6 @@ major differences:
 * An emphasis on extensibility. Plugins are powerful, easy to write and simple to install.
 * Out-of-the-box support for projects written in Node.JS, Python (generic and Django/Pyramid) and Selenium/Sauce Labs tests
 * Commercial support, consulting & hosting available
-* Coming soon: Ruby/Rails, JVM languages, PHP and more
 
 ## README Contents
 
@@ -32,6 +31,7 @@ major differences:
     - [Adding Users](#adduser)
     - [Starting Strider](#startup)
 - [Require()'ing Strider](#library)
+- [Extension & plugin guide](#extensions)
 - [Support & Help](#support)
 - [Getting Started with Strider Guide](#gettingstarted)
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
@@ -136,6 +136,16 @@ var instance = strider("/path/to/extensions/dir", config, function(err, initiali
 })
 
 ```
+
+<a name="extensions" />
+Extending & Customizing Strider 
+===============================
+
+Strider is extremely customizable and extensible through plugins. Plugins can add hooks to perform arbitrary actions
+during build. They can modify the database schema to add custom fields. They can also register their own HTTP routes. Even
+the front-end is highly customizable through template extensions.
+
+For documentation on extending Strider, see [strider-extension-loader](https://github.com/Strider-CD/strider-extension-loader)'s README.
 
 <a name="support" />
 Support & Help
