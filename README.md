@@ -154,9 +154,11 @@ Support & Help
 
 IRC: irc.freenode.net #strider
 
-Google Group: https://groups.google.com/d/forum/strider-users
+We are very responsive to Github Issues - please think of them as a message board for the project!
 
-For commercial support & hosting enquiries please email hello@stridercd.com
+Strider is maintained and supported by [FrozenRidge,
+LLC](http://frozenridge.co). For commercial support, customization, integration
+& hosting enquiries please email hi@frozenridge.co.
 
 
 <a name="gettingstarted" />
