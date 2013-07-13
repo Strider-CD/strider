@@ -12,6 +12,16 @@ body{
 
 }
 
+.github-link {
+  margin-left: 10px;
+}
+
+.configure-action i {
+  margin-top: 4px;
+  display: inline-block;
+  margin-left: 5px;
+}
+
 .docs-section {
   padding-top: 40px;
 }
