@@ -7,7 +7,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title class='StriderBlock_title'>{% pluginblock title %}Strider: Brilliant Continuous Deployment{% endpluginblock %}</title>
-    <link rel="shortcut icon" href="favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
     {% include "bootstrap.html" %}
     <script src='/javascripts/lib/jquery.timeago.js'></script>
     {% pluginblock AfterHead %}{% endpluginblock %}
@@ -31,6 +31,7 @@
               <li><a href="/">Dashboard</a></li>
 
               {% if currentUser %}
+                <li><a href="/add_repo">Projects</a></li>
                 <li><a href="/account">Account</a></li>
                 {% if currentUser.account_level > 0 %}
                   <li class='dropdown'>

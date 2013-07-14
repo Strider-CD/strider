@@ -96,7 +96,7 @@ exports.latest_build = function(req, res)
         triggered_by_commit = true;
       }
 
-      results[0].output = filter(results[0].stdmerged);
+      results[0].output = results[0].stdmerged ? filter(results[0].stdmerged) : '';
 
       res.render('latest_build.html',
         {
