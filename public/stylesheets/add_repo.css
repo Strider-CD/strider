@@ -1,0 +1,36 @@
+
+.project .span10 {
+  margin-top: 5px;
+  margin-bottom: -5px;
+}
+
+.project .description {
+  margin-left: 20px;
+  display: none;
+}
+
+.project p {
+  margin-bottom: 0;
+}
+
+.project a.github-link {
+  margin-left: 10px;
+}
+
+.project a.config-link {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.project:hover .description {
+  display: inline;
+}
+
+.has-switch label,
+.has-switch span {
+  height: inherit;
+}
+
+#dashboard hr {
+  margin: 10px 0;
+}

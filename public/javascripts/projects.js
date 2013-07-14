@@ -65,7 +65,7 @@ $(function() {
   // One repository from /api/github/metadata
   window.Repo = Backbone.Model.extend({
     short_url: function() {
-      return this.get('html_url').replace(/https:\/\/github.com/gi, '');
+      return this.get('html_url').replace(/https:\/\/github.com\//gi, '');
     },
 
     defaults: function() {
@@ -110,13 +110,57 @@ $(function() {
       $(this.el).find(".test-and-deploy-action").click($.proxy(function() {
         startJob(this.model.attributes.html_url, "TEST_AND_DEPLOY");
       }, this));
+
+      var self = this;
+      $('.switcher', this.el).bootstrapSwitch()
+        .on('switch-change', function (e, what) {
+          if (what.value) {
+            if (data.configured) {
+              return;
+            }
+            window.location = '/kickoff/' + self.model.id;
+            return;
+          }
+          // deactivate? don't know
+          bootbox.confirm('Really delete ' + data.short_url + ' configuration?', function (value) {
+            if (value) {
+              // make it loading?
+              deleteProject(data.html_url);
+              data.configured = false;
+              $('.config-link').replaceWith('<span>' + data.short_url + '</span>');
+            } else {
+              $('.switcher', self.el)
+                .bootstrapSwitch('setState', true);
+            }
+          });
+        });
+          
       return this;
     }
-
 
   });
 
 
+  // Delete a project
+  function deleteProject(url, next) {
+    $.ajax({
+      url: "/api/repo",
+      type: "DELETE",
+      data: {url: url},
+      success: function(data, ts, xhr) {
+        console.log('done');
+        next && next();
+      },
+      error: function(xhr, ts, e) {
+        if (xhr && xhr.responseText) {
+          var data = $.parseJSON(xhr.responseText);
+          console.log("Error deleting project: " + data.errors[0], "alert-error");
+        } else {
+          console.log("Error deleting project: " + e, "alert-error");
+        }
+      }
+    });
+  }
 
   // Represents the whole JS dashboard App
   window.DashboardAppView = Backbone.View.extend({

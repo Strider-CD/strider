@@ -51,8 +51,8 @@ $(function() {
       });
 
       var previous_duration = 600;
-      if (job !== undefined || job.get('duration') === "N/A") {
-       var previous_duration = job.get('duration');   
+      if (job !== undefined && job.get('duration') === "N/A") {
+       previous_duration = job.get('duration');   
       }
       
       var current_duration = Math.round(data.time_elapsed);
@@ -99,6 +99,8 @@ $(function() {
     
     job.set('duration_text', "TBD");
     job.set('finished_at',"<i>In Progress</i>");
+    job.set('finished_timestamp', false);
+    job.set('triggered_by_commit', false);
     job.set('success',"TBD");
     job.set('success_text',"TBD");
     job.set("created_timestamp",new Date());
@@ -178,6 +180,10 @@ $(function() {
       if (!this.model.get('duration_text')) {
         this.model.set('duration_text', this.model.get('duration'));
       }
+      if (!this.model.get('job_url')) {
+        this.model.set('job_url', '/' + this.model.get('project_name') + '/latest_build');
+        this.model.set('job_id', 'Pending');
+      }
       $(this.el).html(this.template(this.model.toJSON()));
       $(this.el).find(".test-only-action").click($.proxy(function() {
         startJob(this.model.attributes.repo_url, "TEST_ONLY");
@@ -240,6 +246,12 @@ $(function() {
       $("#job-list .empty").remove();
       if (JobList.length > 0){
         JobList.each(function(job) {
+          if (!job.get('finished_timestamp')) {
+            job.set('finished_timestamp', false);
+          }
+          if (!job.get('triggered_by_commit')) {
+            job.set('triggered_by_commit', false);
+          }
           var view = new JobView({model: job});
           var jobel = view.render().el;
           $("#job-list").append(jobel);
