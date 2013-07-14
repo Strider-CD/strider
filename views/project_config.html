@@ -1,7 +1,26 @@
 {% extends "base.html" %}
-
+{% set apres = true %}
 {% block bodyContent %}
 <script data-main="/apres/js/lib/apres-dev.js" src="/apres/js/lib/require-1.0.8.js"></script>
+<div id="build-badge-modal" class="modal fade">
+  <div class="modal-header">
+    <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
+    <h3>Build Badge</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered">
+      <tbody>
+        <tr class="row-fluid">
+          <td>Image URL:</td>
+          <td><input class="span12" value="{{badge_url}}"/></td>
+        </tr>
+        <tr class="row-fluid">
+          <td>Markdown:</td>
+          <td><input class="span12" value="[![Build Status]({{badge_url}})]({{badge_url}})"/></td>
+      </tbody>
+    </table>
+  </div>
+</div>
 <div id="remove-github-webhooks-modal" class="modal fade"></div>
 <script id="remove-github-webhooks-template" type="text/template" class="template">
   <div class="modal-header">
@@ -204,6 +223,7 @@
   </tr>
 </script>
 <div class="span12">
+  <a href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right">Build Badge</a>
   <h3>Configuration - <a href="latest_build" class="header-emphasis">{{display_name}}</a></h3>
   <p>
     <div class="tabbable tabs-left">
