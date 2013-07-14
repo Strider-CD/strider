@@ -242,6 +242,8 @@ exports.jobs = function(req, res) {
 
         });
         l.sort(function(a, b) {
+          if (!a.finished_timestamp || !a.finished_timestamp.getTime) return true;
+          if (!b.finished_timestamp || !b.finished_timestamp.getTime) return false;
           return a.finished_timestamp.getTime() < b.finished_timestamp.getTime();
         });
         // look at l
