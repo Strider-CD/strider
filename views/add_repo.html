@@ -1,7 +1,26 @@
 {% extends "base.html" %}
 
+{% pluginblock ExtraStyles %}
+<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
+<link rel="stylesheet" href="/stylesheets/add_repo.css"/>
+{% endpluginblock %}
+
 
 {% block bodyContent %}
+  <div id="confirm-delete-project" class="modal fade">
+    <div class="modal-header">
+      <button data-dismiss="modal" class="close"></button>
+      <x></x>
+      <h3>Delete <span class="project-name"></span> Configuration?</h3>
+    </div>
+    <div class="modal-body">
+      <p>Are you sure you want to delete <span class="project-name"></span>?</p>
+    </div>
+    <div class="modal-footer">
+      <a data-dismiss="modal" class="btn">No</a>
+      <a class="btn btn-primary btn-delete-project">Yes, I'm sure</a>
+    </div>
+  </div>
 
 {% if !currentUser.github.id %}
 <div class ='span7 well'>
@@ -21,6 +40,8 @@
   {% include "projects_templates.html" %}
   <script src='/socket.io/socket.io.js'></script>
   <div id="dashboard"></div>
+  <script src="/javascripts/lib/bootstrap-switch.js"></script>
+  <script src="/javascripts/lib/bootbox.min.js"></script>
   <script src="/javascripts/projects.js"></script>
   <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
 

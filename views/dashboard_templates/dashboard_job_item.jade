@@ -59,7 +59,9 @@ script.template#dashboard-job-item(type="text/template")
         .span6
           #finished-at
             strong Finished: 
+            <% if (finished_timestamp) { %>
             time.timeago(data-toggle='tooltip', data-placement='right', datetime!='<%= finished_timestamp %>')
+            <% } else { %> <em>In Progress</em> <% } %>
         .span6
           #build-duration
             strong Running Time: 
