@@ -1,0 +1,22 @@
+  SettingsManager, when initialized
+    with a single item
+      ✓ should retrieve 
+      ✓ should set & retrieve 
+    with a nested item
+      ✓ should be accessible as a.b 
+      ✓ should inherit type when not specified 
+      ✓ should not inherit type when specified 
+      ✓ should only include settings in the json 
+    with multiple items
+      ✓ should serialize 
+      ✓ should load 
+      ✓ should getList 
+      ✓ should getHash 
+      ✓ should getHaskKeys 
+    with a sub
+      ✓ should add things namespaced 
+      ✓ should getList namespaced 
+
+
+  13 passing (7 ms)
+
