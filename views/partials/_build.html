@@ -1,172 +1,85 @@
 {% include "partials/spinnermsg.html" %}
 
-<div class='row-fluid job-wrap'>
-  <div class='job-details'>
-  {% pluginblock JobPagePreCols %}
-  {% endpluginblock %}
-  <div class='span8 job-left-col'>
-    <div class='row-fluid'>
-      <div class='span12'>
-        <div id='spinner' class='alert alert-info'>
-        </div>    
-      </div>
-    </div>
-    <div class='row-fluid' id='build-metadata'>
-      <div class='span2'>
-        {% if results_detail.test_exitcode!=0 %}
-          <h3 class='failure-text'>FAILURE</h3>
-        {% else %}
-          <h3 class='success-text'>SUCCESS</h3>
-        {% endif%}
-      </div>
-      <div class='span10'>
-          {% include "partials/_build_results_detail.html" %}
-      </div>
-    </div>
+<script src="/javascripts/lib/angular.js"></script>
 
-    <div class='row job-pre-console'>
-      <div class='span12 job-pre-console-inner'>
-        {% pluginblock JobPagePreConsole %}
-        {% endpluginblock %}
-        <br />
-      </div>
-    </div>
-
-    <div class='row job-console-container'>
-      <div class='span12'>
-      {%autoescape false %}
-        <pre class='console-output'>{{ results_detail.output }}</pre>
-      {%endautoescape %}
-      </div>
-    </div>
-  </div>
-
-  <div class='span4 job-detail-sidebar'>
-    <div id='build-detail-buttons'>
-      {% if !admin_view %}
-        <a class='btn btn-primary test'>Test</a>
-      {% endif %}
-      {% if has_prod_deploy_target %}
-        <a class='btn btn-info deploy'>Deploy</a>
-      {% endif %}
-      <a class='btn' href="/{{ org }}/{{ repo }}/config">Configure</a>
-    </div>
-    <div id='list-of-builds'>
-      <div class='row-fluid build-list-header'>
-        <div class='span12'>
-          <h3>Build History</h3>
-          <em class='header-emphasis'>{{ org }}/{{ repo }}:</em>
-        </div>
-      </div>
-      {% for job in jobs %} 
-      <div class='row-fluid build-list-item'>
-        <div class='span1'>
-          <a href={{ job.url }} title="View Build Detail">
-          {% if job.test_exitcode!=0 %}
-            <i class='icon-remove icon-red'></i>
-          {% else %}
-            <i class='icon-ok icon-green'></i>
-          {% endif %}
-          </a>
-        </div>
-        {% include "partials/_build_history_item.html" %}
-      </div>
-      {% endfor %}
-      </div>
-  </div>
-</div>
-</div>
-        
-<script type="text/javascript">
-$(document).ready(function() {
-  function status_msg(msg, alertclass, templateselector) {
-    var el;
-    if (templateselector === undefined) {
-      el = $("#job-output");
-    } else {
-      el = $(templateselector);
-
-    }
-    $("#spinner").html(_.template(el.html(), {message:msg}));
-    $("#spinner").removeClass().addClass("alert alert-"+alertclass);
-    $("#spinner").show();
-  }
-  if (window.socket === undefined) {
-    window.socket = io.connect();
-    var started = false;
-    window.socket.on('start', function(data) {
-      if (data.repo_url === "{{repo_url}}") {
-        $("pre.console-output").html("");
-        $("#build-metadata").hide();
-        status_msg("Running job...", "info", "#spinner-msg");
-        started = true;
-      }
-    });
-    window.socket.on('update', function(data) {
-      if (data.repo_url === "{{repo_url}}") {
-        if (!started) {
-          $("pre.console-output").html("");
-          status_msg("Running job...", "info", "#spinner-msg");
-          started = true;
-        }
-        $("pre.console-output").append(data.msg);
-        var offset = $('pre.console-output').prop('scrollHeight');
-        $('pre.console-output').scrollTop(offset);
-        $("a.btn.test").attr('disabled', 'disabled');
-        $("a.btn.deploy").attr('disabled', 'disabled');
-        $("#build-metadata").hide();
-      }
-    });
-    window.socket.on('done', function(data) {
-      if (data.repo_url === "{{repo_url}}") {
-        $("pre.console-output").append(data.msg);
-        var offset = $('pre.console-output').prop('scrollHeight');
-        $('pre.console-output').scrollTop(offset);
-        window.location = window.location;
-      }
-    });
-  }
-  window.startJob = function(url, job_type) {
-    // Default job type is TEST_AND_DEPLOY
-    if (job_type === undefined) {
-      job_type = "TEST_AND_DEPLOY";
-    }
-
-    var data = {url:url, type:job_type};
-
-    $.ajax("/api/jobs/start", {
-      data: data,
-      dataType: "text",
-      error: function(xhr, ts, e) {
-        var job = JobList.find(function(item) {
-          return item.get('repo_url') === url;
-        });
-        if (job !== undefined) {
-          startProgressMeter(job);
-        }
-      },
-      success: function(data, ts, xhr) {
-
-      },
-      type: "POST"
-    });
-  };
-
-    $("a.btn.deploy").click(function() {
-      startJob( '{{ repo_url}}' );
-      $("a.btn.deploy").attr('disabled', 'disabled');
-      $("a.btn.test").attr('disabled', 'disabled');
-      status_msg("Job submitted...", "info", "#spinner-msg");
-    });
-
-    $("a.btn.test").click(function() {
-        startJob( "{{repo_url}}" , "TEST_ONLY");
-      $("a.btn.test").attr('disabled', 'disabled');
-      $("a.btn.deploy").attr('disabled', 'disabled');
-      status_msg("Job submitted...", "info", "#spinner-msg");
-    });
-    var offset = $('pre.console-output').prop('scrollHeight');
-    $('pre.console-output').scrollTop(offset);
-  });
+<script>
+  var job = {{ job | json_encode() | raw }};
+  job.status = job.test_exitcode === 0 ? 'success' : 'failure';
 </script>
+<script>
+  var repo = {{ repo_config | json_encode() | raw }};
+</script>
+<div class='app' ng-app="JobStatus">
+  <div class='row-fluid job-wrap' ng-controller="JobCtrl">
+      {% pluginblock JobPagePreCols %}
+      {% endpluginblock %}
+      <div class='span8 job-left-col'>
+        <div class='row-fluid'>
+          <div class='span12'>
+            <div id='spinner' class='alert alert-info' ng-show="job.status === 'running' || job.status === 'submitted'">
+              <img class='spinner' src="/images/spinner.gif" />
+              <span ng-switch="job.status">
+                <span ng-switch-when="running">Running job...</span>
+                <span ng-switch-when="submitted">Job submitted...</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class='row-fluid [[ job.status ]]' id='build-metadata' ng-hide="job.status === 'running' || job.status === 'submitted'">
+          <div class='span3' ng-switch="job.status">
+            <h3 class='failure-text' ng-switch-when="failure">FAILURE</h3>
+            <h3 class='success-text' ng-switch-when="success">SUCCESS</h3>
+            <div class="btn-group">
+              {# what's admin-view for? #}
+              <button ng-hide="admin-view" class='btn btn-warning test' ng-click="startTest()"
+                      ng-disabled="job.status === 'running'" data-toggle="tooltip"
+                      title="Start a Test"><i class="icon-refresh"></i></button>
+              <button ng-show="repo.has_prod_deploy_target" class='btn btn-info deploy' ng-click="startDeploy()"
+                      ng-disabled="job.status === 'running'" data-toggle="tooltip" title="Test & Deploy">
+                <i class="icon-share-alt"></i>
+              </button>
+              <a class='btn' href="config" data-toggle="tooltip" title="Configure"><i class="icon-cog"></i></a>
+            </div>
+          </div>
+          <div class='span9' ng-hide="job.status === 'running'">
+            {% include "partials/_build_results_detail.html" %}
+          </div>
+        </div>
 
+        <div class='row job-pre-console'>
+          <div class='span12 job-pre-console-inner'>
+            {% pluginblock JobPagePreConsole %}
+            {% endpluginblock %}
+          </div>
+        </div>
+
+        <div class='job-console-container'>
+          <pre class='console-output' ng-bind-html-unsafe="job.output"></pre>
+        </div>
+      </div>
+
+      <div class='span4 job-detail-sidebar pull-right'>
+        <div class='build-list-header'>
+          <h3>Past Builds</h3>
+        </div>
+        <div id='list-of-builds'>
+          {% for old in jobs %} 
+          <div class='row-fluid build-list-item'>
+            <div class='span1'>
+              <a href="{{ old.url }}" title="View Build Detail">
+                {% if old.test_exitcode!=0 %}
+                <i class='icon-remove icon-red'></i>
+                {% else %}
+                <i class='icon-ok icon-green'></i>
+                {% endif %}
+              </a>
+            </div>
+            {% include "partials/_build_history_item.html" %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+  </div>
+</div>
+
+<script src="/javascripts/pages/build.js"></script>
