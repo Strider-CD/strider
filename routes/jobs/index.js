@@ -13,6 +13,7 @@ var  _ = require('underscore')
    , Step = require('step')
    , Job = require(BASE_PATH + 'models').Job
    , User = require(BASE_PATH + 'models').User
+   , utils = require(BASE_PATH + 'utils')
    ;
 
 function lookup(case_insensitive_url, cb) {
@@ -35,7 +36,6 @@ function lookup(case_insensitive_url, cb) {
     return cb(null, repo);
   });
 };
-
 
 /*
  * GET /org/repo/latest_build - view latest build for repo
@@ -96,15 +96,18 @@ exports.latest_build = function(req, res)
         triggered_by_commit = true;
       }
 
-      results[0].output = results[0].stdmerged ? filter(results[0].stdmerged) : '';
+      var job = utils.sanitizeJob(results[0]);
+      var saferepo = utils.sanitizeRepo(repo_config);
 
       res.render('latest_build.html',
         {
           admin_view: false,
           jobs: results,
           results_detail: results[0],
+          job: job,
           triggered_by_commit: triggered_by_commit,
           org:org,
+          repo_config: saferepo,
           repo:repo,
           repo_url:repo_config.url,
           has_prod_deploy_target:repo_config.has_prod_deploy_target
@@ -258,10 +261,14 @@ exports.job = function(req, res)
           results_detail.output = filter(results_detail.stdmerged);
         }
 
+        var job = utils.sanitizeJob(results_detail);
+        job.triggered_by_commit = triggered_by_commit;
         res.render('job.html',
           {
             admin_view: false,
             jobs: results,
+            job: job,
+            repo_config: utils.sanitizeRepo(this.repo_config),
             results_detail: results_detail,
             job_id:results[0].id.substr(0,8),
             triggered_by_commit: triggered_by_commit,
@@ -270,9 +277,7 @@ exports.job = function(req, res)
             repo_url:this.repo_config.url,
             has_prod_deploy_target:this.repo_config.has_prod_deploy_target
           });
-
       }
     }
   );
-
 };

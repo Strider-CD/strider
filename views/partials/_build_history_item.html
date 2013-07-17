@@ -1,14 +1,14 @@
 <div class='span11'>
   <div class='row-fluid'>
     <div class='span6'>
-      <a href="{{ job.url }}"> {{ job.id }}</a>
+      <a href="{{ old.url }}"> {{ old.id }}</a>
     </div>
     <div class="span6">
       <div class="build-item-committer">
-        {% if job.triggered_by_commit && job.committer_is_username %}
-          <a href="https://github.com/{{job.committer}}">{{ job.committer }}</a> 
-        {% else if job.triggered_by_commit %}
-          | {{ job.committer }}
+        {% if old.triggered_by_commit && old.committer_is_username %}
+          <a href="https://github.com/{{old.committer}}">{{ old.committer }}</a> 
+        {% else if old.triggered_by_commit %}
+          | {{ old.committer }}
           {% else %}
           | N/A
         {% endif %}
@@ -17,11 +17,11 @@
   </div>
   <div class='row-fluid'>
     <div class='span6'>
-      | {{ job.finished_at }}
+      | {{ old.finished_at }}
     </div>
     <div class='span6'>
       <div class='build-item-duration'>
-        <strong> {{ job.duration }}s</strong>
+        <strong> {{ old.duration }}s</strong>
       </div>
     </div>
   </div>

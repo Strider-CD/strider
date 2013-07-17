@@ -13,7 +13,7 @@
     {% pluginblock AfterHead %}{% endpluginblock %}
     {% pluginblock ExtraStyles %}{% endpluginblock %}
   </head>
-  <body>
+  <body class="{% block bodyclass %}{% endblock %}">
     <div class='wrap'>
     <div class="navbar navbar-fixed-top">
       {% pluginblock TopNav %}
