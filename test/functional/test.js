@@ -65,6 +65,7 @@ describe('functional', function() {
   }
 
   before(function(done) {
+    this.timeout(10000);
     // Inject the test config
     common.workerMessageHooks = [];
     common.workerMessagePostProcessors = [];
