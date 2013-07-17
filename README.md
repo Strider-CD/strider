@@ -5,6 +5,7 @@
 
 
 ![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
+[![NPM](https://nodei.co/npm/strider.png)](https://nodei.co/npm/strider/)
 
 Overview
 ========
