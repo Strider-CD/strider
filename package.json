@@ -44,7 +44,8 @@
     "sandboxed-module": ">=0.1.2",
     "should": "~1.2.2",
     "sinon": "~1.6.0",
-    "commander": ">=0.5.2"
+    "commander": ">=0.5.2",
+    "chai": "~1.7.2"
   },
   "scripts": {
     "test": "node_modules/mocha/bin/mocha -R tap && node_modules/mocha/bin/mocha -R tap test/functional/test.js",
