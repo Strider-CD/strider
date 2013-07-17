@@ -1,8 +1,8 @@
-{% if triggered_by_commit %}
-  <div class='row-fluid'>
+<div ng-switch="job.triggered_by_commit">
+  <div class='row-fluid' ng-switch-when="true">
     <div class='span1'>
-      <a href="https://github.com/{{ results_detail.github_commit_info.author.username }}">
-        <img src="{{ results_detail.gravatar_url }}&s=40'" class='gravatar' />
+      <a href="https://github.com/[[ job.github_commit_info.author.username ]]">
+        <img ng-src="[[ results_detail.gravatar_url ]]&s=40'" class='gravatar' />
       </a>
     </div>
     <div class='span11'>
@@ -10,53 +10,49 @@
         <div class='span6'>
           <div class='repo-branch'>
             <strong>Branch:</strong>
-            <a>master</a>
+            <a href="[[ job.repo_url ]]">master</a>
           </div>
         </div>
         <div class='span6'>
           <div id="commit-id">
             <strong>Commit-ID:</strong>
-            <a href="https://github.com/{{ org }}/{{ repo }}/commit/{{ results_detail.github_commit_info.id }}"> {{ results_detail.github_commit_info.id }}</a>
+            <a href="[[ job.repo_url ]]/commit/[[ job.github_commit_info.id ]]">[[ job.github_commit_info.id ]]</a>
           </div>
         </div>
       </div>
       <div class='row-fluid' id ="repo-branch">
-        <strong> 
-          {% if results_detail.committer_is_username %}
-          <a href="https://github.com/{{ results_detail.committer }}"> {{ results_detail.committer }}</a>
-            {% else %}
-          | {{ results_detail.committer }}
-          {% endif %}
+        <strong ng-switch="job.committer_is_username"> 
+          <a ng-switch-when="true" href="https://github.com/[[ job.committer ]]">[[ job.committer ]]</a>
+          <span ng-switch-when="false">| [[ job.committer ]]</span>
         </strong>
-        | :&nbsp; {{ results_detail.github_commit_info.message }}
+        | :&nbsp; [[ job.github_commit_info.message ]]
       </div>
     </div>
   </div>
-{% else %}
-  <div class='row-fluid'>
+  <div class='row-fluid' ng-switch-default>
      <div class='span6'>
        <div id="repo-branch">
          <strong>Branch:</strong>
-         <a>master</a>
+         <a href="[[ job.repo_url ]]">master</a>
        </div>
     </div>
     <div class='span6'>
       <div id="commit-id">
         <strong>Job:</strong> 
-        <a href="/{{ org }}/{{ repo }}/job/{{ results_detail.id}}">{{ results_detail.id }}</a>
+        <a href="[[ job.url ]]">[[ job.id ]]</a>
        </div>
     </div>
   </div>
-{% endif %}
-  <div class='row-fluid results-detail-times'>
-    <div class='span6'>
-      <div id="finished-at">
-        <h3>{{ results_detail.finished_at }}</h3>
-      </div>
-    </div>
-    <div class='span6'>
-      <div id="build-duration">
-        <h3>{{ results_detail.duration }}s</h3>
-      </div>
+</div>
+<div class='row-fluid results-detail-times'>
+  <div class='span6'>
+    <div id="finished-at">
+      <h3>[[ job.finished_at ]]</h3>
     </div>
   </div>
+  <div class='span6'>
+    <div id="build-duration">
+      <h3>[[ job.status === 'running' ? 'running' : job.duration + 's' ]]</h3>
+    </div>
+  </div>
+</div>

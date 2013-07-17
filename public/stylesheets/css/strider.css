@@ -64,6 +64,9 @@ footer p {
 .header-emphasis {
   color: #455b87;
 }
+.job-pre-console {
+  margin-top: 15px;
+}
 .job-list {
   border: 1px solid;
   border-radius: 3px;
@@ -84,14 +87,24 @@ footer p {
 }
 #build-metadata {
   padding: 8px;
-  border: 1px solid;
   border-radius: 3px;
 }
+#build-metadata.failure {
+  background-color: #fac;
+}
+#build-metadata.success {
+  background-color: #cfb;
+}
+#build-metadata.running {
+  background-color: #feb;
+}
 #list-of-builds {
-  border: 1px solid;
-  border-radius: 3px;
-  margin-left: 10px;
-  margin-top: 10px;
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  overflow: auto;
 }
 #build-detail-buttons {
   border: 1px solid;
@@ -100,16 +113,13 @@ footer p {
   padding: 10px;
 }
 .build-list-item {
-  width: 90%;
-  border: 1px solid;
-  border-radius: 3px;
+  width: auto;
   padding: 5px;
-  margin: 10px;
+  border-bottom: 1px solid #CCB;
 }
 .build-list-header {
   width: 90%
-  padding: 5px;
-  margin: 10px;
+  padding: 15px;
 }
 #commit-id,
 .build-item-committer {
@@ -275,8 +285,12 @@ hero-vsub-unit label {
   body {
     background-color: #eee;
   }
-  body {
+  body .wrap {
     padding-top: 40px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: -80px;
+    padding-bottom: 80px;
     /* 40px to make the container go all the way to the bottom of the topbar */
   
   }
@@ -326,11 +340,14 @@ hero-vsub-unit label {
   display: none;
 }
 pre.console-output {
-  width: 96%;
-  height: 350px;
   overflow: auto;
   background-color: black;
   color: white;
+  position: absolute;
+  top: 85px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 pre.console-output-segment {
   width: 96%;
@@ -475,4 +492,74 @@ span.underline {
 #pricing_action {
   text-align: center;
   padding-top: 30px;
+}
+
+/** job view styling **/
+
+body.job_view .body-content {
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  overflow: visible;
+  left: 20px;
+  right: 20px;
+  min-height: 300px;
+}
+
+body.job_view .job-left-col,
+body.job_view .job-detail-sidebar {
+  position: absolute;
+  top: 30px;
+  bottom: 10px;
+  overflow-y: auto;
+  overflow-x: visible; 
+}
+
+body.job_view #spinner {
+  display: inherit;
+}
+
+body.job_view .job-detail-sidebar {
+  right: 0;
+}
+
+body.job_view .job-left-col div {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body.job_view .job-left-col {
+  left: 0;
+}
+
+body.job_view .wrap {
+  min-height: 0 !important;
+}
+
+body.job_view footer {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  pre.console-output {
+    position: static;
+    max-height: 500px; 
+  }
+  body.job_view .job-left-col,
+  body.job_view #list-of-builds,
+  body.job_view .job-detail-sidebar,
+  body.job_view .body-content {
+    position: static;
+  }
+  body.job_view #build-metadata .span3 {
+    display: inline-block;
+  }
+  body.job_view #build-metadata .span9 {
+    width: 75%;
+    float: right;
+  }
+  body.job_view #list-of-builds .span6:first-child,
+  body.job_view #build-metadata .span6:first-child {
+    float: left;
+  }
 }
