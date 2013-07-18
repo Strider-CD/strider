@@ -47,38 +47,75 @@ function parseMongoURI(uri) {
   };
 }
 
-describe('functional', function() {
-
-  function importCollection(name, file, cb) {
-    var db_data = {
-      name: path.basename(config.db_uri)
-    };
-    // Load the test data
-    console.log("Loading test data ...");
-    if (process.env.MONGODB_URI !== undefined) {
-      db_data = parseMongoURI(process.env.MONGODB_URI);
-    }
-    if (process.env.MONGODB_USER !== undefined) {
-      db_data.user = process.env.MONGODB_USER;
-    }
-    if (process.env.MONGODB_PASSWORD !== undefined) {
-      db_data.password = process.env.MONGODB_PASSWORD;
-    }
-    var cmd = "mongoimport --drop -c " + name + " ";
-    if (db_data.user && db_data.password) {
-      cmd = cmd + " -u " + db_data.user + " -p " + db_data.password;
-    }
-    if (db_data.host !== undefined) {
-      cmd += ' --host ' + db_data.host;
-    }
-    if (db_data.port !== undefined) {
-      cmd = cmd + " --port " + db_data.port;
-    }
-    cmd = cmd + " -d " + db_data.name + " --file " + __dirname + "/" + file;
-
-    console.log("Loading data with command: %s", cmd);
-    exec(cmd, cb);
+function toModel(collectionName) {
+  var name = toTitleCase(collectionName);
+  if (models[name]) {
+    return models[name];
+  } else if (models[name.slice(0, -1)]) {
+    return models[name.slice(0, -1)];
   }
+  throw Error('model for collection ' + collectionName + ' not found');
+}
+
+function toTitleCase(name) {
+  return name[0].toUpperCase() + name.slice(1);
+}
+
+function fake_mongo_import(name, fname, cb) {
+  var text = fs.readFileSync(fname).toString('utf8').replace(/\n/g, ',\n')
+    , data = JSON.parse('[' + text.slice(0, -2) + ']')
+    , model = toModel(name);
+  model.remove({}, function (err) {
+    if (err) return cb(err);
+    model.create(data, cb);
+  });
+}
+
+var has_mongo_import = true;
+function importCollection(name, file, cb) {
+  var filepath = path.join(__dirname, file)
+    , db_data = {
+        name: path.basename(config.db_uri)
+      };
+  // Load the test data
+  console.log("Loading test data ...");
+  if (process.env.MONGODB_URI !== undefined) {
+    db_data = parseMongoURI(process.env.MONGODB_URI);
+  }
+  if (process.env.MONGODB_USER !== undefined) {
+    db_data.user = process.env.MONGODB_USER;
+  }
+  if (process.env.MONGODB_PASSWORD !== undefined) {
+    db_data.password = process.env.MONGODB_PASSWORD;
+  }
+  var cmd = "mongoimport --drop -c " + name + " ";
+  if (db_data.user && db_data.password) {
+    cmd = cmd + " -u " + db_data.user + " -p " + db_data.password;
+  }
+  if (db_data.host !== undefined) {
+    cmd += ' --host ' + db_data.host;
+  }
+  if (db_data.port !== undefined) {
+    cmd = cmd + " --port " + db_data.port;
+  }
+  cmd = cmd + " -d " + db_data.name + " --file " + filepath;
+
+  console.log("Loading data with command: %s", cmd);
+  if (has_mongo_import) {
+    exec(cmd, function (err, stdout, stderr) {
+      if (err && err.code === 127) { // no mongoimport available
+        has_mongo_import = false;
+        return fake_mongo_import(name, filepath, cb);
+      }
+      cb.apply(null, arguments);
+    });
+  } else {
+    fake_mongo_import(name, filepath, cb);
+  }
+}
+
+
+describe('functional', function() {
 
   before(function(done) {
     this.timeout(10000);
