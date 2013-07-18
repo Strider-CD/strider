@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+{% block favicon %}
+{%- if job.test_exitcode === 0 -%}
+/images/icons/favicon-success.png
+{%- else -%}
+/images/icons/favicon-failure.png
+{%- endif -%}
+{% endblock %}
+
 {% block bodyclass %}job_view{% endblock %}
 
 {% block bodyContent %}
