@@ -30,6 +30,7 @@ major differences:
 
 ## README Contents
 
+- [Docker quickstart](#docker-quickstart)
 - [Running on Infrastructure](#infrastructure)
     - [Configuring](#configuring)
     - [Adding Users](#adduser)
@@ -41,6 +42,10 @@ major differences:
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
     - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
     - [strider-custom.json configuration](#strider-customjson-configuration)
+
+<a name="docker-quickstart" />
+## Docker Quickstart
+For a fully self-contained and pre-built strider installation, check out [Strider in a box](https://github.com/Strider-CD/strider-dockerfile#docker--strider--winning), made possible by the incredible [docker](http://docker.io) project.
 
 
 <a name="infrastructure" />
