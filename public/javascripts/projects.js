@@ -101,7 +101,8 @@ $(function() {
 
     render: function() {
 
-      var data = this.model.toJSON();
+      var data = this.model.toJSON()
+        , self = this;
       data.short_url = this.model.short_url();
       $(this.el).html(this.template(data)).addClass('project');
       $(this.el).find(".test-only-action").click($.proxy(function() {
@@ -111,7 +112,6 @@ $(function() {
         startJob(this.model.attributes.html_url, "TEST_AND_DEPLOY");
       }, this));
 
-      var self = this;
       $('.switcher', this.el).bootstrapSwitch()
         .on('switch-change', function (e, what) {
           if (what.value) {
@@ -127,7 +127,7 @@ $(function() {
               // make it loading?
               deleteProject(data.html_url);
               data.configured = false;
-              $('.config-link').replaceWith('<span>' + data.short_url + '</span>');
+              $('.config-link', self.el).replaceWith('<span>' + data.short_url + '</span>');
             } else {
               $('.switcher', self.el)
                 .bootstrapSwitch('setState', true);
