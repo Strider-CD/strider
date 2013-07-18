@@ -32,33 +32,49 @@ var TEST_USERS = {
   "test3@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()}
 };
 
+// parses a uri of the form mongodb://user:pass@host:post/dbname
+function parseMongoURI(uri) {
+  var db_name = uri.slice(uri.lastIndexOf('/') + 1);
+  uri = uri.slice(uri.indexOf('://') + 3, uri.lastIndexOf('/'));
+  var parts = uri.split('@');
+  var db_host = parts[1];
+  var authparts = parts[0].split(':');
+  return {
+    name: db_name,
+    host: db_host,
+    user: authparts[0],
+    password: authparts[1]
+  };
+}
+
 describe('functional', function() {
 
   function importCollection(name, file, cb) {
-    var db_name = path.basename(config.db_uri);
-    var db_port;
+    var db_data = {
+      name: path.basename(config.db_uri)
+    };
     // Load the test data
     console.log("Loading test data ...");
-    var user, password;
+    if (process.env.MONGODB_URI !== undefined) {
+      db_data = parseMongoURI(process.env.MONGODB_URI);
+    }
     if (process.env.MONGODB_USER !== undefined) {
-      user = process.env.MONGODB_USER;
+      db_data.user = process.env.MONGODB_USER;
     }
     if (process.env.MONGODB_PASSWORD !== undefined) {
-      password = process.env.MONGODB_PASSWORD;
-    }
-    if (process.env.MONGODB_URI !== undefined) {
-      var s = process.env.MONGODB_URI;
-      db_name = path.basename(s);
-      db_port = s.slice(s.lastIndexOf(':') + 1, s.lastIndexOf('/'));
+      db_data.password = process.env.MONGODB_PASSWORD;
     }
     var cmd = "mongoimport --drop -c " + name + " ";
-    if (user && password) {
-      cmd = cmd + " -u " + user + " -p " + password;
+    if (db_data.user && db_data.password) {
+      cmd = cmd + " -u " + db_data.user + " -p " + db_data.password;
     }
-    if (db_port !== undefined) {
-      cmd = cmd + " --port " + db_port;
+    if (db_data.host !== undefined) {
+      cmd += ' --host ' + db_data.host;
     }
-    cmd = cmd + " -d " + db_name + " --file " + __dirname + "/" + file;
+    if (db_data.port !== undefined) {
+      cmd = cmd + " --port " + db_data.port;
+    }
+    cmd = cmd + " -d " + db_data.name + " --file " + __dirname + "/" + file;
 
     console.log("Loading data with command: %s", cmd);
     exec(cmd, cb);
@@ -78,7 +94,10 @@ describe('functional', function() {
         importCollection("users", "users.json", this.parallel());
         importCollection("jobs", "jobs.json", this.parallel());
       },
-      function() {
+      function(err, stdout, stderr) {
+        if (err) {
+          throw err;
+        }
         console.log("Test data loaded.");
         server.listen(TEST_PORT);
         console.log("Server is listening on port %s", TEST_PORT);
