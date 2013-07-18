@@ -1,10 +1,27 @@
 
+/**
+var running;
+function runningAnimate(num) {
+  num = num || 0;
+  if (num > 9) num = 0;
+  setFavicon('loading-' + num);
+  running = setTimeout(function () {
+    runningAnimate(num + 1);
+  }, 100);
+}
+**/
+
+function setFavicon(status) {
+  $('link[rel*="icon"]').attr('href', '/images/icons/favicon-' + status + '.png');
+}
+
 angular.module('JobStatus', [], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
 })
   .controller('JobCtrl', ['$scope', '$element', function ($scope, $element) {
     // TODO get this via ajax.
+    // runningAnimate();
     $scope.job = window.job;
     $scope.repo = window.repo;
     $scope.startTest = function () {
@@ -62,6 +79,7 @@ angular.module('JobStatus', [], function ($interpolateProvider) {
 
 function startJob(url, job_type, next) {
   var data = {url:url, type:job_type};
+  setFavicon('running');
 
   $.ajax("/api/jobs/start", {
     data: data,

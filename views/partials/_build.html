@@ -16,7 +16,7 @@
       <div class='span8 job-left-col'>
         <div class='row-fluid'>
           <div class='span12'>
-            <div id='spinner' class='alert alert-info' ng-show="job.status === 'running' || job.status === 'submitted'">
+            <div id='spinner' class='alert alert-info hide' ng-show="job.status === 'running' || job.status === 'submitted'">
               <img class='spinner' src="/images/spinner.gif" />
               <span ng-switch="job.status">
                 <span ng-switch-when="running">Running job...</span>
