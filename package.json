@@ -45,10 +45,11 @@
     "should": "~1.2.2",
     "sinon": "~1.7.0",
     "commander": ">=0.5.2",
-    "chai": "~1.7.2"
+    "chai": "~1.7.2",
+    "jshint": "~2.1.4"
   },
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha -R tap && node_modules/mocha/bin/mocha -R tap test/functional/test.js",
+    "test": "make test",
     "start": "bin/strider"
   },
   "bin": {
