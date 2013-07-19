@@ -69,6 +69,11 @@ angular.module('JobStatus', [], function ($interpolateProvider) {
 
     // Socket update stuff
     var console = document.querySelector('pre.console-output');
+
+    setTimeout(function () {
+      console.scrollTop = console.scrollHeight;
+    }, 10);
+
     io.connect().on('start', function (data) {
       if (data.repo_url != $scope.job.repo_url) return;
       $scope.job = {
