@@ -130,9 +130,9 @@ $(function() {
 
   };
 
-  window.startJob = function(url, job_type) {
+  window.startJob = function(url, job_type, deployable) {
     status_msg("Sending start message...", "info", "#spinner-msg");
-
+    $('.tooltip').hide();
 
     // Default job type is TEST_AND_DEPLOY
     if (job_type === undefined) {
@@ -149,11 +149,12 @@ $(function() {
             .removeClass('alert alert-error alert-success alert-info').addClass('alert alert-error')
             .text(xhr.responseText);
       },
-      success: function(data, ts, xhr) {
+      success: function(newjob, ts, xhr) {
         var job = JobList.find(function(item) {
           return item.get('repo_url') === url;
         });
         status_msg("Running job...", "info", "#spinner-msg");
+        job.set(newjob);
 
         startProgressMeter(job);
       },
@@ -166,6 +167,7 @@ $(function() {
   // Represents an individual Job in the list
   window.JobView = Backbone.View.extend({
     template: _.template($("#dashboard-job-item").html()),
+    tagName: 'tr',
 
     events: {
       // We will have some here eventually.
@@ -186,10 +188,10 @@ $(function() {
       }
       $(this.el).html(this.template(this.model.toJSON()));
       $(this.el).find(".test-only-action").click($.proxy(function() {
-        startJob(this.model.attributes.repo_url, "TEST_ONLY");
+        startJob(this.model.attributes.repo_url, "TEST_ONLY", this.model.attributes.project_deployable);
       }, this));
       $(this.el).find(".test-and-deploy-action").click($.proxy(function() {
-        startJob(this.model.attributes.repo_url, "TEST_AND_DEPLOY");
+        startJob(this.model.attributes.repo_url, "TEST_AND_DEPLOY", this.model.attributes.project_deployable);
       }, this));
       if (this.model.get('in_progress')) {
         $(this.el).find('.bar').width(this.model.get('progress') + "%");

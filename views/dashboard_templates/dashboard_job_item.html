@@ -1,23 +1,95 @@
 
 <script id="dashboard-job-item" type="text/template" class="template">
+  <td class="deploy">
+    <% if (project_deployable && !(success === "N/A" || success === "TBD")) { %>
+    <span data-toggle="tooltip" title="Retest &amp; Deploy" data-delay="200" class="test-and-deploy-action">
+      <i class="icon-cloud-upload"></i>
+    </span>
+    <% } %>
+  </td>
+  <td class="job-link">
+    <a href="<%= job_url %>">
+    <% if (success===true) { %>
+    <i class="icon-check-sign success-text"></i>
+    <% } else if (success === "N/A" || success === "TBD") { %>
+    <i class="icon-cog icon-spin"></i>
+    <% } else { %>
+    <i class="icon-exclamation-sign failure-text"></i>
+    <% } %>
+    <span><%= job_id.substr(0,8) %></span>
+    </a>
+  </td>
+  <td class="refresh">
+    <% if (!(success === "N/A" || success === "TBD")) { %>
+    <span data-toggle="tooltip" title="Retest" data-delay="500" class="test-only-action">
+      <i class="icon-refresh"></i>
+    </span>
+    <% } %>
+  </td>
+  <td class="configure">
+    <a href="/<%= project_name %>/config" data-toggle="tooltip" data-delay="500" title="Configure">
+      <i class="icon-wrench"></i>
+    </a>
+  </td>
+  <td class="project-name">
+    <a href="/<%=project_name%>/latest_build">
+      <%= project_name %>
+    </a>
+  </td>
+  <td class="committer">
+    <% if (triggered_by_commit) {
+         if (committer_is_username) { %>
+    <a href="https://github.com/<%= committer %>">
+      <img src="<%= committer_image %>"/>
+    </a>
+    <% } else { %>
+      <img src="<%= committer_image %>"/>
+    <% }
+       }%>
+  </td>
+  <td class="commit-url">
+    <% if (triggered_by_commit) { %>
+    <a href="<%= "https://github.com/" + project_name + "/commit/" + commit_id %>">
+      <span class="small-text">
+      <%= commit.message %>
+      </span>
+    </a>
+    <% } %>
+  </td>
+  <td class="github-link">
+    <a href="<%=repo_url%>" target="_blank">
+      <i class="icon-github"></i>
+    </a>
+  </td>
+  <td class="run-time">
+    <span class="small-text">
+    <%= (duration_text === 'N/A' || duration_text === 'TBD') ? '' : duration_text + 's' %>
+    </span>
+  </td>
+  <td class="finished-at">
+    <% if (finished_timestamp) { %>
+    <span class="small-text">
+      <time data-toggle="tooltip" data-placement="top" datetime="<%= finished_timestamp %>" class="timeago"></time>
+    </span>
+    <% } else { %>
+    <div class="progress-meter">
+      <div class="progress progress-striped active progress-info">
+        <div class="bar"></div>
+      </div>
+    </div>
+    <% } %>
+  </td>
+    
+  <!--
   <div class="row-fluid build">
     <div class="span2">
-      <div class="btn-group dashboard-button">
-        <% if (success===true) {%>
-          <a href="<%= "/" + project_name + "/latest_build" %>" class="btn btn-success">View</a>
-        <% } else if (success==="N/A") { %>
-          <a class="btn btn-primary test-only-action" href="javascript:;">Test </a>
-        <% } else {%>
-          <a href="<%= "/" + project_name + "/latest_build" %>" class="btn btn-danger">View</a>
-        <% } %>
-        <button data-toggle="tooltip" title="Test only" class="btn test-only-action"><i class="icon-refresh"></i></button>
-        <button data-toggle="tooltip" title="Test &amp; Deploy" class="btn test-and-deploy-action"><i class="icon-share-alt"></i></button>
-      </div>
     </div>
     <div class="span10">
       <div class="row-fluid">
         <div class="span9">
-          <h3><a href="/<%=project_name%>/latest_build"><%= project_name %></a><a href="<%=repo_url%>" target="_blank" class="github-link">(github)</a><a href="/<%=project_name%>/config" data-toggle="tooltip" title="Configure" class="configure-action"><i class="icon-cog"></i></a></h3>
+          <h3>
+            <a href="/<%=project_name%>/latest_build"><%= project_name %></a><a href="<%=repo_url%>" target="_blank" class="github-link">(github)</a>
+          </h3>
         </div>
         <div class="span3">
           <div class="job-notice">
@@ -60,9 +132,6 @@
       </div>
       <div class="row-fluid">
         <div class="span6">
-          <div id="finished-at"><strong>Finished: </strong><% if (finished_timestamp) { %>
-            <time data-toggle="tooltip" data-placement="right" datetime="<%= finished_timestamp %>" class="timeago"></time><% } else { %> <em>In Progress</em> <% } %>
-          </div>
         </div>
         <div class="span6">
           <div id="build-duration"><strong>Running Time: </strong><%= duration_text === 'N/A' ? '' : duration_text + 's' %></div>
@@ -82,4 +151,5 @@
   <div class="row-fluid">
     <hr/>
   </div>
+  -->
 </script>
