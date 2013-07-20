@@ -1,7 +1,5 @@
 {% include "partials/spinnermsg.html" %}
 
-<script src="/javascripts/lib/angular.js"></script>
-
 <script>
   var job = {{ job | json_encode() | raw }};
   job.status = job.test_exitcode === 0 ? 'success' : 'failure';

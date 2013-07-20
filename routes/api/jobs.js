@@ -9,7 +9,6 @@ var _ = require('underscore')
   , api = require('./index.js')
   , check = require('validator').check
   , common = require(BASE_PATH + 'common')
-  , crypto = require('crypto')
   , email = require(BASE_PATH + 'email')
   , gh = require(BASE_PATH + 'github')
   , heroku = require(BASE_PATH + 'heroku')
@@ -28,7 +27,6 @@ var deploy_provider_property_map = {
   'heroku':'heroku',
   'dotcloud':'dotcloud_config',
 };
-
 
 /*
  * POST /api/jobs/start
@@ -108,7 +106,6 @@ exports.jobs_start = function(req, res) {
   });
 };
 
-
 /*
  * GET /api/jobs
  * Return JSON object containing the most recent build status for each configured repo
@@ -137,7 +134,7 @@ exports.jobs = function(req, res) {
           Job.findOne()
                 .sort({'finished_timestamp': -1})
                 .where('type').in(['TEST_ONLY','TEST_AND_DEPLOY'])
-                .where('finished_timestamp').ne(null)
+                /* .where('finished_timestamp').ne(null) */
                 .where('archived_timestamp', null)
                 .where('repo_url', configured_repo.url)
                 .populate("_owner")
@@ -155,11 +152,6 @@ exports.jobs = function(req, res) {
           if (job === null) {
             return;
           }
-          job.id = job._id.toString();
-
-          var duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000);
-          // do we need this anymore?
-          var finished_at = humane.humaneDate(job.finished_timestamp);
 
           // find the corrent project display name
           var repo_config = _.find(repo_list, function(config) {
@@ -168,61 +160,13 @@ exports.jobs = function(req, res) {
           // It is possible that a job object exists for a repo which is no longer configured.
           if (repo_config === undefined) {
             console.debug("jobs() - job object exists for repo %s but no config found in repo list: %j",
-                job.repo_url, this.repo_list);
+                          job.repo_url, this.repo_list);
             return;
           }
-          var project_name= repo_config.display_url.replace(/^.*com\//gi, '');
 
-          var job_url = "/" + project_name + "/job/" + job.id;
-
-          var triggered_by_commit = false;
-          var commit_id = null;
-          if (job.github_commit_info !== undefined && job.github_commit_info.id !== undefined) {
-            triggered_by_commit = true;
-          }
-
-          var committer;
-          var committer_is_username = false;
-          var committer_image;
-
-          if (triggered_by_commit) {
-            commit_id = job.github_commit_info.id;
-            if (job.github_commit_info.author.username !== undefined) {
-              committer = job.github_commit_info.author.username;
-              committer_is_username = true;
-            } else {
-              committer = job.github_commit_info.author.name;
-            }
-            committer_image = 'https://secure.gravatar.com/avatar/' + crypto.createHash('md5').update(job.github_commit_info.author.email.toLowerCase()).digest("hex") + '?d=identicon&s=35';
-          }
-
-          var success = true;
-          var success_text = "SUCCESS";
-          if (job.test_exitcode != 0) {
-            success = false;
-            success_text = "FAILURE";
-          }
-          var obj = {
-            success: success,
-            success_text: success_text,
-            duration: duration,
-            finished_at: finished_at,
-            triggered_by_commit: triggered_by_commit,
-            committer: committer,
-            committer_is_username: committer_is_username,
-            committer_image: committer_image,
-            commit_id: commit_id,
-            commit: job.github_commit_info,
-            repo_url: job.repo_url,
-            project_name: project_name,
-            job_url: job_url,
-            job_id: job.id,
-            type: job.type,
-            project_deployable: repo_config.has_prod_deploy_target,
-            created_timestamp: job.created_timestamp,
-            finished_timestamp: job.finished_timestamp,
-          }
-          l.push(obj);
+          var info = jobs.buildJobInfo(job, repo_config);
+          if (!info) return;
+          l.push(info);
         });
 
         // check to see if there are repos without jobs

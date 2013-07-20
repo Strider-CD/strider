@@ -109,7 +109,7 @@ function startJob(url, job_type, next) {
 
   $.ajax("/api/jobs/start", {
     data: data,
-    dataType: "text",
+    dataType: "json",
     error: function(xhr, ts, e) {
       var job = JobList.find(function(item) {
         return item.get('repo_url') === url;
