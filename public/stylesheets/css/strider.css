@@ -51,6 +51,11 @@ body{
   white-space: nowrap;
 }
 
+#dashboard .commit-url {
+  max-width: 300px;
+  overflow: hidden;
+}
+
 #dashboard .small-text {
   display: inline-block;
   padding-top: 5px;
