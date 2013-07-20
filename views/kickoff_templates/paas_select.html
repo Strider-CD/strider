@@ -1,0 +1,24 @@
+
+<script id="kickoff-done" type="text/template" class="template">
+  <div class="span8">
+    <p>Continuous Deployment setup successfully configured! Strider will now run tests on every commit and deploy if they pass.</p>Press Ok to return to the main dashboard.
+    <div class="form-actions"><a href="/" class="btn btn-primary">Ok</a></div>
+  </div>
+</script>
+<script id="paas-select" type="text/template" class="template">
+  <div class="span8">
+    <fieldset>
+      <legend>Choose Platform-as-a-Service Provider for Deployment</legend>
+      <div class="control-group">
+        <label for="paas" class="control-label">Which PaaS to use?</label>
+        <div class="controls">
+          <label class="radio">
+            <input type="radio" name="paasRadios" value="heroku"/>
+            <p>Heroku</p>
+          </label>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+  <div id="subview"></div>
+</script>

@@ -7,10 +7,10 @@
   <%= message %>
 </script>
 
-{% includeJade  "kickoff_templates/heroku_api_key.jade" %}
-{% includeJade  "kickoff_templates/heroku_app_prompt.jade" %}
-{% includeJade  "kickoff_templates/github_setup.jade" %}
-{% includeJade  "kickoff_templates/paas_select.jade" %}
+{% include "kickoff_templates/heroku_api_key.html" %}
+{% include "kickoff_templates/heroku_app_prompt.html" %}
+{% include "kickoff_templates/github_setup.html" %}
+{% include "kickoff_templates/paas_select.html" %}
 
 
 <div class='span8'>

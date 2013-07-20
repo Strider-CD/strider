@@ -1,0 +1,33 @@
+
+<script id="dotcloud-prompt" type="text/template" class="template">
+  <div class="span8">
+    <fieldset>
+      <legend>dotCloud Deploy Configuration</legend><% if (have_dotcloud) { %>
+         <div class="control-group">
+          <label class="control-label" for="app">dotCloud App</label>
+           <div class="controls">
+             <select id="app">.
+               <option value="@@new@@">--Create new app--</option>
+                <% _.each(dotcloud_apps, function(app) { %>
+                  <option value="<%= app.name %>"><%= app.name %></option>
+                <% }); %>
+             </select>
+             <p class="help-block">Deploy to existing dotCloud app or create a new one for this repository</p>
+             <div class="appname">
+               <label class="control-label" for="new-app-name"> New app name</label>
+               <input class="input-xlarge" id="new-app-name" type="text" placeholder="my-new-app" />
+               <p class="help-block">Name of app to create</p>
+             </div>
+           </div>
+         <div class="form-actions">
+           <button class="btn btn-primary">Ok</button>
+         </div>
+       
+      <% } else { %>
+      <p>You need to link your dotCloud account to Strider to configure deployment. You will be redirected to their site</p>to approve and then be returned to Strider to continue.
+      <div class="form-actions">
+        <button class="btn btn-primary">Connect my dotCloud account</button>
+      </div><% } %>
+    </fieldset>
+  </div>
+</script>

@@ -1,0 +1,29 @@
+
+<script id="heroku-app-prompt" type="text/template" class="template">
+  <div class="span8">
+    <fieldset>
+      <legend>Heroku Deploy Configuration</legend>
+      <div class="control-group">
+        <label for="app" class="control-label">Heroku App</label>
+        <div class="controls">
+          <select id="app">
+            <option value="@@new@@">--Create new app--</option>
+             <% _.each(heroku_apps, function(app) { %>
+               <option value="<%= app.name %>"><%= app.name %></option>
+             <% }); %>
+          </select>
+          <p class="help-block">Deploy to existing Heroku app or create a new one for this repository</p>
+          <div class="appname">
+            <label for="new-app-name" class="control-label">New app name</label>
+            <input id="new-app-name" type="text" placeholder="my-new-app" class="input-xlarge"/>
+            <p class="help-block">Name of app to create</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary heroku-select">Ok</button>
+        <button class="btn btn-back"><< Go back</button>
+      </div>
+    </fieldset>
+  </div>
+</script>

@@ -1,0 +1,43 @@
+
+<script id="github-collaborators-template" type="text/template" class="template">
+  <div id="github-collaborators" class="span8">
+    <div class="well">
+      <fieldset>
+        <legend>Add Collaborators?</legend>
+        <div class="alert alert-success hide"></div>
+        <p>Collaborators will be notified of build success/failure, be able to trigger test jobs and deploys, and access job details. They will not be permitted to add other new collaborators nor change any project configuration. You can add more at any time on the project configuration page.</p>
+        <div class="row">
+          <div class="span3">
+            <div class="control-group">
+              <div class="controls">
+                <div class="input-append">
+                  <input type="text" placeholder="email address" class="collab-email span2"/>
+                  <button class="btn btn-add-collab">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+    </div>
+  </div>
+</script>
+<script id="github-setup" type="text/template" class="template">
+  <div class="span8">
+    <div class="github-main-content">
+      <p>You have selected the following Github repository:</p>
+      <p></p> <b><em><%= display_name %></em></b>
+       <% if (private) { %>
+         <p><i class="icon-lock"></i> This repository is private.</p>
+       <% } %>
+      <p></p>Strider needs a Github post-receive hook and a deploy key 
+      in order to run tests against <strong><%= display_name %></strong> 
+      after each Github check-in. Strider can setup both the post-receive 
+      hook and the deploy key automatically. Please click below to 
+      authorize strider to configure <strong><%= display_name %></strong> 
+      on your behalf.
+    </div>
+    <p></p>
+    <div class="actions"><a class="run-action btn btn-primary">Yes, please configure my project</a></div>
+  </div>
+</script>

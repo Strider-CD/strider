@@ -1,0 +1,56 @@
+
+<script id="gondor-key-prompt" type="text/template" class="template">
+  <div class="span8">
+    <fieldset>
+      <legend>Gondor Deploy Configuration</legend>
+      <div class="control-group">
+        <label for="site-key" class="control-label">Gondor Site Key</label>
+        <div class="controls">
+          <input id="site-key" type="text" class="input-xlarge"/>
+          <p class="help-block">Find this under the "Sites" page on Gondor.io</p>
+        </div>
+        <label for="username" class="control-label">Gondor Username</label>
+        <div class="controls">
+          <input id="username" type="text" class="input-xlarge"/>
+        </div>
+        <label for="password" class="control-label">Gondor Password</label>
+        <div class="controls">
+          <input id="password" type="password" class="input-xlarge"/>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary">Ok</button>
+      </div>
+    </fieldset>
+  </div>
+</script>
+<script id="gondor-instance-prompt" type="text/template" class="template">
+  <div class="span8">
+    <div id="spinner" class="alert alert-info"></div>
+  </div>
+  <div class="span8">
+    <fieldset>
+      <legend>Gondor Deploy Configuration</legend>
+      <div class="control-group">
+        <label for="instance" class="control-label">Gondor Instance</label>
+        <div class="controls">
+          <select id="app">
+            <option value="@@new@@">--Create new instance--</option>
+             <% _.each(gondor_instances, function(app) { %>
+               <option value="<%= instance.name %>"><%= instance.name %></option>
+             <% }); %>
+          </select>
+          <p class="help-block">Deploy to existing Gondor instance or create a new one for this repository</p>
+          <div class="appname">
+            <label for="new-instance-name" class="control-label">New instance name</label>
+            <input id="new-instance-name" type="text" placeholder="my-new-instance" class="input-xlarge"/>
+            <p class="help-block">Name of instance to create</p>
+          </div>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary">Ok</button>
+      </div>
+    </fieldset>
+  </div>
+</script>
