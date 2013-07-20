@@ -12,8 +12,112 @@ body{
 
 }
 
-.github-link {
-  margin-left: 10px;
+#dashboard tr {
+  padding: 10px 0;
+}
+
+#dashboard tr .action-buttons div {
+  visibility: hidden;
+}
+
+#dashboard tr:hover .action-buttons > div {
+  visibility: visible;
+}
+
+#dashboard .finished-at time {
+}
+
+#dashboard .run-time {
+  text-align: center;
+}
+
+#dashboard .progress-meter {
+  margin-top: 10px;
+}
+
+#dashboard .progress-meter .progress {
+  margin-bottom: 0;
+}
+
+#dashboard .finished-at,
+#dashboard .refresh,
+#dashboard .commit-url,
+#dashboard .committer,
+#dashboard .deploy,
+#dashboard .configure,
+#dashboard .run-time,
+#dashboard .job-link {
+  width: 1px;
+  white-space: nowrap;
+}
+
+#dashboard .small-text {
+  display: inline-block;
+  padding-top: 5px;
+}
+
+#dashboard .github-link {
+  width: 1px;
+}
+
+#dashboard .action-buttons {
+  width: 100px;
+  text-align: center;
+}
+
+#dashboard .action-buttons .btn-group {
+  padding-top: 4px;
+}
+
+#dashboard span,
+#dashboard a {
+  color: black;
+  cursor: pointer;
+}
+
+#dashboard i:hover,
+#dashboard a:hover {
+  color: #aaa;
+}
+
+#dashboard i {
+  font-size: 150%;
+}
+
+#dashboard .project-name a {
+  font-size: 18px;
+  line-height: 27px;
+  font-weight: 700;
+  width: 100%;
+}
+
+#dashboard .committer a {
+  padding: 0;
+}
+
+#dashboard .committer img {
+  width: 35px;
+  height: 35px;
+  margin-bottom: -13px;
+  margin-top: -1px;
+  border: 2px solid #9AF;
+  border-radius: 10px; 
+}
+
+#dashboard tr td {
+  padding: 10px 0;
+  position: relative;
+  font-size: 16px;
+}
+
+#dashboard tr td > a,
+#dashboard tr td > span {
+  display: inline-block;
+  padding: 5px 10px;
+}
+
+#dashboard tr td a:hover {
+  text-decoration: none;
 }
 
 .configure-action i {

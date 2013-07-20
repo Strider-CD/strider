@@ -65,7 +65,7 @@ exports.jobs_start = function(req, res) {
   req.user.get_repo_config(url, function(err, repo_config, access_level, origin_user_obj) {
     if (err || !repo_config) {
       res.statusCode = 400;
-      return res.end("you must configure " + url + " before you can start a job for it");
+      return res.end(JSON.stringify({"error": "you must configure " + url + " before you can start a job for it"}));
     }
     var repo_metadata = null;
     // We don't have github metadata unless we have a linked github account.
@@ -74,7 +74,7 @@ exports.jobs_start = function(req, res) {
             return repo_config.url == item.html_url.toLowerCase();
         });
     }
-    var repo_ssh_url;
+    var repo_ssh_url, project;
     // If we have Github metadata, use that. It is loosely coupled and can self-heal things like
     // a configured Github Repo being renamed in Github (such as happened with Klingsbo)
     // We do not have metadata in the manual setup case
@@ -84,23 +84,27 @@ exports.jobs_start = function(req, res) {
       // Manual setup case - try to synthesize a Github SSH url from the display URL.
       // This is brittle because display urls can change, and the user (currently) has
       // no way to change them (other than deleting and re-adding project).
-      var p = gh.parse_github_url(repo_config.display_url);
-      repo_ssh_url = gh.make_ssh_url(p.org, p.repo);
+      project = gh.parse_github_url(repo_config.display_url);
+      repo_ssh_url = gh.make_ssh_url(project.org, project.repo);
     }
-    if (job_type === TEST_AND_DEPLOY && repo_config.has_prod_deploy_target) {
-      var deploy_config_key = deploy_provider_property_map[repo_config.prod_deploy_target.provider];
-      var deploy_config = _.find(req.user[deploy_config_key], function(item) {
-        return item.account_id === repo_config.prod_deploy_target.account_id;
+
+    if (job_type === TEST_ONLY) {
+      return jobs.startJob(req.user, repo_config, deploy_config, undefined, repo_ssh_url, job_type, function (job) {
+        res.end(JSON.stringify({job: job}));
       });
-      jobs.startJob(req.user, repo_config, deploy_config, undefined, repo_ssh_url, job_type);
-    } else if (job_type === TEST_AND_DEPLOY && !repo_config.has_prod_deploy_target) {
-      res.statusCode = 400;
-      res.end("TEST_AND_DEPLOY requested but deploy target not configued ");
-      return;
-    } else if (job_type === TEST_ONLY) {
-      jobs.startJob(req.user, repo_config, deploy_config, undefined, repo_ssh_url, job_type);
     }
-    res.end("OK");
+    if (!repo_config.has_prod_deploy_target) {
+      res.statusCode = 400;
+      return res.end(JSON.stringify({error: "TEST_AND_DEPLOY requested but deploy target not configued "}));
+    }
+
+    var deploy_config_key = deploy_provider_property_map[repo_config.prod_deploy_target.provider];
+    var deploy_config = _.find(req.user[deploy_config_key], function(item) {
+      return item.account_id === repo_config.prod_deploy_target.account_id;
+    });
+    return jobs.startJob(req.user, repo_config, deploy_config, undefined, repo_ssh_url, job_type, function (job) {
+      res.end(JSON.stringify({job: job}));
+    });
   });
 };
 
@@ -179,6 +183,7 @@ exports.jobs = function(req, res) {
 
           var committer;
           var committer_is_username = false;
+          var committer_image;
 
           if (triggered_by_commit) {
             commit_id = job.github_commit_info.id;
@@ -188,6 +193,7 @@ exports.jobs = function(req, res) {
             } else {
               committer = job.github_commit_info.author.name;
             }
+            committer_image = 'https://secure.gravatar.com/avatar/' + crypto.createHash('md5').update(job.github_commit_info.author.email.toLowerCase()).digest("hex") + '?d=identicon&s=35';
           }
 
           var success = true;
@@ -204,12 +210,15 @@ exports.jobs = function(req, res) {
             triggered_by_commit: triggered_by_commit,
             committer: committer,
             committer_is_username: committer_is_username,
+            committer_image: committer_image,
             commit_id: commit_id,
+            commit: job.github_commit_info,
             repo_url: job.repo_url,
             project_name: project_name,
             job_url: job_url,
             job_id: job.id,
             type: job.type,
+            project_deployable: repo_config.has_prod_deploy_target,
             created_timestamp: job.created_timestamp,
             finished_timestamp: job.finished_timestamp,
           }
