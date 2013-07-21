@@ -1,6 +1,6 @@
 
 // instead of "about %d hours"
-$.timeago.settings.strings.hour = 'an hours';
+$.timeago.settings.strings.hour = 'an hour';
 $.timeago.settings.strings.hours = '%d hours';
 $.timeago.settings.localeTitle = true;
 
@@ -59,10 +59,10 @@ function gotNewJob(newjob, $scope) {
   if (!job) {
     console.log("can't find job");
   } else {
-    newjob.duration = $scope.jobs[job].duration;
+    newjob.past_duration = $scope.jobs[job].duration;
     $scope.jobs.splice(job, 1);
   }
-  newjob.time_elapsed = newjob.duration / 20;
+  newjob.time_elapsed = newjob.past_duration / 20;
   $scope.jobs.push(newjob);
   $scope.$digest();
 }
@@ -119,7 +119,7 @@ angular.module('dashboard', [], function ($interpolateProvider) {
         // $(element).text($.timeago(date));
       // }, 60000);
       setTimeout(function () {
-        $(element).text($.timeago(date));
+        $(element).timeago();
       }, 0);
     }
   };

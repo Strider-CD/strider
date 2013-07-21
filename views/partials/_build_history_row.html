@@ -1,0 +1,32 @@
+{# This expects to be within an angular scope with the variable "job"
+available as the results of the "buildJobInfo" backend function #}
+<td class="status">
+  <a ng-switch="job.status" href="[[ job.url ]]" title="View Build Detail">
+    <i ng-switch-when="failed" class="icon-exclamation-sign failure-text"></i>
+    <i ng-switch-when="succeeded" class="icon-check-sign success-text"></i>
+    <i ng-switch-when="running" class="icon-cog icon-spin"></i>
+    <span>[[ job.id.substr(0, 8) ]]</span>
+  </a>
+</td>
+<td class="committer">
+  <div ng-show="job.triggered_by_commit">
+    <a title="[[ job.commit.message ]]" href="[[ job.committ.url ]]">
+      <img ng-src="[[ job.committer.image ]]"/>
+    </a>
+  </div>
+</td>
+<td class="run-time">
+  <span class="small-text">
+    [[ job.duration ]]s
+  </span>
+</td>
+<td class="finished-at" ng-switch="job.running">
+  <span ng-switch-when="false" class="small-text">
+    <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished_timestamp ]]" class="timeago"></time>
+  </span>
+  <div ng-switch-when="true" class="progress-meter">
+    <div class="progress progress-striped active progress-info">
+      <div class="bar" style="width:[[ job.time_elapsed/job.past_duration*100 ]]%; max-width: 100%"></div>
+    </div>
+  </div>
+</td>

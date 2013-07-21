@@ -11,99 +11,59 @@ body{
   margin-top:20px;
 }
 
-#dashboard {
-  table {
-    tr td > a,
-    tr td > span {
-      display: inline-block;
-      padding: 5px 10px;
-    }
-    span.clickable,
-    a {
-      color: black;
-      cursor: pointer;
-    }
-    .github-link {
-      width: 1px;
-    }
-    tr:hover {
-      .action-buttons {
-        & > div {
-          visibility: visible;
-        }
-      }
-    }
-    .small-text {
-      display: inline-block;
-      padding-top: 5px;
-    }
-    .action-buttons {
-      width: 100px;
-      text-align: center;
-      .btn-group {
-        padding-top: 4px;
-      }
-    }
+#build-page {
+  #build-metadata {
+    border-radius: 5px;
+    padding: 0 10px;
+
     .progress-meter {
-      margin-top: 10px;
-      .progress {
-        margin-bottom: 0;
+      min-width: 200px;
+    }
+
+    table {
+      margin-bottom: 0;
+      width: 100%;
+
+      .committer img {
+        margin-top: -8px;
       }
     }
-    .committer {
-      a {
-        padding: 0;
-      }
+  }
+  .succeeded {
+    background-color: #CFFFD2;
+  }
+  .failed {
+    background-color: #ffd2d0;
+  }
+  .running {
+    background-color: #D7F3FF;
+  }
+  #list-of-builds {
+    td.committer {
+      padding: 0;
       img {
-        width: 35px;
-        height: 35px;
-        margin-bottom: -13px;
-        margin-top: -1px;
-        border: 2px solid #9AF;
-        border-radius: 10px;
+        margin-top: 4px;
+        height: 25px;
       }
-    }
-    .project-name {
-      a {
-        font-size: 18px;
-        line-height: 27px;
-        font-weight: 700;
-        width: 100%;
-      }
-    }
-    .run-time {
-      text-align: center;
     }
     tr {
-      padding: 10px 0;
-      .action-buttons {
-        div {
-          visibility: hidden;
-        }
-      }
-      td {
-        padding: 10px 0;
-        position: relative;
-        font-size: 16px;
-        a:hover {
-          text-decoration: none;
-        }
-      }
+      background-color: transparent;
+      cursor: pointer;
     }
-    i {
-      font-size: 150%;
+    .active.failed {
+      background-color: #ffd2d0;
     }
-    .commit-url {
-      max-width: 300px;
-      overflow: hidden;
+    .active.succeeded {
+      background-color: #CFFFD2;
     }
-    .clickable i:hover,
-    a:hover {
-      color: #aaa;
+    .active.running {
+      background-color: #D7F3FF;
+    }
+    tr:hover {
+      background-color: #eee;
     }
     .finished-at,
     .refresh,
-    .commit-url,
     .committer,
     .deploy,
     .configure,
@@ -112,6 +72,124 @@ body{
       width: 1px;
       white-space: nowrap;
     }
+  }
+  .commit-url {
+    width: auto;
+  }
+}
+
+a, .clickable {
+  color: black;
+  cursor: pointer;
+  &:hover {
+    text-decoration: none;
+    color: #999;
+  }
+}
+
+.progress {
+  margin-bottom: 0;
+}
+
+.dashboard-row,
+#dashboard table tr {
+  padding: 10px 0;
+  .action-buttons {
+    div {
+      visibility: hidden;
+    }
+  }
+  td {
+    padding: 10px 0;
+    position: relative;
+    font-size: 16px;
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  td > a,
+  td > span {
+    display: inline-block;
+    padding: 5px 10px;
+  }
+  span.clickable,
+  a {
+    color: black;
+    cursor: pointer;
+  }
+  .github-link {
+    width: 1px;
+  }
+  &:hover {
+    .action-buttons {
+      & > div {
+        visibility: visible;
+      }
+    }
+  }
+  .small-text {
+    display: inline-block;
+    padding-top: 5px;
+  }
+  .action-buttons {
+    width: 100px;
+    text-align: center;
+    .btn-group {
+      padding-top: 4px;
+    }
+  }
+  .progress-meter {
+    margin-top: 10px;
+    .progress {
+      margin-bottom: 0;
+    }
+  }
+  .committer {
+    a {
+      padding: 0;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      margin-bottom: -13px;
+      margin-top: -1px;
+      border: 2px solid #9AF;
+      border-radius: 10px;
+    }
+  }
+  .project-name {
+    a {
+      font-size: 18px;
+      line-height: 27px;
+      font-weight: 700;
+      width: 100%;
+    }
+  }
+  .run-time {
+    text-align: center;
+  }
+  i {
+    font-size: 150%;
+  }
+  .commit-url {
+    max-width: 300px;
+    overflow: hidden;
+  }
+  .clickable i:hover,
+  a:hover {
+    color: #aaa;
+  }
+  .finished-at,
+  .refresh,
+  .commit-url,
+  .committer,
+  .deploy,
+  .configure,
+  .run-time,
+  .job-link {
+    width: 1px;
+    white-space: nowrap;
   }
 }
 
@@ -195,7 +273,7 @@ footer p {
   background-color: #cfb;
 }
 #build-metadata.running {
-  background-color: #feb;
+  background-color: #D7F3FF;
 }
 #list-of-builds {
   position: absolute;
@@ -443,7 +521,7 @@ pre.console-output {
   background-color: black;
   color: white;
   position: absolute;
-  top: 85px;
+  top: 65px;
   bottom: 0;
   left: 0;
   right: 0;

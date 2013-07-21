@@ -11,31 +11,11 @@ var  _ = require('underscore')
    , logging = require(BASE_PATH + 'logging')
    , mongoose = require('mongoose')
    , Step = require('step')
+   , ljobs = require(BASE_PATH + 'jobs')
    , Job = require(BASE_PATH + 'models').Job
    , User = require(BASE_PATH + 'models').User
    , utils = require(BASE_PATH + 'utils')
    ;
-
-function lookup(case_insensitive_url, cb) {
-  User.findOne({
-      "github_config.url":case_insensitive_url.toLowerCase(),
-    }, function(err, user_obj) {
-    if (err || !user_obj) {
-      console.debug("lookup() - did not find a repo matching %s for any user",
-        case_insensitive_url);
-      return cb("no repo found", null);
-    }
-    var repo = _.find(user_obj.github_config, function(repo_config) {
-      return case_insensitive_url.toLowerCase() == repo_config.url;
-    });
-    if (!repo) {
-      console.error(
-        "lookup() - Error finding matching github_config despite DB query success!");
-      return cb("no repo found", null);
-    }
-    return cb(null, repo);
-  });
-};
 
 /*
  * GET /org/repo/[jobid] - view latest build for repo
@@ -48,7 +28,7 @@ exports.job = function(req, res)
   var repo = req.params.repo;
   var repo_url = "https://github.com/" + org + "/" + repo;
 
-  lookup(repo_url, function(err, repo_config) {
+  ljobs.lookup(repo_url, function(err, repo_config) {
     if (err || repo_config === undefined) {
       res.statusCode = 500;
       res.end("you must configure " + repo_url + " before you can use it");
@@ -132,7 +112,7 @@ exports.job = function(req, res)
 
   Step(
     function getRepoConfig() {
-      lookup(repo_url, this);
+      ljobs.lookup(repo_url, this);
     },
     function runQueries(err, repo_config){
       if (err || !repo_config) {

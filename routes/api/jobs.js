@@ -14,6 +14,8 @@ var _ = require('underscore')
   , heroku = require(BASE_PATH + 'heroku')
   , humane = require(BASE_PATH + 'humane')
   , jobs = require(BASE_PATH + 'jobs')
+  , filter = require(BASE_PATH + 'ansi')
+  , ljobs = jobs
   , Job = require(BASE_PATH + 'models').Job
   , logging = require(BASE_PATH + 'logging')
   ;
@@ -103,6 +105,52 @@ exports.jobs_start = function(req, res) {
     return jobs.startJob(req.user, repo_config, deploy_config, undefined, repo_ssh_url, job_type, function (job) {
       res.end(JSON.stringify({job: job}));
     });
+  });
+};
+
+/*
+ * GET /api/jobs/:id
+ * Return the merged output
+ */
+exports.raw = function(req, res) {
+  // console.log(req, req.params.id);
+  Job.findById(req.params.id)
+     .lean(true)
+     .exec(function (err, job) {
+       if (err || !job || job._owner+'' !== req.user._id+'') return res.send("Job not found");
+       res.setHeader('Content-type', 'text/plain');
+       res.send(job.stdmerged ? filter(job.stdmerged) : '');
+  });
+};
+
+/*
+ * GET /api/jobs/:org/:repo
+ * Return JSON object containing the most recent builds for the given repo
+ * This function is used on the job view page.
+ */
+exports.repo_jobs = function(req, res) {
+  var org = req.params.org;
+  var repo = req.params.repo;
+  var repo_url = "https://github.com/" + org + "/" + repo;
+  res.setHeader('Content-type', 'application/json');
+  ljobs.lookup(repo_url, function (err, repo_config) {
+    Job.find()
+      .sort({'finished_timestamp': -1})
+      .where('repo_url', repo_url)
+      .where('archived_timestamp', null)
+      .where('type').in(['TEST_ONLY','TEST_AND_DEPLOY'])
+      .limit(20)
+      .populate("_owner")
+      .lean(true)
+      .exec(function (err, jobs) {
+        if (err) return res.send('{"error": "Failed to retrieve jobs"}');
+        return res.send(JSON.stringify({
+          project: org + '/' + repo,
+          jobs: jobs.map(function(job) {
+            return ljobs.buildJobInfo(job, repo_config, false);
+          })
+        }));
+      });
   });
 };
 
