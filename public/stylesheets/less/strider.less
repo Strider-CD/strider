@@ -1,170 +1,363 @@
-@import "variables.less";
-
 html, body {
+  height:100%;
+}
+body{
   background-color: #fff;
+}
+.wrap {
+  min-height:100% !important;
+}
+.body-content{
+  margin-top:20px;
+}
+
+#build-page {
+  .job-title h3 {
+    font-size: 29px;
+    margin-top: -10px;
+    margin-left: 18px;
+
+    .test-only-action {
+      color: green;
+    }
+    .test-and-deploy-action {
+      color: rgb(41, 0, 255);
+    }
+  }
+  #build-metadata {
+    border-radius: 5px;
+    padding: 0 10px;
+
+    .progress-meter {
+      min-width: 200px;
+    }
+
+    table {
+      margin-bottom: 0;
+      width: 100%;
+
+      .committer img {
+        margin-top: -8px;
+        max-width: inherit;
+      }
+    }
+  }
+  .succeeded {
+    background-color: #CFFFD2;
+  }
+  .failed {
+    background-color: #ffd2d0;
+  }
+  .running {
+    background-color: #D7F3FF;
+  }
+  #list-of-builds {
+    td.committer {
+      padding: 0;
+      img {
+        margin-top: 4px;
+        height: 25px;
+        width: 25px;
+        max-width: inherit;
+      }
+    }
+    tr {
+      background-color: transparent;
+      cursor: pointer;
+    }
+    .active.failed {
+      background-color: #ffd2d0;
+    }
+    .active.succeeded {
+      background-color: #CFFFD2;
+    }
+    .active.running {
+      background-color: #D7F3FF;
+    }
+    tr:hover {
+      background-color: #eee;
+    }
+    .finished-at,
+    .refresh,
+    .committer,
+    .deploy,
+    .configure,
+    .run-time,
+    .job-link {
+      width: 1px;
+      white-space: nowrap;
+    }
+  }
+  .commit-url {
+    width: auto;
+  }
+}
+
+#dashboard, #build-page {
+  a, .clickable {
+    color: black;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+      color: #999;
+    }
+  }
+}
+
+.progress {
+  margin-bottom: 0;
+}
+
+.dashboard-row,
+#dashboard table tr {
+  padding: 10px 0;
+  .action-buttons {
+    div {
+      visibility: hidden;
+    }
+  }
+  td {
+    padding: 10px 0;
+    position: relative;
+    font-size: 16px;
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  td > a,
+  td > span {
+    display: inline-block;
+    padding: 5px 10px;
+  }
+  span.clickable,
+  a {
+    color: black;
+    cursor: pointer;
+  }
+  .github-link {
+    width: 1px;
+  }
+  &:hover {
+    .action-buttons {
+      & > div {
+        visibility: visible;
+      }
+    }
+  }
+  .small-text {
+    display: inline-block;
+    padding-top: 5px;
+  }
+  .action-buttons {
+    width: 100px;
+    text-align: center;
+    .btn-group {
+      padding-top: 4px;
+    }
+  }
+  .progress-meter {
+    margin-top: 10px;
+    .progress {
+      margin-bottom: 0;
+    }
+  }
+  .committer {
+    a {
+      padding: 0;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      max-width: inherit;
+      margin-bottom: -13px;
+      margin-top: -1px;
+      border: 2px solid #9AF;
+      border-radius: 10px;
+    }
+  }
+  .project-name {
+    a {
+      font-size: 18px;
+      line-height: 27px;
+      font-weight: 700;
+      width: 100%;
+    }
+  }
+  .run-time {
+    text-align: center;
+  }
+  i {
+    font-size: 150%;
+  }
+  .commit-url {
+    max-width: 300px;
+    overflow: hidden;
+  }
+  .clickable i:hover,
+  a:hover {
+    color: #aaa;
+  }
+  .finished-at,
+  .refresh,
+  .commit-url,
+  .committer,
+  .deploy,
+  .configure,
+  .run-time,
+  .job-link {
+    width: 1px;
+    white-space: nowrap;
+  }
+}
+
+.configure-action i {
+  margin-top: 4px;
+  display: inline-block;
+  margin-left: 5px;
 }
 
 .docs-section {
   padding-top: 40px;
 }
-
-.docs {
-  p {
-    font-size: 15px;
-    }
+.docs p {
+  font-size: 15px;
 }
-
 img.manual_setup {
-   border:1px solid #021a40;
+  border: 1px solid #021a40;
 }
- 
 .success {
   background: #9BCD9B;
 }
-
 .failure {
   background: #EE6363;
 }
-
 .success-text {
-  color: @green
+  color: #46a546;
+}
+.failure-text {
+  color: #9d261d;
 }
 
-.failure-text {
-  color: @red
+footer {
+  border-top:1px solid #ddd;
+  background-color:#f0f0f0;
+  margin-top:30px;
+  padding:10px;
 }
 
 footer p {
-  text-align: center; /* center align it with the container */
+  text-align: center;
+  /* center align it with the container */
+
 }
-
-
-
-.dashboard-button, .repo-action, .start-manual-setup {
+.dashboard-button,
+.repo-action,
+.start-manual-setup {
   float: right;
 }
-
 .header-emphasis {
-  color: @linkColor;
+  color: #455b87;
 }
-
-// latest job status page layout
+.job-pre-console {
+  margin-top: 15px;
+}
 .job-list {
   border: 1px solid;
   border-radius: 3px;
   margin-left: 10px;
-
 }
-
 .job-list-item {
-  width:95%;
+  width: 95%;
   border: 1px solid;
   border-radius: 3px;
   padding: 5px;
   margin: 10px;
 }
-
-.job-list-item:nth-child(2n)
-{
-  background-color: #f5f5f5
+.job-list-item:nth-child(2n) {
+  background-color: #f5f5f5;
 }
-  
-.job-notice  {
+.job-notice {
   float: right;
 }
-
-// latest build page layout
 #build-metadata {
-  padding: 8px; 
-  border: 1px solid;
+  padding: 8px;
   border-radius: 3px;
 }
-
+#build-metadata.failure {
+  background-color: #fac;
+}
+#build-metadata.success {
+  background-color: #cfb;
+}
+#build-metadata.running {
+  background-color: #D7F3FF;
+}
 #list-of-builds {
-  border: 1px solid;
-  border-radius: 3px;
-  margin-left: 10px;
-  margin-top: 10px;
-}
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  bottom: 10px;
+  overflow: auto;
 
+  table {
+    margin-bottom: 0;
+  }
+}
 #build-detail-buttons {
   border: 1px solid;
   border-radius: 3px;
   margin-left: 10px;
   padding: 10px;
-
 }
-
 .build-list-item {
-  width: 90%;
-  border: 1px solid;
-  border-radius: 3px;
+  width: auto;
   padding: 5px;
-  margin: 10px;
+  border-bottom: 1px solid #CCB;
 }
-
 .build-list-header {
   width: 90%
-  padding: 5px;
-  margin: 10px;
-//  text-align: center;
+  padding: 15px;
 }
-
-//#commiter {
-//  text-align: left;
-//}
-
-#commit-id, .build-item-committer {
+#commit-id,
+.build-item-committer {
   float: right;
 }
-
-
-
-//#repo-branch {
-//  text-align: left;
-//}
-
-
-#commit-msg, #build-duration, .build-item-duration {
+#commit-msg,
+#build-duration,
+.build-item-duration {
   float: right;
 }
-
-div#repo-list-viewall{
+div#repo-list-viewall {
   margin: 15px;
 }
-
-div#repo-list {
-//  margin: 15px;
-}
-
 .results-detail-times {
   border-top: 1px solid;
-  border-color: @grayLight;
+  border-color: #999999;
 }
-
-// Sauce Job specific
 table.log {
   font-family: "Monaco", Courier, monospace;
   font-size: 14px;
   width: 100%;
   table-layout: fixed;
   margin-bottom: 20px;
-  clear: both; }
-
+  clear: both;
+}
 tr.logEntry {
-  height: 53px; }
-
+  height: 53px;
+}
 tr.logEntry td {
   border-top: solid thin #CCC;
   padding: 0.5em;
-  text-align: left; }
-
+  text-align: left;
+}
 .logEntry {
-  color: #444; }
-
+  color: #444;
+}
 .logEntry.repeated {
-  display: none; }
-
+  display: none;
+}
 a.repeats {
   font-size: 75%;
   padding: 5px 5px 2px 5px;
@@ -172,176 +365,163 @@ a.repeats {
   border: 1px solid #999;
   opacity: 0.8;
   color: black;
-  text-decoration: none; }
-
+  text-decoration: none;
+}
 .commandDetails .request {
-  height: 20px; }
-
+  height: 20px;
+}
 .commandDetails .answer {
   color: #909;
   float: right;
   max-width: 75%;
-  text-align: right; }
-
+  text-align: right;
+}
 .commandDetails .result {
   font-size: 80%;
-  display: inline; }
-
+  display: inline;
+}
 .commandDetails span.duration {
   color: #999;
   font-size: 80%;
-  padding-left: 15px; }
-
+  padding-left: 15px;
+}
 .commandDetails table {
   border: none;
   margin-top: 5px;
   font-size: 80%;
-  margin-left: 1em; }
-
+  margin-left: 1em;
+}
 .commandDetails table th {
   border-spacing: 0px;
   padding: 0px;
-  margin: 0px; }
-
+  margin: 0px;
+}
 .commandDetails table td {
   border: none;
   border-spacing: 0px;
   padding: 0px;
-  margin: 0px; }
-
+  margin: 0px;
+}
 .passed {
-  background-color: #dfd; }
-
+  background-color: #dfd;
+}
 .failed {
-  background-color: #ffd2d0; }
-
+  background-color: #ffd2d0;
+}
 .warning {
-  background-color: #fffca9; }
-
+  background-color: #fffca9;
+}
 .repeated.passed {
-  background-color: #efe; }
-
+  background-color: #efe;
+}
 .repeated.failed {
-  background-color: #fee3e1; }
-
+  background-color: #fee3e1;
+}
 td.screenshot img {
   width: 40px;
-  height: 30px; }
-
+  height: 30px;
+}
 tr.logEntry td.screenshot {
   font-family: 'Myriad Pro', Myriad, Helvetica, Arial, sans-serif;
   width: 6.5em;
   padding-left: 10px;
-  text-align: center; }
-
-
-@media (max-width: 768)
-{
+  text-align: center;
+}
+@media (max-width: 768) {
   .repo-action {
     float: left;
   }
 }
-
 .gravatar {
-  display:inline-block;
-  margin-top:-2px;
+  display: inline-block;
+  margin-top: -2px;
   margin-bottom: 2px;
-  margin-right:3px;
-  padding:1px;
-  line-height:1px;
-  vertical-align:middle;
-  font-size:1px;
-  background:#fff;
-  border:1px solid #c8c8c8;
+  margin-right: 3px;
+  padding: 1px;
+  line-height: 1px;
+  vertical-align: middle;
+  font-size: 1px;
+  background: #fff;
+  border: 1px solid #c8c8c8;
 }
-
-
-// HERO SUB-UNIT (derived from hero-unit)
-// ---------
-
 .hero-subunit {
   padding: 60px;
   margin-bottom: 30px;
   background-color: #f5f5f5;
   border-radius: 6px;
-  p {
-    font-size: 18px;
-    font-weight: 200;
-  }
 }
-
+.hero-subunit p {
+  font-size: 18px;
+  font-weight: 200;
+}
 hero-vsub-unit {
   padding: 60px;
   margin-bottom: 30px;
   background-color: #f5f5f5;
   border-radius: 6px;
-  p, label {
-    font-size: 18px;
-    font-weight: 200;
-  }
 }
-
+hero-vsub-unit p,
+hero-vsub-unit label {
+  font-size: 18px;
+  font-weight: 200;
+}
 .big-label {
   padding: 1px 3px 2px;
-  font-size: @baseFontSize * 2;
+  font-size: 26px;
   font-weight: bold;
-  color: @white;
+  color: #ffffff;
   text-transform: uppercase;
-  background-color: @grayLight;
+  background-color: #999999;
   border-radius: 3px;
 }
-
-//full screen laptop
-@media (min-width: 768px) 
-{ 
-  html, body {
+@media (min-width: 768px) {
+  -webkit-border-radius: 0 0 6px 6px;
+  -moz-border-radius: 0 0 6px 6px;
+  border-radius: 0 0 6px 6px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);html,
+  body {
     background-color: #eee;
   }
-
-  body {
-    padding-top: 40px; /* 40px to make the container go all the way to the bottom of the topbar */
+  body .wrap {
+    padding-top: 40px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin-bottom: -80px;
+    padding-bottom: 80px;
+    /* 40px to make the container go all the way to the bottom of the topbar */
+  
   }
   .nav-collapse {
     padding-left: 80px;
   }
-
-    -webkit-border-radius: 0 0 6px 6px;
-       -moz-border-radius: 0 0 6px 6px;
-            border-radius: 0 0 6px 6px;
-    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-       -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
-            box-shadow: 0 1px 2px rgba(0,0,0,.15);
-  
-  
   footer p {
-    text-align: center; /* center align it with the container */
+    text-align: center;
+    /* center align it with the container */
+  
   }
 }
-
-// ipad and iphone
-@media (max-width: 480px)
-{
-  
+@media (max-width: 480px) {
   .hero-unit {
     padding: 30px;
     margin-bottom: 30px;
     background-color: #f5f5f5;
     border-radius: 6px;
-    h1 {
-      margin-right: 0;
-      margin-left: 0;
-      font-size: 40px;
-      line-height: 1;
-      letter-spacing: -1px;
-    }
-    p {
-      font-size: 18px;
-      font-weight: 200;
-      line-height: @baseLineHeight * 1.5;
-    }
+  }
+  .hero-unit h1 {
+    margin-right: 0;
+    margin-left: 0;
+    font-size: 40px;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .hero-unit p {
+    font-size: 18px;
+    font-weight: 200;
+    line-height: 27px;
   }
 }
-
 /* Page header tweaks */
 .page-header {
   background-color: #f5f5f5;
@@ -351,155 +531,234 @@ hero-vsub-unit {
 .topbar .btn {
   border: 0;
 }
-
 .spinner {
   vertical-align: middle;
   margin-right: 20px;
 }
 #spinner {
-  display: none
+  display: none;
 }
-
 pre.console-output {
-  width: 96%;
-  height: 350px;
   overflow: auto;
   background-color: black;
   color: white;
+  position: absolute;
+  top: 65px;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
-
 pre.console-output-segment {
   width: 96%;
   overflow: auto;
   background-color: black;
   color: white;
 }
-
 span.green {
   color: green;
 }
-
 span.blue {
   color: blue;
 }
-
 span.red {
   color: #CE160C;
 }
-
 span.white {
   color: #BDC7C7;
 }
-
 span.yellow {
   color: #C6C33C;
 }
-
 span.magenta {
   color: magenta;
-
 }
-
 span.cyan {
   color: cyan;
 }
-
 span.grey {
   color: grey;
 }
-
 span.bg-green {
   background-color: green;
 }
-
 span.bg-blue {
   background-color: blue;
 }
-
 span.bg-red {
   background-color: #CE160C;
 }
-
 span.bg-white {
   background-color: #BDC7C7;
 }
-
 span.bg-yellow {
   background-color: #C6C33C;
 }
-
 span.bg-magenta {
   background-color: magenta;
 }
-
 span.bg-cyan {
   background-color: cyan;
 }
-
 span.bg-grey {
   background-color: grey;
 }
-
 span.bold {
   font-weight: bold;
 }
-
 span.italic {
   font-style: italic;
 }
-
 span.underline {
   text-decoration: underline;
 }
-
 .sidebar-nav {
-    padding: 9px 0;
+  padding: 9px 0;
 }
-
 .dropdown-menu .sub-menu {
-    left: 100%;
-    position: absolute;
-    top: 0;
-    visibility: hidden;
-    margin-top: -1px;
+  left: 100%;
+  position: absolute;
+  top: 0;
+  visibility: hidden;
+  margin-top: -1px;
 }
-
 .dropdown-menu li:hover .sub-menu {
-    visibility: visible;
+  visibility: visible;
 }
-
 .dropdown:hover .dropdown-menu {
-    display: block;
+  display: block;
 }
-
-.nav-tabs .dropdown-menu, .nav-pills .dropdown-menu, .navbar .dropdown-menu {
-    margin-top: 0;
+.nav-tabs .dropdown-menu,
+.nav-pills .dropdown-menu,
+.navbar .dropdown-menu {
+  margin-top: 0;
 }
-
 .navbar .sub-menu:before {
-    border-bottom: 7px solid transparent;
-    border-left: none;
-    border-right: 7px solid rgba(0, 0, 0, 0.2);
-    border-top: 7px solid transparent;
-    left: -7px;
-    top: 10px;
+  border-bottom: 7px solid transparent;
+  border-left: none;
+  border-right: 7px solid rgba(0, 0, 0, 0.2);
+  border-top: 7px solid transparent;
+  left: -7px;
+  top: 10px;
 }
 .navbar .sub-menu:after {
-    border-top: 6px solid transparent;
-    border-left: none;
-    border-right: 6px solid #fff;
-    border-bottom: 6px solid transparent;
-    left: 10px;
-    top: 11px;
-    left: -6px;
+  border-top: 6px solid transparent;
+  border-left: none;
+  border-right: 6px solid #fff;
+  border-bottom: 6px solid transparent;
+  left: 10px;
+  top: 11px;
+  left: -6px;
+}
+/* pricing (from wrapbootstrap template) */
+#pricing h2 {
+  text-align: center;
+  font-size: 14pt;
+  font-weight: 500;
+}
+#pricing span.price {
+  color: #f14a29;
+  display: block;
+  font-size: 12pt;
+}
+#pricing p {
+  padding-top: 10px;
+  text-align: center;
+}
+#pricing ul {
+  text-align: center;
+}
+.pricing_box {
+  -webkit-box-shadow: 5px 8px 0px 0px black;
+  -moz-box-shadow: 0 8px 0px 0px #d3d3d3;
+  box-shadow: 5px 8px 6px -6px #d3d3d3;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  background: #e1e1e1;
+  padding: 10px 0px;
+}
+#pricing_select {
+  background: #f14a29;
+  color: #FFF;
+}
+#pricing_select small {
+  color: #FFFFFF;
+  font-weight: 600;
+}
+#pricing_select span.price {
+  color: #FFFFFF;
+}
+#pricing_action {
+  text-align: center;
+  padding-top: 30px;
 }
 
-/* pricing (from wrapbootstrap template) */
-#pricing h2 {text-align:center; font-size:14pt; font-weight:500;}
-#pricing span.price {color:#f14a29; display:block; font-size:12pt;}
-#pricing p {padding-top:10px; text-align:center;}
-#pricing ul {text-align:center;}
-.pricing_box { -webkit-box-shadow: 5px 8px 0px 0px black;-moz-box-shadow: 0 8px 0px 0px #d3d3d3;box-shadow: 5px 8px 6px -6px #d3d3d3; -webkit-border-radius: 6px; -moz-border-radius: 6px;border-radius: 6px; background:#e1e1e1; padding:10px 0px;} 
-#pricing_select {background:#f14a29;color:#FFF;} #pricing_select small {color:#FFFFFF; font-weight:600;} #pricing_select span.price {color:#FFFFFF;}
-#pricing_action  {text-align:center; padding-top:30px;}
+/** job view styling **/
 
+body.job_view .body-content {
+  position: absolute;
+  top: 40px;
+  bottom: 0px;
+  overflow: visible;
+  left: 20px;
+  right: 20px;
+  min-height: 300px;
+}
+
+body.job_view .job-left-col,
+body.job_view .job-detail-sidebar {
+  position: absolute;
+  top: 30px;
+  bottom: 10px;
+  overflow-y: auto;
+  overflow-x: visible; 
+}
+
+body.job_view #spinner {
+  display: inherit;
+}
+
+body.job_view .job-detail-sidebar {
+  right: 0;
+}
+
+body.job_view .job-left-col div {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+body.job_view .job-left-col {
+  left: 0;
+}
+
+body.job_view .wrap {
+  min-height: 0 !important;
+}
+
+body.job_view footer {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  pre.console-output {
+    position: static;
+    max-height: 500px; 
+  }
+  body.job_view .job-left-col,
+  body.job_view #list-of-builds,
+  body.job_view .job-detail-sidebar,
+  body.job_view .body-content {
+    position: static;
+  }
+  body.job_view #build-metadata .span3 {
+    display: inline-block;
+  }
+  body.job_view #build-metadata .span9 {
+    width: 75%;
+    float: right;
+  }
+  body.job_view #list-of-builds .span6:first-child,
+  body.job_view #build-metadata .span6:first-child {
+    float: left;
+  }
+}
