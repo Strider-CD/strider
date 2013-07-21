@@ -23,4 +23,4 @@ test: lint
 lint:
 	@./node_modules/.bin/jshint *.js
 
-.PHONY: test lint watch
+.PHONY: test lint watch build less
