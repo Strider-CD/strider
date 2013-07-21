@@ -45,7 +45,9 @@ major differences:
 
 <a name="docker-quickstart" />
 ## Docker Quickstart
-For a fully self-contained and pre-built strider installation, check out [Strider in a box](https://github.com/Strider-CD/strider-dockerfile#docker--strider--winning), made possible by the incredible [docker](http://docker.io) project.
+For a fully self-contained and pre-built strider installation, check out
+[Strider in a box](https://github.com/Strider-CD/strider-dockerfile#docker--strider--winning),
+made possible by the incredible [docker](http://docker.io) project.
 
 
 <a name="infrastructure" />
