@@ -56,7 +56,7 @@ function gotNewJob(newjob, $scope) {
       break;
     }
   }
-  if (!job) {
+  if (job === null) {
     console.log("can't find job");
   } else {
     newjob.past_duration = $scope.jobs[job].duration;
@@ -73,7 +73,7 @@ function monitor($scope) {
     gotNewJob(data, $scope);
   }).on('update', function (data) {
     $scope.jobs.forEach(function(job) {
-      if (job.id === data.job_id) {
+      if (job.id === data.id) {
         job.time_elapsed = data.time_elapsed;
       }
     });
