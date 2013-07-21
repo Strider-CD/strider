@@ -1,4 +1,18 @@
 
+build: less
+	@:
+
+less_files := strider.less
+css_files := $(patsubst %.less,public/stylesheets/css/%.css,$(less_files))
+
+less: $(css_files)
+
+public/stylesheets/css/%.css: public/stylesheets/less/%.less
+	./node_modules/.bin/lessc $< > $@
+
+watch:
+	watch make
+
 serve:
 	@./bin/strider
 
@@ -9,4 +23,4 @@ test: lint
 lint:
 	@./node_modules/.bin/jshint *.js
 
-.PHONY: test lint
+.PHONY: test lint watch build less

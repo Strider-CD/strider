@@ -32,16 +32,57 @@
 </div>
 {% endif %}
 
-<div class='row-fluid'>
+<div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard">
   <div>
-    <div id='spinner' class='alert alert-info' ></div>
+    <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">
+      <img class='spinner' src="/images/spinner.gif" />
+      <span ng-switch="running.status">
+        <span ng-switch-when="running">Running job...</span>
+        <span ng-switch-when="submitted">Job submitted...</span>
+      </span>
+    </div>
   </div>
-  {% include "dashboard_templates.html" %}
-  <div id = "dashboard">
+  <div id="dashboard">
+    <div>
+      <div class="row-fluid">
+        <div class="span12 dashboard-section">
+          <div ng-hide="jobs.length || loading" class="empty-jobs alert span10" style="text-align:center">
+            <h2>There are no recent builds - did you set up a repo yet?</h2>
+            <br />
+            <a href="/add_repo" class="btn btn-large btn-primary">Add a Repo</a>
+          </div>  
+          <div class="row-fluid">
+            <div class="span6">
+              <h3>Latest Builds:</h3>
+            </div>
+          </div>
+          <table id="job-list" class="table">
+            <thead>
+              <th></th>
+              <th>Job</th>
+              <th></th>
+              <th></th>
+              <th>Project</th>
+              <th></th>
+              <th>Commit</th>
+              <th></th>
+              <th colspan="2">Duration</th>
+              <th></th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="job in jobs | orderBy:['running', '+finished_time']:true">
+                {% include "partials/_dashboard_row.html" %}
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
-<script src="/javascripts/dashboard.js"></script>
+<script src="/javascripts/pages/dashboard.js"></script>
 
 {% endif %}
 {% endblock %}

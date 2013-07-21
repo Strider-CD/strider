@@ -1,136 +1,232 @@
-html, body {
-  height:100%;
+html,
+body {
+  height: 100%;
 }
-body{
+body {
   background-color: #fff;
 }
 .wrap {
-  min-height:100% !important;
+  min-height: 100% !important;
 }
-.body-content{
-  margin-top:20px;
-
+.body-content {
+  margin-top: 20px;
 }
-
-#dashboard tr {
-  padding: 10px 0;
+#build-page .job-title h3 {
+  font-size: 29px;
+  margin-top: -10px;
+  margin-left: 18px;
 }
-
-#dashboard tr .action-buttons div {
-  visibility: hidden;
+#build-page .job-title h3 .test-only-action {
+  color: green;
 }
-
-#dashboard tr:hover .action-buttons > div {
-  visibility: visible;
+#build-page .job-title h3 .test-and-deploy-action {
+  color: #2900ff;
 }
-
-#dashboard .finished-at time {
+#build-page #build-metadata {
+  border-radius: 5px;
+  padding: 0 10px;
 }
-
-#dashboard .run-time {
-  text-align: center;
+#build-page #build-metadata .progress-meter {
+  min-width: 200px;
 }
-
-#dashboard .progress-meter {
-  margin-top: 10px;
-}
-
-#dashboard .progress-meter .progress {
+#build-page #build-metadata table {
   margin-bottom: 0;
+  width: 100%;
 }
-
-#dashboard .finished-at,
-#dashboard .refresh,
-#dashboard .commit-url,
-#dashboard .committer,
-#dashboard .deploy,
-#dashboard .configure,
-#dashboard .run-time,
-#dashboard .job-link {
+#build-page #build-metadata table .committer img {
+  margin-top: -8px;
+  max-width: inherit;
+}
+#build-page .succeeded {
+  background-color: #CFFFD2;
+}
+#build-page .failed {
+  background-color: #ffd2d0;
+}
+#build-page .running {
+  background-color: #D7F3FF;
+}
+#build-page #list-of-builds td.committer {
+  padding: 0;
+}
+#build-page #list-of-builds td.committer img {
+  margin-top: 4px;
+  height: 25px;
+  width: 25px;
+  max-width: inherit;
+}
+#build-page #list-of-builds tr {
+  background-color: transparent;
+  cursor: pointer;
+}
+#build-page #list-of-builds .active.failed {
+  background-color: #ffd2d0;
+}
+#build-page #list-of-builds .active.succeeded {
+  background-color: #CFFFD2;
+}
+#build-page #list-of-builds .active.running {
+  background-color: #D7F3FF;
+}
+#build-page #list-of-builds tr:hover {
+  background-color: #eee;
+}
+#build-page #list-of-builds .finished-at,
+#build-page #list-of-builds .refresh,
+#build-page #list-of-builds .committer,
+#build-page #list-of-builds .deploy,
+#build-page #list-of-builds .configure,
+#build-page #list-of-builds .run-time,
+#build-page #list-of-builds .job-link {
   width: 1px;
   white-space: nowrap;
 }
-
-#dashboard .commit-url {
-  max-width: 300px;
-  overflow: hidden;
+#build-page .commit-url {
+  width: auto;
 }
-
-#dashboard .small-text {
-  display: inline-block;
-  padding-top: 5px;
-}
-
-#dashboard .github-link {
-  width: 1px;
-}
-
-#dashboard .action-buttons {
-  width: 100px;
-  text-align: center;
-}
-
-#dashboard .action-buttons .btn-group {
-  padding-top: 4px;
-}
-
-#dashboard span,
-#dashboard a {
+#dashboard a,
+#build-page a,
+#dashboard .clickable,
+#build-page .clickable {
   color: black;
   cursor: pointer;
 }
-
-#dashboard i:hover,
-#dashboard a:hover {
-  color: #aaa;
+#dashboard a:hover,
+#build-page a:hover,
+#dashboard .clickable:hover,
+#build-page .clickable:hover {
+  text-decoration: none;
+  color: #999;
 }
-
-#dashboard i {
-  font-size: 150%;
+.progress {
+  margin-bottom: 0;
 }
-
-#dashboard .project-name a {
+.dashboard-row,
+#dashboard table tr {
+  padding: 10px 0;
+}
+.dashboard-row .action-buttons div,
+#dashboard table tr .action-buttons div {
+  visibility: hidden;
+}
+.dashboard-row td,
+#dashboard table tr td {
+  padding: 10px 0;
+  position: relative;
+  font-size: 16px;
+}
+.dashboard-row td a:hover,
+#dashboard table tr td a:hover {
+  text-decoration: none;
+}
+.dashboard-row td > a,
+#dashboard table tr td > a,
+.dashboard-row td > span,
+#dashboard table tr td > span {
+  display: inline-block;
+  padding: 5px 10px;
+}
+.dashboard-row span.clickable,
+#dashboard table tr span.clickable,
+.dashboard-row a,
+#dashboard table tr a {
+  color: black;
+  cursor: pointer;
+}
+.dashboard-row .github-link,
+#dashboard table tr .github-link {
+  width: 1px;
+}
+.dashboard-row:hover .action-buttons > div,
+#dashboard table tr:hover .action-buttons > div {
+  visibility: visible;
+}
+.dashboard-row .small-text,
+#dashboard table tr .small-text {
+  display: inline-block;
+  padding-top: 5px;
+}
+.dashboard-row .action-buttons,
+#dashboard table tr .action-buttons {
+  width: 100px;
+  text-align: center;
+}
+.dashboard-row .action-buttons .btn-group,
+#dashboard table tr .action-buttons .btn-group {
+  padding-top: 4px;
+}
+.dashboard-row .progress-meter,
+#dashboard table tr .progress-meter {
+  margin-top: 10px;
+}
+.dashboard-row .progress-meter .progress,
+#dashboard table tr .progress-meter .progress {
+  margin-bottom: 0;
+}
+.dashboard-row .committer a,
+#dashboard table tr .committer a {
+  padding: 0;
+}
+.dashboard-row .committer img,
+#dashboard table tr .committer img {
+  width: 35px;
+  height: 35px;
+  max-width: inherit;
+  margin-bottom: -13px;
+  margin-top: -1px;
+  border: 2px solid #9AF;
+  border-radius: 10px;
+}
+.dashboard-row .project-name a,
+#dashboard table tr .project-name a {
   font-size: 18px;
   line-height: 27px;
   font-weight: 700;
   width: 100%;
 }
-
-#dashboard .committer a {
-  padding: 0;
+.dashboard-row .run-time,
+#dashboard table tr .run-time {
+  text-align: center;
 }
-
-#dashboard .committer img {
-  width: 35px;
-  height: 35px;
-  margin-bottom: -13px;
-  margin-top: -1px;
-  border: 2px solid #9AF;
-  border-radius: 10px; 
+.dashboard-row i,
+#dashboard table tr i {
+  font-size: 150%;
 }
-
-#dashboard tr td {
-  padding: 10px 0;
-  position: relative;
-  font-size: 16px;
+.dashboard-row .commit-url,
+#dashboard table tr .commit-url {
+  max-width: 300px;
+  overflow: hidden;
 }
-
-#dashboard tr td > a,
-#dashboard tr td > span {
-  display: inline-block;
-  padding: 5px 10px;
+.dashboard-row .clickable i:hover,
+#dashboard table tr .clickable i:hover,
+.dashboard-row a:hover,
+#dashboard table tr a:hover {
+  color: #aaa;
 }
-
-#dashboard tr td a:hover {
-  text-decoration: none;
+.dashboard-row .finished-at,
+#dashboard table tr .finished-at,
+.dashboard-row .refresh,
+#dashboard table tr .refresh,
+.dashboard-row .commit-url,
+#dashboard table tr .commit-url,
+.dashboard-row .committer,
+#dashboard table tr .committer,
+.dashboard-row .deploy,
+#dashboard table tr .deploy,
+.dashboard-row .configure,
+#dashboard table tr .configure,
+.dashboard-row .run-time,
+#dashboard table tr .run-time,
+.dashboard-row .job-link,
+#dashboard table tr .job-link {
+  width: 1px;
+  white-space: nowrap;
 }
-
 .configure-action i {
   margin-top: 4px;
   display: inline-block;
   margin-left: 5px;
 }
-
 .docs-section {
   padding-top: 40px;
 }
@@ -152,14 +248,12 @@ img.manual_setup {
 .failure-text {
   color: #9d261d;
 }
-
 footer {
-  border-top:1px solid #ddd;
-  background-color:#f0f0f0;
-  margin-top:30px;
-  padding:10px;
+  border-top: 1px solid #ddd;
+  background-color: #f0f0f0;
+  margin-top: 30px;
+  padding: 10px;
 }
-
 footer p {
   text-align: center;
   /* center align it with the container */
@@ -205,7 +299,7 @@ footer p {
   background-color: #cfb;
 }
 #build-metadata.running {
-  background-color: #feb;
+  background-color: #D7F3FF;
 }
 #list-of-builds {
   position: absolute;
@@ -214,6 +308,9 @@ footer p {
   right: 0;
   bottom: 10px;
   overflow: auto;
+}
+#list-of-builds table {
+  margin-bottom: 0;
 }
 #build-detail-buttons {
   border: 1px solid;
@@ -453,7 +550,7 @@ pre.console-output {
   background-color: black;
   color: white;
   position: absolute;
-  top: 85px;
+  top: 65px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -602,9 +699,7 @@ span.underline {
   text-align: center;
   padding-top: 30px;
 }
-
 /** job view styling **/
-
 body.job_view .body-content {
   position: absolute;
   top: 40px;
@@ -614,45 +709,37 @@ body.job_view .body-content {
   right: 20px;
   min-height: 300px;
 }
-
 body.job_view .job-left-col,
 body.job_view .job-detail-sidebar {
   position: absolute;
   top: 30px;
   bottom: 10px;
   overflow-y: auto;
-  overflow-x: visible; 
+  overflow-x: visible;
 }
-
 body.job_view #spinner {
   display: inherit;
 }
-
 body.job_view .job-detail-sidebar {
   right: 0;
 }
-
 body.job_view .job-left-col div {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-
 body.job_view .job-left-col {
   left: 0;
 }
-
 body.job_view .wrap {
   min-height: 0 !important;
 }
-
 body.job_view footer {
   display: none;
 }
-
 @media (max-width: 768px) {
   pre.console-output {
     position: static;
-    max-height: 500px; 
+    max-height: 500px;
   }
   body.job_view .job-left-col,
   body.job_view #list-of-builds,

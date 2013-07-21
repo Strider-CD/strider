@@ -46,7 +46,8 @@
     "sinon": "~1.7.0",
     "commander": ">=0.5.2",
     "chai": "~1.7.2",
-    "jshint": "~2.1.4"
+    "jshint": "~2.1.4",
+    "less": "~1.4.2"
   },
   "scripts": {
     "test": "make test",

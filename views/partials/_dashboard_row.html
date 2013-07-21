@@ -1,0 +1,79 @@
+<td class="deploy" ng-hide="page === 'build'">
+  <span ng-show="job.project_deployable && !job.running"
+        ng-click="startDeploy(job)"
+        data-toggle="tooltip" title="Retest &amp; Deploy"
+        data-delay="200" class="clickable test-and-deploy-action">
+    <i class="icon-cloud-upload"></i>
+  </span>
+</td>
+<td class="job-link" ng-switch="page==='build'">
+  <a href="[[ job.url ]]" ng-switch-when="false" ng-switch="job.status">
+    <i ng-switch-when="succeeded" class="icon-check-sign success-text"></i>
+    <i ng-switch-when="running" class="icon-cog icon-spin"></i>
+    <i ng-switch-when="submitted" class="icon-cog icon-spin"></i>
+    <i ng-switch-when="failed" class="icon-exclamation-sign failure-text"></i>
+    <span>[[ job.id.substr(0,8) ]]</span>
+  </a>
+  <span ng-switch-when="true" ng-switch="job.status">
+    <i ng-switch-when="succeeded" class="icon-check-sign success-text"></i>
+    <i ng-switch-when="running" class="icon-cog icon-spin"></i>
+    <i ng-switch-when="submitted" class="icon-cog icon-spin"></i>
+    <i ng-switch-when="failed" class="icon-exclamation-sign failure-text"></i>
+    <span>[[ job.id.substr(0,8) ]]</span>
+  </span>
+</td>
+<td class="refresh" ng-hide="page === 'build'">
+  <span ng-hide="job.running" data-toggle="tooltip"
+        ng-click="startTest(job)"
+        title="Retest" data-delay="500"
+        class="clickable test-only-action">
+    <i class="icon-refresh"></i>
+  </span>
+</td>
+<td class="configure" ng-hide="page === 'build'">
+  <a href="/[[ job.project_name ]]/config"
+     data-toggle="tooltip" data-delay="500" title="Configure">
+    <i class="icon-wrench"></i>
+  </a>
+</td>
+<td class="project-name" ng-hide="page === 'build'">
+  <a href="/[[ job.project_name ]]/">
+    [[ job.project_name ]]
+  </a>
+</td>
+<td class="committer">
+  <div ng-show="job.triggered_by_commit" ng-switch="job.committer.url">
+    <img ng-switch-when="null" ng-src="[[ job.committer.image ]]"/>
+    <a ng-switch-default href="[[ job.committer.url ]]">
+      <img ng-src="[[ job.committer.image ]]"/>
+    </a>
+  </div>
+</td>
+<td class="commit-url">
+  <a ng-show="job.triggered_by_commit"
+     href="[[ job.commit.url ]]">
+    <span class="small-text">
+      [[ job.commit.message ]]
+    </span>
+  </a>
+</td>
+<td class="github-link" ng-hide="page === 'build'">
+  <a href="[[ job.repo_url ]]" target="_blank">
+    <i class="icon-github"></i>
+  </a>
+</td>
+<td class="run-time">
+  <span class="small-text">
+    [[ job.duration ]]s
+  </span>
+</td>
+<td class="finished-at" ng-switch="job.running">
+  <span ng-switch-when="false" class="small-text">
+    <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished_timestamp ]]" class="timeago"></time>
+  </span>
+  <div ng-switch-when="true" class="progress-meter">
+    <div class="progress progress-striped active progress-info">
+      <div class="bar" style="width:[[ job.time_elapsed/job.past_duration*100 ]]%; max-width: 100%"></div>
+    </div>
+  </div>
+</td>

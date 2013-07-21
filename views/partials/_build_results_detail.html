@@ -1,8 +1,8 @@
 <div ng-switch="job.triggered_by_commit">
   <div class='row-fluid' ng-switch-when="true">
     <div class='span1'>
-      <a href="https://github.com/[[ job.github_commit_info.author.username ]]">
-        <img ng-src="[[ results_detail.gravatar_url ]]&s=40'" class='gravatar' />
+      <a href="[[ job.committer.url ]]">
+        <img ng-src="[[ job.committer.image ]]&s=40" class='gravatar' />
       </a>
     </div>
     <div class='span11'>
@@ -16,16 +16,16 @@
         <div class='span6'>
           <div id="commit-id">
             <strong>Commit-ID:</strong>
-            <a href="[[ job.repo_url ]]/commit/[[ job.github_commit_info.id ]]">[[ job.github_commit_info.id ]]</a>
+            <a href="[[ job.commit.url ]]">[[ job.commit.id ]]</a>
           </div>
         </div>
       </div>
       <div class='row-fluid' id ="repo-branch">
         <strong ng-switch="job.committer_is_username"> 
-          <a ng-switch-when="true" href="https://github.com/[[ job.committer ]]">[[ job.committer ]]</a>
-          <span ng-switch-when="false">| [[ job.committer ]]</span>
+          <a ng-switch-when="true" href="[[ job.committer.url ]]">[[ job.committer.name ]]</a>
+          <span ng-switch-when="false">[[ job.committer.name ]]</span>
         </strong>
-        | :&nbsp; [[ job.github_commit_info.message ]]
+        [[ job.commit.message ]]
       </div>
     </div>
   </div>
