@@ -30,6 +30,19 @@ function animateFav() {
 }
 
 var runtime = null;
+function updateFavicon(value) {
+  if (value === 'running') {
+    if (runtime === null) {
+      runtime = animateFav();
+    }
+  } else {
+    if (runtime !== null) {
+      clearInterval(runtime);
+      runtime = null;
+    }
+    setFavicon(value);
+  }
+}
 
 var app = angular.module('JobStatus', [], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
   interp.startSymbol('[[');
@@ -197,7 +210,7 @@ JobManager.prototype = {
           } else { // give them the first one
             waiter[1](null, self.cache[project].list[0], false);
             // also get the output
-            self.getOutput(self.cache[project].list[0].id, waiter[1]);
+            self.getOutput(project, self.cache[project].list[0].id, waiter[1]);
           }
         }
       })
@@ -216,6 +229,15 @@ app.factory('jobs', function () {
   // job caching
   return new JobManager();
 });
+
+function scrollSeen(item, parent) {
+  if (item.offsetTop < parent.scrollTop) {
+    return item.scrollIntoView(true);
+  }
+  if (item.offsetTop + item.offsetHeight > parent.scrollTop + parent.offsetHeight) {
+    return item.scrollIntoView(false);
+  }
+}
 
 // main jobs controller
 app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($scope, $route, $location, jobs) {
@@ -240,6 +262,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   });
 
   $scope.jobs = jobs.getCache(project);
+  var listContainer = document.getElementById('list-of-builds');
   function setJob(project, id) {
     jobs.fetch(project, id, function (err, job, cached) {
       if (err) {
@@ -251,13 +274,14 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
       if (!cached) {
         $scope.$digest();
       }
+      updateFavicon(job.status);
       var item = $('.build-list-item[data-id="' + job.id + '"]')[0];
       if (item) {
-        item.scrollIntoView(false);
+        scrollSeen(item, listContainer);
       } else {
         setTimeout(function () {
           var item = $('.build-list-item[data-id="' + job.id + '"]')[0];
-          if (item) item.scrollIntoView(false);
+          if (item) scrollSeen(item, listContainer);
         }, 100);
       }
     });
@@ -272,17 +296,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
 
   // set the favicon according to job status
   $scope.$watch('job.status', function (value) {
-    if (value === 'running') {
-      if (runtime === null) {
-        runtime = animateFav();
-      }
-    } else {
-      if (runtime !== null) {
-        clearInterval(runtime);
-        runtime = null;
-      }
-      setFavicon(value);
-    }
+    updateFavicon(value);
   });
 
   $scope.$watch('job.output', function (value) {

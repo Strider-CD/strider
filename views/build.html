@@ -4,7 +4,7 @@
 
 {% block bodyContent %}
 {% set page = "build" %}
-<div class="app" ng-app="JobStatus">
+<div class="app ng-cloak" ng-app="JobStatus">
   <script>
     var repo = {{ repo_config | json_encode() | raw }};
   </script>
@@ -109,18 +109,20 @@
             <div class='build-list-header'>
               <h3>Past Builds</h3>
             </div>
-            <table id="list-of-builds" class="table">
-              <thead></thead>
-              <tbody>
-                <tr ng-repeat="job in jobs.list | orderBy:+finished_time:true"
-                    class="row-fluid build-list-item [[job.status]]"
-                    data-id="[[ job.id ]]"
-                    ng-click="selectJob(job.id)"
-                    ng-class="{active:job.id === $parent.job.id}">
-                  {% include "partials/_build_history_row.html" %}
-                </tr>
-              </tbody>
-            </table>
+            <div id="list-of-builds">
+              <table class="table">
+                <thead></thead>
+                <tbody>
+                  <tr ng-repeat="job in jobs.list | orderBy:+finished_time:true"
+                      class="row-fluid build-list-item [[job.status]]"
+                      data-id="[[ job.id ]]"
+                      ng-click="selectJob(job.id)"
+                      ng-class="{active:job.id === $parent.job.id}">
+                    {% include "partials/_build_history_row.html" %}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

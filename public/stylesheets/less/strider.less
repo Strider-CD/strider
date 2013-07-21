@@ -12,6 +12,18 @@ body{
 }
 
 #build-page {
+  .job-title h3 {
+    font-size: 29px;
+    margin-top: -10px;
+    margin-left: 18px;
+
+    .test-only-action {
+      color: green;
+    }
+    .test-and-deploy-action {
+      color: rgb(41, 0, 255);
+    }
+  }
   #build-metadata {
     border-radius: 5px;
     padding: 0 10px;
@@ -26,6 +38,7 @@ body{
 
       .committer img {
         margin-top: -8px;
+        max-width: inherit;
       }
     }
   }
@@ -44,6 +57,8 @@ body{
       img {
         margin-top: 4px;
         height: 25px;
+        width: 25px;
+        max-width: inherit;
       }
     }
     tr {
@@ -152,6 +167,7 @@ a, .clickable {
     img {
       width: 35px;
       height: 35px;
+      max-width: inherit;
       margin-bottom: -13px;
       margin-top: -1px;
       border: 2px solid #9AF;
@@ -282,6 +298,10 @@ footer p {
   right: 0;
   bottom: 10px;
   overflow: auto;
+
+  table {
+    margin-bottom: 0;
+  }
 }
 #build-detail-buttons {
   border: 1px solid;
