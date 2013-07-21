@@ -113,7 +113,8 @@
               <table class="table">
                 <thead></thead>
                 <tbody>
-                  <tr ng-repeat="job in jobs.list | orderBy:+finished_time:true"
+                  <!-- | orderBy:sortDate:true" -->
+                  <tr ng-repeat="job in jobs.list"
                       class="row-fluid build-list-item [[job.status]]"
                       data-id="[[ job.id ]]"
                       ng-click="selectJob(job.id)"

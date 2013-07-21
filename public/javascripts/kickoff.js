@@ -98,6 +98,44 @@ function init_kickoff() {
       }
     });
 
+  function listenForRepoDone(repo_url, self) {
+    socket.on('repodone', function(data) {
+      socket.removeAllListeners('update');
+      socket.removeAllListeners('repodone');
+      status_msg("");
+      spinner.html(_.template($("#spinner-msg").html(),
+                              {message:"Github respository setup complete. Starting first test build."}))
+        .removeClass().addClass("alert alert-info");
+      $.ajax("/api/jobs/start", {
+        data: {url: repo_url, type:"TEST_ONLY"},
+        dataType: "text",
+        type: "POST",
+        error: function(xhr, ts, e) {
+          console.log("job start failure: " + xhr.responseText);
+        },
+        success: function(data, ts, xhr) {
+          spinner.html('<b>Github repository setup complete!</b> Your first test build is running. The next step is to configure Continuous Deployment.')
+            .removeClass().addClass('alert alert-success');
+          self.$("div.actions")
+            .html('<a class="btn btn-primary run-action">Continue to deploy configuration</a> <a class="btn" href="/">Skip</a>');
+          self.$(".run-action").one('click', function() {
+            spinner.hide();
+            window.app_router.navigate("paas/select", {trigger: true});
+          });
+          $(self.el).find("div.github-main-content").html(self.collab_template());
+          self.$(".btn-add-collab").click(function() {
+            var email = self.$(".collab-email").val();
+            // Simple validation
+            if (email && email.length > 0) {
+              add(repo_url, email);
+            } else {
+              status_msg("Invalid email address", "alert-error");
+            }
+          });
+        }
+      });
+    });
+  }
 
     window.GithubSetup = Backbone.View.extend({
       template: _.template($("#github-setup").html()),
@@ -112,43 +150,19 @@ function init_kickoff() {
 
           var self = this;
           var repo_url = model.toJSON().url.toLowerCase();
-          socket.on('repodone', function(data) {
-            socket.removeAllListeners('update');
-            socket.removeAllListeners('repodone');
-            status_msg("");
-            spinner.html(_.template($("#spinner-msg").html(),
-              {message:"Github respository setup complete."}))
-              .removeClass().addClass("alert alert-info");
-            $.ajax("/api/jobs/start", {
-              data: {url: repo_url, type:"TEST_ONLY"},
-              dataType: "text",
-              type: "POST",
-              error: function(xhr, ts, e) {
-                console.log("job start failure: " + xhr.responseText);
-              },
-              success: function(data, ts, xhr) {
-                spinner.html('<b>Github repository setup complete!</b> The next step is to configure Continuous Deployment.')
-                    .removeClass().addClass('alert alert-success');
-                self.$("div.actions")
-                    .html('<a class="btn btn-primary run-action">Continue to deploy configuration</a> <a class="btn" href="/">Skip</a>');
-                self.$(".run-action").one('click', function() {
-                  spinner.hide();
-                  window.app_router.navigate("paas/select", {trigger: true});
-                });
-                $(self.el).find("div.github-main-content").html(self.collab_template());
-                self.$(".btn-add-collab").click(function() {
-                  var email = self.$(".collab-email").val();
-                  // Simple validation
-                  if (email && email.length > 0) {
-                    add(repo_url, email);
-                  } else {
-                    status_msg("Invalid email address", "alert-error");
-                  }
-                });
-              }
-            });
-          });
+          listenForRepoDone(repo_url, self);
           socket.emit("setuprepo", {repo_id:repo.id});
+        },
+        'click .run-public': function (ev) {
+          $('.run-public, .run-action').hide();
+          spinner.html(_.template($("#spinner-msg").html(),
+            {message:"Starting Github repository setup..."})).removeClass().addClass("alert alert-info");
+          spinner.show();
+
+          var self = this;
+          var repo_url = model.toJSON().url.toLowerCase();
+          listenForRepoDone(repo_url, self);
+          socket.emit("setuprepo", {repo_id:repo.id, no_ssh: true});
         }
       },
 

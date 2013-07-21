@@ -11,6 +11,11 @@ body {
 .body-content {
   margin-top: 20px;
 }
+#kickoff-app .github-main-content p,
+#kickoff-app .github-main-content {
+  font-size: 18px;
+  line-height: 26px;
+}
 #build-page .job-title h3 {
   font-size: 29px;
   margin-top: -10px;
@@ -101,6 +106,9 @@ body {
 .progress {
   margin-bottom: 0;
 }
+#dashboard table tr .progress-meter {
+  margin-top: 10px;
+}
 .dashboard-row,
 #dashboard table tr {
   padding: 10px 0;
@@ -154,10 +162,6 @@ body {
 .dashboard-row .action-buttons .btn-group,
 #dashboard table tr .action-buttons .btn-group {
   padding-top: 4px;
-}
-.dashboard-row .progress-meter,
-#dashboard table tr .progress-meter {
-  margin-top: 10px;
 }
 .dashboard-row .progress-meter .progress,
 #dashboard table tr .progress-meter .progress {

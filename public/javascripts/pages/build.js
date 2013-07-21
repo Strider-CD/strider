@@ -98,6 +98,19 @@ app.directive("time", function() {
   };
 });
 
+function getDate(a) {
+  if (!a.finished_timestamp) return new Date().getTime();
+  return new Date(a.finished_timestamp).getTime();
+}
+
+function sortByFinished(a, b) {
+  a = getDate(a);
+  b = getDate(b);
+  if (a > b) return -1;
+  if (b > a) return 1;
+  return 0;
+}
+
 var JobManager = function () {
   this.cache = {};
   this.loading = {};
@@ -123,13 +136,14 @@ JobManager.prototype = {
     // actually not sure that we need to do this.
     for (var i=0; i<jobs.length; i++) {
       if (cache.ids[jobs[i].id]) {
-        ids[jobs[i].id] = $.extend(cache.ids[jobs[i].id], jobs[i]);
+        jobs[i] = ids[jobs[i].id] = $.extend(cache.ids[jobs[i].id], jobs[i]);
         ids[jobs[i].id]._sparse = false;
       } else {
         ids[jobs[i].id] = jobs[i];
       }
     }
     cache.ids = ids;
+    jobs.sort(sortByFinished);
     cache.list = jobs;
     // we now have everything, not just the most recent
     cache.full = true;
@@ -145,6 +159,7 @@ JobManager.prototype = {
          cache.ids[id] = {
            _sparse: true
          };
+         cache.list.unshift(cache.ids[id]);
        }
        cache.ids[id].output = data;
        next && next(null, cache.ids[id], false);
@@ -158,10 +173,8 @@ JobManager.prototype = {
     var cache = this.getCache(project);
     if (cache.ids[data.id]) {
       return $.extend(cache.ids[data.id], data);
-    } else {
-      cache.list.unshift(data);
-      // cache.list.sort(compareJobTimes);
     }
+    cache.list.unshift(data);
     cache.ids[data.id] = data;
     return data;
   },
@@ -249,6 +262,11 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
 
   setJob(project, params.id);
 
+  $scope.sortDate = function (item) {
+    if (!item.finished_timestamp) return new Date().getTime();
+    return new Date(item.finished_timestamp).getTime();
+  };
+
   $scope.$on('$locationChangeSuccess', function(event) {
     params = $route.current.params;
     if (params.org + '/' + params.repo == project) {
@@ -293,7 +311,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   $scope.page = 'build';
   // a history item is clicked
   $scope.selectJob = function (id) {
-    $location.path('/' + params.org + '/' + params.repo + '/job/' + id);
+    $location.path('/' + params.org + '/' + params.repo + '/job/' + id).replace();
   };
 
   // set the favicon according to job status
@@ -336,10 +354,10 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
       return;
     }
     // $scope.job = $scope.jobs.list[idx];
-    jobid = $scope.jobs.list[idx].id;
-    setJob(project, jobid);
+    var id = $scope.jobs.list[idx].id;
+    $scope.selectJob(id);
     evt.preventDefault();
-    $scope.$digest();
+    $scope.$root.$digest();
   };
 
   document.addEventListener('keydown', switchBuilds);
@@ -403,6 +421,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
         created_timestamp: new Date(d - data.time_elapsed*1000),
         status: 'running',
         output: '',
+        past_duration: 30,
         duration: parseInt(data.time_elapsed)
       });
       if ($scope.jobs.list[1]) {
@@ -412,6 +431,9 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     startJobTimer(data.id);
     // $scope.jobs.ids[data.id].duration = parseInt(data.time_elapsed);
     var job = $scope.jobs.ids[data.id];
+    if (!job.past_duration && $scope.jobs.list[0]) {
+      job.past_duration = $scope.jobs.list[0].duration;
+    }
     job.output += data.msg;
     job.time_elapsed = data.time_elapsed;
     var height, tracking = false;
@@ -455,51 +477,3 @@ function startJob(url, job_type, next) {
     type: "POST"
   });
 };
-
-/*
-  $(document).ready(function() {
-  if (window.socket === undefined) {
-  }
-  window.startJob = function(url, job_type) {
-  // Default job type is TEST_AND_DEPLOY
-  if (job_type === undefined) {
-  job_type = "TEST_AND_DEPLOY";
-  }
-
-  var data = {url:url, type:job_type};
-
-  $.ajax("/api/jobs/start", {
-  data: data,
-  dataType: "text",
-  error: function(xhr, ts, e) {
-  var job = JobList.find(function(item) {
-  return item.get('repo_url') === url;
-  });
-  if (job !== undefined) {
-  startProgressMeter(job);
-  }
-  },
-  success: function(data, ts, xhr) {
-
-  },
-  type: "POST"
-  });
-  };
-
-  $("a.btn.deploy").click(function() {
-  startJob( '{{ repo_url}}' );
-  $("a.btn.deploy").attr('disabled', 'disabled');
-  $("a.btn.test").attr('disabled', 'disabled');
-  status_msg("Job submitted...", "info", "#spinner-msg");
-  });
-
-  $("a.btn.test").click(function() {
-  startJob( "{{repo_url}}" , "TEST_ONLY");
-  $("a.btn.test").attr('disabled', 'disabled');
-  $("a.btn.deploy").attr('disabled', 'disabled');
-  status_msg("Job submitted...", "info", "#spinner-msg");
-  });
-  var offset = $('pre.console-output').prop('scrollHeight');
-  $('pre.console-output').scrollTop(offset);
-  });
-*/
