@@ -72,11 +72,30 @@ function monitor($scope) {
   window.socket.on('new', function (data) {
     gotNewJob(data, $scope);
   }).on('update', function (data) {
-    $scope.jobs.forEach(function(job) {
+    var found = false
+      , repo_at = null;
+    $scope.jobs.forEach(function(job, i) {
       if (job.id === data.id) {
+        found = true;
         job.time_elapsed = data.time_elapsed;
+      } else if (job.repo_url === data.repo_url) { // a new job we didn't know about
+        repo_at = i;
       }
     });
+    if (!found) { // this is a new job we didn't know about
+      data.past_duration = 60;
+      if (repo_at !== null) {
+        data.past_duration = $scope.jobs[repo_at].duration;
+        $scope.jobs.splice(repo_at, 1);
+      }
+      data.status = 'running';
+      data.created_timestamp = new Date(new Date().getTime() - data.time_elapsed*1000).toString();
+      data.duration = null;
+      data.project_name = data.repo_url.split('/').slice(-2).join('/');
+      data.running = true;
+      data.url = '/' + data.project_name + '/job/' + data.id;
+      $scope.jobs.unshift(data);
+    }
     $scope.$digest();
   }).on('done', function (data) {
     var ind = null;
