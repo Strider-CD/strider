@@ -84,13 +84,17 @@ body {
 #build-page .commit-url {
   width: auto;
 }
-a,
-.clickable {
+#dashboard a,
+#build-page a,
+#dashboard .clickable,
+#build-page .clickable {
   color: black;
   cursor: pointer;
 }
-a:hover,
-.clickable:hover {
+#dashboard a:hover,
+#build-page a:hover,
+#dashboard .clickable:hover,
+#build-page .clickable:hover {
   text-decoration: none;
   color: #999;
 }

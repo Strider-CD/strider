@@ -8,7 +8,7 @@ css_files := $(patsubst %.less,public/stylesheets/css/%.css,$(less_files))
 less: $(css_files)
 
 public/stylesheets/css/%.css: public/stylesheets/less/%.less
-	lessc $< > $@
+	./node_modules/.bin/lessc $< > $@
 
 watch:
 	watch make

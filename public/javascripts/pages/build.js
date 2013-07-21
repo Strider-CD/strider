@@ -258,6 +258,8 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
         jobid = params.id;
         setJob(project, params.id);
       }
+    } else if (window.location.pathname.split('/').slice(-1)[0] === 'config') {
+      window.location = window.location;
     }
   });
 
