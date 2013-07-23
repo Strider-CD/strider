@@ -320,7 +320,9 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   });
 
   $scope.$watch('job.output', function (value) {
-    if ($scope.job && $scope.job.running) return;
+    if ($scope.job && $scope.job.running) {
+      return;
+    }
     console.scrollTop = console.scrollHeight;
     setTimeout(function () {
       console.scrollTop = console.scrollHeight;
@@ -433,6 +435,10 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     var job = $scope.jobs.ids[data.id];
     if (!job.past_duration && $scope.jobs.list[0]) {
       job.past_duration = $scope.jobs.list[0].duration;
+    }
+    if (data.msg[0] === '\r') {
+      job.output = job.output.slice(0, job.output.lastIndexOf('\n') + 1);
+      data.msg = data.msg.slice(1);
     }
     job.output += data.msg;
     job.time_elapsed = data.time_elapsed;
