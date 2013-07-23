@@ -404,7 +404,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     jobtimers[id] = null
   }
   io.connect().on('new', function (data) {
-    if (data.repo_url != $scope.job.repo_url) return;
+    if (data.repo_url != repo.url) return;
     data.past_duration = $scope.jobs.list[0].duration;
     data.duration = 0;
     data.output = '';
@@ -414,7 +414,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     $location.path('/' + project + '/job/' + jobid);
     $scope.$root.$digest();
   }).on('update', function (data) {
-    if (data.repo_url != $scope.job.repo_url) return;
+    if (data.repo_url != repo.url) return;
     if (!$scope.jobs.ids[data.id]) {
       var d = new Date().getTime();
       $scope.job = jobs.update(project, {
@@ -453,7 +453,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
       console.scrollTop = console.scrollHeight;
     }
   }).on('done', function(data) {
-    if (data.repo_url != $scope.job.repo_url) return;
+    if (data.repo_url != repo.url) return;
     clearJobTimer(data.id);
     $scope.job = jobs.update(project, data);
     $scope.$digest();
