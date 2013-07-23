@@ -151,7 +151,8 @@ function init_kickoff() {
           var self = this;
           var repo_url = model.toJSON().url.toLowerCase();
           listenForRepoDone(repo_url, self);
-          socket.emit("setuprepo", {repo_id:repo.id});
+          socket.emit("setuprepo", {repo_id:repo.id, no_ssh: true});
+          /*
         },
         'click .run-public': function (ev) {
           $('.run-public, .run-action').hide();
@@ -163,6 +164,7 @@ function init_kickoff() {
           var repo_url = model.toJSON().url.toLowerCase();
           listenForRepoDone(repo_url, self);
           socket.emit("setuprepo", {repo_id:repo.id, no_ssh: true});
+          */
         }
       },
 
