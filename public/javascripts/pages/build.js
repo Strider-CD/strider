@@ -320,11 +320,6 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   });
 
   $scope.$watch('job.output', function (value) {
-    var data = value.replace(/^[^\n\r]*\u001b\[2K/gm, '')
-               .replace(/\u001b\[K[^\n\r]*/g, '')
-               .replace(/[^\n]*\r([^\n])/g, '$1')
-               .replace(/^[^\n]*\u001b\[0G/gm, '');
-    $scope.job.output = data;
     if ($scope.job && $scope.job.running) {
       return;
     }
@@ -440,6 +435,10 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     var job = $scope.jobs.ids[data.id];
     if (!job.past_duration && $scope.jobs.list[0]) {
       job.past_duration = $scope.jobs.list[0].duration;
+    }
+    if (data.msg[0] === '\r') {
+      job.output = job.output.slice(0, job.output.lastIndexOf('\n') + 1);
+      data.msg = data.msg.slice(1);
     }
     job.output += data.msg;
     job.time_elapsed = data.time_elapsed;
