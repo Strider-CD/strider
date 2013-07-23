@@ -320,7 +320,14 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   });
 
   $scope.$watch('job.output', function (value) {
-    if ($scope.job && $scope.job.running) return;
+    var data = value.replace(/^[^\n\r]*\u001b\[2K/gm, '')
+               .replace(/\u001b\[K[^\n\r]*/g, '')
+               .replace(/[^\n]*\r([^\n])/g, '$1')
+               .replace(/^[^\n]*\u001b\[0G/gm, '');
+    $scope.job.output = data;
+    if ($scope.job && $scope.job.running) {
+      return;
+    }
     console.scrollTop = console.scrollHeight;
     setTimeout(function () {
       console.scrollTop = console.scrollHeight;

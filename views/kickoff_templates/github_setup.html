@@ -29,15 +29,7 @@
       <p></p> <b><em><%= display_name %></em></b>
        <% if (private) { %>
          <p><i class="icon-lock"></i> This repository is private.</p>
-         <p>
-           Strider needs a Github post-receive hook and a deploy key
-           in order to run tests against <strong><%= display_name %></strong>
-           after each Github check-in. Strider can setup both the post-receive
-           hook and the deploy key automatically. Please click below to
-           authorize strider to configure <strong><%= display_name %></strong>
-           on your behalf.
-         </p>
-       <% } else { %>
+       <% } %>
          <p>
            Strider needs a Github post-receive hook
            in order to run tests against <strong><%= display_name %></strong>
@@ -45,29 +37,13 @@
            hook automatically. Please click below to
            authorize strider to configure <strong><%= display_name %></strong>
            on your behalf.
-         </p><p>
-           <strong>Because this repository is public, Strider doesn't need a
-           deploy key</strong> to test and deploy your project. However, if you
-           ever plan on making the project private, Strider would need
-           a deploy key. In that case, it would make sense to setup
-           the deploy key now.
          </p>
-       <% } %>
     </div>
     <p></p>
     <div class="actions">
-      <% if (private) { %>
       <button class="run-action btn btn-primary">
         Yes, please configure my project
       </button>
-      <% } else { %>
-      <button class="run-public btn btn-success">
-        Setup project
-      </button>
-      <button class="run-action btn btn-primary">
-        Setup <em>with a deploy key</em>
-      </button>
-      <% } %>
     </div>
   </div>
 </script>
