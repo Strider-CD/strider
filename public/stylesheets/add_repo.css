@@ -14,7 +14,9 @@
 }
 
 .project a.github-link {
-  margin-left: 10px;
+  font-size: 20px;
+  line-height: 11px;
+  margin: 0 10px;
 }
 
 .project a.config-link {

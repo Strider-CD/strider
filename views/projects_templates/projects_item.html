@@ -2,12 +2,12 @@
   <div class="row-fluid">
     <div class="span10">
       <p>
+        <a href="<%= html_url %>" class="github-link icon-github"></a>
         <% if (!configured) {
            print(short_url);
          } else { %>
         <a href="<%= short_url %>/config" class="config-link"><% print(short_url); %></a>
         <% } %>
-        <a href="<%= html_url %>" class="github-link">(github)</a>
         <span class="description"><%= description %></span>
       </p>
     </div>
