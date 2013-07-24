@@ -127,8 +127,8 @@ function killOldJobs(job) {
   if (!job.created_timestamp) return false;
   if (job.finished_timstamp !== undefined) return true;
   if (job.test_exitcode !== undefined) return;
-  // anything older than 10 minutes that hasn't ended is pronounced hanged
-  if (new Date().getTime() - job.created_timestamp.getTime() > 10 * 60 * 1000) {
+  // anything older than 1 hour that hasn't ended is pronounced hanged
+  if (new Date().getTime() - job.created_timestamp.getTime() > 60 * 60 * 1000) {
     console.log('killing old job', job.repo_url, job._id);
     var msg = '\r\n\u001b[35m[STRIDER]\u001b[0m job timeout after 10 minutes\r\n';
     var data = {
