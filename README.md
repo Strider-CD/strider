@@ -1,6 +1,5 @@
 # ![Strider Logo](https://raw.github.com/Strider-CD/strider/passportAuth/public/images/logo-100x100.png) Strider
-
-[![Build Status](https://travis-ci.org/Strider-CD/strider.png)](https://travis-ci.org/Strider-CD/strider)
+[![Build Status](https://hosted.stridercd.com/51f050cf04568a0c00000008/strider-cd/strider/badge)](https://hosted.stridercd.com/Strider-CD/strider/)
 [![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
 [![devDependency Status](https://david-dm.org/Strider-CD/strider/dev-status.png)](https://david-dm.org/Strider-CD/strider#info=devDependencies)
 
