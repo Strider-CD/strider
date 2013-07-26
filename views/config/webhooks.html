@@ -1,0 +1,56 @@
+<div id="project_config_webhooks" class="widget span10">
+  <div class="well">
+    <fieldset>
+      <legend>Webhooks</legend>
+      <div class="alert alert-success hide"></div>
+      <p>
+        Target URLs will receive a HTTP POST from Strider
+        with a JSON payload on each project test run. These
+        enable you to receive and process real-time push
+        notifications from our system. Push notifications
+        are signed cryptographically with HMAC-SHA1 using a
+        shared secret so you can verify their
+        authenticity. Signatures are transmitted in
+        the
+        <a href="http://pubsubhubbub.googlecode.com/svn/trunk/pubsubhubbub-core-0.3.html#authednotify">
+          X-Signature-Hub header.
+        </a>
+        <a href="https://gist.github.com/3029840">See a sample payload.</a>
+      </p>
+      <div class="row">
+        <div class="span6">
+          <table class="table">
+            <thead>
+              <th>TargetURL for HTTP Post</th>
+              <th>Shared secret for HMAC-SHA1 signatire</th>
+            </thead>
+            <tbody>
+              <tr ng-repeat="hook in webhooks">
+                <td>[[ hook.target_url ]]</td>
+                <td>[[ hook.secret ]]</td>
+                <td>
+                  <a ng-click="confirmRemove(hook)">
+                    <i class="icon-remove" alt="remove"></i>
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="span2">
+          <div class="control-group">
+            <div class="controls">
+              <div class="input-append">
+                <input ng-model="new_url" type="text"
+                       placeholder="target URL" class="webhook-target-url span2"/>
+                <input ng-model="new_secret" type="text"
+                       placeholder="HMAC-SHA1 secret" class="webhook-secret span2"/>
+              </div>
+              <button class="btn" ng-click="addNew()">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </fieldset>
+  </div>
+</div>

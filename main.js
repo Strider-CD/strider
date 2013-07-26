@@ -7,11 +7,73 @@ var app = require('./lib/app'),
     auth = require('./lib/auth'),
     models = require('./lib/models'),
     websockets = require('./lib/websockets'),
-    pluginTemplates = require('./lib/pluginTemplates')
+    pluginTemplates = require('./lib/pluginTemplates'),
+    utils = require('./lib/utils')
 
 common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];
 common.panels = {};
+
+common.project_config = [
+  {
+    id: 'collaborators',
+    title: 'Collaborators',
+    data: function (user, repo, models, next) {
+      if (!repo.collaborators) return []
+
+      var ids = repo.collaborators.map(function (c) { return c.user_id })
+      
+      models.User.find({_id: {$in: ids}}, {email: 1}, function (err, results) {
+        if (err) return next(err)
+        var map = {}
+          , whitelist = []
+        results.forEach(function (collab) {
+          map[collab._id] = collab.email
+        })
+        repo.collaborators.forEach(function (collab) {
+          var email = map[collab._id]
+          if (!email) { // user has been deleted...
+            console.warn('Skipping collaborator that was deleted...', collab)
+            return
+          }
+          whitelist.push(_.extend({
+            owner: false,
+            email: email,
+            gravatar: utils.gravatar(email)
+          }, collab))
+        })
+        whitelist.push({
+          type: 'user',
+          email: user.email,
+          access_level: 1,
+          owner: true,
+          gravatar: utils.gravatar(email)
+        })
+        next(null, whitelist)
+      })
+    }
+  }, {
+    id: 'github',
+    title: 'Github Config',
+    data: function () {
+    }
+  }, {
+    id: 'heroku',
+    title: 'Heroku Config',
+    data: function () {
+    }
+  }, {
+    id: 'webhooks',
+    title: 'Webhooks',
+    data: function () {
+    }
+  }, {
+    id: 'deactivate',
+    title: 'Deactivate',
+    data: function () {
+    }
+  }
+];
 
 //
 // ### Register panel

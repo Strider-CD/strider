@@ -112,8 +112,7 @@ exports.account = function(req, res){
 /*
  * GET /:org/:repo/config - project config page
  */
-exports.config = function(req, res)
-{
+exports.config = function(req, res) {
   Step(
     function() {
       req.user.get_repo_config(req.repo_url, this);
@@ -150,32 +149,44 @@ exports.config = function(req, res)
          // May be undefined if not configured
          display_name: wrepo_config.display_name,
          badge_url: config.strider_server_name + '/' + req.user.id + '/' + req.params.org + '/' + req.params.repo + '/badge',
+         view_url: config.strider_server_name + '/' + req.params.org + '/' + req.params.repo,
          repo_org: req.params.org,
          repo_name: req.params.repo,
          apresController: "/javascripts/apres/controller/project_config.js",
          apresParams: apresParams,
          panels: [],
       };
+      var repo = this.repo_config
       // TODO: factor out this logic so other resource handlers can use it later
       if (projectPanels) {
         // For each panel, read contents from FS or execute callback to get HTML
         Step(
           function() {
-            var group = this.group();
-            projectPanels.forEach(function(p) {
-              var cb = group();
-              var f = function(err, res) {
-                p.contents = res;
-                cb(err, p);
-              };
-              // Panel sources can be a string which assumed to be a filesystem path
-              // or a function which is assumed to take a callback argument.
-              if (typeof(p.src) === 'string') {
-                fs.readFile(p.src, 'utf8', f);
-              } else if (typeof(p.src) === 'function') {
-                p.src(f);
-              }
-            });
+            var group = this.group()
+            projectPanels.forEach(function (panel) {
+              var next = group()
+                , gotData = function (err, data) {
+                    if (err) return next(err)
+                    if (data) panelData[panel.id] = data
+                    next()
+                  }
+              preparePanel(panel, function (err, panel) {
+                if (typeof(panel.data) === 'function') {
+                  return panel.data(user, repo, models, gotData)
+                }
+                if (typeof(panel.data) === 'string') {
+                  return gotData(repo[panel.data])
+                }
+                var data = {}
+                if (Array.isArray(panel.data)) {
+                  panel.data.forEach(function (name) {
+                    data[name] = repo[name]
+                  })
+                  return gotData(data)
+                }
+                next()
+              })
+            })
           },
           function(err, panels) {
             if (err) {
@@ -193,6 +204,40 @@ exports.config = function(req, res)
     }
   );
 };
+
+function getSrc(src, next) {
+  if (typeof(src) === 'string') {
+    fs.readFile(src, 'utf8', next)
+  } else if (typeof(src) === 'function') {
+    src(next)
+  } else {
+    next()
+  }
+};
+
+function preparePanel(panel, next) {
+  if (!panel.controller) {
+    panel.controller = panel.id[0].toUpperCase() + panel.id.slice(1) + 'Ctrl'
+  }
+  if (!panel.script_path) {
+    if (panel.plugin_name) {
+      panel.script_path = '/ext/' + panel.plugin_name + '/project_config.js'
+    } else {
+      panel.script_path = '/javascripts/config/' + panel.id + '.js'
+    }
+  }
+  if (!panel.src && !panel.plugin_name) {
+    panel.src = path.join(__dirname, '../views/config/' + panel.id + '.html')
+  }
+  panel.contents = ''
+  // Panel sources can be a string which assumed to be a filesystem path
+  // or a function which is assumed to take a callback argument.
+  getSrc(panel.src, function (err, res) {
+    if (err) return next(err)
+    if (res) panel.contents = res
+    next(err, panel)
+  })
+}
 
 
 
