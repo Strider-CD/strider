@@ -89,6 +89,7 @@ module.exports = function(extdir, c, callback) {
     extdir: extdir,
     loader: loader,
     models: models,
+    logger: console,
     middleware: middleware,
     auth: auth, //TODO - may want to make this a subset of the auth module
     registerWorkerMessageHook: registerWorkerMessageHook,
