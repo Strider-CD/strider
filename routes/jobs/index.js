@@ -18,28 +18,32 @@ var  _ = require('underscore')
    ;
 
 /*
- * GET /org/repo/[jobid] - view latest build for repo
+ * GET /org/repo/[job/jobid] - view latest build for repo
+ *
+ * auth.requireReadAccess set "repo_url" and "access_level" on the req object.
  */
 
 exports.job = function(req, res)
 {
   res.statusCode = 200;
-  var org = req.params.org;
-  var repo = req.params.repo;
-  var repo_url = "https://github.com/" + org + "/" + repo;
+  var org = req.params.org
+    , repo = req.params.repo
+    , repo_url = req.repo_url
 
-  ljobs.lookup(repo_url, function(err, repo_config) {
+  // XXX do we already look this up in requireReadAccess?
+  ljobs.lookup(req.repo_url, function(err, repo_config) {
     if (err || repo_config === undefined) {
       res.statusCode = 500;
-      res.end("you must configure " + repo_url + " before you can use it");
+      res.end("you must configure " + req.repo_url + " before you can use it");
       return;
     }
     var saferepo = utils.sanitizeRepo(repo_config);
+    saferepo.access_level = req.access_level;
 
     res.render('build.html', {
       admin_view: false,
-      org:org,
-      repo:repo,
+      org: org,
+      repo: repo,
       repo_config: saferepo,
       repo_url: repo_config.url,
       has_prod_deploy_target: repo_config.has_prod_deploy_target

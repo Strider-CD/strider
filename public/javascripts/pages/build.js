@@ -262,6 +262,8 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
 
   setJob(project, params.id);
 
+  $scope.repo = repo;
+
   $scope.sortDate = function (item) {
     if (!item.finished_timestamp) return new Date().getTime();
     return new Date(item.finished_timestamp).getTime();

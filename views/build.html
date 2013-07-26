@@ -15,17 +15,17 @@
       <div class="span7 job-title">
         {% pluginblock JobPagePreTitle %}{% endpluginblock %}
         <h3>
-          <span ng-show="job.project_deployable && !job.running"
+          <span ng-show="job.project_deployable && !job.running && repo.access_level > 0"
                 ng-click="startDeploy(job)"
                 title="Retest &amp; Deploy"
                 class="clickable test-and-deploy-action">
             <i class="icon-cloud-upload"></i>
           </span>
-          <span ng-hide="job.running" ng-click="startTest(job)"
+          <span ng-hide="job.running || repo.access_level < 1" ng-click="startTest(job)"
                 title="Retest" class="clickable test-only-action">
             <i class="icon-refresh"></i>
           </span>
-          <a href="/[[ job.project_name ]]/config" title="Configure">
+          <a href="/[[ job.project_name ]]/config" ng-hide="repo.access_level < 1" title="Configure">
             <i class="icon-wrench"></i>
           </a>
           <span class='job-repo'>{{org}}/{{repo}}</span>
