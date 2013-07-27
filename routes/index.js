@@ -6,16 +6,17 @@ var BASE_PATH = "../lib/"
 
 var _ = require('underscore')
   , Step = require('step')
+  , fs = require('fs')
+  , path = require('path')
+
   , common = require(BASE_PATH + 'common')
   , config = require(BASE_PATH + 'config')
-  , fs = require('fs')
   , gh = require(BASE_PATH + 'github')
   , jobs = require(BASE_PATH + 'jobs')
   , logging = require(BASE_PATH + 'logging')
   , User = require(BASE_PATH + 'models').User
   , Job = require(BASE_PATH + 'models').Job
   , pjson = require('../package.json')
-  ;
 
 var TEST_ONLY = "TEST_ONLY";
 var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
@@ -152,9 +153,9 @@ exports.config = function(req, res) {
          view_url: config.strider_server_name + '/' + req.params.org + '/' + req.params.repo,
          repo_org: req.params.org,
          repo_name: req.params.repo,
-         apresController: "/javascripts/apres/controller/project_config.js",
          apresParams: apresParams,
          panels: [],
+         panelData: {}
       };
       var repo = this.repo_config
       // TODO: factor out this logic so other resource handlers can use it later
@@ -166,31 +167,34 @@ exports.config = function(req, res) {
             projectPanels.forEach(function (panel) {
               var next = group()
                 , gotData = function (err, data) {
-                    if (err) return next(err)
-                    if (data) panelData[panel.id] = data
-                    next()
+                    if (err) {
+                      console.log('data err', err, panel.id)
+                      return next(err)
+                    }
+                    if (data) r.panelData[panel.id] = data
+                    next(null, panel)
                   }
               preparePanel(panel, function (err, panel) {
                 if (typeof(panel.data) === 'function') {
-                  return panel.data(user, repo, models, gotData)
+                  return panel.data(req.user, repo, models, gotData)
                 }
                 if (typeof(panel.data) === 'string') {
-                  return gotData(repo[panel.data])
+                  return gotData(null, repo[panel.data])
                 }
                 var data = {}
                 if (Array.isArray(panel.data)) {
                   panel.data.forEach(function (name) {
                     data[name] = repo[name]
                   })
-                  return gotData(data)
+                  return gotData(null, data)
                 }
-                next()
+                next(null, panel)
               })
             })
           },
           function(err, panels) {
             if (err) {
-              console.error("Error loading panels: %s", err);
+              console.error("Error loading panels: %s", [err], new Error().stack);
               res.statusCode = 500;
               return res.end("Error handling request");
             }

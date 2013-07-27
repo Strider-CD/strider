@@ -46,17 +46,15 @@
     </td>
   </tr>
 </script>
+<script>
+window.plugin_data = {{ panelData | json_encode() | raw }};
+</script>
 <div class="span12" ng-app="config" ng-controller="Config">
   <a href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right">Build Badge</a>
   <h3>Configuration - <a href="/{{display_name}}/" class="header-emphasis">{{display_name}}</a></h3>
   <p>
     <div class="tabbable tabs-left">
       <ul class="nav nav-tabs">
-        <li class="active"><a href="#collaborators" data-toggle="tab">Collaborators</a></li>
-        <li><a href="#heroku" data-toggle="tab">Heroku Config</a></li>
-        <li><a href="#github_config" data-toggle="tab">Github Config</a></li>
-        <li><a href="#webhooks" data-toggle="tab">Webhooks</a></li>
-        <li><a href="#deactivate" data-toggle="tab">Deactivate</a></li>
         {% for panel in panels %}
         <li><a href="#{{panel.id}}" data-toggle="tab">{{panel.title}}</a></li>
         {% endfor %}
@@ -74,7 +72,7 @@
         {% endautoescape %}
         </div>
         {% endfor %}
-        <div id="collaborators" class="tab-pane active" ng-controller="CollaboratorCtrl">
+        <div id="collaborators" class="tab-pane active" ng-controller="CollaboratorsCtrl">
           {% include "config/collaborators.html" %}
         </div>
         <div id="github_config" class="tab-pane" ng-controller="GithubCtrl">

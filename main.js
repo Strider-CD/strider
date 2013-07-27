@@ -14,10 +14,11 @@ common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];
 common.panels = {};
 
-common.project_config = [
+common.panels.project_config = [
   {
     id: 'collaborators',
     title: 'Collaborators',
+    controller: 'CollaboratorsCtrl',
     data: function (user, repo, models, next) {
       if (!repo.collaborators) return []
 
@@ -47,7 +48,7 @@ common.project_config = [
           email: user.email,
           access_level: 1,
           owner: true,
-          gravatar: utils.gravatar(email)
+          gravatar: utils.gravatar(user.email)
         })
         next(null, whitelist)
       })
@@ -55,23 +56,35 @@ common.project_config = [
   }, {
     id: 'github',
     title: 'Github Config',
+    data: false
+    /*
     data: function () {
+      // we don't currently check to see that the webhook is still there. Should we?
+      // maybe we check every once in a while. No more than once an hour?
     }
+    */
   }, {
     id: 'heroku',
     title: 'Heroku Config',
-    data: function () {
+    data: function (user, repo, models, next) {
+      try {
+        user.get_prod_deploy_target(repo.url, function (err, target) {
+          if (err === 'No deploy target found') return next(null, false)
+          next(err, target);
+        });
+      } catch (e) {
+        console.log(e, e.stack);
+        next(e);
+      }
     }
   }, {
     id: 'webhooks',
     title: 'Webhooks',
-    data: function () {
-    }
+    data: 'webhooks'
   }, {
     id: 'deactivate',
     title: 'Deactivate',
-    data: function () {
-    }
+    data: false
   }
 ];
 

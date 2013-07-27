@@ -33,10 +33,11 @@ app.controller('Config', ['$scope', '$element', function ($scope, $element, $att
   // this is the parent controller.
   $scope.repo_config = JSON.parse($element.get('data-repo-config') || '{}');
   $scope.repo_url = $scope.repo_config.repo_url;
+  $scope.panelData = window.plugin_data;
 }]);
 
-app.controller('CollaboratorCtrl', ['$scope', function ($scope) {
-  $scope.collaborators = [];
+app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
+  $scope.collaborators = $scope.panelData.collaborators;
 }]);
 
 app.controller('GithubCtrl', ['$scope', function ($scope) {

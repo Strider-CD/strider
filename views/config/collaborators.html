@@ -11,7 +11,13 @@
       </p>
       <div class="row">
         <div class="span4">
-          <table class="table"></table>
+          <table class="table">
+            <tr ng-repeat="collab in collaborators">
+              <td>[[collab.email]]</td>
+              <td><img ng-src="[[ collab.gravatar ]]&s=35"></td>
+              <td>[[collab.access_level]]</td>
+            </tr>
+          </table>
         </div>
         <div class="span3">
           <div class="control-group">
