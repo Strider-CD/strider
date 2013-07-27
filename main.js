@@ -4,10 +4,10 @@ var app = require('./lib/app'),
     config = require('./lib/config'),
     loader = require('strider-extension-loader'),
     middleware = require('./lib/middleware'),
-    auth = require('./lib/auth')
+    auth = require('./lib/auth'),
     models = require('./lib/models'),
-    websockets = require('./lib/websockets')
-    , pluginTemplates = require('./lib/pluginTemplates')
+    websockets = require('./lib/websockets'),
+    pluginTemplates = require('./lib/pluginTemplates')
 
 common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];

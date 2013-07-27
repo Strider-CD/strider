@@ -1,1 +1,11 @@
-{"laxcomma": true, "-W033": false, "-W024": false, "-W030": false, "node": true, "-W069": false}
+{
+  "strict": false,
+  "laxcomma": true,
+  "node": true,
+  "-W033": false,
+  "-W024": false,
+  "-W030": false,
+  "-W069": false,
+  "-W089": false,
+  "-W098": false
+}
