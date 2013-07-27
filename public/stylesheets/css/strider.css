@@ -208,23 +208,64 @@ body {
   color: #aaa;
 }
 .dashboard-row .finished-at,
-#dashboard table tr .finished-at,
 .dashboard-row .refresh,
-#dashboard table tr .refresh,
 .dashboard-row .commit-url,
-#dashboard table tr .commit-url,
 .dashboard-row .committer,
-#dashboard table tr .committer,
 .dashboard-row .deploy,
-#dashboard table tr .deploy,
 .dashboard-row .configure,
-#dashboard table tr .configure,
 .dashboard-row .run-time,
-#dashboard table tr .run-time,
-.dashboard-row .job-link,
-#dashboard table tr .job-link {
+.dashboard-row .job-link {
   width: 1px;
   white-space: nowrap;
+}
+@media (max-width: 980px) {
+  #dashboard .commit-header,
+  #dashboard .commit-url,
+  #dashboard .job-link a span {
+    display: none;
+  }
+}
+@media (min-width: 769px) {
+  #dashboard .finished-at,
+  #dashboard .refresh,
+  #dashboard .commit-url,
+  #dashboard .committer,
+  #dashboard .deploy,
+  #dashboard .configure,
+  #dashboard .run-time,
+  #dashboard .job-link {
+    width: 1px;
+    white-space: nowrap;
+  }
+}
+@media (max-width: 767px) {
+  #dashboard .finished-at {
+    display: none;
+  }
+}
+@media (max-width: 650px) {
+  #dashboard {
+    overflow: auto;
+  }
+  #dashboard .deploy,
+  #dashboard .deploy-header,
+  #dashboard .refresh,
+  #dashboard .refresh-header,
+  #dashboard .configure,
+  #dashboard .configure-header,
+  #dashboard .committer,
+  #dashboard .committer-header,
+  #dashboard .github-header,
+  #dashboard .github-link {
+    display: none;
+  }
+}
+@media (max-width: 450px) {
+  #dashboard table tr .project-name a {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 25px;
+  }
 }
 .configure-action i {
   margin-top: 4px;
@@ -328,8 +369,7 @@ footer p {
   border-bottom: 1px solid #CCB;
 }
 .build-list-header {
-  width: 90%
-  padding: 15px;
+  width: 90%;
 }
 #commit-id,
 .build-item-committer {
@@ -438,7 +478,7 @@ tr.logEntry td.screenshot {
   padding-left: 10px;
   text-align: center;
 }
-@media (max-width: 768) {
+@media (max-width: 768px) {
   .repo-action {
     float: left;
   }
@@ -558,6 +598,7 @@ pre.console-output {
   bottom: 0;
   left: 0;
   right: 0;
+  white-space: pre;
 }
 pre.console-output-segment {
   width: 96%;

@@ -23,4 +23,12 @@ test: lint
 lint:
 	@./node_modules/.bin/jshint *.js
 
+strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom
+
+link:
+	npm link $(strider_sub)
+
+unlink:
+	npm install $(strider_sub)
+
 .PHONY: test lint watch build less

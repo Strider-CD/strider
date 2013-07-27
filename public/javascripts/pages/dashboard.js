@@ -40,7 +40,6 @@ function startJob(url, job_type, $scope) {
       return;
 
       gotNewJob(data.job);
-      // startProgressMeter(job);
     },
     type: "POST"
   });
@@ -71,6 +70,7 @@ function monitor($scope) {
   window.socket = window.socket || io.connect();
   window.socket.on('new', function (data) {
     gotNewJob(data, $scope);
+    startJobTimer(data);
   }).on('update', function (data) {
     var found = false
       , repo_at = null;
@@ -95,6 +95,7 @@ function monitor($scope) {
       data.running = true;
       data.url = '/' + data.project_name + '/job/' + data.id;
       $scope.jobs.unshift(data);
+      startJobTimer(data);
     }
     $scope.$digest();
   }).on('done', function (data) {
@@ -108,10 +109,24 @@ function monitor($scope) {
     if (ind !== null) {
       $scope.jobs.splice(ind, 1);
     }
+    clearJobTimer(data.id);
     data.finished_time = new Date(data.finished_timestamp);
     $scope.jobs.push(data);
     $scope.$digest();
   });
+  var jobtimers = {};
+  function startJobTimer(job) {
+    if (jobtimers[job.id]) return;
+    jobtimers[job.id] = setInterval(function () {
+      job.duration = parseInt((new Date().getTime()-new Date(job.created_timestamp).getTime())/1000);
+      $scope.$digest();
+    }, 500);
+  }
+  function clearJobTimer(id) {
+    if (!jobtimers[id]) return;
+    clearInterval(jobtimers[id]);
+    jobtimers[id] = null
+  }
 }
 
 angular.module('dashboard', [], function ($interpolateProvider) {
@@ -143,29 +158,29 @@ angular.module('dashboard', [], function ($interpolateProvider) {
     }
   };
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
-    $scope.jobs = [];
-    $scope.loading = true;
-    monitor($scope);
-    $scope.startDeploy = function (job) {
-      startJob(job.repo_url, 'TEST_AND_DEPLOY', $scope);
-    };
-    $scope.startTest = function (job) {
-      startJob(job.repo_url, 'TEST_ONLY', $scope);
-    };
-    $.ajax('/api/jobs', {
-      dataType: 'json',
-      success: function (data) {
-        $scope.loading = false;
-        $scope.jobs = data;
-        for (var i=0;i<data.length; i++) {
-          if (!data[i].running) {
-            data[i].finished_time = new Date(data[i].finished_timestamp);
-          }
+  $scope.jobs = [];
+  $scope.loading = true;
+  monitor($scope);
+  $scope.startDeploy = function (job) {
+    startJob(job.repo_url, 'TEST_AND_DEPLOY', $scope);
+  };
+  $scope.startTest = function (job) {
+    startJob(job.repo_url, 'TEST_ONLY', $scope);
+  };
+  $.ajax('/api/jobs', {
+    dataType: 'json',
+    success: function (data) {
+      $scope.loading = false;
+      $scope.jobs = data;
+      for (var i=0;i<data.length; i++) {
+        if (!data[i].running) {
+          data[i].finished_time = new Date(data[i].finished_timestamp);
         }
-        $scope.$digest();
-        // $('time.timeago').timeago();
-        // $('[data-toggle="tooltip"]').tooltip();
       }
-    });
-  }]);
+      $scope.$digest();
+      // $('time.timeago').timeago();
+      // $('[data-toggle="tooltip"]').tooltip();
+    }
+  });
+}]);
 

@@ -211,6 +211,9 @@ body{
   a:hover {
     color: #aaa;
   }
+}
+
+.dashboard-row {
   .finished-at,
   .refresh,
   .commit-url,
@@ -221,6 +224,69 @@ body{
   .job-link {
     width: 1px;
     white-space: nowrap;
+  }
+}
+
+@media (max-width: 980px) {
+  #dashboard {
+    .commit-header,
+    .commit-url,
+    .job-link a span {
+      display: none;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  #dashboard {
+    .finished-at,
+    .refresh,
+    .commit-url,
+    .committer,
+    .deploy,
+    .configure,
+    .run-time,
+    .job-link {
+      width: 1px;
+      white-space: nowrap;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #dashboard {
+    .finished-at {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 650px) {
+  #dashboard {
+    overflow: auto;
+
+    .deploy,
+    .deploy-header,
+    .refresh,
+    .refresh-header,
+    .configure,
+    .configure-header,
+    .committer,
+    .committer-header,
+    .github-header,
+    .github-link {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  #dashboard {
+    table tr .project-name a {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 25px;
+    }
   }
 }
 
@@ -330,8 +396,7 @@ footer p {
   border-bottom: 1px solid #CCB;
 }
 .build-list-header {
-  width: 90%
-  padding: 15px;
+  width: 90%;
 }
 #commit-id,
 .build-item-committer {
@@ -440,7 +505,7 @@ tr.logEntry td.screenshot {
   padding-left: 10px;
   text-align: center;
 }
-@media (max-width: 768) {
+@media (max-width: 768px) {
   .repo-action {
     float: left;
   }
@@ -560,6 +625,7 @@ pre.console-output {
   bottom: 0;
   left: 0;
   right: 0;
+  white-space: pre;
 }
 pre.console-output-segment {
   width: 96%;
