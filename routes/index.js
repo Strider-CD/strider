@@ -9,6 +9,7 @@ var _ = require('underscore')
   , fs = require('fs')
   , path = require('path')
 
+  , models = require(BASE_PATH + 'models')
   , common = require(BASE_PATH + 'common')
   , config = require(BASE_PATH + 'config')
   , gh = require(BASE_PATH + 'github')
@@ -151,6 +152,7 @@ exports.config = function(req, res) {
          display_name: wrepo_config.display_name,
          badge_url: config.strider_server_name + '/' + req.user.id + '/' + req.params.org + '/' + req.params.repo + '/badge',
          view_url: config.strider_server_name + '/' + req.params.org + '/' + req.params.repo,
+         repo: wrepo_config,
          repo_org: req.params.org,
          repo_name: req.params.repo,
          apresParams: apresParams,

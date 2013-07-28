@@ -1,4 +1,8 @@
 {% extends "base.html" %}
+
+{% block extra_head %}
+<link rel="stylesheet" href="/stylesheets/css/config.css">
+{% endblock %}
 {% block bodyContent %}
 {% include "config/boot-badge.html" %}
 <script id="collaborator-loading" type="text/template" class="template">
@@ -46,17 +50,18 @@
     </td>
   </tr>
 </script>
-<script>
-window.plugin_data = {{ panelData | json_encode() | raw }};
-</script>
-<div class="span12" ng-app="config" ng-controller="Config">
+<div class="span12" ng-app="config" ng-controller="Config"
+     data-repo-config='{{ repo | json_encode() | raw }}'
+     data-panel-data='{{ panelData | json_encode() | raw }}'>
   <a href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right">Build Badge</a>
   <h3>Configuration - <a href="/{{display_name}}/" class="header-emphasis">{{display_name}}</a></h3>
   <p>
     <div class="tabbable tabs-left">
       <ul class="nav nav-tabs">
         {% for panel in panels %}
-        <li><a href="#{{panel.id}}" data-toggle="tab">{{panel.title}}</a></li>
+        <li {% if loop.first %}class="active"{% endif %}>
+          <a href="#{{panel.id}}" data-toggle="tab">{{panel.title}}</a>
+        </li>
         {% endfor %}
       </ul>
       <div class="tab-content">

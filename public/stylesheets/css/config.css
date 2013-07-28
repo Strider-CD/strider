@@ -1,0 +1,39 @@
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  color: #777;
+}
+#project_config_collaborators table {
+  width: 100%;
+}
+#project_config_collaborators .collaborator {
+  background-color: white;
+}
+#project_config_collaborators .collaborator .image {
+  padding: 0;
+}
+#project_config_collaborators .collaborator .image img {
+  height: 35px;
+  width: 35px;
+}
+#project_config_collaborators .collaborator .email {
+  font-weight: bold;
+  line-height: 18px;
+}
+#project_config_collaborators .collaborator .remove i {
+  padding: 10px;
+  color: red;
+}
+#project_config_collaborators .collaborator td {
+  line-height: 0;
+}
+#project_config_collaborators .collaborator > :first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding-left: 10px;
+}
+#project_config_collaborators .collaborator > :last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

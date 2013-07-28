@@ -11,11 +11,15 @@
       </p>
       <div class="row">
         <div class="span4">
-          <table class="table">
-            <tr ng-repeat="collab in collaborators">
-              <td>[[collab.email]]</td>
-              <td><img ng-src="[[ collab.gravatar ]]&s=35"></td>
-              <td>[[collab.access_level]]</td>
+          <table>
+            <tr class="collaborator" ng-repeat="collab in collaborators">
+              <td class="image"><img ng-src="[[ collab.gravatar ]]&s=35"></td>
+              <td class="email">[[collab.email]]</td>
+              <td class="remove">
+                <span class="clickable" ng-click="remove(collab)">
+                  <i class="icon-remove"></i>
+                </span>
+              </td>
             </tr>
           </table>
         </div>
