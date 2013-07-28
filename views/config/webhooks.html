@@ -17,36 +17,44 @@
         </a>
         <a href="https://gist.github.com/3029840">See a sample payload.</a>
       </p>
-      <div class="row">
-        <div class="span6">
+      <div class="row-fluid">
+        <div class="span9">
           <table class="table">
             <thead>
+              <th>Hook Title</th>
               <th>TargetURL for HTTP Post</th>
               <th>Shared secret for HMAC-SHA1 signatire</th>
             </thead>
             <tbody>
-              <tr ng-repeat="hook in webhooks">
-                <td>[[ hook.target_url ]]</td>
+              <tr ng-repeat="hook in hooks">
+                <td>[[ hook.title ]]</td>
+                <td>[[ hook.url ]]</td>
                 <td>[[ hook.secret ]]</td>
-                <td>
-                  <a ng-click="confirmRemove(hook)">
-                    <i class="icon-remove" alt="remove"></i>
-                  </a>
+                <td class="remove" ng-switch="hook.loading">
+                  <i ng-switch-when="true" class="icon-cog icon-spin"></i>
+                  <span ng-switch-default class="clickable" ng-click="remove(hook)">
+                    <i class="icon-remove"></i>
+                  </span>
                 </td>
+              </tr>
+              <tr ng-show="!hooks.length" class="no-hooks">
+                <td colspan="3">No webhooks registered. Add one!</td>
               </tr>
             </tbody>
           </table>
         </div>
-        <div class="span2">
+        <div class="span3">
           <div class="control-group">
             <div class="controls">
               <div class="input-append">
+                <input ng-model="new_title"
+                       placeholder="Hook title" class="span2"/>
                 <input ng-model="new_url" type="text"
                        placeholder="target URL" class="webhook-target-url span2"/>
                 <input ng-model="new_secret" type="text"
                        placeholder="HMAC-SHA1 secret" class="webhook-secret span2"/>
               </div>
-              <button class="btn" ng-click="addNew()">Add</button>
+              <button class="btn" ng-click="add()">Add</button>
             </div>
           </div>
         </div>

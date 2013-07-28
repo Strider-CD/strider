@@ -7,6 +7,10 @@
 #notify {
   box-sizing: border-box;
 }
+#project_config_webhooks .input-append input {
+  display: block;
+  width: 100%;
+}
 #project_config_collaborators table {
   width: 100%;
   border-collapse: separate;

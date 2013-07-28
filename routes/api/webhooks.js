@@ -40,11 +40,11 @@ exports.post_index = function(req, res) {
     res.statusCode = 400;
     return res.end(JSON.stringify(r, null, '\t'));
   }
-  function ok() {
+  function ok(id) {
     var r = {
       errors: [],
       status: "ok",
-      results: []
+      id: id
     };
     res.statusCode = 200;
     return res.end(JSON.stringify(r, null, '\t'));
@@ -73,14 +73,15 @@ exports.post_index = function(req, res) {
         type:type
       };
       repo_config.webhooks.push(new_webhook);
+      this.hook_id = repo_config.webhooks[repo_config.webhooks.length - 1]._id;
       owner_object.save(this);
     },
-    function(err, repo) {
+    function(err, owner) {
       if (err) {
         console.error("webhooks.post_index() - Error adding webhook to url %s by user %s: %s", url, req.user.email, err);
         return error("Error adding webhook to url " + url);
       }
-      return ok();
+      return ok(this.hook_id);
     }
   );
 };
