@@ -65,7 +65,7 @@ common.panels.project_config = [
   }, {
     id: 'deactivate',
     title: 'Deactivate',
-    data: false
+    data: 'active'
   }
 ];
 

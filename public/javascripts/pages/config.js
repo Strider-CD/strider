@@ -9,22 +9,6 @@ function notify(text, type) {
     .show();
 }
 
-function removeWebHooks(repo_url, next) {
-  notify('Deleting webhooks...');
-  $.ajax('/api/github/webhooks/unset', {
-    data: {url: repo_url},
-    dataType: 'json',
-    error: function(xhr, ts, e) {
-      notify("Error removing webhooks.", 'error');
-    },
-    success: function(data, ts, xhr) {
-      notify("Webhooks removed.", 'success');
-      next && next();
-    },
-    type: 'POST',
-  });
-}
-
 window.app = angular.module('config', [], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
