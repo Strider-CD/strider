@@ -5,8 +5,11 @@
 
 ---
 
+### Brilliant Continuous Deployment
 
-![Strider Screenshot](http://unworkable.org/~niallo/strider3.png)
+![Strider Screenshot](/docs/screenshots/dashboard.jpg?raw=true)
+[more screenshots](https://github.com/Strider-CD/strider/wiki/Screenshots)
+
 [![NPM](https://nodei.co/npm/strider.png)](https://nodei.co/npm/strider/)
 
 Overview
