@@ -2,6 +2,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="/stylesheets/css/config.css">
+<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
 {% endblock %}
 {% block bodyContent %}
 {% include "config/boot-badge.html" %}
@@ -99,6 +100,7 @@
     </div>
   </p>
 </div>
+  <script src="/javascripts/lib/bootstrap-switch.js"></script>
 <script src='/javascripts/pages/config.js'></script>
 {% for panel in panels %}
 <script src="{{ panel.script_path }}"></script>

@@ -40,8 +40,9 @@ exports.heroku_account_integration = function(req, res) {
     }, function(e, r, b) {
       if (e) throw e;
       if (r.statusCode !== 200) {
+        console.log('got', r.statusCode);
         res.statusCode = 500;
-        res.end(JSON.stringify({status: "error", errors:[e]}));
+        res.end(JSON.stringify({status: "error", errors:null, errorCode: r.statusCode}));
         return;
       }
       // Response from this call is the Heroku list of apps.
