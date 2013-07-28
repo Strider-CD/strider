@@ -1,14 +1,16 @@
-var app = require('./lib/app'),
-    backchannel = require('./lib/backchannel'),
-    common = require('./lib/common'),
-    config = require('./lib/config'),
-    loader = require('strider-extension-loader'),
-    middleware = require('./lib/middleware'),
-    auth = require('./lib/auth'),
-    models = require('./lib/models'),
-    websockets = require('./lib/websockets'),
-    pluginTemplates = require('./lib/pluginTemplates'),
-    utils = require('./lib/utils')
+var app = require('./lib/app')
+  , backchannel = require('./lib/backchannel')
+  , common = require('./lib/common')
+  , config = require('./lib/config')
+  , loader = require('strider-extension-loader')
+  , middleware = require('./lib/middleware')
+  , auth = require('./lib/auth')
+  , models = require('./lib/models')
+  , websockets = require('./lib/websockets')
+  , pluginTemplates = require('./lib/pluginTemplates')
+  , utils = require('./lib/utils')
+
+  , _ = require('lodash')
 
 common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];
@@ -21,30 +23,9 @@ common.panels.project_config = [
     controller: 'CollaboratorsCtrl',
     data: function (user, repo, models, next) {
       if (!repo.collaborators) return []
-
-      var ids = repo.collaborators.map(function (c) { return c.user_id })
-      
-      models.User.find({_id: {$in: ids}}, {email: 1}, function (err, results) {
-        if (err) return next(err)
-        var map = {}
-          , whitelist = []
-        results.forEach(function (collab) {
-          map[collab._id] = collab.email
-        })
-        repo.collaborators.forEach(function (collab) {
-          var email = map[collab._id]
-          if (!email) { // user has been deleted...
-            console.warn('Skipping collaborator that was deleted...', collab)
-            return
-          }
-          whitelist.push(_.extend({
-            owner: false,
-            email: email,
-            gravatar: utils.gravatar(email)
-          }, collab))
-        })
+      models.User.findCollaborators(repo.collaborators, function (err, whitelist) {
         whitelist.push({
-          type: 'user',
+          type: "user",
           email: user.email,
           access_level: 1,
           owner: true,

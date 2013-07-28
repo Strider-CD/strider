@@ -50,7 +50,7 @@
     </td>
   </tr>
 </script>
-<div class="span12" ng-app="config" ng-controller="Config"
+<div class="span12 ng-cloak" ng-app="config" ng-controller="Config"
      data-repo-config='{{ repo | json_encode() | raw }}'
      data-panel-data='{{ panelData | json_encode() | raw }}'>
   <a href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right">Build Badge</a>
@@ -65,8 +65,11 @@
         {% endfor %}
       </ul>
       <div class="tab-content">
-        <div id="notify" class="hide"></div>
-        <div id="loading" class="hide">
+        <div id="notify" class="hide span8">
+          <button type="button" class="close" ng-click="hideMessage()">&times;</button>
+          <span class="message"></span>
+        </div>
+        <div id="loading" class="hide span8">
           <img src="/images/spinner.gif" class="spinner"/>
           [[ loadingMessage ]]
         </div>

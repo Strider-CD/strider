@@ -4,8 +4,19 @@
 .clickable:hover {
   color: #777;
 }
+#notify {
+  box-sizing: border-box;
+}
 #project_config_collaborators table {
   width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+#project_config_collaborators .no-collaborators {
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: bold;
 }
 #project_config_collaborators .collaborator {
   background-color: white;
@@ -23,6 +34,8 @@
 }
 #project_config_collaborators .collaborator .remove i {
   padding: 10px;
+}
+#project_config_collaborators .collaborator .remove i.icon-remove {
   color: red;
 }
 #project_config_collaborators .collaborator td {
