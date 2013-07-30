@@ -11,7 +11,7 @@
      data-panel-data='{{ panelData | json_encode() | raw }}'>
   <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
   <div class="notify-wrapper pull-right">
-    <div id="notify" ng-show="message" class="alert alert-[[ message.type ]]">
+    <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
       <a type="button" class="close" ng-click="clearMessage()">&times;</a>
       <div class="message" ng-bind-html-unsafe="message.text"></div>
     </div>
@@ -32,27 +32,12 @@
           [[ loadingMessage ]]
         </div>
         {% for panel in panels %}
-        <div id="{{panel.id}}" class="tab-pane" ng-controller="{{panel.controller}}">
+        <div id="{{panel.id}}" class="tab-pane {% if loop.first %}active{% endif %}" ng-controller="{{panel.controller}}">
         {% autoescape false %}
         {{ panel.contents }}
         {% endautoescape %}
         </div>
         {% endfor %}
-        <div id="collaborators" class="tab-pane active" ng-controller="CollaboratorsCtrl">
-          {% include "config/collaborators.html" %}
-        </div>
-        <div id="github_config" class="tab-pane" ng-controller="GithubCtrl">
-          {% include "config/github.html" %}
-        </div>
-        <div id="heroku" class="tab-pane" ng-controller="HerokuCtrl">
-          {% include "config/heroku.html" %}
-        </div>
-        <div id="webhooks" class="tab-pane" ng-controller="WebhooksCtrl">
-          {% include "config/webhooks.html" %}
-        </div>
-        <div id="deactivate" class="tab-pane" ng-controller="DeactivateCtrl">
-          {% include "config/deactivate.html" %}
-        </div>
       </div>
     </div>
   </p>

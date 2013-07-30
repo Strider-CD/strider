@@ -39,8 +39,23 @@
     margin-top: 10px;
   }
 
-  #notify .message {
-    overflow: hidden;
+  #notify {
+    opacity: 0;
+    position: fixed;
+    top: 60px;
+    right: 170px;
+
+    -webkit-transition: opacity .25s ease-in-out;
+       -moz-transition: opacity .25s ease-in-out;
+            transition: opacity .25s ease-in-out;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    .message {
+      overflow: hidden;
+    }
   }
 
   .notify-wrapper {

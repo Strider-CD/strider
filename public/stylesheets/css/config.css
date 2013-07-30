@@ -30,6 +30,18 @@
 #config-wrapper .tab-content {
   margin-top: 10px;
 }
+#config-wrapper #notify {
+  opacity: 0;
+  position: fixed;
+  top: 60px;
+  right: 170px;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  transition: opacity 0.25s ease-in-out;
+}
+#config-wrapper #notify.visible {
+  opacity: 1;
+}
 #config-wrapper #notify .message {
   overflow: hidden;
 }
