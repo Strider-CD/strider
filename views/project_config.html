@@ -13,7 +13,7 @@
   <div class="notify-wrapper pull-right">
     <div id="notify" ng-show="message" class="alert alert-[[ message.type ]]">
       <a type="button" class="close" ng-click="clearMessage()">&times;</a>
-      <span class="message" ng-bind-html-unsafe="message.text"></span>
+      <div class="message" ng-bind-html-unsafe="message.text"></div>
     </div>
   </div>
   <h3>Configuration - <a href="/{{display_name}}/" class="header-emphasis">{{display_name}}</a></h3>
