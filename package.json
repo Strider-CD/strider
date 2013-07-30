@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "apres": "0.0.2",
@@ -36,7 +36,7 @@
     "swig": "git+https://github.com/peterbraden/swig",
     "cookie": "0.0.5",
     "socket.io": "~0.9.13",
-    "strider-simple-worker": "~0.8.0"
+    "strider-simple-worker": "~0.9.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0",
