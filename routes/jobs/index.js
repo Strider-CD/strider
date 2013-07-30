@@ -62,7 +62,7 @@ exports.badge = function(req, res) {
   var repo_url = "https://github.com/" + org + "/" + repo;
 
   function sendBadge(name) {
-    res.setHeader("Cache-Control", "no-cache"); // 4 days
+    res.setHeader("Cache-Control", "no-cache");
     return res.redirect('/images/badges/build_' + name + '.png');
   }
 
