@@ -1,3 +1,4 @@
+/**
 define(['apres', 'jquery', 'bootstrap'], function(apres, $, bootstrap) {
   var controller = {};
   var github_template;
@@ -46,3 +47,5 @@ define(['apres', 'jquery', 'bootstrap'], function(apres, $, bootstrap) {
 
   return controller;
 });
+
+**/

@@ -11,6 +11,9 @@
     {% include "bootstrap.html" %}
     <script src='/javascripts/lib/jquery.timeago.js'></script>
     <script src="/javascripts/lib/angular.js"></script>
+    <script src="/javascripts/lib/md5.js"></script>
+    <script src="/javascripts/lib/bootbox.min.js"></script>
+    {% block extra_head %}{% endblock %}
     {% pluginblock AfterHead %}{% endpluginblock %}
     {% pluginblock ExtraStyles %}{% endpluginblock %}
   </head>
