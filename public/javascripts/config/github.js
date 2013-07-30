@@ -13,9 +13,11 @@ app.controller('GithubCtrl', ['$scope', function ($scope) {
         dataType: 'json',
         error: function(xhr, ts, e) {
           $scope.error("Error removing webhooks.");
+          $scope.$root.$digest();
         },
         success: function(data, ts, xhr) {
           $scope.success("Webhooks removed.");
+          $scope.$root.$digest();
         },
         type: 'POST',
       });

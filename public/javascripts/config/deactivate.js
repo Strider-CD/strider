@@ -13,6 +13,7 @@ app.controller('DeactivateCtrl', ['$scope', function ($scope) {
       dataType: "json",
       success: function(data, ts, xhr) {
         $scope.success($scope.active ? 'Activated' : 'Deactivated');
+        $scope.$root.$digest();
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
@@ -22,7 +23,7 @@ app.controller('DeactivateCtrl', ['$scope', function ($scope) {
           $scope.error("Error settings active state: " + e);
         }
         $scope.active = !$scope.active;
-        $scope.$digest();
+        $scope.$root.$digest();
       }
     });
   };
@@ -36,6 +37,7 @@ app.controller('DeactivateCtrl', ['$scope', function ($scope) {
         data: {url: $scope.repo.url},
         success: function(data, ts, xhr) {
           $scope.success("Project removed.");
+          $scope.$root.$digest();
           setTimeout(function () {
             window.location = '/';
           }, 500);
@@ -47,6 +49,7 @@ app.controller('DeactivateCtrl', ['$scope', function ($scope) {
           } else {
             $scope.error("Error deleting project: " + e);
           }
+          $scope.$root.$digest();
         }
       });
     });

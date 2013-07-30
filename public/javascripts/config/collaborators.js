@@ -11,7 +11,7 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
   };
   $scope.remove = function (item) {
     item.loading = true;
-    $scope.hideMessage();
+    $scope.clearMessage();
     $.ajax({
       url: "/api/collaborators",
       type: "DELETE",
@@ -19,7 +19,7 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
       success: function(data, ts, xhr) {
         $scope.success(item.email + " is no longer a collaborator on this project.");
         remove($scope.collaborators, item);
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
@@ -29,7 +29,7 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
           $scope.error("Error deleting collaborator: " + e);
         }
         item.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       }
     });
   };
@@ -54,7 +54,7 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
         if (!data.created) {
           remove($scope.collaborators, display);
         }
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
@@ -64,7 +64,7 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
           $scope.error("Error adding collaborator: " + e);
         }
         remove($scope.collaborators, display);
-        $scope.$digest();
+        $scope.$root.$digest();
       }
     });
   };

@@ -14,7 +14,7 @@ app.controller('WebhooksCtrl', ['$scope', function ($scope) {
       success: function(data, ts, xhr) {
         remove($scope.hooks, hook);
         $scope.success("Webhook removed.");
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       error: function(xhr, ts, e) {
         hook.loading = false;
@@ -24,7 +24,7 @@ app.controller('WebhooksCtrl', ['$scope', function ($scope) {
         } else {
           $scope.error("Error deleting webhook: " + e);
         }
-        $scope.$digest();
+        $scope.$root.$digest();
       }
     });
 
@@ -56,7 +56,7 @@ app.controller('WebhooksCtrl', ['$scope', function ($scope) {
         display.loading = false;
         display._id = data.id;
         $scope.new_url = $scope.new_title = $scope.new_secret = '';
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
@@ -66,7 +66,7 @@ app.controller('WebhooksCtrl', ['$scope', function ($scope) {
           $scope.error("Error adding webhook: " + e);
         }
         remove($scope.hooks, display);
-        $scope.$digest();
+        $scope.$root.$digest();
       }
     });
   };

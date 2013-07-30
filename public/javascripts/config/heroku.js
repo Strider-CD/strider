@@ -21,7 +21,7 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
       error: function(xhr, ts, e) {
         $scope.error("Heroku API key invalid");
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       success: function(data, ts, xhr) {
         $scope.success("Heroku connected");
@@ -31,7 +31,7 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
         $scope.account_id = data.account_id;
         $scope.status = 'have-api';
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       type: "POST"
     });
@@ -54,7 +54,7 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
         var data = $.parseJSON(xhr.responseText);
         $scope.error('Error: ' + data.errors[0]);
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       success: function(data, ts, xhr) {
         $scope.success("Heroku continuous deployment integration complete.");
@@ -66,7 +66,7 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
         };
         $scope.status = 'configured';
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       type: "POST",
     });
@@ -81,12 +81,12 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
         $scope.error("Error toggling deploy on green.");
         $scope.deploy_on_green = !$scope.deploy_on_green;
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       success: function(data, ts, xhr) {
         $scope.success("Deploy on Green " + ($scope.deploy_on_green ? 'enabled' : 'disabled'));
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       type: "POST",
     });
@@ -98,13 +98,13 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
       error: function(xhr, ts, e) {
         $scope.error("Error removing Heroku config.");
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       success: function(data, ts, xhr) {
         $scope.success('Removed Heroku config.');
         $scope.status = 'unconfigured';
         $scope.loading = false;
-        $scope.$digest();
+        $scope.$root.$digest();
       },
       type: "POST",
     });

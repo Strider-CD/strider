@@ -181,12 +181,12 @@ exports.config = function(req, res) {
                   return panel.data(req.user, repo, models, gotData)
                 }
                 if (typeof(panel.data) === 'string') {
-                  return gotData(null, repo[panel.data])
+                  return gotData(null, repo.get(panel.data))
                 }
                 var data = {}
                 if (Array.isArray(panel.data)) {
                   panel.data.forEach(function (name) {
-                    data[name] = repo[name]
+                    data[name] = repo.get(name)
                   })
                   return gotData(null, data)
                 }

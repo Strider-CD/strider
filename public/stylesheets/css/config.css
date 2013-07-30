@@ -4,10 +4,22 @@
 .clickable:hover {
   color: #777;
 }
-#notify {
+#config-wrapper .badge-link {
+  margin: 4px 0 0 15px;
+}
+#config-wrapper .config-tabs {
+  margin: 5px 0 0;
+  -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-#project_config_webhooks .input-append input {
+#config-wrapper .tab-content {
+  margin-top: 10px;
+}
+#config-wrapper .notify-wrapper {
+  box-sizing: border-box;
+  height: 41px;
+}
+#config-wrapper #project_config_webhooks .input-append input {
   display: block;
   width: 100%;
 }

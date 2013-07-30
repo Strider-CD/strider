@@ -6,71 +6,28 @@
 {% endblock %}
 {% block bodyContent %}
 {% include "config/boot-badge.html" %}
-<script id="collaborator-loading" type="text/template" class="template">
-  <tr>
-    <td>
-      <p>Loading collaborators...</p>
-    </td>
-  </tr>
-</script>
-<script id="collaborator-table-row" type="text/template" class="template">
-  <tr>
-    <td><img src="<%= gravatar %>" /></td>
-    <td><%= email %></td>
-    <td>
-      <% if (owner) { %>
-      Owner
-      <% } else { %>
-      <a data-toggle="modal" href="#confirmRemoveCollaborator">
-        <i class="icon-remove" id="<%= uuid %>" alt="remove"></i>
-      </a>
-      <% } %>
-    </td>
-  </tr>
-</script>
-<script id="webhook-none" type="text/template" class="template">
-  <tr>
-    <td>
-      <p>No webhooks configured.</p>
-    </td>
-  </tr>
-</script>
-<script id="webhook-loading" type="text/template" class="template">
-  <tr>
-    <td>
-      <p>Loading webhooks...</p>
-    </td>
-  </tr>
-</script>
-<script id="deactivate-project.html" type="text/ng-template" class="template">
-</script>
-<script id="deactivate-loading" type="text/template" class="template">
-  <tr>
-    <td>
-      <p>Loading config...</p>
-    </td>
-  </tr>
-</script>
-<div class="span12 ng-cloak" ng-app="config" ng-controller="Config"
+<div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="Config"
      data-repo-config='{{ repo | json_encode() | raw }}'
      data-panel-data='{{ panelData | json_encode() | raw }}'>
-  <a href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right">Build Badge</a>
+  <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
+  <div class="notify-wrapper pull-right">
+    <div id="notify" ng-show="message" class="alert alert-[[ message.type ]]">
+      <a type="button" class="close" ng-click="clearMessage()">&times;</a>
+      <span class="message" ng-bind-html-unsafe="message.text"></span>
+    </div>
+  </div>
   <h3>Configuration - <a href="/{{display_name}}/" class="header-emphasis">{{display_name}}</a></h3>
   <p>
     <div class="tabbable tabs-left">
-      <ul class="nav nav-tabs">
+      <ul class="nav nav-tabs span2 config-tabs">
         {% for panel in panels %}
         <li {% if loop.first %}class="active"{% endif %}>
           <a href="#{{panel.id}}" data-toggle="tab">{{panel.title}}</a>
         </li>
         {% endfor %}
       </ul>
-      <div class="tab-content">
-        <div id="notify" class="hide span8">
-          <button type="button" class="close" ng-click="hideMessage()">&times;</button>
-          <span class="message"></span>
-        </div>
-        <div id="loading" class="hide span8">
+      <div class="tab-content span10">
+        <div id="loading" class="hide">
           <img src="/images/spinner.gif" class="spinner"/>
           [[ loadingMessage ]]
         </div>
