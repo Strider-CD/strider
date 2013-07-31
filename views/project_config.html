@@ -7,8 +7,8 @@
 {% block bodyContent %}
 {% include "config/boot-badge.html" %}
 <script>
-  var panelData = {{ panelData | json_encode() | raw }}
-    , repoData = {{ repo | json_encode() | raw }};
+  var panelData = {{ panelData | scriptjson | raw }}
+    , repoData = {{ repo | scriptjson | raw }};
 </script>
 <div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="Config">
   <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
