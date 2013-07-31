@@ -6,9 +6,11 @@
 {% endblock %}
 {% block bodyContent %}
 {% include "config/boot-badge.html" %}
-<div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="Config"
-     data-repo-config='{{ repo | json_encode() | raw }}'
-     data-panel-data='{{ panelData | json_encode() | raw }}'>
+<script>
+  var panelData = {{ panelData | json_encode() | raw }}
+    , repoData = {{ repo | json_encode() | raw }};
+</script>
+<div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="Config">
   <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
   <div class="notify-wrapper pull-right">
     <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">

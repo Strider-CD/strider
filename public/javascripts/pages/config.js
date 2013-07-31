@@ -28,8 +28,8 @@
   app.controller('Config', ['$scope', '$element', function ($scope, $element, $attributes) {
     // this is the parent controller.
     $scope.message = null;
-    $scope.repo = JSON.parse($element.attr('data-repo-config') || '{}');
-    $scope.panelData = JSON.parse($element.attr('data-panel-data') || '{}');
+    $scope.repo = window.repoData || {};
+    $scope.panelData = window.panelData || {};
     $scope.gravatar = function (email) {
       if (!email) return '';
       var hash = md5(email.toLowerCase());
