@@ -226,12 +226,13 @@ exports.jobs = function(req, res) {
           // likely redo this as a single query w/o needing MapReduce.
           // Doing it with $in was incorrect.
         _.each(this.repo_list, function(configured_repo) {
-          Job.findOne()
+          Job.find()
                 .sort({'finished_timestamp': -1})
                 .where('type').in(['TEST_ONLY','TEST_AND_DEPLOY'])
                 /* .where('finished_timestamp').ne(null) */
                 .where('archived_timestamp', null)
                 .where('repo_url', configured_repo.url)
+                .limit(6)
                 .populate("_owner")
                 .lean(true)
                 .exec(group());
@@ -242,7 +243,8 @@ exports.jobs = function(req, res) {
         // this whole block is repeated code with admin_jobs_status, should be moved to function or method
         var l = [];
         var repo_list = this.repo_list;
-        _.each(results, function(job) {
+        _.each(results, function(jobl) {
+          var job = jobl[0]
 
           if (job === null) {
             return;
@@ -259,7 +261,7 @@ exports.jobs = function(req, res) {
             return;
           }
 
-          var info = jobs.buildJobInfo(job, repo_config);
+          var info = jobs.buildJobInfo(job, repo_config, undefined, jobl);
           if (!info) return;
           killOldJobs(job);
           l.push(info);

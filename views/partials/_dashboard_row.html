@@ -41,6 +41,13 @@
     [[ job.project_name ]]
   </a>
 </td>
+<td class="history" ng-hide="page === 'build'">
+  <table class='last-builds'>
+    <tr>
+      <td ng-repeat="pjob in job.prev" title="[[ pjob.id.slice(0,8) ]] [[ pjob.stat ]]" class='build-[[ $index ]] status-[[ pjob.stat ]]'></td>
+    </tr>
+  </table>
+</td>
 <td class="committer">
   <div ng-show="job.triggered_by_commit" ng-switch="job.committer.url">
     <img ng-switch-when="null" ng-src="[[ job.committer.image ]]"/>

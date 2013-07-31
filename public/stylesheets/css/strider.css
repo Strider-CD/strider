@@ -804,3 +804,23 @@ body.job_view footer {
     float: left;
   }
 }
+
+
+#dashboard .history {
+  width:70px;
+}
+.last-builds{
+  border-collapse: separate;
+  border-spacing: 2px;
+  margin:9px;
+}
+
+#dashboard .last-builds tr td {
+  width:10px;
+  height:10px;
+  padding:0;
+  overflow:hidden;
+  border-top:none;
+}
+.last-builds .status-pass{  background-color:#cfffd2; }
+.last-builds .status-fail{  background-color:#ffd2d0; }

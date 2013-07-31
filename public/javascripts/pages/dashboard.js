@@ -178,6 +178,7 @@ angular.module('dashboard', [], function ($interpolateProvider) {
         }
       }
       $scope.$digest();
+      $('.last-builds td').tooltip({})
       // $('time.timeago').timeago();
       // $('[data-toggle="tooltip"]').tooltip();
     }
