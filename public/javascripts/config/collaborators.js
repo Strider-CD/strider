@@ -69,6 +69,7 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
     });
   };
   $scope.noCollaborators = function () {
+    if (!$scope.collaborators) return true;
     for (var i=0; i<$scope.collaborators.length; i++) {
       if (!$scope.collaborators[i].owner) return false;
     }
