@@ -246,7 +246,7 @@ exports.jobs = function(req, res) {
         _.each(results, function(jobl) {
           var job = jobl[0]
 
-          if (job === null) {
+          if (!job) {
             return;
           }
 
