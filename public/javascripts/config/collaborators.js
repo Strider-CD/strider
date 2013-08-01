@@ -1,11 +1,10 @@
 
-
 app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
   function remove(ar, item) {
     ar.splice(ar.indexOf(item), 1);
   }
   $scope.new_email = '';
-  $scope.collaborators = $scope.panelData.collaborators;
+  $scope.collaborators = $scope.panelData.collaborators || [];
   $scope.notOwner = function (item) {
     return !item.owner;
   };
@@ -69,7 +68,6 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
     });
   };
   $scope.noCollaborators = function () {
-    if (!$scope.collaborators) return true;
     for (var i=0; i<$scope.collaborators.length; i++) {
       if (!$scope.collaborators[i].owner) return false;
     }

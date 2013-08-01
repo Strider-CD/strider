@@ -170,7 +170,7 @@ exports.config = function(req, res) {
               var next = group()
                 , gotData = function (err, data) {
                     if (err) {
-                      console.log('data err', err, panel.id)
+                      console.log('Error retrieving data for panel %s: %s', panel.id, err)
                       return next(err)
                     }
                     if (data) r.panelData[panel.id] = data
