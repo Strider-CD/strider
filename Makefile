@@ -21,7 +21,7 @@ test: lint
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
 lint:
-	@./node_modules/.bin/jshint *.js
+	@./node_modules/.bin/jshint *.js *.json
 
 strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom
 
