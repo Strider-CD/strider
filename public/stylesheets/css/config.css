@@ -1,0 +1,98 @@
+.clickable {
+  cursor: pointer;
+}
+.clickable:hover {
+  color: #777;
+}
+@media (min-width: 981px) {
+  #notify .message {
+    max-width: 425px;
+  }
+}
+@media (min-width: 1200px) {
+  #notify .message {
+    max-width: 655px;
+  }
+}
+@media (max-width: 980px) and (min-width: 769px) {
+  #notify .message {
+    max-width: 210px;
+  }
+}
+#config-wrapper .badge-link {
+  margin: 4px 0 0 15px;
+}
+#config-wrapper .config-tabs {
+  margin: 5px 0 0;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#config-wrapper .tab-content {
+  margin-top: 10px;
+}
+#config-wrapper #notify {
+  opacity: 0;
+  position: fixed;
+  top: 60px;
+  right: 170px;
+  -webkit-transition: opacity 0.25s ease-in-out;
+  -moz-transition: opacity 0.25s ease-in-out;
+  transition: opacity 0.25s ease-in-out;
+}
+#config-wrapper #notify.visible {
+  opacity: 1;
+}
+#config-wrapper #notify .message {
+  overflow: hidden;
+}
+#config-wrapper .notify-wrapper {
+  box-sizing: border-box;
+  height: 41px;
+}
+#config-wrapper #project_config_webhooks .input-append input {
+  display: block;
+  width: 100%;
+}
+#project_config_collaborators table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 5px;
+}
+#project_config_collaborators .no-collaborators {
+  background-color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-weight: bold;
+}
+#project_config_collaborators .collaborator {
+  background-color: white;
+}
+#project_config_collaborators .collaborator .image {
+  padding: 0;
+}
+#project_config_collaborators .collaborator .image img {
+  height: 35px;
+  width: 35px;
+}
+#project_config_collaborators .collaborator .email {
+  font-weight: bold;
+  line-height: 18px;
+}
+#project_config_collaborators .collaborator .remove i {
+  padding: 10px;
+}
+#project_config_collaborators .collaborator .remove i.icon-remove {
+  color: red;
+}
+#project_config_collaborators .collaborator td {
+  line-height: 0;
+}
+#project_config_collaborators .collaborator > :first-child {
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+  padding-left: 10px;
+}
+#project_config_collaborators .collaborator > :last-child {
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
+}

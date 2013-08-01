@@ -1,0 +1,127 @@
+
+.clickable {
+  cursor: pointer;
+  &:hover {
+    color: #777;
+  }
+}
+
+@media (min-width: 981px) {
+  #notify .message {
+    max-width: 425px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #notify .message {
+    max-width: 655px;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 769px) {
+  #notify .message {
+    max-width: 210px;
+  }
+}
+
+#config-wrapper {
+  .badge-link {
+    margin: 4px 0 0 15px;
+  }
+
+  .config-tabs {
+    margin: 5px 0 0;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .tab-content {
+    margin-top: 10px;
+  }
+
+  #notify {
+    opacity: 0;
+    position: fixed;
+    top: 60px;
+    right: 170px;
+
+    -webkit-transition: opacity .25s ease-in-out;
+       -moz-transition: opacity .25s ease-in-out;
+            transition: opacity .25s ease-in-out;
+
+    &.visible {
+      opacity: 1;
+    }
+
+    .message {
+      overflow: hidden;
+    }
+  }
+
+  .notify-wrapper {
+    box-sizing: border-box;
+    height: 41px;
+  }
+
+  #project_config_webhooks {
+    .input-append {
+      input {
+        display: block;
+        width: 100%;
+      }
+    }
+  }
+}
+
+#project_config_collaborators {
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 5px;
+  }
+  .no-collaborators {
+    background-color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+  }
+  .collaborator {
+    background-color: white;
+
+    .image {
+      padding: 0;
+      img {
+        height: 35px;
+        width: 35px;
+      }
+    }
+
+    .email {
+      font-weight: bold;
+      line-height: 18px;
+    }
+
+    .remove i {
+      padding: 10px;
+      &.icon-remove {
+        color: red;
+      }
+    }
+
+    td {
+      line-height: 0;
+    }
+
+    > :first-child {
+      border-top-left-radius: 15px;
+      border-bottom-left-radius: 15px;
+      padding-left: 10px;
+    }
+
+    > :last-child {
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+    }
+  }
+}
+

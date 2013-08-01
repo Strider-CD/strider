@@ -11,7 +11,7 @@ var _ = require('underscore')
 function email_to_gravatar(email) {
       var gravatar = 'https://secure.gravatar.com/avatar/'
         + crypto.createHash('md5').update(email).digest("hex")
-        + '.jpg?' + 'd=' + encodeURIComponent('identicon') + '&s=20';
+        + 'd=identicon';
 
       return gravatar;
 }
@@ -115,15 +115,13 @@ exports.post_index = function(req, res) {
     return res.end(JSON.stringify(r, null, '\t'));
   };
 
-  function ok(message) {
+  function ok(message, created) {
     var r = {
       errors: [],
       status: "ok",
-      results: []
+      message: message,
+      created: created
     };
-    if (message) {
-      r.results.push({message:message});
-    }
     res.statusCode = 200;
     return res.end(JSON.stringify(r, null, '\t'));
   }
@@ -273,13 +271,10 @@ exports.post_index = function(req, res) {
             console.debug("collaborators.post_index() - saved collaborators list");
             // Send notification email here
             mail.send_invite_collaborator_existing_user(req, email, url);
-            return ok(email + " is now a collaborator.");
+            return ok(email + " is now a collaborator.", true);
           });
-
         }
-
       }
-
     }
   );
 
