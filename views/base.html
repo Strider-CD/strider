@@ -21,54 +21,47 @@
     <div class='wrap'>
     <div class="navbar navbar-fixed-top">
       {% pluginblock TopNav %}
-      <div class="navbar-inner">
-        <div class="container">
-          <a data-toggle="collapse" data-target=".nav-collapse" class="btn navbar-toggle">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </a>
-          <a href="/" class="navbar-brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
-          <div class="nav-collapse StriderBlock_Nav">
-            {% pluginblock Nav %}
-            <ul class="nav navbar-nav">
-              <li><a href="/">Dashboard</a></li>
+      <div class="container">
+        <a href="/" class="navbar-brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
+        <div class="nav-collapse StriderBlock_Nav">
+          {% pluginblock Nav %}
+          <ul class="nav navbar-nav">
+            <li><a href="/">Dashboard</a></li>
 
-              {% if currentUser %}
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/account">Account</a></li>
-                {% if currentUser.account_level > 0 %}
-                  <li class='dropdown'>
-                    <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
-                    <ul class='dropdown-menu'>
-                      <li><a href='/admin/invites'>Invites</a></li>
-                      <li><a href='/admin/users'>Users</a></li>
-                      <li><a href='/admin/projects'>Projects</a></li>
-                      <li><a href='/admin/jobs'>Jobs</a></li>
-                    </ul>
-                {% endif %}
-              {% endif %}
-
-            </ul>
             {% if currentUser %}
-              <p class='navbar-text pull-right'>Logged in as {{ currentUser.email }}
-              |  (<a href="/logout">logout</a>)</p>
+              <li><a href="/projects">Projects</a></li>
+              <li><a href="/account">Account</a></li>
+              {% if currentUser.account_level > 0 %}
+                <li class='dropdown'>
+                  <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
+                  <ul class='dropdown-menu'>
+                    <li><a href='/admin/invites'>Invites</a></li>
+                    <li><a href='/admin/users'>Users</a></li>
+                    <li><a href='/admin/projects'>Projects</a></li>
+                    <li><a href='/admin/jobs'>Jobs</a></li>
+                  </ul>
+              {% endif %}
             {% endif %}
 
-            {% if not currentUser %}
-            <form id="navbar-signin-form" 
-               action="/login" method="post" class="navbar-form pull-right">
-              <input type="text" placeholder="Email" name="email" class="input-small">
-              <input type="password" 
-                  placeholder="Password" name="password" class="input-small">
-              <button type="submit" class="btn">Sign In</button>
-            </form><!--/.nav-collapse -->
+          </ul>
+          {% if currentUser %}
+            <p class='navbar-text pull-right'>Logged in as {{ currentUser.email }}
+            |  (<a href="/logout">logout</a>)</p>
           {% endif %}
-          {% endpluginblock %}
-          </div>
-        </div>     
+
+          {% if not currentUser %}
+          <form id="navbar-signin-form" 
+             action="/login" method="post" class="navbar-form pull-right">
+            <input type="text" placeholder="Email" name="email" class="input-small">
+            <input type="password" 
+                placeholder="Password" name="password" class="input-small">
+            <button type="submit" class="btn">Sign In</button>
+          </form><!--/.nav-collapse -->
+        {% endif %}
         {% endpluginblock %}
-      </div>
+        </div>
+      </div>     
+      {% endpluginblock %}
     </div>
     {% block fillContent%} 
     <div class="strider-fillpage content container">
