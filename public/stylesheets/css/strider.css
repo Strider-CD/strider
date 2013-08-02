@@ -5,6 +5,16 @@ body {
 body {
   background-color: #fff;
 }
+
+
+/* Our colors */
+.navbar{background-color: #eee; color:#31363c;}
+.navbar-nav > li > a{color:#3e464d;}
+.navbar-nav > .active > a,
+.navbar-nav > .active > a:hover{background-color:#39c; color:#fff;}
+.navbar-brand{color: #39c; background: transparent url("/images/logo-50x50.png") no-repeat; padding-left:55px; text-indent:-1000px;}
+
+
 .wrap {
   min-height: 100% !important;
 }
