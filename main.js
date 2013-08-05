@@ -14,60 +14,10 @@ var app = require('./lib/app')
 
 common.workerMessageHooks = [];
 common.workerMessagePostProcessors = [];
-common.panels = {};
 
-common.panels.project_config = [
-  {
-    id: 'collaborators',
-    title: 'Collaborators',
-    controller: 'CollaboratorsCtrl',
-    data: function (user, repo, models, next) {
-      if (!repo.collaborators) return []
-      models.User.findCollaborators(repo.collaborators, function (err, whitelist) {
-        whitelist.push({
-          type: "user",
-          email: user.email,
-          access_level: 1,
-          owner: true,
-          gravatar: utils.gravatar(user.email)
-        })
-        next(null, whitelist)
-      })
-    }
-  }, {
-    id: 'github',
-    title: 'Github Config',
-    data: false
-    /*
-    data: function () {
-      // we don't currently check to see that the webhook is still there. Should we?
-      // maybe we check every once in a while. No more than once an hour?
-    }
-    */
-  }, {
-    id: 'heroku',
-    title: 'Heroku Config',
-    data: function (user, repo, models, next) {
-      try {
-        user.get_prod_deploy_target(repo.url, function (err, target) {
-          if (err === 'No deploy target found') return next(null, false)
-          next(err, target);
-        });
-      } catch (e) {
-        console.log(e, e.stack);
-        next(e);
-      }
-    }
-  }, {
-    id: 'webhooks',
-    title: 'Webhooks',
-    data: 'webhooks'
-  }, {
-    id: 'deactivate',
-    title: 'Deactivate',
-    data: 'active'
-  }
-];
+
+common.extensions = {}
+require('./defaultExtensions')(common.extensions);
 
 //
 // ### Register panel
@@ -75,15 +25,17 @@ common.panels.project_config = [
 // A panel is simply a snippet of HTML associated with a given key.
 // Strider will output panels registered for specific template.
 //
-// For example, if an extension wanted to add client-side code to the project config page,
-// it would register a panel for "project_config" key.
-//
 function registerPanel(key, value) {
   // Nothing yet registered for this panel
-  if (common.panels[key] === undefined) {
-    common.panels[key] = [value];
+  key = value.id // 
+  if (common.extensions[key] === undefined) {
+    common.extensions[key] = {panel : value}
   } else {
-    common.panels[key].push(value);
+    if (common.extensions[key].panel){
+      console.log("!!", key, common.extensions[key], value)
+      throw "Multiple Panels for " + key
+    }
+    common.extensions[key].panel = value;
   }
 }
 

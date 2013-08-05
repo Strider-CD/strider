@@ -146,7 +146,7 @@ exports.config = function(req, res) {
         deploy_on_green: deploy_on_green
       };
       var apresParams = JSON.stringify(params);
-      var projectPanels = common.panels['project_config'];
+      var projectPanels = _.filter(_.pluck(common.extensions, 'panel'), function(x){return x});
       var r = {
          // May be undefined if not configured
          display_name: wrepo_config.display_name,
