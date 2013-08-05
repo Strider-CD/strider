@@ -140,6 +140,7 @@ module.exports = function(extdir, c, callback) {
   // common.context.
   var context = {
     config: appConfig,
+    enablePty: config.enablePty,
     emitter: common.emitter,
     extensionRoutes: [],
     extdir: extdir,
