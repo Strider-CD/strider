@@ -120,8 +120,21 @@ module.exports = function(extdir, c, callback) {
           pluginTemplates.registerTemplate(k, templates[k]);
         }
       }
-      app.run(appInstance);
-      cb(err, initialized, appInstance) 
+
+      loader.initRunnerExtensions(extdir, context, function(err, loaded){
+        console.log("Environment Runner's loaded:" , loaded)
+        if (!loaded || loaded.length < 1) throw "No EnvironmentRunner Loaded!";
+        // FOR NOW WE JUST USE THE FIRST: TODO - make this selectable.
+        var runner = loaded[0]
+
+        context.loader.initWorkerExtensions(extdir, context, function(err, workers){
+          runner.listen(context.emitter, workers, context,function(){
+            app.run(appInstance);
+            cb(err, initialized, appInstance)  
+          });
+        })
+      })
+
   });
 
   return appInstance;
