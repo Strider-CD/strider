@@ -109,7 +109,7 @@ module.exports = function(extdir, c, callback) {
 
   // Make extension context available throughout application.
   common.context = context;
-  loader.initWebappExtensions(extdir, context, appInstance,
+  loader.initWebAppExtensions(extdir, context, appInstance,
     function(err, initialized, templates) { 
       if (err) {
         return cb(err)
