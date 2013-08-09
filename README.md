@@ -51,6 +51,8 @@ For a fully self-contained and pre-built strider installation, check out
 [Strider in a box](https://github.com/Strider-CD/strider-dockerfile#docker--strider--winning),
 made possible by the incredible [docker](http://docker.io) project.
 
+There's a walkthrough of setting it up [on our blog](http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/).
+
 
 <a name="infrastructure" />
 Running on Infrastructure
