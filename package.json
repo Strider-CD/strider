@@ -28,7 +28,7 @@
     "everypaas": "0.0.x",
     "strider-env": "~0.1.0",
     "pw": "0.0.4",
-    "strider-sauce": "~0.3.1",
+    "strider-sauce": "~0.4.1",
     "strider-python": "0.0.2",
     "strider-custom": "~0.3.1",
     "connect": "~2.7.3",
