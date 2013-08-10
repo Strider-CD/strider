@@ -116,7 +116,28 @@ body{
   a.add-repo {
     color: #fff;
   }
+  .history {
+    width:70px;
+  }
+  .last-builds {
+    tr td {
+      width:10px;
+      height:10px;
+      padding:0;
+      overflow:hidden;
+      border-top:none;    
+    }
+  }
+
 }
+
+.last-builds {
+  border-collapse: separate;
+  border-spacing: 2px;
+  margin:9px;
+  .status-pass{  background-color:#cfffd2; }
+  .status-fail{  background-color:#ffd2d0; }
+} 
 
 .progress {
   margin-bottom: 0;
