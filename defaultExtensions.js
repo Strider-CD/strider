@@ -1,8 +1,11 @@
 var utils = require('./lib/utils')
+
+
 // TODO - most of this is cruft that should be moved
 module.exports = function(ext){
 
   ext['collaborators'] = {
+
     panel : {
       id: 'collaborators',
       title: 'Collaborators',

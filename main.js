@@ -128,6 +128,12 @@ module.exports = function(extdir, c, callback) {
         var runner = loaded[0]
 
         context.loader.listWorkerExtensions(extdir, function(err, workers){
+          common.availableWorkers = workers;
+          workers.forEach(function(x){
+            console.log("Extension", x.id , "available")
+            common.extensions[x.id] = x
+          })
+
           runner.create(context.emitter, {}, function(){
 
             // We're all up and running

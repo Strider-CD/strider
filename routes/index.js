@@ -18,6 +18,7 @@ var _ = require('underscore')
   , User = require(BASE_PATH + 'models').User
   , Job = require(BASE_PATH + 'models').Job
   , pjson = require('../package.json')
+  , async = require('async')
 
 var TEST_ONLY = "TEST_ONLY";
 var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
@@ -146,7 +147,7 @@ exports.config = function(req, res) {
         deploy_on_green: deploy_on_green
       };
       var apresParams = JSON.stringify(params);
-      var projectPanels = _.filter(_.pluck(common.extensions, 'panel'), function(x){return x});
+
       var r = {
          // May be undefined if not configured
          display_name: wrepo_config.display_name,
@@ -160,53 +161,52 @@ exports.config = function(req, res) {
          panelData: {}
       };
       var repo = this.repo_config
-      // TODO: factor out this logic so other resource handlers can use it later
-      if (projectPanels) {
-        // For each panel, read contents from FS or execute callback to get HTML
-        Step(
-          function() {
-            var group = this.group()
-            projectPanels.forEach(function (panel) {
-              var next = group()
-                , gotData = function (err, data) {
-                    if (err) {
-                      console.log('Error retrieving data for panel %s: %s', panel.id, err)
-                      return next(err)
-                    }
-                    if (data) r.panelData[panel.id] = data
-                    next(null, panel)
-                  }
-              preparePanel(panel, function (err, panel) {
-                if (typeof(panel.data) === 'function') {
-                  return panel.data(req.user, repo, models, gotData)
-                }
-                if (typeof(panel.data) === 'string') {
-                  return gotData(null, repo.get(panel.data))
-                }
-                var data = {}
-                if (Array.isArray(panel.data)) {
-                  panel.data.forEach(function (name) {
-                    data[name] = repo.get(name)
-                  })
-                  return gotData(null, data)
-                }
-                next(null, panel)
-              })
+
+
+      var loadExtensionPanels = function(ext, cb){
+
+        if (ext[1].panel){
+          if (typeof(ext[1].panel.data) === 'function') {
+            return ext[1].panel.data(req.user, repo, models, function(err, data){
+              console.log("!!!>>", arguments)  
+              r.panelData[ext[0]] = data
+              cb(null, ext[1].panel)
             })
-          },
-          function(err, panels) {
-            if (err) {
-              console.error("Error loading panels: %s", [err], new Error().stack);
-              res.statusCode = 500;
-              return res.end("Error handling request");
-            }
-            r.panels = panels;
-            return res.render('project_config.html', r);
           }
-        );
-      } else {
-        return res.render('project_config.html', r);
+          
+          if (typeof(ext[1].panel.data) === 'string') {
+            r.panelData[ext[0]] = ext[1].panel
+            return cb(null, ext[1].panel)
+          }
+
+          console.log("!!!", ext[1].panel)
+          cb(null, ext[1].panel)
+        } else {
+          console.log(">>>", ext)
+          // No Panel
+          ext[1].id = ext[0]
+          ext[1].title = ext[0]
+          cb(null, ext[1])
+        }
       }
+
+    
+
+      var exts = [];
+      for (var i in common.extensions){
+        exts.push([i, common.extensions[i]])
+      }
+
+      async.map(exts, loadExtensionPanels, function(err, panels){
+        if (err) {
+          console.error("Error loading panels: %s", [err], new Error().stack);
+          res.statusCode = 500;
+          return res.end("Error handling request");
+        }
+        r.panels = panels;
+        return res.render('project_config.html', r);
+      
+      })
     }
   );
 };
