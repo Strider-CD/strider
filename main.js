@@ -127,10 +127,13 @@ module.exports = function(extdir, c, callback) {
         // FOR NOW WE JUST USE THE FIRST: TODO - make this selectable.
         var runner = loaded[0]
 
-        context.loader.initWorkerExtensions(extdir, context, function(err, workers){
-          runner.listen(context.emitter, workers, context,function(){
+        context.loader.listWorkerExtensions(extdir, function(err, workers){
+          runner.create(context.emitter, {}, function(){
+
+            // We're all up and running
+            common.availableWorkers = workers
             app.run(appInstance);
-            cb(err, initialized, appInstance)  
+            cb(err, initialized, appInstance)
           });
         })
       })
