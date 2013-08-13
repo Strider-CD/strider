@@ -1,9 +1,3 @@
-
-// instead of "about %d hours"
-$.timeago.settings.strings.hour = 'an hour';
-$.timeago.settings.strings.hours = '%d hours';
-$.timeago.settings.localeTitle = true;
-
 /**
 var running;
 function runningAnimate(num) {
@@ -82,21 +76,6 @@ app.directive("toggle", function($compile) {
     }
   };
 })
-
-// timeago directive
-app.directive("time", function() {
-  return {
-    restrict: "E",
-    link: function(scope, element, attrs) {
-      var date = new Date(attrs.datetime);
-      $(element).tooltip({title: date.toLocaleString()});
-      $(element).text($.timeago(date));
-      setTimeout(function () {
-        $(element).timeago();
-      }, 0);
-    }
-  };
-});
 
 function getDate(a) {
   if (!a.finished_timestamp) return new Date().getTime();

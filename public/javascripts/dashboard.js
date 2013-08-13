@@ -3,9 +3,6 @@
 $(function() {
 
   var intervals = {}
-  // instead of "about %d hours"
-  $.timeago.settings.strings.hours = '%d hours';
-  $.timeago.settings.localeTitle = true;
 
   function addInterval(url, i) {
     if (intervals[url] && intervals[url].indexOf(i) === -1) {
@@ -197,7 +194,6 @@ $(function() {
         $(this.el).find('.bar').width(this.model.get('progress') + "%");
         $(this.el).find('.progress-meter').show();
       }
-      $('.timeago', this.el).timeago();
       $('[data-toggle="tooltip"]', this.el).tooltip();
 
       return this;

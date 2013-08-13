@@ -1,9 +1,3 @@
-
-// instead of "about %d hours"
-$.timeago.settings.strings.hour = 'an hour';
-$.timeago.settings.strings.hours = '%d hours';
-$.timeago.settings.localeTitle = true;
-
 /*
 var JobMonitor = function () {
   window.socket = this.socket = window.socket || io.connect();
@@ -142,21 +136,6 @@ angular.module('dashboard', [], function ($interpolateProvider) {
       }, 0);
     }
   };
-}).directive("time", function($compile) {
-  return {
-    restrict: "E",
-    link: function(scope, element, attrs) {
-      var date = new Date(attrs.datetime);
-      $(element).tooltip({title: date.toLocaleString()});
-      // $(element).text($.timeago(date));
-      // setInterval(function () {
-        // $(element).text($.timeago(date));
-      // }, 60000);
-      setTimeout(function () {
-        $(element).timeago();
-      }, 0);
-    }
-  };
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
   $scope.jobs = [];
   $scope.loading = true;
@@ -178,9 +157,7 @@ angular.module('dashboard', [], function ($interpolateProvider) {
         }
       }
       $scope.$digest();
-      $('.last-builds td').tooltip({})
-      // $('time.timeago').timeago();
-      // $('[data-toggle="tooltip"]').tooltip();
+      $('.last-builds td').tooltip({});
     }
   });
 }]);
