@@ -1,4 +1,5 @@
 var utils = require('./lib/utils')
+  , path = require('path')
 
 
 // TODO - most of this is cruft that should be moved
@@ -11,6 +12,7 @@ module.exports = function(ext){
       title: 'Collaborators',
       controller: 'CollaboratorsCtrl',
       script_path: '/javascripts/config/collaborators.js',
+      src  : path.join(__dirname, './views/config/collaborators.html'),
       data: function (user, repo, models, next) {
         if (!repo.collaborators) return []
         models.User.findCollaborators(repo.collaborators, function (err, whitelist) {
@@ -33,6 +35,7 @@ module.exports = function(ext){
       title: 'Github Config',
       data: false,
       script_path: '/javascripts/config/github.js',
+      src  : path.join(__dirname, './views/config/github.html'),
       /*
       data: function () {
         // we don't currently check to see that the webhook is still there. Should we?
@@ -47,6 +50,7 @@ module.exports = function(ext){
       id: 'heroku',
       title: 'Heroku Config',
       script_path: '/javascripts/config/heroku.js',
+      src  : path.join(__dirname, './views/config/heroku.html'),
       data: function (user, repo, models, next) {
         try {
           user.get_prod_deploy_target(repo.url, function (err, target) {
@@ -65,13 +69,15 @@ module.exports = function(ext){
   ext['webhooks'].panel = {
     id: 'webhooks',
     title: 'Webhooks',
-    data: 'webhooks'
+    data: 'webhooks',
+    src  : path.join(__dirname, './views/config/webhooks.html'),
   }
   
   ext.deactivate = {}
   ext['deactivate'].panel = {
     id: 'deactivate',
     title: 'Deactivate',
-    data: 'active'
+    data: 'active',
+    src  : path.join(__dirname, './views/config/deactivate.html'),
   }
 }

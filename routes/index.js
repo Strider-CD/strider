@@ -203,7 +203,7 @@ exports.config = function(req, res) {
         } else {
           // No Panel
           ext[1].id = ext[0]
-          ext[1].title = ext[0]
+          ext[1].title = ext[0].match(/([a-z-]*)$/)[0] || ext[0]
           cb(null, ext[1])
         }
       }
