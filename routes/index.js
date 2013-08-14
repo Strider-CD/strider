@@ -202,8 +202,10 @@ exports.config = function(req, res) {
           cb(null, ext[1].panel)
         } else {
           // No Panel
-          ext[1].id = ext[0]
-          ext[1].title = ext[0].match(/([a-z-]*)$/)[0] || ext[0]
+          var nicer_id = ext[0].match(/([a-z-]*)$/)[0] || ext[0]
+
+          ext[1].id = nicer_id
+          ext[1].title = nicer_id
           cb(null, ext[1])
         }
       }
