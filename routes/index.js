@@ -166,23 +166,26 @@ exports.config = function(req, res) {
       var loadExtensionPanels = function(ext, cb){
 
         if (ext[1].panel){
+
+        var panel = ext[1].panel
+         if (!panel.script_path) {
+            panel.script_path = '/ext/' + panel.plugin_name + '/project_config.js'
+          }
+
           if (typeof(ext[1].panel.data) === 'function') {
             return ext[1].panel.data(req.user, repo, models, function(err, data){
-              console.log("!!!>>", arguments)  
               r.panelData[ext[0]] = data
               cb(null, ext[1].panel)
             })
           }
-          
+
           if (typeof(ext[1].panel.data) === 'string') {
             r.panelData[ext[0]] = ext[1].panel
             return cb(null, ext[1].panel)
           }
 
-          console.log("!!!", ext[1].panel)
           cb(null, ext[1].panel)
         } else {
-          console.log(">>>", ext)
           // No Panel
           ext[1].id = ext[0]
           ext[1].title = ext[0]
@@ -190,14 +193,13 @@ exports.config = function(req, res) {
         }
       }
 
-    
-
       var exts = [];
       for (var i in common.extensions){
         exts.push([i, common.extensions[i]])
       }
 
       async.map(exts, loadExtensionPanels, function(err, panels){
+        console.log("!!", panels)
         if (err) {
           console.error("Error loading panels: %s", [err], new Error().stack);
           res.statusCode = 500;

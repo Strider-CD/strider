@@ -10,6 +10,7 @@ module.exports = function(ext){
       id: 'collaborators',
       title: 'Collaborators',
       controller: 'CollaboratorsCtrl',
+      script_path: '/javascripts/config/collaborators.js',
       data: function (user, repo, models, next) {
         if (!repo.collaborators) return []
         models.User.findCollaborators(repo.collaborators, function (err, whitelist) {
@@ -30,7 +31,8 @@ module.exports = function(ext){
     panel: {
       id: 'github',
       title: 'Github Config',
-      data: false
+      data: false,
+      script_path: '/javascripts/config/github.js',
       /*
       data: function () {
         // we don't currently check to see that the webhook is still there. Should we?
@@ -44,6 +46,7 @@ module.exports = function(ext){
     panel : {
       id: 'heroku',
       title: 'Heroku Config',
+      script_path: '/javascripts/config/heroku.js',
       data: function (user, repo, models, next) {
         try {
           user.get_prod_deploy_target(repo.url, function (err, target) {
