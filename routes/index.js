@@ -167,8 +167,13 @@ exports.config = function(req, res) {
         var panel = ext[1].panel
         if (panel && panel.src){
           if (typeof(panel.src) === 'string') {
-            panel.contents = fs.readFileSync(panel.src, 'utf8')
-            return cb(null);
+            try{
+              panel.contents = fs.readFileSync(panel.src, 'utf8')
+              return cb(null);
+            } catch (e){
+              // TODO - check error code
+              panel.contents = fs.readFileSync(path.join(ext[1].dir,panel.src), 'utf8')
+            }
           } else if (typeof(src) === 'function') {
             panel.src(function(err, content){
               panel.contents = content;
@@ -179,7 +184,8 @@ exports.config = function(req, res) {
           }
 
         }
-        return cb(null);
+        panel.contents = "<h1>Extension " + (ext[1].title || ext[0]) + " needs no configuration</h1>"
+        return cb(null)
       }
 
       var loadPanelData = function(ext, cb){
@@ -202,10 +208,9 @@ exports.config = function(req, res) {
           cb(null, ext[1].panel)
         } else {
           // No Panel
-          var nicer_id = ext[0].match(/([a-z-]*)$/)[0] || ext[0]
-
-          ext[1].id = nicer_id
-          ext[1].title = nicer_id
+          ext[1].panel = {}
+          ext[1].id = ext[1].panel.id = ext[0]
+          ext[1].title = ext[1].panel.title = ext[0]
           cb(null, ext[1])
         }
       }
@@ -226,7 +231,6 @@ exports.config = function(req, res) {
       }
 
       async.map(exts, loadExtensionPanels, function(err, panels){
-        console.log("!!", panels)
         if (err) {
           console.error("Error loading panels: %s", [err], new Error().stack);
           res.statusCode = 500;
@@ -239,42 +243,6 @@ exports.config = function(req, res) {
     }
   );
 };
-
-function getSrc(src, next) {
-  if (typeof(src) === 'string') {
-    fs.readFile(src, 'utf8', next)
-  } else if (typeof(src) === 'function') {
-    src(next)
-  } else {
-    next()
-  }
-};
-
-function preparePanel(panel, next) {
-  if (!panel.controller) {
-    panel.controller = panel.id[0].toUpperCase() + panel.id.slice(1) + 'Ctrl'
-  }
-  if (!panel.script_path) {
-    if (panel.plugin_name) {
-      panel.script_path = '/ext/' + panel.plugin_name + '/project_config.js'
-    } else {
-      panel.script_path = '/javascripts/config/' + panel.id + '.js'
-    }
-  }
-  if (!panel.src && !panel.plugin_name) {
-    panel.src = path.join(__dirname, '../views/config/' + panel.id + '.html')
-  }
-  panel.contents = ''
-  // Panel sources can be a string which assumed to be a filesystem path
-  // or a function which is assumed to take a callback argument.
-  getSrc(panel.src, function (err, res) {
-    if (err) return next(err)
-    if (res) panel.contents = res
-    next(err, panel)
-  })
-}
-
-
 
 
 /*

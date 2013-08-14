@@ -28,6 +28,7 @@ require('./defaultExtensions')(common.extensions);
 function registerPanel(key, value) {
   // Nothing yet registered for this panel
   key = value.id // 
+    console.log("!!", key)
   if (common.extensions[key] === undefined) {
     common.extensions[key] = {panel : value}
   } else {
@@ -131,7 +132,12 @@ module.exports = function(extdir, c, callback) {
           common.availableWorkers = workers;
           workers.forEach(function(x){
             console.log("Extension", x.id , "available")
-            common.extensions[x.id] = x
+
+            if (common.extensions[x.id] === undefined) {
+              common.extensions[x.id] = x
+            } else {
+              console.log("!!! Multiple extension", x)
+            }
           })
 
           runner.create(context.emitter, {}, function(){
