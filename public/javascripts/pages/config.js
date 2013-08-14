@@ -1,6 +1,7 @@
 
 ;(function () {
-  
+
+  console.log("!!!!")
   window.app = angular.module('config', [], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');

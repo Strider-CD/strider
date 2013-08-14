@@ -34,8 +34,8 @@
           [[ loadingMessage ]]
         </div>
         {% for panel in panels %}
+        <div id="{{panel.id}}" class="tab-pane {% if loop.first %}active{% endif %}" {% if panel.controller %}ng-controller="{{panel.controller}}"{% endif %}>
         {{ panel.controller }}
-        <div id="{{panel.id}}" class="tab-pane {% if loop.first %}active{% endif %}" ng-controller="{{panel.controller}}">
         {% autoescape false %}
         {{ panel.contents }}
         {% endautoescape %}

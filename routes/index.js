@@ -163,14 +163,29 @@ exports.config = function(req, res) {
       var repo = this.repo_config
 
 
-      var loadExtensionPanels = function(ext, cb){
+      var loadPanelContent = function(ext, cb){
+        var panel = ext[1].panel
+        if (panel && panel.src){
+          if (typeof(panel.src) === 'string') {
+            panel.contents = fs.readFileSync(panel.src, 'utf8')
+            return cb(null);
+          } else if (typeof(src) === 'function') {
+            panel.src(function(err, content){
+              panel.contents = content;
+              cb(null)
+            })
+          } else {
+            cb("what is panel.src?")
+          }
 
+        }
+        return cb(null);
+      }
+
+      var loadPanelData = function(ext, cb){
         if (ext[1].panel){
 
         var panel = ext[1].panel
-         if (!panel.script_path) {
-            panel.script_path = '/ext/' + panel.plugin_name + '/project_config.js'
-          }
 
           if (typeof(ext[1].panel.data) === 'function') {
             return ext[1].panel.data(req.user, repo, models, function(err, data){
@@ -191,6 +206,16 @@ exports.config = function(req, res) {
           ext[1].title = ext[0]
           cb(null, ext[1])
         }
+      }
+
+      var loadExtensionPanels = function(ext, cb){
+        loadPanelData(ext, function(err){
+          if (err) throw err
+          loadPanelContent(ext, function(err){
+            if (err) throw err
+            cb(null, ext[1].panel || ext[1])
+          })
+        })
       }
 
       var exts = [];
