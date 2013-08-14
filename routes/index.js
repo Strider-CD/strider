@@ -173,11 +173,12 @@ exports.config = function(req, res) {
             } catch (e){
               // TODO - check error code
               panel.contents = fs.readFileSync(path.join(ext[1].dir,panel.src), 'utf8')
+              return cb(null);
             }
           } else if (typeof(src) === 'function') {
             panel.src(function(err, content){
               panel.contents = content;
-              cb(null)
+              return cb(null)
             })
           } else {
             cb("what is panel.src?")
