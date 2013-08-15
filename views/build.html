@@ -15,7 +15,7 @@
       <div class="span7 job-title">
         {% pluginblock JobPagePreTitle %}{% endpluginblock %}
         <h3>
-          <span ng-show="job.project_deployable && !job.running && repo.access_level > 0"
+          <span ng-show="!job.running && repo.access_level > 0"
                 ng-click="startDeploy(job)"
                 title="Retest &amp; Deploy"
                 class="clickable test-and-deploy-action">

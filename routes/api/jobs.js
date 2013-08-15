@@ -95,8 +95,9 @@ exports.jobs_start = function(req, res) {
       });
     }
     if (!repo_config.has_prod_deploy_target) {
-      res.statusCode = 400;
-      return res.end(JSON.stringify({error: "TEST_AND_DEPLOY requested but deploy target not configued "}));
+      return jobs.startJob(req.user, repo_config, undefined, undefined, repo_ssh_url, job_type, function (job) {
+        res.end(JSON.stringify({job: job}));
+      });
     }
 
     var deploy_config_key = deploy_provider_property_map[repo_config.prod_deploy_target.provider];
