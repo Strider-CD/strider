@@ -1,0 +1,19 @@
+<div id="build-badge-modal" class="modal fade">
+  <div class="modal-header">
+    <span type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</span>
+    <h3>Build Badge</h3>
+  </div>
+  <div class="modal-body">
+    <table class="table table-bordered">
+      <tbody>
+        <tr class="row-fluid">
+          <td>Image URL:</td>
+          <td><input class="span12" value="{{badge_url}}"/></td>
+        </tr>
+        <tr class="row-fluid">
+          <td>Markdown:</td>
+          <td><input class="span12" value="[![Build Status]({{badge_url}})]({{view_url}})"/></td>
+      </tbody>
+    </table>
+  </div>
+</div>

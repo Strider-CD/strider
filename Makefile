@@ -2,7 +2,7 @@
 build: less
 	@:
 
-less_files := strider.less
+less_files := strider.less config.less
 css_files := $(patsubst %.less,public/stylesheets/css/%.css,$(less_files))
 
 less: $(css_files)
@@ -21,7 +21,7 @@ test: lint
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
 lint:
-	@./node_modules/.bin/jshint *.js
+	@./node_modules/.bin/jshint *.js *.json
 
 strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom
 

@@ -1,5 +1,5 @@
 <td class="deploy" ng-hide="page === 'build'">
-  <span ng-show="job.project_deployable && !job.running"
+  <span ng-hide="job.running"
         ng-click="startDeploy(job)"
         data-toggle="tooltip" title="Retest &amp; Deploy"
         data-delay="200" class="clickable test-and-deploy-action">
@@ -40,6 +40,13 @@
   <a href="/[[ job.project_name ]]/">
     [[ job.project_name ]]
   </a>
+</td>
+<td class="history" ng-hide="page === 'build'">
+  <table class='last-builds'>
+    <tr>
+      <td ng-repeat="pjob in job.prev" title="[[ pjob.id.slice(0,8) ]] [[ pjob.stat ]]" class='build-[[ $index ]] status-[[ pjob.stat ]]'></td>
+    </tr>
+  </table>
 </td>
 <td class="committer">
   <div ng-show="job.triggered_by_commit" ng-switch="job.committer.url">

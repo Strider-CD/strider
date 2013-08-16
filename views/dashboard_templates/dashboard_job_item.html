@@ -1,7 +1,7 @@
 
 <script id="dashboard-job-item" type="text/template" class="template">
   <td class="deploy">
-    <% if (project_deployable && !(success === "N/A" || success === "TBD")) { %>
+    <% if (!(success === "N/A" || success === "TBD")) { %>
     <span data-toggle="tooltip" title="Retest &amp; Deploy" data-delay="200" class="test-and-deploy-action">
       <i class="icon-cloud-upload"></i>
     </span>
