@@ -31,6 +31,7 @@
     "strider-sauce": "~0.4.0",
     "strider-python": "0.0.2",
     "strider-custom": "~0.3.1",
+    "strider-node": "git+https://github.com/strider-cd/strider-node.git",
     "connect": "~2.7.3",
     "express": "~3.1.0",
     "swig": "git+https://github.com/peterbraden/swig",
