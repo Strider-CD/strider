@@ -3,34 +3,27 @@
 packages_dir=node_modules
 node_root=/opt/node
 
-NODE_VERSION=v0.8.22
+NODE_VERSION=v0.10.17
 
-[ "$SERVICE_NODE_VERSION" ] && 
-[ "$SERVICE_NODE_VERSION" != "$(node --version)" ] &&
-(
+startdir=$(pwd)
+
+if [ $(node --version) != $(echo $NODE_VERSION | sed -e s/v//g) ]; then
+    echo "Node present or not $NODE_VERSION - installing"
     rm -rf $node_root/*
     cd $node_root
     # use binary packages
     curl -L http://nodejs.org/dist/$NODE_VERSION/node-$NODE_VERSION-linux-x64.tar.gz | tar -zxf-
     mv node-$NODE_VERSION-linux-x64/* $node_root
-)
-
-cd ${SERVICE_APPROOT:=.}
-
-
-# Some user have their packages in their repository let's remove them,
-# there is good chances that we are on a different architecture anyway.
-[ -e "$packages_dir" ] && rm -rf "$packages_dir"
+    cd $startdir
+fi
 
 # Copy code to $HOME.
 rsync -aH ./ $HOME/
+cd $HOME
 
 # Install the specified dependencies.
 # This will re-use already installed dependencies.
 # To force the use of the latest version of a package:
 # - specify a version specification in package.json;
 # - or push with the "--clean" flag to discard the incremental build.
-cd $HOME
-[ -f package.json ] && npm install
-
-
+[ -f package.json ] && npm install -d -d
