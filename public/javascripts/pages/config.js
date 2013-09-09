@@ -77,7 +77,9 @@
       if (clearTime) {
         clearTimeout(clearTime);
       }
-      $scope.message.showing = false;
+      if ($scope.message) {
+        $scope.message.showing = false;
+      }
       clearTime = setTimeout(function () {
         clearTime = null;
         $scope.message = null;
