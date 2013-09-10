@@ -30,7 +30,7 @@
     "pw": "0.0.4",
     "strider-sauce": "~0.5.0",
     "strider-custom": "~0.4.1",
-    "strider-node": "git+https://github.com/Strider-CD/strider-node",
+    "strider-node": "~0.2.4",
     "connect": "~2.7.3",
     "express": "~3.1.0",
     "swig": "git+https://github.com/peterbraden/swig",
