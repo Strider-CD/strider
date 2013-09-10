@@ -209,6 +209,8 @@ exports.config = function(req, res) {
                 data[name] = repo.get(name)
               })
               r.panelData[extName] = data
+            } else if (typeof(panel.data) === 'string') {
+              r.panelData[extName] = repo.get(panel.data)
             } else {
               r.panelData[extName] = panel.data
             }
