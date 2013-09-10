@@ -165,6 +165,7 @@ exports.config = function(req, res) {
 
       var loadPanelContent = function(ext, cb){
         var panel = ext[1].panel
+        var extName = ext[0]
         if (panel && panel.src){
           if (typeof(panel.src) === 'string') {
             try{
@@ -190,23 +191,32 @@ exports.config = function(req, res) {
       }
 
       var loadPanelData = function(ext, cb){
+        var extName = ext[0]
         if (ext[1].panel){
-
-        var panel = ext[1].panel
-
-          if (typeof(ext[1].panel.data) === 'function') {
-            return ext[1].panel.data(req.user, repo, models, function(err, data){
-              r.panelData[ext[0]] = data
-              cb(null, ext[1].panel)
+          var panel = ext[1].panel
+          if (!panel.script_path) {
+            panel.script_path = '/ext/' + extName + '/project_config.js'
+          }
+          if (typeof(panel.data) === 'function') {
+            return panel.data(req.user, repo, models, function(err, data){
+              r.panelData[extName] = data
+              cb(null, ext[1])
             })
+          } else if (panel.data !== undefined) {
+            var data = {}
+            if (Array.isArray(panel.data)) {
+              panel.data.forEach(function (name) {
+                data[name] = repo.get(name)
+              })
+              r.panelData[extName] = data
+            } else {
+              r.panelData[extName] = panel.data
+            }
+            
+            return cb(null, ext[1])
           }
 
-          if (typeof(ext[1].panel.data) === 'string') {
-            r.panelData[ext[0]] = ext[1].panel
-            return cb(null, ext[1].panel)
-          }
-
-          cb(null, ext[1].panel)
+          cb(null, panel)
         } else {
           // No Panel
           ext[1].panel = {}

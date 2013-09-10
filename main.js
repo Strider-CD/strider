@@ -25,7 +25,7 @@ require('./defaultExtensions')(common.extensions);
 function registerPanel(key, value) {
   // Nothing yet registered for this panel
   key = value.id // 
-    console.log("!!", key)
+  console.log("!! registerPanel", key)
   if (common.extensions[key] === undefined) {
     common.extensions[key] = {panel : value}
   } else {
@@ -85,6 +85,16 @@ module.exports = function(extdir, c, callback) {
         }
       }
 
+      initialized.forEach(function(x) {
+        console.log(x.id , "webapp extension available")
+
+        if (common.extensions[x.id] === undefined) {
+          common.extensions[x.id] = x
+        } else {
+          console.log("!!! Multiple webapp extension", x)
+        }
+      })
+
       loader.initRunnerExtensions(extdir, context, function(err, loaded){
         console.log("Environment Runner's loaded:" , loaded)
         if (!loaded || loaded.length < 1) throw "No EnvironmentRunner Loaded!";
@@ -94,12 +104,12 @@ module.exports = function(extdir, c, callback) {
         context.loader.listWorkerExtensions(extdir, function(err, workers){
           common.availableWorkers = workers;
           workers.forEach(function(x){
-            console.log("Extension", x.id , "available")
+            console.log(x.id , " worker extension available")
 
             if (common.extensions[x.id] === undefined) {
               common.extensions[x.id] = x
             } else {
-              console.log("!!! Multiple extension", x)
+              common.extensions[x.id].worker = x.worker
             }
           })
 
