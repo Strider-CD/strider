@@ -33,6 +33,7 @@ module.exports = function(ext){
     panel: {
       id: 'github',
       title: 'Github Config',
+      controller: 'GithubCtrl',
       data: false,
       script_path: '/javascripts/config/github.js',
       src  : path.join(__dirname, './views/config/github.html'),
@@ -51,6 +52,7 @@ module.exports = function(ext){
       title: 'Heroku Config',
       script_path: '/javascripts/config/heroku.js',
       src  : path.join(__dirname, './views/config/heroku.html'),
+      controller: 'HerokuCtrl',
       data: function (user, repo, models, next) {
         try {
           user.get_prod_deploy_target(repo.url, function (err, target) {
@@ -70,6 +72,7 @@ module.exports = function(ext){
     id: 'webhooks',
     title: 'Webhooks',
     data: 'webhooks',
+    controller: 'WebhooksCtrl',
     src  : path.join(__dirname, './views/config/webhooks.html'),
     script_path: '/javascripts/config/webhooks.js',
   }
@@ -79,6 +82,7 @@ module.exports = function(ext){
     id: 'deactivate',
     title: 'Deactivate',
     data: 'active',
+    controller: 'DeactivateCtrl',
     src  : path.join(__dirname, './views/config/deactivate.html'),
     script_path: '/javascripts/config/deactivate.js',
   }
