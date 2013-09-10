@@ -32,7 +32,7 @@
     "strider-custom": "~0.4.1",
     "strider-node": "~0.2.4",
     "connect": "~2.7.3",
-    "express": "~3.1.0",
+    "express": "~3.4.0",
     "swig": "git+https://github.com/peterbraden/swig",
     "cookie": "0.0.5",
     "socket.io": "~0.9.13",
