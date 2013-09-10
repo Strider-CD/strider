@@ -7,9 +7,7 @@
     "stylus": "~0.37.0",
     "jade": "~0.35.0",
     "mongoose": "~3.6.10",
-    "passport": "0.1.16",
     "passport-github": "~0.1.4",
-    "passport-local": "0.1.6",
     "consolidate": "0.8.0",
     "bcrypt": "~0.7.7",
     "connect-mongo": "~0.3.3",
@@ -39,7 +37,9 @@
     "strider-simple-runner": "~0.10.0",
     "lodash": "~1.3.1",
     "eventemitter2": "0.4.13",
-    "strider-python": "~0.1.0"
+    "strider-python": "~0.1.0",
+    "passport-local": "~0.1.6",
+    "passport": "~0.1.17"
   },
   "devDependencies": {
     "mocha": "~1.12.0",
