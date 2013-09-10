@@ -71,6 +71,7 @@ module.exports = function(ext){
     title: 'Webhooks',
     data: 'webhooks',
     src  : path.join(__dirname, './views/config/webhooks.html'),
+    script_path: '/javascripts/config/webhooks.js',
   }
   
   ext.deactivate = {}
@@ -79,5 +80,6 @@ module.exports = function(ext){
     title: 'Deactivate',
     data: 'active',
     src  : path.join(__dirname, './views/config/deactivate.html'),
+    script_path: '/javascripts/config/deactivate.js',
   }
 }
