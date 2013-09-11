@@ -1,6 +1,7 @@
 {
   "strict": false,
   "laxcomma": true,
+  "undef": true,
   "node": true,
   "-W033": false,
   "-W024": false,
