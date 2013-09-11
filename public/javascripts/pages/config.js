@@ -1,7 +1,6 @@
 
 ;(function () {
 
-  console.log("!!!!")
   window.app = angular.module('config', [], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
@@ -29,7 +28,7 @@
   app.controller('Config', ['$scope', '$element', function ($scope, $element, $attributes) {
     // this is the parent controller.
     $scope.message = null;
-    $scope.repo = window.repoData || {};
+    $scope.project = window.project || {};
     $scope.panelData = window.panelData || {};
     $scope.gravatar = function (email) {
       if (!email) return '';
@@ -85,6 +84,43 @@
         $scope.message = null;
         $scope.$digest();
       }, 1000);
+    };
+
+    $scope.pluginConfig = function (name, data, next) {
+      var plugin = null;
+      for (var i=0; i<$scope.project.plugins.length; i++) {
+        if ($scope.project.plugins[i].name === name) {
+          plugin = $scope.project.plugins[i].config;
+          break;
+        }
+      }
+      if (plugin === null) {
+        console.error("pluginConfig called for a plugin that's not configured. " + name);
+        throw new Error('Plugin not configured: ' + name);
+      }
+      if (arguments.length === 1) {
+        return plugin;
+      }
+      $.ajax({
+        url: "api/config/" + name,
+        type: "PUT",
+        data: data,
+        success: function(data, ts, xhr) {
+          $scope.success("Config for " + name + " saved.");
+          next(null, data);
+          $scope.$root.$digest();
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error saving " + name + " config: " + data.errors[0]);
+          } else {
+            $scope.error("Error saving " + name + " config: " + e);
+          }
+          next();
+          $scope.$root.$digest();
+        }
+      });
     };
 
     $scope.post = post;

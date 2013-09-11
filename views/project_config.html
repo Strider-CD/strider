@@ -2,13 +2,14 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="/stylesheets/css/config.css">
-<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
+<link rel="stylesheet" href="/stylesheets/css/config-plugins-compiled.css">
+<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css">
 {% endblock %}
 {% block bodyContent %}
 {% include "config/boot-badge.html" %}
 <script>
   var panelData = {{ panelData | scriptjson | raw }}
-    , repoData = {{ repo | scriptjson | raw }};
+    , project = {{ project | scriptjson | raw }};
 </script>
 <div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="Config">
   <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
@@ -46,7 +47,5 @@
 </div>
   <script src="/javascripts/lib/bootstrap-switch.js"></script>
 <script src='/javascripts/pages/config.js'></script>
-{% for panel in panels %}
-<script src="{{ panel.script_path }}"></script>
-{% endfor %}
+<script src='/javascripts/pages/config-plugins-compiled.js'></script>
 {% endblock %}

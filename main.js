@@ -2,7 +2,7 @@ var app = require('./lib/app')
   , backchannel = require('./lib/backchannel')
   , common = require('./lib/common')
   , config = require('./lib/config')
-  , loader = require('strider-extension-loader')
+  , Loader = require('strider-extension-loader')
   , middleware = require('./lib/middleware')
   , auth = require('./lib/auth')
   , models = require('./lib/models')
@@ -44,7 +44,6 @@ module.exports = function(extdir, c, callback) {
     appConfig[k] = c[k];
   }
 
-
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
   var cb = callback || function() {}
@@ -62,7 +61,7 @@ module.exports = function(extdir, c, callback) {
     emitter: common.emitter,
     extensionRoutes: [],
     extdir: extdir,
-    loader: loader,
+    Loader: Loader,
     models: models,
     logger: console,
     middleware: middleware,
@@ -73,57 +72,48 @@ module.exports = function(extdir, c, callback) {
 
   // Make extension context available throughout application.
   common.context = context;
-  loader.initWebAppExtensions(extdir, context, appInstance,
-    function(err, initialized, templates) { 
-      if (err) {
-        return cb(err)
-      }
-
-      if (templates){
-        for (var k in templates){
-          pluginTemplates.registerTemplate(k, templates[k]);
-        }
-      }
-
-      initialized.forEach(function(x) {
-        console.log(x.id , "webapp extension available")
-
-        if (common.extensions[x.id] === undefined) {
-          common.extensions[x.id] = x
-        } else {
-          console.log("!!! Multiple webapp extension", x)
-        }
-      })
-
-      loader.initRunnerExtensions(extdir, context, function(err, loaded){
-        console.log("Environment Runner's loaded:" , loaded)
-        if (!loaded || loaded.length < 1) throw "No EnvironmentRunner Loaded!";
-        // FOR NOW WE JUST USE THE FIRST: TODO - make this selectable.
-        var runner = loaded[0]
-
-        context.loader.listWorkerExtensions(extdir, function(err, workers){
-          common.availableWorkers = workers;
-          workers.forEach(function(x){
-            console.log(x.id , " worker extension available")
-
-            if (common.extensions[x.id] === undefined) {
-              common.extensions[x.id] = x
-            } else {
-              common.extensions[x.id].worker = x.worker
-            }
-          })
-
-          runner.create(context.emitter, {}, function(){
-
-            // We're all up and running
-            common.availableWorkers = workers
-            app.run(appInstance);
-            cb(err, initialized, appInstance)
-          });
+  var loader = appInstance.loader = new Loader()
+  common.loader = loader
+  loader.collectExtensions([extdir], function (err) {
+    if (err) return cb(err)
+    async.parallel([
+      function (next) {
+        loader.initWebAppExtensions(context, function (err, webapps) {
+          common.extensions = webapps
+          var id
+          for (id in webapps.job) {
+            console.log('Job plugin ' + id)
+          }
+          for (id in webapps.provider) {
+            console.log('Provider plugin ' + id)
+          }
+          for (id in webapps.runner) {
+            console.log('Runner plugin ' + id)
+          }
         })
-      })
+      },
+      function (next) {
+        loader.initTemplates(function (err, templates) {
+          if (err) return next(err)
+          for (var name in templates) {
+            pluginTemplates.register(name, templates[name])
+          }
+        })
+      },
+      function (next) {
+        loader.initStaticDirs(appInstance, next)
+      },
+      function (next) {
+        loader.initConfig(
+          path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
+          path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
+          next)
+      }
+    ], function (err) {
+      app.run(appInstance)
+      cb(err, initialized, appInstance)
+    })
+  })
 
-  });
-
-  return appInstance;
-};
+  return appInstance
+}
