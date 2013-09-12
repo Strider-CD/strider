@@ -399,7 +399,8 @@ exports.status = function(req, res) {
       results: [],
       errors: [{message:message}]
     }
-    return res.end(JSON.stringify(resp, null, "\t"));
+   // return res.end(JSON.stringify(resp, null, "\t"));
+   return res.jsonp(resp)
   }
 
   function ok() {
@@ -410,7 +411,8 @@ exports.status = function(req, res) {
       results: [{message:"system operational"}],
       errors: []
     }
-    return res.end(JSON.stringify(resp, null, "\t"));
+    //return res.end(JSON.stringify(resp, null, "\t"));
+    return res.jsonp(resp)
   }
 
   User.findOne(function(err, user) {
