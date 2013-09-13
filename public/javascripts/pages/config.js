@@ -1,7 +1,7 @@
 
 ;(function () {
 
-  window.app = angular.module('config', [], function ($interpolateProvider) {
+  window.app = angular.module('config', ['ui.sortable'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
   });
@@ -25,11 +25,158 @@
     });
   }
 
+  app.controller('RunnerController', ['$scope', '$element', function ($scope, $element) {
+    var name = $element.attr('id').split('-').slice(1).join('-');
+    $scope.saving = false;
+    $scope.$watch('runnerConfigs[branch]["' + name + '"]', function (value) {
+      console.log('Runner config', name, value, $scope.runnerConfigs);
+      $scope.config = value;
+    });
+    $scope.save = function () {
+      $scope.saving = true;
+      $scope.runnerConfig($scope.config, function () {
+        $scope.saving = false;
+      });
+    };
+  }]);
+
+  app.controller('ProviderController', ['$scope', function ($scope) {
+    $scope.config = $scope.providerConfig();
+    $scope.saving = false;
+    $scope.save = function () {
+      $scope.saving = true;
+      $scope.providerConfig($scope.config, function () {
+        $scope.saving = false;
+      });
+    };
+  }]);
+
+  app.controller('PluginController', ['$scope', '$element', function ($scope, $element) {
+    var name = $element.attr('id').split('-').slice(1).join('-');
+    $scope.$watch('configs[branch]["' + name + '"].config', function (value) {
+      $scope.config = value;
+    });
+    $scope.saving = false;
+    $scope.save = function () {
+      $scope.saving = true;
+      $scope.pluginConfig(name, $scope.config, function () {
+        $scope.saving = false;
+      });
+    };
+  }]);
+
   app.controller('Config', ['$scope', '$element', function ($scope, $element, $attributes) {
     // this is the parent controller.
     $scope.message = null;
     $scope.project = window.project || {};
-    $scope.panelData = window.panelData || {};
+    $scope.plugins = window.plugins || {};
+    $scope.runners = window.runners || {};
+    $scope.configured = {};
+    // TODO make this aware of a #hash ?
+    $scope.branch = 'master';
+    $scope.branches = [];
+    $scope.disabled_plugins = {};
+    $scope.configs = {};
+    $scope.runnerConfigs = {};
+
+    var save_branches = {};
+
+    $scope.refreshBranches = function () {
+      // TODO implement
+      throw Error('Not implemented');
+    };
+
+    $scope.setEnabled = function (plugin, enabled) {
+      $scope.configs[$scope.branch][plugin].enabled = enabled;
+      // TODO save this
+      console.warn("Haven't saved enabled state");
+    };
+
+    $scope.switchToMaster = function () {
+      $scope.branch = 'master';
+    };
+
+    $scope.toggleBranch = function () {
+      if ($scope.branch === 'master') return;
+      if ($scope.project.branches[$scope.branch] === 'master') {
+        $scope.project.branches[$scope.branch] = save_branches[$scope.branch] || $.extend(true, {}, $scope.project.branches.master);
+      } else {
+        save_branches[$scope.branch] = $scope.project.branches[$scope.branch];
+        $scope.project.branches[$scope.branch] = 'master';
+      }
+    };
+
+    $scope.$watch('branch', function (value) {
+      $('#first-tab-handle').tab('show');
+    });
+
+    $scope.setRunner = function (name) {
+      $scope.project.branches[$scope.branch].runner = {
+        id: name,
+        config: $scope.runnerConfigs[name]
+      };
+    };
+
+    function updateConfigured() {
+      var plugins = $scope.project.branches[$scope.branch].plugins;
+      $scope.configured[$scope.branch] = {};
+      for (var i=0; i<plugins.length; i++) {
+        $scope.configured[$scope.branch][plugins[i].id] = true;
+      }
+    }
+
+    $scope.inUseOptions = {
+      connectWith: '.disabled-plugins-list',
+      distance: 5,
+      remove: function (e, ui) {
+        updateConfigured();
+      },
+      receive: function (e, ui) {
+        updateConfigured();
+        var plugins = $scope.project.branches[$scope.branch].plugins;
+        plugins[ui.item.index()].enabled = true;
+      }
+    };
+    function initPlugins() {
+      var branches = $scope.project.branches
+        , plugins
+        , branch;
+      for (branch in branches) {
+        $scope.configured[branch] = {};
+        $scope.configs[branch] = {};
+        $scope.runnerConfigs[branch] = {};
+        $scope.disabled_plugins[branch] = [];
+        $scope.branches.push(branch);
+        for (var plugin in $scope.plugins) {
+          if ($scope.configured[branch][plugin]) continue;
+          $scope.configs[branch][plugin] = {
+            id: plugin,
+            enabled: true,
+            config: {}
+          };
+          $scope.disabled_plugins[branch].push($scope.configs[branch][plugin]);
+        }
+
+        if (branches[branch] !== 'master') {
+          $scope.runnerConfigs[branch][branches[branch].runner.id] = branches[branch].runner.config;
+        }
+        for (var runner in $scope.runners) {
+          if (branches[branch] !== 'master' && runner === branches[branch].runner.id) continue;
+          $scope.runnerConfigs[branch][runner] = {};
+        }
+
+        if (branches[branch] === 'master') continue;
+        plugins = branches[branch].plugins;
+        for (var i=0; i<plugins.length; i++) {
+          $scope.configured[branch][plugins[i].id] = true;
+          $scope.configs[branch][plugins[i].id] = plugins[i];
+        }
+
+      }
+    }
+
+    initPlugins();
+    
     $scope.gravatar = function (email) {
       if (!email) return '';
       var hash = md5(email.toLowerCase());
@@ -86,36 +233,99 @@
       }, 1000);
     };
 
-    $scope.pluginConfig = function (name, data, next) {
-      var plugin = null;
-      for (var i=0; i<$scope.project.plugins.length; i++) {
-        if ($scope.project.plugins[i].name === name) {
-          plugin = $scope.project.plugins[i].config;
-          break;
-        }
+    $scope.runnerConfig = function (branch, data, next) {
+      if (!next) {
+        next = data;
+        data = branch;
+        branch = $scope.branch;
       }
-      if (plugin === null) {
-        console.error("pluginConfig called for a plugin that's not configured. " + name);
-        throw new Error('Plugin not configured: ' + name);
-      }
-      if (arguments.length === 1) {
-        return plugin;
+      var name = $scope.project.branches[branch].runner.id;
+      if (arguments.length < 2) {
+        return $scope.project.branches[branch].runner.config;
       }
       $.ajax({
-        url: "api/config/" + name,
-        type: "PUT",
+        url: 'master/runner',
+        type: 'PUT',
         data: data,
         success: function(data, ts, xhr) {
-          $scope.success("Config for " + name + " saved.");
-          next(null, data);
+          $scope.success("Runner config saved.");
+          $scope.runnerConfigs[name] = data.config;
+          next(null, data.config);
           $scope.$root.$digest();
         },
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
             var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error saving " + name + " config: " + data.errors[0]);
+            $scope.error("Error saving runner config: " + data.errors[0]);
           } else {
-            $scope.error("Error saving " + name + " config: " + e);
+            $scope.error("Error saving runner config: " + e);
+          }
+          next();
+          $scope.$root.$digest();
+        }
+      });
+    };
+
+    $scope.providerConfig = function (data, next) {
+      if (arguments.length === 0) {
+        return $scope.project.provider.config;
+      }
+      $.ajax({
+        url: 'master/provider',
+        type: 'PUT',
+        data: data,
+        success: function(data, ts, xhr) {
+          $scope.success("Provider config saved.");
+          next(null, data.config);
+          $scope.$root.$digest();
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error saving provider config: " + data.errors[0]);
+          } else {
+            $scope.error("Error saving provider config: " + e);
+          }
+          next();
+          $scope.$root.$digest();
+        }
+      });
+    };
+
+    $scope.pluginConfig = function (name, branch, data, next) {
+      if (arguments.length === 3) {
+        next = data;
+        data = branch;
+        branch = $scope.branch;
+      }
+      var branchobj = $scope.project.branches[branch]
+      if (!branchobj || 'string' === typeof branchobj) {
+        return
+      }
+      var plugin = $scope.configs[branch][name]
+      if (arguments.length < 3) {
+        return plugin;
+      }
+      if (plugin === null) {
+        console.error("pluginConfig called for a plugin that's not configured. " + name);
+        throw new Error('Plugin not configured: ' + name);
+      }
+      $.ajax({
+        url: branch + "/" + name,
+        type: "PUT",
+        data: data,
+        success: function(data, ts, xhr) {
+          $scope.success("Config for " + name + " on branch " + branch + " saved.");
+          $scope.configs[branch][name] = data.config;
+          next(null, data.config);
+          $scope.$root.$digest();
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error saving " + name + " config on branch " + branch + ": " + data.errors[0]);
+          } else {
+            $scope.error("Error saving " + name + " config on branch " + branch + ": " + e);
           }
           next();
           $scope.$root.$digest();

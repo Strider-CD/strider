@@ -10,8 +10,6 @@ var _ = require('underscore')
   , Step = require('step')
   , humane = require(BASE_PATH + 'humane')
   , email = require(BASE_PATH + 'email')
-  , gh = require(BASE_PATH + 'github')
-  , heroku = require(BASE_PATH + 'heroku')
   , logging = require(BASE_PATH + 'logging')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
 ;

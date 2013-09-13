@@ -112,6 +112,17 @@ exports.account = function(req, res){
   res.render('account.html');
 };
 
+exports.getPluginConfig = function (req, res) {
+  res.send(req.pluginConfig())
+}
+
+exports.setPluginConfig = function (req, res) {
+  req.pluginConfig(req.body, function (err, config) {
+    if (err) return res.send({error: 'Failed to save plugin config'})
+    res.send({success: true, config: config})
+  })
+}
+
 /*
  * GET /:org/:repo/config - project config page
  */

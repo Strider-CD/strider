@@ -10,8 +10,11 @@ var app = require('./lib/app')
   , pluginTemplates = require('./lib/pluginTemplates')
   , utils = require('./lib/utils')
 
+  , path = require('path')
+  , async = require('async')
   , _ = require('lodash')
 
+// require('express-namespace')
 
 common.extensions = {}
 require('./defaultExtensions')(common.extensions);
@@ -48,6 +51,8 @@ module.exports = function(extdir, c, callback) {
   var appInstance = app.init(appConfig);
   var cb = callback || function() {}
 
+  var loader = appInstance.loader = new Loader()
+  common.loader = loader
   //
   // ### Strider Context Object
   //
@@ -61,35 +66,40 @@ module.exports = function(extdir, c, callback) {
     emitter: common.emitter,
     extensionRoutes: [],
     extdir: extdir,
-    Loader: Loader,
+    loader: loader,
     models: models,
     logger: console,
     middleware: middleware,
     auth: auth, //TODO - may want to make this a subset of the auth module
     registerPanel: registerPanel,
     registerBlock: pluginTemplates.registerBlock,
+    app: appInstance
   };
 
   // Make extension context available throughout application.
   common.context = context;
-  var loader = appInstance.loader = new Loader()
-  common.loader = loader
-  loader.collectExtensions([extdir], function (err) {
+  loader.collectExtensions(extdir, function (err) {
     if (err) return cb(err)
     async.parallel([
       function (next) {
         loader.initWebAppExtensions(context, function (err, webapps) {
+          if (err) return next(err)
           common.extensions = webapps
           var id
+          console.log('Job Plugins:')
           for (id in webapps.job) {
-            console.log('Job plugin ' + id)
+            console.log('> ' + id)
           }
+          console.log('Provider Plugins:')
           for (id in webapps.provider) {
-            console.log('Provider plugin ' + id)
+            console.log('> ' + id)
           }
+          console.log('Runner Plugins:')
           for (id in webapps.runner) {
-            console.log('Runner plugin ' + id)
+            console.log('> ' + id)
           }
+          console.log('initalized webapps')
+          next()
         })
       },
       function (next) {
@@ -98,20 +108,29 @@ module.exports = function(extdir, c, callback) {
           for (var name in templates) {
             pluginTemplates.register(name, templates[name])
           }
+          console.log('loaded templates')
+          next()
         })
       },
       function (next) {
-        loader.initStaticDirs(appInstance, next)
+        loader.initStaticDirs(appInstance, function(err){
+          console.log('initalized static directories')
+          next()
+        })
       },
       function (next) {
         loader.initConfig(
           path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
           path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
-          next)
+          function (err) {
+            console.log('loaded config pages')
+            next()
+          })
       }
     ], function (err) {
+      console.log('loaded plugins')
       app.run(appInstance)
-      cb(err, initialized, appInstance)
+      cb(err, null, appInstance)
     })
   })
 
