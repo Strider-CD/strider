@@ -11,8 +11,6 @@ var _ = require('underscore')
 
   , auth = require(BASE_PATH + 'auth')
   , email = require(BASE_PATH + 'email')
-  , gh = require(BASE_PATH + 'github')
-  , heroku = require(BASE_PATH + 'heroku')
   , logging = require(BASE_PATH + 'logging')
 
   , api = require('./index.js')

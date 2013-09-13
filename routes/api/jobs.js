@@ -10,8 +10,6 @@ var _ = require('underscore')
   , check = require('validator').check
   , common = require(BASE_PATH + 'common')
   , email = require(BASE_PATH + 'email')
-  , gh = require(BASE_PATH + 'github')
-  , heroku = require(BASE_PATH + 'heroku')
   , humane = require(BASE_PATH + 'humane')
   , jobs = require(BASE_PATH + 'jobs')
   , filter = require(BASE_PATH + 'ansi')
@@ -85,8 +83,10 @@ exports.jobs_start = function(req, res) {
       // Manual setup case - try to synthesize a Github SSH url from the display URL.
       // This is brittle because display urls can change, and the user (currently) has
       // no way to change them (other than deleting and re-adding project).
+      /* TODO fix
       project = gh.parse_github_url(repo_config.display_url);
       repo_ssh_url = gh.make_ssh_url(project.org, project.repo);
+      */
     }
 
     if (job_type === TEST_ONLY) {
