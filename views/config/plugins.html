@@ -1,4 +1,5 @@
 <div class="pick-runner clearfix">
+  <button ng-click="savePlugins()" class="btn btn-primary save-top-right">Save</button>
   <h3>Pick the Runner</h3>
   {% for runner in runners %}
   <div ng-click="setRunner('{{ loop.key }}')"

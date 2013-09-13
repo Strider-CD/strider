@@ -29,6 +29,25 @@
   }
 }
 
+.save-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.general-config {
+  position: relative;
+
+}
+
+#ssh-keys {
+  textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 150px;
+  }
+}
+
 .config-tabs {
   li.disabled {
     font-style: italic;
@@ -130,6 +149,14 @@
 .pick-runner {
   .runner {
     cursor: pointer;
+
+    &.active {
+      font-style: normal;
+      color: black;
+    }
+
+    font-style: italic;
+    color: #777;
   }
 }
 
