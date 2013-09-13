@@ -1,13 +1,13 @@
 {
   "user": "me",
+  "collaborators": {
+    "oneuser": 1,
+    "adminuser": 2,
+    "me": 2
+  },
   "project": {
     "name": "my/project",
     "secret": "this-is-a-secret?",
-    "collaborators": {
-      "oneuser": 1,
-      "adminuser": 2,
-      "me": 2
-    },
     "provider": {
       "id": "github",
       "config": {
@@ -75,7 +75,7 @@
     "id": "github",
     "title": "Github",
     "inline_icon": "github",
-    "html": "<h4>I will provide</h4> [[ config ]] <input ng-model='config.url'> <button ng-click='save()'>Save</button>",
+    "html": "<h4>I will provide</h4> [[ config ]] <input ng-model='config.url'> <button class='btn' ng-click='save()'>Save</button>",
     "controller": "ProviderController"
   },
   "runners": {

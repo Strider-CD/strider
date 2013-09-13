@@ -100,6 +100,7 @@
       if ($scope.branch === 'master') return;
       if ($scope.project.branches[$scope.branch] === 'master') {
         $scope.project.branches[$scope.branch] = save_branches[$scope.branch] || $.extend(true, {}, $scope.project.branches.master);
+        initBranch($scope.branch);
       } else {
         save_branches[$scope.branch] = $scope.project.branches[$scope.branch];
         $scope.project.branches[$scope.branch] = 'master';
@@ -107,7 +108,9 @@
     };
 
     $scope.$watch('branch', function (value) {
-      $('#first-tab-handle').tab('show');
+      setTimeout(function () {
+      $('#' + (value === 'master' ? 'project' : 'basic') + '-tab-handle').tab('show');
+      }, 0);
     });
 
     $scope.setRunner = function (name) {
@@ -137,43 +140,58 @@
         plugins[ui.item.index()].enabled = true;
       }
     };
-    function initPlugins() {
+    function initBranch(branch) {
       var branches = $scope.project.branches
-        , plugins
-        , branch;
-      for (branch in branches) {
-        $scope.configured[branch] = {};
-        $scope.configs[branch] = {};
-        $scope.runnerConfigs[branch] = {};
-        $scope.disabled_plugins[branch] = [];
-        $scope.branches.push(branch);
-        for (var plugin in $scope.plugins) {
-          if ($scope.configured[branch][plugin]) continue;
-          $scope.configs[branch][plugin] = {
-            id: plugin,
-            enabled: true,
-            config: {}
-          };
-          $scope.disabled_plugins[branch].push($scope.configs[branch][plugin]);
-        }
+        , plugins;
 
-        if (branches[branch] !== 'master') {
-          $scope.runnerConfigs[branch][branches[branch].runner.id] = branches[branch].runner.config;
-        }
-        for (var runner in $scope.runners) {
-          if (branches[branch] !== 'master' && runner === branches[branch].runner.id) continue;
-          $scope.runnerConfigs[branch][runner] = {};
-        }
+      $scope.configured[branch] = {};
+      $scope.configs[branch] = {};
+      $scope.runnerConfigs[branch] = {};
+      $scope.disabled_plugins[branch] = [];
 
-        if (branches[branch] === 'master') continue;
+      if (branches[branch] !== 'master') {
         plugins = branches[branch].plugins;
         for (var i=0; i<plugins.length; i++) {
           $scope.configured[branch][plugins[i].id] = true;
           $scope.configs[branch][plugins[i].id] = plugins[i];
         }
+      }
 
+      for (var plugin in $scope.plugins) {
+        if ($scope.configured[branch][plugin]) continue;
+        $scope.configs[branch][plugin] = {
+          id: plugin,
+          enabled: true,
+          config: {}
+        };
+        $scope.disabled_plugins[branch].push($scope.configs[branch][plugin]);
+      }
+
+      if (branches[branch] !== 'master') {
+        $scope.runnerConfigs[branch][branches[branch].runner.id] = branches[branch].runner.config;
+      }
+      for (var runner in $scope.runners) {
+        if (branches[branch] !== 'master' && runner === branches[branch].runner.id) continue;
+        $scope.runnerConfigs[branch][runner] = {};
       }
     }
+    function initPlugins() {
+      var branches = $scope.project.branches
+      for (var branch in branches) {
+        initBranch(branch);
+        $scope.branches.push(branch);
+      }
+    }
+
+    $scope.saveGeneral = function () {
+      // TODO
+      throw new Error("not implemented");
+    };
+
+    $scope.generateKeyPair = function () {
+      // TODO implement
+      throw new Error("not implemented");
+    };
 
     initPlugins();
     

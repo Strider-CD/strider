@@ -1,13 +1,5 @@
-<div id="provider-config" ng-controller="{{ provider.controller }}" ng-show="branch === 'master'">
-  <h3>Provider: {{ provider.title }}</h3>
-  {% autoescape false %}
-  {{ provider.html }}
-  {% endautoescape %}
-</div>
-<div class="well" ng-hide="branch === 'master'">
-  To configure the provider and collaborators, <button class="btn" ng-click="switchToMaster()">switch to the master branch</button>.
-</div>
-<div>
+<div class="general-config">
+  <button ng-click="saveGeneral()" class="btn btn-primary save-top-right">Save</button>
   <label class="checkbox">
     <input type="checkbox" ng-model="project.branches[branch].active"> Active
   </label>
@@ -24,10 +16,17 @@
     <h3>Ssh keys</h3>
     <p>These keys will be available to any plugins that need ssh
       keys. Plugins may however choose to use different keys.</p>
-    <h4>Private Key</h4>
-    <textarea ng-model="project.branches[branch].privkey"></textarea>
-    <h4>Public Key</h4>
-    <textarea ng-model="project.branches[branch].pubkey"></textarea>
+    <div class="row-fluid">
+      <div class="span6">
+        <h4>Private Key</h4>
+        <textarea ng-model="project.branches[branch].privkey"></textarea>
+      </div>
+      <div class="span6">
+        <h4>Public Key</h4>
+        <textarea ng-model="project.branches[branch].pubkey"></textarea>
+      </div>
+    </div>
+    <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
   </div>
   <div>
     <h3>Delete Project</h3>
