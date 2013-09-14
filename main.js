@@ -49,7 +49,9 @@ module.exports = function(extdir, c, callback) {
 
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
-  var cb = callback || function() {}
+  var cb = callback || function(err) {
+    if (err) throw err;
+  }
 
   var loader = appInstance.loader = new Loader()
   common.loader = loader
@@ -128,9 +130,13 @@ module.exports = function(extdir, c, callback) {
           })
       }
     ], function (err) {
+      if (err) {
+        console.error('Failed to load plugins')
+        return cb(err, appInstance)
+      }
       console.log('loaded plugins')
       app.run(appInstance)
-      cb(err, null, appInstance)
+      cb(null, appInstance)
     })
   })
 

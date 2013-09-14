@@ -31,13 +31,13 @@
   </span>
 </td>
 <td class="configure" ng-hide="page === 'build'">
-  <a href="/[[ job.project_name ]]/config"
+  <a href="/[[ job.project ]]/config"
      data-toggle="tooltip" data-delay="500" title="Configure">
     <i class="icon-wrench"></i>
   </a>
 </td>
 <td class="project-name" ng-hide="page === 'build'">
-  <a href="/[[ job.project_name ]]/">
+  <a href="/[[ job.project ]]/">
     [[ job.project_name ]]
   </a>
 </td>
@@ -49,20 +49,24 @@
   </table>
 </td>
 <td class="committer">
-  <div ng-show="job.triggered_by_commit" ng-switch="job.committer.url">
-    <img ng-switch-when="null" ng-src="[[ job.committer.image ]]"/>
-    <a ng-switch-default href="[[ job.committer.url ]]">
-      <img ng-src="[[ job.committer.image ]]"/>
+  <div ng-show="job.trigger.author.image" ng-switch="!!job.trigger.author.url">
+    <img ng-switch-when="false" ng-src="[[ job.trigger.author.image ]]"/>
+    <a ng-switch-default href="[[ job.trigger.author.url ]]" target="_blank">
+      <img ng-src="[[ job.trigger.author.image ]]"/>
     </a>
   </div>
 </td>
-<td class="commit-url">
-  <a ng-show="job.triggered_by_commit"
-     href="[[ job.commit.url ]]">
+<td class="commit-url" ng-switch="!!job.trigger.url">
+  <a href="[[ job.trigger.url ]]" ng-switch-when="true" target="_blank">
     <span class="small-text">
-      [[ job.commit.message ]]
+      <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
+      [[ job.trigger.message ]]
     </span>
   </a>
+  <span class="small-text" ng-switch-default>
+    <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
+    [[ job.trigger.message ]]
+  </span>
 </td>
 <td class="github-link" ng-hide="page === 'build'">
   <a href="[[ job.repo_url ]]" target="_blank">
@@ -71,12 +75,12 @@
 </td>
 <td class="run-time">
   <span class="small-text">
-    [[ job.duration ]]s
+    [[ job.duration ? job.duration + 's' : '' ]]
   </span>
 </td>
-<td class="finished-at" ng-switch="job.running">
+<td class="finished-at" ng-switch="!!job.running">
   <span ng-switch-when="false" class="small-text">
-    <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished_timestamp ]]" class="timeago"></time>
+    <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago"></time>
   </span>
   <div ng-switch-when="true" class="progress-meter">
     <div class="progress progress-striped active progress-info">
