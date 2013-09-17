@@ -59,14 +59,17 @@ var app = angular.module('JobStatus', ['ngRoute'], ['$interpolateProvider', '$lo
   Object.keys(routes).forEach(function (path) {
     route.when(path, routes[path]);
   });
-  route.otherwise({redirectTo: '/'});
+  // route.otherwise({redirectTo: '/'});
   location.html5Mode(true);
 }]);
 
 app.run(['$location', function($location) {
 
+  console.log($location.path());
+  /*
   if (location.pathname !== '/')
     $location.path(location.pathname);
+    */
 
 }])
 
@@ -83,6 +86,19 @@ app.directive("toggle", function($compile) {
   };
 })
 
+function htmlDuration(duration, el) {
+  duration = duration || '?';
+  var cls = '';
+  if (duration >= 1000) {
+    cls = 'seconds';
+    text = parseInt(duration / 100) / 10 + 's';
+  } else {
+    cls = 'miliseconds';
+    text = duration + 'ms';
+  }
+  $(el).addClass(cls).text(text);
+}
+
 // timeago directive
 app.directive("time", function() {
   return {
@@ -90,6 +106,11 @@ app.directive("time", function() {
     link: function(scope, element, attrs) {
       var date = new Date(attrs.datetime);
       $(element).tooltip({title: date.toLocaleString()});
+
+      if ('undefined' !== typeof attrs.duration) {
+        htmlDuration(attrs.duration, element);
+        return;
+      }
       $(element).text($.timeago(date));
       setTimeout(function () {
         $(element).timeago();
@@ -263,6 +284,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
 
   setJob(project.name, params.id);
 
+  $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
   $scope.jobs = jobs;
   $scope.job = jobs[0];
@@ -273,6 +295,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     return new Date(item.finished_timestamp).getTime();
   };
 
+  /*
   $scope.$on('$locationChangeSuccess', function(event) {
     params = $route.current.params;
     if (!params.id) params.id = jobs[0].id;
@@ -287,6 +310,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
       setJob(project.name, params.id);
     }
   });
+  */
 
   $scope.triggers = {
     commit: {
@@ -337,7 +361,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   $scope.page = 'build';
   // a history item is clicked
   $scope.selectJob = function (id) {
-    $location.path('/' + params.org + '/' + params.repo + '/job/' + id).replace();
+    // $location.path('/' + params.org + '/' + params.repo + '/job/' + id).replace();
   };
 
   // set the favicon according to job status
@@ -413,7 +437,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   };
 
   // Socket update stuff
-  var console = document.querySelector('pre.console-output');
+  var console = document.querySelector('.console-output');
 
   var jobtimers = {};
   function startJobTimer(id) {
@@ -437,7 +461,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     $scope.job = jobman.update(project, data);
     startJobTimer(data.id);
     jobid = data.id;
-    $location.path('/' + project + '/job/' + jobid);
+    // $location.path('/' + project + '/job/' + jobid);
     $scope.$root.$digest();
   }).on('update', function (data) {
     if (data.repo_url != repo.url) return;
