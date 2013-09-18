@@ -47,6 +47,6 @@
   <script src="/javascripts/lib/bootstrap-switch.js"></script>
 <script src='/javascripts/pages/config.js'></script>
 {% for panel in panels %}
-<script src="{{ panel.script_path }}"></script>
+{% if panel.script_path %}<script src="{{ panel.script_path }}"></script>{% endif %}
 {% endfor %}
 {% endblock %}

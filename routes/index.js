@@ -194,8 +194,16 @@ exports.config = function(req, res) {
         var extName = ext[0]
         if (ext[1].panel){
           var panel = ext[1].panel
+          var scriptPath = panel.script_path
           if (!panel.script_path) {
-            panel.script_path = '/ext/' + extName + '/project_config.js'
+            // Default script path is based on extension name
+            var scriptPath = '/ext/' + extName + '/project_config.js'
+            var ondiskPath = path.join(ext[1].dir, 'static', 'project_config.js')
+            try {
+              // Only set it if the file exists on disk though.
+              fs.statSync(ondiskPath)
+              panel.script_path = scriptPath
+            } catch(e) {}
           }
           if (typeof(panel.data) === 'function') {
             return panel.data(req.user, repo, models, function(err, data){
