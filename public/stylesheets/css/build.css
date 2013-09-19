@@ -51,6 +51,14 @@ body.job_view .job-detail-sidebar {
 .console-output .command > .title .meta {
   color: #999;
 }
+.console-output .command > .title .meta time {
+  width: 41px;
+  display: inline-block;
+  text-align: right;
+}
+.console-output .command > .title .meta .plugin {
+  color: #09a;
+}
 .console-output,
 .console-output pre {
   background-color: black;
@@ -60,8 +68,8 @@ body.job_view .job-detail-sidebar {
 .console-output pre {
   padding: 0 0 0 5px;
   margin: 0;
-  border-left: 3px solid #555;
   border-radius: 0;
+  border-width: 0;
 }
 .console-output .phase {
   margin-bottom: 10px;
@@ -118,5 +126,10 @@ body.job_view footer {
   body.job_view #list-of-builds .span6:first-child,
   body.job_view #build-metadata .span6:first-child {
     float: left;
+  }
+}
+@media (max-width: 768px) {
+  .console-output {
+    position: static;
   }
 }

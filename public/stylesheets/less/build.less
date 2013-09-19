@@ -5,7 +5,6 @@
   }
 }
 
-
 /** job view styling **/
 
 body.job_view .body-content {
@@ -66,6 +65,16 @@ body.job_view .job-detail-sidebar {
       
       .meta {
         color: #999;
+
+        time {
+          width: 41px;
+          display: inline-block;
+          text-align: right;
+        }
+
+        .plugin {
+          color: #09a;
+        }
       }
     }
   }
@@ -79,8 +88,8 @@ body.job_view .job-detail-sidebar {
   pre {
     padding: 0 0 0 5px;
     margin: 0;
-    border-left: 3px solid #555;
     border-radius: 0;
+    border-width: 0;
   }
 
   .phase {
@@ -150,5 +159,11 @@ body.job_view footer {
   body.job_view #list-of-builds .span6:first-child,
   body.job_view #build-metadata .span6:first-child {
     float: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .console-output {
+    position: static;
   }
 }
