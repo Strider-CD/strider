@@ -15,7 +15,7 @@
         "url": "https://google.com",
         "name": "Jared Forsyth",
         "email": "jared@jaredforsyth.com",
-        "image": "http://google.com/favicon.png",
+        "image": "/images/logo-100x100.png",
         "username": "jaredly"
       },
       "message": "Making it awesome",

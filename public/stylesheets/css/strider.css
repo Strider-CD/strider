@@ -51,6 +51,21 @@ body {
 #build-page .running {
   background-color: #D7F3FF;
 }
+#build-page #list-of-builds {
+  /*
+    .finished-at,
+    .refresh,
+    .committer,
+    .deploy,
+    .configure,
+    .run-time,
+    .job-link {
+      width: 1px;
+      white-space: nowrap;
+    }
+    */
+
+}
 #build-page #list-of-builds td.committer {
   padding: 0;
 }
@@ -75,16 +90,6 @@ body {
 }
 #build-page #list-of-builds tr:hover {
   background-color: #eee;
-}
-#build-page #list-of-builds .finished-at,
-#build-page #list-of-builds .refresh,
-#build-page #list-of-builds .committer,
-#build-page #list-of-builds .deploy,
-#build-page #list-of-builds .configure,
-#build-page #list-of-builds .run-time,
-#build-page #list-of-builds .job-link {
-  width: 1px;
-  white-space: nowrap;
 }
 #build-page .commit-url {
   width: auto;

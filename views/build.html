@@ -29,7 +29,7 @@
                 title="Retest" class="clickable test-only-action">
             <i class="icon-refresh"></i>
           </span>
-          <a href="/[[ job.project_name ]]/config" ng-hide="repo.access_level < 1" title="Configure">
+          <a href="/[[ project.name ]]/config" ng-hide="repo.access_level < 1" title="Configure">
             <i class="icon-wrench"></i>
           </a>
           <span class='job-repo'>{{ project.name }}</span>
@@ -41,7 +41,6 @@
       </div>
     </div>
     <div class='job-main'>
-      <div>
         <div class='row-fluid job-wrap'>
           {% pluginblock JobPagePreCols %}
           {% endpluginblock %}
@@ -63,57 +62,14 @@
             </div>
 
             <div class="console-output">
-              <div ng-repeat="phase in phases" class="phase phase-[[ phase ]]"
-                   ng-class="{ collapsed: job.phases[phase].collapsed }"
-                   ng-show="job.phases[phase].commands.length">
-                <div class="title" ng-click="job.phases[phase].collapsed = !job.phases[phase].collapsed">
-                  <i class="icon-caret-[[ job.phases[phase].collapsed ? 'right' : 'down' ]] arrow" ></i>
-                  <span class="name">[[ phase ]]</span>
-                  <span class="pull-right meta">
-                    <time class="duration" datetime="[[ job.phases[phase].finished ]]" duration="[[ job.phases[phase].duration ]]"></time>
-                    <span class="exit-status" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
-                  </span>
-                </div>
-                <div class="commands" ng-hide="job.phases[phase].collapsed">
-                  <div
-                     ng-repeat="command in job.phases[phase].commands"
-                     class="command plugin-[[ command.plugin ]]">
-                    <div class="title" ng-click="command.collapsed = !command.collapsed">
-                      <span class="prompt">$</span> <span class="command-text">[[ command.command ]]</span> <i class="icon-plus plus" ng-show="command.collapsed"></i>
-                      <span class="meta pull-right">
-                        <time datetime="[[ command.started ]]" duration="[[ command.duration ]]"></time>
-                        <span class="exit-status" toggle="tooltip" title="exit code" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
-                      </span>
-                    </div>
-                    <pre class="job-output" ng-hide="command.collapsed">[[ command.merged ]]</pre>
-                  </div>
-                </div>
-              </div>
+              {% include "build/console.html" %}
             </div>
           </div>
 
           <div class='span4 job-detail-sidebar pull-right'>
-            <div class='build-list-header'>
-              <h3>Past Builds</h3>
-            </div>
-            <div id="list-of-builds">
-              <table class="table">
-                <thead></thead>
-                <tbody>
-                  <!-- | orderBy:sortDate:true" -->
-                  <tr ng-repeat="job in jobs.list"
-                      class="row-fluid build-list-item [[job.status]]"
-                      data-id="[[ job.id ]]"
-                      ng-click="selectJob(job.id)"
-                      ng-class="{active:job.id === $parent.job.id}">
-                    {% include "partials/_build_history_row.html" %}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+            {% include "build/history.html" %}
           </div>
         </div>
-      </div>
     </div>
   </script>
   <script src="/javascripts/pages/build.js"></script>
