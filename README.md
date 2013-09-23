@@ -12,6 +12,11 @@
 
 [![NPM](https://nodei.co/npm/strider.png)](https://nodei.co/npm/strider/)
 
+## Note: HEAD Unstable
+
+`master` branch of Strider is expected to be unstable for the next few weeks.
+Please use latest stable via the `1.3.5` tag or `npm install strider`.
+
 Overview
 ========
 
