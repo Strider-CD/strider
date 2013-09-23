@@ -14,8 +14,10 @@
 
 ## Note: HEAD Unstable
 
-`master` branch of Strider is expected to be unstable for the next few weeks.
-Please use latest stable via the `1.3.5` tag or `npm install strider`.
+`master` branch HEAD of Strider is expected to be unstable for the next few
+weeks. We are currently in heavy development of the next version.
+
+Please use latest stable release via the `1.3.5` git tag or `npm install strider`.
 
 Overview
 ========
