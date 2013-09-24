@@ -11,18 +11,8 @@ var models = require(BASE_PATH + 'models')
   , mail = require(BASE_PATH + 'email')
 
 module.exports = {
-  get: get,
   add: add,
   del: del
-}
-
-// done(err, [user, user, ...])
-function get(project, done) {
-  var q = {}
-  q[project] = {$gt: 0}
-  models.User.find({
-    projects: q
-  }, done)
 }
 
 function updateInvite(invite, collaboration, done) {

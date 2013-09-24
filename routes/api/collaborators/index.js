@@ -33,7 +33,7 @@ module.exports = {
  */
 function get(req, res) {
   var project = req.params.org + '/' + req.params.repo
-  api.get(project, function (err, users) {
+  User.collaborators(project, 0, function (err, users) {
     if (err) return res.send(500, 'Failed to get users: ' + err.message)
     var results = []
     for (var i=0; i<users.length; i++) {
