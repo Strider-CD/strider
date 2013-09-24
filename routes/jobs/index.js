@@ -15,8 +15,10 @@ var  _ = require('underscore')
    , ljobs = require(BASE_PATH + 'jobs')
    , utils = require(BASE_PATH + 'utils')
 
-   , Job = require(BASE_PATH + 'models').Job
-   , User = require(BASE_PATH + 'models').User
+   , models = require(BASE_PATH + 'models')
+   , Job = models.Job
+   , User = models.User
+   , Project = models.Project
 
 module.exports = {
   html: html,
@@ -45,7 +47,7 @@ function multijob(req, res) {
 function html(req, res) {
   Job.find({project: req.project.name}, function (err, jobs) {
     res.render('build.html', {
-      project: sanitizeProject(req.project),
+      project: utils.sanitizeProject(req.project),
       accessLevel: req.accessLevel,
       jobs: jobs
     })
@@ -93,12 +95,11 @@ function jobs(req, res) {
  */
 function badge(req, res) {
   var name = req.params.org + '/' + req.params.repo
-  models.Project.findOne({name: name}, function (err, project) {
+  Project.findOne({name: name}, function (err, project) {
     Job.findOne()
       .sort({'finished': -1})
       .where('finished').ne(null)
       .where('archived', null)
-    // FIXME: is it always lowercase?
       .where('project', name)
       .exec(function(err, job) {
         var status = 'failing'
@@ -108,9 +109,9 @@ function badge(req, res) {
           }
           status = 'unknown'
         } else if (job.test_exitcode === 0) status = 'passing'
-        res.setHeader("Cache-Control", "no-cache");
-        res.redirect('/images/badges/build_' + status + '.png');
-      });
+        res.setHeader("Cache-Control", "no-cache")
+        res.redirect('/images/badges/build_' + status + '.png')
+      })
   })
-};
+}
 

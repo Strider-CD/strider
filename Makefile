@@ -20,7 +20,7 @@ test: lint
 	@./node_modules/.bin/mocha -R tap
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
-tolint := *.js *.json lib
+tolint := *.js *.json lib routes
 
 lint:
 	@./node_modules/.bin/jshint --verbose $(tolint)

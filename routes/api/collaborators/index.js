@@ -1,6 +1,7 @@
 var BASE_PATH = "../../../lib/";
 var _ = require('underscore')
   , models = require(BASE_PATH + 'models')
+  , User = models.User
   , crypto = require('crypto')
   , logging = require(BASE_PATH + 'logging')
   , nibbler = require(BASE_PATH + 'nibbler')

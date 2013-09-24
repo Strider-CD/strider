@@ -22,7 +22,7 @@ var require_param = exports.require_param = function(key, req, res) {
   var val = req.param(key);
   if (val === undefined) {
     res.statusCode = 400;
-    r = {
+    var r = {
       status: "error",
       errors: ["you must supply parameter " + key]
     };
@@ -47,8 +47,8 @@ exports.invite_new = function(req, res)
   var invite_code, email_addr;
   invite_code = require_param("invite_code", req, res);
   email_addr = require_param("email", req, res);
-  if (invite_code === undefined
-    || email_addr === undefined) {
+  if (invite_code === undefined ||
+      email_addr === undefined) {
     return;
   }
 
@@ -58,11 +58,8 @@ exports.invite_new = function(req, res)
   invite.emailed_to = email_addr;
 
   invite.save(function(err, invite) {
-    email.send_invite(invite.code, email_addr);
-    res.writeHead(302, {
-      'Location': '/admin/invites'
-    });
-    res.end();
+    email.send_invite(invite.code, email_addr)
+    res.redirect('/admin/invites')
   });
 }
 

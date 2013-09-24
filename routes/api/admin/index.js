@@ -33,8 +33,10 @@ exports.get_user_list = function(req,res)
  * GET /api/admin/jobs_status
  * Returns JSON object of last 100 jobs across entire system
  */
-
 exports.admin_jobs_status = function(req, res) {
+  res.send(500, 'Not yet implemented')
+}
+/*
 
   res.setHeader("Content-Type", "application/json");
   res.statusCode = 200;
@@ -52,19 +54,19 @@ exports.admin_jobs_status = function(req, res) {
       console.debug("Querying for last 100 jobs across the system");
       if (req.param("limit_by_user")) {
         Job.find()
-          .sort({'finished_timestamp': -1})
-          .where("_owner",req.param("limit_by_user"))
-          .populate("_owner")
+          .sort({'finished': -1})
+          .where("user_id",req.param("limit_by_user"))
+          .populate("user_id")
           .limit(100)
           .exec(this);
       } else {
         Job.find()
-          .sort({'finished_timestamp': -1})
-          .populate("_owner")
+          .sort({'finished': -1})
+          .populate("user_id")
           .limit(100)
           .exec(this);
       }
-    } ,
+    },
 
     function processAndRender(err, results) {
       if (err) throw err;
@@ -73,7 +75,7 @@ exports.admin_jobs_status = function(req, res) {
       var repo_list = this.repo_list;
       _.each(results, function(job) {
 
-        var duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000);
+        var duration = job.duration
         var finished_at = humane.humaneDate(job.finished_timestamp);
 
         // if it is an orphan job - user doesn't exist anymore - then skip
@@ -127,3 +129,4 @@ exports.admin_jobs_status = function(req, res) {
 
 
 };
+ */
