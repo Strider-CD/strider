@@ -12,7 +12,6 @@ var _ = require('underscore')
   , models = require(BASE_PATH + 'models')
   , common = require(BASE_PATH + 'common')
   , config = require(BASE_PATH + 'config')
-  , gh = require(BASE_PATH + 'github')
   , jobs = require(BASE_PATH + 'jobs')
   , logging = require(BASE_PATH + 'logging')
   , User = require(BASE_PATH + 'models').User
@@ -45,7 +44,7 @@ exports.index = function(req, res){
     return res.render('index.html')
   }
   // TODO: get the latest jobs for projects here
-  res.render('index.html', {total_configured_projects: Object.keys(req.user.projects).length})
+  res.render('index.html', {total_configured_projects: Object.keys(req.user.projects || {}).length})
 };
 
 
