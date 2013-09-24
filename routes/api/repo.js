@@ -18,7 +18,6 @@ var _ = require('underscore')
  *
  * @param url Url of repository to look up.
  *
- */
 
 exports.get_index = function(req, res) {
 
@@ -57,6 +56,7 @@ exports.get_index = function(req, res) {
     }
   );
 };
+ */
 
 /*
  * POST /api/repo
@@ -128,66 +128,33 @@ exports.post_index = function(req, res) {
 
 
 /*
- * DELETE /api/repo
+ * DELETE /:org/:repo
  *
  * @param url Url of repository to delete. Also archives all jobs (marks as archived in DB which makes them hidden).
  *
  * Requires admin privs.
  */
-exports.delete_index = function(req, res) {
-
-  var url = req.param("url");
-
-  function error(err_msg) {
-    console.error("repo.delete_index() - %s", err_msg);
-    var r = {
-      errors: [err_msg],
-      status: "error"
-    };
-    res.statusCode = 400;
-    return res.end(JSON.stringify(r, null, '\t'));
-  }
-  function ok() {
+exports.delete_project = function(req, res) {
+  async.parallel([
+    req.project.remove.bind(req.project),
+    function (next) {
+      var now = new Date()
+      Job.update({project: req.project.name},
+                 {$set: {archived: now}},
+                 {multi: true}, next)
+    }
+  ], function (err) {
+    if (err) {
+      console.error("repo.delete_index() - Error deleting repo config for url %s by user %s: %s", url, req.user.email, err);
+      return res.send(500, 'Failed to delete project: ' + err.message)
+    }
     var r = {
       errors: [],
       status: "ok",
       results: []
     };
-    res.statusCode = 200;
-    return res.end(JSON.stringify(r, null, '\t'));
-  }
-
-  Step(
-    function() {
-        req.user.get_repo_config(url, this);
-    },
-    function(err, repo_config, my_access_level, owner_object) {
-      if (err) {
-        return error("Error fetching Repo Config for url " + url + ": " + err);
-      }
-      // must have access_level > 0 to be able to continue;
-      if (my_access_level < 1) {
-        console.debug("User %s tried to delete repo but doesn't have admin privileges on %s (access level: %s)",
-          req.user.email, url, my_access_level);
-        return error("You must have access level greater than 0 in order to be able to delete a repo.");
-      }
-      var now = new Date();
-      // Remove the repo config
-      User.update({"github_config.url":repo_config.url},
-        {$pull:{"github_config":{"url":repo_config.url}}}, this.parallel());
-      // Mark all jobs as "archived"
-      Job.update({"repo_url":repo_config.url},
-        {$set:{"archived_timestamp":now}}, {multi:true}, this.parallel());
-    },
-    function(err) {
-      if (err) {
-        console.error("repo.delete_index() - Error deleting repo config for url %s by user %s: %s", url, req.user.email, err);
-        return error("Error deleteing repo: " + url);
-      }
-      return ok();
-    }
-  );
-
+    res.send(JSON.stringify(r, null, '\t'));
+  })
 };
 
 
@@ -210,47 +177,4 @@ var ok = function(results, res){
   res.statusCode = 200;
   return res.end(JSON.stringify(r, null, '\t'));
 }
-
-
-var getRepo = function(req, url){
-  return function(){
-    req.user.get_repo_config(url, this);
-  }
-}
-
-exports.getPlugins = function(req, res, next){
-  var url = req.param("repo");
-
-  Step(getRepo(req, url),
-    function(err, repo, access, owner) {
-      if (err) 
-        return error("Plugins.get"
-          , "Repo Err: " + url + ": " + err, res);
-
-      return ok(repo.plugins, res);
-    });
-}
-
-exports.postPlugins = function(req, res, next){
-  var url = req.param("repo")
-    , plugins = req.param("plugins");
-
-  Step(getRepo,
-    function(err, repo, access, owner) {
-      if (err) 
-        return error("Plugins.get"
-          , "Repo Err: " + url + ": " + err, res);
-
-      // Check each plugin exists...
-      
-      repo.plugins = plugins;
-      repo.save(this);
-    }
-   , function(err){ 
-     if (err) return error("Plugins.get", err, res);
-     return ok([], res);
-   }
-    );
-}
-
 
