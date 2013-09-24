@@ -11,6 +11,7 @@ var _ = require('underscore')
   , User = require(BASE_PATH + 'models').User
   , Job = require(BASE_PATH + 'models').Job
   , Step = require('step')
+  , async = require('async')
   ;
 
 /*
@@ -58,6 +59,7 @@ exports.get_index = function(req, res) {
 };
  */
 
+// XXX: "active" is now a per-branch variable. Do we modify this endpoint? Is it still needed?
 /*
  * POST /api/repo
  *
@@ -65,8 +67,6 @@ exports.get_index = function(req, res) {
  * @param active Boolean specifying whether repo is active or not.
  *
  * Requires admin privileges.
- */
-
 exports.post_index = function(req, res) {
 
   var url = req.param("url");
@@ -125,6 +125,7 @@ exports.post_index = function(req, res) {
     }
   );
 };
+ */
 
 
 /*
@@ -145,7 +146,7 @@ exports.delete_project = function(req, res) {
     }
   ], function (err) {
     if (err) {
-      console.error("repo.delete_index() - Error deleting repo config for url %s by user %s: %s", url, req.user.email, err);
+      console.error("repo.delete_index() - Error deleting repo config for url %s by user %s: %s", req.project.name, req.user.email, err);
       return res.send(500, 'Failed to delete project: ' + err.message)
     }
     var r = {

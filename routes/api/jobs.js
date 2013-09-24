@@ -5,7 +5,7 @@
 var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
-  , Step = require('step')
+  , async = require('async')
   , api = require('./index.js')
   , check = require('validator').check
   , common = require(BASE_PATH + 'common')

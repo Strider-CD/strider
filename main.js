@@ -124,8 +124,9 @@ module.exports = function(extdir, c, callback) {
         loader.initConfig(
           path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
           path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
-          function (err) {
+          function (err, configs) {
             console.log('loaded config pages')
+            common.pluginConfigs = configs
             next()
           })
       }
