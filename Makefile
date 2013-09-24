@@ -20,10 +20,10 @@ test: lint
 	@./node_modules/.bin/mocha -R tap
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
-tolint := *.js *.json lib/middleware.js lib/models.js
+tolint := *.js *.json lib
 
 lint:
-	@./node_modules/.bin/jshint $(tolint)
+	@./node_modules/.bin/jshint --verbose $(tolint)
 
 strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom
 
