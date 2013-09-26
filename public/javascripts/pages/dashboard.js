@@ -4,20 +4,6 @@ $.timeago.settings.strings.hour = 'an hour';
 $.timeago.settings.strings.hours = '%d hours';
 $.timeago.settings.localeTitle = true;
 
-/*
-var JobMonitor = function () {
-  window.socket = this.socket = window.socket || io.connect();
-  this.attach(this.socket);
-};
-
-JobMonitor.prototype = {
-  attach: function (sock) {
-    sock.on('start', function (data) {
-    });
-  }
-};
-*/
-
 function startJob(url, job_type, $scope) {
   $('.tooltip').hide();
 
@@ -158,8 +144,7 @@ angular.module('dashboard', [], function ($interpolateProvider) {
     }
   };
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
-  $scope.jobs = [];
-  $scope.loading = true;
+  $scope.jobs = window.jobs;
   monitor($scope);
   $scope.startDeploy = function (job) {
     startJob(job.repo_url, 'TEST_AND_DEPLOY', $scope);
@@ -167,6 +152,7 @@ angular.module('dashboard', [], function ($interpolateProvider) {
   $scope.startTest = function (job) {
     startJob(job.repo_url, 'TEST_ONLY', $scope);
   };
+  /*
   $.ajax('/api/jobs', {
     dataType: 'json',
     success: function (data) {
@@ -183,5 +169,6 @@ angular.module('dashboard', [], function ($interpolateProvider) {
       // $('[data-toggle="tooltip"]').tooltip();
     }
   });
+  */
 }]);
 

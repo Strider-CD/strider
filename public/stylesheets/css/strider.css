@@ -126,11 +126,14 @@ body {
   border-spacing: 2px;
   margin: 9px;
 }
-.last-builds .status-pass {
+.last-builds .status-passed {
   background-color: #cfffd2;
 }
-.last-builds .status-fail {
+.last-builds .status-failed {
   background-color: #ffd2d0;
+}
+.last-builds .status-errored {
+  background-color: #ccc;
 }
 .progress {
   margin-bottom: 0;

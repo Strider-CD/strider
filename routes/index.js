@@ -39,12 +39,9 @@ exports.index = function(req, res){
     code = req.param('code')
     return res.render('register.html', {invite_code:code})
   }
-  if (req.user === undefined) {
-    // TODO: display public projects
-    return res.render('index.html')
-  }
-  // TODO: get the latest jobs for projects here
-  res.render('index.html', {total_configured_projects: Object.keys(req.user.projects || {}).length})
+  jobs.latestJobs(req.user, function (err, jobs) {
+    res.render('index.html', {jobs: jobs})
+  })
 };
 
 
@@ -133,6 +130,7 @@ exports.config = function(req, res) {
     for (var i=0; i<users.length; i++) {
       data.collaborators[users[i].email] = users[i].projects[req.project.name]
     }
+    console.log(common.pluginConfigs)
     data.provider = common.pluginConfigs.provider[req.project.provider.id]
     data.runners = common.pluginConfigs.runner
     data.plugins = common.pluginConfigs.job
