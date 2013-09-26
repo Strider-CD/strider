@@ -1,11 +1,13 @@
 {% include "partials/spinnermsg.html" %}
 
+<base href="/{{ project.name }}/">
 <script>
-  var job = {{ job | json_encode() | raw }};
-  job.status = job.test_exitcode === 0 ? 'success' : 'failure';
+  // var job = {{ job | json_encode() | raw }};
+  // job.status = job.test_exitcode === 0 ? 'success' : 'failure';
+  var jobs = {{ jobs | json_encode() | raw }};
 </script>
 <script>
-  var repo = {{ repo_config | json_encode() | raw }};
+  var project = {{ project | json_encode() | raw }};
 </script>
 <div class='app' ng-app="JobStatus">
   <div class='row-fluid job-wrap' ng-controller="JobCtrl">
@@ -29,11 +31,11 @@
             <h3 class='success-text' ng-switch-when="success">SUCCESS</h3>
             <div class="btn-group">
               {# what's admin-view for? #}
-              <button ng-hide="admin-view" class='btn btn-warning test' ng-click="startTest()"
+              <button ng-hide="admin-view" class='btn btn-warning test' ng-click="startTest(job.ref)"
                       ng-disabled="job.status === 'running'" data-toggle="tooltip"
-                      title="Start a Test"><i class="icon-refresh"></i></button>
-              <button ng-show="repo.has_prod_deploy_target" class='btn btn-info deploy' ng-click="startDeploy()"
-                      ng-disabled="job.status === 'running'" data-toggle="tooltip" title="Test & Deploy">
+                      title="Retest"><i class="icon-refresh"></i></button>
+              <button class='btn btn-info deploy' ng-click="startDeploy()"
+                      ng-disabled="job.status === 'running'" data-toggle="tooltip" title="Retest & Deploy">
                 <i class="icon-share-alt"></i>
               </button>
               <a class='btn' href="config" data-toggle="tooltip" title="Configure"><i class="icon-cog"></i></a>

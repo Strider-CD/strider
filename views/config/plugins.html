@@ -1,0 +1,42 @@
+<div class="pick-runner clearfix">
+  <button ng-click="savePlugins()" class="btn btn-primary save-top-right">Save</button>
+  <h3>Pick the Runner</h3>
+  {% for runner in runners %}
+  <div ng-click="setRunner('{{ loop.key }}')"
+       ng-class="{ active: project.branches[branch].runner.id == '{{ loop.key }}'}"
+       class="runner runner-{{ loop.key }}">
+    <div class="img" style="background-image: url('/ext/{{ loop.key }}/{{ runner.icon }}')"></div>
+    <span class="title">{{ runner.title }}</span>
+  </div>
+  {% endfor %}
+</div>
+<div class="pick-plugins">
+  <h3>Select Job Plugins</h3>
+  <div class="enabled-plugins">
+    <h3>Plugins in Use</h3>
+    <ul ng-model="project.branches[branch].plugins" ui-sortable="inUseOptions" class="enabled-plugins-list">
+      <li class="plugin-item" ng-repeat="plugin in project.branches[branch].plugins" ng-class="{ disabled: !plugin.enabled }">
+        <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
+        <div class="rest">
+          <span class="title">[[ plugins[plugin.id].title ]]</span>
+          <label type="checkbox">
+            <input ng-model="plugin.enabled" type="checkbox"> Enabled
+          </label>
+        </div>
+      </li>
+      <li ng-hide="project.branches[branch].plugins.length" class="drop-here">Drag and drop here</li>
+    </ul>
+  </div>
+  <div class="disabled-plugins">
+    <h3>Other Plugins</h3>
+    <ul ng-model="disabled_plugins[branch]" ui-sortable="{ connectWith: '.enabled-plugins-list' }" class="disabled-plugins-list">
+      <li class="plugin-item" ng-repeat="plugin in disabled_plugins[branch]">
+        <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
+        <div class="rest">
+          <span class="title">[[ plugins[plugin.id].title ]]</title>
+        </div>
+      </li>
+      <li ng-hide="disabled_plugins[branch].length" class="drop-here">Drag and drop here</li>
+    </ul>
+  </div>
+</div>

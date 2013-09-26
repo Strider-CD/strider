@@ -4,18 +4,6 @@ $.timeago.settings.strings.hour = 'an hour';
 $.timeago.settings.strings.hours = '%d hours';
 $.timeago.settings.localeTitle = true;
 
-/**
-var running;
-function runningAnimate(num) {
-  num = num || 0;
-  if (num > 9) num = 0;
-  setFavicon('loading-' + num);
-  running = setTimeout(function () {
-    runningAnimate(num + 1);
-  }, 100);
-}
-**/
-
 function setFavicon(status) {
   $('link[rel*="icon"]').attr('href', '/images/icons/favicon-' + status + '.png');
 }
@@ -44,7 +32,7 @@ function updateFavicon(value) {
   }
 }
 
-var app = angular.module('JobStatus', [], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
+var app = angular.module('JobStatus', ['ngRoute'], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
   interp.startSymbol('[[');
   interp.endSymbol(']]');
   var one = {
@@ -52,21 +40,24 @@ var app = angular.module('JobStatus', [], ['$interpolateProvider', '$locationPro
     templateUrl: 'build-tpl.html'
   };
   var routes = {
-    '/:org/:repo/': one,
-    '/:org/:repo/latest_build': one,
-    '/:org/:repo/job/:id': one
+    '/': one,
+    '/job/latest': one,
+    '/job/:id': one
   };
   Object.keys(routes).forEach(function (path) {
     route.when(path, routes[path]);
   });
-  route.otherwise({redirectTo: '/'});
+  // route.otherwise({redirectTo: '/'});
   location.html5Mode(true);
 }]);
 
 app.run(['$location', function($location) {
 
+  console.log($location.path());
+  /*
   if (location.pathname !== '/')
     $location.path(location.pathname);
+    */
 
 }])
 
@@ -83,6 +74,19 @@ app.directive("toggle", function($compile) {
   };
 })
 
+function htmlDuration(duration, el) {
+  duration = duration || '?';
+  var cls = '';
+  if (duration >= 1000) {
+    cls = 'seconds';
+    text = parseInt(duration / 100) / 10 + 's';
+  } else {
+    cls = 'miliseconds';
+    text = duration + 'ms';
+  }
+  $(el).addClass(cls).text(text);
+}
+
 // timeago directive
 app.directive("time", function() {
   return {
@@ -90,6 +94,11 @@ app.directive("time", function() {
     link: function(scope, element, attrs) {
       var date = new Date(attrs.datetime);
       $(element).tooltip({title: date.toLocaleString()});
+
+      if ('undefined' !== typeof attrs.duration) {
+        htmlDuration(attrs.duration, element);
+        return;
+      }
       $(element).text($.timeago(date));
       setTimeout(function () {
         $(element).timeago();
@@ -103,6 +112,7 @@ function getDate(a) {
   return new Date(a.finished_timestamp).getTime();
 }
 
+/*
 function sortByFinished(a, b) {
   a = getDate(a);
   b = getDate(b);
@@ -231,17 +241,13 @@ JobManager.prototype = {
         var waiter;
         self.loading[project] = false;
         // dispatch the waiting continuations
-        while (waiter = self.waiting.shift()) {
+        while (waiter = self.waiting[project].shift()) {
           waiter[1](err);
         }
       });
   },
 };
-
-app.factory('jobs', function () {
-  // job caching
-  return new JobManager();
-});
+*/
 
 function scrollSeen(item, parent) {
   if (item.offsetTop < parent.scrollTop) {
@@ -253,16 +259,21 @@ function scrollSeen(item, parent) {
 }
 
 // main jobs controller
-app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($scope, $route, $location, jobs) {
+app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $route, $location) {
 
-  var params = $route.current.params
+  var params = $route.current ? $route.current.params : {}
     , jobid = params.id
-    , project = params.org + '/' + params.repo
+    , project = window.project
+    , jobs = window.jobs
     , lastRoute = $route.current;
 
-  setJob(project, params.id);
+  // setJob(project.name, params.id);
 
-  $scope.repo = repo;
+  $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
+  $scope.project = project;
+  $scope.jobs = jobs;
+  $scope.job = jobs[0];
+  $scope.job.status = 'succeeded';
 
   $scope.sortDate = function (item) {
     if (!item.finished_timestamp) return new Date().getTime();
@@ -271,24 +282,53 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
 
   $scope.$on('$locationChangeSuccess', function(event) {
     params = $route.current.params;
-    if (params.org + '/' + params.repo == project) {
-      // don't refresh the page
-      $route.current = lastRoute;
-      if (jobid !== params.id) {
-        jobid = params.id;
-        setJob(project, params.id);
-      }
-    } else if (window.location.pathname.split('/').slice(-1)[0] === 'config') {
+    if (!params.id) params.id = jobs[0].id;
+    if (window.location.pathname.split('/').slice(-1)[0] === 'config') {
       window.location = window.location;
+      return;
+    }
+    // don't refresh the page
+    $route.current = lastRoute;
+    if (jobid !== params.id) {
+      jobid = params.id;
+      setJob(params.id);
     }
   });
 
-  $scope.jobs = jobs.getCache(project);
+  $scope.triggers = {
+    commit: {
+      icon: 'code',
+      title: 'Commit'
+    },
+    manual: {
+      icon: 'refresh',
+      title: 'Manual'
+    },
+    plugin: {
+      icon: 'puzzle-piece',
+      title: 'Plugin'
+    },
+    api: {
+      icon: 'cloud',
+      title: 'Cloud'
+    }
+  };
+
+  // $scope.jobs = jobman.getCache(project);
   var listContainer = document.getElementById('list-of-builds');
-  function setJob(project, id) {
-    jobs.fetch(project, id, function (err, job, cached) {
+  function setJob(id) {
+    for (var i=0; i<jobs.length; i++) {
+      if (jobs[i].id === id) {
+        $scope.job = jobs[i];
+        return;
+      }
+    }
+    $scope.job = null;
+  }
+    /*
+    jobman.fetch(project, id, function (err, job, cached) {
       if (err) {
-        return showError('Failed to fetch job');
+        return // showError('Failed to fetch job');
       }
       if (jobid && job.id !== jobid) return;
       jobid = job.id;
@@ -308,12 +348,13 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
       }
     });
   }
+    */
   
   // shared templates ; need to know what to show
   $scope.page = 'build';
   // a history item is clicked
   $scope.selectJob = function (id) {
-    $location.path('/' + params.org + '/' + params.repo + '/job/' + id).replace();
+    $location.path('/job/' + id).replace();
   };
 
   // set the favicon according to job status
@@ -343,7 +384,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     } else {
       return;
     }
-    var idx = $scope.jobs.list.indexOf($scope.job);
+    // var idx = $scope.jobs.list.indexOf($scope.job);
     if (idx === -1) {
       // console.log('Failed to find job. resorting to id matching');
       for (var i=0; i<$scope.jobs.list.length; i++) {
@@ -389,7 +430,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   };
 
   // Socket update stuff
-  var console = document.querySelector('pre.console-output');
+  var console = document.querySelector('.console-output');
 
   var jobtimers = {};
   function startJobTimer(id) {
@@ -410,16 +451,16 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
     data.past_duration = $scope.jobs.list[0].duration;
     data.duration = 0;
     data.output = '';
-    $scope.job = jobs.update(project, data);
+    // $scope.job = jobman.update(project, data);
     startJobTimer(data.id);
     jobid = data.id;
-    $location.path('/' + project + '/job/' + jobid);
+    // $location.path('/' + project + '/job/' + jobid);
     $scope.$root.$digest();
   }).on('update', function (data) {
     if (data.repo_url != repo.url) return;
     if (!$scope.jobs.ids[data.id]) {
       var d = new Date().getTime();
-      $scope.job = jobs.update(project, {
+      /* $scope.job = jobman.update(project, {
         id: data.id,
         repo_url: $scope.job.repo_url,
         created_timestamp: new Date(d - data.time_elapsed*1000),
@@ -427,7 +468,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
         output: '',
         past_duration: 30,
         duration: parseInt(data.time_elapsed)
-      });
+      }); */
       if ($scope.jobs.list[1]) {
         $scope.job.past_duration = $scope.jobs.list[1].duration;
       }
@@ -457,7 +498,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', 'jobs', function ($s
   }).on('done', function(data) {
     if (data.repo_url != repo.url) return;
     clearJobTimer(data.id);
-    $scope.job = jobs.update(project, data);
+    // $scope.job = jobman.update(project, data);
     $scope.$digest();
     // window.location = window.location;
   });

@@ -2,7 +2,7 @@ var app = require('./lib/app')
   , backchannel = require('./lib/backchannel')
   , common = require('./lib/common')
   , config = require('./lib/config')
-  , loader = require('strider-extension-loader')
+  , Loader = require('strider-extension-loader')
   , middleware = require('./lib/middleware')
   , auth = require('./lib/auth')
   , models = require('./lib/models')
@@ -10,11 +10,16 @@ var app = require('./lib/app')
   , pluginTemplates = require('./lib/pluginTemplates')
   , utils = require('./lib/utils')
 
+  , upgrade = require('./lib/models/upgrade').ensure
+
+  , path = require('path')
+  , async = require('async')
   , _ = require('lodash')
 
+// require('express-namespace')
 
 common.extensions = {}
-require('./defaultExtensions')(common.extensions);
+// require('./defaultExtensions')(common.extensions);
 
 //
 // ### Register panel
@@ -44,11 +49,14 @@ module.exports = function(extdir, c, callback) {
     appConfig[k] = c[k];
   }
 
-
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
-  var cb = callback || function() {}
+  var cb = callback || function(err) {
+    if (err) throw err;
+  }
 
+  var loader = appInstance.loader = new Loader()
+  common.loader = loader
   //
   // ### Strider Context Object
   //
@@ -69,61 +77,76 @@ module.exports = function(extdir, c, callback) {
     auth: auth, //TODO - may want to make this a subset of the auth module
     registerPanel: registerPanel,
     registerBlock: pluginTemplates.registerBlock,
+    app: appInstance
   };
 
   // Make extension context available throughout application.
   common.context = context;
-  loader.initWebAppExtensions(extdir, context, appInstance,
-    function(err, initialized, templates) { 
-      if (err) {
-        return cb(err)
-      }
 
-      if (templates){
-        for (var k in templates){
-          pluginTemplates.registerTemplate(k, templates[k]);
-        }
-      }
-
-      initialized.forEach(function(x) {
-        console.log(x.id , "webapp extension available")
-
-        if (common.extensions[x.id] === undefined) {
-          common.extensions[x.id] = x
-        } else {
-          console.log("!!! Multiple webapp extension", x)
-        }
-      })
-
-      loader.initRunnerExtensions(extdir, context, function(err, loaded){
-        console.log("Environment Runner's loaded:" , loaded)
-        if (!loaded || loaded.length < 1) throw "No EnvironmentRunner Loaded!";
-        // FOR NOW WE JUST USE THE FIRST: TODO - make this selectable.
-        var runner = loaded[0]
-
-        context.loader.listWorkerExtensions(extdir, function(err, workers){
-          common.availableWorkers = workers;
-          workers.forEach(function(x){
-            console.log(x.id , " worker extension available")
-
-            if (common.extensions[x.id] === undefined) {
-              common.extensions[x.id] = x
-            } else {
-              common.extensions[x.id].worker = x.worker
+  var SCHEMA_VERSION = 1
+  upgrade(SCHEMA_VERSION, function (err) {
+    if (err) return cb(err)
+    loader.collectExtensions(extdir, function (err) {
+      if (err) return cb(err)
+      async.parallel([
+        function (next) {
+          loader.initWebAppExtensions(context, function (err, webapps) {
+            if (err) return next(err)
+            common.extensions = webapps
+            var id
+            console.log('Job Plugins:')
+            for (id in webapps.job) {
+              console.log('> ' + id)
             }
+            console.log('Provider Plugins:')
+            for (id in webapps.provider) {
+              console.log('> ' + id)
+            }
+            console.log('Runner Plugins:')
+            for (id in webapps.runner) {
+              console.log('> ' + id)
+            }
+            console.log('initalized webapps')
+            next()
           })
-
-          runner.create(context.emitter, {}, function(){
-
-            // We're all up and running
-            common.availableWorkers = workers
-            app.run(appInstance);
-            cb(err, initialized, appInstance)
-          });
-        })
+        },
+        function (next) {
+          loader.initTemplates(function (err, templates) {
+            if (err) return next(err)
+            for (var name in templates) {
+              pluginTemplates.register(name, templates[name])
+            }
+            console.log('loaded templates')
+            next()
+          })
+        },
+        function (next) {
+          loader.initStaticDirs(appInstance, function(err){
+            console.log('initalized static directories')
+            next()
+          })
+        },
+        function (next) {
+          loader.initConfig(
+            path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
+            path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
+            function (err, configs) {
+              console.log('loaded config pages')
+              common.pluginConfigs = configs
+              next()
+            })
+        }
+      ], function (err) {
+        if (err) {
+          console.error('Failed to load plugins')
+          return cb(err, appInstance)
+        }
+        console.log('loaded plugins')
+        app.run(appInstance)
+        cb(null, appInstance)
       })
+    })
+  })
 
-  });
-
-  return appInstance;
-};
+  return appInstance
+}

@@ -1,0 +1,15 @@
+<div class="project-config" ng-show="branch === 'master'">
+  <div id="provider-config" class="well" ng-controller="{{ provider.controller }}">
+    <h3>Provider: {{ provider.title }}</h3>
+    {% autoescape false %}
+    {{ provider.html }}
+    {% endautoescape %}
+  </div>
+  {% include "config/collaborators.html" %}
+</div>
+<div class="well" ng-hide="branch === 'master'">
+  To configure the provider and collaborators,
+  <button class="btn" ng-click="switchToMaster()">
+    switch to the master branch
+  </button>.
+</div>

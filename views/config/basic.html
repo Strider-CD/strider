@@ -1,0 +1,38 @@
+<div class="general-config">
+  <button ng-click="saveGeneral()" class="btn btn-primary save-top-right">Save</button>
+  <label class="checkbox">
+    <input type="checkbox" ng-model="project.branches[branch].active"> Active
+  </label>
+  <p class="help-text">When a branch is deactivated, tests and deploys can only be triggered manually.</p>
+  <label class="checkbox">
+    <input type="checkbox" ng-model="project.branches[branch].public"> Public
+  </label>
+  <p class="help-text">For public projects, the builds are visible to anyone</p>
+  <label class="checkbox">
+    <input type="checkbox" ng-model="project.branches[branch].deploy_on_green"> Deploy on Green
+  </label>
+  <p class="help-text">When "deploy on green" is disabled, automatically triggered builds will not deploy.</p>
+  <div id="ssh-keys">
+    <h3>Ssh keys</h3>
+    <p>These keys will be available to any plugins that need ssh
+      keys. Plugins may however choose to use different keys.</p>
+    <div class="row-fluid">
+      <div class="span6">
+        <h4>Private Key</h4>
+        <textarea ng-model="project.branches[branch].privkey"></textarea>
+      </div>
+      <div class="span6">
+        <h4>Public Key</h4>
+        <textarea ng-model="project.branches[branch].pubkey"></textarea>
+      </div>
+    </div>
+    <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
+  </div>
+  <div>
+    <h3>Delete Project</h3>
+    <p>
+      Permanently remove {{ project.name }} from Strider
+    </p>
+    <a ng-click="confirmDeleteProject()" class="btn btn-danger">Delete Project</a>
+  </div>
+</div>
