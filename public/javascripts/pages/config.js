@@ -51,7 +51,7 @@
     };
   }]);
 
-  app.controller('PluginController', ['$scope', '$element', function ($scope, $element) {
+  app.controller('JobController', ['$scope', '$element', function ($scope, $element) {
     var name = $element.attr('id').split('-').slice(1).join('-');
     $scope.$watch('configs[branch]["' + name + '"].config', function (value) {
       $scope.config = value;
@@ -65,7 +65,7 @@
     };
   }]);
 
-  app.controller('Config', ['$scope', '$element', function ($scope, $element, $attributes) {
+  app.controller('Config', ['$scope', '$element', '$sce', function ($scope, $element, $sce) {
     // this is the parent controller.
     $scope.message = null;
     $scope.project = window.project || {};
@@ -88,8 +88,7 @@
 
     $scope.setEnabled = function (plugin, enabled) {
       $scope.configs[$scope.branch][plugin].enabled = enabled;
-      // TODO save this
-      console.warn("Haven't saved enabled state");
+      savePluginOrder();
     };
 
     $scope.switchToMaster = function () {
@@ -126,8 +125,40 @@
       for (var i=0; i<plugins.length; i++) {
         $scope.configured[$scope.branch][plugins[i].id] = true;
       }
+      savePluginOrder();
     }
 
+    function savePluginOrder() {
+      var plugins = $scope.project.branches[$scope.branch].plugins
+        , data = [];
+      for (var i=0; i<plugins.length; i++) {
+        data.push({
+          id: plugins[i].id,
+          enabled: plugins[i].enabled
+        });
+      }
+      $.ajax({
+        url: '/' + $scope.project.name + '/config/' + $scope.branch + '/',
+        type: 'PUT',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function(data, ts, xhr) {
+          $scope.success('Plugin order on branch ' + $scope.branch + ' saved.');
+          $scope.$root.$digest();
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error saving plugin order on branch " + branch + ": " + data.errors[0]);
+          } else {
+            $scope.error("Error saving plugin order on branch " + branch + ": " + e);
+          }
+          $scope.$root.$digest();
+        }
+      });
+    }
+
+    // options for the inUse plugin sortable
     $scope.inUseOptions = {
       connectWith: '.disabled-plugins-list',
       distance: 5,
@@ -140,6 +171,7 @@
         plugins[ui.item.index()].enabled = true;
       }
     };
+
     function initBranch(branch) {
       var branches = $scope.project.branches
         , plugins;
@@ -202,14 +234,14 @@
     }
     $scope.error = function (text) {
       $scope.message = {
-        text: text,
+        text: $sce.trustAsHtml(text),
         type: 'error',
         showing: true
       };
     };
     $scope.info = function (text) {
       $scope.message = {
-        text: text,
+        text: $sce.trustAsHtml(text),
         type: 'info',
         showing: true
       };
@@ -225,7 +257,7 @@
         clearTime = null;
       }
       $scope.message = {
-        text: '<strong>Done.</strong> ' + text,
+        text: $sce.trustAsHtml('<strong>Done.</strong> ' + text),
         type: 'success',
         showing: true
       };
@@ -322,20 +354,20 @@
       }
       var plugin = $scope.configs[branch][name]
       if (arguments.length < 3) {
-        return plugin;
+        return plugin.config;
       }
       if (plugin === null) {
         console.error("pluginConfig called for a plugin that's not configured. " + name);
         throw new Error('Plugin not configured: ' + name);
       }
       $.ajax({
-        url: branch + "/" + name,
+        url: '/' + $scope.project.name + '/config/' + branch + "/" + name,
         type: "PUT",
         data: data,
         success: function(data, ts, xhr) {
           $scope.success("Config for " + name + " on branch " + branch + " saved.");
-          $scope.configs[branch][name] = data.config;
-          next(null, data.config);
+          $scope.configs[branch][name].config = data;
+          next(null, data);
           $scope.$root.$digest();
         },
         error: function(xhr, ts, e) {

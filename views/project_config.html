@@ -17,7 +17,7 @@
   <div class="notify-wrapper pull-right">
     <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
       <a type="button" class="close" ng-click="clearMessage()">&times;</a>
-      <div class="message" ng-bind-html-unsafe="message.text"></div>
+      <div class="message" ng-bind-html="message.text"></div>
     </div>
   </div>
   <h3>

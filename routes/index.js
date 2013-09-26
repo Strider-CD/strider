@@ -113,8 +113,34 @@ exports.getPluginConfig = function (req, res) {
 // Set the configuration for a plugin on a branch. Output: the new config.
 exports.setPluginConfig = function (req, res) {
   req.pluginConfig(req.body, function (err, config) {
-    if (err) return res.send({error: 'Failed to save plugin config'})
-    res.send({success: true, config: config})
+    if (err) return res.send(500, {error: 'Failed to save plugin config'})
+    res.send(config)
+  })
+}
+
+exports.setPluginOrder = function (req, res) {
+  if (!req.project.branches[req.params.branch]) {
+    return res.send(400, 'Invalid branch')
+  }
+  var plugins = req.body
+    , old = req.project.branches[req.params.branch].plugins || []
+    , map = {}
+    , i
+  for (i=0; i<old.length; i++) {
+    map[old[i].id] = old[i]
+  }
+  for (i=0; i<plugins.length; i++) {
+    if (map[plugins[i].id]) {
+      plugins[i].config = map[plugins[i].id].config
+    } else {
+      plugins[i].config = {}
+    }
+  }
+  req.project.branches[req.params.branch].plugins = plugins
+  req.project.markModified('branches')
+  req.project.save(function (err) {
+    if (err) return res.send(500, 'Failed to save plugin config')
+    res.send({success: true})
   })
 }
 
@@ -130,7 +156,6 @@ exports.config = function(req, res) {
     for (var i=0; i<users.length; i++) {
       data.collaborators[users[i].email] = users[i].projects[req.project.name]
     }
-    console.log(common.pluginConfigs)
     data.provider = common.pluginConfigs.provider[req.project.provider.id]
     data.runners = common.pluginConfigs.runner
     data.plugins = common.pluginConfigs.job
