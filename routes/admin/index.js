@@ -50,9 +50,7 @@ exports.invites = function(req, res) {
  */
 
 exports.users = function(req,res) {
-  var users=[]
-  console.log("user: %s", User)
-  User.find({}).sort({'_id': -1}).exec(function(err, users){
+  User.find({}).sort({'_id': -1}).exec(function(err, users) {
    res.render('admin/users.html',{
      users: users.map(function (user) {
       user.created_date = humane.humaneDate(utils.timeFromId(user.id))
@@ -63,29 +61,16 @@ exports.users = function(req,res) {
 }
 
 exports.make_admin = function(req,res) {
-  console.log(req.query.user)
-  if (req.query.user !== undefined) {
-    var conditions = { email: req.query.user }
-      , update = {  account_level: 2 }
-      , options = {}
-
-    User.update(conditions, update, options, function(err,numAffected) {
-      if (err) throw err
-      if (numAffected == 1) {
-        console.log("Admin status granted to: " + req.query.user)
-
-        // if in production, notify core about new admin
-        if (process.env.NODE_ENV !== undefined &&
-            process.env.NODE_ENV === "production") {
-          email.notify_new_admin(req.query.user)
-        }
-      }
-      res.redirect('/admin/users')
-    })
-  } else {
-    console.log("email undefined!")
-    res.redirect('/admin/users')
+  if (!req.query.user) {
+    return res.redirect('/admin/users')
   }
+  users.makeAdmin(res.query.user, function(err) {
+    if (err) {
+      console.error(err)
+      return res.send(500, 'Error making admin user')
+    }
+    res.redirect('/admin/users')
+  })
 }
 
 /*
@@ -93,34 +78,15 @@ exports.make_admin = function(req,res) {
  */
 
 exports.projects = function(req,res) {
-  var projects=[]
-  User.find({}, function (err, users) {
-    var umap = {}
-    for (var i=0; i<users.length; i++) {
-      umap[users[i]._id] = users[i]
-    }
-    Project.find()
-      .sort({_id: -1})
-      .exec(function(err, projects) {
-        res.render('admin/projects.html', {
-          projects: projects.map(function (project) {
-            project = utils.sanitizeProject(project)
-            project.created_date = utils.timeFromId(project._id)
-            project.users = []
-            for (var i=0; i<users.length; i++) {
-              if ('undefined' !== typeof users[i].projects[project.name]) {
-                project.users.push({
-                  email: users[i].email,
-                  access: users[i].projects[project.name]
-                })
-              }
-            }
-            return project
-          })
-        })
-      })
+  projects.allProjects(function (err, projects) {
+    if (err) return res.send(500, 'Error retrieving projects')
+    res.render('admin/projects.html', {
+      projects: projects
+    })
   })
 }
+
+// XXX: what are we trying to do here??? - jaredly
 
 /*
  * index.admin_job - build the admin job detail page
