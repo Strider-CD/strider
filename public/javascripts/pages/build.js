@@ -32,7 +32,7 @@ function updateFavicon(value) {
   }
 }
 
-var app = angular.module('JobStatus', ['ngRoute'], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
+var app = angular.module('JobStatus', ['moment', 'ngRoute'], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
   interp.startSymbol('[[');
   interp.endSymbol(']]');
   var one = {
@@ -73,39 +73,6 @@ app.directive("toggle", function($compile) {
     }
   };
 })
-
-function htmlDuration(duration, el) {
-  duration = duration || '?';
-  var cls = '';
-  if (duration >= 1000) {
-    cls = 'seconds';
-    text = parseInt(duration / 100) / 10 + 's';
-  } else {
-    cls = 'miliseconds';
-    text = duration + 'ms';
-  }
-  $(el).addClass(cls).text(text);
-}
-
-// timeago directive
-app.directive("time", function() {
-  return {
-    restrict: "E",
-    link: function(scope, element, attrs) {
-      var date = new Date(attrs.datetime);
-      $(element).tooltip({title: date.toLocaleString()});
-
-      if ('undefined' !== typeof attrs.duration) {
-        htmlDuration(attrs.duration, element);
-        return;
-      }
-      $(element).text($.timeago(date));
-      setTimeout(function () {
-        $(element).timeago();
-      }, 0);
-    }
-  };
-});
 
 function getDate(a) {
   if (!a.finished_timestamp) return new Date().getTime();

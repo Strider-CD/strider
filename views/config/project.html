@@ -5,6 +5,10 @@
     {{ provider.html }}
     {% endautoescape %}
   </div>
+  <label class="checkbox">
+    <input type="checkbox" ng-model="project.public"> Public
+  </label>
+  <p class="help-text">Builds of public projects are visible to anyone</p>
   {% include "config/collaborators.html" %}
 </div>
 <div class="well" ng-hide="branch === 'master'">

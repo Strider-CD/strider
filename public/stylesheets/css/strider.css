@@ -42,7 +42,7 @@ body {
   margin-top: -8px;
   max-width: inherit;
 }
-#build-page .succeeded {
+#build-page .passed {
   background-color: #CFFFD2;
 }
 #build-page .failed {
@@ -82,7 +82,7 @@ body {
 #build-page #list-of-builds .active.failed {
   background-color: #ffd2d0;
 }
-#build-page #list-of-builds .active.succeeded {
+#build-page #list-of-builds .active.passed {
   background-color: #CFFFD2;
 }
 #build-page #list-of-builds .active.running {
@@ -95,15 +95,23 @@ body {
   width: auto;
 }
 #dashboard a,
+#dashboard .clickable {
+  cursor: pointer;
+}
+#dashboard a:hover,
+#dashboard .clickable:hover {
+  text-decoration: none;
+  color: #999;
+}
+#dashboard .btn:hover {
+  color: white;
+}
 #build-page a,
-#dashboard .clickable,
 #build-page .clickable {
   color: black;
   cursor: pointer;
 }
-#dashboard a:hover,
 #build-page a:hover,
-#dashboard .clickable:hover,
 #build-page .clickable:hover {
   text-decoration: none;
   color: #999;
@@ -324,6 +332,12 @@ img.manual_setup {
 }
 .failure-text {
   color: #9d261d;
+}
+.error-text {
+  color: #999;
+}
+.waiting-text {
+  color: #0af;
 }
 footer {
   border-top: 1px solid #ddd;

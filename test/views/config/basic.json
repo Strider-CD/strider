@@ -1,5 +1,6 @@
 {
   "user": "me",
+  "currentUser": "good",
   "collaborators": {
     "oneuser": 1,
     "adminuser": 2,
@@ -8,6 +9,7 @@
   "project": {
     "name": "my/project",
     "secret": "this-is-a-secret?",
+    "public": true,
     "provider": {
       "id": "github",
       "config": {
@@ -33,7 +35,6 @@
         ],
         "pubkey": "my public key",
         "privkey": "my private key",
-        "public": true,
         "active": true,
         "deploy_on_green": true,
         "runner": {

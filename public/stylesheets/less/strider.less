@@ -50,7 +50,7 @@ body{
       }
     }
   }
-  .succeeded {
+  .passed {
     background-color: #CFFFD2;
   }
   .failed {
@@ -76,7 +76,7 @@ body{
     .active.failed {
       background-color: #ffd2d0;
     }
-    .active.succeeded {
+    .active.passed {
       background-color: #CFFFD2;
     }
     .active.running {
@@ -103,7 +103,20 @@ body{
   }
 }
 
-#dashboard, #build-page {
+#dashboard {
+  a, .clickable {
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+      color: #999;
+    }
+  }
+  .btn:hover {
+    color: white;
+  }
+}
+
+#build-page {
   a, .clickable {
     color: black;
     cursor: pointer;
@@ -346,6 +359,12 @@ img.manual_setup {
 }
 .failure-text {
   color: #9d261d;
+}
+.error-text {
+  color: #999;
+}
+.waiting-text {
+  color: #0af;
 }
 
 footer {

@@ -1,4 +1,4 @@
-{% if page !== 'history' %}
+{% if page !== 'history' && !public %}
 <td class="deploy" ng-hide="page === 'build'">
   <span ng-hide="job.running"
         ng-click="startDeploy(job)"
@@ -8,25 +8,24 @@
   </span>
 </td>
 {% endif %}
-<td class="job-link" ng-switch="page==='build'">
-  <a href="/[[ job.project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]" ng-switch-when="false" ng-switch="job.status">
-    <i ng-switch-when="succeeded" class="icon-check-sign success-text"></i>
-    <i ng-switch-when="running" class="icon-cog icon-spin"></i>
-    <i ng-switch-when="submitted" class="icon-cog icon-spin"></i>
-    <i ng-switch-when="failed" class="icon-exclamation-sign failure-text"></i>
-    <span ng-switch-default>No job history</span>
-    <span>[[ job._id.substr(0,8) ]]</span>
-  </a>
-  <span ng-switch-when="true" ng-switch="job.status">
-    <i ng-switch-when="succeeded" class="icon-check-sign success-text"></i>
-    <i ng-switch-when="running" class="icon-cog icon-spin"></i>
-    <i ng-switch-when="submitted" class="icon-cog icon-spin"></i>
-    <i ng-switch-when="failed" class="icon-exclamation-sign failure-text"></i>
-    <span ng-switch-default>No job history</span>
-    <span>[[ job._id.substr(0,8) ]]</span>
-  </span>
+<td class="job-link">
+  {% if page !== 'build' %}
+  <a href="/[[ job.project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]">
+  {% endif %}
+  <i ng-hide="job.nojobs"
+     data-toggle="tooltip"
+     title="[[ job.status ]]"
+     class="[[ {'passed': 'icon-check-sign success-text',
+                'failed': 'icon-exclamation-sign failure-text',
+                'running': 'icon-cog icon-spin',
+                'submitted': 'icon-time waiting-text',
+                'errored': 'icon-minus-sign error-text'}[job.status] ]]"></i>
+  <span ng-show="job.nojobs">No job history</span>
+  <span>[[ job._id.substr(0,8) ]]</span>
+  {% if page !== 'build' %}</a>{% endif %}
 </td>
 {% if page !== 'history' %}
+{% if !public %}
 <td class="refresh" ng-hide="page === 'build'">
   <span ng-hide="job.running" data-toggle="tooltip"
         ng-click="startTest(job)"
@@ -41,6 +40,7 @@
     <i class="icon-wrench"></i>
   </a>
 </td>
+{% endif %}
 <td class="project-name" ng-hide="page === 'build'">
   <a href="/[[ job.project.name ]]/">
     [[ job.project.name ]]
@@ -49,7 +49,10 @@
 <td class="history" ng-hide="page === 'build'">
   <table class='last-builds'>
     <tr>
-      <td ng-repeat="pjob in job.project.prev" title="[[ pjob._id.slice(0,8) ]] [[ pjob.status ]]" class='build-[[ $index ]] status-[[ pjob.status ]]'></td>
+      <td ng-repeat="pjob in job.project.prev"
+          data-toggle="tooltip"
+          title="[[ pjob._id.slice(0,8) ]] [[ pjob.status ]]"
+          class="build-[[ $index ]] status-[[ pjob.status ]]"></td>
     </tr>
   </table>
 </td>
@@ -82,9 +85,7 @@
 </td>
 {% endif %}
 <td class="run-time">
-  <span class="small-text">
-    [[ job.duration ? job.duration/1000 + 's' : '' ]]
-  </span>
+  <time class="duration" duration="[[ job.duration ]]"></time>
 </td>
 <td class="finished-at" ng-switch="!!job.running">
   <span ng-switch-when="false" class="small-text">

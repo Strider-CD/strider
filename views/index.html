@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="/stylesheets/css/dashboard.css">
+{% endblock %}
+
 {% block bodyContent %}
 {% if !currentUser %}
   <div class='StriderBlock_LoggedOutFillContent'>{% pluginblock LoggedOutFillContent %}
@@ -58,12 +62,12 @@
               <h2>Latest Builds:</h2>
             </div>
           </div>
-          {% if user && !jobs.yours %}
-          <div class="hero">
-            <h3>You don't have any projects configured. <a class="btn btn-primary" href="/projects">Add some</a></h3>
+          {% if user && (!jobs.yours || !jobs.yours.length) %}
+          <div class="alert alert-info no-projects">
+            <h3>You don't have any projects configured. <a class="btn btn-success" href="/projects">Add some</a></h3>
           </div>
           {% endif %}
-          {% if jobs.yours %}
+          {% if jobs.yours && jobs.yours.length %}
           <h3>Your Projects</h3>
           <table id="job-list" class="table">
             {% include "partials/dashboard-header.html" %}
@@ -77,10 +81,11 @@
           {% if jobs.public.length %}
           <h3>Public Projects</h3>
           <table id="job-list" class="table">
-            {% include "partials/dashboard-header.html" %}
+            {% set config = { "public": true } %}
+            {% include "partials/dashboard-header.html" with config %}
             <tbody>
               <tr ng-repeat="job in jobs.public | orderBy:['running', '+finished_time']:true">
-                {% include "partials/_dashboard_row.html" %}
+                {% include "partials/_dashboard_row.html" with config %}
               </tr>
             </tbody>
           </table>
@@ -92,6 +97,7 @@
   </div>
 </div>
 
+<script src="/javascripts/modules/moment.js"></script>
 <script src="/javascripts/pages/dashboard.js"></script>
 
 {% endif %}

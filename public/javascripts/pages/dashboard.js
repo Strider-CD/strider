@@ -115,7 +115,7 @@ function monitor($scope) {
   }
 }
 
-angular.module('dashboard', [], function ($interpolateProvider) {
+angular.module('dashboard', ['moment'], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
 }).directive("toggle", function($compile) {
@@ -125,21 +125,6 @@ angular.module('dashboard', [], function ($interpolateProvider) {
       if (attrs.toggle !== 'tooltip') return;
       setTimeout(function() {
         $(element).tooltip();
-      }, 0);
-    }
-  };
-}).directive("time", function($compile) {
-  return {
-    restrict: "E",
-    link: function(scope, element, attrs) {
-      var date = new Date(attrs.datetime);
-      $(element).tooltip({title: date.toLocaleString()});
-      // $(element).text($.timeago(date));
-      // setInterval(function () {
-        // $(element).text($.timeago(date));
-      // }, 60000);
-      setTimeout(function () {
-        $(element).timeago();
       }, 0);
     }
   };

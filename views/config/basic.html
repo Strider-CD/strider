@@ -5,10 +5,6 @@
   </label>
   <p class="help-text">When a branch is deactivated, tests and deploys can only be triggered manually.</p>
   <label class="checkbox">
-    <input type="checkbox" ng-model="project.branches[branch].public"> Public
-  </label>
-  <p class="help-text">For public projects, the builds are visible to anyone</p>
-  <label class="checkbox">
     <input type="checkbox" ng-model="project.branches[branch].deploy_on_green"> Deploy on Green
   </label>
   <p class="help-text">When "deploy on green" is disabled, automatically triggered builds will not deploy.</p>
