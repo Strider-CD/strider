@@ -12,13 +12,6 @@
 
 [![NPM](https://nodei.co/npm/strider.png)](https://nodei.co/npm/strider/)
 
-## Note: HEAD Unstable
-
-`master` branch HEAD of Strider is expected to be unstable for the next few
-weeks. We are currently in heavy development of the next version.
-
-Please use latest stable release via the `1.3.5` git tag or `npm install strider` or [use the Docker image](http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/).
-
 Overview
 ========
 
