@@ -88,132 +88,6 @@ function sortByFinished(a, b) {
   return 0;
 }
 
-var JobManager = function () {
-  this.cache = {};
-  this.loading = {};
-  this.waiting = {};
-};
-
-JobManager.prototype = {
-  getCache: function (project) {
-    if (!this.cache[project]) {
-      this.cache[project] = {
-        list: [],
-        ids: {}
-      };
-    }
-    return this.cache[project];
-  },
-  processJobs: function (project, jobs) {
-    var cache = this.getCache(project);
-    var ids = {};
-
-    // here we extend if it's already there instead of replacing it
-    // so that angular's watches will all work out.
-    // actually not sure that we need to do this.
-    for (var i=0; i<jobs.length; i++) {
-      if (cache.ids[jobs[i].id]) {
-        jobs[i] = ids[jobs[i].id] = $.extend(cache.ids[jobs[i].id], jobs[i]);
-        ids[jobs[i].id]._sparse = false;
-      } else {
-        ids[jobs[i].id] = jobs[i];
-      }
-    }
-    cache.ids = ids;
-    jobs.sort(sortByFinished);
-    cache.list = jobs;
-    // we now have everything, not just the most recent
-    cache.full = true;
-  },
-  getOutput: function (project, id, next) {
-    var cache = this.getCache(project);
-    if (cache.ids[id] && cache.ids[id].output && cache.ids[id].status !== 'running') {
-      return next(null, cache.ids[id], true);
-    }
-    $.get('/api/job/' + id)
-     .done(function (data) {
-       if (!cache.ids[id]) {
-         cache.ids[id] = {
-           _sparse: true
-         };
-         cache.list.unshift(cache.ids[id]);
-       }
-       cache.ids[id].output = data;
-       next && next(null, cache.ids[id], false);
-     })
-     .fail(function (xhr, status, err) {
-       next && next(err);
-     });
-  },
-  // got job data from somewhere else
-  update: function (project, data) {
-    var cache = this.getCache(project);
-    if (cache.ids[data.id]) {
-      return $.extend(cache.ids[data.id], data);
-    }
-    cache.list.unshift(data);
-    cache.ids[data.id] = data;
-    return data;
-  },
-  fetch: function (project, id, next) {
-    var cache = this.getCache(project)
-      , job = cache.ids[id];
-
-    // get output
-    if ((!job || !job.output) && id) {
-      this.getOutput(project, id, next);
-    }
-    // get the whole job list if we don't have it
-    if (!this.cache[project] || !this.cache[project].full) {
-      if (!this.loading[project]) {
-        // kick off the ajax call
-        this.getJobs(project);
-      }
-      if (!job || job._sparse && next) {
-        // we don't have the job, and we're still loading, so just
-        // get on the list
-        this.waiting[project].push([id, next]);
-        return this;
-      }
-    }
-
-    next && next(null, job, true);
-    return this;
-  },
-  getJobs: function (project) {
-    var self = this;
-    if (this.loading[project]) {
-      console.warn('Already loading', project, '!!!!', id, next);
-      return;
-    }
-    this.loading[project] = true;
-    this.waiting[project] = [];
-    $.get('/api/jobs/' + project)
-     .done(function (data) {
-        var waiter;
-        self.loading[project] = false;
-        self.processJobs(data.project, data.jobs);
-        // dispatch the waiting continuations
-        while (waiter = self.waiting[project].shift()) {
-          if (waiter[0]) {
-            waiter[1](null, self.cache[project].ids[waiter[0]], false);
-          } else { // give them the first one
-            waiter[1](null, self.cache[project].list[0], false);
-            // also get the output
-            self.getOutput(project, self.cache[project].list[0].id, waiter[1]);
-          }
-        }
-      })
-      .error(function (xhr, status, err) {
-        var waiter;
-        self.loading[project] = false;
-        // dispatch the waiting continuations
-        while (waiter = self.waiting[project].shift()) {
-          waiter[1](err);
-        }
-      });
-  },
-};
 */
 
 function scrollSeen(item, parent) {
@@ -229,18 +103,17 @@ function scrollSeen(item, parent) {
 app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $route, $location) {
 
   var params = $route.current ? $route.current.params : {}
-    , jobid = params.id
     , project = window.project
     , jobs = window.jobs
+    , jobid = params.id || jobs[0]._id
     , lastRoute = $route.current;
-
-  // setJob(project.name, params.id);
 
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
   $scope.jobs = jobs;
   $scope.job = jobs[0];
-  $scope.job.status = 'succeeded';
+
+  setJob(project.name, params.id);
 
   $scope.sortDate = function (item) {
     if (!item.finished_timestamp) return new Date().getTime();
@@ -249,7 +122,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
 
   $scope.$on('$locationChangeSuccess', function(event) {
     params = $route.current.params;
-    if (!params.id) params.id = jobs[0].id;
+    if (!params.id) params.id = jobs[0]._id;
     if (window.location.pathname.split('/').slice(-1)[0] === 'config') {
       window.location = window.location;
       return;
@@ -268,7 +141,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       title: 'Commit'
     },
     manual: {
-      icon: 'refresh',
+      icon: 'hand-right',
       title: 'Manual'
     },
     plugin: {
@@ -285,37 +158,13 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   var listContainer = document.getElementById('list-of-builds');
   function setJob(id) {
     for (var i=0; i<jobs.length; i++) {
-      if (jobs[i].id === id) {
+      if (jobs[i]._id === id) {
         $scope.job = jobs[i];
         return;
       }
     }
-    $scope.job = null;
+    $scope.job = $scope.jobs[0];
   }
-    /*
-    jobman.fetch(project, id, function (err, job, cached) {
-      if (err) {
-        return // showError('Failed to fetch job');
-      }
-      if (jobid && job.id !== jobid) return;
-      jobid = job.id;
-      $scope.job = job;
-      if (!cached) {
-        $scope.$digest();
-      }
-      updateFavicon(job.status);
-      var item = $('.build-list-item[data-id="' + job.id + '"]')[0];
-      if (item) {
-        scrollSeen(item, listContainer);
-      } else {
-        setTimeout(function () {
-          var item = $('.build-list-item[data-id="' + job.id + '"]')[0];
-          if (item) scrollSeen(item, listContainer);
-        }, 100);
-      }
-    });
-  }
-    */
   
   // shared templates ; need to know what to show
   $scope.page = 'build';
@@ -330,7 +179,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   });
 
   $scope.$watch('job.output', function (value) {
-    if ($scope.job && $scope.job.running) {
+    if ($scope.job && $scope.job.status === 'running') {
       return;
     }
     console.scrollTop = console.scrollHeight;
@@ -338,9 +187,6 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       console.scrollTop = console.scrollHeight;
     }, 10);
   });
-
-  // this will eventually be loaded by ajax too
-  $scope.repo = window.repo;
 
   var switchBuilds = function (evt) {
     var dy;
@@ -351,22 +197,25 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     } else {
       return;
     }
-    // var idx = $scope.jobs.list.indexOf($scope.job);
+    var idx = $scope.jobs.indexOf($scope.job);
     if (idx === -1) {
-      // console.log('Failed to find job. resorting to id matching');
-      for (var i=0; i<$scope.jobs.list.length; i++) {
-        if ($scope.jobs.list[i].id === $scope.job.id) {
+      for (var i=0; i<$scope.jobs.length; i++) {
+        if ($scope.jobs[i]._id === $scope.job._id) {
           idx = i;
           break;
         }
       }
     }
+    if (idx === -1) {
+      console.log('Failed to find job. resorting to id matching');
+      return window.location = window.location
+    }
     idx += dy;
-    if (idx < 0 || idx >= $scope.jobs.list.length) {
+    if (idx < 0 || idx >= $scope.jobs.length) {
       return;
     }
-    // $scope.job = $scope.jobs.list[idx];
-    var id = $scope.jobs.list[idx].id;
+    // $scope.job = $scope.jobs[idx];
+    var id = $scope.jobs[idx]._id;
     $scope.selectJob(id);
     evt.preventDefault();
     $scope.$root.$digest();
@@ -374,27 +223,19 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
 
   document.addEventListener('keydown', switchBuilds);
 
+  function newJob(mode) {
+    if ($scope.job.status === 'running' ||
+        $scope.job.status === 'submitted') return;
+    startJob($scope.job.project, mode);
+    $scope.job = {
+      project: $scope.job.project,
+      status: 'submitted'
+    };
+  }
+
   // button handlers
-  $scope.startTest = function () {
-    if ($scope.job.status === 'running' ||
-        $scope.job.status === 'submitted') return;
-    startJob($scope.job.repo_url, 'TEST_ONLY');
-    $scope.job = {
-      repo_url: $scope.job.repo_url,
-      status: 'submitted',
-      output: ''
-    };
-  };
-  $scope.startDeploy = function () {
-    if ($scope.job.status === 'running' ||
-        $scope.job.status === 'submitted') return;
-    startJob($scope.job.repo_url, 'TEST_AND_DEPLOY');
-    $scope.job = {
-      repo_url: $scope.job.repo_url,
-      status: 'submitted',
-      output: ''
-    };
-  };
+  $scope.startTest = newJob.bind(null, 'TEST_ONLY');
+  $scope.startDeploy = newJob.bind(null, 'TEST_AND_DEPLOY');
 
   // Socket update stuff
   var console = document.querySelector('.console-output');
@@ -413,38 +254,39 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     clearInterval(jobtimers[id]);
     jobtimers[id] = null
   }
+  /*
   io.connect().on('new', function (data) {
     if (data.repo_url != repo.url) return;
-    data.past_duration = $scope.jobs.list[0].duration;
+    data.past_duration = $scope.jobs[0].duration;
     data.duration = 0;
     data.output = '';
     // $scope.job = jobman.update(project, data);
-    startJobTimer(data.id);
-    jobid = data.id;
+    startJobTimer(data._id);
+    jobid = data._id;
     // $location.path('/' + project + '/job/' + jobid);
     $scope.$root.$digest();
   }).on('update', function (data) {
     if (data.repo_url != repo.url) return;
-    if (!$scope.jobs.ids[data.id]) {
+    if (!$scope.jobs.ids[data._id]) {
       var d = new Date().getTime();
       /* $scope.job = jobman.update(project, {
-        id: data.id,
+        id: data._id,
         repo_url: $scope.job.repo_url,
         created_timestamp: new Date(d - data.time_elapsed*1000),
         status: 'running',
         output: '',
         past_duration: 30,
         duration: parseInt(data.time_elapsed)
-      }); */
-      if ($scope.jobs.list[1]) {
-        $scope.job.past_duration = $scope.jobs.list[1].duration;
+      }); 
+      if ($scope.jobs[1]) {
+        $scope.job.past_duration = $scope.jobs[1].duration;
       }
     }
-    startJobTimer(data.id);
+    startJobTimer(data._id);
     // $scope.jobs.ids[data.id].duration = parseInt(data.time_elapsed);
     var job = $scope.jobs.ids[data.id];
-    if (!job.past_duration && $scope.jobs.list[0]) {
-      job.past_duration = $scope.jobs.list[0].duration;
+    if (!job.past_duration && $scope.jobs[0]) {
+      job.past_duration = $scope.jobs[0].duration;
     }
     if (data.msg[0] === '\r') {
       job.output = job.output.slice(0, job.output.lastIndexOf('\n') + 1);
@@ -469,6 +311,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     $scope.$digest();
     // window.location = window.location;
   });
+  */
 }]);
 
 function startJob(url, job_type, next) {

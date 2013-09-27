@@ -38,11 +38,11 @@
   {% endpluginblock %}
 </div>
 {% endif %}
-  -->
-
 <script>
   window.jobs = {{ jobs | scriptjson | raw }};
 </script>
+  -->
+
 <div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
   <div>
     <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">
@@ -59,37 +59,37 @@
         <div class="span12 dashboard-section">
           <div class="row-fluid">
             <div class="span6">
-              <h2>Latest Builds:</h2>
+              <h2>Latest Builds: <i ng-show="loadingJobs" class="icon-spinner icon-spin"></i></h2>
             </div>
           </div>
-          {% if user && (!jobs.yours || !jobs.yours.length) %}
-          <div class="alert alert-info no-projects">
+          {% if currentUser %}
+          <div class="alert alert-info no-projects" ng-show="!jobs.yours.length && !loadingJobs">
             <h3>You don't have any projects configured. <a class="btn btn-success" href="/projects">Add some</a></h3>
           </div>
           {% endif %}
-          {% if jobs.yours && jobs.yours.length %}
-          <h3>Your Projects</h3>
-          <table id="job-list" class="table">
-            {% include "partials/dashboard-header.html" %}
-            <tbody>
-              <tr ng-repeat="job in jobs.yours | orderBy:['running', '+finished_time']:true">
-                {% include "partials/_dashboard_row.html" %}
-              </tr>
-            </tbody>
-          </table>
-          {% endif %}
-          {% if jobs.public.length %}
-          <h3>Public Projects</h3>
-          <table id="job-list" class="table">
-            {% set config = { "public": true } %}
-            {% include "partials/dashboard-header.html" with config %}
-            <tbody>
-              <tr ng-repeat="job in jobs.public | orderBy:['running', '+finished_time']:true">
-                {% include "partials/_dashboard_row.html" with config %}
-              </tr>
-            </tbody>
-          </table>
-          {% endif %}
+          <div ng-show="jobs.yours.length">
+            <h3>Your Projects</h3>
+            <table id="job-list" class="table">
+              {% include "partials/dashboard-header.html" %}
+              <tbody>
+                <tr ng-repeat="job in jobs.yours | orderBy:['+finished_time']:true">
+                  {% include "partials/_dashboard_row.html" %}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div ng-show="jobs.public.length">
+            <h3>Public Projects</h3>
+            <table id="job-list" class="table">
+              {% set config = { "public": true } %}
+              {% include "partials/dashboard-header.html" with config %}
+              <tbody>
+                <tr ng-repeat="job in jobs.public | orderBy:['+finished_time']:true">
+                  {% include "partials/_dashboard_row.html" with config %}
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

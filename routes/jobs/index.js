@@ -45,7 +45,10 @@ function multijob(req, res) {
 }
 
 function html(req, res) {
-  Job.find({project: req.project.name}, function (err, jobs) {
+  Job.find({project: req.project.name}).lean().exec(function (err, jobs) {
+    for (var i=0; i<jobs.length; i++) {
+      jobs[i].status = ljobs.status(jobs[i])
+    }
     res.render('build.html', {
       project: utils.sanitizeProject(req.project),
       accessLevel: req.accessLevel,

@@ -65,7 +65,6 @@
     </a>
   </div>
 </td>
-{% if page !== 'history' %}
 <td class="commit-url" ng-switch="!!job.trigger.url">
   <a href="[[ job.trigger.url ]]" ng-switch-when="true" target="_blank">
     <span class="small-text">
@@ -78,6 +77,7 @@
     [[ job.trigger.message ]]
   </span>
 </td>
+{% if page !== 'history' %}
 <td class="github-link" ng-hide="page === 'build'">
   <a href="[[ job.project.display_url ]]" target="_blank">
     <i class="icon-github"></i>
@@ -85,15 +85,15 @@
 </td>
 {% endif %}
 <td class="run-time">
-  <time class="duration" duration="[[ job.duration ]]"></time>
+  <time class="duration" duration="[[ job.duration ]]" ng-hide="job.nojobs"></time>
 </td>
-<td class="finished-at" ng-switch="!!job.running">
-  <span ng-switch-when="false" class="small-text">
+<td class="finished-at" ng-switch="job.status === 'running'">
+  <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago"></time>
   </span>
   <div ng-switch-when="true" class="progress-meter">
     <div class="progress progress-striped active progress-info">
-      <div class="bar" style="width:[[ job.time_elapsed/job.past_duration*100 ]]%; max-width: 100%"></div>
+      <div class="bar" style="width:[[ job.phase/job.phases*100 ]]%; max-width: 100%"></div>
     </div>
   </div>
 </td>

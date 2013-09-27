@@ -1,9 +1,114 @@
 
-// instead of "about %d hours"
-$.timeago.settings.strings.hour = 'an hour';
-$.timeago.settings.strings.hours = '%d hours';
-$.timeago.settings.localeTitle = true;
+var PHASES = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
 
+// Events we care about:
+// - job.new (job, notyours)
+// - job.done
+// - browser.update
+function Dashboard(socket, $scope) {
+  this.sock = socket;
+  this.scope = $scope;
+  this.scope.jobs = {};
+  this.waiting = {};
+  this.listen();
+  this.scope.loadingJobs = true;
+  this.sock.emit('getjobs');
+}
+
+Dashboard.prototype = {
+  listen: function () {
+    this.sock.on('job.new', this.addJob.bind(this));
+    this.sock.on('job.done', this.addJob.bind(this));
+    this.sock.on('browser.update', this.update.bind(this));
+    this.sock.on('joblist', this.gotJobs.bind(this));
+    this.sock.on('unknownjob:response', this.gotJob.bind(this));
+  },
+  gotJob: function (job) {
+    if (!this.waiting[job._id]) return console.warn("Got unknownjob:response but wan't waiting for it...");
+    var notyours = this.waiting[job._id][0][2]
+      , jobs = this.scope.jobs[notyours ? 'public' : 'yours']
+      , found = -1
+      , old;
+    for (var i=0; i<jobs.length; i++) {
+      if (jobs[i].project.name === job.project.name) {
+        found = 1;
+        break;
+      }
+    }
+    if (found !== -1) {
+      old = jobs.splice(found, 1);
+      job.project.prev = old.project.prev;
+    }
+    jobs.unshift(job)
+    // TODO: this.update searches for the job again. optimize
+    for (var i=0; i<this.waiting[job._id]; i++) {
+      this.update.apply(this, this.waiting[i]);
+    }
+  },
+  gotJobs: function (jobs) {
+    this.scope.loadingJobs = false;
+    this.scope.jobs = jobs;
+    this.scope.$digest();
+  },
+  getJob: function (id, notyours) {
+    var jobs = this.scope.jobs[notyours ? 'public' : 'yours'];
+    for (var i=0; i<jobs.length; i++) {
+      if (jobs[i]._id === id) return jobs[i];
+    }
+  },
+  unknownUpdate: function (id, event, args, notyours) {
+    args = [id].concat(args);
+    if (this.waiting[id]) {
+      return this.waiting.push([event, args, notyours]);
+    }
+    this.waiting[id] = [[event, args, notyours]];
+    this.sock.emit('unknownjob', id);
+  },
+  events: {
+    'job.status.started': function (job, args) {
+      job.started = args[0];
+      job.phase = 0;
+      job.status = 'running';
+    },
+    'job.status.errored': 'errored',
+    'job.status.canceled': 'errored',
+    'job.status.phase.done': function (job, args) {
+      job.phase = PHASES.indexOf(args[0].phase) + 1;
+    }
+  },
+  update: function (event, args, notyours) {
+    var id = args.shift()
+      , job = this.getJob(id, notyours)
+      , handler = this.events[event];
+    if (!job) return this.unknownUpdate(id, event, args, notyours)
+    if (!handler) return;
+    if ('string' === typeof handler) {
+      job.status = handler;
+    } else {
+      handler(job, args);
+    }
+    this.scope.$digest();
+  },
+  addJob: function (job, notyours) {
+    var jobs = this.scope.jobs[notyours ? 'public' : 'yours']
+      , found = -1;
+    for (var i=0; i<jobs.length; i++) {
+      if (jobs[i].project.name === job.project.name) {
+        found = 1;
+        break;
+      }
+    }
+    if (found !== -1) {
+      jobs.splice(found, 1);
+    }
+    job.phase = 0;
+    job.phases = job.type === 'TEST_ONLY' ? 4 : 5;
+    jobs.unshift(job);
+    this.scope.$digest();
+  }
+};
+
+/*
 function startJob(url, job_type, $scope) {
   $('.tooltip').hide();
 
@@ -114,23 +219,13 @@ function monitor($scope) {
     jobtimers[id] = null
   }
 }
+*/
 
 angular.module('dashboard', ['moment'], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
-}).directive("toggle", function($compile) {
-  return {
-    restrict: "A",
-    link: function(scope, element, attrs) {
-      if (attrs.toggle !== 'tooltip') return;
-      setTimeout(function() {
-        $(element).tooltip();
-      }, 0);
-    }
-  };
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
-  $scope.jobs = window.jobs;
-  monitor($scope);
+  var dash = new Dashboard(window.socket || (window.socket = io.connect()), $scope);
   $scope.startDeploy = function (job) {
     startJob(job.repo_url, 'TEST_AND_DEPLOY', $scope);
   };
@@ -143,15 +238,7 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
     success: function (data) {
       $scope.loading = false;
       $scope.jobs = data;
-      for (var i=0;i<data.length; i++) {
-        if (!data[i].running) {
-          data[i].finished_time = new Date(data[i].finished_timestamp);
-        }
-      }
       $scope.$digest();
-      $('.last-builds td').tooltip({})
-      // $('time.timeago').timeago();
-      // $('[data-toggle="tooltip"]').tooltip();
     }
   });
   */

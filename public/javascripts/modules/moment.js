@@ -1,4 +1,9 @@
 
+// instead of "about %d hours"
+$.timeago.settings.strings.hour = 'an hour';
+$.timeago.settings.strings.hours = '%d hours';
+$.timeago.settings.localeTitle = true;
+
 function textDuration(duration, el) {
   duration = duration || '?';
   var cls = '';
@@ -39,6 +44,16 @@ app.directive("time", function() {
       $(element).text($.timeago(date));
       setTimeout(function () {
         $(element).timeago();
+      }, 0);
+    }
+  };
+}).directive("toggle", function($compile) {
+  return {
+    restrict: "A",
+    link: function(scope, element, attrs) {
+      if (attrs.toggle !== 'tooltip') return;
+      setTimeout(function() {
+        $(element).tooltip();
       }, 0);
     }
   };

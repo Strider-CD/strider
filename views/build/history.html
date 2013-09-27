@@ -8,9 +8,9 @@
       <!-- | orderBy:sortDate:true" -->
       <tr ng-repeat="job in jobs"
           class="row-fluid build-list-item [[job.status]]"
-          data-id="[[ job.id ]]"
-          ng-click="selectJob(job.id)"
-          ng-class="{active:job.id === $parent.job.id}">
+          data-id="[[ job._id ]]"
+          ng-click="selectJob(job._id)"
+          ng-class="{active:job._id === $parent.job._id}">
         {% set ctx = {page: 'history'} %}
         {% include "partials/_dashboard_row.html" with ctx %}
       </tr>
