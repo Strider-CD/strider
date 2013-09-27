@@ -19,6 +19,8 @@ var  _ = require('underscore')
   , Project = require(BASE_PATH + 'models').Project
 
   , utils = require(BASE_PATH + 'utils')
+  , users = require(BASE_PATH + 'users')
+  , projects = require(BASE_PATH + 'projects')
 
 /*
  * make_invite_code()
