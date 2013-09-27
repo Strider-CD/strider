@@ -5,17 +5,38 @@
   <table class="table-bordered table-striped table">
     <thead>
       <tr>
-        <th>Account</th>
+        <th></th>
         <th>Project</th>
+        <th>Provider</th>
         <th>Created Date</th>
+        <th>Users</th>
       </tr>
     </thead>
     <tbody>
     {% for project in projects %}
         <tr>
-            <td>{{project.user}}</td>
-            <td>{{project.name}} <a href="{{project.url}}">github</a></td>
-            <td>{{project.created_date}}</td>
+          <td>{% if not project.public %}<i class="icon-lock"></i>{% endif %}</td>
+          <td>
+            <h3><a href="/{{ project.name }}/">{{ project.name }}</a></h3>
+          </td>
+          <td>
+            {% if project.display_url %}
+            <a href="{{ project.display_url }}">{{ project.provider.id }}</a>
+            {% endif %}
+          </td>
+          <td>{{ project.created_date }}</td>
+          <td>
+            <ul class="unstyled">
+            {% for user in project.users %}
+            <li>
+              {{ user.email }}
+              {% if user.access == 2 %}
+              <i class="icon-key"></i>
+              {% endif %}
+            </li>
+            {% endfor %}
+            </ul>
+          </td>
         </tr>
     {% endfor %}
     </tbody>
