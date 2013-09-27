@@ -45,7 +45,7 @@ function multijob(req, res) {
 }
 
 function html(req, res) {
-  Job.find({project: req.project.name}, function (err, jobs) {
+  Job.find({project: req.project.name.toLowerCase()}, function (err, jobs) {
     res.render('build.html', {
       project: utils.sanitizeProject(req.project),
       accessLevel: req.accessLevel,
@@ -57,9 +57,9 @@ function html(req, res) {
 function getJob(req, res, next) {
   var query
   if (!req.params.job_id) {
-    query = Job.findOne({project: req.project.name}, {}, {sort: {finished: -1}})
+    query = Job.findOne({project: req.project.name.toLowerCase()}, {}, {sort: {finished: -1}})
   } else {
-    query = Job.findOne({project: req.project.name, _id: req.params.job_id})
+    query = Job.findOne({project: req.project.name.toLowerCase(), _id: req.params.job_id})
   }
   query.exec(function (err, job) {
     if (err || !job) return res.send(404, 'Failed to find job')
@@ -82,7 +82,7 @@ function data(req, res) {
 }
 
 function jobs(req, res) {
-  Job.find({project: req.project.name})
+  Job.find({project: req.project.name.toLowerCase()})
      .sort({finished: -1}).limit(20).lean()
      .exec(function (err, jobs) {
        if (err) return res.send(500, 'Failed to retrieve jobs')
@@ -95,12 +95,12 @@ function jobs(req, res) {
  */
 function badge(req, res) {
   var name = req.params.org + '/' + req.params.repo
-  Project.findOne({name: name}, function (err, project) {
+  Project.findOne({name: name.toLowerCase()}, function (err, project) {
     Job.findOne()
       .sort({'finished': -1})
       .where('finished').ne(null)
       .where('archived', null)
-      .where('project', name)
+      .where('project', name.toLowerCase())
       .exec(function(err, job) {
         var status = 'failing'
         if (err || !job) {
