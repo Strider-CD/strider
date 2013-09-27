@@ -182,7 +182,6 @@ exports.status = function(req, res) {
       results: [],
       errors: [{message:message}]
     }
-   // return res.end(JSON.stringify(resp, null, "\t"));
    return res.jsonp(resp)
   }
 
@@ -194,7 +193,6 @@ exports.status = function(req, res) {
       results: [{message:"system operational"}],
       errors: []
     }
-    //return res.end(JSON.stringify(resp, null, "\t"));
     return res.jsonp(resp)
   }
 
