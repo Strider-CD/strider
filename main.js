@@ -106,6 +106,10 @@ module.exports = function(extdir, c, callback) {
             for (id in webapps.runner) {
               console.log('> ' + id)
             }
+            console.log('Basic Plugins:')
+            for (id in webapps.basic) {
+              console.log('> ' + id)
+            }
             console.log('initalized webapps')
             next()
           })
@@ -121,7 +125,7 @@ module.exports = function(extdir, c, callback) {
           })
         },
         function (next) {
-          loader.initStaticDirs(appInstance, function(err){
+          loader.initStaticDirs(appInstance, function(err) {
             console.log('initalized static directories')
             next()
           })
