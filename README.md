@@ -1,20 +1,3 @@
-# WARNING unstable HEAD
-Head is undergoing some massive changes in preparation for 1.4
-
-Please use latest stable release via the `1.3.5` git tag or `npm install strider` or [use the Docker image](http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/).
-
-## Awesome new features coming in 1.4
-- per-project & per-branch plugin configuration
-- per-branch deployment
-- provider plugins! Strider will be able to interface with any VCS
-  provider via a simple plugin system. The doors are open for gitlab,
-  bitbucket, kiln, you name it.
-- runner plugins! Run your builds distributed across multiple servers,
-  run a build inside of a docker container, and more!
-- lots more testing for strider core
-
-Trust me, it'll be amazing.
-
 # ![Strider Logo](https://raw.github.com/Strider-CD/strider/master/public/images/logo-100x100.png) Strider
 [![Build Status](https://public-ci.stridercd.com/51f050cf04568a0c00000008/strider-cd/strider/badge)](https://public-ci.stridercd.com/Strider-CD/strider/)
 [![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
