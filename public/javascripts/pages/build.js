@@ -32,7 +32,7 @@ function updateFavicon(value) {
   }
 }
 
-var app = angular.module('JobStatus', ['moment', 'ngRoute'], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
+var app = angular.module('JobStatus', ['moment', 'ansi', 'ngRoute'], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
   interp.startSymbol('[[');
   interp.endSymbol(']]');
   var one = {
