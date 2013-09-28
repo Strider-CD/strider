@@ -96,19 +96,19 @@ module.exports = function(extdir, c, callback) {
             var id
             console.log('Job Plugins:')
             for (id in webapps.job) {
-              console.log('> ' + id)
+              console.log('- ' + id)
             }
             console.log('Provider Plugins:')
             for (id in webapps.provider) {
-              console.log('> ' + id)
+              console.log('- ' + id)
             }
             console.log('Runner Plugins:')
             for (id in webapps.runner) {
-              console.log('> ' + id)
+              console.log('- ' + id)
             }
             console.log('Basic Plugins:')
             for (id in webapps.basic) {
-              console.log('> ' + id)
+              console.log('- ' + id)
             }
             console.log('initalized webapps')
             next()
