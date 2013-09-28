@@ -82,6 +82,9 @@ body {
 #build-page #list-of-builds .active.failed {
   background-color: #ffd2d0;
 }
+#build-page #list-of-builds .active.errored {
+  background-color: #DDD;
+}
 #build-page #list-of-builds .active.passed {
   background-color: #CFFFD2;
 }
@@ -504,6 +507,9 @@ a.repeats {
 }
 .failed {
   background-color: #ffd2d0;
+}
+.errored {
+  background-color: #ddd;
 }
 .warning {
   background-color: #fffca9;

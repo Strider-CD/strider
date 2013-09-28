@@ -67,11 +67,11 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
     , dash = new Dashboard(socket, $scope);
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
-    socket.emit('deploy', job.project)
+    socket.emit('deploy', job.project.name)
   };
   $scope.startTest = function (job) {
     $('.tooltip').hide();
-    socket.emit('test', job.project)
+    socket.emit('test', job.project.name)
   };
 }]);
 

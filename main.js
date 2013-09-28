@@ -10,6 +10,8 @@ var app = require('./lib/app')
   , pluginTemplates = require('./lib/pluginTemplates')
   , utils = require('./lib/utils')
 
+  , Job = models.Job
+
   , upgrade = require('./lib/models/upgrade').ensure
 
   , path = require('path')
@@ -86,71 +88,82 @@ module.exports = function(extdir, c, callback) {
   var SCHEMA_VERSION = 1
   upgrade(SCHEMA_VERSION, function (err) {
     if (err) return cb(err)
-    loader.collectExtensions(extdir, function (err) {
-      if (err) return cb(err)
-      async.parallel([
-        function (next) {
-          loader.initWebAppExtensions(context, function (err, webapps) {
-            if (err) return next(err)
-            common.extensions = webapps
-            var id
-            console.log('Job Plugins:')
-            for (id in webapps.job) {
-              console.log('- ' + id)
-            }
-            console.log('Provider Plugins:')
-            for (id in webapps.provider) {
-              console.log('- ' + id)
-            }
-            console.log('Runner Plugins:')
-            for (id in webapps.runner) {
-              console.log('- ' + id)
-            }
-            console.log('Basic Plugins:')
-            for (id in webapps.basic) {
-              console.log('- ' + id)
-            }
-            console.log('initalized webapps')
-            next()
-          })
-        },
-        function (next) {
-          loader.initTemplates(function (err, templates) {
-            if (err) return next(err)
-            for (var name in templates) {
-              pluginTemplates.register(name, templates[name])
-            }
-            console.log('loaded templates')
-            next()
-          })
-        },
-        function (next) {
-          loader.initStaticDirs(appInstance, function(err) {
-            console.log('initalized static directories')
-            next()
-          })
-        },
-        function (next) {
-          loader.initConfig(
-            path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
-            path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
-            function (err, configs) {
-              console.log('loaded config pages')
-              common.pluginConfigs = configs
-              next()
-            })
-        }
-      ], function (err) {
-        if (err) {
-          console.error('Failed to load plugins')
-          return cb(err, appInstance)
-        }
-        console.log('loaded plugins')
-        app.run(appInstance)
-        cb(null, appInstance)
-      })
+    killZombies(function () {
+      loadExtensions(loader, extdir, context, appInstance, cb)
     })
   })
 
   return appInstance
+}
+
+function killZombies(done) {
+  var twoHoursAgo = new Date(new Date().getTime() - 2 * 60 * 60 * 1000)
+  Job.update({finished: null, created: {$lt: twoHoursAgo}}, {$set: {finished: new Date(), errored: true}}, {multi: true}, done)
+}
+
+function loadExtensions(loader, extdir, context, appInstance, cb) {
+  loader.collectExtensions(extdir, function (err) {
+    if (err) return cb(err)
+    async.parallel([
+      function (next) {
+        loader.initWebAppExtensions(context, function (err, webapps) {
+          if (err) return next(err)
+          common.extensions = webapps
+          var id
+          console.log('Job Plugins:')
+          for (id in webapps.job) {
+            console.log('- ' + id)
+          }
+          console.log('Provider Plugins:')
+          for (id in webapps.provider) {
+            console.log('- ' + id)
+          }
+          console.log('Runner Plugins:')
+          for (id in webapps.runner) {
+            console.log('- ' + id)
+          }
+          console.log('Basic Plugins:')
+          for (id in webapps.basic) {
+            console.log('- ' + id)
+          }
+          console.log('initalized webapps')
+          next()
+        })
+      },
+      function (next) {
+        loader.initTemplates(function (err, templates) {
+          if (err) return next(err)
+          for (var name in templates) {
+            pluginTemplates.register(name, templates[name])
+          }
+          console.log('loaded templates')
+          next()
+        })
+      },
+      function (next) {
+        loader.initStaticDirs(appInstance, function(err) {
+          console.log('initalized static directories')
+          next()
+        })
+      },
+      function (next) {
+        loader.initConfig(
+          path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
+          path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
+          function (err, configs) {
+            console.log('loaded config pages')
+            common.pluginConfigs = configs
+            next()
+          })
+      }
+    ], function (err) {
+      if (err) {
+        console.error('Failed to load plugins')
+        return cb(err, appInstance)
+      }
+      console.log('loaded plugins')
+      app.run(appInstance)
+      cb(null, appInstance)
+    })
+  })
 }
