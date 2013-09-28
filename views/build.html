@@ -11,6 +11,7 @@
   <script>
     var project = {{ project | json_encode() | raw }};
     var jobs = {{ jobs | json_encode() | raw }};
+    var job = {{ job | json_encode() | raw }};
   </script>
   <base href="/{{ project.name }}/"></base>
   <div id="build-page" class="main" ng-view></div>
@@ -62,6 +63,7 @@
             </div>
 
             <div class="console-output">
+              <i class="icon-gear icon-light icon-spin loading-icon" ng-show="loading"></i>
               {% include "build/console.html" %}
             </div>
           </div>

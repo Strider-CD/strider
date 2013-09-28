@@ -51,35 +51,15 @@ var app = angular.module('JobStatus', ['moment', 'ansi', 'ngRoute'], ['$interpol
   location.html5Mode(true);
 }]);
 
+/*
 app.run(['$location', function($location) {
-
-  console.log($location.path());
-  /*
-  if (location.pathname !== '/')
-    $location.path(location.pathname);
-    */
-
 }])
-
-// tooltip directive
-app.directive("toggle", function($compile) {
-  return {
-    restrict: "A",
-    link: function(scope, element, attrs) {
-      if (attrs.toggle !== 'tooltip') return;
-      setTimeout(function() {
-        $(element).tooltip();
-      }, 0);
-    }
-  };
-})
 
 function getDate(a) {
   if (!a.finished_timestamp) return new Date().getTime();
   return new Date(a.finished_timestamp).getTime();
 }
 
-/*
 function sortByFinished(a, b) {
   a = getDate(a);
   b = getDate(b);
@@ -101,19 +81,23 @@ function scrollSeen(item, parent) {
 
 // main jobs controller
 app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $route, $location) {
-
   var params = $route.current ? $route.current.params : {}
     , project = window.project
     , jobs = window.jobs
+    , job = window.job
     , jobid = params.id || jobs[0]._id
+    , socket = window.socket || (window.socket || io.connect())
     , lastRoute = $route.current;
 
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
   $scope.jobs = jobs;
-  $scope.job = jobs[0];
+  $scope.job = job;
 
-  setJob(project.name, params.id);
+  var loaded = {};
+  loaded[job._id] = job;
+
+  setJob(params.id);
 
   $scope.sortDate = function (item) {
     if (!item.finished_timestamp) return new Date().getTime();
@@ -157,13 +141,27 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   // $scope.jobs = jobman.getCache(project);
   var listContainer = document.getElementById('list-of-builds');
   function setJob(id) {
+    if (loaded[id]) {
+      return $scope.job = loaded[id];
+    }
     for (var i=0; i<jobs.length; i++) {
       if (jobs[i]._id === id) {
         $scope.job = jobs[i];
-        return;
+        break;
       }
     }
-    $scope.job = $scope.jobs[0];
+    loadJob(id);
+  }
+
+  function loadJob(id) {
+    $scope.loading = id;
+    socket.emit('getjob', id, function (job) {
+      loaded[id] = job;
+      if ($scope.loading !== id) return;
+      $scope.job = job;
+      $scope.loading = false;
+      $scope.$digest();
+    });
   }
   
   // shared templates ; need to know what to show
@@ -178,6 +176,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     updateFavicon(value);
   });
 
+  /*
   $scope.$watch('job.output', function (value) {
     if ($scope.job && $scope.job.status === 'running') {
       return;
@@ -187,8 +186,9 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       console.scrollTop = console.scrollHeight;
     }, 10);
   });
+  */
 
-  var switchBuilds = function (evt) {
+  function switchBuilds(evt) {
     var dy;
     if (evt.keyCode === 40) {
       dy = 1;
@@ -315,6 +315,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
 }]);
 
 function startJob(name, job_type, next) {
+  throw new Error('Not implemented');
   var data = {type:job_type};
   setFavicon('running');
 
