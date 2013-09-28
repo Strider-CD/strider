@@ -118,7 +118,9 @@ function startJob(name, job_type, $scope) {
 
   var data = {type:job_type};
 
-  $.ajax("/api/jobs/"+ name +"/start", {
+  var p = "/" + name + "/start"
+
+  $.ajax(p, {
     data: data,
     dataType: "json",
     error: function(xhr, ts, e) {
@@ -227,10 +229,10 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
   var dash = new Dashboard(window.socket || (window.socket = io.connect()), $scope);
   $scope.startDeploy = function (job) {
-    startJob(job.name, 'TEST_AND_DEPLOY', $scope);
+    startJob(job.project, 'TEST_AND_DEPLOY', $scope);
   };
   $scope.startTest = function (job) {
-    startJob(job.name, 'TEST_ONLY', $scope);
+    startJob(job.projet, 'TEST_ONLY', $scope);
   };
   /*
   $.ajax('/api/jobs', {
