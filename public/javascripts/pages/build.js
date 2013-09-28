@@ -121,12 +121,12 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   };
 
   $scope.$on('$locationChangeSuccess', function(event) {
-    params = $route.current.params;
-    if (!params.id) params.id = jobs[0]._id;
-    if (window.location.pathname.split('/').slice(-1)[0] === 'config') {
+    if (window.location.pathname.match(/\/config$/)) {
       window.location = window.location;
       return;
     }
+    params = $route.current.params;
+    if (!params.id) params.id = jobs[0]._id;
     // don't refresh the page
     $route.current = lastRoute;
     if (jobid !== params.id) {
