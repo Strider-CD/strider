@@ -19,30 +19,6 @@
   </script>
 
 {% else %}
-
-  <!--
-{% if !currentUser.github.id %}
-<div class="span7 well">
-  <h3>Welcome to Strider, {{currentUser.email}}!</h3> 
-  {% pluginblock GithubLinkContent %}
-  <p> It looks like you haven't yet linked your Github account. Press the button below to get started.
-  </p>
-  <div class= "actions">
-    <a class="btn btn-success" href='/auth/github'>
-      <i class="icon-ok"></i>
-      Link Github account 
-      &nbsp;&nbsp;&nbsp;
-    </a>
-    <a class="btn" href='/manual_setup'>Manual Setup</a>
-  </div>
-  {% endpluginblock %}
-</div>
-{% endif %}
-<script>
-  window.jobs = {{ jobs | scriptjson | raw }};
-</script>
-  -->
-
 <div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
   <div>
     <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">

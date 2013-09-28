@@ -314,11 +314,12 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   */
 }]);
 
-function startJob(url, job_type, next) {
-  var data = {url:url, type:job_type};
+function startJob(name, job_type, next) {
+  var data = {type:job_type};
   setFavicon('running');
 
-  $.ajax("/api/jobs/start", {
+  var p = "/" + name + "/start"
+  $.ajax(p, {
     data: data,
     dataType: "json",
     error: function(xhr, ts, e) {

@@ -108,8 +108,7 @@ Dashboard.prototype = {
   }
 };
 
-/*
-function startJob(url, job_type, $scope) {
+function startJob(name, job_type, $scope) {
   $('.tooltip').hide();
 
   // Default job type is TEST_AND_DEPLOY
@@ -117,9 +116,9 @@ function startJob(url, job_type, $scope) {
     job_type = "TEST_AND_DEPLOY";
   }
 
-  var data = {url:url, type:job_type};
+  var data = {type:job_type};
 
-  $.ajax("/api/jobs/start", {
+  $.ajax("/api/jobs/"+ name +"/start", {
     data: data,
     dataType: "json",
     error: function(xhr, ts, e) {
@@ -136,6 +135,7 @@ function startJob(url, job_type, $scope) {
   });
 };
 
+/*
 function gotNewJob(newjob, $scope) {
   var job = null;
   console.log('new job', newjob);
@@ -227,10 +227,10 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
   var dash = new Dashboard(window.socket || (window.socket = io.connect()), $scope);
   $scope.startDeploy = function (job) {
-    startJob(job.repo_url, 'TEST_AND_DEPLOY', $scope);
+    startJob(job.name, 'TEST_AND_DEPLOY', $scope);
   };
   $scope.startTest = function (job) {
-    startJob(job.repo_url, 'TEST_ONLY', $scope);
+    startJob(job.name, 'TEST_ONLY', $scope);
   };
   /*
   $.ajax('/api/jobs', {
