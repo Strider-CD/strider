@@ -44,7 +44,7 @@
           </div>
           {% endif %}
           <div ng-show="jobs.yours.length">
-            <h3>Your Projects</h3>
+            <h3>Your Projects</h3 ng-cloak>
             <table id="job-list" class="table">
               {% include "partials/dashboard-header.html" %}
               <tbody>
@@ -55,7 +55,7 @@
             </table>
           </div>
           <div ng-show="jobs.public.length">
-            <h3>Public Projects</h3>
+            <h3>Public Projects</h3 ng-cloak>
             <table id="job-list" class="table">
               {% set config = { "public": true } %}
               {% include "partials/dashboard-header.html" with config %}
