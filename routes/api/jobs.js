@@ -56,6 +56,7 @@ exports.jobs_start = function(req, res) {
     created: now
   }
   common.emitter.emit('job.prepare', job)
+  res.json(job)
 };
 
 /*
