@@ -5,8 +5,8 @@ $.timeago.settings.strings.hours = '%d hours';
 $.timeago.settings.localeTitle = true;
 
 function textDuration(duration, el) {
-  duration = duration || '?';
-  var cls = '';
+  if (!duration) return $(el).text('--');
+  var cls = '', text;
   if (duration >= 60 * 60 * 1000) {
     cls = 'hours';
     text = parseInt(duration / 60 / 60 / 100) / 10 + 'h';
@@ -23,6 +23,16 @@ function textDuration(duration, el) {
   $(el).addClass(cls).text(text);
 }
 
+function since(stamp, el) {
+  var then = new Date(stamp).getTime();
+  function update() {
+    var now = new Date().getTime();
+    textDuration(now - then, el);
+  }
+  update();
+  return setInterval(update, 500);
+}
+
 var app = angular.module('moment', []);
 
 // timeago directive
@@ -30,6 +40,14 @@ app.directive("time", function() {
   return {
     restrict: "E",
     link: function(scope, element, attrs) {
+      if ('undefined' !== typeof attrs.since) {
+        var ival = since(attrs.since, element);
+        $(element).tooltip({title: 'Started ' + new Date(attrs.since).toLocaleString()});
+        return scope.$on('$destroy', function () {
+          clearInterval(ival);
+        });
+      }
+
       var date
       if ('undefined' !== typeof attrs.datetime) {
         date = new Date(attrs.datetime);
@@ -37,10 +55,10 @@ app.directive("time", function() {
       }
       
       if ('undefined' !== typeof attrs.duration) {
-        textDuration(attrs.duration, element);
-        return;
+        return textDuration(attrs.duration, element);
       }
 
+      // TODO: use moment.js
       $(element).text($.timeago(date));
       setTimeout(function () {
         $(element).timeago();
@@ -55,6 +73,9 @@ app.directive("time", function() {
       setTimeout(function() {
         $(element).tooltip();
       }, 0);
+      attrs.$observe('title', function () {
+        $(element).tooltip();
+      });
     }
   };
 });

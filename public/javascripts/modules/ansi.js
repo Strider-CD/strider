@@ -1,7 +1,7 @@
 
 (function (window) {
   
-window.ansiparse = function (str) {
+function ansiparse(str) {
   //
   // I'm terrible at writing parsers.
   //
@@ -48,7 +48,7 @@ window.ansiparse = function (str) {
   };
 
   for (var i = 0; i < str.length; i++) {
-    if (matchingControl != null) {
+    if (matchingControl !== null) {
       if (matchingControl == '\033' && str[i] == '\[') {
         //
         // We've matched full control code. Lets start matching formating data.
@@ -77,7 +77,7 @@ window.ansiparse = function (str) {
       }
       continue;
     }
-    else if (matchingData != null) {
+    else if (matchingData !== null) {
       if (str[i] == ';') {
         //
         // `;` separates many formatting codes, for example: `\033[33;43m`
@@ -183,8 +183,6 @@ ansiparse.styles = {
   '4': 'underline'
 };
 
-})(window);
-
 function ansifilter(data, plaintext) {
 
   // handle the characters for "delete line" and "move to start of line"
@@ -223,8 +221,8 @@ app.filter('ansi', ['$sce', function ($sce) {
   // once we're on RC-3, we should be fine.
   var cached = {}
   return function (input) {
+    if (!input) return '';
     if (cached[input]) return cached[input];
-    console.log('hello')
     var text = input.replace(/&/g, '&amp;')
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;')
@@ -233,3 +231,5 @@ app.filter('ansi', ['$sce', function ($sce) {
     return cached[input] = $sce.trustAsHtml(ansifilter(text));
   }
 }]);
+
+})(window);

@@ -1,3 +1,4 @@
+/* global app: true, console: true, md5: true */
 
 ;(function () {
 
@@ -149,9 +150,9 @@
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
             var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error saving plugin order on branch " + branch + ": " + data.errors[0]);
+            $scope.error("Error saving plugin order on branch " + $scope.branch + ": " + data.errors[0]);
           } else {
-            $scope.error("Error saving plugin order on branch " + branch + ": " + e);
+            $scope.error("Error saving plugin order on branch " + $scope.branch + ": " + e);
           }
           $scope.$root.$digest();
         }

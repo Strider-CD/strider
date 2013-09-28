@@ -1,9 +1,35 @@
 
-// instead of "about %d hours"
-$.timeago.settings.strings.hour = 'an hour';
-$.timeago.settings.strings.hours = '%d hours';
-$.timeago.settings.localeTitle = true;
+/* globals JobMonitor: true, console: true, io: true */
 
+function BuildPage(socket, change) {
+  JobMonitor.call(this, socket, change);
+  this.jobs = {};
+}
+
+_.extend(BuildPage.prototype, JobMonitor.prototype, {
+  emits: {
+    getUnknown: 'build:job'
+  },
+  job: function (id, access) {
+    return this.jobs[id];
+  },
+  addJob: function (job, access) {
+    this.jobs[job._id] = job;
+  },
+  get: function (id, done) {
+    if (this.jobs[id]) {
+      done(null, this.jobs[id], true);
+      return true;
+    }
+    var self = this;
+    this.sock.emit('build:job', id, function (job) {
+      self.jobs[id] = job;
+      done(null, job);
+    });
+  }
+});
+
+/** manage the favicons **/
 function setFavicon(status) {
   $('link[rel*="icon"]').attr('href', '/images/icons/favicon-' + status + '.png');
 }
@@ -32,7 +58,35 @@ function updateFavicon(value) {
   }
 }
 
-var app = angular.module('JobStatus', ['moment', 'ansi', 'ngRoute'], ['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
+function buildSwitcher($scope) {
+  function switchBuilds(evt) {
+    var dy = {40: 1, 38: -1}[evt.keyCode]
+      , id = $scope.job._id
+      , idx;
+    if (!dy) return;
+    for (var i=0; i<$scope.jobs.length; i++) {
+      if ($scope.jobs[i]._id === id) {
+        idx = i;
+        break;
+      }
+    }
+    if (idx === -1) {
+      console.log('Failed to find job.');
+      return window.location = window.location
+    }
+    idx += dy;
+    if (idx < 0 || idx >= $scope.jobs.length) {
+      return;
+    }
+    evt.preventDefault();
+    $scope.selectJob($scope.jobs[idx]._id);
+    $scope.$root.$digest();
+  }
+  document.addEventListener('keydown', switchBuilds);
+}
+
+var app = angular.module('JobStatus', ['moment', 'ansi', 'ngRoute']);
+app.config(['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
   interp.startSymbol('[[');
   interp.endSymbol(']]');
   var one = {
@@ -51,25 +105,6 @@ var app = angular.module('JobStatus', ['moment', 'ansi', 'ngRoute'], ['$interpol
   location.html5Mode(true);
 }]);
 
-/*
-app.run(['$location', function($location) {
-}])
-
-function getDate(a) {
-  if (!a.finished_timestamp) return new Date().getTime();
-  return new Date(a.finished_timestamp).getTime();
-}
-
-function sortByFinished(a, b) {
-  a = getDate(a);
-  b = getDate(b);
-  if (a > b) return -1;
-  if (b > a) return 1;
-  return 0;
-}
-
-*/
-
 function scrollSeen(item, parent) {
   if (item.offsetTop < parent.scrollTop) {
     return item.scrollIntoView(true);
@@ -83,21 +118,15 @@ function scrollSeen(item, parent) {
 app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $route, $location) {
   var params = $route.current ? $route.current.params : {}
     , project = window.project
-    , jobs = window.jobs
-    , job = window.job
-    , jobid = params.id || jobs[0]._id
+    , jobid = params.id || window.jobs[0]._id
     , socket = window.socket || (window.socket || io.connect())
-    , lastRoute = $route.current;
+    , lastRoute = $route.current
+    , jobman = new BuildPage(socket, $scope.$digest.bind($scope))
 
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
-  $scope.jobs = jobs;
-  $scope.job = job;
-
-  var loaded = {};
-  loaded[job._id] = job;
-
-  setJob(params.id);
+  $scope.jobs = window.jobs;
+  $scope.job = window.job;
 
   $scope.sortDate = function (item) {
     if (!item.finished_timestamp) return new Date().getTime();
@@ -110,12 +139,23 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       return;
     }
     params = $route.current.params;
-    if (!params.id) params.id = jobs[0]._id;
+    if (!params.id) params.id = $scope.jobs[0]._id;
     // don't refresh the page
     $route.current = lastRoute;
     if (jobid !== params.id) {
       jobid = params.id;
-      setJob(params.id);
+      var cached = jobman.get(jobid, function (err, job, cached) {
+        $scope.job = job;
+        if (!cached) $scope.$digest();
+      });
+      if (!cached) {
+        for (var i=0; i<$scope.jobs.length; i++) {
+          if ($scope.jobs[i]._id === jobid) {
+            $scope.job = $scope.jobs[i];
+            break;
+          }
+        }
+      }
     }
   });
 
@@ -137,32 +177,6 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       title: 'Cloud'
     }
   };
-
-  // $scope.jobs = jobman.getCache(project);
-  var listContainer = document.getElementById('list-of-builds');
-  function setJob(id) {
-    if (loaded[id]) {
-      return $scope.job = loaded[id];
-    }
-    for (var i=0; i<jobs.length; i++) {
-      if (jobs[i]._id === id) {
-        $scope.job = jobs[i];
-        break;
-      }
-    }
-    loadJob(id);
-  }
-
-  function loadJob(id) {
-    $scope.loading = id;
-    socket.emit('getjob', id, function (job) {
-      loaded[id] = job;
-      if ($scope.loading !== id) return;
-      $scope.job = job;
-      $scope.loading = false;
-      $scope.$digest();
-    });
-  }
   
   // shared templates ; need to know what to show
   $scope.page = 'build';
@@ -176,165 +190,27 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     updateFavicon(value);
   });
 
-  /*
-  $scope.$watch('job.output', function (value) {
-    if ($scope.job && $scope.job.status === 'running') {
-      return;
-    }
-    console.scrollTop = console.scrollHeight;
-    setTimeout(function () {
-      console.scrollTop = console.scrollHeight;
-    }, 10);
-  });
-  */
+  buildSwitcher($scope);
 
-  function switchBuilds(evt) {
-    var dy;
-    if (evt.keyCode === 40) {
-      dy = 1;
-    } else if (evt.keyCode === 38) {
-      dy = -1;
-    } else {
-      return;
-    }
-    var idx = $scope.jobs.indexOf($scope.job);
-    if (idx === -1) {
-      for (var i=0; i<$scope.jobs.length; i++) {
-        if ($scope.jobs[i]._id === $scope.job._id) {
-          idx = i;
-          break;
-        }
-      }
-    }
-    if (idx === -1) {
-      console.log('Failed to find job. resorting to id matching');
-      return window.location = window.location
-    }
-    idx += dy;
-    if (idx < 0 || idx >= $scope.jobs.length) {
-      return;
-    }
-    // $scope.job = $scope.jobs[idx];
-    var id = $scope.jobs[idx]._id;
-    $scope.selectJob(id);
-    evt.preventDefault();
-    $scope.$root.$digest();
-  };
-
-  document.addEventListener('keydown', switchBuilds);
-
-  function newJob(mode) {
-    if ($scope.job.status === 'running' ||
-        $scope.job.status === 'submitted') return;
-    startJob($scope.job.project, mode);
+  // button handlers
+  $scope.startDeploy = function () {
+    $('.tooltip').hide();
+    socket.emit('deploy', project.name)
     $scope.job = {
       project: $scope.job.project,
       status: 'submitted'
     };
-  }
-
-  // button handlers
-  $scope.startTest = newJob.bind(null, 'TEST_ONLY');
-  $scope.startDeploy = newJob.bind(null, 'TEST_AND_DEPLOY');
+  };
+  $scope.startTest = function () {
+    $('.tooltip').hide();
+    socket.emit('test', project.name)
+    $scope.job = {
+      project: $scope.job.project,
+      status: 'submitted'
+    };
+  };
 
   // Socket update stuff
   var console = document.querySelector('.console-output');
-
-  var jobtimers = {};
-  function startJobTimer(id) {
-    if (jobtimers[id]) return;
-    jobtimers[id] = setInterval(function () {
-      var job = $scope.jobs.ids[id];
-      job.duration = parseInt((new Date().getTime()-new Date(job.created_timestamp).getTime())/1000);
-      $scope.$digest();
-    }, 500);
-  }
-  function clearJobTimer(id) {
-    if (!jobtimers[id]) return;
-    clearInterval(jobtimers[id]);
-    jobtimers[id] = null
-  }
-  /*
-  io.connect().on('new', function (data) {
-    if (data.repo_url != repo.url) return;
-    data.past_duration = $scope.jobs[0].duration;
-    data.duration = 0;
-    data.output = '';
-    // $scope.job = jobman.update(project, data);
-    startJobTimer(data._id);
-    jobid = data._id;
-    // $location.path('/' + project + '/job/' + jobid);
-    $scope.$root.$digest();
-  }).on('update', function (data) {
-    if (data.repo_url != repo.url) return;
-    if (!$scope.jobs.ids[data._id]) {
-      var d = new Date().getTime();
-      /* $scope.job = jobman.update(project, {
-        id: data._id,
-        repo_url: $scope.job.repo_url,
-        created_timestamp: new Date(d - data.time_elapsed*1000),
-        status: 'running',
-        output: '',
-        past_duration: 30,
-        duration: parseInt(data.time_elapsed)
-      }); 
-      if ($scope.jobs[1]) {
-        $scope.job.past_duration = $scope.jobs[1].duration;
-      }
-    }
-    startJobTimer(data._id);
-    // $scope.jobs.ids[data.id].duration = parseInt(data.time_elapsed);
-    var job = $scope.jobs.ids[data.id];
-    if (!job.past_duration && $scope.jobs[0]) {
-      job.past_duration = $scope.jobs[0].duration;
-    }
-    if (data.msg[0] === '\r') {
-      job.output = job.output.slice(0, job.output.lastIndexOf('\n') + 1);
-      data.msg = data.msg.slice(1);
-    }
-    job.output += data.msg;
-    job.time_elapsed = data.time_elapsed;
-    var height, tracking = false;
-    if (job.id === jobid) {
-      // scroll when you want to, not when you don't
-      height = console.getBoundingClientRect().height;
-      tracking = height + console.scrollTop > console.scrollHeight - 20;
-    }
-    $scope.$digest();
-    if (tracking) {
-      console.scrollTop = console.scrollHeight;
-    }
-  }).on('done', function(data) {
-    if (data.repo_url != repo.url) return;
-    clearJobTimer(data.id);
-    // $scope.job = jobman.update(project, data);
-    $scope.$digest();
-    // window.location = window.location;
-  });
-  */
 }]);
 
-function startJob(name, job_type, next) {
-  throw new Error('Not implemented');
-  var data = {type:job_type};
-  setFavicon('running');
-
-  var p = "/" + name + "/start"
-  $.ajax(p, {
-    data: data,
-    dataType: "json",
-    error: function(xhr, ts, e) {
-      var job = JobList.find(function(item) {
-        return item.get('repo_url') === url;
-      });
-      if (job !== undefined) {
-        // ?? what's this ??
-        // startProgressMeter(job);
-      }
-    },
-    success: function(data, ts, xhr) {
-
-    },
-    type: "POST"
-  });
-};
