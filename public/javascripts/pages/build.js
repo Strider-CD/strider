@@ -1,12 +1,13 @@
 
 /* globals JobMonitor: true, console: true, io: true */
 
-function BuildPage(socket, change) {
+function BuildPage(socket, change, scope) {
   JobMonitor.call(this, socket, change);
+  this.scope = scope;
   this.jobs = {};
 }
 
-_.extend(BuildPage.prototype, JobMonitor.prototype, {
+_.extend(BuildPage.prototype, JobDataMonitor.prototype, {
   emits: {
     getUnknown: 'build:job'
   },
@@ -15,6 +16,35 @@ _.extend(BuildPage.prototype, JobMonitor.prototype, {
   },
   addJob: function (job, access) {
     this.jobs[job._id] = job;
+    var found = -1;
+    for (var i=0; i<this.scope.jobs.length; i++) {
+      if (this.scope.jobs[i]._id === job._id) {
+        found = i;
+        break;
+      }
+    }
+    if (found !== -1) {
+      this.scope.jobs.splice(found, 1);
+    }
+    if (!job.phases) {
+      job.phases = {};
+      for (var i=0; i<PHASES.length; i++) {
+        job.phases[PHASES[i]] = _.cloneDeep(SKELS.phase);
+      }
+      job.phase = 'environment';
+      job.phases[job.phase].started = new Date()
+      job.std = {
+        out: '',
+        err: '',
+        merged: ''
+      }
+    } else {
+      job.phases.environment.collapsed = true;
+      job.phases.prepare.collapsed = true;
+      job.phases.cleanup.collapsed = true;
+    }
+    this.scope.jobs.unshift(job);
+    this.scope.job = job;
   },
   get: function (id, done) {
     if (this.jobs[id]) {
@@ -28,6 +58,8 @@ _.extend(BuildPage.prototype, JobMonitor.prototype, {
     });
   }
 });
+
+var outputConsole;
 
 /** manage the favicons **/
 function setFavicon(status) {
@@ -121,12 +153,16 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     , jobid = params.id || window.jobs[0]._id
     , socket = window.socket || (window.socket || io.connect())
     , lastRoute = $route.current
-    , jobman = new BuildPage(socket, $scope.$digest.bind($scope))
+    , jobman = new BuildPage(socket, $scope.$digest.bind($scope), $scope)
 
+  outputConsole = document.querySelector('.console-output');
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
   $scope.jobs = window.jobs;
   $scope.job = window.job;
+  $scope.job.phases.environment.collapsed = true;
+  $scope.job.phases.prepare.collapsed = true;
+  $scope.job.phases.cleanup.collapsed = true;
 
   /*
   var now = new Date().getTime()
@@ -149,6 +185,9 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       jobid = params.id;
       var cached = jobman.get(jobid, function (err, job, cached) {
         $scope.job = job;
+        $scope.job.phases.environment.collapsed = true;
+        $scope.job.phases.prepare.collapsed = true;
+        $scope.job.phases.cleanup.collapsed = true;
         if (!cached) $scope.$digest();
       });
       if (!cached) {
@@ -195,6 +234,20 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
 
   buildSwitcher($scope);
 
+  $scope.$watch('job.std.merged', function (value) {
+    /* Tracking isn't quite working right
+    if ($scope.job.status === 'running') {
+      height = outputConsole.getBoundingClientRect().height;
+      tracking = height + outputConsole.scrollTop > outputConsole.scrollHeight - 50;
+      // console.log(tracking, height, outputConsole.scrollTop, outputConsole.scrollHeight);
+      if (!tracking) return;
+    }
+    */
+    outputConsole.scrollTop = outputConsole.scrollHeight;
+    setTimeout(function () {
+      outputConsole.scrollTop = outputConsole.scrollHeight;
+    }, 10);
+  });
   // button handlers
   $scope.startDeploy = function () {
     $('.tooltip').hide();
@@ -214,6 +267,5 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   };
 
   // Socket update stuff
-  var console = document.querySelector('.console-output');
 }]);
 

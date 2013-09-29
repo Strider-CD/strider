@@ -5,7 +5,7 @@
     <i class="icon-caret-[[ job.phases[phase].collapsed ? 'right' : 'down' ]] arrow" ></i>
     <span class="name">[[ phase ]]</span>
     <span class="pull-right meta">
-      <time class="duration" datetime="[[ job.phases[phase].finished ]]" duration="[[ job.phases[phase].duration ]]"></time>
+      <time class="duration" datetime="[[ job.phases[phase].finished ]]" since="[[ job.phases[phase].started ]]" duration="[[ job.phases[phase].duration ]]"></time>
       <span class="exit-status" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
     </span>
   </div>
@@ -17,7 +17,7 @@
         <span class="prompt">$</span> <span class="command-text">[[ command.command ]]</span> <i class="icon-plus plus" ng-show="command.collapsed"></i>
         <span class="meta pull-right">
           <span class="plugin">[[ command.plugin ]]</span>
-          <time datetime="[[ command.started ]]" duration="[[ command.duration ]]"></time>
+          <time datetime="[[ command.started ]]" since="[[ command.started ]]" duration="[[ command.duration ]]"></time>
           <span class="exit-status" toggle="tooltip" title="exit code" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
         </span>
       </div>
