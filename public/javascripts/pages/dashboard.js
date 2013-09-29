@@ -18,7 +18,6 @@ function cleanJob(job) {
 function Dashboard(socket, $scope) {
   JobMonitor.call(this, socket, $scope.$digest.bind($scope));
   this.scope = $scope;
-  this.scope.jobs = this.jobs;
   this.scope.loadingJobs = true;
   this.sock.emit('dashboard:jobs', function (jobs) {
     $scope.jobs = jobs;
@@ -35,17 +34,17 @@ _.extend(Dashboard.prototype, JobMonitor.prototype, {
     }
   },
   addJob: function (job, access) {
-    var jobs = this.jobs[access]
+    var jobs = this.scope.jobs[access]
       , found = -1
       , old;
     for (var i=0; i<jobs.length; i++) {
       if (jobs[i].project.name === job.project.name) {
-        found = 1;
+        found = i;
         break;
       }
     }
     if (found !== -1) {
-      old = jobs.splice(found, 1);
+      old = jobs.splice(found, 1)[0];
       job.project.prev = old.project.prev;
     }
     if (job.phases) {

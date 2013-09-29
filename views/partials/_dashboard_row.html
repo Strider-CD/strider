@@ -22,7 +22,6 @@
                 'errored': 'icon-minus-sign error-text'}[job.status] ]]"></i>
   <span ng-show="job.nojobs">No job history</span>
   <span>[[ job._id.substr(0,8) ]]</span>
-  <span ng-show="job.status === 'submitted'">Job will be run by the next available worker</span>
   {% if page !== 'build' %}</a>{% endif %}
 </td>
 {% if page !== 'history' %}

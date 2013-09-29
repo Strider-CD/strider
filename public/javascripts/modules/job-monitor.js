@@ -84,7 +84,10 @@ JobMonitor.prototype = {
       this.numphases = this.type === 'TEST_ONLY' ? 4 : 5;
       this.status = 'running';
     },
-    'errored': 'errored',
+    'errored': function (error) {
+      this.error = error;
+      this.status = 'errored';
+    },
     'canceled': 'errored',
     'phase.done': function (data) {
       this.phase = PHASES.indexOf(data.phase) + 1;

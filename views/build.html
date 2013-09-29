@@ -65,6 +65,10 @@
             <div class="console-output">
               <i class="icon-gear icon-light icon-spin loading-icon" ng-show="loading"></i>
               {% include "build/console.html" %}
+              <div class="build-error" ng-show="job.status === 'errored' && job.error">
+                <div class="alert alert-error">[[ job.error.message ]]</div>
+                <pre>[[ job.error.stack ]]</pre>
+              </div>
             </div>
           </div>
 

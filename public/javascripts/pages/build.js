@@ -128,10 +128,13 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   $scope.jobs = window.jobs;
   $scope.job = window.job;
 
+  /*
+  var now = new Date().getTime()
   $scope.sortDate = function (item) {
-    if (!item.finished_timestamp) return new Date().getTime();
-    return new Date(item.finished_timestamp).getTime();
+    if (!item.finished) return new Date().getTime();
+    return new Date(item.finished).getTime();
   };
+  */
 
   $scope.$on('$locationChangeSuccess', function(event) {
     if (window.location.pathname.match(/\/config$/)) {

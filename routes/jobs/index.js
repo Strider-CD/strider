@@ -46,7 +46,7 @@ function multijob(req, res) {
 
 function html(req, res) {
   var id = req.params.id
-  Job.find({project: req.project.name.toLowerCase()}).lean().exec(function (err, jobs) {
+  Job.find({project: req.project.name.toLowerCase()}).sort('-finished').lean().exec(function (err, jobs) {
     var job = id ? null : jobs[0]
     for (var i=0; i<jobs.length; i++) {
       if (!job && jobs[i]._id === id) job = jobs[i]

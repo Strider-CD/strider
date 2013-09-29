@@ -71,6 +71,7 @@ module.exports = function(extdir, c, callback) {
     enablePty: config.enablePty,
     emitter: common.emitter,
     extensionRoutes: [],
+    extensionPaths: extdir,
     extdir: extdir,
     loader: loader,
     models: models,
@@ -88,8 +89,33 @@ module.exports = function(extdir, c, callback) {
   var SCHEMA_VERSION = 1
   upgrade(SCHEMA_VERSION, function (err) {
     if (err) return cb(err)
-    killZombies(function () {
-      loadExtensions(loader, extdir, context, appInstance, cb)
+    loadExtensions(loader, extdir, context, appInstance, function (err) {
+      killZombies(function () {
+        var tasks = []
+        Object.keys(common.extensions.runner).forEach(function (name) {
+          var runner = common.extensions.runner[name]
+          if (!runner) {
+            console.log('no runner', name)
+            return
+          }
+          tasks.push(function (next) {
+            Job.find({'runner.id': name, finished: null}, function (err, jobs) {
+              if (err) return next(err)
+              runner.findZombies(jobs, next)
+            })
+          })
+        })
+        async.parallel(tasks, function (err, zombies) {
+          if (err) return cb(err)
+          var ids = [].concat.apply([], zombies).map(function (job) { return job._id })
+            , now = new Date()
+          Job.update({_id: {$in: ids}}, {$set: {finished: now, errored: true, error: {message: 'Job timeout', stack: ''}}}, function (err) {
+            Job.update({_id: {$in: ids}, started: null}, {$set: {started:  now}}, function (err) {
+              cb(err, appInstance)
+            })
+          })
+        })
+      })
     })
   })
 
