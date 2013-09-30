@@ -1,5 +1,5 @@
 # ![Strider Logo](https://raw.github.com/Strider-CD/strider/master/public/images/logo-100x100.png) Strider
-[![Build Status](https://hosted.stridercd.com/51f050cf04568a0c00000008/strider-cd/strider/badge)](https://hosted.stridercd.com/Strider-CD/strider/)
+[![Build Status](https://public-ci.stridercd.com/51f050cf04568a0c00000008/strider-cd/strider/badge)](https://public-ci.stridercd.com/Strider-CD/strider/)
 [![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
 [![devDependency Status](https://david-dm.org/Strider-CD/strider/dev-status.png)](https://david-dm.org/Strider-CD/strider#info=devDependencies)
 
@@ -11,13 +11,6 @@
 [more screenshots](https://github.com/Strider-CD/strider/wiki/Screenshots)
 
 [![NPM](https://nodei.co/npm/strider.png)](https://nodei.co/npm/strider/)
-
-## Note: HEAD Unstable
-
-`master` branch HEAD of Strider is expected to be unstable for the next few
-weeks. We are currently in heavy development of the next version.
-
-Please use latest stable release via the `1.3.5` git tag or `npm install strider`.
 
 Overview
 ========
