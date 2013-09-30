@@ -28,7 +28,7 @@ function Dashboard(socket, $scope) {
 
 _.extend(Dashboard.prototype, JobMonitor.prototype, {
   job: function (id, access) {
-    var jobs = this.jobs[access];
+    var jobs = this.scope.jobs[access];
     for (var i=0; i<jobs.length; i++) {
       if (jobs[i]._id === id) return jobs[i];
     }
@@ -52,11 +52,14 @@ _.extend(Dashboard.prototype, JobMonitor.prototype, {
       // note: this won't be passed up anyway for public projects
       cleanJob(job);
     }
-    job.phase = 0;
-    job.numphases = job.type === 'TEST_ONLY' ? 4 : 5;
+    job.phase = 'environment';
     jobs.unshift(job);
   },
 });
+
+Dashboard.prototype.statuses['phase.done'] = function (data) {
+  this.phase = data.next;
+};
 
 angular.module('dashboard', ['moment'], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
@@ -64,6 +67,7 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
   var socket = window.socket || (window.socket = io.connect())
     , dash = new Dashboard(socket, $scope);
+  $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
     socket.emit('deploy', job.project.name)

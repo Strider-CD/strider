@@ -95,7 +95,7 @@
   </span>
   <div ng-switch-when="true" class="progress-meter">
     <div class="progress progress-striped active progress-info">
-      <div class="bar" style="width:[[ job.phase/job.numphases*100 ]]%; max-width: 100%"></div>
+      <div class="bar" style="width:[[ (phases.indexOf(job.phase)+1)/phases.length*100 ]]%; max-width: 100%"></div>
     </div>
   </div>
 </td>

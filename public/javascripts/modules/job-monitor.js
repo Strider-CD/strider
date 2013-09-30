@@ -19,7 +19,6 @@ JobMonitor.prototype = {
     getUnknown: 'dashboard:unknown'
   },
   events: {
-    'browser.update': 'update',
     'job.new': function (job, access) {
       this.addJob(job, access);
       this.changed();
@@ -42,13 +41,15 @@ JobMonitor.prototype = {
       if ('string' === typeof handler) handler = this[handler];
       this.sock.on(event, handler.bind(this));
     }
+    for (var status in this.statuses) {
+      this.sock.on('job.status.' + status, this.update.bind(this, status))
+    }
   },
   // access: 'yours', 'public', 'admin'
   update: function (event, args, access, dontchange) {
     var id = args.shift()
       , job = this.job(id, access)
-      , name = event.indexOf('job.status.') === 0 ? event.substr('job.status.'.length) : event
-      , handler = this.statuses[name];
+      , handler = this.statuses[event];
     if (!job) return this.unknown(id, event, args, access)
     if (!handler) return;
     if ('string' === typeof handler) {
@@ -80,8 +81,7 @@ JobMonitor.prototype = {
   statuses: {
     'started': function (time) {
       this.started = time;
-      this.phase = 0;
-      this.numphases = this.type === 'TEST_ONLY' ? 4 : 5;
+      this.phase = 'environment';
       this.status = 'running';
     },
     'errored': function (error) {
@@ -103,6 +103,7 @@ function ensureCommand(phase) {
   }
   return command
 }
+
 var SKELS = {
   job: {
     id: null,
@@ -112,8 +113,8 @@ var SKELS = {
     queued: null,
     started: null,
     finished: null,
-    test_status: -1,
-    deploy_status: -1,
+    test_status: null,
+    deploy_status: null,
     std: {
       out: '',
       err: '',
@@ -130,7 +131,7 @@ var SKELS = {
   },
   phase: {
     finished: null,
-    exitCode: -1,
+    exitCode: null,
     commands: []
   }
 }
@@ -142,26 +143,32 @@ function JobDataMonitor() {
 _.extend(JobDataMonitor.prototype, JobMonitor.prototype, {
 });
 
-_.extend(JobDataMonitor.prototype.statuses, {
-  'phase.done': function (phase, time, code) {
-    var next = PHASES[PHASES.indexOf(phase) + 1];
-    this.phases[phase].finished = time;
-    this.phases[phase].exitCode = code;
-    if (phase === 'test') this.test_status = code;
-    if (phase === 'deploy') this.deploy_status = code;
-    if (!next) return;
-    this.phase = next;
+JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, {
+  'phase.done': function (data) {
+    this.phases[data.phase].finished = data.time;
+    this.phases[data.phase].duration = data.elapsed
+    this.phases[data.phase].exitCode = data.code;
+    if (['prepare', 'environment', 'cleanup'].indexOf(data.phase) !== -1) {
+      this.phases[data.phase].collapsed = true;
+    }
+    if (data.phase === 'test') this.test_status = data.code;
+    if (data.phase === 'deploy') this.deploy_status = data.code;
+    if (!data.next || !this.phases[data.next]) return;
+    this.phase = data.next;
+    this.phases[data.next].started = data.time;
   },
   'command.start': function (data) {
     var phase = this.phases[this.phase]
-      , command = _.extend(data, SKELS.command);
+      , command = _.extend({}, SKELS.command, data);
+    command.started = data.time;
     phase.commands.push(command);
   },
-  'command.done': function (exitCode, time, elapsed) {
+  'command.done': function (data) {
     var phase = this.phases[this.phase]
       , command = phase.commands[phase.commands.length - 1];
-    command.finished = time;
-    command.exitCode = exitCode;
+    command.finished = data.time;
+    command.duration = data.elapsed;
+    command.exitCode = data.exitCode;
   },
   'stdout': function (text) {
     var command = ensureCommand(this.phases[this.phase]);

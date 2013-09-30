@@ -4,21 +4,40 @@ $.timeago.settings.strings.hour = 'an hour';
 $.timeago.settings.strings.hours = '%d hours';
 $.timeago.settings.localeTitle = true;
 
-function textDuration(duration, el) {
-  if (!duration) return $(el).text('--');
+var time_units = [
+  {
+    ms: 60 * 60 * 1000,
+    cls: 'hours',
+    suffix: 'h'
+  }, {
+    ms: 60 * 1000,
+    cls: 'minutes',
+    suffix: 'm'
+  }, {
+    ms: 1000,
+    cls: 'seconds',
+    suffix: 's'
+  }, {
+    ms: 0,
+    cls: 'miliseconds',
+    suffix: 'ms'
+  }
+];
+    
+
+function textDuration(duration, el, whole) {
+  if (!duration) return $(el).text('');
   var cls = '', text;
-  if (duration >= 60 * 60 * 1000) {
-    cls = 'hours';
-    text = parseInt(duration / 60 / 60 / 100) / 10 + 'h';
-  } else if (duration >= 60 * 1000) {
-    cls = 'minutes';
-    text = parseInt(duration / 60 / 100) / 10 + 'm';
-  } else if (duration >= 1000) {
-    cls = 'seconds';
-    text = parseInt(duration / 100) / 10 + 's';
-  } else {
-    cls = 'miliseconds';
-    text = duration + 'ms';
+  for (var i=0; i<time_units.length; i++) {
+    if (duration < time_units[i].ms) continue;
+    cls = time_units[i].cls;
+    text = duration + '';
+    if (time_units[i].ms) {
+      if (whole) text = parseInt(duration / time_units[i].ms)
+      else text = parseInt(duration / time_units[i].ms * 10) / 10
+    }
+    text += time_units[i].suffix;
+    break;
   }
   $(el).addClass(cls).text(text);
 }
@@ -27,7 +46,7 @@ function since(stamp, el) {
   var then = new Date(stamp).getTime();
   function update() {
     var now = new Date().getTime();
-    textDuration(now - then, el);
+    textDuration(now - then, el, true);
   }
   update();
   return setInterval(update, 500);
@@ -40,7 +59,7 @@ app.directive("time", function() {
   return {
     restrict: "E",
     link: function(scope, element, attrs) {
-      if ('undefined' !== typeof attrs.since) {
+      if ('undefined' !== typeof attrs.since && !attrs.duration) {
         var ival = since(attrs.since, element);
         $(element).tooltip({title: 'Started ' + new Date(attrs.since).toLocaleString()});
         attrs.$observe('since', function () {
