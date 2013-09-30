@@ -39,9 +39,15 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
         merged: ''
       }
     } else {
-      job.phases.environment.collapsed = true;
-      job.phases.prepare.collapsed = true;
-      job.phases.cleanup.collapsed = true;
+      if (job.phases.environment) {
+        job.phases.environment.collapsed = true;
+      }
+      if (job.phases.prepare) {
+        job.phases.prepare.collapsed = true;
+      }
+      if (job.phases.cleanup) {
+        job.phases.cleanup.collapsed = true;
+      }
     }
     this.scope.jobs.unshift(job);
     this.scope.job = job;
@@ -160,9 +166,15 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   $scope.project = project;
   $scope.jobs = window.jobs;
   $scope.job = window.job;
-  $scope.job.phases.environment.collapsed = true;
-  $scope.job.phases.prepare.collapsed = true;
-  $scope.job.phases.cleanup.collapsed = true;
+  if (job.phases.environment) {
+    job.phases.environment.collapsed = true;
+  }
+  if (job.phases.prepare) {
+    job.phases.prepare.collapsed = true;
+  }
+  if (job.phases.cleanup) {
+    job.phases.cleanup.collapsed = true;
+  }
 
   /*
   var now = new Date().getTime()
@@ -184,6 +196,15 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     if (jobid !== params.id) {
       jobid = params.id;
       var cached = jobman.get(jobid, function (err, job, cached) {
+        if (job.phases.environment) {
+          job.phases.environment.collapsed = true;
+        }
+        if (job.phases.prepare) {
+          job.phases.prepare.collapsed = true;
+        }
+        if (job.phases.cleanup) {
+          job.phases.cleanup.collapsed = true;
+        }
         $scope.job = job;
         $scope.job.phases.environment.collapsed = true;
         $scope.job.phases.prepare.collapsed = true;
