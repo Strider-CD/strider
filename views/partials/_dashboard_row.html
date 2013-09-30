@@ -10,7 +10,7 @@
 {% endif %}
 <td class="job-link">
   {% if page !== 'build' %}
-  <a href="/[[ job.project.name || project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]">
+  <a href="/[[ job.project.display_name || project.display_name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]">
   {% endif %}
   <i ng-hide="job.nojobs"
      data-toggle="tooltip"
@@ -35,15 +35,15 @@
   </span>
 </td>
 <td class="configure" ng-hide="page === 'build'">
-  <a href="/[[ job.project.name || project.name ]]/config"
+  <a href="/[[ job.project.display_name || project.display_name ]]/config"
      data-toggle="tooltip" data-delay="500" title="Configure">
     <i class="icon-wrench"></i>
   </a>
 </td>
 {% endif %}
 <td class="project-name" ng-hide="page === 'build'">
-  <a href="/[[ job.project.name || project.name ]]/">
-    [[ job.project.name ]]
+  <a href="/[[ job.project.display_name || project.display_name ]]/">
+    [[ job.project.display_name ]]
   </a>
 </td>
 <td class="history" ng-hide="page === 'build'">

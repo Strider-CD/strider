@@ -13,7 +13,7 @@
     var jobs = {{ jobs | json_encode() | raw }};
     var job = {{ job | json_encode() | raw }};
   </script>
-  <base href="/{{ project.name }}/"></base>
+  <base href="/{{ project.display_name }}/"></base>
   <div id="build-page" class="main" ng-view></div>
   <script id="build-tpl.html" type="text/ng-template">
     <div class="row-fluid job-page-intro">
@@ -33,7 +33,7 @@
           <a href="/[[ project.name ]]/config" ng-hide="repo.access_level < 1" title="Configure">
             <i class="icon-wrench"></i>
           </a>
-          <span class='job-repo'>{{ project.name }}</span>
+          <span class='job-repo'>{{ project.display_name }}</span>
           <a href="[[ job.repo_url ]]" target="_blank">
             <i class="icon-github"></i>
           </a>
