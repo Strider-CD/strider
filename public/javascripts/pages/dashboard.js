@@ -18,12 +18,15 @@ function cleanJob(job) {
 function Dashboard(socket, $scope) {
   JobMonitor.call(this, socket, $scope.$digest.bind($scope));
   this.scope = $scope;
-  this.scope.loadingJobs = true;
+  this.scope.loadingJobs = false;
+  this.scope.jobs = window.jobs;
+  /*
   this.sock.emit('dashboard:jobs', function (jobs) {
     $scope.jobs = jobs;
     $scope.loadingJobs = false;
     $scope.$digest();
   });
+  */
 }
 
 _.extend(Dashboard.prototype, JobMonitor.prototype, {
@@ -68,6 +71,7 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
   var socket = window.socket || (window.socket = io.connect())
     , dash = new Dashboard(socket, $scope);
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
+  $('#dashboard').show();
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
     socket.emit('deploy', job.project.name)

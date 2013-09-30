@@ -19,6 +19,9 @@
   </script>
 
 {% else %}
+<script>
+  window.jobs = {{ jobs | scriptjson | raw }};
+</script>
 <div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
   <div>
     <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">
@@ -29,7 +32,7 @@
       </span>
     </div>
   </div>
-  <div id="dashboard">
+  <div id="dashboard" style="display:none">
     <div>
       <div class="row-fluid">
         <div class="span12 dashboard-section">

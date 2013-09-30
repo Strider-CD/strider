@@ -39,7 +39,7 @@ exports.index = function(req, res){
     code = req.param('code')
     return res.render('register.html', {invite_code:code})
   }
-  jobs.latestJobs(req.user, function (err, jobs) {
+  jobs.latestJobs(req.user, true, function (err, jobs) {
     res.render('index.html', {jobs: jobs})
   })
 };
