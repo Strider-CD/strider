@@ -31,7 +31,6 @@
     "strider-sauce": "git+https://github.com/Strider-CD/strider-sauce.git#1_4_refactor",
     "strider-node": "git+https://github.com/Strider-CD/strider-node.git#1_4_refactor",
     "strider-github": "git+https://github.com/Strider-CD/strider-github.git",
-    "strider-git": "git+https://github.com/Strider-CD/strider-git.git",
     "connect": "~2.7.3",
     "express": "~3.4.0",
     "swig": "git+https://github.com/peterbraden/swig",
