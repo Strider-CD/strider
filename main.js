@@ -92,6 +92,10 @@ module.exports = function(extdir, c, callback) {
     loadExtensions(loader, extdir, context, appInstance, function (err) {
       killZombies(function () {
         var tasks = []
+        if (!common.extensions.runner || 'object' !== typeof common.extensions.runner) {
+          console.error('Strider seems to have been misconfigured - there are no available runner plugins. Please make sure all dependencies are up to date.')
+          process.exit(1)
+        }
         Object.keys(common.extensions.runner).forEach(function (name) {
           var runner = common.extensions.runner[name]
           if (!runner) {

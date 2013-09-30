@@ -27,6 +27,8 @@
     "strider-simple-runner": "git+https://github.com/Strider-CD/strider-simple-runner.git#1_4_refactor",
     "strider-env": "git+https://github.com/Strider-CD/strider-env.git#1_4_refactor",
     "strider-python": "git+https://github.com/Strider-CD/strider-python.git#1_4_refactor",
+    "strider-github": "git+https://github.com/Strider-CD/strider-github.git',
+    "strider-git": "git+https://github.com/Strider-CD/strider-git.git',
     "strider-custom": "git+https://github.com/Strider-CD/strider-custom.git#1_4_refactor",
     "strider-sauce": "git+https://github.com/Strider-CD/strider-sauce.git#1_4_refactor",
     "strider-node": "git+https://github.com/Strider-CD/strider-node.git#1_4_refactor",
