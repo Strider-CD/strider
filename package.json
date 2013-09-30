@@ -38,7 +38,8 @@
     "eventemitter2": "0.4.13",
     "strider-python": "~0.1.0",
     "passport-local": "~0.1.6",
-    "passport": "~0.1.17"
+    "passport": "~0.1.17",
+    "express-forgot-password": "0.1.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0",
