@@ -136,7 +136,20 @@ exports.config = function(req, res) {
     data.runners = common.pluginConfigs.runner
     data.plugins = common.pluginConfigs.job
 
-    res.render('project_config.html', data)
+    var provider = common.extensions.provider[req.project.provider.id]
+    if (typeof provider.getBranches === 'function') {
+      provider.getBranches(req.user.providers[req.project.provider.id],
+        req.project.provider.config, req.project, function(err, branches) {
+        if (err) {
+          console.error("could not fetch branches for repo %s: %s", req.project.name, err)
+          return res.render('project_config.html', data)
+        }
+        data.branches = branches
+        res.render('project_config.html', data)
+      })
+    } else {
+      res.render('project_config.html', data)
+    }
   })
 }
 
