@@ -11,6 +11,7 @@
   var project = {{ project | scriptjson | raw }};
   var plugins = {{ plugins | scriptjson | raw }};
   var runners = {{ runners | scriptjson | raw }};
+  var branches = {{ branches | scriptjson | raw }};
 </script>
 <div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="Config">
   <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
