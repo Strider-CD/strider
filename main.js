@@ -1,5 +1,4 @@
 var app = require('./lib/app')
-  , backchannel = require('./lib/backchannel')
   , common = require('./lib/common')
   , config = require('./lib/config')
   , Loader = require('strider-extension-loader')

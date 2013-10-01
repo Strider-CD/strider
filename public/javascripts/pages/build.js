@@ -39,14 +39,16 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
         merged: ''
       }
     } else {
-      if (job.phases.environment) {
-        job.phases.environment.collapsed = true;
-      }
-      if (job.phases.prepare) {
-        job.phases.prepare.collapsed = true;
-      }
-      if (job.phases.cleanup) {
-        job.phases.cleanup.collapsed = true;
+      if (job.phases.test.commands.length) {
+        if (job.phases.environment) {
+          job.phases.environment.collapsed = true;
+        }
+        if (job.phases.prepare) {
+          job.phases.prepare.collapsed = true;
+        }
+        if (job.phases.cleanup) {
+          job.phases.cleanup.collapsed = true;
+        }
       }
     }
     this.scope.jobs.unshift(job);
@@ -166,14 +168,16 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   $scope.project = project;
   $scope.jobs = window.jobs;
   $scope.job = window.job;
-  if (job.phases.environment) {
-    job.phases.environment.collapsed = true;
-  }
-  if (job.phases.prepare) {
-    job.phases.prepare.collapsed = true;
-  }
-  if (job.phases.cleanup) {
-    job.phases.cleanup.collapsed = true;
+  if ($scope.job.phases.test.commands.length) {
+    if (job.phases.environment) {
+      job.phases.environment.collapsed = true;
+    }
+    if (job.phases.prepare) {
+      job.phases.prepare.collapsed = true;
+    }
+    if (job.phases.cleanup) {
+      job.phases.cleanup.collapsed = true;
+    }
   }
 
   /*
@@ -206,9 +210,11 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
           job.phases.cleanup.collapsed = true;
         }
         $scope.job = job;
-        $scope.job.phases.environment.collapsed = true;
-        $scope.job.phases.prepare.collapsed = true;
-        $scope.job.phases.cleanup.collapsed = true;
+        if ($scope.job.phases.test.commands.length) {
+          $scope.job.phases.environment.collapsed = true;
+          $scope.job.phases.prepare.collapsed = true;
+          $scope.job.phases.cleanup.collapsed = true;
+        }
         if (!cached) $scope.$digest();
       });
       if (!cached) {
