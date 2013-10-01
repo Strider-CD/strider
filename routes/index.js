@@ -45,30 +45,6 @@ exports.index = function(req, res){
 };
 
 
-/**
-function whitelist_repo_config(repo_config) {
-  var trepo = {
-    display_name:repo_config.display_url.replace(/^.*com\//gi, ''),
-    display_url:repo_config.display_url,
-    url:repo_config.url,
-    project_type:repo_config.project_type,
-    webhooks:repo_config.webhooks,
-    prod_deploy_target:repo_config.deploy_target
-  };
-  return trepo;
-}
-
-function whitelist_repo_metadata(repo_metadata) {
-  var trepo = {
-    display_name:repo_metadata.html_url.replace(/^.*com\//gi, ''),
-    url:repo_metadata.html_url,
-    id:repo_metadata.id
-  };
-  return trepo;
-}
-*/
-
-
 /* TODO: This is currently disabled. Do we need a kickoff at all?
  *
  * GET /kickoff  - start configuration wizard for a job

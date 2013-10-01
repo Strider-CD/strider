@@ -6,7 +6,6 @@ var app = require('./lib/app')
   , middleware = require('./lib/middleware')
   , auth = require('./lib/auth')
   , models = require('./lib/models')
-  , websockets = require('./lib/websockets')
   , pluginTemplates = require('./lib/pluginTemplates')
   , utils = require('./lib/utils')
 
