@@ -75,7 +75,7 @@
     $scope.configured = {};
     // TODO make this aware of a #hash ?
     $scope.branch = 'master';
-    $scope.branches = [];
+    $scope.branches = window.branches || [];
     $scope.disabled_plugins = {};
     $scope.configs = {};
     $scope.runnerConfigs = {};
