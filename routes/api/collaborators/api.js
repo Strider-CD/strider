@@ -4,7 +4,7 @@ var models = require(BASE_PATH + 'models')
   , User = models.User
   , InviteCode = models.InviteCode
 
-  , _ = require('underscore')
+  , _ = require('lodash')
   , crypto = require('crypto')
 
   , nibbler = require(BASE_PATH + 'nibbler')
@@ -53,36 +53,45 @@ function sendInvite(inviter, email, collaboration, done) {
 
 // done(err, userExisted, inviteExisted)
 function add(project, email, accessLevel, inviter, done) {
+
   User.findOne({email: email}, function (err, user) {
-    if (err) return done(err)
+    if (err) { 
+      return done(err)
+    }
+    
     if (user) {
-      user.projects[project] = accessLevel
-      user.markModified('projects')
-      return user.save(function (err) {
-        if (err) return done(err)
+      var p = _.find(user.projects, function(p) {
+        return p.name === project.toLowerCase()
+      })
+      if (p) {
+        return done("user already a collaborator", true)
+      }
+      User.update({email:email}, {$push:{"projects":{
+        name:project.toLowerCase(),
+        display_name:project,
+        access_level:accessLevel
+      }}}, function(err) {
+        if (err) return done(err, true)
         done(null, true)
       })
-    }
-    var collaboration = {
-      project: project,
-      invited_by: inviter._id,
-      access_level: accessLevel
-    }
-    InviteCode.findOne({emailed_to: email, consumed_timestamp: null}, function(err, invite) {
-      if (err) return done(err)
-      if (invite) {
-        return updateInvite(invite, collaboration, done)
+    } else {
+      var collaboration = {
+        project: project,
+        invited_by: inviter._id,
+        access_level: accessLevel
       }
-      sendInvite(inviter, email, collaboration, done)
-    })
+      InviteCode.findOne({emailed_to: email, consumed_timestamp: null}, function(err, invite) {
+        if (err) return done(err)
+        if (invite) {
+          return updateInvite(invite, collaboration, done)
+        }
+        sendInvite(inviter, email, collaboration, done)
+      })
+    }
   })
 }
 
 function del(project, email, done) {
-  User.findOne({email: email}, function (err, user) {
-    if (err) return done(err);
-    delete user.projects[project]
-    user.markModified('projects')
-    user.save(done)
-  })
+  User.update({email: email, "projects.name": project.toLowerCase()},
+    {$pull:{"projects":{"name": project.toLowerCase()}}}, done)
 }
