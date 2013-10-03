@@ -404,7 +404,7 @@ describe('functional', function() {
             if (e) throw e;
             r.statusCode.should.eql(302);
             r.headers.location.should.eql('/');
-            // Verify the new user can see the poang repository it should be a collaborator for
+            // Verify the new user can see the repository it should be a collaborator for
             request.get({
               url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
               jar: new_jar
