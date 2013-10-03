@@ -130,7 +130,10 @@ exports.config = function(req, res) {
       project: req.project.toJSON()
     }
     for (var i=0; i<users.length; i++) {
-      data.collaborators[users[i].email] = users[i].projects[req.project.name]
+      var p = _.find(users[i].projects, function(p) {
+        return p.name === req.project.name
+      })
+      data.collaborators[users[i].email] = p.access_level
     }
     data.provider = common.pluginConfigs.provider[req.project.provider.id]
     data.runners = common.pluginConfigs.runner
