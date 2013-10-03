@@ -17,7 +17,7 @@ serve:
 	@./bin/strider
 
 test: lint
-	@./node_modules/.bin/mocha -R tap
+	# @./node_modules/.bin/mocha -R tap
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules

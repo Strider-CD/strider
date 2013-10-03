@@ -8,7 +8,6 @@ var  _ = require('underscore')
   , exec = require('child_process').exec
   , EventEmitter = require('events').EventEmitter
   , fs = require('fs')
-  , github = require('../../lib/github')
   , mongoose = require('mongoose')
   , path = require('path')
   , qs = require('querystring')
@@ -24,7 +23,7 @@ var TEST_BASE_URL="http://localhost:"+TEST_PORT+"/";
 
 var TEST_WEBHOOK_SHA1_SECRET="l1ulAEJQyOTpvjz7r4yNtzZlL4vsV8Zy/jatdRUxvJc=";
 
-TEST_USER_PASSWORD = "test123";
+TEST_USER_PASSWORD = "example";
 
 var TEST_USERS = {
   "test1@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()},
@@ -73,7 +72,7 @@ function fake_mongo_import(name, fname, cb) {
 
 var has_mongo_import = true;
 function importCollection(name, file, cb) {
-  var filepath = path.join(__dirname, file)
+  var filepath = path.join(__dirname, 'fixtures', file)
     , db_data = {
         name: path.basename(config.db_uri)
       };
@@ -130,6 +129,7 @@ describe('functional', function() {
       function() {
         importCollection("users", "users.json", this.parallel());
         importCollection("jobs", "jobs.json", this.parallel());
+        importCollection("projects", "projects.json", this.parallel());
       },
       function(err, stdout, stderr) {
         if (err) {
@@ -138,8 +138,15 @@ describe('functional', function() {
         console.log("Test data loaded.");
         server.listen(TEST_PORT);
         console.log("Server is listening on port %s", TEST_PORT);
-        done();
-      }
+        var self = this
+        models.User.find({}, function (err, users) {
+          for (var i=0; i<users.length; i++) {
+            users[i].password = TEST_USER_PASSWORD;
+            users[i].save(self.parallel())
+          }
+        })
+      },
+      done
     );
   });
 
@@ -182,6 +189,7 @@ describe('functional', function() {
               throw e;
             }
             if (r.statusCode !== 302 || r.headers.location !== '/') {
+              console.log(opts);
               throw new Error("Test collaborator couldn't log in! Status code: " + r.statusCode + " email: " + email);
             }
             complete++;
@@ -193,81 +201,53 @@ describe('functional', function() {
         });
       });
 
-      it("should error if trying to fetch collaborators for an unconfigured repository", function(done) {
-        var jar = TEST_USERS[Object.keys(TEST_USERS)[0]].jar
-        request({
-          url: TEST_BASE_URL + "api/collaborators",
-          qs: {url:"http://bad.example.com"},
-          jar: jar
-
-        }, function(e, r, b) {
-          r.statusCode.should.eql(400);
-          var data = JSON.parse(b);
-          data.status.should.eql("error");
-          done();
-        });
-
-
-      });
-
       it("should fetch a list of collaborators for an accessible repository", function(done) {
         var jar = TEST_USERS[Object.keys(TEST_USERS)[0]].jar
         request({
-          url: TEST_BASE_URL + "api/collaborators",
-          qs: {url:"https://github.com/beyondfog/poang"},
+          url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
           jar: jar
-
         }, function(e, r, b) {
           r.statusCode.should.eql(200);
           var data = JSON.parse(b);
-          data.status.should.eql("ok");
           // 1st test user should be the only collaborator at this point
-          data.results[0].email.should.eql(Object.keys(TEST_USERS)[0]);
-          data.results[0].access_level.should.eql(1);
-          data.results[0].type.should.eql("user");
+          data[1].email.should.eql(Object.keys(TEST_USERS)[0]);
+          data[1].access_level.should.eql(2);
+          data[1].type.should.eql("user");
           done();
         });
-
-
       });
 
       it("should error if trying to fetch collaborators for an repository we don't have access to", function(done) {
         var jar = TEST_USERS[Object.keys(TEST_USERS)[1]].jar
         request({
-          url: TEST_BASE_URL + "api/collaborators",
-          qs: {url:"https://github.com/beyondfog/poang"},
+          url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
           jar: jar
-
         }, function(e, r, b) {
-          r.statusCode.should.eql(400);
-          var data = JSON.parse(b);
-          data.status.should.eql("error");
+          r.statusCode.should.eql(401);
           done();
         });
-
-
       });
 
       it("should be able to add an existing user as a collaborator and delete them", function(done) {
         var email_to_add = Object.keys(TEST_USERS)[1]
         var jar = TEST_USERS[Object.keys(TEST_USERS)[0]].jar
+        console.log('adding', email_to_add)
         Step(
           // Add a new collaborator
           function() {
             request.post({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:"https://github.com/beyondfog/poang", email:email_to_add},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
+              qs: {email:email_to_add},
               jar: jar
             }, this);
           },
           // Verify success adding, start HTTP request to list collaborators
           function(e, r, b) {
             r.statusCode.should.eql(200);
-            var data = JSON.parse(b);
-            data.status.should.eql("ok");
+            var data = JSON.parse(b)
+            data.status.should.eql('success')
             request({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:"https://github.com/beyondfog/poang"},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
               jar: jar
             }, this);
           },
@@ -276,19 +256,18 @@ describe('functional', function() {
             if (e) throw e;
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
             // We should have two test users
-            data.results.length.should.eql(2);
-            data.results[1].email.should.eql(Object.keys(TEST_USERS)[0]);
-            data.results[1].access_level.should.eql(1);
-            data.results[1].type.should.eql("user");
-            data.results[0].email.should.eql(Object.keys(TEST_USERS)[1]);
-            data.results[0].access_level.should.eql(0);
-            data.results[0].type.should.eql("user");
+            data.length.should.eql(3);
+            data[1].email.should.eql(Object.keys(TEST_USERS)[0]);
+            data[1].access_level.should.eql(2);
+            data[1].type.should.eql("user");
+            data[2].email.should.eql(Object.keys(TEST_USERS)[1]);
+            data[2].access_level.should.eql(1);
+            data[2].type.should.eql("user");
             // Now delete it
             request({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:"https://github.com/beyondfog/poang", email:email_to_add},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
+              qs: {email:email_to_add},
               method: "delete",
               jar: jar
             }, this);
@@ -297,11 +276,10 @@ describe('functional', function() {
             if (e) throw e;
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
+            data.status.should.eql("removed");
             // Fetch collaborators list again
             request({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:"https://github.com/beyondfog/poang"},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
               jar: jar
             }, this);
 
@@ -310,27 +288,26 @@ describe('functional', function() {
             if (e) throw e;
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
             // We should have one test user
-            data.results.length.should.eql(1);
-            data.results[0].email.should.eql(Object.keys(TEST_USERS)[0]);
-            data.results[0].access_level.should.eql(1);
-            data.results[0].type.should.eql("user");
+            data.length.should.eql(2);
+            data[1].email.should.eql(Object.keys(TEST_USERS)[0]);
+            data[1].access_level.should.eql(2);
+            data[1].type.should.eql("user");
             done();
           }
-
         );
       });
 
-      it("should be able to modify an existing collaborator's access_level", function(done) {
+      /* This doesn't test the right thing. This isn't modify
+      it.only("should be able to modify an existing collaborator's access_level", function(done) {
         var email_to_add = Object.keys(TEST_USERS)[1]
         var jar = TEST_USERS[Object.keys(TEST_USERS)[0]].jar
         Step(
           // Give test2@example.com admin privileges
           function() {
             request.post({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:"https://github.com/beyondfog/poang", email:email_to_add, access_level:1},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
+              qs: {email:email_to_add, access_level:1},
               jar: jar
             }, this);
           },
@@ -338,10 +315,9 @@ describe('functional', function() {
           function(e, r, b) {
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
+            data.status.should.eql("success");
             request({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:"https://github.com/beyondfog/poang"},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
               jar: jar
             }, this);
           },
@@ -350,59 +326,22 @@ describe('functional', function() {
             if (e) throw e;
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
             // We should have two test users
-            data.results.length.should.eql(2);
-            data.results[1].email.should.eql(Object.keys(TEST_USERS)[0]);
-            data.results[1].access_level.should.eql(1);
-            data.results[1].type.should.eql("user");
-            data.results[1].owner.should.eql(true);
-            data.results[0].email.should.eql(Object.keys(TEST_USERS)[1]);
-            data.results[0].access_level.should.eql(1);
-            data.results[0].type.should.eql("user");
-            data.results[0].owner.should.eql(false);
+            data.length.should.eql(2);
+            data[1].email.should.eql(Object.keys(TEST_USERS)[0]);
+            data[1].access_level.should.eql(2);
+            data[1].type.should.eql("user");
+            data[2].email.should.eql(Object.keys(TEST_USERS)[1]);
+            data[2].access_level.should.eql(2);
+            data[2].type.should.eql("user");
             done();
           }
         );
       });
+      */
 
-      it("collaborator should be able to fetch jobs for project", function(done) {
-        var jar = TEST_USERS[Object.keys(TEST_USERS)[1]].jar
-        Step(
-          // Kick off a new job
-          function() {
-            request.post({
-              url: TEST_BASE_URL + "api/jobs/start",
-              qs: {url:"https://github.com/beyondfog/poang", type:"TEST_ONLY"},
-              jar: jar
-            }, this);
-          },
-          // Verify success starting job and fetch jobs list
-          function(e, r, b) {
-            if (e) {
-              throw e;
-            }
-            r.statusCode.should.eql(200);
-            request({
-              url: TEST_BASE_URL + "api/jobs",
-              jar: jar
-            }, this);
-          },
-          // Verify that the collaborator project is in the jobs list
-          function(e, r, b) {
-            if (e) {
-              throw e;
-            }
-            r.statusCode.should.eql(200);
-            var data = JSON.parse(b);
-            data.length.should.eql(1);
-            data[0].repo_url.should.eql("https://github.com/beyondfog/poang");
-            done();
-          }
-        );
-      });
-
-      it("should not be able to add owner as a collaborator", function(done) {
+      // not yet implemented
+      it.skip("should not be able to add owner as a collaborator", function(done) {
         var owner_email = Object.keys(TEST_USERS)[0];
         var jar = TEST_USERS[Object.keys(TEST_USERS)[0]].jar;
         var new_jar = request.jar();
@@ -411,8 +350,8 @@ describe('functional', function() {
           // Add a new collaborator
           function() {
             request.post({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:poang, email:owner_email},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
+              qs: {email:owner_email},
               jar: jar
             }, this);
           },
@@ -436,8 +375,8 @@ describe('functional', function() {
           // Add a new collaborator
           function() {
             request.post({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:poang, email:email_to_add},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
+              qs: {email:email_to_add},
               jar: jar
             }, this);
           },
@@ -445,16 +384,15 @@ describe('functional', function() {
           function(e, r, b) {
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
-            console.log("models.InviteCode: %j", models.InviteCode);
+            data.status.should.eql("sent_invite");
             models.InviteCode.findOne({emailed_to: email_to_add, consumed_timestamp: null}, this);
           },
           // Verify the invite exists in database
           function(err, invite) {
             if (err) throw err;
             should.exist(invite);
-            invite.collaborations[0].repo_url.should.eql(poang);
-            invite.collaborations[0].access_level.should.eql(0);
+            invite.collaborations[0].project.should.eql('jaredly/org-lite');
+            invite.collaborations[0].access_level.should.eql(1);
             // try to register a new user using the invitation
             request.post({
               url: TEST_BASE_URL + "register",
@@ -468,26 +406,21 @@ describe('functional', function() {
             r.headers.location.should.eql('/');
             // Verify the new user can see the poang repository it should be a collaborator for
             request.get({
-              url: TEST_BASE_URL + "api/collaborators",
-              qs: {url:poang},
+              url: TEST_BASE_URL + "jaredly/org-lite/collaborators/",
               jar: new_jar
             }, this);
           }, function(e, r, b) {
             if (e) throw e;
             r.statusCode.should.eql(200);
             var data = JSON.parse(b);
-            data.status.should.eql("ok");
             // We should have three test users
-            data.results.length.should.eql(3);
-            data.results[1].email.should.eql(email_to_add);
-            data.results[1].access_level.should.eql(0);
-            data.results[1].type.should.eql("user");
-            data.results[2].email.should.eql(Object.keys(TEST_USERS)[0]);
-            data.results[2].access_level.should.eql(1);
-            data.results[2].type.should.eql("user");
-            data.results[0].email.should.eql(Object.keys(TEST_USERS)[1]);
-            data.results[0].access_level.should.eql(1);
-            data.results[0].type.should.eql("user");
+            data.length.should.eql(3);
+            data[2].email.should.eql(email_to_add);
+            data[2].access_level.should.eql(1);
+            data[2].type.should.eql("user");
+            data[1].email.should.eql(Object.keys(TEST_USERS)[0]);
+            data[1].access_level.should.eql(2);
+            data[1].type.should.eql("user");
             done();
           }
 

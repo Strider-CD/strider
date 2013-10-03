@@ -11,11 +11,11 @@ var _ = require('underscore')
   , api = require('./api')
 
 function email_to_gravatar(email) {
-      var gravatar = 'https://secure.gravatar.com/avatar/' +
-        crypto.createHash('md5').update(email).digest("hex") +
-        'd=identicon';
+  var gravatar = 'https://secure.gravatar.com/avatar/' +
+    crypto.createHash('md5').update(email).digest("hex") +
+    'd=identicon';
 
-      return gravatar;
+  return gravatar;
 }
 
 module.exports = {

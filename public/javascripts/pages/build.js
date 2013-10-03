@@ -1,8 +1,8 @@
 
-/* globals JobMonitor: true, console: true, io: true */
+/* globals JobDataMonitor: true, console: true, io: true, PHASES: true, SKELS: true, job: true */
 
 function BuildPage(socket, change, scope) {
-  JobMonitor.call(this, socket, change);
+  JobDataMonitor.call(this, socket, change);
   this.scope = scope;
   this.jobs = {};
 }
@@ -16,8 +16,9 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
   },
   addJob: function (job, access) {
     this.jobs[job._id] = job;
-    var found = -1;
-    for (var i=0; i<this.scope.jobs.length; i++) {
+    var found = -1
+      , i;
+    for (i=0; i<this.scope.jobs.length; i++) {
       if (this.scope.jobs[i]._id === job._id) {
         found = i;
         break;
@@ -28,7 +29,7 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     }
     if (!job.phases) {
       job.phases = {};
-      for (var i=0; i<PHASES.length; i++) {
+      for (i=0; i<PHASES.length; i++) {
         job.phases[PHASES[i]] = _.cloneDeep(SKELS.phase);
       }
       job.phase = 'environment';

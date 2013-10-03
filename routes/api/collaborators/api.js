@@ -57,6 +57,7 @@ function add(project, email, accessLevel, inviter, done) {
     if (err) return done(err)
     if (user) {
       user.projects[project] = accessLevel
+      user.markModified('projects')
       return user.save(function (err) {
         if (err) return done(err)
         done(null, true)
@@ -81,6 +82,7 @@ function del(project, email, done) {
   User.findOne({email: email}, function (err, user) {
     if (err) return done(err);
     delete user.projects[project]
+    user.markModified('projects')
     user.save(done)
   })
 }
