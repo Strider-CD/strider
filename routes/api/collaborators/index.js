@@ -38,11 +38,14 @@ function get(req, res) {
     if (err) return res.send(500, 'Failed to get users: ' + err.message)
     var results = []
     for (var i=0; i<users.length; i++) {
+      var p = _.find(users[i].projects, function(p) {
+        return p.name === project.toLowerCase()
+      })
       results.push({
         type: "user",
         id: users[i]._id,
         email: users[i].email,
-        access_level: users[i].projects[project],
+        access_level: p.access_level,
         gravatar: email_to_gravatar(users[i].email)
       })
     }
