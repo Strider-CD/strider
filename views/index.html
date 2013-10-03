@@ -51,7 +51,7 @@
             <table id="job-list" class="table">
               {% include "partials/dashboard-header.html" %}
               <tbody>
-                <tr ng-repeat="job in jobs.yours | orderBy:['+finished_time']:true">
+                <tr ng-repeat="job in jobs.yours">
                   {% include "partials/_dashboard_row.html" %}
                 </tr>
               </tbody>
@@ -63,7 +63,7 @@
               {% set config = { "public": true } %}
               {% include "partials/dashboard-header.html" with config %}
               <tbody>
-                <tr ng-repeat="job in jobs.public | orderBy:['+finished_time']:true">
+                <tr ng-repeat="job in jobs.public">
                   {% include "partials/_dashboard_row.html" with config %}
                 </tr>
               </tbody>

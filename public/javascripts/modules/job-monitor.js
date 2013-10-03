@@ -20,11 +20,11 @@ JobMonitor.prototype = {
   },
   events: {
     'job.new': function (job, access) {
-      this.addJob(job, access);
+      this.addJob(job[0], access);
       this.changed();
     },
     'job.done': function (job, access) {
-      this.addJob(job, access);
+      this.addJob(job[0], access);
       this.changed();
     }
   },
@@ -62,7 +62,7 @@ JobMonitor.prototype = {
   unknown: function (id, event, args, access) {
     args = [id].concat(args);
     if (this.waiting[id]) {
-      return this.waiting.push([event, args, access]);
+      return this.waiting[id].push([event, args, access]);
     }
     this.waiting[id] = [[event, args, access]];
     this.sock.emit(this.emits.getUnknown, id, this.gotUnknown.bind(this));
@@ -70,7 +70,12 @@ JobMonitor.prototype = {
   gotUnknown: function (job) {
     if (!this.waiting[job._id]) return console.warn("Got unknownjob:response but wan't waiting for it...");
     var access = this.waiting[job._id][0][2];
-    this.addJob(job);
+    if (job.status === 'submitted') {
+      job.status = 'running';
+      job.started = new Date();
+    }
+    // job.phase = job.phase || 'environment';
+    this.addJob(job, access);
     // TODO: this.update searches for the job again. optimize
     for (var i=0; i<this.waiting[job._id]; i++) {
       this.update.apply(this, this.waiting[i].concat([true]));
@@ -91,7 +96,10 @@ JobMonitor.prototype = {
     'canceled': 'errored',
     'phase.done': function (data) {
       this.phase = PHASES.indexOf(data.phase) + 1;
-    }
+    },
+    // this is just so we'll trigger the "unknown job" lookup sooner on the dashboard
+    'stdout': function (text) {},
+    'stderr': function (text) {}
   },
 };
 

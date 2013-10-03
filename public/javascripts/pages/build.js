@@ -1,6 +1,27 @@
 
 /* globals JobDataMonitor: true, console: true, io: true, PHASES: true, SKELS: true, job: true */
 
+function jobSort(a, b) {
+  if (a.nojobs) {
+    if (b.nojobs) return 0
+    return -1
+  }
+  if (b.nojobs) return 1
+  if (a.status === 'running') {
+    if (b.status === 'running') return 0
+    return -1
+  }
+  if (b.status === 'running') return 1
+  if (a.status === 'submitted') {
+    if (b.status === 'submitted') return 0
+    return -1
+  }
+  if (b.status === 'submitted') return 1
+  if (!a.finished || !a.finished.getTime) return -1
+  if (!b.finished || !b.finished.getTime) return 1
+  return b.finished.getTime() - a.finished.getTime()
+}
+
 function BuildPage(socket, change, scope) {
   JobDataMonitor.call(this, socket, change);
   this.scope = scope;
@@ -27,18 +48,20 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     if (found !== -1) {
       this.scope.jobs.splice(found, 1);
     }
-    if (!job.phases) {
-      job.phases = {};
-      for (i=0; i<PHASES.length; i++) {
-        job.phases[PHASES[i]] = _.cloneDeep(SKELS.phase);
-      }
-      job.phase = 'environment';
-      job.phases[job.phase].started = new Date()
+    if (!job.phase) job.phase = 'environment';
+    if (!job.std) {
       job.std = {
         out: '',
         err: '',
         merged: ''
       }
+    }
+    if (!job.phases) {
+      job.phases = {};
+      for (i=0; i<PHASES.length; i++) {
+        job.phases[PHASES[i]] = _.cloneDeep(SKELS.phase);
+      }
+      job.phases[job.phase].started = new Date()
     } else {
       if (job.phases.test.commands.length) {
         if (job.phases.environment) {
@@ -53,6 +76,7 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
       }
     }
     this.scope.jobs.unshift(job);
+    this.scope.jobs.sort(jobSort);
     this.scope.job = job;
   },
   get: function (id, done) {
