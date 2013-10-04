@@ -200,3 +200,10 @@ exports.status = function(req, res) {
 
 };
 
+// GET /projects
+// 
+// This is where the "add project" flow starts.
+exports.projects = function(req, res) {
+  return res.render('projects.html');
+}
+
