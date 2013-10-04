@@ -204,6 +204,8 @@ exports.status = function(req, res) {
 // 
 // This is where the "add project" flow starts.
 exports.projects = function(req, res) {
-  return res.render('projects.html');
+  var data = {}
+  data.providers = common.pluginConfigs.provider
+  return res.render('projects.html', data);
 }
 

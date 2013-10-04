@@ -3,6 +3,9 @@
 {% pluginblock ExtraStyles %}
 <link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
 <link rel="stylesheet" href="/stylesheets/add_repo.css"/>
+<script>
+  var providers = {{ providers | scriptjson | raw }};
+</script>
 {% endpluginblock %}
 
 
