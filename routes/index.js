@@ -206,6 +206,10 @@ exports.status = function(req, res) {
 exports.projects = function(req, res) {
   var data = {}
   data.providers = common.extensions.provider
+  _.each(data.providers, function(v, k) {
+    var isSetup = v.isSetup(v)
+    v.isSetup = isSetup
+  })
   return res.render('projects.html', data);
 }
 
