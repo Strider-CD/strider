@@ -25,27 +25,28 @@
     </div>
   </div>
 
-{% if !currentUser.github.id %}
+{% for provider in providers %}
 <div class ='span7 well'>
-  <p>Hi, {{ currentUser.email }}, it looks like you haven't yet linked your Github account. Press the button below to get started.</p>
-  <p> If you don't want to link your Github account at this time, you can configure a project manually. </p>
-  <p>&nbsp;
-  <div class ='actions'>
-    <a class='btn btn-primary' href='/auth/github'>Link Github account</a> 
-        &nbsp;&nbsp;&nbsp;
-        <a class='btn' href='/manual_setup'> Manual Setup</a>
-      </div>
-  </p>
-</div>
+<h3>{{ provider.name }}</h3>
+{% if !provider.isSetup %}
+<p>{{ provider.name }} is not setup.</p>
+<a href="{{ provider.setupLink }}" class="btn btn-primary">Click to setup</a>
+
 {% else %}
 
-  {% include "partials/spinner.html" %}
-  {% include "projects_templates.html" %}
-  <script src='/socket.io/socket.io.js'></script>
-  <div id="dashboard"></div>
-  <script src="/javascripts/lib/bootstrap-switch.js"></script>
-  <script src="/javascripts/projects.js"></script>
-  <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
+<p>{{ provider.name }} is setup. repo list goes here</p>
 
 {% endif %}
+
+</div>
+{% endfor %}
+
+{% include "partials/spinner.html" %}
+{% include "projects_templates.html" %}
+<script src='/socket.io/socket.io.js'></script>
+<div id="dashboard"></div>
+<script src="/javascripts/lib/bootstrap-switch.js"></script>
+<script src="/javascripts/projects.js"></script>
+<script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
+
 {% endblock %}
