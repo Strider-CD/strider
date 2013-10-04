@@ -5,6 +5,7 @@
 var BASE_PATH = "../lib/"
 
 var _ = require('underscore')
+  , async = require('async')
   , Step = require('step')
   , fs = require('fs')
   , path = require('path')
@@ -205,11 +206,33 @@ exports.status = function(req, res) {
 // This is where the "add project" flow starts.
 exports.projects = function(req, res) {
   var data = {}
-  data.providers = common.extensions.provider
-  _.each(data.providers, function(v, k) {
-    var isSetup = v.isSetup(v)
-    v.isSetup = isSetup
+  data.providers = []
+  var f = []
+  _.each(common.extensions.provider, function(v, k) {
+    f.push(function(done) {
+      var p = {}
+      var accountConfig = _.find(req.user.accounts, function(a) {
+        return a.provider === k
+      }).config
+      p.isSetup = v.isSetup(accountConfig)
+      p.setupLink = v.setupLink
+      p.name = k.toString()
+      p.repos = []
+      if (p.isSetup) {
+        // get repos
+        v.listRepos(v, function(err, repos) {
+          p.repos = repos
+          data.providers.push(p)
+          done()
+        })
+      } else {
+        data.providers.push(p)
+        done()
+      }
+    })
   })
-  return res.render('projects.html', data);
+  async.parallel(f, function(err, r) {
+    return res.render('projects.html', data);
+  })
 }
 
