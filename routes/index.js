@@ -219,8 +219,8 @@ exports.projects = function(req, res) {
       p.name = k.toString()
       p.repos = []
       if (p.isSetup) {
-        // get repos
-        v.listRepos(v, function(err, repos) {
+        // get repos if we can
+        v.listRepos(accountConfig, function(err, repos) {
           p.repos = repos
           data.providers.push(p)
           done()
