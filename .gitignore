@@ -4,3 +4,5 @@ config.sh
 .idea/*
 public/javascripts/pages/config-plugins-compiled.js
 public/stylesheets/css/config-plugins-compiled.css
+public/javascripts/pages/account-plugins-compiled.js
+public/stylesheets/css/account-plugins-compiled.css

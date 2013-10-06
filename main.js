@@ -181,7 +181,14 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
           function (err, configs) {
             console.log('loaded config pages')
             common.pluginConfigs = configs
-            next()
+            loader.initUserConfig(
+              path.join(__dirname, 'public/javascripts/pages/account-plugins-compiled.js'),
+              path.join(__dirname, 'public/stylesheets/css/account-plugins-compiled.css'),
+              function (err, configs) {
+                console.log('loaded account config pages')
+                common.userConfigs = configs
+                next()
+              })
           })
       }
     ], function (err) {

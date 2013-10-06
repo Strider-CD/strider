@@ -10,6 +10,7 @@ var _ = require('underscore')
   , fs = require('fs')
   , path = require('path')
 
+  , utils = require(BASE_PATH + 'utils')
   , models = require(BASE_PATH + 'models')
   , common = require(BASE_PATH + 'common')
   , config = require(BASE_PATH + 'config')
@@ -75,8 +76,16 @@ exports.kickoff = function(req, res, github) {
  * GET /account - account settings page
  */
 exports.account = function(req, res){
+  var hosted = {}
+    , providers = common.userConfigs.provider
+  for (var id in providers) {
+    if (common.extensions.provider[id].hosted) {
+      hosted[id] = providers[id]
+    }
+  }
   res.render('account.html', {
-    user: req.user.toJSON()
+    user: utils.sanitizeUser(req.user.toJSON()),
+    providers: hosted
   });
 };
 
@@ -143,7 +152,7 @@ exports.config = function(req, res) {
 
     var provider = common.extensions.provider[req.project.provider.id]
     if (typeof provider.getBranches === 'function') {
-      provider.getBranches(req.user.account(req.project.provider),
+      provider.getBranches(req.user.account(req.project.provider).config,
         req.project.provider.config, req.project, function(err, branches) {
         if (err) {
           console.error("could not fetch branches for repo %s: %s", req.project.name, err)

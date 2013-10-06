@@ -8,8 +8,9 @@
 
 <script>
   var user = {{ user | scriptjson | raw }};
+  var providers = {{ providers | scriptjson | raw }};
 </script>
-<div class='span12' ng-app="Account" ng-controller="AlertsController">
+<div class="row" ng-app="Account" ng-controller="AlertsController">
   <h3>Account Management:</h3>
   <div class="notify-wrapper pull-right">
     <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
@@ -19,36 +20,76 @@
   </div>
   <p>
   <div class="tabbable tabs-left" ng-controller="AccountController">
-    <ul class='nav nav-tabs'>
-      <li class='active'><a href='#email' data-toggle='tab'>Email Address</a></li>
-      <li><a href='#password' data-toggle='tab'>Password</a></li>
+    <ul class="nav nav-tabs span2">
+      <li class="active"><a href="#email" data-toggle="tab">Email Address</a></li>
+      <li><a href="#password" data-toggle="tab">Password</a></li>
+      {% for provider in providers %}
+      <li>
+        <a href="#provider-{{ loop.key }}" data-toggle="tab">{{ provider.title }}</a>
+      </li>
+      {% endfor %}
     </ul>
 
-    <div class='tab-content'>
+    <div class="tab-content span9">
+      {#
+        To configure what shows up here, change the "accountConfig"
+        option in the strider.json definition for the provider
+        plugin. This only shows up if "hosted" is true
+      #}
+      {% for provider in providers %}
+      <div id="provider-{{loop.key}}" class="tab-pane provider-tab">
+        <h2>{{ provider.title }} Accounts</h2>
+        <div class="well" ng-repeat="account in accounts['{{loop.key}}']">
+          {% if provider.html %}
+          <h3 ng-switch="!!account.display_url">
+            <span ng-switch-when="false">[[ account.title ]]</span>
+            <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
+          </h3>
+          <div ng-controller="{{provider.controller}}">
+            {% autoescape false %}
+            {{ provider.html }}
+            {% endautoescape %}
+          </div>
+          <button class="btn pull-right btn-danger" ng-click="deleteAccount(account)">Delete Account</button>
+          {% else %}
+          <h3 ng-switch="!!account.display_url">
+            <span ng-switch-when="false">[[ account.title ]]</span>
+            <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
+            <button class="btn btn-danger pull-right" ng-click="deleteAccount(account)">Delete Account</button>
+          </h3>
+          {% endif %}
+        </div>
+        <div ng-switch="!!providers['{{ loop.key }}'].setupLink">
+          <a class="btn btn-success" href="[[ providers['{{ loop.key }}'].setupLink ]]" ng-switch-when="true">Add Account</a>
+          <button ng-switch-default class="btn btn-success" ng-click="addAccount('{{ loop.key }}')">Add Account</button>
+        </div>
+      </div>
+      {% endfor %}
+      
       <div id="email" class="tab-pane active">
-        <div id="account_email" class="span8">
-          <div class='email-message'>
-            <div class='well'>
+        <div id="account_email">
+          <div class="email-message">
+            <div class="well">
               <fieldset>
                 <legend>Change Email</legend>
                 <div class="control-group email">
-                  <label class='control-label'for='email'>Account Email Address</label>
+                  <label class="control-label"for="email">Account Email Address</label>
                 </div>
-                <div class='controls'>
-                  <input class="xlarge" type='text' name='email' ng-model="user.email" />
+                <div class="controls">
+                  <input class="xlarge" type="text" name="email" ng-model="user.email" />
                   <span class="help-inline email"></span>
                 </div>
                 <div class="actions">
                   <button class="btn" ng-click="changeEmail()">Change Email</button>
                 </div>
-            </fieldset>
+              </fieldset>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
       <div id="password" class="tab-pane">
-        <div id="change_password" class="span8">
+        <div id="change_password">
           <form class="password-message" name="passwordForm">
             <div class="well">
               <fieldset>
