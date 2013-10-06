@@ -2,6 +2,15 @@
   background-color: black;
   border-radius: 10px;
   padding: 10px;
+  margin-bottom: 18px;
+}
+.accounts-nav ul {
+  margin-bottom: 0;
+}
+.accounts-nav .refresh {
+  margin: 2px;
+  padding: 8px;
+  border-raddius: 5px;
 }
 .accounts-nav a {
   color: white;
@@ -14,6 +23,9 @@
 .repo-list .repo {
   padding: 10px 5px 10px 15px;
   border-bottom: 1px solid #ccc;
+}
+.repo-list .repo.configured a {
+  color: green;
 }
 .repo-list .repo a:hover {
   text-decoration: none;
@@ -36,4 +48,10 @@
 .groups-list a {
   line-height: 24px;
   border-radius: 5px;
+}
+.groups-list a .label {
+  line-height: 17px;
+  font-size: 17px;
+  padding-top: 4px;
+  margin-right: -10px;
 }

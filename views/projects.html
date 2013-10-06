@@ -28,26 +28,35 @@
 </div>
 
 <div class="projects-page" ng-app="Projects" ng-controller="AlertsController">
-  <ul class="nav nav-pills accounts-nav">
-    {% for account in currentUser.accounts %}
-    <li{% if loop.first %} class="active"{% endif %}>
-      <a href="#account-{{ account.provider }}-{{ account.id }}" data-toggle="tab">
-        {% if providers[account.provider].inline_icon %}<i class="icon-{{ providers[account.provider].inline_icon }}"></i>{% endif %} 
-        {{ account.title }}
-      </a>
-    </li>
-    {% endfor %}
-    <li>
-      <a href="#manual-setup" data-toggle="tab"{% if !currentUser.accounts.length %} class="active"{% endif %}>Manual Add</a>
-    </li>
-    {% for provider in unconfigured %}
-    <li>
-      <a href="{{ provider.setupLink }}">
-        {% if provider.inline_icon %}<i class="icon-{{ provider.inline_icon }}"></i>{% endif %} Setup {{ provider.title }}
-      </a>
-    </li>
-    {% endfor %}
-  </ul>
+  <div class="accounts-nav">
+    <div class="pull-right"><a href="?refresh=true" class="refresh btn btn-warning"><i class="icon-refresh"></i></a></div>
+    <ul class="nav nav-pills">
+      {% for account in currentUser.accounts %}
+      <li{% if loop.first %} class="active"{% endif %}>
+        <a href="#account-{{ account.provider }}-{{ account.id }}" data-toggle="tab">
+          {% if providers[account.provider].inline_icon %}<i class="icon-{{ providers[account.provider].inline_icon }}"></i>{% endif %} 
+          {{ account.title }}
+        </a>
+      </li>
+      {% endfor %}
+      <li>
+        <a href="#manual-setup" data-toggle="tab"{% if !currentUser.accounts.length %} class="active"{% endif %}>Manual Add</a>
+      </li>
+      {% for provider in unconfigured %}
+      <li>
+        <a href="{{ provider.setupLink }}">
+          {% if provider.inline_icon %}<i class="icon-{{ provider.inline_icon }}"></i>{% endif %} Setup {{ provider.title }}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+    <div class="notify-wrapper pull-right">
+      <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
+        <a type="button" class="close" ng-click="clearMessage()">&times;</a>
+        <div class="message" ng-bind-html="message.text"></div>
+      </div>
+    </div>
 
   <div class="tab-content" ng-controller="ProjectsController">
     <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
@@ -55,7 +64,10 @@
       <ul class="span2 nav nav-list nav-stacked groups-list">
         <li ng-repeat="(name, group) in repos[account.provider][account.id]"
             ng-class="{active: $first}">
-          <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]">[[ name ]]</a>
+          <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]">
+            [[ name ]]
+            <span class="label label-success pull-right" ng-show="group.configured">[[ group.configured ]]</span>
+          </a>
         </li>
       </ul>
       <div class="tab-content span9">
@@ -63,7 +75,7 @@
            ng-repeat="(name, group) in repos[account.provider][account.id]"
            id="group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]"
            class="tab-pane repo-list unstyled" ng-class="{ active: $first }">
-          <li ng-repeat="repo in group" class="repo">
+          <li ng-repeat="repo in group.repos" class="repo" ng-class="{ configured: !!repo.project }">
             <a href="[[ repo.display_url ]]" target="_blank" class="hosted-url">
               <i class="icon-globe"></i>
             </a>

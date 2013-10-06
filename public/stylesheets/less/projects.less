@@ -3,6 +3,17 @@
   background-color: black;
   border-radius: 10px;
   padding: 10px;
+  margin-bottom: 18px;
+
+  ul {
+    margin-bottom: 0
+  }
+
+  .refresh {
+    margin: 2px;
+    padding: 8px;
+    border-raddius: 5px;
+  }
 
   a {
     color: white;
@@ -17,6 +28,12 @@
   .repo {
     padding: 10px 5px 10px 15px;
     border-bottom: 1px solid #ccc;
+
+    &.configured {
+      a {
+        color: green;
+      }
+    }
 
     a:hover {
       text-decoration: none;
@@ -47,6 +64,13 @@
   a {
     line-height: 24px;
     border-radius: 5px;
+
+    .label {
+      line-height: 17px;
+      font-size: 17px;
+      padding-top: 4px;
+      margin-right: -10px;
+    }
   }
 }
     

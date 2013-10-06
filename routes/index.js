@@ -226,16 +226,34 @@ function deepObj(obj) {
   }, obj)
 }
 
+function groupRepos(account, repomap, tree, repos) {
+  var groups = deepObj(repomap, account.provider, account.id)
+    , projectmap = getDeep(tree, account.provider, account.id) || {}
+  for (var i=0; i<repos.length; i++) {
+    if (!groups[repos[i].group]) {
+      groups[repos[i].group] = {
+        configured: 0,
+        repos: []
+      }
+    }
+    repos[i].project = projectmap[repos[i].id]
+    groups[repos[i].group].repos.push(repos[i])
+    if (repos[i].project) {
+      groups[repos[i].group].configured += 1
+    }
+  }
+}
+
 // GET /projects
 // 
 // This is where the "add project" flow starts.
 exports.projects = function(req, res) {
   var tasks = []
-    , repos = {}
+    , repomap = {}
     , configured = {}
     , unconfigured = []
     , providers = common.userConfigs.provider
-  Project.find({_creator: req.user._id}).lean().exec(function (err, projects) {
+  Project.find({creator: req.user._id}).lean().exec(function (err, projects) {
     if (err) return res.send(500, 'Failed to get projects from the database')
     // tree is { providerid: { accountid: { repoid: project._id, ...}, ...}, ...}
     // to track which repos have been configured
@@ -251,24 +269,25 @@ exports.projects = function(req, res) {
     
     req.user.accounts.forEach(function (account) {
       configured[account.provider] = true
+
+      var skip = (account.last_updated && (new Date().getTime()) - account.last_updated.getTime()  < 15 * 60 * 1000 && !req.query.refresh) || req.query.norefresh
+      if (skip) {
+        groupRepos(account, repomap, tree, account.toJSON().cache)
+        return
+      }
+
       tasks.push(function (next) {
-        common.extensions.provider[account.provider].listRepos(account, function (err, repos) {
+        common.extensions.provider[account.provider].listRepos(account.config, function (err, repos) {
           if (err) return next(err)
           account.cache = repos
-          var groups = deepObj(repos, account.provider, account.id)
-            , projectmap = getDeep(tree, account.provider, account.id) || {}
-          for (var i=0; i<repos.length; i++) {
-            repos[i].project = projectmap[repos[i].id]
-            if (!groups[repos[i].group]) groups[repos[i].group] = []
-            groups[repos[i].group].push(repos[i])
-          }
+          groupRepos(account, repomap, tree, repos)
           req.user.markModified('accounts')
+          account.last_updated = new Date()
           next()
         })
       })
     })
     for (var id in providers) {
-      repos[id] = {}
       if (configured[id] || !providers[id].setupLink) continue;
       unconfigured.push(providers[id])
     }
@@ -276,11 +295,12 @@ exports.projects = function(req, res) {
       if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
       // cache the fetched repos
       req.user.save(function (err) {
+        if (err) console.error('error saving repo cache')
         // user is already be available via the "currentUser" template variable
         return res.render('projects.html', {
           unconfigured: unconfigured,
           providers: providers,
-          repos: repos
+          repos: repomap
         });
       })
     })
