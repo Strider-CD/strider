@@ -29,7 +29,7 @@
   app.controller('RunnerController', ['$scope', '$element', function ($scope, $element) {
     var name = $element.attr('id').split('-').slice(1).join('-');
     $scope.saving = false;
-    $scope.$watch('runnerConfigs[branch]["' + name + '"]', function (value) {
+    $scope.$watch('runnerConfigs[branch.name]["' + name + '"]', function (value) {
       console.log('Runner config', name, value, $scope.runnerConfigs);
       $scope.config = value;
     });
@@ -54,7 +54,7 @@
 
   app.controller('JobController', ['$scope', '$element', function ($scope, $element) {
     var name = $element.attr('id').split('-').slice(1).join('-');
-    $scope.$watch('configs[branch]["' + name + '"].config', function (value) {
+    $scope.$watch('configs[branch.name]["' + name + '"].config', function (value) {
       $scope.config = value;
     });
     $scope.saving = false;
@@ -74,7 +74,7 @@
     $scope.runners = window.runners || {};
     $scope.configured = {};
     // TODO make this aware of a #hash ?
-    $scope.branch = 'master';
+    $scope.branch = $scope.project.branches[0];
     $scope.branches = window.branches || [];
     $scope.disabled_plugins = {};
     $scope.configs = {};
@@ -88,22 +88,25 @@
     };
 
     $scope.setEnabled = function (plugin, enabled) {
-      $scope.configs[$scope.branch][plugin].enabled = enabled;
+      $scope.configs[$scope.branch.name][plugin].enabled = enabled;
       savePluginOrder();
     };
 
     $scope.switchToMaster = function () {
-      $scope.branch = 'master';
+      for (var i=0; i<$scope.project.branches.length; i++) {
+        if ($scope.project.branches[i].name === 'master') {
+          $scope.branch = $scope.project.branches[i];
+          return;
+        }
+      }
     };
 
     $scope.toggleBranch = function () {
-      if ($scope.branch === 'master') return;
-      if ($scope.project.branches[$scope.branch] === 'master') {
-        $scope.project.branches[$scope.branch] = save_branches[$scope.branch] || $.extend(true, {}, $scope.project.branches.master);
+      if ($scope.branch.mirror_master) {
+        $scope.branch.mirror_master = false;
         initBranch($scope.branch);
       } else {
-        save_branches[$scope.branch] = $scope.project.branches[$scope.branch];
-        $scope.project.branches[$scope.branch] = 'master';
+        $scope.branch.mirror_master = true;
       }
     };
 
@@ -114,23 +117,23 @@
     });
 
     $scope.setRunner = function (name) {
-      $scope.project.branches[$scope.branch].runner = {
+      $scope.branch.runner = {
         id: name,
         config: $scope.runnerConfigs[name]
       };
     };
 
     function updateConfigured() {
-      var plugins = $scope.project.branches[$scope.branch].plugins;
-      $scope.configured[$scope.branch] = {};
+      var plugins = $scope.branch.plugins;
+      $scope.configured[$scope.branch.name] = {};
       for (var i=0; i<plugins.length; i++) {
-        $scope.configured[$scope.branch][plugins[i].id] = true;
+        $scope.configured[$scope.branch.name][plugins[i].id] = true;
       }
       savePluginOrder();
     }
 
     function savePluginOrder() {
-      var plugins = $scope.project.branches[$scope.branch].plugins
+      var plugins = $scope.branch.plugins
         , data = [];
       for (var i=0; i<plugins.length; i++) {
         data.push({
@@ -139,20 +142,19 @@
         });
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/' + $scope.branch + '/',
+        url: '/' + $scope.project.name + '/config/' + $scope.branch.name + '/',
         type: 'PUT',
         data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(data, ts, xhr) {
-          $scope.success('Plugin order on branch ' + $scope.branch + ' saved.');
+          $scope.success('Plugin order on branch ' + $scope.branch.name + ' saved.');
           $scope.$root.$digest();
         },
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
-            var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error saving plugin order on branch " + $scope.branch + ": " + data.errors[0]);
+            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + xhr.responseText);
           } else {
-            $scope.error("Error saving plugin order on branch " + $scope.branch + ": " + e);
+            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + e);
           }
           $scope.$root.$digest();
         }
@@ -168,51 +170,49 @@
       },
       receive: function (e, ui) {
         updateConfigured();
-        var plugins = $scope.project.branches[$scope.branch].plugins;
+        var plugins = $scope.branch.plugins;
         plugins[ui.item.index()].enabled = true;
       }
     };
 
     function initBranch(branch) {
-      var branches = $scope.project.branches
-        , plugins;
+      var plugins;
 
-      $scope.configured[branch] = {};
-      $scope.configs[branch] = {};
-      $scope.runnerConfigs[branch] = {};
-      $scope.disabled_plugins[branch] = [];
+      $scope.configured[branch.name] = {};
+      $scope.configs[branch.name] = {};
+      $scope.runnerConfigs[branch.name] = {};
+      $scope.disabled_plugins[branch.name] = [];
 
-      if (branches[branch] !== 'master') {
-        plugins = branches[branch].plugins;
+      if (!branch.mirror_master) {
+        plugins = branch.plugins;
         for (var i=0; i<plugins.length; i++) {
-          $scope.configured[branch][plugins[i].id] = true;
-          $scope.configs[branch][plugins[i].id] = plugins[i];
+          $scope.configured[branch.name][plugins[i].id] = true;
+          $scope.configs[branch.name][plugins[i].id] = plugins[i];
         }
       }
 
       for (var plugin in $scope.plugins) {
-        if ($scope.configured[branch][plugin]) continue;
-        $scope.configs[branch][plugin] = {
+        if ($scope.configured[branch.name][plugin]) continue;
+        $scope.configs[branch.name][plugin] = {
           id: plugin,
           enabled: true,
           config: {}
         };
-        $scope.disabled_plugins[branch].push($scope.configs[branch][plugin]);
+        $scope.disabled_plugins[branch.name].push($scope.configs[branch.name][plugin]);
       }
 
-      if (branches[branch] !== 'master') {
-        $scope.runnerConfigs[branch][branches[branch].runner.id] = branches[branch].runner.config;
+      if (!branch.mirror_master) {
+        $scope.runnerConfigs[branch.name][branch.runner.id] = branch.runner.config;
       }
       for (var runner in $scope.runners) {
-        if (branches[branch] !== 'master' && runner === branches[branch].runner.id) continue;
-        $scope.runnerConfigs[branch][runner] = {};
+        if (!branch.mirror_master && runner === branch.runner.id) continue;
+        $scope.runnerConfigs[branch.name][runner] = {};
       }
     }
     function initPlugins() {
       var branches = $scope.project.branches
-      for (var branch in branches) {
-        initBranch(branch);
-        $scope.branches.push(branch);
+      for (var i=0; i<branches.length; i++) {
+        initBranch(branches[i]);
       }
     }
 
@@ -284,15 +284,16 @@
       }, 1000);
     };
 
+    // todo: pass in name?
     $scope.runnerConfig = function (branch, data, next) {
-      if (!next) {
+      if (arguments.length === 2) {
         next = data;
         data = branch;
         branch = $scope.branch;
       }
-      var name = $scope.project.branches[branch].runner.id;
+      var name = $scope.branch.runner.id;
       if (arguments.length < 2) {
-        return $scope.project.branches[branch].runner.config;
+        return $scope.runnerConfigs[name];
       }
       $.ajax({
         url: 'master/runner',
@@ -349,11 +350,10 @@
         data = branch;
         branch = $scope.branch;
       }
-      var branchobj = $scope.project.branches[branch]
-      if (!branchobj || 'string' === typeof branchobj) {
+      if (branch.mirror_master) {
         return
       }
-      var plugin = $scope.configs[branch][name]
+      var plugin = $scope.configs[branch.name][name]
       if (arguments.length < 3) {
         return plugin.config;
       }
@@ -362,21 +362,21 @@
         throw new Error('Plugin not configured: ' + name);
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/' + branch + "/" + name,
+        url: '/' + $scope.project.name + '/config/' + branch.name + "/" + name,
         type: "PUT",
         data: data,
         success: function(data, ts, xhr) {
-          $scope.success("Config for " + name + " on branch " + branch + " saved.");
-          $scope.configs[branch][name].config = data;
+          $scope.success("Config for " + name + " on branch " + branch.name + " saved.");
+          $scope.configs[branch.name][name].config = data;
           next(null, data);
           $scope.$root.$digest();
         },
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
             var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error saving " + name + " config on branch " + branch + ": " + data.errors[0]);
+            $scope.error("Error saving " + name + " config on branch " + branch.name + ": " + data.errors[0]);
           } else {
-            $scope.error("Error saving " + name + " config on branch " + branch + ": " + e);
+            $scope.error("Error saving " + name + " config on branch " + branch.name + ": " + e);
           }
           next();
           $scope.$root.$digest();

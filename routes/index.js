@@ -96,11 +96,12 @@ exports.setPluginConfig = function (req, res) {
 }
 
 exports.setPluginOrder = function (req, res) {
-  if (!req.project.branches[req.params.branch]) {
+  var branch = req.project.branch(req.params.branch)
+  if (!branch) {
     return res.send(400, 'Invalid branch')
   }
   var plugins = req.body
-    , old = req.project.branches[req.params.branch].plugins || []
+    , old = branch.plugins || []
     , map = {}
     , i
   for (i=0; i<old.length; i++) {
@@ -113,7 +114,7 @@ exports.setPluginOrder = function (req, res) {
       plugins[i].config = {}
     }
   }
-  req.project.branches[req.params.branch].plugins = plugins
+  branch.plugins = plugins
   req.project.markModified('branches')
   req.project.save(function (err) {
     if (err) return res.send(500, 'Failed to save plugin config')
@@ -142,7 +143,7 @@ exports.config = function(req, res) {
 
     var provider = common.extensions.provider[req.project.provider.id]
     if (typeof provider.getBranches === 'function') {
-      provider.getBranches(req.user.providers[req.project.provider.id],
+      provider.getBranches(req.user.account(req.project.provider),
         req.project.provider.config, req.project, function(err, branches) {
         if (err) {
           console.error("could not fetch branches for repo %s: %s", req.project.name, err)

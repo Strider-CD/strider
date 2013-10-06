@@ -1,4 +1,4 @@
-<div class="project-config" ng-show="branch === 'master'">
+<div class="project-config" ng-show="branch.name === 'master'">
   <div id="provider-config" class="well" ng-controller="{{ provider.controller }}">
     <h3>Provider: {{ provider.title }}</h3>
     {% autoescape false %}
@@ -11,7 +11,7 @@
   <p class="help-text">Builds of public projects are visible to anyone</p>
   {% include "config/collaborators.html" %}
 </div>
-<div class="well" ng-hide="branch === 'master'">
+<div class="well" ng-hide="branch.name === 'master'">
   To configure the provider and collaborators,
   <button class="btn" ng-click="switchToMaster()">
     switch to the master branch

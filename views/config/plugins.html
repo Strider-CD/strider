@@ -3,7 +3,7 @@
   <h3>Pick the Runner</h3>
   {% for runner in runners %}
   <div ng-click="setRunner('{{ loop.key }}')"
-       ng-class="{ active: project.branches[branch].runner.id == '{{ loop.key }}'}"
+       ng-class="{ active: branch.runner.id == '{{ loop.key }}'}"
        class="runner runner-{{ loop.key }}">
     <div class="img" style="background-image: url('/ext/{{ loop.key }}/{{ runner.icon }}')"></div>
     <span class="title">{{ runner.title }}</span>
@@ -14,8 +14,8 @@
   <h3>Select Job Plugins</h3>
   <div class="enabled-plugins">
     <h3>Plugins in Use</h3>
-    <ul ng-model="project.branches[branch].plugins" ui-sortable="inUseOptions" class="enabled-plugins-list">
-      <li class="plugin-item" ng-repeat="plugin in project.branches[branch].plugins" ng-class="{ disabled: !plugin.enabled }">
+    <ul ng-model="branch.plugins" ui-sortable="inUseOptions" class="enabled-plugins-list">
+      <li class="plugin-item" ng-repeat="plugin in branch.plugins" ng-class="{ disabled: !plugin.enabled }">
         <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
         <div class="rest">
           <span class="title">[[ plugins[plugin.id].title ]]</span>
@@ -24,19 +24,19 @@
           </label>
         </div>
       </li>
-      <li ng-hide="project.branches[branch].plugins.length" class="drop-here">Drag and drop here</li>
+      <li ng-hide="branch.plugins.length" class="drop-here">Drag and drop here</li>
     </ul>
   </div>
   <div class="disabled-plugins">
     <h3>Other Plugins</h3>
-    <ul ng-model="disabled_plugins[branch]" ui-sortable="{ connectWith: '.enabled-plugins-list' }" class="disabled-plugins-list">
-      <li class="plugin-item" ng-repeat="plugin in disabled_plugins[branch]">
+    <ul ng-model="disabled_plugins[branch.name]" ui-sortable="{ connectWith: '.enabled-plugins-list' }" class="disabled-plugins-list">
+      <li class="plugin-item" ng-repeat="plugin in disabled_plugins[branch.name]">
         <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
         <div class="rest">
           <span class="title">[[ plugins[plugin.id].title ]]</title>
         </div>
       </li>
-      <li ng-hide="disabled_plugins[branch].length" class="drop-here">Drag and drop here</li>
+      <li ng-hide="disabled_plugins[branch.name].length" class="drop-here">Drag and drop here</li>
     </ul>
   </div>
 </div>

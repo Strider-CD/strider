@@ -29,39 +29,36 @@
     </a>
     {% endif %}
     <span class="branch-picker">
-      <select ng-model="branch" ng-options="name as name for name in branches">
+      <select ng-model="branch" ng-options="branch as branch.name for branch in project.branches">
       </select>
       <button
          class="btn"
          ng-hide="branch === 'master'"
-         ng-class="{ active: project.branches[branch] !== 'master' }"
+         ng-class="{ active: !branch.mirror_master }"
          ng-click="toggleBranch()">Customize Branch</button>
-      <button class="btn" ng-click="refreshBranches()">
-        <i class="icon-refresh" title="Refresh branches list"></i>
-      </button>
     </span>
   </h3>
   <p>
     <div class="tabbable tabs-left">
-      <ul class="nav nav-tabs span2 config-tabs" ng-show="project.branches[branch] !== 'master'">
+      <ul class="nav nav-tabs span2 config-tabs" ng-show="!branch.mirror_master">
         <li class="active"><a id="project-tab-handle" href="#tab-project" data-toggle="tab">Project</a></li>
         <li><a id="basic-tab-handle" href="#tab-basic" data-toggle="tab">Branch</a></li>
         <li><a href="#tab-plugins" data-toggle="tab">Plugins</a></li>
 
         {% for runner in runners %}
-        <li ng-show="project.branches[branch] !== 'master' && project.branches[branch].runner.id === '{{ loop.key }}'">
+        <li ng-show="!branch.mirror_master && branch.runner.id === '{{ loop.key }}'">
           <a href="#runner-{{ loop.key }}" data-toggle="tab">Runner: {{ runner.title }}</a>
         </li>
         {% endfor %}
 
         {% for plugin in plugins %}
-        <li ng-show="project.branches[branch] !== 'master' && configured[branch]['{{ loop.key }}']"
-            ng-class="{ disabled: !configs[branch]['{{ loop.key }}'].enabled }">
+        <li ng-show="!branch.mirror_master && configured[branch.name]['{{ loop.key }}']"
+            ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }">
           <a href="#plugin-{{ loop.key }}" data-toggle="tab">{{ plugin.title }}</a>
         </li>
         {% endfor %}
       </ul>
-      <div ng-switch="project.branches[branch] === 'master'">
+      <div ng-switch="branch.mirror_master">
         <div ng-switch-when="true" class="tab-content span10">
           <p class="well">
             The configuration for this branch is the same as master,
@@ -99,8 +96,8 @@
           {% for plugin in plugins %}
           <div id="plugin-{{loop.key}}" class="tab-pane plugin-tab" ng-controller="{{plugin.controller}}">
             <div class="disabled-note"
-                 ng-class="{ disabled: !configs[branch]['{{ loop.key }}'].enabled }"
-                 ng-switch="configs[branch]['{{ loop.key }}'].enabled">
+                 ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
+                 ng-switch="configs[branch.name]['{{ loop.key }}'].enabled">
               <span ng-switch-when="false">
               This plugin is disabled. <button class="btn" ng-click="setEnabled('{{ loop.key }}', true)">Enable</button>
               </span>
@@ -119,6 +116,6 @@
 <script src="/javascripts/lib/bootstrap-switch.js"></script>
 <script src="/javascripts/lib/jquery-ui.js"></script>
 <script src="/javascripts/lib/sortable.js"></script>
-<script src='/javascripts/pages/config.js'></script>
-<script src='/javascripts/pages/config-plugins-compiled.js'></script>
+<script src="/javascripts/pages/config.js"></script>
+<script src="/javascripts/pages/config-plugins-compiled.js"></script>
 {% endblock %}
