@@ -2,7 +2,7 @@
 
 ;(function () {
 
-  window.app = angular.module('config', ['ui.sortable'], function ($interpolateProvider) {
+  window.app = angular.module('config', ['ui.sortable', 'Alerts'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
   });
@@ -68,7 +68,6 @@
 
   app.controller('Config', ['$scope', '$element', '$sce', function ($scope, $element, $sce) {
     // this is the parent controller.
-    $scope.message = null;
     $scope.project = window.project || {};
     $scope.plugins = window.plugins || {};
     $scope.runners = window.runners || {};
@@ -112,7 +111,7 @@
 
     $scope.$watch('branch', function (value) {
       setTimeout(function () {
-      $('#' + (value === 'master' ? 'project' : 'basic') + '-tab-handle').tab('show');
+      $('#' + (value && value.name === 'master' ? 'project' : 'basic') + '-tab-handle').tab('show');
       }, 0);
     });
 
@@ -147,16 +146,14 @@
         data: JSON.stringify(data),
         contentType: 'application/json',
         success: function(data, ts, xhr) {
-          $scope.success('Plugin order on branch ' + $scope.branch.name + ' saved.');
-          $scope.$root.$digest();
+          $scope.success('Plugin order on branch ' + $scope.branch.name + ' saved.', true);
         },
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
-            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + xhr.responseText);
+            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + xhr.responseText, true);
           } else {
-            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + e);
+            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + e, true);
           }
-          $scope.$root.$digest();
         }
       });
     }
@@ -233,56 +230,6 @@
       var hash = md5(email.toLowerCase());
       return 'https://secure.gravatar.com/avatar/' + hash + '?d=identicon';
     }
-    $scope.error = function (text) {
-      $scope.message = {
-        text: $sce.trustAsHtml(text),
-        type: 'error',
-        showing: true
-      };
-    };
-    $scope.info = function (text) {
-      $scope.message = {
-        text: $sce.trustAsHtml(text),
-        type: 'info',
-        showing: true
-      };
-    };
-    var waitTime = null;
-    $scope.success = function (text, sticky) {
-      if (waitTime) {
-        clearTimeout(waitTime);
-        waitTime = null;
-      }
-      if (clearTime) {
-        clearTimeout(clearTime);
-        clearTime = null;
-      }
-      $scope.message = {
-        text: $sce.trustAsHtml('<strong>Done.</strong> ' + text),
-        type: 'success',
-        showing: true
-      };
-      if (!sticky) {
-        waitTime = setTimeout(function () {
-          $scope.clearMessage();
-          $scope.$digest();
-        }, 5000);
-      }
-    };
-    var clearTime = null;
-    $scope.clearMessage = function () {
-      if (clearTime) {
-        clearTimeout(clearTime);
-      }
-      if ($scope.message) {
-        $scope.message.showing = false;
-      }
-      clearTime = setTimeout(function () {
-        clearTime = null;
-        $scope.message = null;
-        $scope.$digest();
-      }, 1000);
-    };
 
     // todo: pass in name?
     $scope.runnerConfig = function (branch, data, next) {
@@ -358,7 +305,7 @@
         return plugin.config;
       }
       if (plugin === null) {
-        console.error("pluginConfig called for a plugin that's not configured. " + name);
+        console.error("pluginConfig called for a plugin that's not configured. " + name, true);
         throw new Error('Plugin not configured: ' + name);
       }
       $.ajax({
