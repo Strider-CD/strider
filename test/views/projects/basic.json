@@ -1,0 +1,82 @@
+{
+  "currentUser": {
+    "email": "jared@jaredforsyth.com",
+    "account_level": 1,
+    "accounts": [{
+      "id": "1111",
+      "provider": "github",
+      "title": "jaredly",
+      "display_url": "http://example.com",
+      "config": {
+        "accessToken": "123abc",
+        "login": "jaredly"
+      },
+      "cache": [{
+        "id": "123abc",
+        "name": "jaredly/main",
+        "group": "jaredly",
+        "display_url": "http://example.com"
+      }, {
+        "id": "123abcd",
+        "name": "jaredly/other",
+        "group": "jaredly",
+        "display_url": "http://example.com/other"
+      }]
+    }]
+  },
+  "repos": {
+    "github": {
+      "1111": {
+        "jaredly": [{
+          "id": "123abc",
+          "name": "jaredly/main",
+          "group": "jaredly",
+          "display_url": "http://example.com"
+        }],
+        "strider-cd": [{
+          "id": "asd",
+          "name": "strider-cd/strider",
+          "group": "strider-cd",
+          "display_url": "http://example.com"
+        }, {
+          "id": "bsd",
+          "name": "strider-cd/strider-git",
+          "group": "strider-cd",
+          "display_url": "http://example.com/strider-git",
+          "project": {
+            "_id": "asdwasd123",
+            "name": "strider-cd/strider-git"
+          }
+        }]
+      }
+    }
+  },
+  "unconfigured": [{
+    "id": "bitbucket",
+    "title": "bitbucket",
+    "inline_icon": "bitbucket",
+    "setupLink": "/ext/bitbucket/oauth"
+  }, {
+    "id": "codeplex",
+    "title": "codeplex",
+    "inline_icon": "windows",
+    "setupLink": "/ext/codeplex/oauth"
+  }],
+  "providers": {
+    "bitbucket": {
+      "title": "bitbucket",
+      "inline_icon": "bitbucket",
+      "setupLink": "/ext/bitbucket/oauth"
+    },
+    "codeplex": {
+      "title": "codeplex",
+      "inline_icon": "windows",
+      "setupLink": "/ext/codeplex/oauth"
+    },
+    "github": {
+      "title": "github",
+      "inline_icon": "github",
+      "setupLink": "/ext/github/oauth"
+    }
+  }
+}

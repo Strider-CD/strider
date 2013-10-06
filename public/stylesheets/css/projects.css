@@ -1,0 +1,39 @@
+.accounts-nav {
+  background-color: black;
+  border-radius: 10px;
+  padding: 10px;
+}
+.accounts-nav a {
+  color: white;
+}
+.repo-list {
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 23px;
+}
+.repo-list .repo {
+  padding: 10px 5px 10px 15px;
+  border-bottom: 1px solid #ccc;
+}
+.repo-list .repo a:hover {
+  text-decoration: none;
+}
+.repo-list .repo:last-child {
+  border-bottom: none;
+}
+.repo-list .repo:hover {
+  background-color: #eee;
+}
+.repo-list .repo .hosted-url {
+  margin-right: 5px;
+}
+.repo-list .repo .action {
+  margin-top: -4px;
+}
+.groups-list {
+  font-size: 20px;
+}
+.groups-list a {
+  line-height: 24px;
+  border-radius: 5px;
+}

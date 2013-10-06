@@ -41,9 +41,28 @@
               <h2>Latest Builds: <i ng-show="loadingJobs" class="icon-spinner icon-spin"></i></h2>
             </div>
           </div>
-          {% if currentUser %}
-          <div class="alert alert-info no-projects" ng-show="!jobs.yours.length && !loadingJobs">
-            <h3>You don't have any projects configured. <a class="btn btn-success" href="/projects">Add some</a></h3>
+          {% if currentUser && !job.yours.length %}
+          <div class="alert alert-info no-projects">
+            <h3>You don't have any projects configured.</h3>
+            {% if providers.length %}
+            <div class="link-accounts">
+              <h4>Link Accounts:</h4>
+              {% for provider in providers %}
+              <a href="{{ provider.setupLink }}" class="btn btn-primary">
+                {% if provider.inline_icon %}<i class="icon-{{ provider.inline_icon }}"></i> {% endif %}{{ provider.title }}
+              </a>
+              {% endfor %}
+            </div>
+            {% else if !currentUser.accounts.length %}
+              <a class="btn btn-primary" href="/account">Configure Accounts</a>
+            {% endif %}
+            {% if currentUser.accounts.length %}
+            <a class="btn btn-success" href="/projects">Add projects</a>
+            {% else %}
+            <div style="margin-top: 20px">
+            or <a class="btn btn-success" href="/projects">Add a project manually</a>
+            </div>
+            {% endif %}
           </div>
           {% endif %}
           <div ng-show="jobs.yours.length">

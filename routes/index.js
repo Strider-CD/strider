@@ -211,38 +211,76 @@ exports.status = function(req, res) {
 
 };
 
+function getDeep(obj) {
+  return [].slice.call(arguments, 1).reduce(function (obj, name) {
+    return obj && obj[name]
+  }, obj)
+}
+
+function deepObj(obj) {
+  var names = [].slice.call(arguments, 1)
+  return names.reduce(function (obj, name) {
+    return obj[name] || (obj[name] = {})
+  }, obj)
+}
+
 // GET /projects
 // 
 // This is where the "add project" flow starts.
 exports.projects = function(req, res) {
-  var data = {}
-  data.providers = []
-  var f = []
-  _.each(common.extensions.provider, function(v, k) {
-    f.push(function(done) {
-      var p = {}
-      var accountConfig = _.find(req.user.accounts, function(a) {
-        return a.provider === k
-      }).config
-      p.isSetup = v.isSetup(accountConfig)
-      p.setupLink = v.setupLink
-      p.name = k.toString()
-      p.repos = []
-      if (p.isSetup) {
-        // get repos if we can
-        v.listRepos(accountConfig, function(err, repos) {
-          p.repos = repos
-          data.providers.push(p)
-          done()
-        })
-      } else {
-        data.providers.push(p)
-        done()
+  var tasks = []
+    , repos = {}
+    , configured = {}
+    , unconfigured = []
+    , providers = common.userConfigs.provider
+  Project.find({_creator: req.user._id}).lean().exec(function (err, projects) {
+    if (err) return res.send(500, 'Failed to get projects from the database')
+    // tree is { providerid: { accountid: { repoid: project._id, ...}, ...}, ...}
+    // to track which repos have been configured
+    var tree = {}
+      , account
+    for (var i=0; i<projects.length; i++) {
+      account = projects[i].provider
+      deepObj(tree, provider.id, provider.account)[provider.repo_id] = {
+        _id: projects[i]._id,
+        name: projects[i].name
       }
+    }
+    
+    req.user.accounts.forEach(function (account) {
+      configured[account.provider] = true
+      tasks.push(function (next) {
+        common.extensions.provider[account.provider].listRepos(account, function (err, repos) {
+          if (err) return next(err)
+          account.cache = repos
+          var groups = deepObj(repos, account.provider, account.id)
+            , projectmap = getDeep(tree, account.provider, account.id) || {}
+          for (var i=0; i<repos.length; i++) {
+            repos[i].project = projectmap[repos[i].id]
+            if (!groups[repos[i].group]) groups[repos[i].group] = []
+            groups[repos[i].group].push(repos[i])
+          }
+          req.user.markModified('accounts')
+          next()
+        })
+      })
     })
-  })
-  async.parallel(f, function(err, r) {
-    return res.render('projects.html', data);
+    for (var id in providers) {
+      repos[id] = {}
+      if (configured[id] || !providers[id].setupLink) continue;
+      unconfigured.push(providers[id])
+    }
+    async.parallel(tasks, function(err, r) {
+      // cache the fetched repos
+      req.user.save(function (err) {
+        // user is already be available via the "currentUser" template variable
+        return res.render('projects.html', {
+          unconfigured: unconfigured,
+          providers: providers,
+          repos: repos
+        });
+      })
+    })
   })
 }
 

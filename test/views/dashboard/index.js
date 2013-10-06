@@ -108,8 +108,21 @@ function jobs() {
 module.exports = function (testname, params, req, done) {
   if (testname === 'none') return done(null, {jobs: {}, currentUser: true, user: true})
   done(null, {
-    currentUser: 'hello@gmail.com',
-    user: true,
+    currentUser: {
+      account_level: 1,
+      email: 'hello@gmail.com',
+    },
+    providers: [{
+      id: 'github',
+      title: 'Github',
+      setupLink: '/ext/github/oauth',
+      inline_icon: 'github'
+    }, {
+      id: 'bitbucket',
+      title: 'Bitbucket',
+      setupLink: '/ext/bitbucket/oauth',
+      inline_icon: 'bitbucket'
+    }],
     jobs: {
       yours: testname !== 'public' ? jobs() : [],
       public: jobs()

@@ -2,51 +2,95 @@
 
 {% pluginblock ExtraStyles %}
 <link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
-<link rel="stylesheet" href="/stylesheets/add_repo.css"/>
+<link rel="stylesheet" href="/stylesheets/css/projects.css"/>
 <script>
   var providers = {{ providers | scriptjson | raw }};
+  var accounts = {{ currentUser.accounts | scriptjson | raw }};
+  var repos = {{ repos | scriptjson | raw }};
 </script>
 {% endpluginblock %}
 
 
 {% block bodyContent %}
-  <div id="confirm-delete-project" class="modal fade">
-    <div class="modal-header">
-      <button data-dismiss="modal" class="close"></button>
-      <x></x>
-      <h3>Delete <span class="project-name"></span> Configuration?</h3>
+<div id="confirm-delete-project" class="modal fade">
+  <div class="modal-header">
+    <button data-dismiss="modal" class="close"></button>
+    <x></x>
+    <h3>Delete <span class="project-name"></span> Configuration?</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete <span class="project-name"></span>?</p>
+  </div>
+  <div class="modal-footer">
+    <a data-dismiss="modal" class="btn">No</a>
+    <a class="btn btn-primary btn-delete-project">Yes, I'm sure</a>
+  </div>
+</div>
+
+<div class="projects-page" ng-app="Projects" ng-controller="AlertsController">
+  <ul class="nav nav-pills accounts-nav">
+    {% for account in currentUser.accounts %}
+    <li{% if loop.first %} class="active"{% endif %}>
+      <a href="#account-{{ account.provider }}-{{ account.id }}" data-toggle="tab">
+        {% if providers[account.provider].inline_icon %}<i class="icon-{{ providers[account.provider].inline_icon }}"></i>{% endif %} 
+        {{ account.title }}
+      </a>
+    </li>
+    {% endfor %}
+    <li>
+      <a href="#manual-setup" data-toggle="tab"{% if !currentUser.accounts.length %} class="active"{% endif %}>Manual Add</a>
+    </li>
+    {% for provider in unconfigured %}
+    <li>
+      <a href="{{ provider.setupLink }}">
+        {% if provider.inline_icon %}<i class="icon-{{ provider.inline_icon }}"></i>{% endif %} Setup {{ provider.title }}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+
+  <div class="tab-content" ng-controller="ProjectsController">
+    <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
+      {# TODO hide this if there is only one group #}
+      <ul class="span2 nav nav-list nav-stacked groups-list">
+        <li ng-repeat="(name, group) in repos[account.provider][account.id]"
+            ng-class="{active: $first}">
+          <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]">[[ name ]]</a>
+        </li>
+      </ul>
+      <div class="tab-content span9">
+        <ul
+           ng-repeat="(name, group) in repos[account.provider][account.id]"
+           id="group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]"
+           class="tab-pane repo-list unstyled" ng-class="{ active: $first }">
+          <li ng-repeat="repo in group" class="repo">
+            <a href="[[ repo.display_url ]]" target="_blank" class="hosted-url">
+              <i class="icon-globe"></i>
+            </a>
+            <span ng-switch="!!repo.project">
+              <a ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.name ]]</a>
+              <span ng-switch-default>[[ repo.name ]]</span>
+            </span>
+            <div class="pull-right action" ng-switch="!!repo.project">
+              <button ng-switch-when="true" class="btn btn-danger" ng-click="removeProject(account, repo)">Remove</button>
+              <button ng-switch-default class="btn btn-primary" ng-click="setupProject(account, repo)">Add</button>
+            </div>
+          </li>
+        </ul>
+      </div>
     </div>
-    <div class="modal-body">
-      <p>Are you sure you want to delete <span class="project-name"></span>?</p>
-    </div>
-    <div class="modal-footer">
-      <a data-dismiss="modal" class="btn">No</a>
-      <a class="btn btn-primary btn-delete-project">Yes, I'm sure</a>
+    <div class="tab-pane" id="manual-setup">
+      Setting this up the manual way.
     </div>
   </div>
-
-{% for provider in providers %}
-<div class ='span7 well'>
-<h3>{{ provider.name }}</h3>
-{% if !provider.isSetup %}
-<p>{{ provider.name }} is not setup.</p>
-<a href="{{ provider.setupLink }}" class="btn btn-primary">Click to setup</a>
-
-{% else %}
-
-<p>{{ provider.name }} is setup. repo list goes here</p>
-
-{% endif %}
-
 </div>
-{% endfor %}
 
 {% include "partials/spinner.html" %}
-{% include "projects_templates.html" %}
 <script src='/socket.io/socket.io.js'></script>
 <div id="dashboard"></div>
 <script src="/javascripts/lib/bootstrap-switch.js"></script>
-<script src="/javascripts/projects.js"></script>
+<script src="/javascripts/modules/alerts.js"></script>
+<script src="/javascripts/pages/projects.js"></script>
 <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
 
 {% endblock %}
