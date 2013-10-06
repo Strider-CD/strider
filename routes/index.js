@@ -235,7 +235,7 @@ exports.projects = function(req, res) {
     , configured = {}
     , unconfigured = []
     , providers = common.userConfigs.provider
-  Project.find({_creator: req.user._id}).lean().exec(function (err, projects) {
+  Project.find({creator: req.user._id}).lean().exec(function (err, projects) {
     if (err) return res.send(500, 'Failed to get projects from the database')
     // tree is { providerid: { accountid: { repoid: project._id, ...}, ...}, ...}
     // to track which repos have been configured
@@ -243,6 +243,8 @@ exports.projects = function(req, res) {
       , account
     for (var i=0; i<projects.length; i++) {
       account = projects[i].provider
+      // XXX: this appears to be broken I'm getting tree of:
+      // { github: { '218162': { null: [Object] } } }
       deepObj(tree, projects[i].provider.id, projects[i].provider.account)[projects[i].provider.repo_id] = {
         _id: projects[i]._id,
         name: projects[i].name
