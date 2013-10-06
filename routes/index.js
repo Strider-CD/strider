@@ -243,7 +243,7 @@ exports.projects = function(req, res) {
       , account
     for (var i=0; i<projects.length; i++) {
       account = projects[i].provider
-      deepObj(tree, provider.id, provider.account)[provider.repo_id] = {
+      deepObj(tree, projects[i].provider.id, projects[i].provider.account)[projects[i].provider.repo_id] = {
         _id: projects[i]._id,
         name: projects[i].name
       }
@@ -273,6 +273,7 @@ exports.projects = function(req, res) {
       unconfigured.push(providers[id])
     }
     async.parallel(tasks, function(err, r) {
+      if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
       // cache the fetched repos
       req.user.save(function (err) {
         // user is already be available via the "currentUser" template variable
