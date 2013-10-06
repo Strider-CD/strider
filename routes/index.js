@@ -16,8 +16,10 @@ var _ = require('underscore')
   , config = require(BASE_PATH + 'config')
   , jobs = require(BASE_PATH + 'jobs')
   , logging = require(BASE_PATH + 'logging')
-  , User = require(BASE_PATH + 'models').User
-  , Job = require(BASE_PATH + 'models').Job
+  , models = require(BASE_PATH + 'models')
+  , Project = models.Project
+  , User = models.User
+  , Job = models.Job
   , pjson = require('../package.json')
   , async = require('async')
 
