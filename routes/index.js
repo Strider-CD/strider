@@ -154,7 +154,7 @@ exports.config = function(req, res) {
 
     var provider = common.extensions.provider[req.project.provider.id]
     if (typeof provider.getBranches === 'function') {
-      provider.getBranches(req.user.account(req.project.provider).config,
+      provider.getBranches(req.user.account(req.project.provider),
         req.project.provider.config, req.project, function(err, branches) {
         if (err) {
           console.error("could not fetch branches for repo %s: %s", req.project.name, err)
@@ -252,6 +252,7 @@ exports.projects = function(req, res) {
     req.user.accounts.forEach(function (account) {
       configured[account.provider] = true
       tasks.push(function (next) {
+        // TODO: use cached results of listRepos
         common.extensions.provider[account.provider].listRepos(account, function (err, repos) {
           if (err) return next(err)
           account.cache = repos
