@@ -41,7 +41,7 @@
               <h2>Latest Builds: <i ng-show="loadingJobs" class="icon-spinner icon-spin"></i></h2>
             </div>
           </div>
-          {% if currentUser && !job.yours.length %}
+          {% if currentUser && jobs.yours.length < 1 %}
           <div class="alert alert-info no-projects">
             <h3>You don't have any projects configured.</h3>
             {% if providers.length %}
