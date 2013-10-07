@@ -9,6 +9,7 @@ var BASE_PATH = '../../lib/';
 var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
   , ssh = require(BASE_PATH + 'ssh')
+  , utils = require(BASE_PATH + 'utils')
   , common = require(BASE_PATH + 'common')
   , User = require(BASE_PATH + 'models').User
   , Project = require(BASE_PATH + 'models').Project
@@ -130,39 +131,17 @@ exports.post_index = function(req, res) {
 };
  */
 
-function defaultVal(val) {
-  if (val === String) return ''
-  if (val === Number) return 0
-  if (Array.isArray(val)) return []
-  if (val === Boolean) return false
-  if (val.type && !val.type.type) {
-    if (val.default) return val.default
-    if (val.enum) return val.enum[0]
-    return defaultVal(val.type)
-  }
-  if ('object' === typeof val) return defaultSchema(val)
-  return null
-}
-
-function defaultSchema(schema) {
-  var data = {}
-    , val
-  for (var key in schema) {
-    data[key] = defaultVal(schema[key])
-  }
-  return data
-}
-
 function makePlugins(plugins) {
   var plugin
     , configs = []
+  console.log(common.extensions.job, plugins)
   for (var i=0; i<plugins.length; i++) {
     plugin = common.extensions.job[plugins[i]]
     if (!plugin) return false
     configs.push({
       id: plugins[i],
       enabled: true,
-      config: defaultSchema(plugin.config)
+      config: utils.defaultSchema(plugin.config)
     })
   }
   return configs
@@ -186,9 +165,6 @@ function makePlugins(plugins) {
 exports.create_project = function(req, res) {
   var name = req.params.org + '/' + req.params.repo
 
-  console.log(req.body)
-  console.log(req.text)
-  console.log(req)
   var account = req.body.account
   var display_name = req.body.display_name
   var display_url = req.body.display_url
@@ -229,7 +205,7 @@ exports.create_project = function(req, res) {
     return error(400, "Invalid project type specified")
   }
 
-  var plugins = makePlugins(common.project_types[project_type])
+  var plugins = makePlugins(common.project_types[project_type].plugins)
   if (!plugins) {
     return error(400, "Project type specified is not available; one or more required plugins is not installed")
   }
@@ -243,31 +219,31 @@ exports.create_project = function(req, res) {
     }
     ssh.generate_keypair(name + '-' + req.user.email, function (err, pubkey, privkey) {
       if (err) return error(500, 'Failed to generate ssh keypair')
-      var p = new Project()
-      p.name = name
-      p.display_name = display_name
-      p.display_url = display_url
-      p.public = public
-      // TODO generate a secret?
-      p.prefetch_config = prefetch_config
-      p.creator = req.user._id
-      p.provider = provider
-      p.branches = [{
-        name: 'master',
-        active: true,
-        mirror_master: false,
-        deploy_on_green: true,
-        pubkey: pubkey,
-        privkey: privkey,
-        plugins: makePlugins(common.project_types[project_type].plugins),
-        runner: {
-          id: 'simple-runner',
-          config: {
-            pty: false
+      console.log('making plugins', plugins)
+      Project.create({
+        name: name,
+        display_name: display_name,
+        display_url: display_url,
+        public: public,
+        prefetch_config: prefetch_config,
+        creator: req.user._id,
+        provider: provider,
+        branches: [{
+          name: 'master',
+          active: true,
+          mirror_master: false,
+          deploy_on_green: true,
+          pubkey: pubkey,
+          privkey: privkey,
+          plugins: plugins,
+          runner: {
+            id: 'simple-runner',
+            config: {
+              pty: false
+            }
           }
-        }
-      }]
-      p.save(function(err, ok) {
+        }]
+      }, function(err, p) {
         if (err) {
           console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
           return error(500, "internal server error")

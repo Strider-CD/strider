@@ -85,7 +85,11 @@
                 <span ng-switch-default>[[ repo.display_name ]]</span>
               </span>
               <div class="pull-right action" ng-switch="!!repo.project">
-                <button ng-switch-when="true" class="btn btn-danger" ng-click="removeProject(account, repo)">Remove</button>
+                <button ng-show="repo.really_remove" class="btn btn-danger" ng-click="removeProject(account, repo, group)" ng-disabled="repo.really_remove === 'removing'">
+                  <i class="icon-refresh icon-spin" ng-show="repo.really_remove === 'removing'"></i>
+                  Really remove
+                </button>
+                <button ng-switch-when="true" class="btn btn-danger" ng-click="repo.really_remove = true" ng-disabled="repo.really_remove">Remove</button>
                 <button ng-disabled="repo.adding" ng-switch-default class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
               </div>
             <div class="adding-repo pull-right" ng-show="repo.adding" ng-switch="repo.adding">
@@ -96,7 +100,7 @@
                      data-placement="bottom"
                      title="{{ type.description }}"
                      class="project-type btn"
-                     ng-click="repo.adding = 'loading'; setupProject(account, repo, '{{ loop.key }}')">
+                     ng-click="repo.adding = 'loading'; setupProject(account, repo, '{{ loop.key }}', group)">
                   {{ loop.key }}
                 </div>
                 {% endfor %}
@@ -110,7 +114,7 @@
               <div ng-switch-when="done">
                 <button type="button" class="close" ng-click="repo.adding=false">&times;</button>
                 <span class="text">Complete!</span>
-                <div class="btn btn-success" ng-click="startTest(account, repo)">
+                <div class="btn btn-success" ng-click="startTest(repo)">
                   Start the first test
                 </div>
                 <a class="btn" href="/[[ repo.project.name ]]/config">

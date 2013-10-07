@@ -43,7 +43,7 @@ exports.jobs_start = function(req, res) {
       email: req.user.email,
       image: null // TODO make gravatar from email
     },
-    message: 'Manual trigger',
+    message: type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting',
     timestamp: now,
     source: {type: 'UI', page: req.param('page') || 'unknown'}
   }
