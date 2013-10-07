@@ -38,42 +38,6 @@ describe('middleware', function() {
     });
   });
 
-  describe('#require_resource_admin()', function() {
-    it('should check for repo admin access', function() {
-      var mock_req = {user:{
-          github_config:[{url:"https://github.com/beyondfog/bad"}],
-          get_repo_config:function(url, cb) {  return cb("not found", null); }
-        },
-        params: {
-          org: "beyondfog",
-          repo: "strider"
-          }
-      };
-      var response_api = {end: function() {}};
-
-      middleware.require_resource_admin(mock_req, response_api, function() { response_api.statusCode = 401 });
-
-      response_api.statusCode.should.eql(401);
-      response_api.statusCode = 0;
-
-      var mock_req = {user:{
-          github_config:[{url:"https://github.com/beyondfog/good"}],
-          get_repo_config:function(url, cb) {  return cb(null, mock_req.user.github_config[0]); }
-        },
-        params: {
-          org: "beyondfog",
-          repo: "good"
-        }
-      };
-      middleware.require_resource_admin(mock_req, response_api, function() { response_api.statusCode = 200 });
-
-      response_api.statusCode.should.eql(200);
-
-    });
-
-
-  });
-
   describe("#require_params()", function() {
     it("should fallthrough if all params are present", function() {
       var mock_req = {
