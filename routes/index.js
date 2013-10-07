@@ -282,8 +282,6 @@ exports.projects = function(req, res) {
       , account
     for (var i=0; i<projects.length; i++) {
       account = projects[i].provider
-      // XXX: this appears to be broken I'm getting tree of:
-      // { github: { '218162': { null: [Object] } } }
       deepObj(tree, projects[i].provider.id, projects[i].provider.account)[projects[i].provider.repo_id] = {
         _id: projects[i]._id,
         name: projects[i].name
