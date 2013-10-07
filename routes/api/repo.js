@@ -147,6 +147,7 @@ exports.post_index = function(req, res) {
 exports.create_project = function(req, res) {
   var name = req.params.org + '/' + req.params.repo
 
+  var account = req.params.account
   var display_name = req.params.display_name
   var display_url = req.params.display_url
   var public = req.params.public === 'true' || req.params.public === '1'
