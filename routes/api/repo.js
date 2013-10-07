@@ -9,6 +9,7 @@ var BASE_PATH = '../../lib/';
 var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
   , User = require(BASE_PATH + 'models').User
+  , Project = require(BASE_PATH + 'models').Project
   , Job = require(BASE_PATH + 'models').Job
   , Step = require('step')
   , async = require('async')
@@ -126,6 +127,84 @@ exports.post_index = function(req, res) {
   );
 };
  */
+
+/*
+ * PUT /:org:/repo
+ *
+ * Create a new project for a repo.
+ *
+ * POST arguments:
+ *
+ * *name* - unique name of project
+ * *display_name* - humanly-readable project name
+ * *display_url* - URL fir the repo (e.g. Github homepage)
+ * *public* - boolean for whether this project is public or not. (default: false)
+ * *prefetch_config* - boolean for whether the strider.json should be fetched in advance. (default: false)
+ * *provider_id* - id of provider plugin (default: false)
+ * *account* - id of provider account
+ * *repo_id* - id of the repo
+ */
+exports.create_project = function(req, res) {
+  var name = req.params.org + '/' + req.params.repo
+
+  var display_name = req.params.display_name
+  var display_url = req.params.display_url
+  var public = req.params.public === 'true' || req.params.public === '1'
+  var prefetch_config = req.params.prefetch_config === 'true' || req.params.prefetch_config === '1'
+  var provider_id = req.params.provider_id
+  var repo_id = req.params.repo_id
+
+  function error(code, str) {
+      return res.json(code,
+          {results:[], status: "error", errors:[{code:code, reason:str}]})
+  }
+
+  if (!display_name) {
+    return error(400, "display_name is required")
+  }
+
+  if (!display_url) {
+    return error(400, "display_url is required")
+  }
+
+  if (!provider_id) {
+    return error(400, "provider_id is required")
+  }
+
+  if (!account) {
+    return error(400, "account is required")
+  }
+
+  if (!repo_id) {
+    return error(400, "repo_id is required")
+  }
+
+  Project.findOne({name: name.toLowerCase()}, function(err, project) {
+    if (res) {
+      console.error("User %s tried to create project for repo %s, but it already exists",
+        req.user.email, name)
+
+      return error(409, "project already exists")
+    }
+    var p = new Project()
+    p.name = name
+    p.display_name = display_name
+    p.display_url = display_url
+    p.public = public
+    p.prefetch_config = prefetch_config
+    p.provider_id = provider_id
+    p.account = account
+    p.repo_id = repo_id
+    p.save(function(err, ok) {
+      if (err) {
+        console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
+        return error(500, "internal server error")
+
+      }
+      return res.json({results:[{code:200, message:"project created"}], status: "ok", errors: []})
+    })
+  })
+}
 
 
 /*
