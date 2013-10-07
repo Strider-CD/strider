@@ -270,6 +270,8 @@ exports.projects = function(req, res) {
       }
     }
 
+    var newAccounts = []
+
     req.user.accounts.forEach(function (account) {
       configured[account.provider] = true
 
@@ -277,6 +279,7 @@ exports.projects = function(req, res) {
       var useCache = req.query.refresh !== 'true'  && req.query.refresh !== '1'
       var haveCache = Array.isArray(account.cache) && account.cache.length > 0
       if (useCache && haveCache) {
+        newAccounts.push(account)
         groupRepos(account, repomap, tree, account.toJSON().cache)
         return
       }
@@ -287,8 +290,8 @@ exports.projects = function(req, res) {
           if (err) return next(err)
           account.cache = repos
           groupRepos(account, repomap, tree, repos)
-          req.user.markModified('accounts')
           account.last_updated = new Date()
+          newAccounts.push(account)
           next()
         })
       })
@@ -300,7 +303,7 @@ exports.projects = function(req, res) {
     async.parallel(tasks, function(err, r) {
       if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
       // cache the fetched repos
-      req.user.save(function (err) {
+      User.update({_id:req.user._id}, {$set:{accounts:newAccounts}}, function(err) {
         if (err) console.error('error saving repo cache')
         // user is already be available via the "currentUser" template variable
         return res.render('projects.html', {
