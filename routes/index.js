@@ -317,7 +317,7 @@ exports.projects = function(req, res) {
     async.parallel(tasks, function(err, r) {
       if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
       // cache the fetched repos
-      User.update({_id:req.user._id}, {$set:{accounts:req.user.accounts}}, function(err, num) {
+      User.update({_id:req.user._id}, {$set:{accounts:req.user.toJSON().accounts}}, function(err, num) {
         if (err) console.error('error saving repo cache')
         if (!num) console.error("Didn't effect any users")
         console.log('Saved cache')
