@@ -139,7 +139,7 @@ exports.post_index = function(req, res) {
  * *display_name* - humanly-readable project name
  * *display_url* - URL fir the repo (e.g. Github homepage)
  * *public* - boolean for whether this project is public or not. (default: false)
- * *prefetch_config* - boolean for whether the strider.json should be fetched in advance. (default: false)
+ * *prefetch_config* - boolean for whether the strider.json should be fetched in advance. (default: true)
  * *provider_id* - id of provider plugin (default: false)
  * *account* - id of provider account
  * *repo_id* - id of the repo
@@ -151,7 +151,10 @@ exports.create_project = function(req, res) {
   var display_name = req.params.display_name
   var display_url = req.params.display_url
   var public = req.params.public === 'true' || req.params.public === '1'
-  var prefetch_config = req.params.prefetch_config === 'true' || req.params.prefetch_config === '1'
+  var prefetch_config = true
+  if (req.params.prefetch_config === 'false' || req.params.prefetch_config === '0') {
+    prefetch_config = false
+  }
   var provider_id = req.params.provider_id
   var repo_id = req.params.repo_id
 
