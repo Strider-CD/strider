@@ -154,7 +154,7 @@ exports.config = function(req, res) {
 
     var provider = common.extensions.provider[req.project.provider.id]
     if (typeof provider.getBranches === 'function') {
-      provider.getBranches(req.user.account(req.project.provider),
+      provider.getBranches(req.user.account(req.project.provider).config,
         req.project.provider.config, req.project, function(err, branches) {
         if (err) {
           console.error("could not fetch branches for repo %s: %s", req.project.name, err)
@@ -244,6 +244,26 @@ function groupRepos(account, repomap, tree, repos) {
   }
 }
 
+function availableProjectTypes() {
+  var available = {}
+    , plugins
+    , good
+  for (var id in common.project_types) {
+    good = true
+    plugins = common.project_types[id].plugins
+    for (var i=0; i<plugins.length; i++) {
+      if (!common.extensions.job[plugins[i]]) {
+        good = false
+        break;
+      }
+    }
+    if (good) {
+      available[id] = common.project_types[id]
+    }
+  }
+  return available
+}
+
 // GET /projects
 // 
 // This is where the "add project" flow starts.
@@ -285,7 +305,7 @@ exports.projects = function(req, res) {
         var listRepos = common.extensions.provider[account.provider].listRepos
         listRepos(account.config, function (err, repos) {
           if (err) return next(err)
-          account.cache = repos
+          account.set('cache', repos)
           groupRepos(account, repomap, tree, repos)
           account.last_updated = new Date()
           next()
@@ -299,13 +319,16 @@ exports.projects = function(req, res) {
     async.parallel(tasks, function(err, r) {
       if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
       // cache the fetched repos
-      User.update({_id:req.user._id}, {$set:{accounts:req.user.accounts}}, function(err) {
+      User.update({_id:req.user._id}, {$set:{accounts:req.user.accounts}}, function(err, num) {
         if (err) console.error('error saving repo cache')
+        if (!num) console.error("Didn't effect any users")
+        console.log('Saved cache')
         // user is already be available via the "currentUser" template variable
         return res.render('projects.html', {
           unconfigured: unconfigured,
           providers: providers,
-          repos: repomap
+          repos: repomap,
+          project_types: availableProjectTypes()
         });
       })
     })

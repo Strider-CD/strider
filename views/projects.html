@@ -76,16 +76,48 @@
            id="group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]"
            class="tab-pane repo-list unstyled" ng-class="{ active: $first }">
           <li ng-repeat="repo in group.repos" class="repo" ng-class="{ configured: !!repo.project }">
-            <a href="[[ repo.display_url ]]" target="_blank" class="hosted-url">
-              <i class="icon-globe"></i>
-            </a>
-            <span ng-switch="!!repo.project">
-              <a ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.name ]]</a>
-              <span ng-switch-default>[[ repo.name ]]</span>
-            </span>
-            <div class="pull-right action" ng-switch="!!repo.project">
-              <button ng-switch-when="true" class="btn btn-danger" ng-click="removeProject(account, repo)">Remove</button>
-              <button ng-switch-default class="btn btn-primary" ng-click="setupProject(account, repo)">Add</button>
+            <div>
+              <a href="[[ repo.display_url ]]" target="_blank" class="hosted-url">
+                <i class="icon-globe"></i>
+              </a>
+              <span ng-switch="!!repo.project">
+                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.display_name ]]</a>
+                <span ng-switch-default>[[ repo.display_name ]]</span>
+              </span>
+              <div class="pull-right action" ng-switch="!!repo.project">
+                <button ng-switch-when="true" class="btn btn-danger" ng-click="removeProject(account, repo)">Remove</button>
+                <button ng-disabled="repo.adding" ng-switch-default class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
+              </div>
+            <div class="adding-repo pull-right" ng-show="repo.adding" ng-switch="repo.adding">
+              <div class="pick-type" ng-switch-when="pick-type">
+                <span class="text">What type of project?</span>
+                {% for type in project_types %}
+                <div data-toggle="tooltip"
+                     data-placement="bottom"
+                     title="{{ type.description }}"
+                     class="project-type btn"
+                     ng-click="repo.adding = 'loading'; setupProject(account, repo, '{{ loop.key }}')">
+                  {{ loop.key }}
+                </div>
+                {% endfor %}
+              </div>
+              <div ng-switch-when="loading" class="setting-up">
+                <span class="text">
+                  Setting up
+                  <i class="icon-refresh icon-spin"></i>
+                </span>
+              </div>
+              <div ng-switch-when="done">
+                <button type="button" class="close" ng-click="repo.adding=false">&times;</button>
+                <span class="text">Complete!</span>
+                <div class="btn btn-success" ng-click="startTest(account, repo)">
+                  Start the first test
+                </div>
+                <a class="btn" href="/[[ repo.project.name ]]/config">
+                  Configure
+                </a>
+              </div>
+            </div>
             </div>
           </li>
         </ul>
@@ -102,6 +134,7 @@
 <div id="dashboard"></div>
 <script src="/javascripts/lib/bootstrap-switch.js"></script>
 <script src="/javascripts/modules/alerts.js"></script>
+<script src="/javascripts/modules/moment.js"></script>
 <script src="/javascripts/pages/projects.js"></script>
 <script src='/javascripts/jquery.scrollTo-1.4.2-min.js'></script>
 

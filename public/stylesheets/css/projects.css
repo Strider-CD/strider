@@ -1,3 +1,33 @@
+.adding-repo {
+  margin-top: -4px;
+  margin-right: 10px;
+}
+.adding-repo .setting-up {
+  padding-top: 5px;
+}
+.adding-repo .setting-up .text {
+  margin-right: 0;
+}
+.adding-repo .setting-up i {
+  color: #aaa;
+  font-size: 13px;
+  margin-left: 7px;
+  margin-right: 5px;
+}
+.adding-repo .text {
+  font-weight: normal;
+  font-size: 16px;
+  margin-right: 10px;
+}
+.adding-repo .close {
+  margin-top: 2px;
+  margin-left: 7px;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
 .accounts-nav {
   background-color: black;
   border-radius: 10px;
@@ -24,7 +54,7 @@
   padding: 10px 5px 10px 15px;
   border-bottom: 1px solid #ccc;
 }
-.repo-list .repo.configured a {
+.repo-list .repo.configured a.view-jobs {
   color: green;
 }
 .repo-list .repo a:hover {

@@ -183,7 +183,7 @@ function scrollSeen(item, parent) {
 app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $route, $location) {
   var params = $route.current ? $route.current.params : {}
     , project = window.project
-    , jobid = params.id || window.jobs[0]._id
+    , jobid = params.id || (window.job && window.job._id)
     , socket = window.socket || (window.socket || io.connect())
     , lastRoute = $route.current
     , jobman = new BuildPage(socket, $scope.$digest.bind($scope), $scope)
@@ -193,7 +193,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
   $scope.project = project;
   $scope.jobs = window.jobs;
   $scope.job = window.job;
-  if ($scope.job.phases.test.commands.length) {
+  if ($scope.job && $scope.job.phases.test.commands.length) {
     if (job.phases.environment) {
       job.phases.environment.collapsed = true;
     }
@@ -318,6 +318,5 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     };
   };
 
-  // Socket update stuff
 }]);
 

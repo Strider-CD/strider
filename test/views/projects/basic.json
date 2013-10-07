@@ -1,4 +1,21 @@
 {
+  "project_types": {
+    "python": {
+      "description": "virtualenv, pip install, ./setup.py test or py.test"
+    },
+    "go": {
+      "description": "go get, go test"
+    },
+    "node.js": {
+      "description": "nave, npm install, npm test"
+    },
+    "web": {
+      "description": "sauce, qunit, and jelly to test your javascript in a browser."
+    },
+    "custom": {
+      "description": "Don't auto-enable any plugins."
+    }
+  },
   "currentUser": {
     "email": "jared@jaredforsyth.com",
     "account_level": 1,
@@ -27,27 +44,37 @@
   "repos": {
     "github": {
       "1111": {
-        "jaredly": [{
-          "id": "123abc",
-          "name": "jaredly/main",
-          "group": "jaredly",
-          "display_url": "http://example.com"
-        }],
-        "strider-cd": [{
-          "id": "asd",
-          "name": "strider-cd/strider",
-          "group": "strider-cd",
-          "display_url": "http://example.com"
-        }, {
-          "id": "bsd",
-          "name": "strider-cd/strider-git",
-          "group": "strider-cd",
-          "display_url": "http://example.com/strider-git",
-          "project": {
-            "_id": "asdwasd123",
-            "name": "strider-cd/strider-git"
-          }
-        }]
+        "jaredly": {
+          "repos": [{
+            "id": "123abc",
+            "name": "jaredly/main",
+            "display_name": "jaredly/main",
+            "group": "jaredly",
+            "display_url": "http://example.com"
+          }],
+          "configured": 0
+        },
+        "strider-cd": {
+          "repos": [{
+            "id": "asd",
+            "name": "strider-cd/strider",
+            "display_name": "Strider-CD/Strider",
+            "group": "strider-cd",
+            "display_url": "http://example.com"
+          }, {
+            "id": "bsd",
+            "name": "strider-cd/strider-git",
+            "display_name": "Strider-CD/strider-git",
+            "group": "strider-cd",
+            "display_url": "http://example.com/strider-git",
+            "project": {
+              "_id": "asdwasd123",
+              "name": "strider-cd/strider-git",
+              "display_name": "Strider-CD/strider-git"
+            }
+          }],
+          "configured": 1
+        }
       }
     }
   },

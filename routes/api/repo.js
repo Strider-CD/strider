@@ -8,6 +8,8 @@ var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
+  , ssh = require(BASE_PATH + 'ssh')
+  , common = require(BASE_PATH + 'common')
   , User = require(BASE_PATH + 'models').User
   , Project = require(BASE_PATH + 'models').Project
   , Job = require(BASE_PATH + 'models').Job
@@ -128,35 +130,75 @@ exports.post_index = function(req, res) {
 };
  */
 
+function defaultVal(val) {
+  if (val === String) return ''
+  if (val === Number) return 0
+  if (Array.isArray(val)) return []
+  if (val === Boolean) return false
+  if (val.type && !val.type.type) {
+    if (val.default) return val.default
+    if (val.enum) return val.enum[0]
+    return defaultVal(val.type)
+  }
+  if ('object' === typeof val) return defaultSchema(val)
+  return null
+}
+
+function defaultSchema(schema) {
+  var data = {}
+    , val
+  for (var key in schema) {
+    data[key] = defaultVal(schema[key])
+  }
+  return data
+}
+
+function makePlugins(plugins) {
+  var plugin
+    , configs = []
+  for (var i=0; i<plugins.length; i++) {
+    plugin = common.extensions.job[plugins[i]]
+    if (!plugin) return false
+    configs.push({
+      id: plugins[i],
+      enabled: true,
+      config: defaultSchema(plugin.config)
+    })
+  }
+  return configs
+}
+
 /*
  * PUT /:org:/repo
  *
  * Create a new project for a repo.
  *
- * POST arguments:
+ * BODY arguments:
  *
- * *name* - unique name of project
  * *display_name* - humanly-readable project name
  * *display_url* - URL fir the repo (e.g. Github homepage)
  * *public* - boolean for whether this project is public or not. (default: false)
  * *prefetch_config* - boolean for whether the strider.json should be fetched in advance. (default: true)
- * *provider_id* - id of provider plugin (default: false)
+ * *provider_id* - id of provider plugin
  * *account* - id of provider account
  * *repo_id* - id of the repo
  */
 exports.create_project = function(req, res) {
   var name = req.params.org + '/' + req.params.repo
 
-  var account = req.params.account
-  var display_name = req.params.display_name
-  var display_url = req.params.display_url
-  var public = req.params.public === 'true' || req.params.public === '1'
+  console.log(req.body)
+  console.log(req.text)
+  console.log(req)
+  var account = req.body.account
+  var display_name = req.body.display_name
+  var display_url = req.body.display_url
+  var public = req.body.public === 'true' || req.body.public === '1'
   var prefetch_config = true
-  if (req.params.prefetch_config === 'false' || req.params.prefetch_config === '0') {
+  var project_type = req.body.project_type || 'node.js'
+  if (req.body.prefetch_config === 'false' || req.body.prefetch_config === '0') {
     prefetch_config = false
   }
-  var provider_id = req.params.provider_id
-  var repo_id = req.params.repo_id
+  var provider = req.body.provider
 
   function error(code, str) {
       return res.json(code,
@@ -171,45 +213,82 @@ exports.create_project = function(req, res) {
     return error(400, "display_url is required")
   }
 
-  if (!provider_id) {
-    return error(400, "provider_id is required")
+  if (!provider || !provider.id) {
+    return error(400, "provider.id is required")
   }
 
-  if (!account) {
-    return error(400, "account is required")
+  if (!provider.account) {
+    return error(400, "provider.account is required")
   }
 
-  if (!repo_id) {
-    return error(400, "repo_id is required")
+  if (!provider.repo_id) {
+    return error(400, "provider.repo_id is required")
+  }
+
+  if (!common.project_types[project_type]) {
+    return error(400, "Invalid project type specified")
+  }
+
+  var plugins = makePlugins(common.project_types[project_type])
+  if (!plugins) {
+    return error(400, "Project type specified is not available; one or more required plugins is not installed")
   }
 
   Project.findOne({name: name.toLowerCase()}, function(err, project) {
-    if (res) {
+    if (project) {
       console.error("User %s tried to create project for repo %s, but it already exists",
         req.user.email, name)
 
       return error(409, "project already exists")
     }
-    var p = new Project()
-    p.name = name
-    p.display_name = display_name
-    p.display_url = display_url
-    p.public = public
-    p.prefetch_config = prefetch_config
-    p.provider_id = provider_id
-    p.account = account
-    p.repo_id = repo_id
-    p.save(function(err, ok) {
-      if (err) {
-        console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
-        return error(500, "internal server error")
-
-      }
-      return res.json({results:[{code:200, message:"project created"}], status: "ok", errors: []})
+    ssh.generate_keypair(name + '-' + req.user.email, function (err, pubkey, privkey) {
+      if (err) return error(500, 'Failed to generate ssh keypair')
+      var p = new Project()
+      p.name = name
+      p.display_name = display_name
+      p.display_url = display_url
+      p.public = public
+      // TODO generate a secret?
+      p.prefetch_config = prefetch_config
+      p.creator = req.user._id
+      p.provider = provider
+      p.branches = [{
+        name: 'master',
+        active: true,
+        mirror_master: false,
+        deploy_on_green: true,
+        pubkey: pubkey,
+        privkey: privkey,
+        plugins: makePlugins(common.project_types[project_type].plugins),
+        runner: {
+          id: 'simple-runner',
+          config: {
+            pty: false
+          }
+        }
+      }]
+      p.save(function(err, ok) {
+        if (err) {
+          console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
+          return error(500, "internal server error")
+        }
+        User.update({_id: req.user._id}, {$push: {projects: {name: name, display_name: p.display_name, access_level: 2}}}, function (err, num) {
+          if (err || !num) console.error('Failed to give the creator repo access...')
+          return res.json({
+            project: {
+              _id: p._id,
+              name: p.name,
+              display_name: p.display_name
+            },
+            results:[{code:200, message:"project created"}],
+            status: "ok",
+            errors: []
+          })
+        });
+      })
     })
   })
 }
-
 
 /*
  * DELETE /:org/:repo

@@ -108,6 +108,10 @@ app.directive("time", function() {
       attrs.$observe('title', function () {
         $(element).tooltip();
       });
+      scope.$on('$destroy', function () {
+        $('.tooltip').hide();
+        $(element).tooltip('hide');
+      });
     }
   };
 });

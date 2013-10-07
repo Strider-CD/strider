@@ -64,7 +64,7 @@ function html(req, res) {
       jobs[i] = ljobs.small(jobs[i])
       jobs[i] = filterJob(jobs[i])
     }
-    job.status = ljobs.status(job)
+    if (job) job.status = ljobs.status(job)
     res.render('build.html', {
       project: utils.sanitizeProject(req.project),
       accessLevel: req.accessLevel,
