@@ -107,7 +107,7 @@ function jobs(req, res) {
      .sort({finished: -1}).limit(20).lean()
      .exec(function (err, jobs) {
        if (err) return res.send(500, 'Failed to retrieve jobs')
-       res.send(JSON.stringify(jobs.map(function(j) { return filterJob(job) })))
+       res.send(JSON.stringify(jobs.map(function(j) { return filterJob(j) })))
      })
 }
 
