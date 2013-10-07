@@ -44,6 +44,16 @@ function multijob(req, res) {
   }
 }
 
+function filterJob(job) {
+  if (job.trigger.message === 'Retest') {
+    job.trigger.message = 'Manually Retested'
+  }
+  if (job.trigger.message === 'Redeploy') {
+    job.trigger.message = 'Manually Redeployed'
+  }
+  return job
+}
+
 function html(req, res) {
   var id = req.params.id
   var projectName = req.project.name.toLowerCase()
@@ -52,6 +62,7 @@ function html(req, res) {
     for (var i=0; i<jobs.length; i++) {
       if (!job && jobs[i]._id === id) job = jobs[i]
       jobs[i] = ljobs.small(jobs[i])
+      jobs[i] = filterJob(jobs[i])
     }
     job.status = ljobs.status(job)
     res.render('build.html', {
@@ -72,6 +83,7 @@ function getJob(req, res, next) {
   }
   query.exec(function (err, job) {
     if (err || !job) return res.send(404, 'Failed to find job')
+    job = filterJob(job)
     next(job)
   })
 }
@@ -95,7 +107,7 @@ function jobs(req, res) {
      .sort({finished: -1}).limit(20).lean()
      .exec(function (err, jobs) {
        if (err) return res.send(500, 'Failed to retrieve jobs')
-       res.send(JSON.stringify(jobs))
+       res.send(JSON.stringify(jobs.map(function(j) { return filterJob(job) })))
      })
 }
 
