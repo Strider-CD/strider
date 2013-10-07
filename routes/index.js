@@ -154,7 +154,7 @@ exports.config = function(req, res) {
 
     var provider = common.extensions.provider[req.project.provider.id]
     if (typeof provider.getBranches === 'function') {
-      provider.getBranches(req.user.account(req.project.provider).config,
+      provider.getBranches(req.user.account(req.project.provider),
         req.project.provider.config, req.project, function(err, branches) {
         if (err) {
           console.error("could not fetch branches for repo %s: %s", req.project.name, err)
@@ -261,6 +261,8 @@ exports.projects = function(req, res) {
       , account
     for (var i=0; i<projects.length; i++) {
       account = projects[i].provider
+      // XXX: this appears to be broken I'm getting tree of:
+      // { github: { '218162': { null: [Object] } } }
       deepObj(tree, projects[i].provider.id, projects[i].provider.account)[projects[i].provider.repo_id] = {
         _id: projects[i]._id,
         name: projects[i].name
