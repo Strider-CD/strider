@@ -253,6 +253,7 @@ exports.projects = function(req, res) {
     , configured = {}
     , unconfigured = []
     , providers = common.userConfigs.provider
+
   Project.find({creator: req.user._id}).lean().exec(function (err, projects) {
     if (err) return res.send(500, 'Failed to get projects from the database')
     // tree is { providerid: { accountid: { repoid: project._id, ...}, ...}, ...}
@@ -268,18 +269,21 @@ exports.projects = function(req, res) {
         name: projects[i].name
       }
     }
-    
+
     req.user.accounts.forEach(function (account) {
       configured[account.provider] = true
 
-      var skip = (account.last_updated && (new Date().getTime()) - account.last_updated.getTime()  < 15 * 60 * 1000 && !req.query.refresh) || req.query.norefresh
-      if (skip) {
+      // Caching
+      var useCache = req.query.refresh !== 'true'  && req.query.refresh !== '1'
+      var haveCache = Array.isArray(account.cache) && account.cache.length > 0
+      if (useCache && haveCache) {
         groupRepos(account, repomap, tree, account.toJSON().cache)
         return
       }
 
       tasks.push(function (next) {
-        common.extensions.provider[account.provider].listRepos(account.config, function (err, repos) {
+        var listRepos = common.extensions.provider[account.provider].listRepos
+        listRepos(account.config, function (err, repos) {
           if (err) return next(err)
           account.cache = repos
           groupRepos(account, repomap, tree, repos)
