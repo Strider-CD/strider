@@ -212,7 +212,8 @@ exports.create_project = function(req, res) {
     return error(400, "Project type specified is not available; one or more required plugins is not installed")
   }
 
-  Project.findOne({name: name.toLowerCase()}, function(err, project) {
+  name = name.toLowerCase()
+  Project.findOne({name: name}, function(err, project) {
     if (project) {
       console.error("User %s tried to create project for repo %s, but it already exists",
         req.user.email, name)
