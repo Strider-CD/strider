@@ -269,7 +269,9 @@
 
     $scope.generateKeyPair = function () {
       // TODO implement
-      throw new Error("not implemented");
+      setTimeout(function () {
+        $scope.error('Generate keypair not implemented', true);
+      }, 0);
     };
 
     initPlugins();

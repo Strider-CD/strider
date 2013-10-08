@@ -1,10 +1,10 @@
 <div class="general-config">
   <label class="checkbox">
-    <input type="checkbox" ng-model="branch.active"> Active
+    <input type="checkbox" ng-model="branch.active" ng-click="saveGeneralBranch()"> Active
   </label>
   <p class="help-text">When a branch is deactivated, tests and deploys can only be triggered manually.</p>
   <label class="checkbox">
-    <input type="checkbox" ng-model="branch.deploy_on_green"> Deploy on Green
+    <input type="checkbox" ng-model="branch.deploy_on_green" ng-click="saveGeneralBranch()"> Deploy on Green
   </label>
   <p class="help-text">When "deploy on green" is disabled, automatically triggered builds will not deploy.</p>
   <div id="ssh-keys">
@@ -23,5 +23,4 @@
     </div>
     <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
   </div>
-  <button ng-click="saveGeneralBranch()" class="btn btn-primary">Save</button>
 </div>

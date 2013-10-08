@@ -17,6 +17,7 @@
 #notify {
   opacity: 0;
   position: fixed;
+  z-index: 100;
   top: 60px;
   right: 170px;
   -webkit-transition: opacity 0.25s ease-in-out;
