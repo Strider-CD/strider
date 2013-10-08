@@ -58,6 +58,7 @@ function html(req, res) {
   var id = req.params.id
   var projectName = req.project.name.toLowerCase()
   Job.find({project: projectName}).sort('-finished').limit(20).lean().exec(function (err, jobs) {
+    jobs.sort(ljobs.sort)
     var job = id ? null : jobs[0]
     for (var i=0; i<jobs.length; i++) {
       if (!job && jobs[i]._id === id) job = jobs[i]

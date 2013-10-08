@@ -134,14 +134,16 @@ exports.post_index = function(req, res) {
 function makePlugins(plugins) {
   var plugin
     , configs = []
-  console.log(common.extensions.job, plugins)
+  console.log(plugins)
   for (var i=0; i<plugins.length; i++) {
     plugin = common.extensions.job[plugins[i]]
     if (!plugin) return false
+    var config = utils.defaultSchema(plugin)
+    console.log('default:', plugin, config)
     configs.push({
       id: plugins[i],
       enabled: true,
-      config: utils.defaultSchema(plugin.config)
+      config: config
     })
   }
   return configs

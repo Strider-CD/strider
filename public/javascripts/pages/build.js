@@ -37,7 +37,7 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     return this.jobs[id];
   },
   addJob: function (job, access) {
-    if (job.project.name !== this.project) return;
+    if ((job.project.name || job.project) !== this.project) return;
     this.jobs[job._id] = job;
     var found = -1
       , i;
