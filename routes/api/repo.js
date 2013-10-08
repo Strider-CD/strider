@@ -100,61 +100,79 @@ exports.create_project = function(req, res) {
     return error(400, "Project type specified is not available; one or more required plugins is not installed")
   }
 
-  name = name.toLowerCase()
-  Project.findOne({name: name}, function(err, project) {
+  function projectResult(err, project) {
     if (project) {
       console.error("User %s tried to create project for repo %s, but it already exists",
         req.user.email, name)
 
       return error(409, "project already exists")
     }
-    ssh.generate_keypair(name + '-' + req.user.email, function (err, pubkey, privkey) {
-      if (err) return error(500, 'Failed to generate ssh keypair')
-      console.log('making plugins', plugins)
-      Project.create({
-        name: name,
-        display_name: display_name,
-        display_url: display_url,
-        public: public,
-        prefetch_config: prefetch_config,
-        creator: req.user._id,
-        provider: provider,
-        branches: [{
-          name: 'master',
-          active: true,
-          mirror_master: false,
-          deploy_on_green: true,
-          pubkey: pubkey,
-          privkey: privkey,
-          plugins: plugins,
-          runner: {
-            id: 'simple-runner',
-            config: {
-              pty: false
-            }
+
+    ssh.generate_keypair(name + '-' + req.user.email, createProjectWithKey) 
+  }
+
+
+  function createProjectWithKey(err, pubkey, privkey) {
+    if (err) return error(500, 'Failed to generate ssh keypair')
+    console.log('making plugins', plugins)
+
+    Project.create({
+      name: name,
+      display_name: display_name,
+      display_url: display_url,
+      public: public,
+      prefetch_config: prefetch_config,
+      creator: req.user._id,
+      provider: provider,
+      branches: [{
+        name: 'master',
+        active: true,
+        mirror_master: false,
+        deploy_on_green: true,
+        pubkey: pubkey,
+        privkey: privkey,
+        plugins: plugins,
+        runner: {
+          id: 'simple-runner',
+          config: {
+            pty: false
           }
-        }]
-      }, function(err, p) {
-        if (err) {
-          console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
-          return error(500, "internal server error")
         }
-        User.update({_id: req.user._id}, {$push: {projects: {name: name, display_name: p.display_name, access_level: 2}}}, function (err, num) {
-          if (err || !num) console.error('Failed to give the creator repo access...')
-          return res.json({
-            project: {
-              _id: p._id,
-              name: p.name,
-              display_name: p.display_name
-            },
-            results:[{code:200, message:"project created"}],
-            status: "ok",
-            errors: []
-          })
-        });
+      }]}, projectCreated)
+  }
+
+  function projectCreated(err, p) {
+    if (err) {
+      console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
+      return error(500, "internal server error")
+    }
+    // Project object created, add to User object
+    User.update({_id: req.user._id},
+        {$push: 
+            {projects: {
+              name: name,
+              display_name: p.display_name,
+              access_level: 2}
+            }
+        },
+      function (err, num) {
+      if (err || !num) console.error('Failed to give the creator repo access...')
+      return res.json({
+        project: {
+          _id: p._id,
+          name: p.name,
+          display_name: p.display_name
+        },
+        results:[{code:200, message:"project created"}],
+        status: "ok",
+        errors: []
       })
     })
-  })
+  }
+
+  name = name.toLowerCase()
+  Project.findOne({name: name}, projectResult)
+
 }
 
 /*
