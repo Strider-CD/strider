@@ -303,17 +303,17 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
     }, 10);
   });
   // button handlers
-  $scope.startDeploy = function (branch) {
+  $scope.startDeploy = function (job) {
     $('.tooltip').hide();
-    socket.emit('deploy', project.name, branch)
+    socket.emit('deploy', project.name, job && job.ref.branch)
     $scope.job = {
       project: $scope.job.project,
       status: 'submitted'
     };
   };
-  $scope.startTest = function (branch) {
+  $scope.startTest = function (job) {
     $('.tooltip').hide();
-    socket.emit('test', project.name, branch)
+    socket.emit('test', project.name, job && job.ref.branch)
     $scope.job = {
       project: $scope.job.project,
       status: 'submitted'
