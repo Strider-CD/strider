@@ -44,6 +44,8 @@ major differences:
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
     - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
     - [strider-custom.json configuration](#strider-customjson-configuration)
+- [Roadmap / Changelog](https://github.com/Strider-CD/strider/blob/master/ROADMAP.md)
+
 
 <a name="docker-quickstart" />
 ## Docker Quickstart
