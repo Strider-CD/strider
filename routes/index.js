@@ -36,10 +36,25 @@ exports.index = function(req, res){
     req.session.return_to=null
     return res.redirect(return_to)
   }
-  var code = ""
-  if (req.param('code') !== undefined) {
-    code = req.param('code')
-    return res.render('register.html', {invite_code:code})
+  if (req.session.return_to != null) {
+    var return_to = req.session.return_to;
+    req.session.return_to=null;
+    res.redirect(return_to);
+  } else {
+    var code = "";
+    if (req.param('code') !== undefined) {
+      code = req.param('code');
+      res.render('register.html', {invite_code:code});
+    } else {
+      if (req.user != undefined) {
+        req.user.get_repo_config_list(function(err, repo_list) {
+          if (err) throw err;
+          res.render('index.html',{total_configured_projects:repo_list.length});
+        });
+      } else {
+        res.render('index.html');
+      }
+    }
   }
   jobs.latestJobs(req.user, true, function (err, jobs) {
     res.render('index.html', {jobs: jobs})

@@ -1,0 +1,11 @@
+# DOCKER-VERSION 0.4.8
+
+from  strider/strider:preclone
+maintainer  Jared Forsyth <jared@jaredforsyth.com>
+
+# grab strider at 1.3.5
+run  git clone https://github.com/Strider-CD/strider.git /src && cd /src && git reset --hard 1.3.5
+
+# Install app dependencies
+run  cd /src; npm install
+

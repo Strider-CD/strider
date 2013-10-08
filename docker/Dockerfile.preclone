@@ -1,0 +1,49 @@
+# DOCKER-VERSION 0.4.8
+
+from  ubuntu:12.10
+maintainer  Jared Forsyth <jared@jaredforsyth.com>
+
+run  echo "deb http://archive.ubuntu.com/ubuntu quantal main universe" > /etc/apt/sources.list
+run  apt-get update
+run  apt-get upgrade -y
+
+# base packages
+run  apt-get install -y curl wget
+run  apt-get install supervisor -y
+run  apt-get install openssh-server -y
+
+# get make, g++, etc
+run  apt-get install make -y
+run  apt-get install build-essential -y
+
+# libssl
+run  apt-get install libssl-dev -y
+
+# python
+run  apt-get install python -y
+run  apt-get install python-dev -y
+
+# set up directories
+run  mkdir -p /data/db
+run  mkdir -p /var/run/sshd
+run  mkdir -p /var/log/supervisor
+run  locale-gen en_US en_US.UTF-8
+
+# install git
+run  apt-get install git -y
+
+# install node
+run  curl https://raw.github.com/isaacs/nave/master/nave.sh > /bin/nave && chmod a+x /bin/nave
+run  nave usemain stable
+
+# divert upstart (required for mongo to work)
+# from https://www.nesono.com/node/368
+run  dpkg-divert --local --rename --add /sbin/initctl
+run  ln -s /bin/true /sbin/initctl
+
+#  mongodb repos
+run  echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/10gen.list
+run  apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+run  apt-get update
+run  apt-get install mongodb-10gen -y
+
