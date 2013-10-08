@@ -206,11 +206,12 @@ exports.config = function(req, res) {
           }
           var have = {}
             , newBranches = false
-          for (var i=0; i<req.project.branches.length; i++) {
+            , i
+          for (i=0; i<req.project.branches.length; i++) {
             have[req.project.branches[i].name] = true
           }
-          for (var i=0; i<branches.length; i++) {
-            if (have[branches[i]]) continue
+          for (i=0; i<branches.length; i++) {
+            if (have[branches[i]]) continue;
             newBranches = true
             req.project.branches.push({
               name: branches[i],
