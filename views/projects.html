@@ -85,11 +85,14 @@
                 <span ng-switch-default>[[ repo.display_name ]]</span>
               </span>
               <div class="pull-right action" ng-switch="!!repo.project">
-                <button ng-show="repo.really_remove" class="btn btn-danger" ng-click="removeProject(account, repo, group)" ng-disabled="repo.really_remove === 'removing'">
-                  <i class="icon-refresh icon-spin" ng-show="repo.really_remove === 'removing'"></i>
-                  Really remove
-                </button>
-                <button ng-switch-when="true" class="btn btn-danger" ng-click="repo.really_remove = true" ng-disabled="repo.really_remove">Remove</button>
+                <span ng-switch-when="true">
+                  <button ng-show="repo.really_remove" class="btn btn-danger" ng-click="removeProject(account, repo, group)" ng-disabled="repo.really_remove === 'removing'">
+                    <i class="icon-refresh icon-spin" ng-show="repo.really_remove === 'removing'"></i>
+                    Really remove
+                  </button>
+                  <a href="/[[ repo.project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="icon-wrench"></i></a>
+                  <button class="btn btn-danger" ng-click="repo.really_remove = true" ng-disabled="repo.really_remove">Remove</button>
+                </span>
                 <button ng-disabled="repo.adding" ng-switch-default class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
               </div>
             <div class="adding-repo pull-right" ng-show="repo.adding" ng-switch="repo.adding">

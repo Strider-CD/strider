@@ -23,7 +23,7 @@
       </div>
     </div>
     <h3>
-      Configuration - <a href="/{{ project.display_name }}/" class="header-emphasis">{{ project.display_name }}</a>
+      Configuration - <a href="/{{ project.name }}/" class="header-emphasis">{{ project.display_name }}</a>
       {% if project.provider.config.display_url %}
       <a href="{{ project.provider.config.display_url }}" target="_blank">
         <i class="icon-{{ provider.inline_icon }}"></i>
@@ -38,6 +38,12 @@
            ng-class="{ active: !branch.mirror_master }"
            ng-click="toggleBranch()">Customize Branch</button>
       </span>
+      <a class="btn btn-primary" data-placement="bottom" data-toggle="tooltip" title="Retest &amp; Deploy Branch" href="/{{ project.name }}/?redeploy=[[ branch.name ]]">
+        Deploy Branch
+      </a>
+      <a class="btn btn-success" data-placement="bottom" data-toggle="tooltip" title="Retest Branch" href="/{{ project.name }}/?retest=[[ branch.name ]]">
+        Test Branch
+      </a>
     </h3>
     <p>
       <div class="tabbable tabs-left">
@@ -119,6 +125,7 @@
 <script src="/javascripts/lib/jquery-ui.js"></script>
 <script src="/javascripts/lib/sortable.js"></script>
 <script src="/javascripts/modules/alerts.js"></script>
+<script src="/javascripts/modules/moment.js"></script>
 <script src="/javascripts/pages/config.js"></script>
 <script src="/javascripts/pages/config-plugins-compiled.js"></script>
 {% endblock %}
