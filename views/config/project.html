@@ -6,10 +6,17 @@
     {% endautoescape %}
   </div>
   <label class="checkbox">
-    <input type="checkbox" ng-model="project.public"> Public
+    <input type="checkbox" ng-model="project.public" ng-click="saveProject()"> Public
   </label>
   <p class="help-text">Builds of public projects are visible to anyone</p>
   {% include "config/collaborators.html" %}
+  <div>
+    <h3>Delete Project</h3>
+    <p>
+      Permanently remove {{ project.name }} from Strider
+    </p>
+    <a ng-click="confirmDeleteProject()" class="btn btn-danger">Delete Project</a>
+  </div>
 </div>
 <div class="well" ng-hide="branch.name === 'master'">
   To configure the provider and collaborators,

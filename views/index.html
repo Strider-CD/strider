@@ -5,20 +5,6 @@
 {% endblock %}
 
 {% block bodyContent %}
-{% if !currentUser %}
-  <div class='StriderBlock_LoggedOutFillContent'>{% pluginblock LoggedOutFillContent %}
-      {% include "partials/errors.html" %}
-      {% include "partials/signupform.html" %}
-  {% endpluginblock %}</div>
-
-  <script>
-    $(document).ready(function() {
-      $('#layout-header').hide();
-      $('#invite-box').height($('#signup-box').height());   
-    });
-  </script>
-
-{% else %}
 <script>
   window.jobs = {{ jobs | scriptjson | raw }};
 </script>
@@ -36,6 +22,20 @@
     <div>
       <div class="row-fluid">
         <div class="span12 dashboard-section">
+          {% if !currentUser %}
+          <div class='StriderBlock_LoggedOutFillContent'>{% pluginblock LoggedOutFillContent %}
+            {% include "partials/errors.html" %}
+            {% include "partials/signupform.html" %}
+            {% endpluginblock %}</div>
+
+          <script>
+            $(document).ready(function() {
+            $('#layout-header').hide();
+            $('#invite-box').height($('#signup-box').height());   
+            });
+          </script>
+
+          {% endif %}
           <div class="row-fluid">
             <div class="span6">
               <h2>Latest Builds: <i ng-show="loadingJobs" class="icon-spinner icon-spin"></i></h2>
@@ -99,5 +99,4 @@
 <script src="/javascripts/modules/job-monitor.js"></script>
 <script src="/javascripts/pages/dashboard.js"></script>
 
-{% endif %}
 {% endblock %}

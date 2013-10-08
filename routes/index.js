@@ -91,6 +91,33 @@ exports.account = function(req, res){
   });
 };
 
+exports.setConfig = function (req, res) {
+  var attrs = 'public'.split(' ')
+  for (var i=0; i<attrs.length; i++) {
+    if ('undefined' !== typeof req.body[attrs[i]]) {
+      req.project[attrs[i]] = req.body[attrs[i]]
+    }
+  }
+  req.project.save(function (err) {
+    if (err) return res.send(500, 'failed to save project')
+    res.send(200, 'saved')
+  })
+}
+
+exports.getRunnerConfig = function (req, res) {
+  var branch = req.project.branch(req.params.branch)
+  res.send(branch.runner)
+}
+
+exports.setRunnerConfig = function (req, res) {
+  var branch = req.project.branch(req.params.branch)
+  branch.runner.config = req.body
+  req.project.save(function (err, project) {
+    if (err) return res.send(500, {error: 'Failed to save runner config'})
+    res.send(project.branch(req.params.branch).runner.config)
+  })
+}
+
 // GET /:org/:repo/config/:branch/:pluginname
 // Output: the config
 exports.getPluginConfig = function (req, res) {
@@ -106,12 +133,28 @@ exports.setPluginConfig = function (req, res) {
   })
 }
 
-exports.setPluginOrder = function (req, res) {
+exports.configureBranch = function (req, res) {
   var branch = req.project.branch(req.params.branch)
   if (!branch) {
     return res.send(400, 'Invalid branch')
   }
-  var plugins = req.body
+  if (req.body.plugin_order) {
+    return setPluginOrder(req, res, branch);
+  }
+  var attrs = 'active privkey pubkey mirror_master deploy_on_green runner plugins'.split(' ')
+  for (var i=0; i<attrs.length; i++) {
+    if ('undefined' !== typeof req.body[attrs[i]]) {
+      branch[attrs[i]] = req.body[attrs[i]]
+    }
+  }
+  req.project.save(function (err) {
+    if (err) return res.send(500, 'failed to save project')
+    res.send(200, 'saved')
+  })
+}
+
+function setPluginOrder(req, res, branch) {
+  var plugins = req.body.plugin_order
     , old = branch.plugins || []
     , map = {}
     , i
@@ -142,6 +185,7 @@ exports.config = function(req, res) {
       collaborators: {},
       project: req.project.toJSON()
     }
+    delete data.project.creator
     for (var i=0; i<users.length; i++) {
       var p = _.find(users[i].projects, function(p) {
         return p.name === req.project.name
@@ -156,12 +200,33 @@ exports.config = function(req, res) {
     if (typeof provider.getBranches === 'function') {
       provider.getBranches(req.user.account(req.project.provider).config,
         req.project.provider.config, req.project, function(err, branches) {
-        if (err) {
-          console.error("could not fetch branches for repo %s: %s", req.project.name, err)
-          return res.render('project_config.html', data)
-        }
-        data.branches = branches
-        res.render('project_config.html', data)
+          if (err) {
+            console.error("could not fetch branches for repo %s: %s", req.project.name, err)
+            return res.render('project_config.html', data)
+          }
+          var have = {}
+            , newBranches = false
+          for (var i=0; i<req.project.branches.length; i++) {
+            have[req.project.branches[i].name] = true
+          }
+          for (var i=0; i<branches.length; i++) {
+            if (have[branches[i]]) continue
+            newBranches = true
+            req.project.branches.push({
+              name: branches[i],
+              mirror_master: true
+            })
+            data.project.branches.push({
+              name: branches[i],
+              mirror_master: true
+            })
+          }
+          if (!newBranches) return res.render('project_config.html', data)
+          
+          Project.update({_id: req.project._id}, {$set: {branches: req.project.branches}}, function (err, project) {
+            if (err || !project) console.error('failed to save branches')
+            res.render('project_config.html', data)
+          })
       })
     } else {
       res.render('project_config.html', data)

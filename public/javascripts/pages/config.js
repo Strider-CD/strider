@@ -103,15 +103,37 @@
     $scope.toggleBranch = function () {
       if ($scope.branch.mirror_master) {
         $scope.branch.mirror_master = false;
+        var name = $scope.branch.name
+          , master;
+        for (var i=0; i<$scope.project.branches.length; i++) {
+          if ($scope.project.branches[i].name === 'master') {
+            master = $scope.project.branches[i];
+            break;
+          }
+        }
+        $scope.branch = $.extend(true, $scope.branch, master);
+        $scope.branch.name = name;
         initBranch($scope.branch);
       } else {
         $scope.branch.mirror_master = true;
       }
+      $scope.saveGeneralBranch(true);
     };
 
+    $scope.$watch('branch.mirror_master', function (value) {
+      setTimeout(function () {
+        var tab = value && value.name === 'master' ? 'project' : 'basic';
+        $('#' + tab + '-tab-handle').tab('show');
+        $('.tab-pane.active').removeClass('active');
+        $('#tab-' + tab).addClass('active');
+      }, 0);
+    });
     $scope.$watch('branch', function (value) {
       setTimeout(function () {
-      $('#' + (value && value.name === 'master' ? 'project' : 'basic') + '-tab-handle').tab('show');
+        var tab = value && value.name === 'master' ? 'project' : 'basic';
+        $('#' + tab + '-tab-handle').tab('show');
+        $('.tab-pane.active').removeClass('active');
+        $('#tab-' + tab).addClass('active');
       }, 0);
     });
 
@@ -133,6 +155,7 @@
 
     function savePluginOrder() {
       var plugins = $scope.branch.plugins
+        , branch = $scope.branch
         , data = [];
       for (var i=0; i<plugins.length; i++) {
         data.push({
@@ -143,16 +166,16 @@
       $.ajax({
         url: '/' + $scope.project.name + '/config/' + $scope.branch.name + '/',
         type: 'PUT',
-        data: JSON.stringify(data),
+        data: JSON.stringify({plugin_order: data}),
         contentType: 'application/json',
         success: function(data, ts, xhr) {
-          $scope.success('Plugin order on branch ' + $scope.branch.name + ' saved.', true);
+          $scope.success('Plugin order on branch ' + branch.name + ' saved.', true);
         },
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
-            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + xhr.responseText, true);
+            $scope.error("Error saving plugin order on branch " + branch.name + ": " + xhr.responseText, true);
           } else {
-            $scope.error("Error saving plugin order on branch " + $scope.branch.name + ": " + e, true);
+            $scope.error("Error saving plugin order on branch " + branch.name + ": " + e, true);
           }
         }
       });
@@ -213,9 +236,35 @@
       }
     }
 
-    $scope.saveGeneral = function () {
-      // TODO
-      throw new Error("not implemented");
+    $scope.saveGeneralBranch = function (plugins) {
+      var branch = $scope.branch
+        , data = {
+            active: branch.active,
+            privkey: branch.privkey,
+            pubkey: branch.pubkey,
+            mirror_master: branch.mirror_master,
+            deploy_on_green: branch.deploy_on_green,
+            runner: branch.runner
+          };
+      if (plugins) {
+        data.plugins = branch.plugins;
+      }
+      $.ajax({
+        url: '/' + $scope.project.name + '/config/' + $scope.branch.name + '/',
+        type: 'PUT',
+        data: JSON.stringify(data),
+        contentType: 'application/json',
+        success: function(data, ts, xhr) {
+          $scope.success('General config for branch ' + branch.name + ' saved.', true);
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            $scope.error("Error saving general config for branch " + branch.name + ": " + xhr.responseText, true);
+          } else {
+            $scope.error("Error saving general config for branch " + branch.name + ": " + e, true);
+          }
+        }
+      });
     };
 
     $scope.generateKeyPair = function () {
@@ -243,9 +292,10 @@
         return $scope.runnerConfigs[name];
       }
       $.ajax({
-        url: 'master/runner',
+        url: '/' + $scope.project.name + '/config/master/runner',
         type: 'PUT',
-        data: data,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
         success: function(data, ts, xhr) {
           $scope.success("Runner config saved.");
           $scope.runnerConfigs[name] = data.config;
@@ -327,6 +377,27 @@
           }
           next();
           $scope.$root.$digest();
+        }
+      });
+    };
+
+    $scope.saveProject = function () {
+      $.ajax({
+        url: '/' + $scope.project.name + '/config',
+        type: 'PUT',
+        data: JSON.stringify({
+          public: $scope.project.public
+        }),
+        contentType: 'application/json',
+        success: function(data, ts, xhr) {
+          $scope.success('General config saved.', true);
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            $scope.error("Error saving general config: " + xhr.responseText, true);
+          } else {
+            $scope.error("Error saving general config: " + e, true);
+          }
         }
       });
     };

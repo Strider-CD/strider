@@ -1,5 +1,4 @@
 <div class="general-config">
-  <button ng-click="saveGeneral()" class="btn btn-primary save-top-right">Save</button>
   <label class="checkbox">
     <input type="checkbox" ng-model="branch.active"> Active
   </label>
@@ -24,11 +23,5 @@
     </div>
     <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
   </div>
-  <div>
-    <h3>Delete Project</h3>
-    <p>
-      Permanently remove {{ project.name }} from Strider
-    </p>
-    <a ng-click="confirmDeleteProject()" class="btn btn-danger">Delete Project</a>
-  </div>
+  <button ng-click="saveGeneralBranch()" class="btn btn-primary">Save</button>
 </div>

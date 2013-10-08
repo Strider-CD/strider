@@ -56,7 +56,7 @@ function filterJob(job) {
 
 function html(req, res) {
   var id = req.params.id
-  var projectName = req.project.name.toLowerCase()
+  var projectName = req.project.name
   Job.find({project: projectName}).sort('-finished').limit(20).lean().exec(function (err, jobs) {
     jobs.sort(ljobs.sort)
     var job = id ? null : jobs[0]
@@ -70,7 +70,8 @@ function html(req, res) {
       project: utils.sanitizeProject(req.project),
       accessLevel: req.accessLevel,
       jobs: jobs,
-      job: job
+      job: job,
+      page_base: req.params.org + '/' + req.params.repo
     })
   })
 }

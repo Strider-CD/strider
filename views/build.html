@@ -13,13 +13,14 @@
     var jobs = {{ jobs | json_encode() | raw }};
     var job = {{ job | json_encode() | raw }};
   </script>
-  <base href="/{{ project.display_name }}/"></base>
+  <base href="/{{ page_base }}/"></base>
   <div id="build-page" class="main" ng-view></div>
   <script id="build-tpl.html" type="text/ng-template">
     <div class="row-fluid job-page-intro">
       <div class="span7 job-title">
         {% pluginblock JobPagePreTitle %}{% endpluginblock %}
         <h3>
+          {% if currentUser %}
           <span ng-show="!job.running && repo.access_level > 0"
                 ng-click="startDeploy(job)"
                 title="Retest &amp; Deploy"
@@ -30,11 +31,12 @@
                 title="Retest" class="clickable test-only-action">
             <i class="icon-refresh"></i>
           </span>
-          <a href="/[[ project.display_name ]]/config" ng-hide="repo.access_level < 1" title="Configure">
+          <a href="/[[ project.name ]]/config" ng-hide="repo.access_level < 1" title="Configure">
             <i class="icon-wrench"></i>
           </a>
+          {% endif %}
           <span class='job-repo'>{{ project.display_name }}</span>
-          <a href="[[ job.repo_url ]]" target="_blank">
+          <a href="[[ project.display_url ]]" target="_blank">
             <i class="icon-github"></i>
           </a>
         </h3>

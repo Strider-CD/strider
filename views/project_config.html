@@ -34,9 +34,16 @@
         </select>
         <button
            class="btn"
-           ng-hide="branch === 'master'"
-           ng-class="{ active: !branch.mirror_master }"
-           ng-click="toggleBranch()">Customize Branch</button>
+           ng-hide="branch.name === 'master'"
+           ng-switch="!!branch.mirror_master"
+           ng-click="toggleBranch()">
+          <span ng-switch-when="true">
+            Customize Branch
+          </span>
+          <span ng-switch-when="false">
+            Mirror Master
+          </span>
+        </button>
       </span>
       <a class="btn btn-primary" data-placement="bottom" data-toggle="tooltip" title="Retest &amp; Deploy Branch" href="/{{ project.name }}/?redeploy=[[ branch.name ]]">
         Deploy Branch
