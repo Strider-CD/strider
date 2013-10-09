@@ -21,7 +21,7 @@
           <span class="exit-status" toggle="tooltip" title="exit code" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
         </span>
       </div>
-      <pre class="job-output" ng-hide="command.collapsed" ng-bind-html="command.merged | ansi"></pre>
+      <pre class="job-output" ng-hide="command.collapsed" raw-html="command.merged | ansi"></pre>
     </div>
   </div>
 </div>

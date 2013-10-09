@@ -176,6 +176,24 @@ function setPluginOrder(req, res, branch) {
   })
 }
 
+exports.reloadConfig = function (req, res, next) {
+  common.loader.initConfig(
+    path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
+    path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
+    function (err, configs) {
+      console.log('loaded config pages')
+      common.pluginConfigs = configs
+      common.loader.initUserConfig(
+        path.join(__dirname, 'public/javascripts/pages/account-plugins-compiled.js'),
+        path.join(__dirname, 'public/stylesheets/css/account-plugins-compiled.css'),
+        function (err, configs) {
+          console.log('loaded account config pages')
+          common.userConfigs = configs
+          next()
+        })
+    })
+}
+
 /*
  * GET /:org/:repo/config - project config page
  */

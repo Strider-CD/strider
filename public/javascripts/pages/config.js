@@ -2,7 +2,7 @@
 
 ;(function () {
 
-  window.app = angular.module('config', ['ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
+  window.app = angular.module('config', ['ui.bootstrap', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
   });

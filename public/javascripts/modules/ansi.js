@@ -216,7 +216,7 @@ function ansifilter(data, plaintext) {
 
 var app = angular.module('ansi', []);
 
-app.filter('ansi', ['$sce', function ($sce) {
+app.filter('ansi', function () {
   // cached is required as a workaround for https://github.com/angular/angular.js/issues/3980
   // once we're on RC-3, we should be fine.
   var cached = {}
@@ -228,8 +228,8 @@ app.filter('ansi', ['$sce', function ($sce) {
                     .replace(/>/g, '&gt;')
                     .replace(/'/g, '&#39;')
                     .replace(/"/g, '&quot;');
-    return cached[input] = $sce.trustAsHtml(ansifilter(text));
+    return cached[input] = ansifilter(text);
   }
-}]);
+});
 
 })(window);
