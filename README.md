@@ -1,4 +1,4 @@
-# ![Strider Logo](https://raw.github.com/Strider-CD/strider/master/public/images/logo-100x100.png) Strider
+# ![Strider Logo](https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png)
 [![Build Status](https://public-ci.stridercd.com/51f050cf04568a0c00000008/strider-cd/strider/badge)](https://public-ci.stridercd.com/Strider-CD/strider/)
 [![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
 [![devDependency Status](https://david-dm.org/Strider-CD/strider/dev-status.png)](https://david-dm.org/Strider-CD/strider#info=devDependencies)
@@ -44,11 +44,13 @@ major differences:
     - [Node.js: Continuous Integration](#getting-started-continuous-integration-for-nodejs)
     - [Node.js: Continuous Deployment to Heroku (+ MongoLab/MongoDB)](#getting-started-continuous-deployment-for-nodejs)
     - [strider-custom.json configuration](#strider-customjson-configuration)
+- [Roadmap / Changelog](https://github.com/Strider-CD/strider/blob/master/ROADMAP.md)
+
 
 <a name="docker-quickstart" />
 ## Docker Quickstart
 For a fully self-contained and pre-built strider installation, check out
-[Strider in a box](https://github.com/Strider-CD/strider-dockerfile#docker--strider--winning),
+[Strider in a box](https://github.com/Strider-CD/strider/tree/master/docker),
 made possible by the incredible [docker](http://docker.io) project.
 
 There's a walkthrough of setting it up [on our blog](http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/).
