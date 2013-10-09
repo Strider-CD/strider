@@ -79,6 +79,7 @@
     $scope.configs = {};
     $scope.runnerConfigs = {};
     $scope.selectedTab = null;
+    $scope.api_root = '/' + $scope.project.name + '/api/';
 
     $('a[data-toggle="tab"]').on('show', function (e) {
       $scope.selectedTab = e.target.href.slice(1);
@@ -328,22 +329,21 @@
         return $scope.project.provider.config;
       }
       $.ajax({
-        url: 'master/provider',
-        type: 'PUT',
+        url: '/' + $scope.project.name + '/provider/',
+        type: 'POST',
         data: data,
         success: function(data, ts, xhr) {
           $scope.success("Provider config saved.");
-          next(null, data.config);
+          next && next(config);
           $scope.$root.$digest();
         },
         error: function(xhr, ts, e) {
           if (xhr && xhr.responseText) {
-            var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error saving provider config: " + data.errors[0]);
+            $scope.error("Error saving provider config: " + xhr.responseText);
           } else {
             $scope.error("Error saving provider config: " + e);
           }
-          next();
+          next && next();
           $scope.$root.$digest();
         }
       });
