@@ -1,3 +1,12 @@
+.CodeMirror {
+  height: 150px;
+  cursor: text;
+}
+.help-text {
+  font-size: 16px;
+  line-height: 18px;
+  color: #888;
+}
 /* sortable */
 .clearfix:before,
 .clearfix:after {

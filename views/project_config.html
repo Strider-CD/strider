@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
+<link rel="stylesheet" href="/stylesheets/css/codemirror.css">
+<link rel="stylesheet" href="/stylesheets/css/codemirror/twilight.css">
 <link rel="stylesheet" href="/stylesheets/css/config.css">
 <link rel="stylesheet" href="/stylesheets/css/config-plugins-compiled.css">
 <link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css">
@@ -109,14 +111,14 @@
 
             {% for plugin in plugins %}
             <div id="plugin-{{loop.key}}" class="tab-pane plugin-tab" ng-controller="{{plugin.controller}}">
-              <div class="disabled-note"
+              {#<div class="disabled-note"
                    ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
                    ng-switch="configs[branch.name]['{{ loop.key }}'].enabled">
                 <span ng-switch-when="false">
                   This plugin is disabled. <button class="btn" ng-click="setEnabled('{{ loop.key }}', true)">Enable</button>
                 </span>
                 <span ng-switch-default><button class="btn" ng-click="setEnabled('{{ loop.key }}', false)">Disable</button></span>
-              </div>
+              </div>#}
               {% autoescape false %}
               {{ plugin.html }}
               {% endautoescape %}
@@ -129,6 +131,8 @@
   </div>
 </div>
 <script src="/javascripts/lib/bootstrap-switch.js"></script>
+<script src="/javascripts/lib/codemirror-compressed.js"></script>
+<script src="/javascripts/lib/ui-codemirror.js"></script>
 <script src="/javascripts/lib/jquery-ui.js"></script>
 <script src="/javascripts/lib/sortable.js"></script>
 <script src="/javascripts/modules/alerts.js"></script>

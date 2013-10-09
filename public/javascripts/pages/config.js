@@ -2,7 +2,7 @@
 
 ;(function () {
 
-  window.app = angular.module('config', ['ui.bootstrap', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
+  window.app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
   });
@@ -78,6 +78,12 @@
     $scope.disabled_plugins = {};
     $scope.configs = {};
     $scope.runnerConfigs = {};
+    $scope.selectedTab = null;
+
+    $('a[data-toggle="tab"]').on('show', function (e) {
+      $scope.selectedTab = e.target.href.slice(1);
+      $scope.$digest();
+    });
 
     var save_branches = {};
 
