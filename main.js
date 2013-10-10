@@ -146,13 +146,6 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
             console.log('[' + type + ' plugins]')
             for (var id in webapps[type]) {
               console.log('- ' + id)
-              // update the plugins' config with any config given to strider
-              if (!webapps[type][id].appConfig) {
-                webapps[type][id].appConfig = {}
-              }
-              if (context.config.plugins[id]) {
-                _.extend(webapps[type][id].appConfig, context.config.plugins[id])
-              }
             }
           }
           next()
