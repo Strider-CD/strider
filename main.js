@@ -141,24 +141,20 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
         loader.initWebAppExtensions(context, function (err, webapps) {
           if (err) return next(err)
           common.extensions = webapps
-          var id
-          console.log('Job Plugins:')
-          for (id in webapps.job) {
-            console.log('- ' + id)
-          }
-          console.log('Provider Plugins:')
-          for (id in webapps.provider) {
-            console.log('- ' + id)
-          }
-          console.log('Runner Plugins:')
-          for (id in webapps.runner) {
-            console.log('- ' + id)
-          }
-          console.log('Basic Plugins:')
-          for (id in webapps.basic) {
-            console.log('- ' + id)
-          }
           console.log('initalized webapps')
+          for (var type in webapps) {
+            console.log('[' + type + ' plugins]')
+            for (var id in webapps[type]) {
+              console.log('- ' + id)
+              // update the plugins' config with any config given to strider
+              if (!webapps[type][id].appConfig) {
+                webapps[type][id].appConfig = {}
+              }
+              if (context.config.plugins[id]) {
+                _.extend(webapps[type][id].appConfig, context.config.plugins[id])
+              }
+            }
+          }
           next()
         })
       },

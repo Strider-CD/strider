@@ -334,7 +334,7 @@
         data: data,
         success: function(data, ts, xhr) {
           $scope.success("Provider config saved.");
-          next && next(config);
+          next && next();
           $scope.$root.$digest();
         },
         error: function(xhr, ts, e) {

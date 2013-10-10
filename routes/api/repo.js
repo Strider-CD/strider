@@ -114,9 +114,8 @@ exports.create_project = function(req, res) {
 
   function createProjectWithKey(err, pubkey, privkey) {
     if (err) return error(500, 'Failed to generate ssh keypair')
-    console.log('making plugins', plugins)
 
-    Project.create({
+    var project = {
       name: name,
       display_name: display_name,
       display_url: display_url,
@@ -138,7 +137,23 @@ exports.create_project = function(req, res) {
             pty: false
           }
         }
-      }]}, projectCreated)
+      }]
+    }
+
+    var plugin = common.extensions.provider[provider.id]
+    if (!plugin.hosted || !plugin.setupRepo) {
+      return Project.create(project, projectCreated)
+    }
+
+    plugin.setupRepo(req.user.account(provider).config, provider.config, project, function (err, config) {
+      if (err){
+        console.log(err.message)
+        console.log(err.stack)
+        return error(500, 'Failed to setup repo: ' + err.message)
+      }
+      project.provider.config = config
+      Project.create(project, projectCreated)
+    })
   }
 
   function projectCreated(err, p) {
@@ -184,6 +199,12 @@ exports.create_project = function(req, res) {
  */
 exports.delete_project = function(req, res) {
   async.parallel([
+    function (next) {
+      var provider = req.project.provider
+        , plugin = common.extensions.provider[provider.id]
+      if (!plugin.hosted || !plugin.teardownRepo) return next()
+      plugin.teardownRepo(req.project.creator.account(provider).config, provider.config, req.project, next)
+    },
     req.project.remove.bind(req.project),
     function (next) {
       var now = new Date()
