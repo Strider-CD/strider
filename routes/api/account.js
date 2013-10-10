@@ -16,6 +16,23 @@ var _ = require('underscore')
   , api = require('./index.js')
   ;
 
+// DELETE /api/account/:provider/:accountid
+exports.remove = function (req, res) {
+  var accounts = req.user.accounts
+    , provider = req.params.provider
+    , id = req.params.id
+  for (var i=0; i<accounts.length; i++) {
+    if (accounts[i].provider === provider &&
+        accounts[i].id === id) {
+      accounts.splice(i, 1)
+      return req.user.save(function (err) {
+        if (err) return res.send(500, 'failed to save user')
+        res.send(204)
+      })
+    }
+  }
+  res.send(404, 'Account not found')
+}
 
 /*
  * POST /api/account/password

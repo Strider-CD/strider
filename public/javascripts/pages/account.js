@@ -24,7 +24,19 @@
     $scope.accounts = setupAccounts($scope.user);
 
     $scope.deleteAccount = function (account) {
-      $scope.error('Delete account not implemented', true);
+      $.ajax('/api/account/' + account.provider + '/' + account.id, {
+        type: 'DELETE',
+        success: function () {
+          var idx = $scope.accounts[account.provider].indexOf(account);
+          $scope.accounts[account.provider].splice(idx, 1);
+          idx = $scope.user.accounts.indexOf(account);
+          $scope.user.accounts.splice(idx, 1);
+          $scope.success('Account removed', true);
+        },
+        error: function () {
+          $scope.error('Failed to remove account', true);
+        }
+      });
     };
 
     $scope.addAccount = function (provider) {
