@@ -70,6 +70,7 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
 }).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
   var socket = window.socket || (window.socket = io.connect())
     , dash = new Dashboard(socket, $scope);
+  $scope.providers = window.providers;
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $('#dashboard').show();
   $scope.startDeploy = function (job) {

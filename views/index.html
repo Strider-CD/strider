@@ -7,6 +7,7 @@
 {% block bodyContent %}
 <script>
   window.jobs = {{ jobs | scriptjson | raw }};
+  var providers = {{ providers | scriptjson | raw }};
 </script>
 <div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
   <div>

@@ -80,7 +80,7 @@
 {% if page !== 'history' %}
 <td class="github-link" ng-hide="page === 'build'">
   <a href="[[ job.project.display_url || project.display_url ]]" target="_blank">
-    <i class="icon-github"></i>
+    <i class="icon-[[ providers[job.project.provider.id].inline_icon || 'globe' ]]"></i>
   </a>
 </td>
 {% endif %}

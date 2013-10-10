@@ -42,7 +42,10 @@ exports.index = function(req, res){
     return res.render('register.html', {invite_code:code})
   }
   jobs.latestJobs(req.user, true, function (err, jobs) {
-    res.render('index.html', {jobs: jobs})
+    res.render('index.html', {
+      jobs: jobs,
+      providers: common.userConfigs.provider
+    })
   })
 };
 
@@ -401,8 +404,7 @@ exports.projects = function(req, res) {
       }
 
       tasks.push(function (next) {
-        var listRepos = common.extensions.provider[account.provider].listRepos
-        listRepos(account.config, function (err, repos) {
+        listRepos = common.extensions.provider[account.provider].listRepos(account.config, function (err, repos) {
           if (err) return next(err)
           account.set('cache', repos)
           groupRepos(account, repomap, tree, repos)

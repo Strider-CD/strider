@@ -22,12 +22,10 @@ var _ = require('underscore')
 function makePlugins(plugins) {
   var plugin
     , configs = []
-  console.log(plugins)
   for (var i=0; i<plugins.length; i++) {
     plugin = common.extensions.job[plugins[i]]
     if (!plugin) return false
     var config = utils.defaultSchema(plugin)
-    console.log('default:', plugin, config)
     configs.push({
       id: plugins[i],
       enabled: true,
@@ -112,7 +110,7 @@ exports.create_project = function(req, res) {
   }
 
 
-  function createProjectWithKey(err, pubkey, privkey) {
+  function createProjectWithKey(err, privkey, pubkey) {
     if (err) return error(500, 'Failed to generate ssh keypair')
 
     var project = {
@@ -128,8 +126,8 @@ exports.create_project = function(req, res) {
         active: true,
         mirror_master: false,
         deploy_on_green: true,
-        pubkey: pubkey,
-        privkey: privkey,
+        pubkey: pubkey.toString(),
+        privkey: privkey.toString(),
         plugins: plugins,
         runner: {
           id: 'simple-runner',
@@ -159,6 +157,7 @@ exports.create_project = function(req, res) {
   function projectCreated(err, p) {
     if (err) {
       console.error("Error creating repo %s for user %s: %s", name, req.user.email, err)
+      console.log(err.stack)
       return error(500, "internal server error")
     }
     // Project object created, add to User object
@@ -203,7 +202,10 @@ exports.delete_project = function(req, res) {
       var provider = req.project.provider
         , plugin = common.extensions.provider[provider.id]
       if (!plugin.hosted || !plugin.teardownRepo) return next()
-      plugin.teardownRepo(req.project.creator.account(provider).config, provider.config, req.project, next)
+      plugin.teardownRepo(req.project.creator.account(provider).config, provider.config, req.project, function (err) {
+        if (err) console.error('Error while tearing down repo', req.project.name, provider.id)
+        next()
+      })
     },
     req.project.remove.bind(req.project),
     function (next) {
