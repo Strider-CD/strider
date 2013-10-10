@@ -31,6 +31,7 @@
     "strider-sauce": "git+https://github.com/Strider-CD/strider-sauce.git#1_4_refactor",
     "strider-node": "git+https://github.com/Strider-CD/strider-node.git#1_4_refactor",
     "strider-github": "git+https://github.com/Strider-CD/strider-github.git",
+    "strider-bitbucket": "git+https://github.com/Strider-CD/strider-bitbucket.git",
     "strider-webhooks": "git+https://github.com/Strider-CD/strider-webhooks.git",
     "connect": "~2.7.3",
     "express": "~3.4.0",
