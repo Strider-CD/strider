@@ -404,7 +404,7 @@ exports.projects = function(req, res) {
       }
 
       tasks.push(function (next) {
-        listRepos = common.extensions.provider[account.provider].listRepos(account.config, function (err, repos) {
+        common.extensions.provider[account.provider].listRepos(account.config, function (err, repos) {
           if (err) return next(err)
           account.set('cache', repos)
           groupRepos(account, repomap, tree, repos)
