@@ -12,6 +12,7 @@ var app = require('./lib/app')
 
   , upgrade = require('./lib/models/upgrade').ensure
 
+  , passport = require('passport')
   , path = require('path')
   , async = require('async')
   , _ = require('lodash')
@@ -77,6 +78,7 @@ module.exports = function(extdir, c, callback) {
     logger: console,
     middleware: middleware,
     auth: auth, //TODO - may want to make this a subset of the auth module
+    passport: passport,
     registerPanel: registerPanel,
     registerBlock: pluginTemplates.registerBlock,
     app: appInstance
@@ -89,6 +91,7 @@ module.exports = function(extdir, c, callback) {
   upgrade(SCHEMA_VERSION, function (err) {
     if (err) return cb(err)
     loadExtensions(loader, extdir, context, appInstance, function (err) {
+      // kill zombie jobs
       killZombies(function () {
         var tasks = []
         if (!common.extensions.runner || 'object' !== typeof common.extensions.runner) {
