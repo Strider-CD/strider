@@ -18,7 +18,7 @@ for module in $DEPS
 do
   if [ "$1" = "up" ]
   then
-    (../$module && git pull && rm -rf node_modules && npm i)
+    (cd ../$module && git pull && rm -rf node_modules && npm i)
   else
     git clone -b 1_4_refactor $BASE/$module ../$module
     npm link ../$module
