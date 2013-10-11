@@ -275,10 +275,17 @@
     };
 
     $scope.generateKeyPair = function () {
-      // TODO implement
-      setTimeout(function () {
-        $scope.error('Generate keypair not implemented', true);
-      }, 0);
+      bootbox.confirm('Really generate a new keypair? This could break things if you have plugins that use the current ones.', function (really) {
+        if (!really) return;
+        $.ajax('/' + $scope.project.name + '/keygen/' + $scope.branch.name, {
+          type: 'POST',
+          success: function (data, ts, xhr) {
+            $scope.branch.privkey = data.privkey;
+            $scope.branch.pubkey = data.pubkey;
+            $scope.success('Generated new ssh keypair', true);
+          }
+        });
+      });
     };
 
     initPlugins();

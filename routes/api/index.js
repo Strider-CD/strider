@@ -12,13 +12,18 @@ var _ = require('underscore')
   , email = require(BASE_PATH + 'email')
   , logging = require(BASE_PATH + 'logging')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
-;
+
+module.exports = {
+  config: require('./config'),
+  require_param: require_param,
+  invite_new: invite_new
+}
 
 
 /*
  * Require a request parameter is present or return a 400 response.
  */
-var require_param = exports.require_param = function(key, req, res) {
+function require_param(key, req, res) {
   var val = req.param(key);
   if (val === undefined) {
     res.statusCode = 400;
@@ -42,8 +47,7 @@ var require_param = exports.require_param = function(key, req, res) {
  *
  */
 
-exports.invite_new = function(req, res)
-{
+function invite_new(req, res) {
   var invite_code, email_addr;
   invite_code = require_param("invite_code", req, res);
   email_addr = require_param("email", req, res);

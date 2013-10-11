@@ -8,7 +8,6 @@ var BASE_PATH = '../../lib/';
 
 var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
-  , ssh = require(BASE_PATH + 'ssh')
   , utils = require(BASE_PATH + 'utils')
   , common = require(BASE_PATH + 'common')
   , User = require(BASE_PATH + 'models').User
@@ -16,8 +15,8 @@ var _ = require('underscore')
   , Job = require(BASE_PATH + 'models').Job
   , Step = require('step')
   , async = require('async')
-  ;
 
+  , keypair = require('ssh-keypair')
 
 function makePlugins(plugins) {
   var plugin
@@ -106,7 +105,7 @@ exports.create_project = function(req, res) {
       return error(409, "project already exists")
     }
 
-    ssh.generate_keypair(name + '-' + req.user.email, createProjectWithKey) 
+    keypair(name + '-' + req.user.email, createProjectWithKey) 
   }
 
 
@@ -126,8 +125,8 @@ exports.create_project = function(req, res) {
         active: true,
         mirror_master: false,
         deploy_on_green: true,
-        pubkey: pubkey.toString(),
-        privkey: privkey.toString(),
+        pubkey: pubkey,
+        privkey: privkey,
         plugins: plugins,
         runner: {
           id: 'simple-runner',
