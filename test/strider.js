@@ -4,10 +4,10 @@
  *  Nothing else, please.
  */ 
 
-
-
-require('child_process').spawn("bin/strider", [], { 
-    env : {
-      DB_URI : db      
-    }
-  , stdio: 'inherit' })
+require('./setup-fixtures')(function(err, config){
+  console.log(config)
+  require('child_process').spawn("bin/strider", [], { 
+      env : { DB_URI : config.db_uri  }
+    , stdio: 'inherit' 
+  })
+})
