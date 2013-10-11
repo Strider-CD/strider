@@ -88,6 +88,10 @@ exports.create_project = function(req, res) {
     return error(400, "provider.repo_id is required")
   }
 
+  if (!provider.config) {
+    provider.config = utils.defaultSchema(provider.config)
+  }
+
   if (!common.project_types[project_type]) {
     return error(400, "Invalid project type specified")
   }
