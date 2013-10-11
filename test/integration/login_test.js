@@ -1,6 +1,6 @@
 var sm = require('mocha-selenium')
   , b = sm.setup('integration - login', {
-      appCmd: 'node test/test-strider.js'
+      appCmd: 'node test/strider.js'
     })
 
 
@@ -28,7 +28,7 @@ describe('login', function(){
   it("submitting form works", function(done){
     b.elementByName('email', function(err, el){
       if (err) return done(err);
-      b.type(el, "test@frozenridge.co", function(err){
+      b.type(el, "test1@example.com", function(err){
         if (err) return done(err);
         b.elementByName('password', function(err, el){
           if (err) return done(err);

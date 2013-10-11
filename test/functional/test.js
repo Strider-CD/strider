@@ -3,15 +3,12 @@ var  _ = require('underscore')
   , models = require('../../lib/models')
   , assert = require('assert')
   , common = require('../../lib/common')
-  , config = require('../../test-config')
   , crypto = require('crypto')
-  , exec = require('child_process').exec
   , EventEmitter = require('events').EventEmitter
   , fs = require('fs')
   , mongoose = require('mongoose')
   , path = require('path')
   , qs = require('querystring')
-  , request = require('request')
   , should = require('should')
   , sinon = require('sinon')
   , Step = require('step')
@@ -20,26 +17,28 @@ var  _ = require('underscore')
 
 
 describe('functional', function() {
+  this.timeout(10000);
 
   before(function(done) {
-    this.timeout(10000);
-    // Inject the test config
-    common.workerMessageHooks = [];
-    common.workerMessagePostProcessors = [];
-    var server = app.init(config);
-    var db_name = path.basename(config.db_uri);
-    var db_port;
-    // Load the test data
-        var self = this
-        models.User.find({}, function (err, users) {
-          for (var i=0; i<users.length; i++) {
-            users[i].password = TEST_USER_PASSWORD;
-            users[i].save(self.parallel())
-          }
-        })
-      },
-      done
-    );
+    require('./setup-fixtures')(function(){
+        // Inject the test config
+        common.workerMessageHooks = [];
+        common.workerMessagePostProcessors = [];
+        var server = app.init(config);
+        var db_name = path.basename(config.db_uri);
+        var db_port;
+        // Load the test data
+            var self = this
+            models.User.find({}, function (err, users) {
+              for (var i=0; i<users.length; i++) {
+                users[i].password = TEST_USER_PASSWORD;
+                users[i].save(self.parallel())
+              }
+            })
+          },
+          done
+        );   
+    })
   });
 
   describe("auth", function() {

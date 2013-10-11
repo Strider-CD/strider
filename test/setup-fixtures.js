@@ -47,7 +47,7 @@ function fake_mongo_import(name, fname, cb) {
 var TEST_PORT=8700;
 var TEST_BASE_URL="http://localhost:"+TEST_PORT+"/";
 var TEST_WEBHOOK_SHA1_SECRET="l1ulAEJQyOTpvjz7r4yNtzZlL4vsV8Zy/jatdRUxvJc=";
-TEST_USER_PASSWORD = "example";
+TEST_USER_PASSWORD = "open-sesame";
 var TEST_USERS = {
   "test1@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()},
   "test2@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()},

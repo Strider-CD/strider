@@ -6,8 +6,9 @@
 
 require('./setup-fixtures')(function(err, config){
   console.log(config)
+  process.env.DB_URI = config.db_uri
   require('child_process').spawn("bin/strider", [], { 
-      env : { DB_URI : config.db_uri  }
+      env : process.env
     , stdio: 'inherit' 
   })
 })
