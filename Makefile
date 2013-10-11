@@ -22,10 +22,18 @@ test: lint
 	@./node_modules/.bin/mocha -R tap test/test_api.js
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
+
 test-sauce:
-	# note: you need sauce connect running, and the env variables
-	# SAUCE_USERNAME and SAUCE_API_KEY
-	mocha-selenium -c test/client/selenium.json -e sauce -p
+ifndef SAUCE_USERNAME
+	$(error You need env: SAUCE_USERNAME)
+endif
+ifndef SAUCE_ACCESS_KEY
+	$(error You need env: SAUCE_ACCESS_KEY)
+endif
+	# Sauce Connect: https://saucelabs.com/docs/connect
+	# USER: $(SAUCE_USERNAME)
+	# KEY:  $(SAUCE_ACCESS_KEY)
+	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/client/selenium.json -e sauce -p
 
 test-selenium:
 	# test locally. This will start up chromedriver for you
