@@ -5,12 +5,9 @@ var expect = require('expect.js')
       appCmd: 'make serve'
     })
 
-  , client = require('./client')
-
-b.socketio = function (event, done) {
-  this.executeAsycScript(client.sioWait, [event], done)
-}
-
+// todo: test the "live update"
+//       and unknown job, and 
+//       job kickoff
 describe('dashboard', function () {
   this.timeout(30 * 1000)
   describe('with no jobs', function () {

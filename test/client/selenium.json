@@ -1,7 +1,7 @@
 {
   "run": "make serve",
   "appDir": "../../",
-  "files": ["dashboard.js", "projects.js"],
+  "files": ["config.js", "dashboard.js", "projects.js"],
   "envs": {
     "local": [["chrome", "", "ANY"]],
     "sauce": {

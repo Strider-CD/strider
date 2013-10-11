@@ -1,7 +1,7 @@
 
 var expect = require('expect.js')
   , sm = require('mocha-selenium')
-  , b = sm.setup('views:Dashboard', {
+  , b = sm.setup('views:Projects', {
       appCmd: 'make serve'
     })
 

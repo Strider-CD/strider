@@ -29,7 +29,7 @@ test-sauce:
 
 test-selenium:
 	# test locally. This will start up chromedriver for you
-	mocha-selenium -c test/client/selenium.json
+	mocha test/client/
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
 
