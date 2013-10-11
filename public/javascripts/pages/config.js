@@ -1,4 +1,4 @@
-/* global app: true, console: true, md5: true */
+/* global app: true, console: true, md5: true, bootbox: true */
 
 ;(function () {
 
