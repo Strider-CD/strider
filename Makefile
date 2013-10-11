@@ -22,6 +22,15 @@ test: lint
 	@./node_modules/.bin/mocha -R tap test/test_api.js
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
+test-sauce:
+	# note: you need sauce connect running, and the env variables
+	# SAUCE_USERNAME and SAUCE_API_KEY
+	mocha-selenium -c test/client/selenium.json -e sauce -p
+
+test-selenium:
+	# test locally. This will start up chromedriver for you
+	mocha-selenium -c test/client/selenium.json
+
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
 
 lint:
