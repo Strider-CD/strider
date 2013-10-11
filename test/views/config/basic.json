@@ -96,31 +96,31 @@
   "plugins": {
     "webhooks": {
       "title": "WebHooks",
-      "controller": "PluginController",
+      "controller": "JobController",
       "html": "<h3>Hello webhooks! [[ config | json ]]</h3>",
       "icon": "icon.png"
     },
     "node": {
       "title": "Node",
-      "controller": "PluginController",
+      "controller": "JobController",
       "html": "<h3>Node config [[config|json]]</h3>",
       "icon": "icon.png"
     },
     "python": {
       "title": "Python",
-      "controller": "PluginController",
+      "controller": "JobController",
       "html": "<h3>Python config [[config|json]]</h3>",
       "icon": "icon.png"
     },
     "go": {
       "title": "Go",
-      "controller": "PluginController",
+      "controller": "JobController",
       "html": "<h3>Go config [[config|json]]</h3>",
       "icon": "icon.png"
     },
     "sauce": {
       "title": "Sauce Labs",
-      "controller": "PluginController",
+      "controller": "JobController",
       "html": "<h3>Sauce Labs config [[config|json]]</h3>",
       "icon": "icon.png"
     }
