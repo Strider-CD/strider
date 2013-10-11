@@ -219,16 +219,22 @@ var app = angular.module('ansi', []);
 app.filter('ansi', function () {
   // cached is required as a workaround for https://github.com/angular/angular.js/issues/3980
   // once we're on RC-3, we should be fine.
-  var cached = {}
+  var cache = ""
   return function (input) {
     if (!input) return '';
-    if (cached[input]) return cached[input];
+    if (input.length === cache.length) { 
+      console.log("returning filter cache")
+      return cache 
+    }
     var text = input.replace(/&/g, '&amp;')
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;')
                     .replace(/'/g, '&#39;')
                     .replace(/"/g, '&quot;');
-    return cached[input] = ansifilter(text);
+
+    console.log("updating filter cache")
+    cache = ansifilter(text);
+    return cache
   }
 });
 
