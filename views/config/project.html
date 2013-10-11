@@ -6,7 +6,7 @@
     {% endautoescape %}
   </div>
   <label class="checkbox">
-    <input type="checkbox" ng-model="project.public" ng-click="saveProject()"> Public
+    <input data-test="public" type="checkbox" ng-model="project.public" ng-click="saveProject()"> Public
   </label>
   <p class="help-text">Builds of public projects are visible to anyone</p>
   {% include "config/collaborators.html" %}

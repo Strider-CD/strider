@@ -6,6 +6,9 @@
   });
 
   app.controller('ProjectsController', ['$scope', function ($scope) {
+    setTimeout(function () {
+      if (location.hash === '#manual') $('a[href="#manual-setup"]').tab('show');
+    }, 200);
     $scope.accounts = window.accounts;
     $scope.repos = window.repos;
     $scope.providers = window.providers;

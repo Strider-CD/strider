@@ -35,6 +35,7 @@ function project() {
     _id: id(),
     prev: prev(),
     name: 'one/two',
+    display_name: 'one/two',
     branches: {},
     public: Math.random() > .5,
     display_url: 'http://example.com',
