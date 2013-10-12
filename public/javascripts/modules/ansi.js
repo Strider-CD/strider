@@ -217,12 +217,15 @@ var app = angular.module('ansi', []);
 app.filter('ansi', function () {
   return function (input) {
     if (!input) return '';
-    var text = input.replace(/&/g, '&amp;')
+    var text = input.replace(/^[^\n\r]*\u001b\[2K/gm, '')
+                    .replace(/\u001b\[K[^\n\r]*/g, '')
+                    .replace(/[^\n]*\r([^\n])/g, '$1')
+                    .replace(/^[^\n]*\u001b\[0G/gm, '')
+                    .replace(/&/g, '&amp;')
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;')
                     .replace(/'/g, '&#39;')
                     .replace(/"/g, '&quot;');
-
     return ansifilter(text);
   }
 });
