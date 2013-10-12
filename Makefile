@@ -23,7 +23,7 @@ test: lint
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
 
-test-sauce:
+test-sauce-pre:
 ifndef SAUCE_USERNAME
 	$(error You need env: SAUCE_USERNAME)
 endif
@@ -33,7 +33,15 @@ endif
 	# Sauce Connect: https://saucelabs.com/docs/connect
 	# USER: $(SAUCE_USERNAME)
 	# KEY:  $(SAUCE_ACCESS_KEY)
-	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/client/selenium.json -e sauce -p
+
+test-sauce: test-sauce-pre test-integration-sauce test-client-sauce
+
+test-integration-sauce:
+	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
+
+test-client-sauce:
+	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
+
 
 test-selenium:
 	# test locally. This will start up chromedriver for you

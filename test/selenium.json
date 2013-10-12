@@ -1,7 +1,6 @@
 {
-  "run": "make serve",
+  "run": "node test/strider.js",
   "appDir": "../../",
-  "files": ["config.js", "dashboard.js", "projects.js"],
   "envs": {
     "local": [["chrome", "", "ANY"]],
     "sauce": {
