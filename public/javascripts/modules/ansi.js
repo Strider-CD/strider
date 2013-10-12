@@ -1,6 +1,6 @@
 
 (function (window) {
-  
+
 function ansiparse(str) {
   //
   // I'm terrible at writing parsers.
@@ -10,9 +10,26 @@ function ansiparse(str) {
       matchingText = '',
       ansiState = [],
       result = [],
+      output = "",
       state = {},
       eraseChar;
 
+  var handleResult = function(p) {
+    var classes = [];
+
+    p.foreground && classes.push(p.foreground);
+    p.background && classes.push('bg-' + p.background);
+    p.bold       && classes.push('bold');
+    p.italic     && classes.push('italic');
+    if (!p.text) {
+      return;
+    }
+    if (classes.length === 0) {
+      return output += p.text
+    }
+    var span = '<span class="' + classes.join(' ') + '">' + p.text + '</span>'
+    output += span
+  }
   //
   // General workflow for this thing is:
   // \033\[33mText
@@ -59,7 +76,7 @@ function ansiparse(str) {
         //
         if (matchingText) {
           state.text = matchingText;
-          result.push(state);
+          handleResult(state);
           state = {};
           matchingText = "";
         }
@@ -149,9 +166,9 @@ function ansiparse(str) {
 
   if (matchingText) {
     state.text = matchingText + (matchingControl ? matchingControl : '');
-    result.push(state);
+    handleResult(state);
   }
-  return result;
+  return output;
 }
 
 ansiparse.foregroundColors = {
@@ -183,58 +200,30 @@ ansiparse.styles = {
   '4': 'underline'
 };
 
-function ansifilter(data, plaintext) {
+function ansifilter(data, plaintext, cache) {
 
   // handle the characters for "delete line" and "move to start of line"
   var startswithcr = /^[^\n]*\r[^\n]/.test(data);
-  data = data.replace(/^[^\n\r]*\u001b\[2K/gm, '')
-             .replace(/\u001b\[K[^\n\r]*/g, '')
-             .replace(/[^\n]*\r([^\n])/g, '$1')
-             .replace(/^[^\n]*\u001b\[0G/gm, '');
+  var output = ansiparse(data);
 
-  var ansi = ansiparse(data);
-  var output = '';
-
-  ansi.forEach(function (part) {
-    var classes = [];
-
-    part.foreground && classes.push(part.foreground);
-    part.background && classes.push('bg-' + part.background);
-    part.bold       && classes.push('bold');
-    part.italic     && classes.push('italic');
-    if (!part.text) {
-      return;
-    }
-
-    output += (!plaintext && classes.length) ?
-              ('<span class="' + classes.join(' ') + '">' + part.text + '</span>') : part.text;
-  });
   var res = output.replace(/\033/g, '');
   if (startswithcr) res = '\r' + res;
+  
   return res;
 }
 
 var app = angular.module('ansi', []);
 
 app.filter('ansi', function () {
-  // cached is required as a workaround for https://github.com/angular/angular.js/issues/3980
-  // once we're on RC-3, we should be fine.
-  var cache = ""
   return function (input) {
     if (!input) return '';
-    if (input.length === cache.length) { 
-      console.log("returning filter cache")
-      return cache 
-    }
     var text = input.replace(/&/g, '&amp;')
                     .replace(/</g, '&lt;')
                     .replace(/>/g, '&gt;')
                     .replace(/'/g, '&#39;')
                     .replace(/"/g, '&quot;');
 
-    console.log("updating filter cache")
-    cache = ansifilter(text);
-    return cache
+    return ansifilter(text);
   }
 });
 

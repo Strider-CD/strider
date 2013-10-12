@@ -182,7 +182,7 @@ function scrollSeen(item, parent) {
 }
 
 // main jobs controller
-app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $route, $location) {
+app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}
     , project = window.project
     , jobid = params.id || (window.job && window.job._id)
@@ -288,7 +288,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
 
   buildSwitcher($scope);
 
-  $scope.$watch('job.std.merged', function (value) {
+  $scope.$watch('job.std.merged_latest', function (value) {
     /* Tracking isn't quite working right
     if ($scope.job.status === 'running') {
       height = outputConsole.getBoundingClientRect().height;
@@ -297,6 +297,8 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', function ($scope, $r
       if (!tracking) return;
     }
     */
+    var ansiFilter = $filter('ansi')
+    $('.job-output').append(ansiFilter(value))
     outputConsole.scrollTop = outputConsole.scrollHeight;
     setTimeout(function () {
       outputConsole.scrollTop = outputConsole.scrollHeight;

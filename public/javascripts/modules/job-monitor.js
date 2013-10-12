@@ -126,7 +126,8 @@ var SKELS = {
     std: {
       out: '',
       err: '',
-      merged: ''
+      merged: '',
+      merged_latest: ''
     }
   },
   command: {
@@ -177,19 +178,20 @@ JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, 
     command.finished = data.time;
     command.duration = data.elapsed;
     command.exitCode = data.exitCode;
+    command.merged = this.std.merged;
   },
   'stdout': function (text) {
     var command = ensureCommand(this.phases[this.phase]);
     command.out += text;
-    command.merged += text;
     this.std.out += text;
     this.std.merged += text;
+    this.std.merged_latest = text;
   },
   'stderr': function (text) {
     var command = ensureCommand(this.phases[this.phase]);
     command.err += text;
-    command.merged += text;
     this.std.err += text;
     this.std.merged += text;
+    this.std.merged_latest = text;
   },
 })
