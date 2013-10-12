@@ -69,7 +69,7 @@
   <td class="finished-at">
     <% if (finished_timestamp) { %>
     <span class="small-text">
-      <time data-toggle="tooltip" data-placement="top" datetime="<%= finished_timestamp %>" class="timeago"></time>
+      <span data-toggle="tooltip" data-placement="top" data-livestamp="<%= finished_timestamp %>"></span>
     </span>
     <% } else { %>
     <div class="progress-meter">
