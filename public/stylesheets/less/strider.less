@@ -1,3 +1,4 @@
+@import "strider-colors.less";
 /** alerts things. Move this to alerts.less? **/
 @media (min-width: 981px) {
   #notify .message {
@@ -76,33 +77,6 @@ body{
       color: rgb(41, 0, 255);
     }
   }
-  #build-metadata {
-    border-radius: 5px;
-    padding: 0 10px;
-
-    .progress-meter {
-      min-width: 200px;
-    }
-
-    table {
-      margin-bottom: 0;
-      width: 100%;
-
-      .committer img {
-        margin-top: -8px;
-        max-width: inherit;
-      }
-    }
-  }
-  .passed {
-    background-color: #CFFFD2;
-  }
-  .failed {
-    background-color: #ffd2d0;
-  }
-  .running {
-    background-color: #D7F3FF;
-  }
   #list-of-builds {
     td.committer {
       padding: 0;
@@ -118,16 +92,16 @@ body{
       cursor: pointer;
     }
     .active.failed {
-      background-color: #ffd2d0;
+      background-color: @strider-bg-failed;
     }
     .active.errored {
-      background-color: #DDD;
+      background-color: @strider-bg-errored;
     }
     .active.passed {
-      background-color: #CFFFD2;
+      background-color: @strider-bg-passed;
     }
     .active.running {
-      background-color: #D7F3FF;
+      background-color: @strider-bg-running;
     }
     tr:hover {
       background-color: #eee;
@@ -197,9 +171,9 @@ body{
   border-collapse: separate;
   border-spacing: 2px;
   margin:9px;
-  .status-passed {  background-color:#cfffd2; }
-  .status-failed {  background-color:#ffd2d0; }
-  .status-errored { background-color: #ccc; }
+  .status-passed {  background-color: @strider-bg-passed; }
+  .status-failed {  background-color: @strider-bg-failed; }
+  .status-errored { background-color: @strider-bg-errored; }
 } 
 
 .progress {
@@ -459,15 +433,6 @@ footer p {
   padding: 8px;
   border-radius: 3px;
 }
-#build-metadata.failure {
-  background-color: #fac;
-}
-#build-metadata.success {
-  background-color: #cfb;
-}
-#build-metadata.running {
-  background-color: #D7F3FF;
-}
 #list-of-builds {
   position: absolute;
   top: 25px;
@@ -577,25 +542,28 @@ a.repeats {
   margin: 0px;
 }
 .passed {
-  background-color: #dfd;
+  background-color: @strider-bg-passed;
 }
 .failed {
-  background-color: #ffd2d0;
+  background-color: @strider-bg-failed;
 }
 .errored {
-  background-color: #ddd;
+  background-color: @strider-bg-errored;
+}
+.running {
+  background-color: @strider-bg-running;
 }
 .warning {
   background-color: #fffca9;
 }
 .submitted {
-  background-color: #cef;
+  background-color: @strider-bg-running;
 }
 .repeated.passed {
-  background-color: #efe;
+  background-color: @strider-bg-passed;
 }
 .repeated.failed {
-  background-color: #fee3e1;
+  background-color: @strider-bg-failed;
 }
 td.screenshot img {
   width: 40px;

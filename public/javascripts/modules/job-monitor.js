@@ -99,8 +99,38 @@ JobMonitor.prototype = {
     },
     // this is just so we'll trigger the "unknown job" lookup sooner on the dashboard
     'stdout': function (text) {},
-    'stderr': function (text) {}
-  },
+    'stderr': function (text) {},
+    'warning': function (warning) {
+      if (!this.warnings) {
+        this.warnings = [];
+      }
+      this.warnings.push(warning);
+    },
+    'plugin-data': function (data) {
+      var path = data.path ? [data.plugin].concat(data.path.split('.')) : [data.plugin]
+      , last = path.pop()
+      , method = data.method || 'replace'
+      , parent
+      parent = path.reduce(function (obj, attr) {
+        return obj[attr] || (obj[attr] = {})
+      }, this.plugin_data || (this.plugin_data = {}))
+      if (method === 'replace') {
+        parent[last] = data.data
+      } else if (method === 'push') {
+        if (!parent[last]) {
+          parent[last] = []
+        }
+        parent[last].push(data.data)
+      } else if (method === 'extend') {
+        if (!parent[last]) {
+          parent[last] = {}
+        }
+        _.extend(parent[last], data.data)
+      } else {
+        console.error('Invalid "plugin data" method received from plugin', data.plugin, data.method, data)
+      }
+    }
+  }
 };
 
 function ensureCommand(phase) {
@@ -123,6 +153,8 @@ var SKELS = {
     finished: null,
     test_status: null,
     deploy_status: null,
+    plugin_data: {},
+    warnings: [],
     std: {
       out: '',
       err: '',
@@ -134,6 +166,7 @@ var SKELS = {
     out: '',
     err: '',
     merged: '',
+    _merged: '',
     started: null,
     command: '',
     plugin: ''
@@ -178,11 +211,12 @@ JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, 
     command.finished = data.time;
     command.duration = data.elapsed;
     command.exitCode = data.exitCode;
-    command.merged = this.std.merged;
+    command.merged = command._merged;
   },
   'stdout': function (text) {
     var command = ensureCommand(this.phases[this.phase]);
     command.out += text;
+    command._merged += text;
     this.std.out += text;
     this.std.merged += text;
     this.std.merged_latest = text;
@@ -190,8 +224,9 @@ JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, 
   'stderr': function (text) {
     var command = ensureCommand(this.phases[this.phase]);
     command.err += text;
+    command._merged += text;
     this.std.err += text;
     this.std.merged += text;
     this.std.merged_latest = text;
-  },
+  }
 })

@@ -181,6 +181,21 @@ function scrollSeen(item, parent) {
   }
 }
 
+app.directive('pluginStatus', function () {
+  return {
+    restrict: 'A',
+    scope: {},
+    link: function (scope, element, attrs) {
+      scope.$parent.$watch('job.plugin_data.' + attrs.pluginStatus, function (value) {
+        scope.data = value;
+      });
+      scope.$parent.$watch('job', function (value) {
+        scope.job = value;
+      });
+    }
+  };
+});
+
 // main jobs controller
 app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}
@@ -298,7 +313,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
     }
     */
     var ansiFilter = $filter('ansi')
-    $('.job-output').append(ansiFilter(value))
+    $('.job-output').last().append(ansiFilter(value))
     outputConsole.scrollTop = outputConsole.scrollHeight;
     setTimeout(function () {
       outputConsole.scrollTop = outputConsole.scrollHeight;

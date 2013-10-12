@@ -63,30 +63,6 @@ body {
 #build-page .job-title h3 .test-and-deploy-action {
   color: #2900ff;
 }
-#build-page #build-metadata {
-  border-radius: 5px;
-  padding: 0 10px;
-}
-#build-page #build-metadata .progress-meter {
-  min-width: 200px;
-}
-#build-page #build-metadata table {
-  margin-bottom: 0;
-  width: 100%;
-}
-#build-page #build-metadata table .committer img {
-  margin-top: -8px;
-  max-width: inherit;
-}
-#build-page .passed {
-  background-color: #CFFFD2;
-}
-#build-page .failed {
-  background-color: #ffd2d0;
-}
-#build-page .running {
-  background-color: #D7F3FF;
-}
 #build-page #list-of-builds {
   /*
     .finished-at,
@@ -119,13 +95,13 @@ body {
   background-color: #ffd2d0;
 }
 #build-page #list-of-builds .active.errored {
-  background-color: #DDD;
+  background-color: #dddddd;
 }
 #build-page #list-of-builds .active.passed {
-  background-color: #CFFFD2;
+  background-color: #cfffd2;
 }
 #build-page #list-of-builds .active.running {
-  background-color: #D7F3FF;
+  background-color: #d7f3ff;
 }
 #build-page #list-of-builds tr:hover {
   background-color: #eee;
@@ -180,7 +156,7 @@ body {
   background-color: #ffd2d0;
 }
 .last-builds .status-errored {
-  background-color: #ccc;
+  background-color: #dddddd;
 }
 .progress {
   margin-bottom: 0;
@@ -422,15 +398,6 @@ footer p {
   padding: 8px;
   border-radius: 3px;
 }
-#build-metadata.failure {
-  background-color: #fac;
-}
-#build-metadata.success {
-  background-color: #cfb;
-}
-#build-metadata.running {
-  background-color: #D7F3FF;
-}
 #list-of-builds {
   position: absolute;
   top: 25px;
@@ -539,25 +506,28 @@ a.repeats {
   margin: 0px;
 }
 .passed {
-  background-color: #dfd;
+  background-color: #cfffd2;
 }
 .failed {
   background-color: #ffd2d0;
 }
 .errored {
-  background-color: #ddd;
+  background-color: #dddddd;
+}
+.running {
+  background-color: #d7f3ff;
 }
 .warning {
   background-color: #fffca9;
 }
 .submitted {
-  background-color: #cef;
+  background-color: #d7f3ff;
 }
 .repeated.passed {
-  background-color: #efe;
+  background-color: #cfffd2;
 }
 .repeated.failed {
-  background-color: #fee3e1;
+  background-color: #ffd2d0;
 }
 td.screenshot img {
   width: 40px;

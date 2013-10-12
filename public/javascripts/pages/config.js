@@ -71,6 +71,7 @@
     $scope.project = window.project || {};
     $scope.plugins = window.plugins || {};
     $scope.runners = window.runners || {};
+    $scope.statusBlocks = window.statusBlocks || {};
     $scope.configured = {};
     // TODO make this aware of a #hash ?
     $scope.branch = $scope.project.branches[0];
@@ -97,6 +98,8 @@
       $scope.configs[$scope.branch.name][plugin].enabled = enabled;
       savePluginOrder();
     };
+
+    $scope.savePluginOrder = savePluginOrder;
 
     $scope.switchToMaster = function () {
       for (var i=0; i<$scope.project.branches.length; i++) {
@@ -167,7 +170,8 @@
       for (var i=0; i<plugins.length; i++) {
         data.push({
           id: plugins[i].id,
-          enabled: plugins[i].enabled
+          enabled: plugins[i].enabled,
+          showStatus: plugins[i].showStatus
         });
       }
       $.ajax({

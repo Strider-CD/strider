@@ -10,6 +10,7 @@ var  _ = require('underscore')
    , Step = require('step')
 
    , filter = require(BASE_PATH + 'ansi')
+   , common = require(BASE_PATH + 'common')
    , humane = require(BASE_PATH + 'humane')
    , logging = require(BASE_PATH + 'logging')
    , ljobs = require(BASE_PATH + 'jobs')
@@ -71,6 +72,7 @@ function html(req, res) {
       accessLevel: req.accessLevel,
       jobs: jobs,
       job: job,
+      statusBlocks: common.statusBlocks,
       page_base: req.params.org + '/' + req.params.repo
     })
   })

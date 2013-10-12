@@ -4,6 +4,7 @@
 
 {% block extra_head %}
 <link rel="stylesheet" href="/stylesheets/css/build.css">
+<link rel="stylesheet" href="/stylesheets/css/plugin-status-compiled.css">
 {% endblock %}
 {% block bodyContent %}
 {% set page = "build" %}
@@ -63,6 +64,27 @@
                 {% endpluginblock %}
               </div>
             </div>
+
+            {% for block in statusBlocks.runner %}
+            <div class="status-{{ loop.key }} plugin-status runner-status {{ block.attrs.class }}"
+                 plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
+              {{ block.html | raw }}
+            </div>
+            {% endfor %}
+
+            {% if statusBlocks.provider[project.provider.id] %}
+            <div class="status-{{ loop.key }} plugin-status provider-status {{ block.attrs.class }}"
+                 plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
+              {{ block.html | raw }}
+            </div>
+            {% endif %}
+
+            {% for block in statusBlocks.job %}
+            <div class="status-{{ loop.key }} plugin-status job-plugin-status {{ block.attrs.class }}"
+                 plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
+              {{ block.html | raw }}
+            </div>
+            {% endfor %}
 
             <div class="console-output">
               <i class="icon-gear icon-light icon-spin loading-icon" ng-show="loading"></i>

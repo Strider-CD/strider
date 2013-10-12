@@ -56,7 +56,7 @@ module.exports = function(extdir, c, callback) {
     if (err) throw err;
   }
 
-  var loader = appInstance.loader = new Loader()
+  var loader = appInstance.loader = new Loader([path.join(__dirname, 'public/stylesheets/less')])
   common.loader = loader
   //
   // ### Strider Context Object
@@ -169,8 +169,8 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
       },
       function (next) {
         loader.initConfig(
-          path.join(__dirname, 'public/javascripts/pages/config-plugins-compiled.js'),
-          path.join(__dirname, 'public/stylesheets/css/config-plugins-compiled.css'),
+          path.join(__dirname, 'public/javascripts/pages/plugin-config-compiled.js'),
+          path.join(__dirname, 'public/stylesheets/css/plugin-config-compiled.css'),
           function (err, configs) {
             console.log('loaded config pages')
             common.pluginConfigs = configs
@@ -180,7 +180,15 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
               function (err, configs) {
                 console.log('loaded account config pages')
                 common.userConfigs = configs
-                next()
+                loader.initStatusBlocks(
+                  path.join(__dirname, 'public/javascripts/pages/plugin-status-compiled.js'),
+                  path.join(__dirname, 'public/stylesheets/css/plugin-status-compiled.css'),
+                  function (err, blocks) {
+                    console.log('loaded plugin status blocks')
+                    common.statusBlocks = blocks
+                    console.log(blocks)
+                    next()
+                  })
               })
           })
       }

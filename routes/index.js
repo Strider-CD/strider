@@ -221,7 +221,8 @@ exports.config = function(req, res) {
   User.collaborators(req.project.name, 0, function (err, users) {
     var data = {
       collaborators: {},
-      project: req.project.toJSON()
+      project: req.project.toJSON(),
+      statusBlocks: common.statusBlocks
     }
     delete data.project.creator
     for (var i=0; i<users.length; i++) {

@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="/stylesheets/css/codemirror.css">
 <link rel="stylesheet" href="/stylesheets/css/codemirror/twilight.css">
 <link rel="stylesheet" href="/stylesheets/css/config.css">
-<link rel="stylesheet" href="/stylesheets/css/config-plugins-compiled.css">
+<link rel="stylesheet" href="/stylesheets/css/plugin-config-compiled.css">
 <link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css">
 {% endblock %}
 {% block bodyContent %}
@@ -14,6 +14,7 @@
   var plugins = {{ plugins | scriptjson | raw }};
   var runners = {{ runners | scriptjson | raw }};
   var branches = {{ branches | scriptjson | raw }};
+  var statusBlocks = {{ statusBlocks | scriptjson | raw }};
 </script>
 <div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="AlertsController">
   <div ng-controller="Config">
@@ -138,5 +139,5 @@
 <script src="/javascripts/modules/alerts.js"></script>
 <script src="/javascripts/modules/moment.js"></script>
 <script src="/javascripts/pages/config.js"></script>
-<script src="/javascripts/pages/config-plugins-compiled.js"></script>
+<script src="/javascripts/pages/plugin-config-compiled.js"></script>
 {% endblock %}

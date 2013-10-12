@@ -1,3 +1,24 @@
+.plugin-status {
+  margin-bottom: 5px;
+  border-radius: 5px;
+  padding: 10px 20px;
+}
+#build-metadata {
+  border-radius: 5px;
+  padding: 0 10px;
+  margin-bottom: 5px;
+}
+#build-metadata .progress-meter {
+  min-width: 200px;
+}
+#build-metadata table {
+  margin-bottom: 0;
+  width: 100%;
+}
+#build-metadata table .committer img {
+  margin-top: -8px;
+  max-width: inherit;
+}
 .commit-url .trigger-icon {
   font-size: 15px;
 }
@@ -22,15 +43,14 @@ body.job_view .job-detail-sidebar {
   top: 30px;
   bottom: 10px;
 }
+.job-pre-console {
+  margin: 0;
+}
 .console-output {
-  position: absolute;
-  top: 60px;
-  bottom: 0;
-  left: 0;
-  right: 0;
   overflow-y: auto;
   overflow-x: visible;
   border-radius: 5px;
+  flex: 1;
 }
 .console-output .prompt {
   color: yellow;
@@ -103,6 +123,8 @@ body.job_view .job-left-col div {
 }
 body.job_view .job-left-col {
   left: 0;
+  display: flex;
+  flex-flow: column;
 }
 body.job_view .wrap {
   min-height: 0 !important;

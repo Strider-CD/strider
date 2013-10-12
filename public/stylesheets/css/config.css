@@ -133,7 +133,7 @@
 .placeholder {
   padding: 2px;
   width: 200px;
-  height: 48px;
+  min-height: 48px;
   margin: 5px 0 0 0;
   border: 1px solid #aaa;
   background: white;

@@ -2,7 +2,9 @@ node_modules
 .dotcloud/*
 config.sh
 .idea/*
-public/javascripts/pages/config-plugins-compiled.js
-public/stylesheets/css/config-plugins-compiled.css
 public/javascripts/pages/account-plugins-compiled.js
+public/javascripts/pages/plugin-config-compiled.js
+public/javascripts/pages/plugin-status-compiled.js
 public/stylesheets/css/account-plugins-compiled.css
+public/stylesheets/css/plugin-config-compiled.css
+public/stylesheets/css/plugin-status-compiled.css
