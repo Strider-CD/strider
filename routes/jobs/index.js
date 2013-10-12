@@ -67,12 +67,21 @@ function html(req, res) {
       jobs[i] = filterJob(jobs[i])
     }
     if (job) job.status = ljobs.status(job)
+
+    var showStatus = {}
+    req.project.branches.forEach(function (branch) {
+      var plugins = showStatus[branch.name] = {}
+      branch.plugins.forEach(function (plugin) {
+        plugins[plugin.id] = plugin.enabled && plugin.showStatus
+      })
+    })
     res.render('build.html', {
       project: utils.sanitizeProject(req.project),
       accessLevel: req.accessLevel,
       jobs: jobs,
       job: job,
       statusBlocks: common.statusBlocks,
+      showStatus: showStatus,
       page_base: req.params.org + '/' + req.params.repo
     })
   })

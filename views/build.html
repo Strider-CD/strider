@@ -13,6 +13,7 @@
     var project = {{ project | json_encode() | raw }};
     var jobs = {{ jobs | json_encode() | raw }};
     var job = {{ job | json_encode() | raw }};
+    var showStatus = {{ showStatus | json_encode() | raw }};
   </script>
   <base href="/{{ page_base }}/"></base>
   <div id="build-page" class="main" ng-view></div>

@@ -22,11 +22,9 @@
           <label type="checkbox">
             <input ng-change="savePluginOrder()" ng-model="plugin.enabled" type="checkbox"> Enabled
           </label>
-          {# build page doesn't yet respect this variable
           <label type="checkbox" ng-show="statusBlocks.job[plugin.id]">
             <input ng-change="savePluginOrder()" ng-model="plugin.showStatus" type="checkbox"> Show Status
           </label>
-          #}
         </div>
       </li>
       <li ng-hide="branch.plugins.length" class="drop-here">Drag and drop here</li>

@@ -186,8 +186,11 @@ app.directive('pluginStatus', function () {
     restrict: 'A',
     scope: {},
     link: function (scope, element, attrs) {
-      scope.$parent.$watch('job.plugin_data.' + attrs.pluginStatus, function (value) {
+      scope.$parent.$watch('job.plugin_data["' + attrs.pluginStatus + '"]', function (value) {
         scope.data = value;
+      });
+      scope.$parent.$watch('showStatus[job.ref.branch]["' + attrs.pluginStatus + '"]', function (value) {
+        scope.show = value;
       });
       scope.$parent.$watch('job', function (value) {
         scope.job = value;
@@ -210,6 +213,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
   $scope.project = project;
   $scope.jobs = window.jobs;
   $scope.job = window.job;
+  $scope.showStatus = window.showStatus;
   if ($scope.job && $scope.job.phases.test.commands.length) {
     if (job.phases.environment) {
       job.phases.environment.collapsed = true;
