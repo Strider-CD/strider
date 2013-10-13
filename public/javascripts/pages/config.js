@@ -366,6 +366,9 @@
         data = branch;
         branch = $scope.branch;
       }
+      if (arguments.length === 1) {
+        branch = $scope.branch;
+      }
       if (branch.mirror_master) {
         return
       }
