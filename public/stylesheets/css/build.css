@@ -66,6 +66,10 @@ body.job_view .job-detail-sidebar {
 .console-output .phase.collapsed .arrow {
   margin-left: 2px;
 }
+.console-output .command.comment .title .prompt,
+.console-output .command.comment .title .command-text {
+  color: #70c;
+}
 .console-output .command > .title {
   cursor: pointer;
   padding-right: 10px;

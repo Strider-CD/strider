@@ -199,6 +199,15 @@ JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, 
     this.phase = data.next;
     this.phases[data.next].started = data.time;
   },
+  'command.comment': function (data) {
+    var phase = this.phases[this.phase]
+      , command = _.extend({}, SKELS.command);
+    command.command = data.comment;
+    command.comment = true;
+    command.plugin = data.plugin;
+    command.finished = data.time;
+    phase.commands.push(command);
+  },
   'command.start': function (data) {
     var phase = this.phases[this.phase]
       , command = _.extend({}, SKELS.command, data);

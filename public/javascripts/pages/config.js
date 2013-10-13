@@ -342,7 +342,8 @@
       $.ajax({
         url: '/' + $scope.project.name + '/provider/',
         type: 'POST',
-        data: data,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
         success: function(data, ts, xhr) {
           $scope.success("Provider config saved.");
           next && next();
@@ -383,7 +384,8 @@
       $.ajax({
         url: '/' + $scope.project.name + '/config/' + branch.name + "/" + name,
         type: "PUT",
-        data: data,
+        contentType: 'application/json',
+        data: JSON.stringify(data),
         success: function(data, ts, xhr) {
           $scope.success("Config for " + name + " on branch " + branch.name + " saved.");
           $scope.configs[branch.name][name].config = data;

@@ -12,9 +12,10 @@
   <div class="commands" ng-hide="job.phases[phase].collapsed">
     <div
        ng-repeat="command in job.phases[phase].commands"
+       ng-class="{ comment: command.comment }"
        class="command plugin-[[ command.plugin ]]">
       <div class="title" ng-click="command.collapsed = !command.collapsed">
-        <span class="prompt">$</span> <span class="command-text">[[ command.command ]]</span> <i class="icon-plus plus" ng-show="command.collapsed"></i>
+        <span class="prompt">[[ command.comment ? '#' : '$' ]]</span> <span class="command-text">[[ command.command ]]</span> <i class="icon-plus plus" ng-show="command.collapsed"></i>
         <span class="meta pull-right">
           <span class="plugin">[[ command.plugin ]]</span>
           <time datetime="[[ command.started ]]" since="[[ command.started ]]" duration="[[ command.duration ]]"></time>

@@ -236,7 +236,7 @@ exports.config = function(req, res) {
     data.plugins = common.pluginConfigs.job
 
     var provider = common.extensions.provider[req.project.provider.id]
-    if (typeof provider.getBranches === 'function') {
+    if (false && typeof provider.getBranches === 'function') {
       provider.getBranches(req.user.account(req.project.provider).config,
         req.project.provider.config, req.project, function(err, branches) {
           if (err) {

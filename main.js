@@ -186,7 +186,6 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
                   function (err, blocks) {
                     console.log('loaded plugin status blocks')
                     common.statusBlocks = blocks
-                    console.log(blocks)
                     next()
                   })
               })
