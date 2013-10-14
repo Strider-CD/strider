@@ -1,6 +1,6 @@
 var assert = require('assert')
-  , auth = require('../lib/auth')
-  , middleware = require('../lib/middleware')
+  , auth = require('../../lib/auth')
+  , middleware = require('../../lib/middleware')
   , sandboxed_module = require('sandboxed-module')
   , should = require('should')
   , sinon = require('sinon')
