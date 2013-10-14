@@ -149,16 +149,15 @@
 .clickable:hover {
   color: #777;
 }
-#config-wrapper .badge-link {
-  margin: 4px 0 0 15px;
+#provider-config {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px 10px 10px;
 }
 #config-wrapper .config-tabs {
   margin: 5px 0 0;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
-}
-#config-wrapper .tab-content {
-  margin-top: 10px;
 }
 #project_config_collaborators table {
   width: 100%;
