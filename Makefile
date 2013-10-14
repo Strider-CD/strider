@@ -27,7 +27,7 @@ serve:
 
 ## ================= Test Suite ====================================
 
-test: test-smoke test-unit test-browser test-style
+test: test-syntax test-smoke test-unit test-browser
 
 test-smoke:
 	# TODO Smoke tests should fail _fast_ on silly errors.
@@ -61,7 +61,7 @@ test-client-sauce:
 test-local:
 	mocha test/client/
 
-test-style: lint
+test-syntax: lint
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
 
