@@ -59,7 +59,12 @@ test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
 test-local:
-	mocha test/client/
+	if $(;which chromedriver > /dev/null)
+		mocha test/client/
+	else
+		# CANNOT RUN LOCAL TESTS WITHOUT CHROMEDRIVER!!!
+	endif
+
 
 test-style: lint
 
