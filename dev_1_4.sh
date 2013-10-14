@@ -21,6 +21,7 @@ do
     (cd ../$module && git pull && rm -rf node_modules && npm i)
   else
     git clone -b 1_4_refactor $BASE/$module ../$module
+    (cd ../$BASE/$modulegit && checkout 1_4_refactor && npm install)
     npm link ../$module
   fi
 done
