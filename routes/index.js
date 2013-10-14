@@ -397,7 +397,7 @@ exports.projects = function(req, res) {
       configured[account.provider] = true
 
       // Caching
-      var useCache = req.query.refresh !== 'true'  && req.query.refresh !== '1'
+      var useCache = req.query.refresh !== account.provider && req.query.aid != account.id
       var haveCache = Array.isArray(account.cache) && account.cache.length > 0
       if (useCache && haveCache) {
         groupRepos(account, repomap, tree, account.toJSON().cache)

@@ -29,7 +29,6 @@
 
 <div class="projects-page" ng-app="Projects" ng-controller="AlertsController">
   <div class="accounts-nav">
-    <div class="pull-right"><a href="?refresh=true" class="refresh btn btn-warning"><i class="icon-refresh"></i></a></div>
     <ul class="nav nav-pills">
       {% for account in currentUser.accounts %}
       <li{% if loop.first %} class="active"{% endif %}>
@@ -60,6 +59,7 @@
 
   <div class="tab-content" ng-controller="ProjectsController">
     <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
+      <div class="pull-right"><a href="?refresh=[[ account.provider ]]&aid=[[ account.id ]]" class="refresh btn btn-warning"><i class="icon-refresh"></i></a></div>
       {# TODO hide this if there is only one group #}
       <ul class="span2 nav nav-list nav-stacked groups-list">
         <li ng-repeat="(name, group) in repos[account.provider][account.id]"
