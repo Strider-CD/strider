@@ -234,6 +234,22 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
   };
   */
 
+  $scope.clearCache = function () {
+    $scope.clearingCache = true;
+    $.ajax('/' + $scope.project.name + '/cache/' + $scope.job.ref.branch, {
+      type: 'DELETE',
+      success: function () {
+        $scope.clearingCache = false;
+        $scope.$digest();
+      },
+      error: function () {
+        $scope.clearingCache = false;
+        $scope.$digest();
+        bootbox.alert('Failed to clear the cache');
+      }
+    });
+  }
+
   $scope.$on('$locationChangeSuccess', function(event) {
     if (window.location.pathname.match(/\/config$/)) {
       window.location = window.location;

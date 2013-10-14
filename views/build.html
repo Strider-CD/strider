@@ -19,8 +19,18 @@
   <div id="build-page" class="main" ng-view></div>
   <script id="build-tpl.html" type="text/ng-template">
     <div class="row-fluid job-page-intro">
-      <div class="span7 job-title">
+      <div class="span12 job-title">
         {% pluginblock JobPagePreTitle %}{% endpluginblock %}
+        <div class="pull-right btn btn-warning"
+             {# do we need this warning? might be an edge case, and confusing when it doesn't apply.
+             data-toggle="tooltip"
+             data-placement="bottom"
+             title="Note: this is runner-specific. So if you have difference branches configured to use different runners, it will only effect branches using the same runner as the branch of the currently selected job."
+             #}
+             ng-click="clearCache()"
+             ng-disabled="clearingCache">
+          [[ clearingCache ? 'Clearing' : 'Clear Cache' ]]
+        </div>
         <h3>
           {% if currentUser %}
           <span ng-show="!job.running && repo.access_level > 0"
