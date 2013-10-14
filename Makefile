@@ -63,7 +63,6 @@ test-local:
 	mocha test/client/
 	mocha test/integration/
 
-
 test-style: lint
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules

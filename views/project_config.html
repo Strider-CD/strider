@@ -18,7 +18,6 @@
 </script>
 <div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="AlertsController">
   <div ng-controller="Config">
-    <button href="#build-badge-modal" data-toggle="modal" class="badge-link pull-right btn">Build Badge</button>
     <div class="notify-wrapper pull-right">
       <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
         <a type="button" class="close" ng-click="clearMessage()">&times;</a>
@@ -27,8 +26,8 @@
     </div>
     <h3>
       Configuration - <a href="/{{ project.name }}/" class="header-emphasis">{{ project.display_name }}</a>
-      {% if project.provider.config.display_url %}
-      <a href="{{ project.provider.config.display_url }}" target="_blank">
+      {% if project.provider.display_url %}
+      <a href="{{ project.provider.display_url }}" target="_blank">
         <i class="icon-{{ provider.inline_icon }}"></i>
       </a>
       {% endif %}
