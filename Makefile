@@ -1,8 +1,8 @@
-has_sauce = $(SAUCE_USERNAME)
-ifndef $(has_sauce)
-	test-env = test-local
+has_sauce := $(SAUCE_USERNAME)
+ifndef has_sauce
+test-env := test-local
 else
-	test-env = test-sauce
+test-env := test-sauce
 endif
 
 
@@ -50,7 +50,7 @@ endif
 	# USER: $(SAUCE_USERNAME)
 	# KEY:  $(SAUCE_ACCESS_KEY)
 
-test-sauce: test-sauce-pre test-integration-sauce test-client-sauce
+test-sauce: test-sauce-pre test-client-sauce test-integration-sauce
 
 test-integration-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
