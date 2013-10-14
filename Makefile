@@ -32,10 +32,9 @@ test-smoke:
 
 
 test-unit:
-	@./node_modules/.bin/mocha -R tap test/test_middleware.js
-	@./node_modules/.bin/mocha -R tap test/test_ansi.js
-	@./node_modules/.bin/mocha -R tap test/test_api.js
-	@./node_modules/.bin/mocha -R tap test/functional/test.js
+	@./node_modules/.bin/mocha -R tap test/unit/test_middleware.js
+	@./node_modules/.bin/mocha -R tap test/unit/test_ansi.js
+	@./node_modules/.bin/mocha -R tap test/unit/test_api.js
 
 test-browser: $(test-env)
 	# Either test-local or test-sauce
