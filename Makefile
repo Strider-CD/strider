@@ -38,8 +38,8 @@ test-unit:
 	@./node_modules/.bin/mocha -R tap test/unit/test_ansi.js
 	@./node_modules/.bin/mocha -R tap test/unit/test_api.js
 
+# Either test-local or test-sauce
 test-browser: $(test-env)
-	# Either test-local or test-sauce
 
 
 test-sauce-pre:
