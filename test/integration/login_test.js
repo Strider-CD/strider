@@ -1,6 +1,6 @@
 var sm = require('mocha-selenium')
   , b = sm.setup('integration - login', {
-      appCmd: 'node test/strider.js'
+      appCmd: 'make serve'
     })
 
 
