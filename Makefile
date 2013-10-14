@@ -63,6 +63,7 @@ ifeq ($(;which chromedriver > /dev/null && echo true), "true")
 	mocha test/client/
 else
 	# CANNOT RUN LOCAL TESTS WITHOUT CHROMEDRIVER!!!
+	exit 1
 endif
 
 
