@@ -1,3 +1,11 @@
+has_sauce = $(SAUCE_USERNAME)
+ifndef $(has_sauce)
+	test-env = test-local
+else
+	test-env = test-sauce
+endif
+
+
 
 build: less
 	@:
@@ -16,17 +24,25 @@ watch:
 serve:
 	@./bin/strider
 
-test: lint
-	@./node_modules/.bin/mocha -R tap test/test_middleware.js
-	@./node_modules/.bin/mocha -R tap test/test_ansi.js
-	@./node_modules/.bin/mocha -R tap test/test_api.js
-	@./node_modules/.bin/mocha -R tap test/functional/test.js
+
+## ================= Test Suite ====================================
+
+test: test-smoke test-unit test-browser test-style
+
+test-smoke:
+	# TODO Smoke tests should fail _fast_ on silly errors.
+
+
+test-unit:
+	@./node_modules/.bin/mocha -R tap test/unit/test_middleware.js
+	@./node_modules/.bin/mocha -R tap test/unit/test_ansi.js
+	@./node_modules/.bin/mocha -R tap test/unit/test_api.js
+
+# Either test-local or test-sauce
+test-browser: $(test-env)
 
 
 test-sauce-pre:
-ifndef SAUCE_USERNAME
-	$(error You need env: SAUCE_USERNAME)
-endif
 ifndef SAUCE_ACCESS_KEY
 	$(error You need env: SAUCE_ACCESS_KEY)
 endif
@@ -42,10 +58,16 @@ test-integration-sauce:
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
-
-test-selenium:
-	# test locally. This will start up chromedriver for you
+test-local:
+ifeq ($(;which chromedriver > /dev/null && echo true), "true")
 	mocha test/client/
+else
+	# CANNOT RUN LOCAL TESTS WITHOUT CHROMEDRIVER!!!
+	exit 1
+endif
+
+
+test-style: lint
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
 

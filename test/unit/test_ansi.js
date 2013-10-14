@@ -1,5 +1,5 @@
 var _ = require('underscore')
-  , filter = require('../lib/ansi')
+  , filter = require('../../lib/ansi')
   , expect = require('chai').expect
   , fs = require('fs')
   , path = require('path')

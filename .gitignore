@@ -8,3 +8,6 @@ public/javascripts/pages/plugin-status-compiled.js
 public/stylesheets/css/account-plugins-compiled.css
 public/stylesheets/css/plugin-config-compiled.css
 public/stylesheets/css/plugin-status-compiled.css
+
+*compiled.css
+*compiled.js
