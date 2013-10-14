@@ -25,10 +25,12 @@ serve:
 	@./bin/strider
 
 
+## ================= Test Suite ====================================
+
 test: test-smoke test-unit test-browser test-style
 
 test-smoke:
-	# TODO
+	# TODO Smoke tests should fail _fast_ on silly errors.
 
 
 test-unit:
@@ -39,12 +41,8 @@ test-unit:
 test-browser: $(test-env)
 	# Either test-local or test-sauce
 
-test-style: lint
 
 test-sauce-pre:
-ifndef SAUCE_USERNAME
-	$(error You need env: SAUCE_USERNAME)
-endif
 ifndef SAUCE_ACCESS_KEY
 	$(error You need env: SAUCE_ACCESS_KEY)
 endif
@@ -54,15 +52,16 @@ endif
 
 test-sauce: test-sauce-pre test-integration-sauce test-client-sauce
 
-test-local:
-	mocha test/client/
-
 test-integration-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
 
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
+test-local:
+	mocha test/client/
+
+test-style: lint
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
 
