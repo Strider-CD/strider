@@ -1,5 +1,5 @@
 
-/* globals JobDataMonitor: true, console: true, io: true, PHASES: true, SKELS: true, job: true */
+/* globals JobDataMonitor: true, bootbox: true, console: true, io: true, PHASES: true, SKELS: true, job: true */
 
 function jobSort(a, b) {
   if (a.nojobs) {
