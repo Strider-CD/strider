@@ -1,3 +1,11 @@
+has_sauce = $(SAUCE_USERNAME)
+ifndef $(has_sauce)
+	test-env = test-local
+else
+	test-env = test-sauce
+endif
+
+
 
 build: less
 	@:
@@ -16,12 +24,23 @@ watch:
 serve:
 	@./bin/strider
 
-test: lint
+
+test: test-smoke test-unit test-browser test-style
+
+test-smoke:
+	# TODO
+
+
+test-unit:
 	@./node_modules/.bin/mocha -R tap test/test_middleware.js
 	@./node_modules/.bin/mocha -R tap test/test_ansi.js
 	@./node_modules/.bin/mocha -R tap test/test_api.js
 	@./node_modules/.bin/mocha -R tap test/functional/test.js
 
+test-browser: $(test-env)
+	# Either test-local or test-sauce
+
+test-style: lint
 
 test-sauce-pre:
 ifndef SAUCE_USERNAME
@@ -36,16 +55,15 @@ endif
 
 test-sauce: test-sauce-pre test-integration-sauce test-client-sauce
 
+test-local:
+	mocha test/client/
+
 test-integration-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
 
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
-
-test-selenium:
-	# test locally. This will start up chromedriver for you
-	mocha test/client/
 
 tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
 
