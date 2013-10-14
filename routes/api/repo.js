@@ -35,6 +35,22 @@ function makePlugins(plugins) {
 }
 
 /*
+ * DELETE /:org/:repo/cache/:branch
+ *
+ * Kill the cache
+ */
+exports.clear_cache = function (req, res) {
+  var branch = req.project.branch(req.params.branch)
+  if (!branch) return res.send(404, 'branch not found')
+  var runner = common.extensions.runner[branch.runner.id]
+  if (!runner.clearCache) return res.send(400, 'runner does not support caching')
+  runner.clearCache(req.project, function (err) {
+    if (err) return res.send(500, 'failed to clear cache')
+    res.send(204)
+  })
+}
+
+/*
  * PUT /:org:/repo
  *
  * Create a new project for a repo.
