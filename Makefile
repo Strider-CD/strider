@@ -61,6 +61,7 @@ test-client-sauce:
 test-local:
 	$(which chromedriver)
 	mocha test/client/
+	mocha test/integration/
 
 
 test-style: lint
