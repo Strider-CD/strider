@@ -54,6 +54,9 @@
 
   app.controller('JobController', ['$scope', '$element', function ($scope, $element) {
     var name = $element.attr('id').split('-').slice(1).join('-');
+    $scope.$watch('userConfigs["' + name + '"]', function (value) {
+      $scope.userConfig = value;
+    });
     $scope.$watch('configs[branch.name]["' + name + '"].config', function (value) {
       $scope.config = value;
     });
@@ -71,6 +74,8 @@
     $scope.project = window.project || {};
     $scope.plugins = window.plugins || {};
     $scope.runners = window.runners || {};
+    $scope.userIsCreator = window.userIsCreator || false;
+    $scope.userConfigs = window.userConfigs || {};
     $scope.statusBlocks = window.statusBlocks || {};
     $scope.configured = {};
     // TODO make this aware of a #hash ?

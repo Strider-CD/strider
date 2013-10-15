@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 
+{% block extra_head %}
+<link rel="stylesheet" href="/stylesheets/css/account-plugins-compiled.css">
+{% endblock %}
 {% block bodyContent %}
 
 <div class='span8'>
@@ -26,6 +29,11 @@
       {% for provider in providers %}
       <li>
         <a href="#provider-{{ loop.key }}" data-toggle="tab">{{ provider.title }}</a>
+      </li>
+      {% endfor %}
+      {% for job in userConfigs.job %}
+      <li>
+        <a href="#job-{{ loop.key }}" data-toggle="tab">{{ job.title }}</a>
       </li>
       {% endfor %}
     </ul>
@@ -63,6 +71,13 @@
           <a class="btn btn-success" href="[[ providers['{{ loop.key }}'].setupLink ]]" ng-switch-when="true">Add Account</a>
           <button ng-switch-default class="btn btn-success" ng-click="addAccount('{{ loop.key }}')">Add Account</button>
         </div>
+      </div>
+      {% endfor %}
+      {% for job in userConfigs.job %}
+      <div id="job-{{loop.key}}" class="tab-pane job-tab" ng-controller="{{job.controller}}">
+        {% autoescape false %}
+        {{ job.html | raw }}
+        {% endautoescape %}
       </div>
       {% endfor %}
       
@@ -127,5 +142,6 @@
 
 {% block pageScripts %}
 <script src="/javascripts/modules/alerts.js"></script>
+<script src="/javascripts/pages/account-plugins-compiled.js" type="text/javascript"></script>
 <script src="/javascripts/pages/account.js" type="text/javascript"></script>
 {% endblock %}
