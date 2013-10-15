@@ -1,4 +1,5 @@
 var sm = require('mocha-selenium')
+  , expect = require('chai').expect
   , b = sm.setup('integration - login', {
       appCmd: 'make serve-test'
     })
@@ -59,28 +60,22 @@ describe('login', function(){
   })
 
   it("submitting form works", function(done){
-    flow(
-        ['elementByName', 'email']
-      , ['type', "$", 'test1@example.com']
-      , ['elementByName', 'password']
-      , ['type', "$", 'opensesame']
-      , ['elementById', 'navbar-signin-form']
-      , ['submit', "$"]
-      , function(err, res){
-        if (err) throw err;
-
-        setTimeout(function(){
-         b.elementByClassName('logged-in', function(err){
-          if (err) console.log("!!", err)
-          if (err) throw err;
-          done(null); 
-         })
-        }, 2000)
-      }
-    )
+    b.chain()
+     .fillInForm({
+       email: 'test1@example.com',
+       password: 'open-sesame'
+     })
+     .elementById("navbar-signin-form", function(err, form){
+       if (err) return done(err);
+       b.next('submit', form, function(err, res){
+         if (err) return done(err);
+       })
+     })
+     .visibleByClassName('logged-in', function  (err, visible) {
+       expect(err).to.not.be.ok
+       expect(visible).to.be.ok
+       done(null)
+     })
   })
-
- //it("logged in user "
-
 
 })
