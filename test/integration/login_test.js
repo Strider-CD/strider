@@ -106,12 +106,12 @@ suite('integration - existing user flow', function(){
      .elementByClassName('provider-github', function(err, el){
         assert.isNull(err)
         assert.ok(el, "Couldn't find github link")
-        b.next('click', el, function(err, res){
+        b.next('clickElement', el, function(err, res){
           assert.isNull(err);
         })
      })
-    .waitForVisibleByClassName('octicon-logo-github', 2000, function(err){
-      assert.isNull(err)
+    .waitForVisibleByClassName('octicon-logo-github', 3000, function(err){
+      assert.isNull(err, "github didn't load")
     })
     .fillInForm({
        // Github test account creds 
@@ -121,9 +121,11 @@ suite('integration - existing user flow', function(){
     .elementByName('commit', function(err, el){
       assert.isNull(err)
       assert.ok(el)
-      b.next('click', el, function(err, res){})
+      b.next('clickElement', el, function(err, res){
+        assert.isNull(err)
+      })
     })
-    .waitForVisibleByClassName('StriderBlock_Brand', 1000, function(err){
+    .waitForVisibleByClassName('StriderBlock_Brand', 3000, function(err){
       assert.isNull(err, "Timed out waiting for github auth")
     })
   })
