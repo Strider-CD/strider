@@ -25,7 +25,7 @@ serve:
 	@./bin/strider
 
 serve-test:
-	@./bin/strider --config test/test-config.json
+	node test/setup-fixtures && ./bin/strider --config test/test-config.json
 
 
 ## ================= Test Suite ====================================
@@ -89,5 +89,8 @@ link:
 
 unlink:
 	npm install $(strider_sub)
+
+authors-list:
+	git shortlog -e -n -s $$commit | awk '{ args[NR] = $$0; sum += $$0 } END { for (i = 1; i <= NR; ++i) { printf "%-60s %2.1f%%\n", args[i], 100 * args[i] / sum } }' > AUTHORS
 
 .PHONY: test lint watch build less

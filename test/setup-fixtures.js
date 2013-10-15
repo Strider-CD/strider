@@ -84,5 +84,9 @@ module.exports = function(cb){
 }
 
 if (!module.parent) {
-  module.exports(function(){console.log("FIXTURES LOADED")})
+  module.exports(function(){
+    console.log("FIXTURES LOADED")
+
+    process.exit(0)
+  })
 }
