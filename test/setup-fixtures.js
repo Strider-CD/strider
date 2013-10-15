@@ -1,6 +1,6 @@
 var Step = require('step')
   , request = require('request')
-  , config = require('../test-config')
+  , config = require('./test-config')
   , models = require('../lib/models')
   , mongoose = require('mongoose')
   , mongodbUrl = config.db_uri
@@ -47,9 +47,16 @@ var importProjects = function(cb){
   cb(null)
 }
 
+var importSettings = function(cb){
+  models.Config.remove({}, function(){
+    new models.Config({version: 1}).save(cb)
+  })
+}
+
 module.exports = function(cb){
   async.series([
-      importUsers
+      importSettings
+    , importUsers
     , importJobs
     , importProjects
     ]
