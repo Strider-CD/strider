@@ -7,7 +7,7 @@ var Step = require('step')
   , async = require('async')
 
 console.log("Connecting to MongoDB URL: %s", mongodbUrl);
-mongoose.connect(mongodbUrl);
+var conn = mongoose.connect(mongodbUrl);
 
 var TEST_USERS = [
   {email: "test1@example.com", password: "open-sesame", jar: request.jar()}
@@ -48,14 +48,27 @@ var importProjects = function(cb){
 }
 
 var importSettings = function(cb){
-  models.Config.remove({}, function(){
+  models.Config.remove({}, function(err){
+    if (err) throw err
     new models.Config({version: 1}).save(cb)
   })
 }
 
+var dropDB = function(cb){
+  console.log("!!!")
+  mongoose.connection.db.dropDatabase(function(err){
+    console.log("!>")
+    if(err) throw err;
+    console.log("DB DROPPED")
+    cb()
+  })
+  console.log("!!!!!")
+}
+
 module.exports = function(cb){
   async.series([
-      importSettings
+      dropDB
+    , importSettings
     , importUsers
     , importJobs
     , importProjects
@@ -66,8 +79,6 @@ module.exports = function(cb){
     })
 }
 
-module.exports(function(){
-  console.log("!!", arguments)
-  process.exit(0)
-})
-
+if (!module.parent) {
+  module.exports(function(){console.log("FIXTURES LOADED")})
+}

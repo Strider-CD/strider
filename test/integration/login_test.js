@@ -1,12 +1,15 @@
 var sm = require('mocha-selenium')
-  , expect = require('chai').expect
-  , b = sm.setup('integration - login', {
+  , assert = require('chai').assert
+  , b = sm.setup('integration tests', {
       appCmd: 'make serve-test'
     })
 
+var test = it, suite = describe; // Tests as english sucks. 'it' doesn't even make sense for half of these.
 
 
-describe('login', function(){
+suite('integration - existing user flow', function(){
+
+
   this.timeout(30 * 1000)
 
   before(function(done){
@@ -14,20 +17,61 @@ describe('login', function(){
   })
 
 
-  it("should render the homepage", function(done){
+  test("render the homepage", function(done){
     b.visibleByCss("a.brand", function(err){
       done(err)
-    }) 
+    })
   })
 
-  it("should render the login form", function(done){
+  test("render the login form", function(done){
     b.visibleByCss("#navbar-signin-form", function(err){
       done(err)
-    }) 
+    })
   })
 
-  it("submitting form works", function(done){
+  test("submitting bad creds fails", function(done){
     b.chain()
+     .rel('/')
+     .fillInForm({
+       email: 'test1@example.com',
+       password: 'BAD CREDS' 
+     }).elementById("navbar-signin-form", function(err, form){
+       if (err) return done(err);
+       b.next('submit', form, function(err, res){
+         if (err) return done(err);
+       })
+     }).url(function(err, url){
+       assert.isNull(err)
+       assert.include(url, "/login#fail")
+       done()
+     })
+  })
+
+  test("follow forgot password flow", function(done){
+    b.chain()
+     .rel("/")
+     .elementById("forgot-password-link", function(err, el){
+       b.next('clickElement', el, function(){})
+     })
+    .url(function(err, url){
+      assert.isNull(err)
+      assert.include(url, '/auth/forgot')
+    })
+    .fillInForm({
+      email : "test1@example.com"
+    }).elementById("send-forgot", function(err, el){
+      b.next("clickElement", el, function(){})
+    }).url(function(err, url){
+      //throw "TODO"
+      done()
+    })
+
+
+  })
+
+  test("submitting form works", function(done){
+    b.chain()
+     .rel('/')
      .fillInForm({
        email: 'test1@example.com',
        password: 'open-sesame'
@@ -39,10 +83,68 @@ describe('login', function(){
        })
      })
      .visibleByClassName('logged-in', function  (err, visible) {
-       expect(err).to.not.be.ok
-       expect(visible).to.be.ok
+       assert.isNull(err)
+       assert.isTrue(visible)
        done(null)
      })
   })
 
+  test("now we're logged in", function(done){
+    b.chain()
+      .url(function(err, url){
+        assert.isNull(err)
+      })
+      .elementByClassName('no-projects', function(err, el){
+        assert.isNull(err)
+        assert.ok(el)
+        done(null)
+      })
+  })
+
+  test("link account to github", function(done){
+    b.chain()
+     .elementByClassName('provider-github', function(err, el){
+        assert.isNull(err)
+        assert.ok(el, "Couldn't find github link")
+        b.next('click', el, function(err, res){
+          assert.isNull(err);
+          console.log("!!")
+        })
+     })
+    .waitForVisibleByClassName('.octicon-mark-github', 2000, function(err){
+      assert.isNull(err)
+    })
+    .fillInForm({
+       // Github test account creds 
+       login: "strider-test-robot"
+     , password: "i0CheCtzY0yv4WP2o"
+     })
+    .elementByName('commit', function(err, el){
+      assert.isNull(err)
+      assert.ok(el)
+      b.next('click', el, function(err, res){})
+    })
+    .waitForVisibleByClassName('StriderBlock_Brand', 1000, function(err){
+      assert.isNull(err, "Timed out waiting for github auth")
+    })
+  })
+/*
+  test("add a project from github repo", function(done){
+    throw "TODO"
+    done()
+  })
+
+  test("run the project tests", function(done){
+    throw "TODO"
+    done() 
+  })
+
+  test("the dashboard should reflect test results", function(done){
+    throw "TODO"
+    done()
+  })
+*/
+
 })
+
+

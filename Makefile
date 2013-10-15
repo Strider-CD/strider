@@ -44,6 +44,9 @@ test-unit:
 # Either test-local or test-sauce
 test-browser: $(test-env)
 
+# ===== SAUCE:
+
+test-sauce: test-sauce-pre test-client-sauce test-integration-sauce
 
 test-sauce-pre:
 ifndef SAUCE_ACCESS_KEY
@@ -53,18 +56,24 @@ endif
 	# USER: $(SAUCE_USERNAME)
 	# KEY:  $(SAUCE_ACCESS_KEY)
 
-test-sauce: test-sauce-pre test-client-sauce test-integration-sauce
-
 test-integration-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
 
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
-test-local:
+# ====== LOCAL:
+
+test-local: test-client-local test-integration-local
 	$(which chromedriver)
-	mocha test/client/
-	mocha test/integration/
+
+test-client-local:
+	./node_modules/.bin/mocha test/client/
+
+test-integration-local:
+	./node_modules/.bin/mocha test/integration/
+
+
 
 test-syntax: lint
 

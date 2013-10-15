@@ -1,34 +1,56 @@
 #!/usr/bin/env node
 
-var connect = function() {
+var connect = function(cb) {
   var mongoose = require('mongoose'),
       mongodbUrl = require('../lib/config').db_uri;
 
   console.log("Connecting to MongoDB URL: %s", mongodbUrl);
-  mongoose.connect(mongodbUrl);
-}
+  mongoose.connect(mongodbUrl, cb);
+};
 
 function addUser(email, password, admin) {
   var Step = require('step')
     , readline = require('readline')
     , User = require('../lib/models').User
+    , Config = require('../lib/models').Config
+    , isFreshDb = require('../lib/models/upgrade').isFreshDb
+    , needConfigObj = require('../lib/models/upgrade').needConfigObj
+    , isNeeded = require('../lib/models/upgrade').isNeeded
+    , upgrade = require('../lib/models/upgrade').ensure
     , pw = require('pw')
 
   var level = admin ? 1 : 0;
 
-  var add  = function(){
-    connect()
-    var u = new User();
-    u.email = email;
-    u.set('password', password);
-    u.account_level = level || 0;
-    u.save(function(err) {
-      if (err) {
-        console.log("Error adding user:", err);
-        process.exit(1);
+  var add  = function() {
+    console.log("adding")
+    var createUser = function(email, password, level) {
+      var u = new User();
+      u.email = email;
+      u.set('password', password);
+      u.account_level = level;
+      u.save(function(err) {
+        if (err) {
+          console.log("Error adding user:", err);
+          process.exit(1);
+        }
+        console.log("User added successfully! Enjoy.");
+        process.exit(0);
+      });
+    };
+    isFreshDb(function(err, res) {
+      if (res) {
+        needConfigObj(function(err, res) {
+          if (res) {
+            var c = new Config();
+            c.version = Config.SCHEMA_VERSION;
+            c.save(function() { createUser(email, password, level); });
+          }
+        });
+      } else {
+        upgrade(Config.SCHEMA_VERSION, function(err, need) {
+            createUser(email, password, level);
+        });
       }
-      console.log("User added successfully! Enjoy.");
-      process.exit(0);
     });
   }
 
@@ -144,7 +166,10 @@ parser.command('addUser')
     , help: "User's password"
   })
   .callback(function(opts){
-    addUser(opts.email, opts.password, opts.admin);
+    connect(function(err) {
+      if (err) throw err;
+      addUser(opts.email, opts.password, opts.admin);
+    })
   })
   .help("Create a Strider user")
 

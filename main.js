@@ -9,6 +9,7 @@ var app = require('./lib/app')
   , utils = require('./lib/utils')
 
   , Job = models.Job
+  , Config = models.Config
 
   , upgrade = require('./lib/models/upgrade').ensure
 
@@ -87,7 +88,7 @@ module.exports = function(extdir, c, callback) {
   // Make extension context available throughout application.
   common.context = context;
 
-  var SCHEMA_VERSION = 1
+  var SCHEMA_VERSION = Config.SCHEMA_VERSION
   upgrade(SCHEMA_VERSION, function (err) {
     if (err) return cb(err)
     loadExtensions(loader, extdir, context, appInstance, function (err) {

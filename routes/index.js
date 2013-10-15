@@ -42,9 +42,18 @@ exports.index = function(req, res){
     return res.render('register.html', {invite_code:code})
   }
   jobs.latestJobs(req.user, true, function (err, jobs) {
+
+    availableProviders = []
+    Object.keys(common.extensions.provider).forEach(function(k){
+      var v = common.extensions.provider[k]
+      v.id = k
+      v.title = k
+      availableProviders.push(v)
+    })
+
     res.render('index.html', {
       jobs: jobs,
-      providers: common.userConfigs.provider
+      availableProviders: availableProviders 
     })
   })
 };
