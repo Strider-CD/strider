@@ -43,7 +43,7 @@ exports.index = function(req, res){
   }
   jobs.latestJobs(req.user, true, function (err, jobs) {
 
-    availableProviders = []
+    var availableProviders = []
     Object.keys(common.extensions.provider).forEach(function(k){
       var v = common.extensions.provider[k]
       v.id = k
