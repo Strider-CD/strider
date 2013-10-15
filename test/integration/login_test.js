@@ -105,25 +105,30 @@ suite('integration - existing user flow', function(){
     b.chain()
      .elementByClassName('provider-github', function(err, el){
         assert.isNull(err)
-        assert.ok(el)
+        assert.ok(el, "Couldn't find github link")
         b.next('click', el, function(err, res){
           assert.isNull(err);
-          done()
+          console.log("!!")
         })
      })
+    .waitForVisibleByClassName('.octicon-mark-github', 2000, function(err){
+      assert.isNull(err)
+    })
     .fillInForm({
        // Github test account creds 
        login: "strider-test-robot"
      , password: "i0CheCtzY0yv4WP2o"
      })
     .elementByName('commit', function(err, el){
+      assert.isNull(err)
+      assert.ok(el)
       b.next('click', el, function(err, res){})
     })
     .waitForVisibleByClassName('StriderBlock_Brand', 1000, function(err){
       assert.isNull(err, "Timed out waiting for github auth")
     })
   })
-
+/*
   test("add a project from github repo", function(done){
     throw "TODO"
     done()
@@ -138,7 +143,7 @@ suite('integration - existing user flow', function(){
     throw "TODO"
     done()
   })
-
+*/
 
 })
 
