@@ -1,12 +1,15 @@
 var sm = require('mocha-selenium')
   , assert = require('chai').assert
-  , b = sm.setup('integration - login', {
+  , b = sm.setup('integration tests', {
       appCmd: 'make serve-test'
     })
 
-var test = it; // Tests as english sucks. 'it' doesn't even make sens for half of these.
+var test = it, suite = describe; // Tests as english sucks. 'it' doesn't even make sense for half of these.
 
-describe('login', function(){
+
+suite('integration - existing user flow', function(){
+
+
   this.timeout(30 * 1000)
 
   before(function(done){
@@ -59,7 +62,7 @@ describe('login', function(){
     }).elementById("send-forgot", function(err, el){
       b.next("clickElement", el, function(){})
     }).url(function(err, url){
-      console.log("!!", err, url)
+      //throw "TODO"
       done()
     })
 
@@ -86,5 +89,47 @@ describe('login', function(){
      })
   })
 
+  test("now we're logged in", function(done){
+    b.chain()
+      .url(function(err, url){
+        assert.isNull(err)
+        //url is /
+      })
+      .elementByClassName('no-projects', function(err, el){
+        assert.isNull(err)
+        assert.ok(el)
+        done(null)
+      })
+  })
+
+  test("link account to github", function(done){
+    b.chain()
+     .elementByClassName('provider-github', function(err, el){
+        assert.isNull(err)
+        assert.ok(el)
+        b.next('click', el, function(err, res){
+          assert.isNull(err);
+          done()
+        })
+     })
+  })
+
+  test("add a project from github repo", function(done){
+    throw "TODO"
+    done()
+  })
+
+  test("run the project tests", function(done){
+    throw "TODO"
+    done() 
+  })
+
+  test("the dashboard should reflect test results", function(done){
+    throw "TODO"
+    done()
+  })
+
 
 })
+
+
