@@ -1,5 +1,5 @@
 var sm = require('mocha-selenium')
-  , expect = require('chai').expect
+  , assert = require('chai').assert
   , b = sm.setup('integration - login', {
       appCmd: 'make serve-test'
     })
@@ -58,6 +58,23 @@ describe('login', function(){
       done(err)
     })
   })
+ 
+  it("submitting bad creds fails", function(done){
+    b.chain()
+     .fillInForm({
+       email: 'test1@example.com',
+       password: 'BAD CREDS' 
+     }).elementById("navbar-signin-form", function(err, form){
+       if (err) return done(err);
+       b.next('submit', form, function(err, res){
+         if (err) return done(err);
+       })
+     }).url(function(err, url){
+       assert.isNull(err)
+       assert.include(url, "/login#fail")
+       b.get(url.slice(0, -10), done)
+     })
+  })
 
   it("submitting form works", function(done){
     b.chain()
@@ -72,10 +89,11 @@ describe('login', function(){
        })
      })
      .visibleByClassName('logged-in', function  (err, visible) {
-       expect(err).to.not.be.ok
-       expect(visible).to.be.ok
+       assert.isNull(err)
+       assert.isTrue(visible)
        done(null)
      })
   })
+
 
 })
