@@ -7,7 +7,6 @@ var Step = require('step')
   , async = require('async')
 
 console.log("Connecting to MongoDB URL: %s", mongodbUrl);
-var conn = mongoose.connect(mongodbUrl);
 
 var TEST_USERS = [
   {email: "test1@example.com", password: "open-sesame", jar: request.jar()}
@@ -65,9 +64,14 @@ var dropDB = function(cb){
   console.log("!!!!!")
 }
 
+var connect = function(cb) {
+  mongoose.connect(mongodbUrl, cb);
+}
+
 module.exports = function(cb){
   async.series([
-      dropDB
+      connect
+    , dropDB
     , importSettings
     , importUsers
     , importJobs
