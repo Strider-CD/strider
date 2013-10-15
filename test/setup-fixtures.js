@@ -48,7 +48,8 @@ var importProjects = function(cb){
 }
 
 var importSettings = function(cb){
-  models.Config.remove({}, function(){
+  models.Config.remove({}, function(err){
+    if (err) throw err
     new models.Config({version: 1}).save(cb)
   })
 }
