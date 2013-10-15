@@ -1,4 +1,5 @@
 var sm = require('mocha-selenium')
+  , expect = require('chai').expect
   , b = sm.setup('integration - login', {
       appCmd: 'make serve-test'
     })
@@ -26,33 +27,22 @@ describe('login', function(){
   })
 
   it("submitting form works", function(done){
-    b.elementByName('email', function(err, el){
-      if (err) return done(err);
-      b.type(el, "test1@example.com", function(err){
-        if (err) return done(err);
-        b.elementByName('password', function(err, el){
-          if (err) return done(err);
-          b.type(el, "open-sesame", function(err){
-            if (err) return done(err);
-            b.elementById("navbar-signin-form", function(err, form){
-              if (err) return done(err);
-              b.submit(form, function(err, res){
-                if (err) return done(err);
-                setTimeout(function(){
-                 b.elementByClassName('logged-in', function(err){
-                  if (err) return done(err);
-                  done(null); 
-                 }) 
-              
-                }, 2000) 
-
-              }) 
-            })
-          })
-        })
-      })  
-    })
+    b.chain()
+     .fillInForm({
+       email: 'test1@example.com',
+       password: 'open-sesame'
+     })
+     .elementById("navbar-signin-form", function(err, form){
+       if (err) return done(err);
+       b.next('submit', form, function(err, res){
+         if (err) return done(err);
+       })
+     })
+     .visibleByClassName('logged-in', function  (err, visible) {
+       expect(err).to.not.be.ok
+       expect(visible).to.be.ok
+       done(null)
+     })
   })
-
 
 })
