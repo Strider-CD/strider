@@ -25,7 +25,7 @@ serve:
 	@./bin/strider
 
 serve-test:
-	@./bin/strider --config test/test-config.json
+	node test/setup-fixtures && ./bin/strider --config test/test-config.json
 
 
 ## ================= Test Suite ====================================

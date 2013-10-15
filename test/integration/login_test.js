@@ -108,10 +108,9 @@ suite('integration - existing user flow', function(){
         assert.ok(el, "Couldn't find github link")
         b.next('click', el, function(err, res){
           assert.isNull(err);
-          console.log("!!")
         })
      })
-    .waitForVisibleByClassName('.octicon-mark-github', 2000, function(err){
+    .waitForVisibleByClassName('octicon-logo-github', 2000, function(err){
       assert.isNull(err)
     })
     .fillInForm({
