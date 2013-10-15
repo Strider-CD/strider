@@ -61,10 +61,16 @@ test-integration-sauce:
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
-test-local:
-	$(which chromedriver)
+
+test-client-local:
 	mocha test/client/
+
+test-integration-local:
 	mocha test/integration/
+
+
+test-local: test-client-local test-integration-local
+	$(which chromedriver)
 
 test-syntax: lint
 
