@@ -1,38 +1,59 @@
 var Step = require('step')
   , request = require('request')
   , config = require('../test-config')
+  , models = require('../lib/models')
+  , mongoose = require('mongoose')
+  , mongodbUrl = config.db_uri
+  , async = require('async')
 
-var TEST_PORT=8700;
-var TEST_BASE_URL="http://localhost:"+TEST_PORT+"/";
-var TEST_WEBHOOK_SHA1_SECRET="l1ulAEJQyOTpvjz7r4yNtzZlL4vsV8Zy/jatdRUxvJc=";
-TEST_USER_PASSWORD = "open-sesame";
-var TEST_USERS = {
-  "test1@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()},
-  "test2@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()},
-  "test3@example.com":{password: TEST_USER_PASSWORD, jar: request.jar()}
-};
+console.log("Connecting to MongoDB URL: %s", mongodbUrl);
+mongoose.connect(mongodbUrl);
+
+var TEST_USERS = [
+  {email: "test1@example.com", password: "open-sesame", jar: request.jar()}
+, {email: "test2@example.com", password: "test", jar: request.jar()}
+, {email: "test3@example.com", password: "password", jar: request.jar()}
+];
 
 
 var importUsers = function(cb){
+  console.log("dropping existing users table")
+  models.User.remove({}, function(err){
+    if (err) throw err;
+
+    console.log("dropped")
+
+    async.eachSeries(TEST_USERS, function(u, done){
+      var user = new models.User();
+      user.email = u.email
+      user.set('password', u.password)
+
+      return user.save(done);
+    }, function(err){
+      cb(err, null)
+    })
+  })
 
 }
 
 var importJobs = function(cb){
-
+  console.log("dropping existing jobs table")
+  models.Job.remove({}, function(err){
+    cb(null)
+  })
 }
 
 var importProjects = function(cb){
-
+  cb(null)
 }
 
 module.exports = function(cb){
-  Step(
-    function() {
-      importUsers(this.parallel());
-      importJobs(this.parallel());
-      importProjects(this.parallel());
-    },
-    function(err, stdout, stderr) {
+  async.series([
+      importUsers
+    , importJobs
+    , importProjects
+    ]
+    , function(err, stdout, stderr) {
       if (err) {throw err;}
       cb(null, config)
     })
@@ -40,5 +61,6 @@ module.exports = function(cb){
 
 module.exports(function(){
   console.log("!!", arguments)
+  process.exit(0)
 })
 

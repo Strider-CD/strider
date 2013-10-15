@@ -1,0 +1,5 @@
+{
+  "db_uri" : "mongodb://localhost/stridercdtest"
+, "session_secret" : "ZZZ"
+, "server_port": 3000
+}

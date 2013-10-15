@@ -24,6 +24,9 @@ watch:
 serve:
 	@./bin/strider
 
+serve-test:
+	@./bin/strider --config test/test-config.json
+
 
 ## ================= Test Suite ====================================
 
