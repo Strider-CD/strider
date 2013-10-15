@@ -90,7 +90,8 @@ exports.account = function(req, res){
   }
   res.render('account.html', {
     user: utils.sanitizeUser(req.user.toJSON()),
-    providers: hosted
+    providers: hosted,
+    userConfigs: common.userConfigs
   });
 };
 
@@ -222,7 +223,11 @@ exports.config = function(req, res) {
     var data = {
       collaborators: {},
       project: req.project.toJSON(),
-      statusBlocks: common.statusBlocks
+      statusBlocks: common.statusBlocks,
+      userIsCreator: req.user.isProjectCreator
+    }
+    if (req.user.isProjectCreator) {
+      data.userConfigs = req.user.jobplugins
     }
     delete data.project.creator
     for (var i=0; i<users.length; i++) {
