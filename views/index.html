@@ -48,11 +48,13 @@
             {% if availableProviders.length %}
               <h4>Link Accounts:</h4>
               {% for provider in availableProviders %}
+              {% if provider.setupLink %}
               <span class="link-accounts">
                 <a href="{{ provider.setupLink }}" class="btn btn-primary provider-{{provider.id}}">
                 {% if provider.inline_icon %}<i class="icon-{{ provider.inline_icon }}"></i> {% endif %}{{ provider.title }}
               </a>
               </span>
+              {% endif %}
               {% endfor %}
             {% else if !currentUser.accounts.length %}
             <a class="btn btn-primary" href="/account">Configure Accounts</a>

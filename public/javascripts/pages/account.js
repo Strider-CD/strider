@@ -75,4 +75,11 @@
     };
   }]);
 
+  app.controller('JobController', ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+    var name = $attrs.id.split('-')[1];
+    $scope.$watch('user.jobplugins["' + name + '"]', function (value) {
+      $scope.config = value;
+    });
+  }]);
+
 })(angular);
