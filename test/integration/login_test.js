@@ -58,9 +58,10 @@ describe('login', function(){
       done(err)
     })
   })
- 
+
   it("submitting bad creds fails", function(done){
     b.chain()
+     .rel('/')
      .fillInForm({
        email: 'test1@example.com',
        password: 'BAD CREDS' 
@@ -72,12 +73,35 @@ describe('login', function(){
      }).url(function(err, url){
        assert.isNull(err)
        assert.include(url, "/login#fail")
-       b.get(url.slice(0, -10), done)
+       done()
      })
+  })
+
+  it("follow forgot password flow", function(done){
+    b.chain()
+     .rel("/")
+     .elementById("forgot-password-link", function(err, el){
+       b.next('clickElement', el, function(){})
+     })
+    .url(function(err, url){
+      assert.isNull(err)
+      assert.include(url, '/auth/forgot')
+    })
+    .fillInForm({
+      email : "test1@example.com"
+    }).elementById("send-forgot", function(err, el){
+      b.next("clickElement", el, function(){})
+    }).url(function(err, url){
+      console.log("!!", err, url)
+      done()
+    })
+
+
   })
 
   it("submitting form works", function(done){
     b.chain()
+     .rel('/')
      .fillInForm({
        email: 'test1@example.com',
        password: 'open-sesame'
