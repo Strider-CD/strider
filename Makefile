@@ -63,10 +63,10 @@ test-client-sauce:
 
 
 test-client-local:
-	mocha test/client/
+	./node_modules/.bin/mocha test/client/
 
 test-integration-local:
-	mocha test/integration/
+	./node_modules/.bin/mocha test/integration/
 
 
 test-local: test-client-local test-integration-local
