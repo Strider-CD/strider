@@ -93,7 +93,6 @@ suite('integration - existing user flow', function(){
     b.chain()
       .url(function(err, url){
         assert.isNull(err)
-        //url is /
       })
       .elementByClassName('no-projects', function(err, el){
         assert.isNull(err)
@@ -112,6 +111,17 @@ suite('integration - existing user flow', function(){
           done()
         })
      })
+    .fillInForm({
+       // Github test account creds 
+       login: "strider-test-robot"
+     , password: "i0CheCtzY0yv4WP2o"
+     })
+    .elementByName('commit', function(err, el){
+      b.next('click', el, function(err, res){})
+    })
+    .waitForVisibleByClassName('StriderBlock_Brand', 1000, function(err){
+      assert.isNull(err, "Timed out waiting for github auth")
+    })
   })
 
   test("add a project from github repo", function(done){
