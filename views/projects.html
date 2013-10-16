@@ -144,6 +144,7 @@
         </div>
         <button ng-disabled="!create{{ loop.key }}.$valid" class="btn btn-primary" ng-click="create()">Create New</button>
       </form>
+      <ul class="unstyled repo-list">
       {% for project in item.projects %}
       <li class="repo">
         <div>
@@ -152,10 +153,11 @@
             <i class="icon-globe"></i>
           </a>
           {% endif %}
-          <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.display_name ]]</a>
+          <a class="view-jobs" href="/{{ project.name }}/">{{ project.display_name }}</a>
         </div>
       </li>
       {% endfor %}
+      </ul>
       {% endfor %}
     </div>
   </div>
