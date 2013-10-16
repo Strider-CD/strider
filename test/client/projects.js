@@ -2,7 +2,8 @@
 var expect = require('expect.js')
   , sm = require('mocha-selenium')
   , b = sm.setup('views:Projects', {
-      appCmd: 'make serve-test'
+      appCmd: 'make serve',
+      lastShot: 'failed'
     })
 
   , client = require('./client')

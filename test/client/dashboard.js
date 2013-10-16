@@ -2,7 +2,8 @@
 var expect = require('expect.js')
   , sm = require('mocha-selenium')
   , b = sm.setup('views:Dashboard', {
-      appCmd: 'make serve-test'
+      appCmd: 'make serve',
+      lastShot: 'failed'
     })
 
 // todo: test the "live update"
