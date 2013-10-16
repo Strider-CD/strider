@@ -44,6 +44,8 @@ function addUser(email, password, admin) {
             var c = new Config();
             c.version = Config.SCHEMA_VERSION;
             c.save(function() { createUser(email, password, level); });
+          } else {
+            createUser(email, password, level);
           }
         });
       } else {
