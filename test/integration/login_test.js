@@ -2,10 +2,19 @@ var tap = require('tap')
   , assert = require('chai').assert
   , spawn = require('child_process').spawn
   , wd = require('wd')
-
+  , b
 var server = spawn("make", ["serve-test"])
 server.stdout.pipe(process.stdout)
 server.stderr.pipe(process.stderr)
+
+
+if (process.env.TEST_ENV == "local"){
+  b = wd.remote("http://localhost:4444/wd/hub")
+
+} else {
+  b = wd.remote("ondemand.saucelabs.com", 80, process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY);
+}
+
 
 var suite = function(name, tests){
   var _tests = []
@@ -18,22 +27,33 @@ var suite = function(name, tests){
     if (_tests.length == 0) return;
     var t = _tests.shift()
     console.log("!!!", t)
-    t[1](_run)
+    tap.test(t[0], function(tapt){
+      t[1](function(){
+        tapt.end()
+        console.log(">>>", t)
+        _run()
+      })
+    })
   }
-  console.log("!!!>")
-  b.init({browserName: 'chrome', name: name}, function(){ 
+  b.init({browserName: 'chrome', name: name}, function(err){ 
+    if (err) throw err
     _run()
   })
 }
 
 
-var b = wd.remote("ondemand.saucelabs.com", 80, process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY);
-
 b.rel = function(){
-  this.url.apply(this, ([this.baseURI + arguments[0]]).concat(Array.prototype.slice.call(arguments, 1)))
+  var args = Array.prototype.slice(arguments);
+  args[0] = "http://localhost:3000" + arguments[0]
+  return this.get.apply(this, args)
 }
 
-
+b.fillInput = function(name, val, cb){
+  var self = this
+  return this.elementByName(name, function(err, el){
+    self.next('type', el, val, cb);
+  })
+}
 
 
 suite('integration - existing user flow', function(test){
@@ -41,13 +61,13 @@ suite('integration - existing user flow', function(test){
 
   test("render the homepage", function(done){
     b.rel('/')
-    b.waitForVisibleByCssSelector("a.brand", function(err){
+    b.waitForVisibleByCssSelector("a.brand", 1000, function(err){
       done(err)
     })
   })
 
   test("render the login form", function(done){
-    b.visibleByCss("#navbar-signin-form", function(err){
+    b.waitForVisibleByCssSelector("#navbar-signin-form", 1000, function(err){
       done(err)
     })
   })
@@ -55,10 +75,9 @@ suite('integration - existing user flow', function(test){
   test("submitting bad creds fails", function(done){
     b.chain()
      .rel('/')
-     .fillInForm({
-       email: 'test1@example.com',
-       password: 'BAD CREDS' 
-     }).elementById("navbar-signin-form", function(err, form){
+     .fillInput("email", 'test1@example.com')
+     .fillInput("password", 'BAD CREDS')
+     .elementById("navbar-signin-form", function(err, form){
        if (err) return done(err);
        b.next('submit', form, function(err, res){
          if (err) return done(err);
