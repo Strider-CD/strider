@@ -13,7 +13,7 @@
     return accounts;
   }
 
-  var app = angular.module('Account', ['Alerts'], function ($interpolateProvider) {
+  var app = window.app = angular.module('Account', ['Alerts'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
   });
