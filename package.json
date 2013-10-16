@@ -6,7 +6,6 @@
     "stylus": "~0.37.0",
     "jade": "~0.35.0",
     "mongoose": "~3.6.10",
-    "passport-github": "~0.1.4",
     "consolidate": "0.8.0",
     "bcrypt": "~0.7.7",
     "connect-mongo": "~0.3.3",
