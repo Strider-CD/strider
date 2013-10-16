@@ -12,6 +12,20 @@
   app.controller('ManualController', ['$scope', '$attrs', function ($scope, $attrs) {
     var provider = $attrs.id.split('-')[1];
     $scope.config = {};
+    $scope.projects = window.manualProjects[provider] || [];
+    $scope.remove = function (project) {
+      project.really_remove = 'removing';
+      $.ajax('/' + project.name + '/', {
+        type: 'DELETE',
+        success: function () {
+          $scope.projects.splice($scope.projects.indexOf(project), 1);
+          $scope.success('Project removed', true);
+        },
+        error: function () {
+          $scope.error('Failed to remove project', true);
+        }
+      })
+    };
     $scope.create = function () {
       var name = $scope.display_name.toLowerCase();
       if (!validName(name)) return;
@@ -28,10 +42,18 @@
           }
         }),
         success: function () {
-          $scope.success('Created project!', true);
+          $scope.projects.push({
+            display_name: $scope.display_name,
+            display_url: $scope.display_url,
+            provider: {
+              id: provider,
+              config: $scope.config
+            }
+          });
           $scope.config = {};
           $scope.display_name = '';
           $scope.display_url = '';
+          $scope.success('Created project!', true);
         },
         error: function () {
           $scope.error('failed to create project', true);

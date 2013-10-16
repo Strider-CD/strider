@@ -389,14 +389,16 @@ exports.projects = function(req, res) {
     , unconfigured = []
     , providers = common.userConfigs.provider
     , manual = {}
+    , manualProjects = {}
 
   Object.keys(common.pluginConfigs.provider).forEach(function (key) {
     var config = common.pluginConfigs.provider[key]
     console.log('helo')
     if (common.extensions.provider[key].hosted) return
+    manualProjects[key] = []
     manual[key] = {
       provider: config,
-      projects: []
+      projects: manualProjects[key]
     }
   })
 
@@ -461,6 +463,7 @@ exports.projects = function(req, res) {
           unconfigured: unconfigured,
           providers: providers,
           manual: manual,
+          manualProjects: manualProjects,
           repos: repomap,
           project_types: availableProjectTypes()
         });
