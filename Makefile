@@ -64,7 +64,7 @@ test-client-sauce:
 
 # ====== LOCAL:
 
-test-local: test-client-local test-integration-local
+test-local: test-integration-local
 	$(which chromedriver)
 
 test-client-local:
