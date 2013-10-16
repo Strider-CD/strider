@@ -5,6 +5,7 @@ node_js:
   - "0.10"
   - "0.8"
 services: mongodb
-env:
-  - secure: "X8IX2o/FpNH5XOBTW/962Abh0FUZWWW3oLN17ny62ZhvoO/4cZw3V/9XMc0n/9zokt6RXkBZ5XZZqg6+qk96teoOLDZ8yMEeXZevGTynUltwX7DdiJGsDksN9qe1tRcCN/4EUp52EYI/ylOABREJ93jN2DKLOBERQgrGn2cqHZk=" 
+branches:
+  except:
+    - 1_4_refactor
 
