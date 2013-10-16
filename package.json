@@ -43,7 +43,7 @@
     "passport-local": "~0.1.6",
     "passport": "~0.1.17",
     "express-namespace": "~0.1.1",
-    "express-forgot-password": "0.3.2",
+    "express-forgot-password": "0.4.0",
     "rc": "~0.3.1",
     "ssh-keypair": "~1.0.0"
   },

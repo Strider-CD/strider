@@ -59,17 +59,16 @@ suite('integration - existing user flow', function(){
     })
     .fillInForm({
       email : "test1@example.com"
-    }).elementById("send-forgot", function(err, el){
+    }, '.form-horizontal').elementById("send-forgot", function(err, el){
       b.next("clickElement", el, function(){})
-    }).url(function(err, url){
-      //throw "TODO"
-      done()
     })
-
-
+    .elementByClassName('forgot-sent', function(err, el){
+      assert.isNull(err, "Error on forgot-password-sent page")
+      done();
+    })
   })
 
-  test("submitting form works", function(done){
+  test("submitting login form works", function(done){
     b.chain()
      .rel('/')
      .fillInForm({
@@ -127,14 +126,19 @@ suite('integration - existing user flow', function(){
     })
     .waitForVisibleByClassName('StriderBlock_Brand', 3000, function(err){
       assert.isNull(err, "Timed out waiting for github auth")
+      done()
     })
   })
-/*
+
+
+
   test("add a project from github repo", function(done){
-    throw "TODO"
+    b.chain()
+      .rel('/projects')
     done()
   })
 
+  /*
   test("run the project tests", function(done){
     throw "TODO"
     done() 
