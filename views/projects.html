@@ -131,7 +131,28 @@
       </div>
     </div>
     <div class="tab-pane" id="manual-setup">
-      Setting this up the manual way.
+      {% for item in manual %}
+      <form id="manual-{{ loop.key }}" ng-controller="ManualController">
+      <h3>{{ item.provider.title }}</h3>
+      <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
+      <input type="text" ng-model="display_url" placeholder="Display Url">
+      <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name (must contain a single '/')">
+      {{ item.provider.html | raw }}
+      <button class="btn btn-primary" ng-click="create()">Create New</button>
+      </form>
+      {% for project in item.projects %}
+      <li class="repo">
+        <div>
+          {% if project.display_url %}
+          <a href="{{ project.display_url }}" target="_blank" class="hosted-url">
+            <i class="icon-globe"></i>
+          </a>
+          {% endif %}
+          <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.display_name ]]</a>
+        </div>
+      </li>
+      {% endfor %}
+      {% endfor %}
     </div>
   </div>
 </div>

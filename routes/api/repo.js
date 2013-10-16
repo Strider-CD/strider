@@ -61,9 +61,9 @@ exports.clear_cache = function (req, res) {
  * *display_url* - URL fir the repo (e.g. Github homepage)
  * *public* - boolean for whether this project is public or not. (default: false)
  * *prefetch_config* - boolean for whether the strider.json should be fetched in advance. (default: true)
- * *provider_id* - id of provider plugin
  * *account* - id of provider account
  * *repo_id* - id of the repo
+ * *provider* json object of {id: , config: 
  */
 exports.create_project = function(req, res) {
   var name = req.params.org + '/' + req.params.repo
@@ -88,20 +88,24 @@ exports.create_project = function(req, res) {
     return error(400, "display_name is required")
   }
 
+  /** no it's not
   if (!display_url) {
     return error(400, "display_url is required")
   }
+  **/
 
   if (!provider || !provider.id) {
     return error(400, "provider.id is required")
   }
 
-  if (!provider.account) {
-    return error(400, "provider.account is required")
-  }
+  if (common.extensions.provider[provider.id].hosted) {
+    if (!provider.account) {
+      return error(400, "provider.account is required")
+    }
 
-  if (!provider.repo_id) {
-    return error(400, "provider.repo_id is required")
+    if (!provider.repo_id) {
+      return error(400, "provider.repo_id is required")
+    }
   }
 
   if (!provider.config) {

@@ -1,3 +1,13 @@
+.public-btn {
+  margin-bottom: 9px;
+}
+input.ng-dirty.ng-invalid,
+input.ng-dirty.ng-invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
 .adding-repo {
   margin-top: -4px;
   margin-right: 10px;
