@@ -132,13 +132,17 @@
     </div>
     <div class="tab-pane" id="manual-setup">
       {% for item in manual %}
-      <form id="manual-{{ loop.key }}" ng-controller="ManualController">
-      <h3>{{ item.provider.title }}</h3>
-      <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
-      <input type="text" ng-model="display_url" placeholder="Display Url">
-      <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name (must contain a single '/')">
-      {{ item.provider.html | raw }}
-      <button class="btn btn-primary" ng-click="create()">Create New</button>
+      <form id="manual-{{ loop.key }}" name="create{{ loop.key }}" ng-controller="ManualController">
+        <h3>{{ item.provider.title }}</h3>
+        <div class="general">
+          <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
+          <input type="text" ng-model="display_url" placeholder="Display Url">
+          <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name (must contain a single '/')">
+        </div>
+        <div class="provider-specific">
+          {{ item.provider.html | raw }}
+        </div>
+        <button ng-disabled="!create{{ loop.key }}.$valid" class="btn btn-primary" ng-click="create()">Create New</button>
       </form>
       {% for project in item.projects %}
       <li class="repo">

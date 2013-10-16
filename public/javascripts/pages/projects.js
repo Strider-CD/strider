@@ -15,7 +15,7 @@
     $scope.create = function () {
       var name = $scope.display_name.toLowerCase();
       if (!validName(name)) return;
-      $.ajax('/' + name, {
+      $.ajax('/' + name + '/', {
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify({

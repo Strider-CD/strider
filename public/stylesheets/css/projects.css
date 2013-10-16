@@ -1,5 +1,17 @@
-.public-btn {
-  margin-bottom: 9px;
+#manual-setup .general {
+  margin-bottom: 10px;
+}
+#manual-setup .general input {
+  margin-bottom: 0;
+}
+#manual-setup form {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 15px 15px;
+  margin-bottom: 10px;
+}
+#manual-setup .provider-specific {
+  margin-bottom: 10px;
 }
 input.ng-dirty.ng-invalid,
 input.ng-dirty.ng-invalid:focus {
