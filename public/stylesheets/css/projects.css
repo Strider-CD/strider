@@ -1,3 +1,25 @@
+#manual-setup .general {
+  margin-bottom: 10px;
+}
+#manual-setup .general input {
+  margin-bottom: 0;
+}
+#manual-setup form {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px 15px 15px;
+  margin-bottom: 10px;
+}
+#manual-setup .provider-specific {
+  margin-bottom: 10px;
+}
+input.ng-dirty.ng-invalid,
+input.ng-dirty.ng-invalid:focus {
+  border-color: #e9322d;
+  -webkit-box-shadow: 0 0 6px #f8b9b7;
+  -moz-box-shadow: 0 0 6px #f8b9b7;
+  box-shadow: 0 0 6px #f8b9b7;
+}
 .adding-repo {
   margin-top: -4px;
   margin-right: 10px;

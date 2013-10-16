@@ -388,16 +388,39 @@ exports.projects = function(req, res) {
     , configured = {}
     , unconfigured = []
     , providers = common.userConfigs.provider
+    , manual = {}
+    , manualProjects = {}
+
+  Object.keys(common.pluginConfigs.provider).forEach(function (key) {
+    var config = common.pluginConfigs.provider[key]
+    console.log('helo')
+    if (common.extensions.provider[key].hosted) return
+    manualProjects[key] = []
+    manual[key] = {
+      provider: config,
+      projects: manualProjects[key]
+    }
+  })
 
   Project.find({creator: req.user._id}).lean().exec(function (err, projects) {
     if (err) return res.send(500, 'Failed to get projects from the database')
     // tree is { providerid: { accountid: { repoid: project._id, ...}, ...}, ...}
     // to track which repos have been configured
     var tree = {}
-      , account
+      , provider
     for (var i=0; i<projects.length; i++) {
-      account = projects[i].provider
-      deepObj(tree, projects[i].provider.id, projects[i].provider.account)[projects[i].provider.repo_id] = {
+      provider = projects[i].provider
+      if (!provider.account) {
+        if (!manual[provider.id]) {
+          manual[provider.id] = {
+            provider: common.pluginConfigs.provider[provider.id],
+            projects: []
+          }
+        }
+        manual[provider.id].projects.push(projects[i])
+        continue;
+      }
+      deepObj(tree, provider.id, provider.account)[provider.repo_id] = {
         _id: projects[i]._id,
         name: projects[i].name
       }
@@ -439,6 +462,8 @@ exports.projects = function(req, res) {
         return res.render('projects.html', {
           unconfigured: unconfigured,
           providers: providers,
+          manual: manual,
+          manualProjects: manualProjects,
           repos: repomap,
           project_types: availableProjectTypes()
         });

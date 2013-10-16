@@ -7,6 +7,7 @@
   var providers = {{ providers | scriptjson | raw }};
   var accounts = {{ currentUser.accounts | scriptjson | raw }};
   var repos = {{ repos | scriptjson | raw }};
+  var manualProjects = {{ manualProjects | scriptjson | raw }};
 </script>
 {% endpluginblock %}
 
@@ -81,7 +82,7 @@
                 <i class="icon-globe"></i>
               </a>
               <span ng-switch="!!repo.project">
-                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.display_name ]]</a>
+                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.display_name ]]/">[[ repo.display_name ]]</a>
                 <span ng-switch-default>[[ repo.display_name ]]</span>
               </span>
               <div class="pull-right action" ng-switch="!!repo.project">
@@ -131,7 +132,42 @@
       </div>
     </div>
     <div class="tab-pane" id="manual-setup">
-      Setting this up the manual way.
+      {% for item in manual %}
+      <div id="manual-{{ loop.key }}" ng-controller="ManualController">
+        <form name="create{{ loop.key }}">
+          <h3>{{ item.provider.title }}</h3>
+          <div class="general">
+            <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
+            <input type="text" ng-model="display_url" placeholder="Display Url">
+            <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name (must contain a single '/')">
+          </div>
+          <div class="provider-specific">
+            {{ item.provider.html | raw }}
+          </div>
+          <button ng-disabled="!create{{ loop.key }}.$valid" class="btn btn-primary" ng-click="create()">Create New</button>
+        </form>
+        <ul class="unstyled repo-list">
+          <li class="repo" ng-repeat="project in projects">
+            <div>
+              <a ng-show="project.display_url" href="[[ project.display_url ]]" target="_blank" class="hosted-url">
+                <i class="icon-globe"></i>
+              </a>
+              <a class="view-jobs" href="/[[ project.display_name ]]/">[[ project.display_name ]]</a>
+            <div class="pull-right">
+              <button ng-show="project.really_remove" class="btn btn-danger" ng-click="remove(project)" ng-disabled="project.really_remove === 'removing'">
+                <i class="icon-refresh icon-spin" ng-show="project.really_remove === 'removing'"></i>
+                Really remove
+              </button>
+              <a href="/[[ project.display_name ]]/config" data-toggle="tooltip" title="Configure"><i class="icon-wrench"></i></a>
+              <button class="btn btn-danger" ng-click="project.really_remove = true" ng-disabled="project.really_remove">Remove</button>
+</span>
+<button ng-disabled="repo.adding" ng-switch-default class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
+            </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      {% endfor %}
     </div>
   </div>
 </div>

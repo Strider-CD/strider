@@ -53,7 +53,7 @@
   "devDependencies": {
     "mocha": "~1.12.0",
     "mock-request": ">=0.1.2",
-    "mocha-selenium": "~0.1.0",
+    "mocha-selenium": "git+https://github.com/jaredly/mocha-selenium.git",
     "sandboxed-module": ">=0.1.2",
     "should": "~1.2.2",
     "sinon": "~1.7.0",
