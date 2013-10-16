@@ -43,17 +43,13 @@ exports.index = function(req, res){
   }
   jobs.latestJobs(req.user, true, function (err, jobs) {
 
-    var availableProviders = []
-    Object.keys(common.extensions.provider).forEach(function(k){
-      var v = common.extensions.provider[k]
-      v.id = k
-      v.title = k
-      availableProviders.push(v)
+    var availableProviders = Object.keys(common.userConfigs.provider).map(function(k){
+      return common.userConfigs.provider[k]
     })
 
     res.render('index.html', {
       jobs: jobs,
-      availableProviders: availableProviders 
+      availableProviders: availableProviders
     })
   })
 };
