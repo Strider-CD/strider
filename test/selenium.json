@@ -6,7 +6,8 @@
     "sauce": {
       "hostname": "ondemand.saucelabs.com",
       "port": 80,
-      "browsers": [
+      "browsers": [["chrome", "", "Windows 8"]],
+      "_browsers" :[
         ["chrome", "", "OS X 10.8"], ["firefox", "", "OS X 10.6"],
         ["chrome", "", "Windows 8"], ["firefox", "", "Windows 8"],
         ["chrome", "", "Linux"], ["firefox", "", "Linux"]

@@ -135,7 +135,39 @@ suite('integration - existing user flow', function(){
   test("add a project from github repo", function(done){
     b.chain()
       .rel('/projects')
-    done()
+      .elementByClassName('add-repo', function(err, el){
+        assert.isNull(err, "Error selecting 'add' button")
+        assert.ok(el)
+        b.next("clickElement", el, function(err, res){
+          assert.isNull(err, "Error clicking add button")
+        })
+      })
+      .elementByCssSelector('.project-type.btn', function(err, el){
+        assert.isNull(err, "error selecting type button")
+        assert.ok(el)
+        b.next("clickElement", el, function(err, res){
+          assert.isNull(err)
+        })
+      })
+      .waitForElementByCssSelector('.btn-success', 5000, function(err, el){
+        // Start a test
+        assert.isNull(err, "error selecting success button")
+        assert.ok(el)
+        b.next("clickElement", el, function(err, res){
+          assert.isNull(err)
+        })
+      })
+      .waitForElementByLinkText('Click to watch it run', 3000, function(err, el){
+        assert.isNull(err)
+        assert.ok(el)
+        b.next("clickElement", el, function(err, res){
+          assert.isNull(err)
+        })
+      }).url(function(err, url){
+        assert.isNull(err)
+        assert.include(url, "strider-test-robot/strider-extension-loader")
+        done()
+      })
   })
 
   /*
