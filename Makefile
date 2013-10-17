@@ -57,7 +57,7 @@ endif
 	# KEY:  $(SAUCE_ACCESS_KEY)
 
 test-integration-sauce:
-	TEST_ENV=sauce node test/integration/login_test.js
+	node test/integration/login_test.js
 
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/client/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
@@ -71,7 +71,7 @@ test-client-local:
 	./node_modules/.bin/mocha test/client/
 
 test-integration-local:
-	TEST_ENV=local node test/integration/login_test.js
+	node test/integration/login_test.js
 
 
 

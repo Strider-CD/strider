@@ -47,8 +47,7 @@
     "rc": "~0.3.1",
     "ssh-keypair": "~1.0.0",
     "tap": "~0.4.4",
-    "wd": "~0.1.5",
-    "chromedriver": "~2.3.0"
+    "wd": "~0.1.5"
   },
   "devDependencies": {
     "mocha": "~1.12.0",
