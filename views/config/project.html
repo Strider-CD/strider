@@ -15,7 +15,9 @@
     <p>
       Permanently remove {{ project.name }} from Strider
     </p>
-    <a ng-click="confirmDeleteProject()" class="btn btn-danger">Delete Project</a>
+    <button ng-click="deleting = 'really_delete'" class="btn btn-danger">Delete Project</button>
+    <button ng-click="deleteProject()" ng-show="deleting === 'really_delete'" class="btn btn-danger">Really Delete</button>
+    <button ng-show="deleting === 'really_delete'" ng-click="deleting = false" class="btn btn-success">Just Kidding</button>
   </div>
 </div>
 <div class="well" ng-hide="branch.name === 'master'">

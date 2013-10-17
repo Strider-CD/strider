@@ -410,6 +410,20 @@
       });
     };
 
+    $scope.deleteProject = function () {
+      $.ajax({
+        url: '/' + $scope.project.name + '/',
+        type: 'DELETE',
+        success: function () {
+          window.location = '/';
+        },
+        error: function () {
+          $scope.deleting = false;
+          $scope.error('failed to remove project', true);
+        }
+      });
+    };
+
     $scope.saveProject = function () {
       $.ajax({
         url: '/' + $scope.project.name + '/config',
