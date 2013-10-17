@@ -1,4 +1,4 @@
-<div id="project_config_collaborators" class="well">
+<div id="project_config_collaborators" ng-controller="CollaboratorsCtrl" class="well">
   <fieldset>
     <legend>Collaborators</legend>
     <div class="alert alert-success hide"></div>
@@ -8,33 +8,37 @@
       details. They will not be permitted to add other new
       collaborators nor change any project configuration.
     </p>
-    <div class="row">
-      <div class="span4">
+    <div class="row-fluid">
+      <div class="span6">
         <table>
-          <tr class="collaborator" ng-repeat="collab in collaborators | filter:notOwner">
+          <tr class="collaborator" ng-repeat="collab in collaborators">
             <td class="image"><img ng-src="[[ collab.gravatar ]]&s=35"></td>
             <td class="email">[[collab.email]]</td>
             <td class="remove" ng-switch="collab.loading">
               <i ng-switch-when="true" class="icon-cog icon-spin"></i>
-              <span ng-switch-default class="clickable" ng-click="remove(collab)">
+              <span ng-switch-default ng-hide="collab.owner || collab.yourself" class="clickable" ng-click="remove(collab)">
                 <i class="icon-remove"></i>
               </span>
             </td>
           </tr>
-          <tr ng-show="noCollaborators()">
+          <tr ng-hide="collaborators.length">
             <td colspan="3" class="no-collaborators">No collaborators. Add one!</td>
           </tr>
         </table>
       </div>
-      <div class="span3">
-        <div class="control-group">
+      <div class="span6">
+        <form name="collabForm" class="control-group form-inline">
           <div class="controls">
-            <div class="input-append">
-              <input ng-model="new_email" type="email" name="new_collaborator" placeholder="email address" class="collab-email span2"/>
-              <button ng-click="add()" class="btn btn-add-collab">Add</button>
-            </div>
+              <input ng-model="new_email" type="email" required
+                     name="new_collaborator" placeholder="email address"
+                     class="collab-email span2"/>
+              <div class="btn-group access-toggle">
+                <button class="btn" required ng-model="new_access" btn-radio="0">Read</button>
+                <button class="btn" required ng-model="new_access" btn-radio="1">Admin</button>
+              </div>
+              <button ng-disabled="!collabForm.$valid" ng-click="add()" class="btn btn-add-collab">Add</button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </fieldset>

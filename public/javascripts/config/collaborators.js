@@ -4,73 +4,59 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
     ar.splice(ar.indexOf(item), 1);
   }
   $scope.new_email = '';
-  $scope.collaborators = $scope.panelData.collaborators || [];
-  $scope.notOwner = function (item) {
-    return !item.owner;
-  };
+  $scope.new_access = 0;
+  $scope.collaborators = window.collaborators || [];
   $scope.remove = function (item) {
     item.loading = true;
     $scope.clearMessage();
     $.ajax({
-      url: "/api/collaborators",
-      type: "DELETE",
-      data: {email: item.email, url: $scope.repo.url},
+      url: '/' + $scope.project.name + '/collaborators/',
+      type: 'DELETE',
+      data: {email: item.email},
       success: function(data, ts, xhr) {
-        $scope.success(item.email + " is no longer a collaborator on this project.");
         remove($scope.collaborators, item);
-        $scope.$root.$digest();
+        $scope.success(item.email + " is no longer a collaborator on this project.", true);
       },
       error: function(xhr, ts, e) {
+        item.loading = false;
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText);
-          $scope.error("Error deleting collaborator: " + data.errors[0]);
+          $scope.error("Error deleting collaborator: " + data.errors[0], true);
         } else {
-          $scope.error("Error deleting collaborator: " + e);
+          $scope.error("Error deleting collaborator: " + e, true);
         }
-        item.loading = false;
-        $scope.$root.$digest();
       }
     });
   };
   $scope.add = function () {
-    var data = {email: $scope.new_email, url: $scope.repo.url, access_level: 1}
-      , display = $.extend({loading: true, gravatar: $scope.gravatar(data.email)}, data);
-    /* no specific access level support yet
-    if (access_level) {
-      data.access_level = access_level;
-    }
-    */
+    var data = {
+      email: $scope.new_email,
+      access: $scope.new_access || 0,
+      gravatar: $scope.gravatar($scope.new_email),
+      owner: false
+    };
 
-    $scope.collaborators.push(display);
     $.ajax({
-      url: "/api/collaborators",
+      url: '/' + $scope.project.name + '/collaborators/',
       type: "POST",
       data: data,
       dataType: "json",
-      success: function(data, ts, xhr) {
-        $scope.success(data.message);
-        display.loading = false;
-        if (!data.created) {
-          remove($scope.collaborators, display);
+      success: function(res, ts, xhr) {
+        $scope.new_access = 0;
+        $scope.new_email = '';
+        if (res.created) {
+          $scope.collaborators.push(data);
         }
-        $scope.$root.$digest();
+        $scope.success(res.message, true, !res.created);
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText);
-          $scope.error("Error adding collaborator: " + data.errors[0]);
+          $scope.error("Error adding collaborator: " + data.errors[0], true);
         } else {
-          $scope.error("Error adding collaborator: " + e);
+          $scope.error("Error adding collaborator: " + e, true);
         }
-        remove($scope.collaborators, display);
-        $scope.$root.$digest();
       }
     });
-  };
-  $scope.noCollaborators = function () {
-    for (var i=0; i<$scope.collaborators.length; i++) {
-      if (!$scope.collaborators[i].owner) return false;
-    }
-    return true;
   };
 }]);
