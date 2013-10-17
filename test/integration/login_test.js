@@ -1,47 +1,24 @@
-var tap = require('tap')
+var sm = require('mocha-selenium')
   , assert = require('chai').assert
-  , spawn = require('child_process').spawn
-  , wd = require('wd')
+  , b = sm.setup('integration tests', {
+      appCmd: 'make serve-test'
+    })
 
-var server = spawn("make", ["serve-test"])
-server.stdout.pipe(process.stdout)
-server.stderr.pipe(process.stderr)
+var test = it, suite = describe; // Tests as english sucks. 'it' doesn't even make sense for half of these.
 
-var suite = function(name, tests){
-  var _tests = []
 
-  tests(function(name, t){
-    _tests.push([name, t])
+suite('integration - existing user flow', function(){
+
+
+  this.timeout(30 * 1000)
+
+  before(function(done){
+    b.rel('/', done)
   })
-
-  var _run = function(){
-    if (_tests.length == 0) return;
-    var t = _tests.shift()
-    console.log("!!!", t)
-    t[1](_run)
-  }
-  console.log("!!!>")
-  b.init({browserName: 'chrome', name: name}, function(){ 
-    _run()
-  })
-}
-
-
-var b = wd.remote("ondemand.saucelabs.com", 80, process.env.SAUCE_USERNAME, process.env.SAUCE_ACCESS_KEY);
-
-b.rel = function(){
-  this.url.apply(this, ([this.baseURI + arguments[0]]).concat(Array.prototype.slice.call(arguments, 1)))
-}
-
-
-
-
-suite('integration - existing user flow', function(test){
 
 
   test("render the homepage", function(done){
-    b.rel('/')
-    b.waitForVisibleByCssSelector("a.brand", function(err){
+    b.visibleByCss("a.brand", function(err){
       done(err)
     })
   })
