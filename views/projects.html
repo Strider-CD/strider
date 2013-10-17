@@ -82,7 +82,7 @@
                 <i class="icon-globe"></i>
               </a>
               <span ng-switch="!!repo.project">
-                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.display_name ]]/">[[ repo.display_name ]]</a>
+                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.display_name ]]/">[[ repo.display_name ]]</a>
                 <span ng-switch-default>[[ repo.display_name ]]</span>
               </span>
               <div class="pull-right action" ng-switch="!!repo.project">

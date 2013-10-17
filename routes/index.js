@@ -9,6 +9,7 @@ var _ = require('underscore')
   , Step = require('step')
   , fs = require('fs')
   , path = require('path')
+  , gravatar = require('gravatar')
 
   , utils = require(BASE_PATH + 'utils')
   , models = require(BASE_PATH + 'models')
@@ -226,7 +227,7 @@ exports.setProviderConfig = function (req, res) {
 exports.config = function(req, res) {
   User.collaborators(req.project.name, 0, function (err, users) {
     var data = {
-      collaborators: {},
+      collaborators: [],
       project: req.project.toJSON(),
       statusBlocks: common.statusBlocks,
       userIsCreator: req.user.isProjectCreator
@@ -239,14 +240,25 @@ exports.config = function(req, res) {
       var p = _.find(users[i].projects, function(p) {
         return p.name === req.project.name
       })
-      data.collaborators[users[i].email] = p.access_level
+      data.collaborators.push({
+        email: users[i].email,
+        access: p.access_level,
+        gravatar: gravatar.url(users[i].email, {}, true),
+        owner: users[i]._id.toString() === req.project.creator._id.toString(),
+        yourself: req.user._id.toString() === users[i]._id.toString()
+      })
     }
     data.provider = common.pluginConfigs.provider[req.project.provider.id]
     data.runners = common.pluginConfigs.runner
     data.plugins = common.pluginConfigs.job
+    data.collaborators.sort(function (a, b) {
+      if (a.owner) return -1
+      if (b.owner) return 1
+      return 0
+    });
 
     var provider = common.extensions.provider[req.project.provider.id]
-    if (typeof provider.getBranches === 'function') {
+    if (false && typeof provider.getBranches === 'function') {
       provider.getBranches(req.user.account(req.project.provider).config,
         req.project.provider.config, req.project, function(err, branches) {
           if (err) {

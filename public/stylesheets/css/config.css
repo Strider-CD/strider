@@ -143,6 +143,17 @@
   background: #fff;
 }
 /* done with sortable */
+#project_config_collaborators form {
+  padding-top: 8px;
+}
+#project_config_collaborators .collab-email {
+  width: 200px;
+  margin-bottom: 0;
+}
+#project_config_collaborators .access-toggle {
+  display: inline-block;
+  margin-bottom: -11px;
+}
 .clickable {
   cursor: pointer;
 }

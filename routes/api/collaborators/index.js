@@ -69,9 +69,9 @@ function post(req, res) {
     , email = req.param('email')
   api.add(project, email, accessLevel, req.user, function (err, existed, already_invited) {
     if (err) return res.send(500, 'Failed to add collaborator: ' + err.message)
-    if (existed) return res.send({status: 'success'})
-    if (!already_invited) return res.send({status: 'sent_invite'})
-    res.send({status: 'already_invited'})
+    if (existed) return res.send({created: true, message: 'Collaborator added'})
+    if (!already_invited) return res.send({created: false, message: 'An invite was sent to ' + email + '. They will become a collaborator when they create an account.'})
+    res.send({created: false, message: 'An invitation email has already been sent to ' + email + '. They will become a collaborator when they create an account.'})
   })
 }
 
@@ -85,6 +85,12 @@ function post(req, res) {
 function del(req, res) {
   var project = req.params.org + '/' + req.params.repo
     , email = req.param("email")
+  if (req.project.creator.email.toLowerCase() === email.toLowerCase()) {
+    return res.send(400, 'Cannot remove the project creator')
+  }
+  if (req.user.email.toLowerCase() === email.toLowerCase()) {
+    return res.send(400, 'Cannot remove yourself')
+  }
   api.del(project, email, function (err) {
     if (err) return res.send(500, err.message)
     res.send({status: 'removed'})
