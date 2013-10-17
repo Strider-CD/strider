@@ -18,6 +18,8 @@ less: $(css_files)
 public/stylesheets/css/%.css: public/stylesheets/less/%.less
 	./node_modules/.bin/lessc $< > $@
 
+# === Dev ===
+
 watch:
 	watch make
 
@@ -92,5 +94,12 @@ unlink:
 
 authors-list:
 	git shortlog -e -n -s $$commit | awk '{ args[NR] = $$0; sum += $$0 } END { for (i = 1; i <= NR; ++i) { printf "%-60s %2.1f%%\n", args[i], 100 * args[i] / sum } }' > AUTHORS
+
+
+release: test build authors-list
+	npm version minor
+
+
+
 
 .PHONY: test lint watch build less
