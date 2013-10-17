@@ -42,16 +42,16 @@ var suite = function(name, tests){
 }
 
 
+b.rel = function(){
+  var args = Array.prototype.slice(arguments);
+  args[0] = "http://localhost:3000" + arguments[0]
+  return this.get.apply(this, args)
+}
 
-
-var fillInput = function(chain, name, val, cb){
-  return chain.elementByName(name, function(err, el){
-    assert.isNull(err)
-    assert.ok(el)
-    b.next('type', el, val, function(err){
-      assert.isNull(err);
-      if (cb) cb(null)
-    });
+b.fillInput = function(name, val, cb){
+  var self = this
+  return this.elementByName(name, function(err, el){
+    self.next('type', el, val, cb);
   })
 }
 
@@ -60,9 +60,8 @@ suite('integration - existing user flow', function(test){
 
 
   test("render the homepage", function(done){
-    b.chain()
-     .get("http://localhost:3000")
-     .waitForVisibleByCssSelector("a.brand", 1000, function(err){
+    b.rel('/')
+    b.waitForVisibleByCssSelector("a.brand", 1000, function(err){
       done(err)
     })
   })
@@ -74,13 +73,14 @@ suite('integration - existing user flow', function(test){
   })
 
   test("submitting bad creds fails", function(done){
-    var c = b.chain()
-    fillInput(c, "email", 'test1@example.com')
-    fillInput(c, "password", 'BAD CREDS')
-    c.elementById("navbar-signin-form", function(err, form){
-       assert.isNull(err)
+    b.chain()
+     .rel('/')
+     .fillInput("email", 'test1@example.com')
+     .fillInput("password", 'BAD CREDS')
+     .elementById("navbar-signin-form", function(err, form){
+       if (err) return done(err);
        b.next('submit', form, function(err, res){
-         assert.isNull(err)
+         if (err) return done(err);
        })
      }).url(function(err, url){
        assert.isNull(err)
@@ -90,8 +90,8 @@ suite('integration - existing user flow', function(test){
   })
 
   test("follow forgot password flow", function(done){
-    var c = b.chain()
-     .get("http://localhost:3000")
+    b.chain()
+     .rel("/")
      .elementById("forgot-password-link", function(err, el){
        b.next('clickElement', el, function(){})
      })
@@ -99,10 +99,9 @@ suite('integration - existing user flow', function(test){
       assert.isNull(err)
       assert.include(url, '/auth/forgot')
     })
-
-    fillInput(c, "email", "test1@example.com")
-
-    b.chain().elementById("send-forgot", function(err, el){
+    .fillInForm({
+      email : "test1@example.com"
+    }, '.form-horizontal').elementById("send-forgot", function(err, el){
       b.next("clickElement", el, function(){})
     })
     .elementByClassName('forgot-sent', function(err, el){
@@ -112,10 +111,13 @@ suite('integration - existing user flow', function(test){
   })
 
   test("submitting login form works", function(done){
-    var c = b.chain()
-    fillInput(c, "email", "test1@example.com")
-    fillInput(c, "password", "open-sesame")
-    c.elementById("navbar-signin-form", function(err, form){
+    b.chain()
+     .rel('/')
+     .fillInForm({
+       email: 'test1@example.com',
+       password: 'open-sesame'
+     })
+     .elementById("navbar-signin-form", function(err, form){
        if (err) return done(err);
        b.next('submit', form, function(err, res){
          if (err) return done(err);
@@ -152,12 +154,12 @@ suite('integration - existing user flow', function(test){
     .waitForVisibleByClassName('octicon-logo-github', 3000, function(err){
       assert.isNull(err, "github didn't load")
     })
-
-
+    .fillInForm({
        // Github test account creds 
-    fillInput(b, "login","strider-test-robot")
-    fillInput(b, "password", "i0CheCtzY0yv4WP2o")
-    b.elementByName('commit', function(err, el){
+       login: "strider-test-robot"
+     , password: "i0CheCtzY0yv4WP2o"
+     })
+    .elementByName('commit', function(err, el){
       assert.isNull(err)
       assert.ok(el)
       b.next('clickElement', el, function(err, res){
@@ -174,6 +176,7 @@ suite('integration - existing user flow', function(test){
 
   test("add a project from github repo", function(done){
     b.chain()
+      .rel('/projects')
       .elementByClassName('add-repo', function(err, el){
         assert.isNull(err, "Error selecting 'add' button")
         assert.ok(el)
