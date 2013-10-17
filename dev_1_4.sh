@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# simple script to set up an environment to hack on 1.4.
-# installs all strider-* deps as git clone's from the 1_4_refactor branch.
+# simple script to set up an environment to hack on.
+# installs all strider-* deps as git clone's from the master branch.
 
 # you can hack on them by editing under node_moduldes/strider-foo
 
@@ -20,12 +20,12 @@ do
   then
     (cd ../$module && git pull && rm -rf node_modules && npm i)
   else
-    git clone -b 1_4_refactor $BASE/$module ../$module
-    (cd ../$BASE/$modulegit && checkout 1_4_refactor && npm install)
+    git clone $BASE/$module ../$module
+    (cd ../$BASE/$modulegit && npm install)
     npm link ../$module
   fi
 done
 
 npm i
 
-echo "> 1.4 is set up! Hack on modules under node_modules. They are git repos!"
+echo "> Strider is set up! Hack on modules under node_modules. They are git repos!"
