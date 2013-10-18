@@ -65,7 +65,24 @@ var dropDB = function(cb){
 }
 
 var connect = function(cb) {
-  mongoose.connect(mongodbUrl, cb);
+  console.log("-->connecting")
+  mongoose.connect(mongodbUrl)
+
+  mongoose.connection.on('error',function (err) {
+    console.log("ERROR: MONGOOSE CONNNECTION: ", err)
+    process.exit(1)
+  })
+
+  mongoose.connection.on('disconnected', function (err, res) {
+    console.log('Mongoose default connection disconnected', err, res);
+  });
+
+
+  mongoose.connection.on('connected', function (err, res) {
+    if(err) throw err
+    console.log("<--- connected", err, res)
+    cb.apply(this, arguments) 
+  });
 }
 
 module.exports = function(cb){
