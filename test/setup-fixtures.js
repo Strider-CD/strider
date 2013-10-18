@@ -54,13 +54,20 @@ var importSettings = function(cb){
 }
 
 var dropDB = function(cb){
-  console.log("!!!")
-  mongoose.connection.db.dropDatabase(function(err){
+  // Can't simply drop the DB - need to retain the users table
+  Object.keys(mongoose.connection.collections).forEach(function(collection){
+    mongoose.connection.collections[collection].drop(function(err){
+      console.log("Dropped collection", collection)
+    })
+    cb()
+  })
+ /* mongoose.connection.db.dropDatabase(function(err){
     console.log("!>")
     if(err) throw err;
     console.log("DB DROPPED")
     cb()
   })
+  */
   console.log("!!!!!")
 }
 
