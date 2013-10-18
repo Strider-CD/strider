@@ -52,7 +52,7 @@ test-browser: $(test-env)
 
 # ===== SAUCE:
 
-test-sauce: test-sauce-pre test-client-sauce test-integration-sauce
+test-sauce: test-sauce-pre test-integration-sauce
 
 test-sauce-pre:
 ifndef SAUCE_ACCESS_KEY
