@@ -3,7 +3,7 @@ var Step = require('step')
   , config = require('./test-config')
   , models = require('../lib/models')
   , mongoose = require('mongoose')
-  , mongodbUrl = config.db_uri
+  , mongodbUrl = process.env.STRIDER_TEST_DB || config.db_uri
   , async = require('async')
 
 console.log("Connecting to MongoDB URL: %s", mongodbUrl);
