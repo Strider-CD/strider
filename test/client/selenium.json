@@ -1,5 +1,5 @@
 {
-  "run": "make serve",
+  "run": "make serve-test",
   "appDir": "../../../",
   "envs": {
     "local": [["chrome", "", "ANY"]],

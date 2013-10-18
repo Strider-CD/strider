@@ -2,7 +2,7 @@
 var expect = require('expect.js')
   , sm = require('mocha-selenium')
   , b = sm.setup('views:Config', {
-      appCmd: 'make serve',
+      appCmd: 'make serve-test',
       lastShot: 'failed'
     })
 
