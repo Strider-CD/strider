@@ -27,7 +27,11 @@ serve:
 	@./bin/strider
 
 serve-test:
+ifndef STRIDER_TEST_DB
 	node test/setup-fixtures && ./bin/strider --config test/test-config.json
+else
+	node test/setup-fixtures && (DB_URI=$(STRIDER_TEST_DB) ./bin/strider --config test/test-config.json)
+endif
 
 
 ## ================= Test Suite ====================================
