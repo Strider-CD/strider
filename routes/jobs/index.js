@@ -58,7 +58,7 @@ function filterJob(job) {
 function html(req, res) {
   var id = req.params.id
   var projectName = req.project.name
-  Job.find({project: projectName}).sort('-finished').limit(20).lean().exec(function (err, jobs) {
+  Job.find({project: projectName, archived: null}).sort('-finished').limit(20).lean().exec(function (err, jobs) {
     jobs.sort(ljobs.sort)
     var job = id ? null : jobs[0]
     for (var i=0; i<jobs.length; i++) {
@@ -90,9 +90,9 @@ function html(req, res) {
 function getJob(req, res, next) {
   var query
   if (!req.params.job_id) {
-    query = Job.findOne({project: req.project.name.toLowerCase()}, {}, {sort: {finished: -1}})
+    query = Job.findOne({project: req.project.name.toLowerCase(), archived: null}, {}, {sort: {finished: -1}})
   } else {
-    query = Job.findOne({project: req.project.name.toLowerCase(), _id: req.params.job_id})
+    query = Job.findOne({project: req.project.name.toLowerCase(), _id: req.params.job_id, archived: null})
   }
   query.exec(function (err, job) {
     if (err || !job) return res.send(404, 'Failed to find job')
@@ -116,7 +116,7 @@ function data(req, res) {
 }
 
 function jobs(req, res) {
-  Job.find({project: req.project.name.toLowerCase()})
+  Job.find({project: req.project.name.toLowerCase(), archived: null})
      .sort({finished: -1}).limit(20).lean()
      .exec(function (err, jobs) {
        if (err) return res.send(500, 'Failed to retrieve jobs')
