@@ -21,7 +21,7 @@ do
     (cd ../$module && git pull && rm -rf node_modules && npm i)
   else
     git clone $BASE/$module ../$module
-    (cd ../$BASE/$modulegit && npm install)
+    (cd ../$module && npm install)
     npm link ../$module
   fi
 done
