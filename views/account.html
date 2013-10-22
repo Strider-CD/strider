@@ -53,7 +53,7 @@
             <span ng-switch-when="false">[[ account.title ]]</span>
             <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
           </h3>
-          <div ng-controller="{{provider.controller}}">
+          <div id="provider-account-{{ loop.key }}" ng-controller="{{provider.controller}}">
             {% autoescape false %}
             {{ provider.html }}
             {% endautoescape %}

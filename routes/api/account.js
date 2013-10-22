@@ -14,7 +14,29 @@ var _ = require('underscore')
   , logging = require(BASE_PATH + 'logging')
 
   , api = require('./index.js')
-  ;
+
+// PUT /api/account/:provider/:id
+exports.save = function (req, res) {
+  var accounts = req.user.accounts
+    , provider = req.params.provider
+    , id = req.params.id
+  for (var i=0; i<accounts.length; i++) {
+    if (accounts[i].provider === provider &&
+        accounts[i].id === id) {
+      // TODO validate these accounts
+      accounts[i] = req.body
+      return req.user.save(function (err) {
+        if (err) return res.send(500, 'failed to save user')
+        res.send(204)
+      })
+    }
+  }
+  accounts.push(req.body)
+  return req.user.save(function (err) {
+    if (err) return res.send(500, 'failed to save user')
+    res.send(204)
+  })
+}
 
 // DELETE /api/account/:provider/:accountid
 exports.remove = function (req, res) {

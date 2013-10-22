@@ -40,7 +40,36 @@
     };
 
     $scope.addAccount = function (provider) {
-      $scope.error('Add account not implemented', true);
+      var id = 0;
+      for (var i=0; i<$scope.accounts[provider].length; i++) {
+        if ($scope.accounts[provider][i].id >= id) {
+          id = $scope.accounts[provider][i].id + 1;
+        }
+      }
+      var acct = {
+        provider: provider,
+        id: id,
+        title: provider + ' ' + id,
+        last_updated: new Date(),
+        config: {}
+      };
+      $scope.accounts[provider].push(acct);
+      $scope.user.accounts.push(acct);
+    };
+
+    $scope.saveAccount = function (provider, account, next) {
+      $.ajax('/api/account/' + provider + '/' + account.id, {
+        type: 'PUT',
+        data: account,
+        dataType: 'json',
+        error: function (xhr, ts, e) {
+          $scope.error('Unable to save account', true);
+        },
+        success: function(data, ts, xhr) {
+          next()
+          $scope.success('Account saved', true);
+        }
+      });
     };
 
     $scope.changePassword = function () {
@@ -71,6 +100,20 @@
           $scope.success('Email successfully changed', true);
         },
         type: "POST"
+      });
+    };
+  }]);
+
+  app.controller('ProviderController', ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+    var name = $attrs.id.split('-')[2];
+    $scope.$watch('account.config', function (value) {
+      $scope.config = value;
+    });
+
+    $scope.save = function () {
+      $scope.saving = true;
+      $scope.saveAccount(name, $scope.account, function () {
+        $scope.saving = false;
       });
     };
   }]);
