@@ -49,16 +49,15 @@
         <h2>{{ provider.title }} Accounts</h2>
         <div class="well" ng-repeat="account in accounts['{{loop.key}}']">
           {% if provider.html %}
-          <h3 ng-switch="!!account.display_url">
-            <span ng-switch-when="false">[[ account.title ]]</span>
-            <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
+          <button class="btn pull-right btn-danger" ng-click="deleteAccount(account)">Delete Account</button>
+          <h3>
+            Title: <input ng-model="account.title">
           </h3>
           <div id="provider-account-{{ loop.key }}" ng-controller="{{provider.controller}}">
             {% autoescape false %}
             {{ provider.html }}
             {% endautoescape %}
           </div>
-          <button class="btn pull-right btn-danger" ng-click="deleteAccount(account)">Delete Account</button>
           {% else %}
           <h3 ng-switch="!!account.display_url">
             <span ng-switch-when="false">[[ account.title ]]</span>

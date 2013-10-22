@@ -24,6 +24,14 @@
     $scope.accounts = setupAccounts($scope.user);
 
     $scope.deleteAccount = function (account) {
+      if (account.unsaved) {
+        var idx = $scope.accounts[account.provider].indexOf(account);
+        $scope.accounts[account.provider].splice(idx, 1);
+        idx = $scope.user.accounts.indexOf(account);
+        $scope.user.accounts.splice(idx, 1);
+        $scope.success('Account removed');
+        return;
+      }
       $.ajax('/api/account/' + account.provider + '/' + account.id, {
         type: 'DELETE',
         success: function () {
@@ -40,18 +48,25 @@
     };
 
     $scope.addAccount = function (provider) {
-      var id = 0;
+      var id = 0
+        , aid;
+      if (!$scope.accounts[provider]) {
+        $scope.accounts[provider] = [];
+      }
       for (var i=0; i<$scope.accounts[provider].length; i++) {
-        if ($scope.accounts[provider][i].id >= id) {
-          id = $scope.accounts[provider][i].id + 1;
+        aid = parseInt($scope.accounts[provider][i].id, 10);
+        if (aid >= id) {
+          id = aid + 1;
         }
       }
       var acct = {
-        provider: provider,
         id: id,
+        provider: provider,
         title: provider + ' ' + id,
         last_updated: new Date(),
-        config: {}
+        config: {},
+        cache: [],
+        unsaved: true
       };
       $scope.accounts[provider].push(acct);
       $scope.user.accounts.push(acct);
@@ -60,12 +75,13 @@
     $scope.saveAccount = function (provider, account, next) {
       $.ajax('/api/account/' + provider + '/' + account.id, {
         type: 'PUT',
-        data: account,
-        dataType: 'json',
+        data: JSON.stringify(account),
+        contentType: 'application/json',
         error: function (xhr, ts, e) {
           $scope.error('Unable to save account', true);
         },
         success: function(data, ts, xhr) {
+          delete account.unsaved;
           next()
           $scope.success('Account saved', true);
         }

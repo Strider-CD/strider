@@ -405,7 +405,6 @@ exports.projects = function(req, res) {
 
   Object.keys(common.pluginConfigs.provider).forEach(function (key) {
     var config = common.pluginConfigs.provider[key]
-    console.log('helo')
     if (common.extensions.provider[key].hosted) return
     manualProjects[key] = []
     manual[key] = {

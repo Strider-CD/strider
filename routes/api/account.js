@@ -12,6 +12,8 @@ var _ = require('underscore')
   , auth = require(BASE_PATH + 'auth')
   , email = require(BASE_PATH + 'email')
   , logging = require(BASE_PATH + 'logging')
+  , models = require(BASE_PATH + 'models')
+  , User = models.User
 
   , api = require('./index.js')
 
@@ -25,17 +27,17 @@ exports.save = function (req, res) {
         accounts[i].id === id) {
       // TODO validate these accounts
       accounts[i] = req.body
-      return req.user.save(function (err) {
-        if (err) return res.send(500, 'failed to save user')
-        res.send(204)
-      })
+      return User.update({_id: req.user._id}, {$set: {accounts: accounts}}, function (err, effected) {
+        if (effected !== 1) return res.send(500, 'failed to save one user');
+        res.send(200);
+      });
     }
   }
   accounts.push(req.body)
-  return req.user.save(function (err) {
-    if (err) return res.send(500, 'failed to save user')
-    res.send(204)
-  })
+  User.update({_id: req.user._id}, {$set: {accounts: accounts}}, function (err, effected) {
+    if (effected !== 1) return res.send(500, 'failed to save one user');
+    res.send(200);
+  });
 }
 
 // DELETE /api/account/:provider/:accountid
