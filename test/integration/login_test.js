@@ -10,7 +10,7 @@ var test = it, suite = describe; // Tests as english sucks. 'it' doesn't even ma
 suite('integration - existing user flow', function(){
 
 
-  this.timeout(30 * 1000)
+  this.timeout(120 * 1000)
 
   before(function(done){
     b.rel('/', done)
