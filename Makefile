@@ -59,8 +59,6 @@ ifndef SAUCE_ACCESS_KEY
 	$(error You need env: SAUCE_ACCESS_KEY)
 endif
 	# Sauce Connect: https://saucelabs.com/docs/connect
-	# USER: $(SAUCE_USERNAME)
-	# KEY:  $(SAUCE_ACCESS_KEY)
 
 test-integration-sauce:
 	TEST_STRIDER=1 ./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
