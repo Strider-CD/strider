@@ -24,6 +24,14 @@
     $scope.accounts = setupAccounts($scope.user);
 
     $scope.deleteAccount = function (account) {
+      if (account.unsaved) {
+        var idx = $scope.accounts[account.provider].indexOf(account);
+        $scope.accounts[account.provider].splice(idx, 1);
+        idx = $scope.user.accounts.indexOf(account);
+        $scope.user.accounts.splice(idx, 1);
+        $scope.success('Account removed');
+        return;
+      }
       $.ajax('/api/account/' + account.provider + '/' + account.id, {
         type: 'DELETE',
         success: function () {
@@ -40,7 +48,44 @@
     };
 
     $scope.addAccount = function (provider) {
-      $scope.error('Add account not implemented', true);
+      var id = 0
+        , aid;
+      if (!$scope.accounts[provider]) {
+        $scope.accounts[provider] = [];
+      }
+      for (var i=0; i<$scope.accounts[provider].length; i++) {
+        aid = parseInt($scope.accounts[provider][i].id, 10);
+        if (aid >= id) {
+          id = aid + 1;
+        }
+      }
+      var acct = {
+        id: id,
+        provider: provider,
+        title: provider + ' ' + id,
+        last_updated: new Date(),
+        config: {},
+        cache: [],
+        unsaved: true
+      };
+      $scope.accounts[provider].push(acct);
+      $scope.user.accounts.push(acct);
+    };
+
+    $scope.saveAccount = function (provider, account, next) {
+      $.ajax('/api/account/' + provider + '/' + account.id, {
+        type: 'PUT',
+        data: JSON.stringify(account),
+        contentType: 'application/json',
+        error: function (xhr, ts, e) {
+          $scope.error('Unable to save account', true);
+        },
+        success: function(data, ts, xhr) {
+          delete account.unsaved;
+          next()
+          $scope.success('Account saved', true);
+        }
+      });
     };
 
     $scope.changePassword = function () {
@@ -71,6 +116,20 @@
           $scope.success('Email successfully changed', true);
         },
         type: "POST"
+      });
+    };
+  }]);
+
+  app.controller('ProviderController', ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
+    var name = $attrs.id.split('-')[2];
+    $scope.$watch('account.config', function (value) {
+      $scope.config = value;
+    });
+
+    $scope.save = function () {
+      $scope.saving = true;
+      $scope.saveAccount(name, $scope.account, function () {
+        $scope.saving = false;
       });
     };
   }]);

@@ -12,9 +12,33 @@ var _ = require('underscore')
   , auth = require(BASE_PATH + 'auth')
   , email = require(BASE_PATH + 'email')
   , logging = require(BASE_PATH + 'logging')
+  , models = require(BASE_PATH + 'models')
+  , User = models.User
 
   , api = require('./index.js')
-  ;
+
+// PUT /api/account/:provider/:id
+exports.save = function (req, res) {
+  var accounts = req.user.accounts
+    , provider = req.params.provider
+    , id = req.params.id
+  for (var i=0; i<accounts.length; i++) {
+    if (accounts[i].provider === provider &&
+        accounts[i].id === id) {
+      // TODO validate these accounts
+      accounts[i] = req.body
+      return User.update({_id: req.user._id}, {$set: {accounts: accounts}}, function (err, effected) {
+        if (effected !== 1) return res.send(500, 'failed to save one user');
+        res.send(200);
+      });
+    }
+  }
+  accounts.push(req.body)
+  User.update({_id: req.user._id}, {$set: {accounts: accounts}}, function (err, effected) {
+    if (effected !== 1) return res.send(500, 'failed to save one user');
+    res.send(200);
+  });
+}
 
 // DELETE /api/account/:provider/:accountid
 exports.remove = function (req, res) {
