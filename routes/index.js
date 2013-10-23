@@ -226,6 +226,9 @@ exports.setProviderConfig = function (req, res) {
  */
 exports.config = function(req, res) {
   User.collaborators(req.project.name, 0, function (err, users) {
+    if (err){
+      throw err
+    }
     var data = {
       collaborators: [],
       project: req.project.toJSON(),
@@ -258,8 +261,9 @@ exports.config = function(req, res) {
     });
 
     var provider = common.extensions.provider[req.project.provider.id]
-    if (typeof provider.getBranches === 'function') {
-      provider.getBranches(req.user.account(req.project.provider).config,
+      , creator_creds = req.project.creator.account(req.project.provider).config
+    if (typeof provider.getBranches === 'function' && creator_creds) {
+      provider.getBranches(creator_creds,
         req.project.provider.config, req.project, function(err, branches) {
           if (err) {
             console.error("could not fetch branches for repo %s: %s", req.project.name, err)
