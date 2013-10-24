@@ -9,6 +9,7 @@ _due in the next few weeks_
 
 ## 1.5
 
+- Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
 - Refactor models into an API rather than relying on mongo queries everywhere.
 - Easier theming
 - Make strider a class - no more global shared scope
