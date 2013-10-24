@@ -35,7 +35,7 @@
     "strider-github": "git+https://github.com/Strider-CD/strider-github.git",
     "connect": "~2.7.3",
     "express": "~3.4.0",
-    "swig": "~1.1.0",
+    "swig": "~0.14.0",
     "cookie": "0.0.5",
     "socket.io": "~0.9.16",
     "lodash": "~1.3.1",
