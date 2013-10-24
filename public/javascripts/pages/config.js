@@ -258,6 +258,7 @@
             active: branch.active,
             privkey: branch.privkey,
             pubkey: branch.pubkey,
+            envKeys: branch.envKeys,
             mirror_master: branch.mirror_master,
             deploy_on_green: branch.deploy_on_green,
             runner: branch.runner

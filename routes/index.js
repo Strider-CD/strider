@@ -151,7 +151,7 @@ exports.configureBranch = function (req, res) {
   if (req.body.plugin_order) {
     return setPluginOrder(req, res, branch);
   }
-  var attrs = 'active privkey pubkey mirror_master deploy_on_green runner plugins'.split(' ')
+  var attrs = 'active privkey pubkey envKeys mirror_master deploy_on_green runner plugins'.split(' ')
   for (var i=0; i<attrs.length; i++) {
     if ('undefined' !== typeof req.body[attrs[i]]) {
       branch[attrs[i]] = req.body[attrs[i]]
