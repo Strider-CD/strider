@@ -60,7 +60,13 @@
 
   <div class="tab-content" ng-controller="ProjectsController">
     <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
-      <div class="pull-right"><a href="?refresh=[[ account.provider ]]&aid=[[ account.id ]]" class="refresh btn btn-warning"><i class="icon-refresh"></i></a></div>
+      <div class="pull-right">
+        <form action="/projects" method="post">
+          <input type="hidden" name="refresh" value=[[ account.provider ]] />
+          <input type="hidden" name="aid" value=[[ account.id ]] />
+          <button class="refresh btn btn-warning" ng-click="submit()"><i class="icon-refresh"></i></button>
+        </form>
+      </div>
       {# TODO hide this if there is only one group #}
       <ul class="span2 nav nav-list nav-stacked groups-list">
         <li ng-repeat="(name, group) in repos[account.provider][account.id]"
