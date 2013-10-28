@@ -15,4 +15,8 @@ require('./setup-fixtures')(function(err, config) {
     child.kill('SIGKILL')
     process.exit(0)
   })
+
+  child.on('exit', function(code) {
+    process.exit(code)
+  })
 })
