@@ -3,7 +3,7 @@ var Step = require('step')
   , config = require('./test-config')
   , models = require('../lib/models')
   , mongoose = require('mongoose')
-  , mongodbUrl = process.env.STRIDER_TEST_DB || config.db_uri
+  , mongodbUrl = process.env.STRIDER_TEST_DB || "mongodb://localhost/stridercdtest"
   , async = require('async')
 
 console.log("Connecting to MongoDB URL: %s", mongodbUrl);
@@ -77,7 +77,6 @@ var dropDB = function(cb){
     cb()
   })
   */
-  console.log("!!!!!")
 }
 
 var connect = function(cb) {
@@ -112,6 +111,7 @@ module.exports = function(cb){
     ]
     , function(err, stdout, stderr) {
       if (err) {throw err;}
+      config.db_uri = mongodbUrl
       cb(null, config)
     })
 }
