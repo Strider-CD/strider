@@ -130,8 +130,16 @@ module.exports = function(extdir, c, callback) {
 }
 
 function killZombies(done) {
+  console.log("Marking zombie jobs as finished...")
   var twoHoursAgo = new Date(new Date().getTime() - 2 * 60 * 60 * 1000)
-  Job.update({finished: null, created: {$lt: twoHoursAgo}}, {$set: {finished: new Date(), errored: true}}, {multi: true}, done)
+  Job.update({archived: null, finished: null, created: {$gt: twoHoursAgo}},
+    {$set: {finished: new Date(), errored: true}}, {multi: true}, 
+    function(err, count) {
+      if (err) throw err
+      console.log("%d zombie jobs marked as finished", count)
+      done()
+    }
+  )
 }
 
 function loadExtensions(loader, extdir, context, appInstance, cb) {
