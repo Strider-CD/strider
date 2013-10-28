@@ -16,8 +16,16 @@ var _execute = ms.Runner.prototype.execute
     , setup : ms.Runner.prototype.setup
     , run : ms.Runner.prototype.run
     , runOne: ms.Runner.prototype.runOne
-    , env : {browsers : [["chrome", "", "Windows 8"]]}
+    , env : {browsers : []}
   }
+
+var envBrowsers = JSON.parse(process.env.BROWSERS || '[{"version" :"", "browserName" :"chrome", "platform" :"Linux"}]')
+console.log("!!!", envBrowsers)
+
+envBrowsers.forEach(function(b){
+  _runner.env.browsers.push([b.browserName, b.version, b.platform])
+})
+
 
 var execute = function(done){
   _execute.apply(_runner, [done])
