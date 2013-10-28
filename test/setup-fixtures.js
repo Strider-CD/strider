@@ -61,6 +61,7 @@ var dropDB = function(cb){
       function dropCollection(collection, done){
         console.log("Dropping ", collection)
         mongoose.connection.collections[collection].drop(function(err){
+          if (err && err.errmsg === 'ns not found') return done(null, collection)
           done(err, collection)
         })
       }
@@ -95,7 +96,7 @@ var connect = function(cb) {
 
   mongoose.connection.on('connected', function (err, res) {
     if(err) throw err
-    console.log("<--- connected", err, res)
+    console.log("<--- connected")
     cb.apply(this, arguments) 
   });
 }
