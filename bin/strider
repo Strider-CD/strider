@@ -1,13 +1,5 @@
 #!/usr/bin/env node
 
-var connect = function(cb) {
-  var mongoose = require('mongoose'),
-      mongodbUrl = require('../lib/config').db_uri;
-
-  console.log("Connecting to MongoDB URL: %s", mongodbUrl);
-  mongoose.connect(mongodbUrl, cb);
-};
-
 function addUser(email, password, admin) {
   var Step = require('step')
     , readline = require('readline')
@@ -168,6 +160,14 @@ parser.command('addUser')
     , help: "User's password"
   })
   .callback(function(opts){
+    var connect = function(cb) {
+      var mongoose = require('mongoose'),
+          mongodbUrl = require('../lib/config').db_uri;
+
+      console.log("Connecting to MongoDB URL: %s", mongodbUrl);
+      mongoose.connect(mongodbUrl, cb);
+    };
+
     connect(function(err) {
       if (err) throw err;
       addUser(opts.email, opts.password, opts.admin);
@@ -184,5 +184,9 @@ parser.nocommand('start')
     start(opts.extension_path);
   });
 
-parser.parse();
+if (!module.parent) {
+  parser.parse();
+}
+
+module.exports = start
 
