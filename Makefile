@@ -61,6 +61,10 @@ endif
 	# Sauce Connect: https://saucelabs.com/docs/connect
 
 test-integration-sauce:
+	# --- INTEGRATION TESTING ---
+	echo $$WEBDRIVER_REMOTE
+	echo $$BROWSERS
+	# -------
 	TEST_STRIDER=1 ./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
 
 test-client-sauce:
