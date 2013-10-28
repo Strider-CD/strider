@@ -16,7 +16,13 @@ var _execute = ms.Runner.prototype.execute
     , setup : ms.Runner.prototype.setup
     , run : ms.Runner.prototype.run
     , runOne: ms.Runner.prototype.runOne
-    , env : {browsers : []}
+    , env : {browsers : []
+      , hostname: "foo"
+      , port: 888
+      , auth: {username: "foo"
+        , password: "bar"
+      }
+    }
   }
 
 var envBrowsers = JSON.parse(process.env.BROWSERS || '[{"version" :"", "browserName" :"chrome", "platform" :"Linux"}]')
@@ -25,6 +31,16 @@ console.log("!!!", envBrowsers)
 envBrowsers.forEach(function(b){
   _runner.env.browsers.push([b.browserName, b.version, b.platform])
 })
+
+if (process.env.WEBDRIVER_REMOTE){ //{"hostname":"ondemand.saucelabs.com","port":80,"username":"strider-public-ci"}
+  var wdr = JSON.parse(process.env.WEBDRIVER_REMOTE)
+  _runner.env.hostname = wdr.hostname
+  _runner.env.port = wdr.port
+  _runner.env.auth = {username : wdr.username, password: wdr.accessKey}
+
+} else { //Chromedriver crap
+  _runner.env.hostname = ""
+}
 
 
 var execute = function(done){
