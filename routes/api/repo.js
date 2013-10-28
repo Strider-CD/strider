@@ -226,7 +226,7 @@ exports.delete_project = function(req, res) {
         , plugin = common.extensions.provider[provider.id]
       if (!plugin.hosted || !plugin.teardownRepo) return next()
       plugin.teardownRepo(req.project.creator.account(provider).config, provider.config, req.project, function (err) {
-        if (err) console.error('Error while tearing down repo', req.project.name, provider.id)
+        if (err) console.error('Error while tearing down repo', req.project.name, provider.id, err)
         next()
       })
     },
