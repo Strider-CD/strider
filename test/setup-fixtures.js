@@ -77,7 +77,6 @@ var dropDB = function(cb){
     cb()
   })
   */
-  console.log("!!!!!")
 }
 
 var connect = function(cb) {
