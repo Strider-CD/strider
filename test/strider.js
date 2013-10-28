@@ -6,7 +6,6 @@
 
 require('./setup-fixtures')(function(err, config) {
   console.log(config)
-  process.env.DB_URI = config.db_uri
   var child = require('child_process').spawn("bin/strider", ["--config", 'test/test-config.json'], { 
     env : process.env,
     stdio: 'inherit',
@@ -15,5 +14,9 @@ require('./setup-fixtures')(function(err, config) {
   process.on('SIGTERM', function() {
     child.kill('SIGKILL')
     process.exit(0)
+  })
+
+  child.on('exit', function(code) {
+    process.exit(code)
   })
 })
