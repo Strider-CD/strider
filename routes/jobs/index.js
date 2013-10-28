@@ -58,7 +58,7 @@ function filterJob(job) {
 function html(req, res) {
   var id = req.params.id
   var projectName = req.project.name
-  Job.find({project: projectName, archived: null}).sort('-finished').limit(20).lean().exec(function (err, jobs) {
+  Job.find({project: projectName, archived: null}).limit(20).lean().exec(function (err, jobs) {
     jobs.sort(ljobs.sort)
     var job = id ? null : jobs[0]
     for (var i=0; i<jobs.length; i++) {
