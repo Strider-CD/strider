@@ -292,7 +292,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
 
   $scope.triggers = {
     commit: {
-      icon: 'code',
+      icon: 'fork',
       title: 'Commit'
     },
     manual: {
