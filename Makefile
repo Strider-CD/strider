@@ -57,7 +57,7 @@ test-integration-sauce:
 	echo $$WEBDRIVER_REMOTE
 	echo $$BROWSERS
 	# -------
-	TEST_STRIDER=1 ./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/selenium.json -p -e sauce test/integration/*_test.js
+	TEST_STRIDER=1 node test/runner.js
 
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/client/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
