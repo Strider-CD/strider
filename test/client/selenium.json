@@ -1,5 +1,5 @@
 {
-  "run": "make serve-test",
+  "run": "node test/strider.js",
   "appDir": "../../../",
   "envs": {
     "local": [["chrome", "", "ANY"]],

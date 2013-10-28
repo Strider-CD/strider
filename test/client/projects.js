@@ -2,7 +2,7 @@
 var expect = require('expect.js')
   , sm = require('mocha-selenium')
   , b = sm.setup('views:Projects', {
-      appCmd: 'make serve-test',
+      appCmd: 'node test/strider.js',
       lastShot: 'failed'
     })
 
