@@ -433,8 +433,11 @@
         success: function() {
           window.location = '/' + $scope.project.name + '/';
         },
-        error: function() {
-          $scope.error("Error starting test job for " + name + " on branch " + $scope.branch.name + ": " + data.errors[0]);
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error starting test job for " + name + " on branch " + $scope.branch.name + ": " + data.errors[0]);
+          }
         }
       });
     };
@@ -447,8 +450,11 @@
         success: function() {
           window.location = '/' + $scope.project.name + '/';
         },
-        error: function() {
-          $scope.error("Error starting deploy job for " + name + " on branch " + $scope.branch.name + ": " + data.errors[0]);
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error starting deploy job for " + name + " on branch " + $scope.branch.name + ": " + data.errors[0]);
+          }
         }
       });
     };
