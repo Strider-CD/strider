@@ -37,11 +37,6 @@
           </script>
 
           {% endif %}
-          <div class="row-fluid">
-            <div class="span6">
-              <h2>Latest Builds: <i ng-show="loadingJobs" class="icon-spinner icon-spin"></i></h2>
-            </div>
-          </div>
           {% if currentUser && jobs.yours.length < 1 %}
           <div class="alert alert-info no-projects" data-test="no-personal-projects">
             <h3>You don't have any projects configured.</h3>
