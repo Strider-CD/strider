@@ -11,10 +11,10 @@
   {% endfor %}
 </div>
 <div class="pick-plugins">
-  <h3>Select Job Plugins</h3>
-  <p>Drag plugins from Available to In Use to enable for this project. Plugins are run in the order they are specified here. In use plugins can be configured under their corresponding tabs on the left.</p>
+  <h3>Choose Plugins</h3>
+  <p>Drag and drop plugins from Available to Active to enable them for this project. Plugins are run in the order they are specified here. Active plugins can be configured by clicking their corresponding tabs on the left.</p>
   <div class="enabled-plugins">
-    <h3>Plugins in Use</h3>
+    <h3>Active Plugins</h3>
     <ul ng-model="branch.plugins" ui-sortable="inUseOptions" class="enabled-plugins-list">
       <li class="plugin-item clearfix" ng-repeat="plugin in branch.plugins" ng-class="{ disabled: !plugin.enabled }">
         <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
