@@ -60,9 +60,6 @@ body {
   margin-top: -10px;
   margin-left: 18px;
 }
-#build-page .job-title h3 .test-only-action {
-  color: green;
-}
 #build-page .job-title h3 .test-and-deploy-action {
   color: #2900ff;
 }
