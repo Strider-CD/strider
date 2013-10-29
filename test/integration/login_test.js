@@ -1,12 +1,24 @@
+var assert = require('chai').assert
+  , tap = require('tap')
+  , test = tap.test
+
+module.exports = function(browser, done){
+  var b = browser
+
+  b.rel('/')
+   .visibleByCss("a.brand", function(err){
+      assert.isNull(err)
+      done()
+    }).done()
+
+}
+
+/*
 var sm = require('mocha-selenium')
-  , assert = require('chai').assert
   , b = sm.setup('integration tests', {
       appCmd: 'node test/strider.js',
       url: 'http://localhost:4000'
     })
-
-var test = it, suite = describe; // Tests as english sucks. 'it' doesn't even make sense for half of these.
-
 
 suite('integration - existing user flow', function(){
 
@@ -18,11 +30,6 @@ suite('integration - existing user flow', function(){
   })
 
 
-  test("render the homepage", function(done){
-    b.visibleByCss("a.brand", function(err){
-      done(err)
-    })
-  })
 
   test("render the login form", function(done){
     b.visibleByCss("#navbar-signin-form", function(err){
@@ -171,11 +178,11 @@ suite('integration - existing user flow', function(){
         done()
       })
       */
-      .url(function(err, url){
+/*      .url(function(err, url){
         done()
       })
   })
-
+*/
   /*
   test("run the project tests", function(done){
     throw "TODO"
@@ -188,6 +195,6 @@ suite('integration - existing user flow', function(){
   })
 */
 
-})
+//})
 
 

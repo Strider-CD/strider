@@ -1,3 +1,4 @@
+/*
 // Shim so we can actually run mocha-selenium tests without the command.
 
 var ms = require('mocha-selenium')
@@ -49,3 +50,55 @@ var execute = function(done){
 
 
 execute(process.exit)
+*/
+
+/// ----- NEW STUFF -----
+var async = require('async')
+
+// TESTS
+var tests = ["./integration/login_test"]
+
+var wd = require('wd')
+  , remote = JSON.parse(process.env.WEBDRIVER_REMOTE || '{}')
+  , browsers = JSON.parse(process.env.BROWSERS || '[]' )
+
+
+// Monkey patch wd for test stuff
+
+wd.webdriver.prototype.visibleByCss = wd.webdriver.prototype.waitForVisibleByCssSelector
+wd.webdriver.prototype.rel = function(url){
+  var cb = wd.findCallback(arguments)
+
+  this.get("http://localhost:4000" + url, cb)
+}
+
+
+
+require('./strider')(function(){
+  async.map(browsers, function(conn, doneBrowser){
+    var browser = wd.promiseChainRemote(remote)
+    browser.init(conn, function(){
+
+      browser.on('status', function(info) {
+          console.log(info.cyan);
+      });
+      browser.on('command', function(meth, path, data) {
+          console.log(' > ' + meth.yellow, path.grey, data || '');
+      });
+
+      async.map(tests, function(suite, cb){
+          console.log("[Browser:", conn, "] -> ", suite)
+          require(suite)(browser, cb)
+        },
+        doneBrowser
+        )
+      })
+    }
+    , function doneTests(){
+        process.exit(0)
+      }
+    )
+})
+
+
+
