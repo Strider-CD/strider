@@ -395,10 +395,8 @@ function availableProjectTypes() {
   return available
 }
 
-// GET /projects
-// 
-// This is where the "add project" flow starts.
-exports.projects = function(req, res) {
+function renderProjects(refresh, req, res) {
+
   var tasks = []
     , repomap = {}
     , configured = {}
@@ -445,9 +443,8 @@ exports.projects = function(req, res) {
       configured[account.provider] = true
 
       // Caching
-      var useCache = req.query.refresh !== account.provider && req.query.aid != account.id
       var haveCache = Array.isArray(account.cache) && account.cache.length > 0
-      if (useCache && haveCache) {
+      if (!refresh && haveCache) {
         groupRepos(account, repomap, tree, account.toJSON().cache)
         return
       }
@@ -466,13 +463,14 @@ exports.projects = function(req, res) {
       if (configured[id] || !providers[id].setupLink) continue;
       unconfigured.push(providers[id])
     }
+    console.log("Fetching projects...")
     async.parallel(tasks, function(err, r) {
       if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
       // cache the fetched repos
       User.update({_id:req.user._id}, {$set:{accounts:req.user.toJSON().accounts}}, function(err, num) {
         if (err) console.error('error saving repo cache')
         if (!num) console.error("Didn't effect any users")
-        console.log('Saved cache')
+        console.log('Saved repo cache')
         // user is already be available via the "currentUser" template variable
         return res.render('projects.html', {
           unconfigured: unconfigured,
@@ -485,5 +483,20 @@ exports.projects = function(req, res) {
       })
     })
   })
+}
+
+// GET /projects
+// 
+// This is where the "add project" flow starts.
+exports.get_projects = function(req, res) {
+  return renderProjects(false, req, res)
+}
+
+// POST /projects
+// 
+// This is where the "add project" flow starts.
+exports.post_projects = function(req, res) {
+  var refresh = req.body.refresh !== 'false' && req.body.refresh !== '0'
+  return renderProjects(refresh, req, res)
 }
 
