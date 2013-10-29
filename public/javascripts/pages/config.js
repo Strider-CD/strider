@@ -425,6 +425,34 @@
       });
     };
 
+    $scope.startTest = function () {
+      $.ajax({
+        url: '/' + $scope.project.name + '/start',
+        data:{branch: $scope.branch.name, type: "TEST_ONLY", page:"config"},
+        type: 'POST',
+        success: function() {
+          window.location = '/' + $scope.project.name + '/';
+        },
+        error: function() {
+          $scope.error("Error starting test job for " + name + " on branch " + $scope.branch.name + ": " + data.errors[0]);
+        }
+      });
+    };
+
+    $scope.startDeploy = function () {
+      $.ajax({
+        url: '/' + $scope.project.name + '/start',
+        data:{branch: $scope.branch.name, type: "TEST_AND_DEPLOY", page:"config"},
+        type: 'POST',
+        success: function() {
+          window.location = '/' + $scope.project.name + '/';
+        },
+        error: function() {
+          $scope.error("Error starting deploy job for " + name + " on branch " + $scope.branch.name + ": " + data.errors[0]);
+        }
+      });
+    };
+
     $scope.saveProject = function () {
       $.ajax({
         url: '/' + $scope.project.name + '/config',

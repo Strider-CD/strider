@@ -50,10 +50,10 @@
           </span>
         </button>
       </span>
-      <a class="btn btn-primary" data-placement="bottom" data-toggle="tooltip" title="Retest &amp; Deploy Branch" href="/{{ project.name }}/?redeploy=[[ branch.name ]]">
+      <a class="btn btn-primary" data-placement="bottom" data-toggle="tooltip" title="Retest &amp; Deploy Branch" ng-click="startDeploy()">
         Deploy Branch
       </a>
-      <a class="btn btn-success" data-placement="bottom" data-toggle="tooltip" title="Retest Branch" href="/{{ project.name }}/?retest=[[ branch.name ]]">
+      <a class="btn btn-success" data-placement="bottom" data-toggle="tooltip" title="Retest Branch" ng-click="startTest()">
         Test Branch
       </a>
     </h3>

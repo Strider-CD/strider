@@ -357,14 +357,5 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
     };
   };
 
-  if ($route.current) {
-    if ($route.current.params.retest) {
-      socket.emit('test', project.name, $route.current.params.retest)
-    }
-    if ($route.current.params.redeploy) {
-      socket.emit('deploy', project.name, $route.current.params.redeploy)
-    }
-  }
-
 }]);
 
