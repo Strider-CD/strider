@@ -1,7 +1,8 @@
 var sm = require('mocha-selenium')
   , assert = require('chai').assert
   , b = sm.setup('integration tests', {
-      appCmd: 'node test/strider.js'
+      appCmd: 'node test/strider.js',
+      url: 'http://localhost:4000'
     })
 
 var test = it, suite = describe; // Tests as english sucks. 'it' doesn't even make sense for half of these.
