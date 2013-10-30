@@ -14,7 +14,7 @@ module.exports = function(done){
     process.env.PORT = 4000
     var child = require('child_process').spawn("bin/strider", ["--config", 'test/test-config.json'], { 
       env : process.env,
-      stdio: 'inherit',
+      stdio: process.env.DEBUG_TEST_STRIDER ? 'inherit' : undefined,
       detached: false,
     })
 
