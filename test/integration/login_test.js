@@ -94,7 +94,13 @@ module.exports = function(browser, done){
       assert.isNull(err)
       assert.include(url, "strider-test-robot/strider-extension-loader")
     })
-    
+
+    // Go to test page
+     .rel('/strider-test-robot/strider-extension-loader/')
+     .elementByClassName('test-only-action')
+     .click()
+
+
     .fail(function(){
       console.log("ERROR:", arguments)
       fails ++
