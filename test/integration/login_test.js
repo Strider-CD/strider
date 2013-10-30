@@ -1,15 +1,100 @@
 var assert = require('chai').assert
   , tap = require('tap')
   , test = tap.test
+  , fails = 0
 
 module.exports = function(browser, done){
   var b = browser
 
   b.rel('/')
-   .visibleByCss("a.brand", function(err){
+    .visibleByCss("a.brand", function(err){
       assert.isNull(err)
-      done()
-    }).done()
+    })
+
+    // Login visible
+    .visibleByCss("#navbar-signin-form", function(err){
+      assert.isNull(err)
+    })
+
+    // Bad creds fail
+    .rel('/')
+    .fillInForm({
+     email: 'test1@example.com',
+     password: 'BAD CREDS' 
+    })
+    .elementById("navbar-signin-form", function(err, form){
+      assert.isNull(err)
+    })
+    .submit()
+    .url(function(err, url){
+     assert.isNull(err)
+     assert.include(url, "/login#fail")
+    })
+    
+    // Forgot password flow
+    .rel("/")
+    .elementById("forgot-password-link")
+    .click()
+    .url(function(err, url){
+      assert.isNull(err)
+      assert.include(url, '/auth/forgot')
+    })
+    .fillInForm({
+      "forgot-email" : "test1@example.com"
+    }).elementById("send-forgot")
+    .click()
+    .elementByClassName('forgot-sent', function(err, el){
+      assert.isNull(err, "Error on forgot-password-sent page")
+    })
+    
+    // Submitting login form works
+     .rel('/')
+     .fillInForm({
+       email: 'test1@example.com',
+       password: 'open-sesame'
+     })
+     .elementById("navbar-signin-form")
+     .submit()
+     .visibleByClassName('logged-in', function  (err, visible) {
+       assert.isNull(err)
+       assert.isTrue(visible)
+     })
+   
+     // Now we're logged in 
+      .url(function(err, url){
+        assert.isNull(err)
+      })
+      .elementByClassName('no-projects', function(err, el){
+        assert.isNull(err)
+        assert.ok(el)
+      })
+   
+      // Link to github
+     .elementByClassName('provider-github')
+    .click()
+    .waitForVisibleByClassName('octicon-logo-github', 6000, function(err){
+      assert.isNull(err, "github didn't load")
+    })
+    .fillInForm({
+       // Github test account creds 
+       login: "strider-test-robot"
+     , password: "i0CheCtzY0yv4WP2o"
+     })
+    .elementByName('commit')
+    .click()
+    .waitForVisibleByClassName('StriderBlock_Brand', 6000, function(err){
+      assert.isNull(err, "Timed out waiting for github auth")
+    })
+    
+
+    .fail(function(){
+      console.log("ERROR:", arguments)
+      fails ++
+    })
+    .fin(function(){
+      console.log("!FIN", arguments)
+      done(null, fails)
+    })
 
 }
 
@@ -23,119 +108,17 @@ var sm = require('mocha-selenium')
 suite('integration - existing user flow', function(){
 
 
-  this.timeout(120 * 1000)
-
-  before(function(done){
-    b.rel('/', done)
-  })
-
-
-
-  test("render the login form", function(done){
-    b.visibleByCss("#navbar-signin-form", function(err){
-      done(err)
-    })
-  })
-
-  test("submitting bad creds fails", function(done){
-    b.chain()
-     .rel('/')
-     .fillInForm({
-       email: 'test1@example.com',
-       password: 'BAD CREDS' 
-     }).elementById("navbar-signin-form", function(err, form){
-       if (err) return done(err);
-       b.next('submit', form, function(err, res){
-         if (err) return done(err);
-       })
-     }).url(function(err, url){
-       assert.isNull(err)
-       assert.include(url, "/login#fail")
-       done()
-     })
-  })
 
   test("follow forgot password flow", function(done){
-    b.chain()
-     .rel("/")
-     .elementById("forgot-password-link", function(err, el){
-       b.next('clickElement', el, function(){})
-     })
-    .url(function(err, url){
-      assert.isNull(err)
-      assert.include(url, '/auth/forgot')
-    })
-    .fillInForm({
-      email : "test1@example.com"
-    }, '.form-horizontal').elementById("send-forgot", function(err, el){
-      b.next("clickElement", el, function(){})
-    })
-    .elementByClassName('forgot-sent', function(err, el){
-      assert.isNull(err, "Error on forgot-password-sent page")
-      done();
-    })
   })
 
   test("submitting login form works", function(done){
-    b.chain()
-     .rel('/')
-     .fillInForm({
-       email: 'test1@example.com',
-       password: 'open-sesame'
-     })
-     .elementById("navbar-signin-form", function(err, form){
-       if (err) return done(err);
-       b.next('submit', form, function(err, res){
-         if (err) return done(err);
-       })
-     })
-     .visibleByClassName('logged-in', function  (err, visible) {
-       assert.isNull(err)
-       assert.isTrue(visible)
-       done(null)
-     })
   })
 
   test("now we're logged in", function(done){
-    b.chain()
-      .url(function(err, url){
-        assert.isNull(err)
-      })
-      .elementByClassName('no-projects', function(err, el){
-        assert.isNull(err)
-        assert.ok(el)
-        done(null)
-      })
   })
 
   test("link account to github", function(done){
-    b.chain()
-     .elementByClassName('provider-github', function(err, el){
-        assert.isNull(err)
-        assert.ok(el, "Couldn't find github link")
-        b.next('clickElement', el, function(err, res){
-          assert.isNull(err);
-        })
-     })
-    .waitForVisibleByClassName('octicon-logo-github', 3000, function(err){
-      assert.isNull(err, "github didn't load")
-    })
-    .fillInForm({
-       // Github test account creds 
-       login: "strider-test-robot"
-     , password: "i0CheCtzY0yv4WP2o"
-     })
-    .elementByName('commit', function(err, el){
-      assert.isNull(err)
-      assert.ok(el)
-      b.next('clickElement', el, function(err, res){
-        assert.isNull(err)
-      })
-    })
-    .waitForVisibleByClassName('StriderBlock_Brand', 3000, function(err){
-      assert.isNull(err, "Timed out waiting for github auth")
-      done()
-    })
   })
 
 
