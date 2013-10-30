@@ -64,15 +64,12 @@ test-client-sauce:
 
 # ====== LOCAL:
 
-test-local: test-integration-local
+test-local: 
 	$(which chromedriver)
+	WEBDRIVER_REMOTE='{"hostname":"localhost","port":9515}' BROWSERS='[{"version":"","browserName":"chrome","platform":"Linux"}]' node test/runner.js
 
 test-client-local:
 	./node_modules/.bin/mocha test/client/
-
-test-integration-local:
-	TEST_STRIDER=1 ./node_modules/.bin/mocha test/integration/
-
 
 
 test-syntax: lint
