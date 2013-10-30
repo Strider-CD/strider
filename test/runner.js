@@ -115,8 +115,7 @@ require('./strider')(function(){
           require(suite)(browser, cb)
         },
         function(err, failure){
-          fails = Math.sum.call(null, failure)
-          console.log("Failure:", fails)
+          console.log("!!! FINIESHED")
           browser.quit()
           doneBrowser()
         }
