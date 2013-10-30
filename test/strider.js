@@ -9,7 +9,6 @@ var httpcheck = require('httpcheck')
 
 module.exports = function(done){
   require('./setup-fixtures')(function(err, config) {
-    console.log(config)
     process.env.DB_URI = config.db_uri
     process.env.PORT = 4000
     var child = require('child_process').spawn("bin/strider", ["--config", 'test/test-config.json'], { 
@@ -35,7 +34,8 @@ module.exports = function(done){
       url:"http://localhost:" + process.env.PORT + "/status",
       check: function(res) {
         return res && res.statusCode === 200;
-      }
+      },
+      log: function(){}
     }, function(err) {
       if (err) {
         console.error("App has not started up");
