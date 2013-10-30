@@ -7,14 +7,9 @@ module.exports = function(browser, done){
   var b = browser
 
   b.rel('/')
-    .visibleByCss("a.brand", function(err){
-      assert.isNull(err)
-    })
-
+    .visibleByCss("a.brand")
     // Login visible
-    .visibleByCss("#navbar-signin-form", function(err){
-      assert.isNull(err)
-    })
+    .visibleByCss("#navbar-signin-form")
 
     // Bad creds fail
     .rel('/')
