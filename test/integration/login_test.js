@@ -98,6 +98,7 @@ module.exports = function(browser, done){
     .fail(function(){
       console.log("ERROR:", arguments)
       fails ++
+      done(arguments)
     })
     .fin(function(){
       console.log("!FIN", arguments)

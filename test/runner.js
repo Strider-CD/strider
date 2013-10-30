@@ -61,14 +61,14 @@ require('./strider')(function(){
         },
         function(err, failure){
           browser.quit()
-          doneBrowser()
+          doneBrowser(err)
         }
         )
       }, 2000)
     }
-  , function doneTests(){
-      console.log("DONE TESTS", fails)
-      process.exit(0)
+  , function doneTests(err){
+      console.log("DONE TESTS", err)
+      process.exit(err ? 1 : 0)
     }
   )
 })
