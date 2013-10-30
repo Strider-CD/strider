@@ -51,6 +51,7 @@ body.job_view .job-detail-sidebar {
   overflow-x: visible;
   border-radius: 5px;
   flex: 1;
+  -webkit-flex: 1;
 }
 .console-output .prompt {
   color: yellow;
@@ -128,7 +129,9 @@ body.job_view .job-left-col div {
 body.job_view .job-left-col {
   left: 0;
   display: flex;
+  display: -webkit-flex;
   flex-flow: column;
+  -webkit-flex-flow: column;
 }
 body.job_view .wrap {
   min-height: 0 !important;
