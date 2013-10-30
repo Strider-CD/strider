@@ -1,6 +1,4 @@
 var assert = require('chai').assert
-  , tap = require('tap')
-  , test = tap.test
   , fails = 0
 
 module.exports = function(browser, done){
