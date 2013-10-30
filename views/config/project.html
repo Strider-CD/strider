@@ -5,10 +5,19 @@
     {{ provider.html }}
     {% endautoescape %}
   </div>
-  <label class="checkbox">
-    <input data-test="public" type="checkbox" ng-model="project.public" ng-click="saveProject()"> Public
-  </label>
-  <p class="help-text">Builds of public projects are visible to anyone</p>
+
+  <div class="well" id="visibility-config">
+    <legend>Project Visibility</legend>
+    <p class="help-text">Projects are private by default. Job history, status and console output of public projects are visible to anyone who knows the URL.
+    <p>
+    Public URL: <a href="{{ serverName }}/{{ project.name }}/"><strong>{{ serverName }}/{{ project.name }}/</strong></a>
+    </p>
+    <label class="checkbox">
+      <input data-test="public" type="checkbox" ng-model="project.public" ng-click="saveProject()"> Make this project public
+    </label>
+    
+    </p>
+  </div>
   {% include "config/collaborators.html" %}
   <div>
     <h3>Delete Project</h3>
