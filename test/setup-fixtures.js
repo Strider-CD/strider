@@ -6,7 +6,7 @@ var Step = require('step')
   , mongodbUrl = process.env.STRIDER_TEST_DB || "mongodb://localhost/stridercdtest"
   , async = require('async')
 
-console.log("Connecting to MongoDB URL: %s", mongodbUrl);
+console.log("Setting up fixtures: %s", mongodbUrl);
 
 var TEST_USERS = [
   {email: "test1@example.com", password: "open-sesame", jar: request.jar()}
@@ -16,11 +16,11 @@ var TEST_USERS = [
 
 
 var importUsers = function(cb){
-  console.log("dropping existing users table")
+  //console.log("dropping existing users table")
   models.User.remove({}, function(err){
     if (err) throw err;
 
-    console.log("dropped")
+    //console.log("dropped")
 
     async.eachSeries(TEST_USERS, function(u, done){
       var user = new models.User();
@@ -36,7 +36,7 @@ var importUsers = function(cb){
 }
 
 var importJobs = function(cb){
-  console.log("dropping existing jobs table")
+  //console.log("dropping existing jobs table")
   models.Job.remove({}, function(err){
     cb(null)
   })
@@ -59,14 +59,14 @@ var dropDB = function(cb){
 
   async.map(collections,
       function dropCollection(collection, done){
-        console.log("Dropping ", collection)
+        //console.log("Dropping ", collection)
         mongoose.connection.collections[collection].drop(function(err){
           if (err && err.errmsg === 'ns not found') return done(null, collection)
           done(err, collection)
         })
       }
      , function done(err, res){
-        console.log(err, "dropped", res)
+        //console.log(err, "dropped", res)
         cb(err);
      }
   )
@@ -80,7 +80,7 @@ var dropDB = function(cb){
 }
 
 var connect = function(cb) {
-  console.log("-->connecting")
+  //console.log("-->connecting")
   mongoose.connect(mongodbUrl)
 
   mongoose.connection.on('error',function (err) {
@@ -89,13 +89,13 @@ var connect = function(cb) {
   })
 
   mongoose.connection.on('disconnected', function (err, res) {
-    console.log('Mongoose default connection disconnected', err, res);
+    //console.log('Mongoose default connection disconnected', err, res);
   });
 
 
   mongoose.connection.on('connected', function (err, res) {
     if(err) throw err
-    console.log("<--- connected")
+    //console.log("<--- connected")
     cb.apply(this, arguments) 
   });
 }
@@ -118,7 +118,7 @@ module.exports = function(cb){
 
 if (!module.parent) {
   module.exports(function(){
-    console.log("FIXTURES LOADED")
+    //console.log("FIXTURES LOADED")
 
     process.exit(0)
   })
