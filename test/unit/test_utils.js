@@ -17,9 +17,9 @@ describe('utils', function () {
       })).to.eql({
         runtime: 'whatever',
         test: 'npm test'
-      });
-    });
-  });
+      })
+    })
+  })
 
   describe('validateAgainstSchema', function () {
     it('should cover a complex case', function () {
