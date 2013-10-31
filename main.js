@@ -57,6 +57,9 @@ module.exports = function(extdir, c, callback) {
     if (err) throw err;
   }
 
+  if ('function' !== typeof Loader) {
+    throw new Error('Your version of strider-extension-loader is out of date')
+  }
   var loader = appInstance.loader = new Loader([path.join(__dirname, 'public/stylesheets/less')])
   common.loader = loader
   //
