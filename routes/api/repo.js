@@ -35,16 +35,25 @@ function makePlugins(plugins) {
 }
 
 /*
- * DELETE /:org/:repo/cache/:branch
+ * DELETE /:org/:repo/cache
  *
  * Kill the cache
  */
 exports.clear_cache = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
-  if (!branch) return res.send(404, 'branch not found')
-  var runner = common.extensions.runner[branch.runner.id]
-  if (!runner.clearCache) return res.send(400, 'runner does not support caching')
-  runner.clearCache(req.project, function (err) {
+  var runners = []
+    , tasks = []
+  req.project.branches.forEach(function (branch) {
+    if ((branch.name !== 'master' && branch.mirror_master) || runners.indexOf(branch.runner.id) !== -1) return
+    runners.push(branch.runner.id)
+  })
+  runners.forEach(function (rid) {
+    var runner = common.extensions.runner[rid]
+    console.log(rid, common.extensions.runner, req.project)
+    if (!runner || !runner.clearCache) return
+    tasks.push(runner.clearCache.bind(runner, req.project))
+  })
+  if (!tasks.length) return res.send(200, 'No runners supported cache clearing')
+  async.parallel(tasks, function (err) {
     if (err) return res.send(500, 'failed to clear cache')
     res.send(204)
   })

@@ -115,6 +115,21 @@
       }
     };
 
+    $scope.clearCache = function () {
+      $scope.clearingCache = true;
+      $.ajax('/' + $scope.project.name + '/cache', {
+        type: 'DELETE',
+        success: function () {
+          $scope.clearingCache = false;
+          $scope.success('Cleared the cache', true);
+        },
+        error: function () {
+          $scope.clearingCache = false;
+          $scope.error('Failed to clear the cache', true);
+        }
+      });
+    }
+
     $scope.toggleBranch = function () {
       if ($scope.branch.mirror_master) {
         $scope.branch.mirror_master = false;
