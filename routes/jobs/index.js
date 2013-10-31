@@ -70,6 +70,8 @@ function html(req, res) {
     if (job) job.status = ljobs.status(job)
 
     var showStatus = {}
+      , sanitized = utils.sanitizeProject(req.project)
+    sanitized.access_level = req.accessLevel
     req.project.branches.forEach(function (branch) {
       var plugins = showStatus[branch.name] = {}
       branch.plugins.forEach(function (plugin) {
@@ -77,7 +79,7 @@ function html(req, res) {
       })
     })
     res.render('build.html', {
-      project: utils.sanitizeProject(req.project),
+      project: sanitized,
       accessLevel: req.accessLevel,
       jobs: jobs,
       job: job,
