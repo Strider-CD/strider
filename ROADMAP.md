@@ -11,8 +11,9 @@ _due in the next few weeks_
 
 - Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
 - Refactor models into an API rather than relying on mongo queries everywhere.
-- Easier theming
+- Easier theming (theme plugin type)
 - Make strider a class - no more global shared scope
+- Auth plugins
 
 # Changelog / Past releases
 
