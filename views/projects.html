@@ -29,6 +29,11 @@
 </div>
 
 <div class="projects-page" ng-app="Projects" ng-controller="AlertsController">
+  {% for messages in flash %}
+    {% for message in messages %}
+  <div class="alert alert-info">{{ message|raw }}</div>
+    {% endfor %}
+  {% endfor %}
   <div class="accounts-nav">
     <ul class="nav nav-pills">
       {% for account in currentUser.accounts %}
