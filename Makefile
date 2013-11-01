@@ -31,11 +31,11 @@ test: test-syntax test-smoke test-unit test-browser
 test-smoke:
 	# TODO Smoke tests should fail _fast_ on silly errors.
 
-
 test-unit:
 	@./node_modules/.bin/mocha -R tap test/unit/test_middleware.js
 	@./node_modules/.bin/mocha -R tap test/unit/test_ansi.js
 	@./node_modules/.bin/mocha -R tap test/unit/test_api.js
+	@./node_modules/.bin/mocha -R tap test/unit/test_config.js
 
 # Either test-local or test-sauce
 test-browser: $(test-env)
