@@ -69,6 +69,9 @@ test-local:
 	$(which chromedriver)
 	WEBDRIVER_REMOTE='{"hostname":"localhost","port":9515}' BROWSERS='[{"version":"","browserName":"chrome","platform":"Linux"}]' node test/runner.js
 
+start-chromedriver:
+	chromedriver --url-base=/wd/hub
+
 test-client-local:
 	./node_modules/.bin/mocha test/client/
 
@@ -98,4 +101,4 @@ release: test build authors-list
 
 
 
-.PHONY: test lint watch build less
+.PHONY: test lint watch build less start-chromedriver
