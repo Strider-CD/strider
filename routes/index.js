@@ -231,7 +231,7 @@ exports.config = function(req, res) {
     }
     var data = {
       collaborators: [],
-      serverName: config.strider_server_name,
+      serverName: config.server_name,
       project: req.project.toJSON(),
       statusBlocks: common.statusBlocks,
       userIsCreator: req.user.isProjectCreator

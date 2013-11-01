@@ -63,6 +63,9 @@ test-client-sauce:
 # ====== LOCAL:
 
 test-local: 
+	# You need to run chromedriver for this to work. If you don't have it,
+	# you can get it w/ npm install -g chromedriver
+	# Then `chromedriver  --url-base=/wd/hub`
 	$(which chromedriver)
 	WEBDRIVER_REMOTE='{"hostname":"localhost","port":9515}' BROWSERS='[{"version":"","browserName":"chrome","platform":"Linux"}]' node test/runner.js
 
