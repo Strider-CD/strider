@@ -69,6 +69,7 @@
     $scope.accounts = window.accounts;
     $scope.repos = window.repos;
     $scope.providers = window.providers;
+    $scope.projectsPage = true;
     $scope.removeProject = function (account, repo, group) {
       repo.really_remove = 'removing';
       $.ajax('/' + repo.name + '/', {

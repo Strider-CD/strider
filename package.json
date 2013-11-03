@@ -35,7 +35,7 @@
     "strider-github": "git+https://github.com/Strider-CD/strider-github.git",
     "strider-git": "git+https://github.com/Strider-CD/strider-git.git",
     "connect": "~2.7.3",
-    "express": "3.4.3",
+    "express": "3.4.2",
     "swig": "~0.14.0",
     "cookie": "0.0.5",
     "socket.io": "~0.9.16",
@@ -49,7 +49,8 @@
     "ssh-keypair": "~1.0.0",
     "gravatar": "~1.0.6",
     "connect-slashes": "0.0.11",
-    "httpcheck": "0.0.1"
+    "httpcheck": "0.0.1",
+    "connect-flash": "~0.1.1"
   },
   "devDependencies": {
     "mocha": "~1.12.0",

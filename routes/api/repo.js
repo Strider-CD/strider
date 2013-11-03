@@ -141,7 +141,6 @@ exports.create_project = function(req, res) {
     keypair(name + '-' + req.user.email, createProjectWithKey) 
   }
 
-
   function createProjectWithKey(err, privkey, pubkey) {
     if (err) return error(500, 'Failed to generate ssh keypair')
 

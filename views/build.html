@@ -10,10 +10,10 @@
 {% set page = "build" %}
 <div class="app ng-cloak" ng-app="JobStatus">
   <script>
-    var project = {{ project | json_encode() | raw }};
-    var jobs = {{ jobs | json_encode() | raw }};
-    var job = {{ job | json_encode() | raw }};
-    var showStatus = {{ showStatus | json_encode() | raw }};
+    var project = {{ project | scriptjson() | raw }};
+    var jobs = {{ jobs | scriptjson() | raw }};
+    var job = {{ job | scriptjson() | raw }};
+    var showStatus = {{ showStatus | scriptjson() | raw }};
   </script>
   <base href="/{{ page_base }}/"></base>
   <div id="build-page" class="main" ng-view></div>
@@ -107,6 +107,7 @@
   <script src="/javascripts/modules/moment.js"></script>
   <script src="/javascripts/modules/ansi.js"></script>
   <script src="/javascripts/pages/build.js"></script>
+  <script src="/javascripts/pages/plugin-status-compiled.js"></script>
 </div>
 {% pluginblock AfterJobPage %}{% endpluginblock %}
 {% endblock %}

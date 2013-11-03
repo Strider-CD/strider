@@ -44,6 +44,10 @@
         option in the strider.json definition for the provider
         plugin. This only shows up if "hosted" is true
       #}
+
+      {% for message in flash %}
+      <div class="alert alert-info">{{ message|raw }}</div>
+      {% endfor %}
       {% for provider in providers %}
       <div id="provider-{{loop.key}}" class="tab-pane provider-tab">
         <h2>{{ provider.title }} Accounts</h2>
@@ -67,7 +71,12 @@
           {% endif %}
         </div>
         <div ng-switch="!!providers['{{ loop.key }}'].setupLink">
-          <a class="btn btn-success" href="[[ providers['{{ loop.key }}'].setupLink ]]" ng-switch-when="true">Add Account</a>
+          <div ng-switch-when="true">
+            <a class="btn btn-success" href="[[ providers['{{ loop.key }}'].setupLink ]]">Add Account</a>
+            <span ng-show="accounts['{{ loop.key }}'].length">
+              <strong>Note:</strong> You may need to sign out of {{ loop.key }} if you want to add a different account
+            </span>
+          </div>
           <button ng-switch-default class="btn btn-success" ng-click="addAccount('{{ loop.key }}')">Add Account</button>
         </div>
       </div>
