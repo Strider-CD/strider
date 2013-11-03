@@ -33,6 +33,7 @@
     "strider-heroku": "git+https://github.com/Strider-CD/strider-heroku.git",
     "strider-bitbucket": "git+https://github.com/Strider-CD/strider-bitbucket.git",
     "strider-github": "git+https://github.com/Strider-CD/strider-github.git",
+    "strider-git": "git+https://github.com/Strider-CD/strider-git.git",
     "connect": "~2.7.3",
     "express": "3.4.3",
     "swig": "~0.14.0",
