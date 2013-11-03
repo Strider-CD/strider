@@ -19,6 +19,11 @@
       </span>
     </div>
   </div>
+  {% for messages in flash %}
+    {% for message in messages %}
+  <div class="alert alert-info">{{ message|raw }}</div>
+    {% endfor %}
+  {% endfor %}
   <div id="dashboard" style="display:none">
     <div>
       <div class="row-fluid">

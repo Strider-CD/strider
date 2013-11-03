@@ -28,7 +28,7 @@ var TEST_ONLY = "TEST_ONLY";
 var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
 
 /*
- * GET home page.
+ * GET home page dashboard
  */
 
 exports.index = function(req, res){
@@ -50,7 +50,8 @@ exports.index = function(req, res){
 
     res.render('index.html', {
       jobs: jobs,
-      availableProviders: availableProviders
+      availableProviders: availableProviders,
+      flash: req.flash()
     })
   })
 };
@@ -97,7 +98,8 @@ exports.account = function(req, res){
   res.render('account.html', {
     user: utils.sanitizeUser(req.user.toJSON()),
     providers: hosted,
-    userConfigs: common.userConfigs
+    userConfigs: common.userConfigs,
+    flash: req.flash('account')
   });
 };
 
@@ -396,6 +398,7 @@ function availableProjectTypes() {
   return available
 }
 
+
 function renderProjects(refresh, req, res) {
 
   var tasks = []
@@ -479,6 +482,7 @@ function renderProjects(refresh, req, res) {
           manual: manual,
           manualProjects: manualProjects,
           repos: repomap,
+          flash: req.flash(),
           project_types: availableProjectTypes()
         });
       })
