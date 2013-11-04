@@ -159,6 +159,12 @@ parser.command('addUser')
       abbr: 'p'
     , help: "User's password"
   })
+  .option('admin', {
+      abbr: 'a'
+    , help: "This user is an admin"
+    , default: false
+    , flag: true
+  })
   .callback(function(opts){
     var connect = function(cb) {
       var mongoose = require('mongoose'),
@@ -170,7 +176,7 @@ parser.command('addUser')
 
     connect(function(err) {
       if (err) throw err;
-      addUser(opts.email, opts.password, opts.admin);
+      addUser(opts.email.toString(), opts.password.toString(), opts.admin);
     })
   })
   .help("Create a Strider user")
