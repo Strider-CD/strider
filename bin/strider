@@ -148,6 +148,9 @@ var start = function(extpath){
 
 // Parse Arguments and run...
 
+// Note: nom nom doesn't play nice with `rc`. this means that passing config
+// options to strider via CLI params will not work as expected. For example:
+// bin/strider --db_uri=mongo://localhost addUser -l foo@example.com -p 123 -a
 var parser= require('nomnom')
 
 parser.command('addUser')
