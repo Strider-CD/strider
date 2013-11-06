@@ -20,16 +20,9 @@ Overview
 platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
 store. It is published under the BSD license.
 
-`Strider` is conceptually similar to Travis-CI or Jenkins with the following
-major differences:
-
-* A focus on Continuous Deployment rather than just Continuous Integration
-* Designed to be easy to install & setup
-* Deployable & usable on Heroku free plan
-* Intended for deployment on private infrastructure
-* An emphasis on extensibility. Plugins are powerful, easy to write and simple to install.
-* Out-of-the-box support for projects written in Node.JS, Python (generic and Django/Pyramid) and Selenium/Sauce Labs tests
-* Commercial support, consulting & hosting available
+For more details, including features and more, check out the [introductory
+chapter of the Strider
+Book](http://strider.readthedocs.org/en/latest/intro.html).
 
 ## README Contents
 
