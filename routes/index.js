@@ -305,11 +305,9 @@ exports.config = function(req, res) {
   function respond(data) {
     res.format({
       html: function() {
-        console.log('HTML');
         res.render('project_config.html', data)
       },
       json: function() {
-        console.log('JSON');
         res.send(data);
       }
     });
