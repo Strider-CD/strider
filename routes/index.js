@@ -270,7 +270,7 @@ exports.config = function(req, res) {
         req.project.provider.config, req.project, function(err, branches) {
           if (err) {
             console.error("could not fetch branches for repo %s: %s", req.project.name, err)
-            return res.render('project_config.html', data)
+            respond(data);
           }
           var have = {}
             , newBranches = false
@@ -290,17 +290,30 @@ exports.config = function(req, res) {
               mirror_master: true
             })
           }
-          if (!newBranches) return res.render('project_config.html', data)
-          
+          if (!newBranches) return respond(data)
+
           Project.update({_id: req.project._id}, {$set: {branches: req.project.branches}}, function (err, project) {
             if (err || !project) console.error('failed to save branches')
-            res.render('project_config.html', data)
+            respond(data);
           })
       })
     } else {
-      res.render('project_config.html', data)
+      respond(data);
     }
   })
+
+  function respond(data) {
+    res.format({
+      html: function() {
+        console.log('HTML');
+        res.render('project_config.html', data)
+      },
+      json: function() {
+        console.log('JSON');
+        res.send(data);
+      }
+    });
+  }
 }
 
 /*
@@ -491,14 +504,14 @@ function renderProjects(refresh, req, res) {
 }
 
 // GET /projects
-// 
+//
 // This is where the "add project" flow starts.
 exports.get_projects = function(req, res) {
   return renderProjects(false, req, res)
 }
 
 // POST /projects
-// 
+//
 // This is where the "add project" flow starts.
 exports.post_projects = function(req, res) {
   var refresh = req.body.refresh !== 'false' && req.body.refresh !== '0'
