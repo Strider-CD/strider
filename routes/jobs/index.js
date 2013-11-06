@@ -79,21 +79,25 @@ function html(req, res) {
       })
     })
 
-    var data = {
-      project: sanitized,
-      accessLevel: req.accessLevel,
-      jobs: jobs,
-      job: job,
-      statusBlocks: common.statusBlocks,
-      showStatus: showStatus,
-      page_base: req.params.org + '/' + req.params.repo
-    }
     res.format({
       html: function() {
-        res.render('build.html', data)
+        res.render('build.html', {
+          project: sanitized,
+          accessLevel: req.accessLevel,
+          jobs: jobs,
+          job: job,
+          statusBlocks: common.statusBlocks,
+          showStatus: showStatus,
+          page_base: req.params.org + '/' + req.params.repo
+        })
       },
       json: function() {
-        res.send(data);
+        res.send({
+          project: sanitized,
+          accessLevel: req.accessLevel,
+          jobs: jobs,
+          job: job
+        })
       }
     })
 
