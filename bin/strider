@@ -179,7 +179,13 @@ parser.command('addUser')
 
     connect(function(err) {
       if (err) throw err;
-      addUser(opts.email.toString(), opts.password.toString(), opts.admin);
+      if (opts.email) {
+        opts.email = opts.email.toString()
+      }
+      if (opts.password) {
+        opts.password = opts.password.toString()
+      }
+      addUser(opts.email, opts.password, opts.admin);
     })
   })
   .help("Create a Strider user")
