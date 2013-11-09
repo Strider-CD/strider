@@ -93,7 +93,7 @@
                 <i class="icon-globe"></i>
               </a>
               <span ng-switch="!!repo.project">
-                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.display_name ]]/">[[ repo.display_name ]]</a>
+                <a class="view-jobs" ng-switch-when="true" href="/[[ repo.name ]]/">[[ repo.display_name ]]</a>
                 <span ng-switch-default>[[ repo.display_name ]]</span>
               </span>
               <div class="pull-right action" ng-switch="!!repo.project">
@@ -132,7 +132,7 @@
                 <div class="btn btn-success" ng-click="startTest(repo)">
                   Start the first test
                 </div>
-                <a class="btn" href="/[[ repo.project.display_name ]]/config">
+                <a class="btn" href="/[[ repo.project.name ]]/config">
                   Configure
                 </a>
               </div>
@@ -163,13 +163,13 @@
               <a ng-show="project.display_url" href="[[ project.display_url ]]" target="_blank" class="hosted-url">
                 <i class="icon-globe"></i>
               </a>
-              <a class="view-jobs" href="/[[ project.display_name ]]/">[[ project.display_name ]]</a>
+              <a class="view-jobs" href="/[[ project.name ]]/">[[ project.display_name ]]</a>
             <div class="pull-right">
               <button ng-show="project.really_remove" class="btn btn-danger" ng-click="remove(project)" ng-disabled="project.really_remove === 'removing'">
                 <i class="icon-refresh icon-spin" ng-show="project.really_remove === 'removing'"></i>
                 Really remove
               </button>
-              <a href="/[[ project.display_name ]]/config" data-toggle="tooltip" title="Configure"><i class="icon-wrench"></i></a>
+              <a href="/[[ project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="icon-wrench"></i></a>
               <button class="btn btn-danger" ng-click="project.really_remove = true" ng-disabled="project.really_remove">Remove</button>
               <button ng-disabled="repo.adding" class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
             </div>
