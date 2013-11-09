@@ -54,6 +54,7 @@ exports.invites = function(req, res) {
 exports.users = function(req,res) {
   User.find({}).sort({'_id': -1}).exec(function(err, users) {
    res.render('admin/users.html',{
+     flash: req.flash('admin'),
      users: users.map(function (user) {
       user.created_date = humane.humaneDate(utils.timeFromId(user.id))
       return user
@@ -72,6 +73,25 @@ exports.make_admin = function(req,res) {
       return res.send(500, 'Error making admin user')
     }
     res.redirect('/admin/users')
+  })
+}
+
+exports.remove_user = function (req, res) {
+  User.findOne({email: req.param('email')}, function (err, user) {
+    if (err || !user) {
+      req.flash('admin', 'Failed to find user')
+      return res.redirect('/admin/users')
+    }
+    Project.collection.remove({
+      creator: user._id
+    }, function (err, number) {
+      if (err) req.flash('admin', 'Failed to remove projects')
+      req.flash('admin', 'Removed ' + number + ' projects owned by ' + user.email)
+      user.remove(function (err) {
+        if (err) req.flash('admin', 'Failed to remove user')
+        res.redirect('/admin/users')
+      })
+    })
   })
 }
 
