@@ -60,12 +60,36 @@ body.job_view .job-detail-sidebar {
   margin: 0;
 }
 
+.footer {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 2px;
+  background-color: #444;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 
+#build-page {
+  a, .clickable {
+    color: black;
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+      color: #999;
+    }
+  }
+
+  .footer a {
+    color: white
+  }
+}
 
 .console-output {
   overflow-y: auto;
   overflow-x: visible; 
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   -webkit-flex: 1;
   flex: 1;
 

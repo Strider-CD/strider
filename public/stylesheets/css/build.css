@@ -46,10 +46,33 @@ body.job_view .job-detail-sidebar {
 .job-pre-console {
   margin: 0;
 }
+.footer {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 2px;
+  background-color: #444;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+#build-page a,
+#build-page .clickable {
+  color: black;
+  cursor: pointer;
+}
+#build-page a:hover,
+#build-page .clickable:hover {
+  text-decoration: none;
+  color: #999;
+}
+#build-page .footer a {
+  color: #ffffff;
+}
 .console-output {
   overflow-y: auto;
   overflow-x: visible;
-  border-radius: 5px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   -webkit-flex: 1;
   flex: 1;
 }
