@@ -99,12 +99,6 @@ describe('config', function () {
     config = lconf.getConfig()
     expect(config.plugins.github.appId).to.equal('one')
     expect(config.plugins.github.appSecret).to.equal('two')
-    process.env = _.extend({}, oe, {
-      GITHUB_API_ENDPOINT: 'https://my.company.org'
-    })
-    config = lconf.getConfig()
-    expect(config.plugins.github.hostname).to.equal('https://my.company.org')
-    process.env = oe
   })
 
   it('should pick up non-prefixed items', function () {
