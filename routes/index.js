@@ -466,7 +466,12 @@ function renderProjects(refresh, req, res) {
 
       tasks.push(function (next) {
         common.extensions.provider[account.provider].listRepos(account.config, function (err, repos) {
-          if (err) return next(err)
+          if (err) {
+            if (haveCache) {
+              groupRepos(account, repomap, tree, account.toJSON().cache)
+            }
+            return next(err)
+          }
           account.set('cache', repos)
           groupRepos(account, repomap, tree, repos)
           account.last_updated = new Date()
@@ -480,7 +485,8 @@ function renderProjects(refresh, req, res) {
     }
     console.log("Fetching projects...")
     async.parallel(tasks, function(err, r) {
-      if (err) return res.send(500, 'Error while getting repos: ' + err.message + ':' + err.stack)
+      if (err) req.flash('account', 'Failed to refresh repositories: ' + (err.message || err))
+      console.log([err])
       // cache the fetched repos
       User.update({_id:req.user._id}, {$set:{accounts:req.user.toJSON().accounts}}, function(err, num) {
         if (err) console.error('error saving repo cache')
