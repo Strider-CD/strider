@@ -1,6 +1,5 @@
 # ![Strider](https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png)
 
-[![Build Status](https://public-ci.stridercd.com/51f050cf04568a0c00000008/strider-cd/strider/badge)](https://public-ci.stridercd.com/Strider-CD/strider/)
 [![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
 [![devDependency Status](https://david-dm.org/Strider-CD/strider/dev-status.png)](https://david-dm.org/Strider-CD/strider#info=devDependencies)
 
@@ -20,16 +19,9 @@ Overview
 platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
 store. It is published under the BSD license.
 
-`Strider` is conceptually similar to Travis-CI or Jenkins with the following
-major differences:
-
-* A focus on Continuous Deployment rather than just Continuous Integration
-* Designed to be easy to install & setup
-* Deployable & usable on Heroku free plan
-* Intended for deployment on private infrastructure
-* An emphasis on extensibility. Plugins are powerful, easy to write and simple to install.
-* Out-of-the-box support for projects written in Node.JS, Python (generic and Django/Pyramid) and Selenium/Sauce Labs tests
-* Commercial support, consulting & hosting available
+For more details, including features and more, check out the [introductory
+chapter of the Strider
+Book](http://strider.readthedocs.org/en/latest/intro.html).
 
 ## README Contents
 

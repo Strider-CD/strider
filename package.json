@@ -33,6 +33,7 @@
     "strider-heroku": "git+https://github.com/Strider-CD/strider-heroku.git",
     "strider-bitbucket": "git+https://github.com/Strider-CD/strider-bitbucket.git",
     "strider-github": "git+https://github.com/Strider-CD/strider-github.git",
+    "strider-git": "git+https://github.com/Strider-CD/strider-git.git",
     "connect": "~2.7.3",
     "express": "3.4.2",
     "swig": "~0.14.0",
@@ -49,7 +50,8 @@
     "gravatar": "~1.0.6",
     "connect-slashes": "0.0.11",
     "httpcheck": "0.0.1",
-    "connect-flash": "~0.1.1"
+    "connect-flash": "~0.1.1",
+    "cors": "~2.1.0"
   },
   "devDependencies": {
     "mocha": "~1.12.0",

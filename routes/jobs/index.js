@@ -78,15 +78,29 @@ function html(req, res) {
         plugins[plugin.id] = plugin.enabled && plugin.showStatus
       })
     })
-    res.render('build.html', {
-      project: sanitized,
-      accessLevel: req.accessLevel,
-      jobs: jobs,
-      job: job,
-      statusBlocks: common.statusBlocks,
-      showStatus: showStatus,
-      page_base: req.params.org + '/' + req.params.repo
+
+    res.format({
+      html: function() {
+        res.render('build.html', {
+          project: sanitized,
+          accessLevel: req.accessLevel,
+          jobs: jobs,
+          job: job,
+          statusBlocks: common.statusBlocks,
+          showStatus: showStatus,
+          page_base: req.params.org + '/' + req.params.repo
+        })
+      },
+      json: function() {
+        res.send({
+          project: sanitized,
+          accessLevel: req.accessLevel,
+          jobs: jobs,
+          job: job
+        })
+      }
     })
+
   })
 }
 
