@@ -47,6 +47,42 @@ describe('utils', function () {
       })
     })
   })
-        
+
+  describe('.mergePlugins', function () {
+    it('should work for nulls', function () {
+      expect(utils.mergePlugins(null, null)).to.equal(null)
+      expect(utils.mergePlugins([], null)).to.eql([])
+      expect(utils.mergePlugins(null, [])).to.eql([])
+    })
+
+    it('should collect plugins', function () {
+      expect(utils.mergePlugins([
+        {id: 'one', config: {one: 1}},
+        {id: 'two', config: {two: 2}}
+      ], [
+        {id: 'three', config: {three: 3}},
+        {id: 'four', config: {four: 4}}
+      ])).to.eql([
+        {id: 'three', config: {three: 3}},
+        {id: 'four', config: {four: 4}},
+        {id: 'one', config: {one: 1}},
+        {id: 'two', config: {two: 2}}
+      ])
+    })
+
+    it('should collect and overwrite', function () {
+      expect(utils.mergePlugins([
+        {id: 'three', config: {one: 1, three: 4}},
+        {id: 'two', config: {two: 2}}
+      ], [
+        {id: 'three', config: {three: 3}},
+        {id: 'four', config: {four: 4}}
+      ])).to.eql([
+        {id: 'three', config: {three: 3}},
+        {id: 'four', config: {four: 4}},
+        {id: 'two', config: {two: 2}}
+      ])
+    })
+  })
 });
 
