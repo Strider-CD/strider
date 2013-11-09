@@ -66,18 +66,20 @@
   </div>
 </td>
 <td class="commit-url" ng-switch="!!job.trigger.url">
+  <span ng-switch-when="true">
   {% if page !== "history" %}
-  <a href="[[ job.trigger.url ]]" ng-switch-when="true" target="_blank">
+  <a href="[[ job.trigger.url ]]" target="_blank">
   {% endif %}
     <span class="small-text">
       <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
       [[ job.trigger.message ]]
     </span>
   {% if page === "history" %}
-  <a href="[[ job.trigger.url ]]" ng-switch-when="true" target="_blank">
+  <a href="[[ job.trigger.url ]]" target="_blank">
     <i class="icon-external-link"></i>
   {% endif %}
   </a>
+  </span>
   <span class="small-text" ng-switch-default>
     <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
     [[ job.trigger.message ]]
@@ -96,6 +98,9 @@
   <time ng-switch-default class="duration" duration="[[ job.duration ]]" ng-hide="job.nojobs"></time>
 </td>
 <td class="finished-at" ng-switch="job.status === 'running'">
+  {% if page !== 'history' %}
+  <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job" class="icon-remove-sign cancel-job" ng-click="cancelJob(job._id)"></i>
+  {% endif %}
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago"></time>
   </span>

@@ -356,6 +356,9 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
       status: 'submitted'
     };
   };
+  $scope.cancelJob = function (id) {
+    socket.emit('cancel', id)
+  };
 
 }]);
 

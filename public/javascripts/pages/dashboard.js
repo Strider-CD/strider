@@ -81,5 +81,8 @@ angular.module('dashboard', ['moment'], function ($interpolateProvider) {
     $('.tooltip').hide();
     socket.emit('test', job.project.name)
   };
+  $scope.cancelJob = function (id) {
+    socket.emit('cancel', id)
+  };
 }]);
 

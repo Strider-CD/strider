@@ -14,6 +14,16 @@
     max-width: 210px;
   }
 }
+.finished-at .cancel-job {
+  color: red;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 18px;
+  float: right;
+}
+.finished-at .cancel-job:hover {
+  color: black;
+}
 input {
   box-sizing: content-box;
 }
@@ -116,41 +126,6 @@ body {
 #build-page .commit-url {
   width: auto;
 }
-#dashboard a,
-#dashboard .clickable {
-  cursor: pointer;
-}
-#dashboard a:hover,
-#dashboard .clickable:hover {
-  text-decoration: none;
-  color: #999;
-}
-#dashboard .btn:hover {
-  color: white;
-}
-#build-page a,
-#build-page .clickable {
-  color: black;
-  cursor: pointer;
-}
-#build-page a:hover,
-#build-page .clickable:hover {
-  text-decoration: none;
-  color: #999;
-}
-#dashboard a.add-repo {
-  color: #fff;
-}
-#dashboard .history {
-  width: 70px;
-}
-#dashboard .last-builds tr td {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  overflow: hidden;
-  border-top: none;
-}
 .last-builds {
   border-collapse: separate;
   border-spacing: 2px;
@@ -167,9 +142,6 @@ body {
 }
 .progress {
   margin-bottom: 0;
-}
-#dashboard table tr .progress-meter {
-  margin-top: 10px;
 }
 .dashboard-row,
 #dashboard table tr {
@@ -214,7 +186,6 @@ body {
 .dashboard-row .small-text,
 #dashboard table tr .small-text {
   display: inline-block;
-  padding-top: 5px;
 }
 .dashboard-row .action-buttons,
 #dashboard table tr .action-buttons {

@@ -18,6 +18,18 @@
   }
 }
 
+.finished-at .cancel-job {
+  color: red;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 18px;
+  float: right;
+  
+  &:hover {
+    color: black;
+  }
+}
+
 input {
   box-sizing: content-box;
 }
@@ -133,48 +145,6 @@ body{
   }
 }
 
-#dashboard {
-  a, .clickable {
-    cursor: pointer;
-    &:hover {
-      text-decoration: none;
-      color: #999;
-    }
-  }
-  .btn:hover {
-    color: white;
-  }
-}
-
-#build-page {
-  a, .clickable {
-    color: black;
-    cursor: pointer;
-    &:hover {
-      text-decoration: none;
-      color: #999;
-    }
-  }
-}
-
-#dashboard {
-  a.add-repo {
-    color: #fff;
-  }
-  .history {
-    width:70px;
-  }
-  .last-builds {
-    tr td {
-      width:10px;
-      height:10px;
-      padding:0;
-      overflow:hidden;
-      border-top:none;    
-    }
-  }
-
-}
 
 .last-builds {
   border-collapse: separate;
@@ -187,12 +157,6 @@ body{
 
 .progress {
   margin-bottom: 0;
-}
-
-#dashboard table tr {
-  .progress-meter {
-    margin-top: 10px;
-  }
 }
 
 .dashboard-row,
@@ -234,7 +198,6 @@ body{
   }
   .small-text {
     display: inline-block;
-    padding-top: 5px;
   }
   .action-buttons {
     width: 100px;
