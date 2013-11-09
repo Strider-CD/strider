@@ -66,11 +66,17 @@
   </div>
 </td>
 <td class="commit-url" ng-switch="!!job.trigger.url">
+  {% if page !== "history" %}
   <a href="[[ job.trigger.url ]]" ng-switch-when="true" target="_blank">
+  {% endif %}
     <span class="small-text">
       <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
       [[ job.trigger.message ]]
     </span>
+  {% if page === "history" %}
+  <a href="[[ job.trigger.url ]]" ng-switch-when="true" target="_blank">
+    <i class="icon-external-link"></i>
+  {% endif %}
   </a>
   <span class="small-text" ng-switch-default>
     <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
