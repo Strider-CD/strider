@@ -41,13 +41,13 @@ require('./strider')(function(){
     browser.init(conn)
     setTimeout(function(){
       browser.on('status', function(info) {
-        console.log(info.cyan);
+        console.log(info);
       });
       browser.on('command', function(meth, path, data) {
-        if (meth && path && data) console.log(' command > ' + meth.yellow, path.grey, data || '');
+        if (meth && path && data) console.log(' command > ' + meth, path, data || '');
       });
       browser.on('error', function(info) {
-        console.log(red);
+        console.log(info);
       });
       browser.get("http://localhost:4000/")
 
@@ -63,8 +63,12 @@ require('./strider')(function(){
       }, 2000)
     }
   , function doneTests(err){
-      console.log("DONE TESTS", err)
-      process.exit(err ? 1 : 0)
+      if (err) {
+        console.log("Webdriver tests failure")
+        process.exit(1)
+      }
+      console.log("Webdriver tests success!")
+      process.exit(0)
     }
   )
 })
