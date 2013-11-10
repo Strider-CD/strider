@@ -22,11 +22,15 @@ function jobSort(a, b) {
   return b.finished.getTime() - a.finished.getTime()
 }
 
-function BuildPage(socket, project, change, scope) {
+function BuildPage(socket, project, change, scope, jobs, job) {
   JobDataMonitor.call(this, socket, change);
   this.scope = scope;
   this.project = project;
   this.jobs = {};
+  for (var i=0; i<jobs.length; i++) {
+    this.jobs[jobs[i]._id] = jobs[i]
+  }
+  this.jobs[job._id] = job
 }
 
 _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
@@ -78,7 +82,7 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
       }
     }
     this.scope.jobs.unshift(job);
-    this.scope.jobs.sort(jobSort);
+    // this.scope.jobs.sort(jobSort);
     this.scope.job = job;
   },
   get: function (id, done) {
@@ -206,7 +210,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
     , jobid = params.id || (window.job && window.job._id)
     , socket = window.socket || (window.socket || io.connect())
     , lastRoute = $route.current
-    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope)
+    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, window.jobs, window.job)
 
   outputConsole = document.querySelector('.console-output');
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
