@@ -33,6 +33,7 @@ wd.webdriver.prototype.fillInForm = function(vals, cb){
 }
 
 var fails = 0;
+var START_TIMEOUT = 10000;
 
 
 require('./strider')(function(){
@@ -60,7 +61,7 @@ require('./strider')(function(){
           doneBrowser(err)
         }
         )
-      }, 2000)
+      }, START_TIMEOUT);
     }
   , function doneTests(err){
       if (err) {
