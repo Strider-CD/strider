@@ -13,7 +13,7 @@ module.exports = function(done){
     process.env.PORT = 4000
     var child = require('child_process').spawn("bin/strider", ["--config", 'test/test-config.json'], { 
       env : process.env,
-      stdio: process.env.DEBUG_TEST_STRIDER ? 'inherit' : undefined,
+      stdio: process.env.TEST_STRIDER ? 'inherit' : undefined,
       detached: false,
     })
 
@@ -41,6 +41,7 @@ module.exports = function(done){
         console.error("App has not started up");
         process.exit(1);
       }
+      console.log("Strider has passed health check")
       done();
     })
   })

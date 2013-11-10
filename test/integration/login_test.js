@@ -23,7 +23,7 @@ module.exports = function(browser, done){
      assert.isNull(err)
      assert.include(url, "/login#fail")
     })
-    
+
     // Forgot password flow
     .rel("/")
     .elementById("forgot-password-link")
@@ -109,7 +109,7 @@ module.exports = function(browser, done){
     .fin(function(){
       console.log("!FIN", arguments)
       done(null, fails)
-    })
+    }).done()
 
 }
 
