@@ -1,12 +1,10 @@
 var async = require('async')
   , wd = require('wd')
-  , remote = JSON.parse(process.env.WEBDRIVER_REMOTE || '{}')
-  , browsers = JSON.parse(process.env.BROWSERS || '[]' )
+, remote = JSON.parse(process.env.WEBDRIVER_REMOTE || '{"hostname":"localhost", "port":9515}')
+  , browsers = JSON.parse(process.env.BROWSERS || '[{"browserName":"chrome"}]' )
 
   // TESTS
 var tests = ["./integration/login_test"]
-
-
 
 // Monkey patch wd for test stuff
 
@@ -42,17 +40,15 @@ require('./strider')(function(){
     var browser = wd.promiseChainRemote(remote)
     browser.init(conn)
     setTimeout(function(){
-      /*
       browser.on('status', function(info) {
-          console.log(info.cyan);
+        console.log(info.cyan);
       });
       browser.on('command', function(meth, path, data) {
-          console.log(' > ' + meth.yellow, path.grey, data || '');
+        if (meth && path && data) console.log(' command > ' + meth.yellow, path.grey, data || '');
       });
       browser.on('error', function(info) {
-          console.log(red);
+        console.log(red);
       });
-      */
       browser.get("http://localhost:4000/")
 
       async.map(tests, function(suite, cb){
