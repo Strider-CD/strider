@@ -70,7 +70,8 @@ function html(req, res) {
     jobs.sort(ljobs.sort)
 
     Job.find({project: projectName, archived: null, finished: null}).sort({started: -1}).lean().exec(function (err, running) {
-      for (var i=0; i<running.length; i++) {
+      var i
+      for (i=0; i<running.length; i++) {
         console.log('before', running[i])
         _.extend(running[i], findJob(running[i]))
         delete running[i].data
@@ -79,7 +80,7 @@ function html(req, res) {
       }
       jobs = running.concat(jobs)
       var job = id ? null : jobs[0]
-      for (var i=0; i<jobs.length; i++) {
+      for (i=0; i<jobs.length; i++) {
         if (!job && jobs[i]._id === id) job = jobs[i]
         jobs[i] = ljobs.small(jobs[i])
         jobs[i] = filterJob(jobs[i])
