@@ -55,50 +55,69 @@ function filterJob(job) {
   return job
 }
 
+function findJob(job) {
+  var runner = common.extensions.runner[job.runner.id]
+  if (runner) return runner.getJobData(job._id) || {}
+  console.error('Runner not found', job.runner.id)
+}
+
+
 function html(req, res) {
   var id = req.params.id
   var projectName = req.project.name
   Job.find({project: projectName, archived: null}).sort({finished:-1}).limit(20).lean().exec(function (err, jobs) {
     // Use our custom sort function
     jobs.sort(ljobs.sort)
-    var job = id ? null : jobs[0]
-    for (var i=0; i<jobs.length; i++) {
-      if (!job && jobs[i]._id === id) job = jobs[i]
-      jobs[i] = ljobs.small(jobs[i])
-      jobs[i] = filterJob(jobs[i])
-    }
-    if (job) job.status = ljobs.status(job)
 
-    var showStatus = {}
-      , sanitized = utils.sanitizeProject(req.project)
-    sanitized.access_level = req.accessLevel
-    req.project.branches.forEach(function (branch) {
-      var plugins = showStatus[branch.name] = {}
-      branch.plugins.forEach(function (plugin) {
-        plugins[plugin.id] = plugin.enabled && plugin.showStatus
-      })
-    })
-
-    res.format({
-      html: function() {
-        res.render('build.html', {
-          project: sanitized,
-          accessLevel: req.accessLevel,
-          jobs: jobs,
-          job: job,
-          statusBlocks: common.statusBlocks,
-          showStatus: showStatus,
-          page_base: req.params.org + '/' + req.params.repo
-        })
-      },
-      json: function() {
-        res.send({
-          project: sanitized,
-          accessLevel: req.accessLevel,
-          jobs: jobs,
-          job: job
-        })
+    Job.find({project: projectName, archived: null, finished: null}).sort({started: -1}).lean().exec(function (err, running) {
+      var i
+      for (i=0; i<running.length; i++) {
+        console.log('before', running[i])
+        _.extend(running[i], findJob(running[i]))
+        delete running[i].data
+        delete running[i].id
+        console.log('here we go', running[i])
       }
+      jobs = running.concat(jobs)
+      var job = id ? null : jobs[0]
+      for (i=0; i<jobs.length; i++) {
+        if (!job && jobs[i]._id === id) job = jobs[i]
+        jobs[i] = ljobs.small(jobs[i])
+        jobs[i] = filterJob(jobs[i])
+      }
+      if (job) job.status = ljobs.status(job)
+
+      var showStatus = {}
+      , sanitized = utils.sanitizeProject(req.project)
+      sanitized.access_level = req.accessLevel
+      req.project.branches.forEach(function (branch) {
+        var plugins = showStatus[branch.name] = {}
+        branch.plugins.forEach(function (plugin) {
+          plugins[plugin.id] = plugin.enabled && plugin.showStatus
+        })
+      })
+
+      res.format({
+        html: function() {
+          res.render('build.html', {
+            project: sanitized,
+            accessLevel: req.accessLevel,
+            jobs: jobs,
+            job: job,
+            statusBlocks: common.statusBlocks,
+            showStatus: showStatus,
+            page_base: req.params.org + '/' + req.params.repo
+          })
+        },
+        json: function() {
+          res.send({
+            project: sanitized,
+            accessLevel: req.accessLevel,
+            jobs: jobs,
+            job: job
+          })
+        }
+      })
     })
 
   })
@@ -114,6 +133,9 @@ function getJob(req, res, next) {
   query.exec(function (err, job) {
     if (err || !job) return res.send(404, 'Failed to find job')
     job = filterJob(job)
+    if (!job.finished) {
+      _.extend(job, findJob(job))
+    }
     next(job)
   })
 }
