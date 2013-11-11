@@ -149,7 +149,7 @@ function output(req, res) {
 
 function data(req, res) {
   getJob(req, res, function (job) {
-    req.setHeader('Content-type', 'application/json')
+    res.setHeader('Content-type', 'application/json')
     res.send(job)
   })
 }
