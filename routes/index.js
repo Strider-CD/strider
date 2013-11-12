@@ -493,14 +493,29 @@ function renderProjects(refresh, req, res) {
         if (!num) console.error("Didn't effect any users")
         console.log('Saved repo cache')
         // user is already be available via the "currentUser" template variable
-        return res.render('projects.html', {
-          unconfigured: unconfigured,
-          providers: providers,
-          manual: manual,
-          manualProjects: manualProjects,
-          repos: repomap,
-          flash: req.flash(),
-          project_types: availableProjectTypes()
+
+        return res.format({
+          html: function() {
+            res.render('projects.html', {
+              unconfigured: unconfigured,
+              providers: providers,
+              manual: manual,
+              manualProjects: manualProjects,
+              repos: repomap,
+              flash: req.flash(),
+              project_types: availableProjectTypes()
+            });
+          },
+          json: function() {
+            res.send({
+              unconfigured: unconfigured,
+              providers: providers,
+              manual: manual,
+              manualProjects: manualProjects,
+              repos: repomap,
+              project_types: availableProjectTypes()
+            });
+          }
         });
       })
     })
