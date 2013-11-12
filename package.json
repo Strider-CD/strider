@@ -54,18 +54,15 @@
     "cors": "~2.1.0"
   },
   "devDependencies": {
-    "mocha": "~1.12.0",
-    "mock-request": ">=0.1.2",
+    "mocha": "~1.14.0",
     "wd": "~0.2.0",
-    "sandboxed-module": ">=0.1.2",
-    "should": "~1.2.2",
-    "sinon": "~1.7.0",
     "commander": ">=0.5.2",
-    "chai": "~1.7.2",
-    "jshint": "~2.1.4",
-    "less": "~1.4.2",
+    "chai": "~1.8.1",
+    "jshint": "~2.3.0",
+    "less": "~1.5.0",
     "expect.js": "~0.2.0",
-    "blanket": "~1.1.5"
+    "blanket": "~1.1.5",
+    "should": "~2.1.0"
   },
   "scripts": {
     "test": "make test",
