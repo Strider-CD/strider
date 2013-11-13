@@ -48,9 +48,9 @@ module.exports = function(browser, done){
      })
      .elementById("navbar-signin-form")
      .submit()
-     .visibleByClassName('logged-in', function  (err, visible) {
+     .elementByClassName('logged-in', function  (err, el) {
        assert.isNull(err)
-       assert.isTrue(visible)
+       assert.ok(ok)
      })
    
      // Now we're logged in 
