@@ -56,9 +56,13 @@ function filterJob(job) {
 }
 
 function findJob(job) {
+  // job.runner can be undefined if it hasn't been fully prepared yet.
+  // this is a sort of race between job.prepare and job.new events.
+  // fixes https://github.com/Strider-CD/strider/issues/273
+  if (!job.runner) return
+
   var runner = common.extensions.runner[job.runner.id]
   if (runner) return runner.getJobData(job._id) || {}
-  console.error('Runner not found', job.runner.id)
 }
 
 
