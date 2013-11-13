@@ -26,5 +26,5 @@ exports.create = function createSession(req, res, next) {
  * Get current session, containing user id
  */
 exports.get = function getSession(req, res, next) {
-  res.send({user: req.session.passport.user});
+  res.send({user: req.user});
 };
