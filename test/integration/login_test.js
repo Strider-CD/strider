@@ -5,16 +5,16 @@ module.exports = function(browser, done){
   var b = browser
 
   b.rel('/')
-    .visibleByCss("a.brand")
+    .waitForVisibleByCssSelector("a.brand")
     // Login visible
-    .visibleByCss("#navbar-signin-form")
+    .waitForVisibleByCssSelector("#navbar-signin-form")
 
     // Bad creds fail
     .rel('/')
-    .fillInForm({
-     email: 'test1@example.com',
-     password: 'BAD CREDS' 
-    })
+    .elementByName('email')
+    .type('test1@example.com')
+    .elementByName('password')
+    .type('BAD CREDS')
     .elementById("navbar-signin-form", function(err, form){
       assert.isNull(err)
     })
@@ -32,9 +32,9 @@ module.exports = function(browser, done){
       assert.isNull(err)
       assert.include(url, '/auth/forgot')
     })
-    .fillInForm({
-      "forgot-email" : "test1@example.com"
-    }).elementById("send-forgot")
+    .elementByName('forgot-email')
+    .type('test1@example.com')
+    .elementById("send-forgot")
     .click()
     .elementByClassName('forgot-sent', function(err, el){
       assert.isNull(err, "Error on forgot-password-sent page")
@@ -42,10 +42,10 @@ module.exports = function(browser, done){
     
     // Submitting login form works
      .rel('/')
-     .fillInForm({
-       email: 'test1@example.com',
-       password: 'open-sesame'
-     })
+     .elementByName('email')
+     .type('test1@example.com')
+     .elementByName('password')
+     .type('open-sesame')
      .elementById("navbar-signin-form")
      .submit()
      .elementByClassName('logged-in', function  (err, el) {
@@ -68,11 +68,10 @@ module.exports = function(browser, done){
     .waitForVisibleByClassName('octicon-logo-github', 6000, function(err){
       assert.isNull(err, "github didn't load")
     })
-    .fillInForm({
-       // Github test account creds 
-       login: "strider-test-robot"
-     , password: "i0CheCtzY0yv4WP2o"
-     })
+    .elementByName('login')
+    .type('strider-test-robot')
+    .elementByName('password')
+    .type("i0CheCtzY0yv4WP2o")
     .elementByName('commit')
     .click()
     .waitForVisibleByClassName('StriderBlock_Brand', 6000, function(err){

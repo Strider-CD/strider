@@ -6,30 +6,8 @@ var async = require('async')
   // TESTS
 var tests = ["./integration/login_test"]
 
-// Monkey patch wd for test stuff
-
-wd.webdriver.prototype.visibleByCss = wd.webdriver.prototype.waitForVisibleByCssSelector
-wd.webdriver.prototype.visibleByClassName = wd.webdriver.prototype.waitForVisibleByClassName
-
 wd.webdriver.prototype.rel = function(url, cb){
   return this.get("http://localhost:4000" + url, cb)
-}
-
-wd.webdriver.prototype.fillInForm = function(vals, cb){
-  var steps = []
-    , b = this
-
-  Object.keys(vals).forEach(function(k){
-    var v = vals[k]
-
-    steps.push(function(stepCb){
-      b.elementByName(k, function(err, el){
-        el.type(v, stepCb)
-      })
-    })
-  })
-
-  async.series(steps, cb)
 }
 
 var fails = 0;
