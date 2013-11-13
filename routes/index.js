@@ -95,12 +95,24 @@ exports.account = function(req, res){
       hosted[id] = providers[id]
     }
   }
-  res.render('account.html', {
-    user: utils.sanitizeUser(req.user.toJSON()),
-    providers: hosted,
-    userConfigs: common.userConfigs,
-    flash: req.flash('account')
-  });
+
+  res.format({
+    html: function() {
+      res.render('account.html', {
+        user: utils.sanitizeUser(req.user.toJSON()),
+        providers: hosted,
+        userConfigs: common.userConfigs,
+        flash: req.flash('account')
+      });
+    },
+    json: function() {
+      res.send({
+        user: utils.sanitizeUser(req.user.toJSON()),
+        providers: hosted,
+        userConfigs: common.userConfigs
+      });
+    }
+  })
 };
 
 exports.setConfig = function (req, res) {
