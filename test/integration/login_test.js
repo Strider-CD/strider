@@ -107,7 +107,9 @@ module.exports = function(browser, done){
     })
     .fin(function(){
       console.log("!FIN", arguments)
-      done(null, fails)
+      b.quit(function () {
+        done(null, fails)
+      })
     }).done()
 
 }
