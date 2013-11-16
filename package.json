@@ -28,7 +28,7 @@
     "strider-python": "~0.2.0",
     "strider-custom": "~0.5.0",
     "strider-sauce": "~0.6.0",
-    "strider-node": "git+https://github.com/Strider-CD/strider-node.git",
+    "strider-node": "~0.3.0",
     "strider-webhooks": "~0.1.0",
     "strider-heroku": "~0.1.0",
     "strider-bitbucket": "~0.1.0",
