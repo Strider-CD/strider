@@ -67,6 +67,7 @@ function findJob(job) {
 
 
 function html(req, res) {
+  console.log("!!!!! CWD: ", process.cwd())
   var id = req.params.id
   var projectName = req.project.name
   Job.find({project: projectName, archived: null}).sort({finished:-1}).limit(20).lean().exec(function (err, jobs) {
@@ -76,11 +77,9 @@ function html(req, res) {
     Job.find({project: projectName, archived: null, finished: null}).sort({started: -1}).lean().exec(function (err, running) {
       var i
       for (i=0; i<running.length; i++) {
-        console.log('before', running[i])
         _.extend(running[i], findJob(running[i]))
         delete running[i].data
         delete running[i].id
-        console.log('here we go', running[i])
       }
       jobs = running.concat(jobs)
       var job = id ? null : jobs[0]
