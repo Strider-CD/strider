@@ -67,7 +67,6 @@ function findJob(job) {
 
 
 function html(req, res) {
-  console.log("!!!!! CWD: ", process.cwd())
   var id = req.params.id
   var projectName = req.project.name
   Job.find({project: projectName, archived: null}).sort({finished:-1}).limit(20).lean().exec(function (err, jobs) {
