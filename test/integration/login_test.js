@@ -89,7 +89,7 @@ module.exports = function(browser, done){
     .click()
     .waitForElementByLinkText('Click to watch it run', 3000)
     // wait for the data to be populated
-    .sleep(5000)
+    .sleep(15000)
     .click()
     .url(function(err, url){
       assert.isNull(err)
