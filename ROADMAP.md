@@ -1,11 +1,11 @@
+
+
 # Upcoming Releases
 
-## 1.4 - [track progress](https://github.com/Strider-CD/strider/issues/197), [milestone](https://github.com/Strider-CD/strider/issues?milestone=3)
 
-_due in the next few weeks_
+## 1.4.1 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=9&state=open)
 
-- Major refactor, almost everything has changed!
-
+Bugfix release for 1.4. No major new features.
 
 ## 1.5
 
@@ -16,6 +16,23 @@ _due in the next few weeks_
 - Auth plugins
 
 # Changelog / Past releases
+
+## 1.4 - [track progress](https://github.com/Strider-CD/strider/issues/197), [milestone](https://github.com/Strider-CD/strider/issues?milestone=3)
+
+Released Nov 16th 2013
+
+Major refactor, almost everything has changed:
+
+- Pluggable VCS providers enable:
+  + Git
+  + Github Enterprise
+  + BitBucket
+  + Generic Git
+  + 3rd party projects working on Gitlab
+
+- Per-branch repos and config. E.g. "release" branch can have different config from "master" branch.
+- Testing of Pull Requests.
+- Per-projet plugin configuration. Plugins can be ordered and configured entirely through the web UI.
 
 ## 1.3 [milestone](https://github.com/Strider-CD/strider/issues?milestone=2)
 - This seems like ages ago...
