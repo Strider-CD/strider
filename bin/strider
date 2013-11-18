@@ -18,6 +18,7 @@ function addUser(email, password, admin) {
     var createUser = function(email, password, level) {
       var u = new User();
       u.email = email;
+      u.created = new Date();
       u.set('password', password);
       u.account_level = level;
       u.save(function(err) {
