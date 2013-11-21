@@ -61,33 +61,6 @@ exports.index = function(req, res){
 };
 
 
-/* TODO: This is currently disabled. Do we need a kickoff at all?
- *
- * GET /kickoff  - start configuration wizard for a job
-exports.kickoff = function(req, res, github) {
-  var gh = github || gh;
-  // Assert cached github metadata
-  if (req.user.github_metadata === undefined
-    || req.user.github_metadata[req.user.github.id] === undefined) {
-    res.statusCode = 400;
-    res.end("please call /api/github/metadata before this");
-  } else {
-    // Find the metadata for the repo we are kicking off on
-    var kickoff_repo_metadata = req.user.get_repo_metadata(req.params.githubId);
-    var trepo = whitelist_repo_metadata(kickoff_repo_metadata);
-    // Check whether someone else has already configured this repository
-    User.findOne({'github_config.url':trepo.url.toLowerCase()}, function(err, user) {
-      if (!user) {
-        res.render('kickoff.html', {repo: JSON.stringify(trepo)})
-      } else {
-        res.render('kickoff-conflict.html', {repo: JSON.stringify(trepo)});
-      }
-    });
-
-  }
-};
- */
-
 /*
  * GET /account - account settings page
  */
