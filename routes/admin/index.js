@@ -67,7 +67,7 @@ exports.make_admin = function(req,res) {
   if (!req.query.user) {
     return res.redirect('/admin/users')
   }
-  users.makeAdmin(res.query.user, function(err) {
+  users.makeAdmin(req.query.user, function(err) {
     if (err) {
       console.error(err)
       return res.send(500, 'Error making admin user')
