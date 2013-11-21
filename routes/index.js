@@ -32,6 +32,10 @@ var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
  */
 
 exports.index = function(req, res){
+  // Work-around for Safari/Express etags bug on cookie logout.
+  // Without it, Safari will cache the logged-in version despite logout!
+  // See https://github.com/Strider-CD/strider/issues/284
+  req.headers['if-none-match'] = 'no-match-for-this';
   if (req.session.return_to) {
     var return_to = req.session.return_to
     req.session.return_to=null
