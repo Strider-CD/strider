@@ -6,8 +6,6 @@ maintainer Niall O'Higgins <niallo@frozenridge.co>
 # do this as single-line run until https://github.com/dotcloud/docker/issues/1171 is fixed
 run  \
     useradd -m strider ;\
-    # divert upstart (required for mongo to work)
-    # from https://www.nesono.com/node/368
     dpkg-divert --local --rename --add /sbin/initctl ;\
     ln -s /bin/true /sbin/initctl ;\
     echo "deb http://archive.ubuntu.com/ubuntu quantal main universe" > /etc/apt/sources.list ;\
