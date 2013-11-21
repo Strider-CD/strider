@@ -7,6 +7,14 @@
 
 Bugfix release for 1.4. No major new features.
 
+Fixes include:
+
+- [#210](https://github.com/Strider-CD/strider/issues/210) collaborator acces level issue
+- [#278](https://github.com/Strider-CD/strider/issues/278) failed to load plugins when running as non-root user
+- [#280](https://github.com/Strider-CD/strider/issues/280) move plugin aggregation to dynamic route
+- [#274](https://github.com/Strider-CD/strider/issues/274) error when promoting user to admin
+- [#284](https://github.com/Strider-CD/strider/issues/284) safari displays logged-in cache of / despite logout
+
 ## 1.5
 
 - Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
