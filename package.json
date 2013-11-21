@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "stylus": "~0.37.0",
@@ -22,7 +22,7 @@
     "nomnom": "1.6.x",
     "everypaas": "0.0.x",
     "pw": "0.0.4",
-    "strider-extension-loader": "git+https://github.com/Strider-CD/strider-extension-loader.git",
+    "strider-extension-loader": "~0.4.1",
     "strider-simple-runner": "~0.11.0",
     "strider-env": "~0.4.0",
     "strider-python": "~0.2.0",
