@@ -1,6 +1,6 @@
 # DOCKER-VERSION 0.6.6
 
-from  "ubuntu"
+from  ubuntu
 maintainer Niall O'Higgins <niallo@frozenridge.co>
 
 # do this as single-line run until https://github.com/dotcloud/docker/issues/1171 is fixed
