@@ -61,11 +61,11 @@ function get(req, res) {
  *
  * @param email Email address to add. If the user is not registered with Strider, we will send them an invite. If
  * they are already registered, they will receive a notification of access.
- * @param access_level Access level to grant. 0 = read-only, 1 = admin (default: 0)
+ * @param access_level Access level to grant. 0 = read-only, 2 = admin (default: 0)
  */
 function post(req, res) {
   var project = req.params.org + '/' + req.params.repo
-    , accessLevel = req.param('access_level') || 1
+    , accessLevel = req.param('access') || 0
     , email = req.param('email')
   api.add(project, email, accessLevel, req.user, function (err, existed, already_invited) {
     if (err) return res.send(500, 'Failed to add collaborator: ' + err.message)
