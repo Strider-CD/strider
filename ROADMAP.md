@@ -3,6 +3,20 @@
 # Upcoming Releases
 
 
+## 1.4.2 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=10&state=open)
+
+Bugfix release for 1.4. No major new features.
+
+## 1.5
+
+- Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
+- Refactor models into an API rather than relying on mongo queries everywhere.
+- Easier theming (theme plugin type)
+- Make strider a class - no more global shared scope
+- Auth plugins
+
+# Changelog / Past releases
+
 ## 1.4.1 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=9&state=open)
 
 Bugfix release for 1.4. No major new features.
@@ -14,16 +28,6 @@ Fixes include:
 - [#280](https://github.com/Strider-CD/strider/issues/280) move plugin aggregation to dynamic route
 - [#274](https://github.com/Strider-CD/strider/issues/274) error when promoting user to admin
 - [#284](https://github.com/Strider-CD/strider/issues/284) safari displays logged-in cache of / despite logout
-
-## 1.5
-
-- Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
-- Refactor models into an API rather than relying on mongo queries everywhere.
-- Easier theming (theme plugin type)
-- Make strider a class - no more global shared scope
-- Auth plugins
-
-# Changelog / Past releases
 
 ## 1.4 - [track progress](https://github.com/Strider-CD/strider/issues/197), [milestone](https://github.com/Strider-CD/strider/issues?milestone=3)
 
