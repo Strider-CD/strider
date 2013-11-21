@@ -8,6 +8,8 @@ var app = require('./lib/app')
   , pluginTemplates = require('./lib/pluginTemplates')
   , utils = require('./lib/utils')
 
+  , api_config = require('./routes/api/config')
+
   , Job = models.Job
   , Config = models.Config
 
@@ -179,31 +181,7 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
         })
       },
       function (next) {
-        loader.initConfig(
-          path.join(__dirname, 'public/javascripts/pages/plugin-config-compiled.js'),
-          path.join(__dirname, 'public/stylesheets/css/plugin-config-compiled.css'),
-          function (err, configs) {
-            if (err) return next(err)
-            console.log('loaded config pages')
-            common.pluginConfigs = configs
-            loader.initUserConfig(
-              path.join(__dirname, 'public/javascripts/pages/account-plugins-compiled.js'),
-              path.join(__dirname, 'public/stylesheets/css/account-plugins-compiled.css'),
-              function (err, configs) {
-                if (err) return next(err)
-                console.log('loaded account config pages')
-                common.userConfigs = configs
-                loader.initStatusBlocks(
-                  path.join(__dirname, 'public/javascripts/pages/plugin-status-compiled.js'),
-                  path.join(__dirname, 'public/stylesheets/css/plugin-status-compiled.css'),
-                  function (err, blocks) {
-                    if (err) return next(err)
-                    console.log('loaded plugin status blocks')
-                    common.statusBlocks = blocks
-                    next()
-                  })
-              })
-          })
+        api_config.cacheConfig(loader, next)
       }
     ], function (err) {
       if (err) {
