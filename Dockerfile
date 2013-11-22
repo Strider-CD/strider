@@ -12,7 +12,6 @@ run  \
     echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/10gen.list ;\
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 ;\
     apt-get update ;\
-    apt-get upgrade -y ;\
     apt-get install -y curl wget supervisor openssh-server make build-essential libssl-dev python python-dev git default-jre-headless mongodb-10gen ;\
     locale-gen en_US en_US.UTF-8 ;\
     mkdir -p /var/run/sshd ;\
