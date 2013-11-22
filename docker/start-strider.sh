@@ -2,7 +2,7 @@
 
 env
 MONGODB_URI=mongodb://localhost/strider-foss
-if [ "$MONGO_PORT" != ""]; then
+if [ -z "$MONGO_PORT" ]; then
   MONGODB_URI="mongodb://${MONGO_PORT#tcp://}/strider-foss"
 fi
 DB_URI=$MONGODB_URI
