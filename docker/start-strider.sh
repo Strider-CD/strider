@@ -7,4 +7,4 @@ if [ -n "$MONGO_PORT" ]; then
 fi
 DB_URI=$MONGODB_URI
 echo "DB_URI: $MONGODB_URI"
-DB_URI=$DB_URI node bin/strider
+DB_URI=$DB_URI NODE_ENV=production node bin/strider
