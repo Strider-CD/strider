@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 env
 MONGODB_URI=mongodb://localhost/strider-foss
