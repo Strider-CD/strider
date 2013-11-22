@@ -1,7 +1,9 @@
 #!/bin/bash
 
 env
-MONGODB_URI=mongodb://localhost/strider-foss
+if [ -z "$MONGODB_URI" ]; then
+  MONGODB_URI=mongodb://localhost/strider-foss
+fi
 if [ -n "$MONGO_PORT" ]; then
   MONGODB_URI="mongodb://${MONGO_PORT#tcp://}/strider-foss"
 fi
