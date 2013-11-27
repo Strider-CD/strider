@@ -9,8 +9,7 @@ module.exports = function(browser, done){
     .comment('Login Visible')
     .waitForVisibleByCssSelector("#navbar-signin-form")
 
-    // Bad creds fail
-    .section('Bad creds fail')
+    .comment('Bad creds fail')
       .rel('/')
       .elementByName('email')
       .type('test1@example.com')
@@ -21,12 +20,11 @@ module.exports = function(browser, done){
       })
       .submit()
       .url(function(err, url){
-      assert.isNull(err)
-      assert.include(url, "/login#fail")
+        assert.isNull(err)
+        assert.include(url, "/login#fail")
       })
-    .sectionDone()
 
-    .section('Forgot password flow')
+    .comment('Forgot password flow')
       .rel("/")
       .elementById("forgot-password-link")
       .click()
@@ -41,9 +39,8 @@ module.exports = function(browser, done){
       .elementByClassName('forgot-sent', function(err, el){
         assert.isNull(err, "Error on forgot-password-sent page")
       })
-    .sectionDone()
     
-    .section('Submitting login form works')
+    .comment('Submitting login form works')
       .rel('/')
       .elementByName('email')
       .type('test1@example.com')
@@ -55,7 +52,6 @@ module.exports = function(browser, done){
         assert.isNull(err)
         assert.ok(ok)
       })
-    .sectionDone()
    
      // Now we're logged in 
       .url(function(err, url){
@@ -66,7 +62,7 @@ module.exports = function(browser, done){
         assert.ok(el)
       })
    
-    .section('Link to github')
+    .comment('Link to github')
       .elementByClassName('provider-github')
       .click()
       .waitForVisibleByClassName('octicon-logo-github', 6000, function(err){
@@ -81,17 +77,15 @@ module.exports = function(browser, done){
       .waitForVisibleByClassName('StriderBlock_Brand', 6000, function(err){
         assert.isNull(err, "Timed out waiting for github auth")
       })
-    .sectionDone()
 
-    .section('Add project from github')
+    .comment('Add project from github')
       .rel('/projects')
       .elementByClassName('add-repo')
       .click()
       .elementByCssSelector('.project-type.btn')
       .click()
-    .sectionDone()
 
-    .section('start a test')
+    .comment('start a test')
       .waitForElementByCssSelector('.btn-success', 5000)
       .click()
       .waitForElementByLinkText('Click to watch it run', 3000)
@@ -100,16 +94,13 @@ module.exports = function(browser, done){
         assert.isNull(err)
         assert.include(url, "strider-test-robot/strider-extension-loader")
       })
-    .sectionDone()
 
-    .section('Go to test page')
+    .comment('Go to test page')
       .rel('/strider-test-robot/strider-extension-loader/')
       .elementByClassName('test-only-action')
       .click()
-    .sectionDone()
 
     .fail(function(err){
-      console.log(b.currentTest())
       console.log("ERROR:", err.message)
       console.error(err.stack)
       fails ++

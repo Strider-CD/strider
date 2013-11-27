@@ -71,7 +71,7 @@
             <table id="job-list" class="table">
               {% include "partials/dashboard-header.html" %}
               <tbody>
-                <tr ng-repeat="job in jobs.yours">
+                <tr ng-repeat="job in jobs.yours" data-test="latest-build">
                   {% include "partials/_dashboard_row.html" %}
                 </tr>
               </tbody>

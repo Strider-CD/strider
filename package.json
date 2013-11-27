@@ -62,7 +62,8 @@
     "less": "~1.5.0",
     "expect.js": "~0.2.0",
     "blanket": "~1.1.5",
-    "should": "~2.1.0"
+    "should": "~2.1.0",
+    "chai-as-promised": "~4.1.0"
   },
   "scripts": {
     "test": "make test",

@@ -29,7 +29,7 @@ var importUsers = function(cb){
       user.email = u.email
       user.set('password', u.password)
       if (u === TEST_USERS[0]) {
-        return done()
+        return user.save(done)
       }
       models.Project.find({}, function (err, projects) {
         if (err) return done(err)

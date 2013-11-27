@@ -1,6 +1,5 @@
 var httpcheck = require('httpcheck')
 
-
 /*
  *  Setup fixtures, run Strider.
  *
@@ -26,6 +25,9 @@ module.exports = function(done){
     })
 
     child.on('exit', function(code) {
+      if (code !== 0) {
+        console.error('Child exited non-zero: you should probably run the tests again with TEST_STRIDER=true to see what happened')
+      }
       process.exit(code)
     })
 
@@ -35,7 +37,7 @@ module.exports = function(done){
       check: function(res) {
         return res && res.statusCode === 200;
       },
-      log: function(){}
+      log: function () {}
     }, function(err) {
       if (err) {
         console.error("App has not started up");

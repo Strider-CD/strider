@@ -21,7 +21,7 @@
                 'submitted': 'icon-time waiting-text',
                 'errored': 'icon-minus-sign error-text'}[job.status] ]]"></i>
   <span ng-show="job.nojobs">No job history</span>
-  <span>[[ job._id.substr(0,8) ]]</span>
+  <span data-test="job-id">[[ job._id.substr(0,8) ]]</span>
   {% if page !== 'build' %}</a>{% endif %}
 </td>
 {% if page !== 'history' %}
