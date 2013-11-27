@@ -20,6 +20,7 @@ module.exports = function(done){
       child.kill('SIGKILL')
       process.exit(0)
     })
+
     process.on('exit', function(){
       child.kill('SIGKILL')
     })
