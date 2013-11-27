@@ -5,6 +5,8 @@ var Step = require('step')
   , mongoose = require('mongoose')
   , mongodbUrl = process.env.STRIDER_TEST_DB || "mongodb://localhost/stridercdtest"
   , async = require('async')
+  , path = require('path')
+  , fs = require('fs')
 
 console.log("Setting up fixtures: %s", mongodbUrl);
 
@@ -26,8 +28,27 @@ var importUsers = function(cb){
       var user = new models.User();
       user.email = u.email
       user.set('password', u.password)
-
-      return user.save(done);
+      if (u === TEST_USERS[0]) {
+        return done()
+      }
+      models.Project.find({}, function (err, projects) {
+        if (err) return done(err)
+        user.projects = []
+        projects.forEach(function (p) {
+          user.projects.push({
+            name: p.name,
+            display_name: p.display_name,
+            access_level: 2
+          })
+        })
+        user.save(function (err) {
+          if (err) return done(err)
+          if (u !== TEST_USERS[1]) {
+            return done()
+          }
+          models.Project.update({}, {$set: {creator: user._id}}, done)
+        });
+      })
     }, function(err){
       cb(err, null)
     })
@@ -35,15 +56,34 @@ var importUsers = function(cb){
 
 }
 
+function getFileFixture(name, done) {
+  fs.readFile(path.join(__dirname, 'fixtures', name + '.json'), 'utf8', function (err, text) {
+    if (err) return done(err)
+    var data
+    try {
+      data = JSON.parse(text)
+    } catch (e) {
+      return done(new Error('failed to import fixture: ' + e.message))
+    }
+    done(null, data)
+  })
+}
+
 var importJobs = function(cb){
   //console.log("dropping existing jobs table")
   models.Job.remove({}, function(err){
-    cb(null)
+    getFileFixture('jobs', function (err, jobs) {
+      models.Job.collection.insert(jobs, cb)
+    })
   })
 }
 
 var importProjects = function(cb){
-  cb(null)
+  models.Project.remove({}, function(err){
+    getFileFixture('projects', function (err, jobs) {
+      models.Project.collection.insert(jobs, cb)
+    })
+  })
 }
 
 var importSettings = function(cb){
@@ -105,9 +145,9 @@ module.exports = function(cb){
       connect
     , dropDB
     , importSettings
+    , importProjects
     , importUsers
     , importJobs
-    , importProjects
     ]
     , function(err, stdout, stderr) {
       if (err) {throw err;}

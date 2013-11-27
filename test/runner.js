@@ -13,11 +13,39 @@ wd.webdriver.prototype.rel = function(url, cb){
 var fails = 0;
 var START_TIMEOUT = 10000;
 
+function patch() {
+  var levels = [{
+    name: 'Main',
+    comment: ''
+  }]
+  wd.addPromiseChainMethod('comment', function (text, done) {
+    levels[levels.length - 1].comment = text
+    return this
+  })
+  wd.addPromiseChainMethod('section', function (name, done) {
+    levels.push({
+      name: name,
+      comment: ''
+    })
+    return this
+  })
+  wd.addPromiseChainMethod('sectionDone', function (done) {
+    levels.pop()
+    return this
+  })
+  wd.PromiseChainWebdriver.prototype.currentTest = function () {
+    return levels.map(function (l) {
+      return l.name
+    }).join('/') + ' # ' + levels[levels.length - 1].comment;
+  }
+}
+
 
 require('./strider')(function(){
   async.map(browsers, function(conn, doneBrowser){
     var browser = wd.promiseChainRemote(remote)
     browser.init(conn)
+    patch()
     setTimeout(function(){
       browser.on('status', function(info) {
         console.log(info);

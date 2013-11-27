@@ -27,9 +27,11 @@ function BuildPage(socket, project, change, scope, jobs, job) {
   this.scope = scope;
   this.project = project;
   this.jobs = {};
+  /*
   for (var i=0; i<jobs.length; i++) {
     this.jobs[jobs[i]._id] = jobs[i]
   }
+  */
   this.jobs[job._id] = job
 }
 
