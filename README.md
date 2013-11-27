@@ -25,6 +25,7 @@ Book](http://strider.readthedocs.org/en/latest/intro.html).
 
 ## README Contents
 
+- [General requirements](#general-requirements)
 - [Docker quickstart](#docker-quickstart)
 - [Running on Infrastructure](#infrastructure)
     - [Configuring](#configuring)
@@ -35,6 +36,12 @@ Book](http://strider.readthedocs.org/en/latest/intro.html).
 - [Support & Help](#support)
 - [Roadmap / Changelog](https://github.com/Strider-CD/strider/blob/master/ROADMAP.md)
 
+<a name="general-requirements" />
+## General Requirements
+
+- nodejs, v0.8 or v0.10
+- mongodb (local or remote)
+- git
 
 <a name="docker-quickstart" />
 ## Docker Quickstart
