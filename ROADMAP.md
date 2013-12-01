@@ -2,11 +2,6 @@
 
 # Upcoming Releases
 
-
-## 1.4.2 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=10&state=open)
-
-Bugfix release for 1.4. No major new features.
-
 ## 1.5
 
 - Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
@@ -16,6 +11,16 @@ Bugfix release for 1.4. No major new features.
 - Auth plugins
 
 # Changelog / Past releases
+
+## 1.4.2 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=10&state=open)
+
+Bugfix release for 1.4. No major new features.
+
+Fixes include:
+
+- [#296](https://github.com/Strider-CD/strider/issues/296) encoding / LOCALE issues
+- [#289 / #281](https://github.com/Strider-CD/strider/issues/289) getTime() crash
+- [#287](https://github.com/Strider-CD/strider/issues/287) unable to add environment variables
 
 ## 1.4.1 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=9&state=open)
 
