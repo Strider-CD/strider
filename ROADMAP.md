@@ -12,6 +12,14 @@
 
 # Changelog / Past releases
 
+## 1.4.3 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=10&state=open)
+
+Bugfix release for 1.4. No major new features.
+
+Fixes include:
+
+- [#286](https://github.com/Strider-CD/strider/issues/286) strider crash on large github webhook post body
+
 ## 1.4.2 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=10&state=open)
 
 Bugfix release for 1.4. No major new features.
