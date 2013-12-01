@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "stylus": "~0.37.0",
