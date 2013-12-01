@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.4.2",
+  "version": "1.4.3",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "stylus": "~0.37.0",
@@ -35,7 +35,7 @@
     "strider-github": "~0.1.0",
     "strider-git": "~0.1.0",
     "connect": "~2.7.3",
-    "express": "3.4.2",
+    "express": "~3.4.5",
     "swig": "~0.14.0",
     "cookie": "0.0.5",
     "socket.io": "~0.9.16",
