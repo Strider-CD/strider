@@ -65,6 +65,9 @@
     </a>
   </div>
 </td>
+<td class="branch">
+  <span>[[ job.ref.branch ]]</span>
+</td>
 <td class="commit-url" ng-switch="!!job.trigger.url">
   <span ng-switch-when="true">
   {% if page !== "history" %}
