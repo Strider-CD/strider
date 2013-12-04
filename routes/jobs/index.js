@@ -70,10 +70,18 @@ function html(req, res) {
   var id = req.params.id
   var projectName = req.project.name
   Job.find({project: projectName, archived: null}).sort({finished:-1}).limit(20).lean().exec(function (err, jobs) {
+    if (err) {
+      console.debug('[job] error finding jobs', err.message)
+      return res.send(500, 'Failed to find jobs')
+    }
     // Use our custom sort function
     jobs.sort(ljobs.sort)
 
     Job.find({project: projectName, archived: null, finished: null}).sort({started: -1}).lean().exec(function (err, running) {
+      if (err) {
+        console.debug('[job] error finding running jobs', err.message)
+        return res.send(500, 'Failed to find running jobs')
+      }
       var i
       for (i=0; i<running.length; i++) {
         _.extend(running[i], findJob(running[i]))
