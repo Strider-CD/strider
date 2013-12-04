@@ -22,6 +22,7 @@
     "nomnom": "1.6.x",
     "everypaas": "0.0.x",
     "pw": "0.0.4",
+    "strider-mailer": "git+ssh://git@github.com:microadam/strider-mailer.git",
     "strider-extension-loader": "~0.4.1",
     "strider-simple-runner": "~0.11.0",
     "strider-env": "~0.4.0",
