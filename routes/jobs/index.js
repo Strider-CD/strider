@@ -24,7 +24,6 @@ var  _ = require('underscore')
 module.exports = {
   html: html,
   multijob: multijob,
-  badge: badge,
   jobs: jobs
 }
 
@@ -172,29 +171,3 @@ function jobs(req, res) {
        res.send(JSON.stringify(jobs.map(function(j) { return filterJob(j) })))
      })
 }
-
-/*
- * index.badge - redirect to the right badge
- */
-function badge(req, res) {
-  var name = req.params.org + '/' + req.params.repo
-  Project.findOne({name: name.toLowerCase()}, function (err, project) {
-    Job.findOne()
-      .sort({'finished': -1})
-      .where('finished').ne(null)
-      .where('archived', null)
-      .where('project', name.toLowerCase())
-      .exec(function(err, job) {
-        var status = 'failing'
-        if (err || !job) {
-          if (err) {
-            console.debug('[badge] error looking for latest build', err.message);
-          }
-          status = 'unknown'
-        } else if (job.test_exitcode === 0) status = 'passing'
-        res.setHeader("Cache-Control", "no-cache")
-        res.redirect('/images/badges/build_' + status + '.png')
-      })
-  })
-}
-
