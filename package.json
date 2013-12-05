@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.4.3",
+  "version": "1.4.4pre",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "stylus": "~0.37.0",
@@ -23,7 +23,7 @@
     "everypaas": "0.0.x",
     "pw": "0.0.4",
     "strider-extension-loader": "~0.4.1",
-    "strider-simple-runner": "~0.11.0",
+    "strider-simple-runner": "~0.11.2",
     "strider-env": "~0.4.0",
     "strider-python": "~0.2.0",
     "strider-custom": "~0.5.0",
