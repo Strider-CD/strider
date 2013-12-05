@@ -8,7 +8,6 @@
 <link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css">
 {% endblock %}
 {% block bodyContent %}
-{% include "config/boot-badge.html" %}
 <script>
   var project = {{ project | scriptjson | raw }};
   var plugins = {{ plugins | scriptjson | raw }};
@@ -91,11 +90,11 @@
               <img src="/images/spinner.gif" class="spinner"/>
               [[ loadingMessage ]]
             </div>
-            
+
             <div id="tab-project" class="tab-pane active">
               {% include "config/project.html" %}
             </div>
-            
+
             <div id="tab-basic" class="tab-pane">
               {% include "config/basic.html" %}
             </div>
