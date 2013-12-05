@@ -1,5 +1,6 @@
 # ![Strider](https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png)
 
+[![Build Status](https://public-ci.stridercd.com/Strider-CD/strider/badge)](https://public-ci.stridercd.com/Strider-CD/strider)
 [![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
 [![devDependency Status](https://david-dm.org/Strider-CD/strider/dev-status.png)](https://david-dm.org/Strider-CD/strider#info=devDependencies)
 
