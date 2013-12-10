@@ -106,11 +106,15 @@ function html(req, res) {
         })
       })
 
+      var isGlobalAdmin = req.user && req.user.account_level > 0
+        , canAdminProject = sanitized.access_level > 0 || isGlobalAdmin
+
       res.format({
         html: function() {
           res.render('build.html', {
             project: sanitized,
             accessLevel: req.accessLevel,
+            canAdminProject: canAdminProject,
             jobs: jobs,
             job: job,
             statusBlocks: common.statusBlocks,
@@ -122,6 +126,7 @@ function html(req, res) {
           res.send({
             project: sanitized,
             accessLevel: req.accessLevel,
+            canAdminProject: canAdminProject,
             jobs: jobs,
             job: job
           })

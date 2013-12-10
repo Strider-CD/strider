@@ -214,6 +214,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
   $scope.project = project;
   $scope.jobs = window.jobs;
   $scope.job = window.job;
+  $scope.canAdminProject = window.canAdminProject
   $scope.showStatus = window.showStatus;
   if ($scope.job && $scope.job.phases.test.commands.length) {
     if (job.phases.environment) {
@@ -309,7 +310,7 @@ app.controller('JobCtrl', ['$scope', '$route', '$location', '$filter', function 
       title: 'Cloud'
     }
   };
-  
+
   // shared templates ; need to know what to show
   $scope.page = 'build';
   // a history item is clicked
