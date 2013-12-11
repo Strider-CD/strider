@@ -1,0 +1,37 @@
+<div id="project_config_collaborators" ng-controller="BranchesCtrl" class="well">
+  <fieldset>
+    <legend>Branches</legend>
+    <div class="alert alert-success hide"></div>
+    <p>Configure which branches will be watched for new commits.</p>
+    <div class="row-fluid">
+      <div class="span6">
+        <form name="branchForm" class="control-group form-inline">
+          <div class="controls">
+              <input ng-model="new_email" type="email" required
+                     name="new_collaborator" placeholder="branch name"
+                     class="span4"/>
+              <button class="btn">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span6">
+        <table>
+          <tr class="collaborator">
+            <td class="email">master</td>
+            <td class="remove"></td>
+          </tr>
+          <tr class="collaborator">
+            <td class="email">*</td>
+            <td class="remove">
+              <span class="clickable">
+                <i class="icon-remove"></i>
+              </span>
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </fieldset>
+</div>
