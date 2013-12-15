@@ -31,7 +31,6 @@ module.exports = function (browser, callback) {
         .elementByCssSelector('.project-type.btn')
         .click()
         .waitForElementByCssSelector('.btn-success', 5000)
-        .isDisplayed()
         .click()
         .waitForElementByLinkText('Click to watch it run', 3000)
         .click()
