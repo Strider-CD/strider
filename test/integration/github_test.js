@@ -36,9 +36,6 @@ module.exports = function (browser, callback) {
         .click()
         .waitForElementByCssSelector('.job-repo', 2000)
         .url().should.eventually.include('strider-test-robot/strider-extension-loader')
-        .fail(function (error) {
-          console.log('####', error)
-        })
     })
 
     after(function () {
