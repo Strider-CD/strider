@@ -11,9 +11,9 @@ var Step = require('step')
 console.log("Setting up fixtures: %s", mongodbUrl);
 
 var TEST_USERS = [
-  {email: "test1@example.com", password: "open-sesame", jar: request.jar()}
-, {email: "test2@example.com", password: "test", jar: request.jar()}
-, {email: "test3@example.com", password: "password", jar: request.jar()}
+  {email: "test1@example.com", password: "open-sesame", jar: request.jar(), account_level: 0}
+, {email: "test2@example.com", password: "test", jar: request.jar(), account_level: 1}
+, {email: "test3@example.com", password: "password", jar: request.jar(), account_level: 0}
 ];
 
 
@@ -27,6 +27,7 @@ var importUsers = function(cb){
     async.eachSeries(TEST_USERS, function(u, done){
       var user = new models.User();
       user.email = u.email
+      user.account_level = u.account_level
       user.set('password', u.password)
       if (u === TEST_USERS[0]) {
         return user.save(done)
@@ -136,7 +137,7 @@ var connect = function(cb) {
   mongoose.connection.on('connected', function (err, res) {
     if(err) throw err
     //console.log("<--- connected")
-    cb.apply(this, arguments) 
+    cb.apply(this, arguments)
   });
 }
 
