@@ -125,7 +125,7 @@
         type: 'POST',
         success: function (data, ts, xhr) {
           repo.adding = false;
-          $scope.success('Test started for ' + repo.project.name + '. <a href="/' + repo.project.name + '/" target="_blank">Click to watch it run</a>', true, true);
+          $scope.success('Test started for ' + repo.project.name + '. <a href="/' + repo.project.name + '/">Click to watch it run</a>', true, true);
         },
         error: function (xhr, ts, e) {
           if (xhr && xhr.responseText) {
