@@ -3,33 +3,28 @@ var Step = require('step')
   , config = require('./test-config')
   , models = require('../lib/models')
   , mongoose = require('mongoose')
-  , mongodbUrl = process.env.STRIDER_TEST_DB || "mongodb://localhost/stridercdtest"
+  , mongodbUrl = process.env.STRIDER_TEST_DB || 'mongodb://localhost/stridercdtest'
   , async = require('async')
   , path = require('path')
   , fs = require('fs')
+  , testUsers = require('./fixtures/users')(request)
 
-console.log("Setting up fixtures: %s", mongodbUrl);
-
-var TEST_USERS = [
-  {email: "test1@example.com", password: "open-sesame", jar: request.jar(), account_level: 0}
-, {email: "test2@example.com", password: "test", jar: request.jar(), account_level: 1}
-, {email: "test3@example.com", password: "password", jar: request.jar(), account_level: 0}
-];
-
+console.log('Setting up fixtures: %s', mongodbUrl)
 
 var importUsers = function(cb){
-  //console.log("dropping existing users table")
+  //console.log('dropping existing users table')
   models.User.remove({}, function(err){
     if (err) throw err;
 
-    //console.log("dropped")
+    //console.log('dropped')
 
-    async.eachSeries(TEST_USERS, function(u, done){
+    async.eachSeries(testUsers, function(u, done){
       var user = new models.User();
       user.email = u.email
       user.account_level = u.account_level
       user.set('password', u.password)
-      if (u === TEST_USERS[0]) {
+
+      if (u.noProjects) {
         return user.save(done)
       }
       models.Project.find({}, function (err, projects) {
@@ -44,7 +39,7 @@ var importUsers = function(cb){
         })
         user.save(function (err) {
           if (err) return done(err)
-          if (u !== TEST_USERS[1]) {
+          if (u !== testUsers[1]) {
             return done()
           }
           models.Project.update({}, {$set: {creator: user._id}}, done)
@@ -71,7 +66,7 @@ function getFileFixture(name, done) {
 }
 
 var importJobs = function(cb){
-  //console.log("dropping existing jobs table")
+  //console.log('dropping existing jobs table')
   models.Job.remove({}, function(err){
     getFileFixture('jobs', function (err, jobs) {
       models.Job.collection.insert(jobs, cb)
@@ -100,32 +95,32 @@ var dropDB = function(cb){
 
   async.map(collections,
       function dropCollection(collection, done){
-        //console.log("Dropping ", collection)
+        //console.log('Dropping ', collection)
         mongoose.connection.collections[collection].drop(function(err){
           if (err && err.errmsg === 'ns not found') return done(null, collection)
           done(err, collection)
         })
       }
      , function done(err, res){
-        //console.log(err, "dropped", res)
+        //console.log(err, 'dropped', res)
         cb(err);
      }
   )
  /* mongoose.connection.db.dropDatabase(function(err){
-    console.log("!>")
+    console.log('!>')
     if(err) throw err;
-    console.log("DB DROPPED")
+    console.log('DB DROPPED')
     cb()
   })
   */
 }
 
 var connect = function(cb) {
-  //console.log("-->connecting")
+  //console.log('-->connecting')
   mongoose.connect(mongodbUrl)
 
   mongoose.connection.on('error',function (err) {
-    console.log("ERROR: MONGOOSE CONNNECTION: ", err)
+    console.log('ERROR: MONGOOSE CONNNECTION: ', err)
     process.exit(1)
   })
 
@@ -136,7 +131,7 @@ var connect = function(cb) {
 
   mongoose.connection.on('connected', function (err, res) {
     if(err) throw err
-    //console.log("<--- connected")
+    //console.log('<--- connected')
     cb.apply(this, arguments)
   });
 }
@@ -159,7 +154,7 @@ module.exports = function(cb){
 
 if (!module.parent) {
   module.exports(function(){
-    //console.log("FIXTURES LOADED")
+    //console.log('FIXTURES LOADED')
 
     process.exit(0)
   })

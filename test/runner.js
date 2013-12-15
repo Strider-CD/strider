@@ -16,8 +16,9 @@ describe('Strider', function () {
   this.timeout(20000)
 
   // TESTS
-  var tests = ['./integration/build_page_test.js'
+  var tests = [ './integration/build_page_test.js'
               , './integration/login_test.js'
+              , './integration/global_admin_test.js'
               , './integration/github_test.js'
               ]
 
