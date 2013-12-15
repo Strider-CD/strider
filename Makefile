@@ -55,19 +55,19 @@ test-integration-sauce:
 	echo $$WEBDRIVER_REMOTE
 	echo $$BROWSERS
 	# -------
-	TEST_STRIDER=1 node test/runner.js
+	TEST_STRIDER=1 ./node_modules/mocha/bin/mocha -R spec test/runner.js
 
 test-client-sauce:
 	./node_modules/mocha-selenium/bin/mocha-selenium.js -c test/client/selenium.json -p -e sauce test/client/dashboard.js test/client/projects.js
 
 # ====== LOCAL:
 
-test-local: 
+test-local:
 	# You need to run chromedriver for this to work. If you don't have it,
 	# you can get it w/ npm install -g chromedriver
 	# Then `chromedriver  --url-base=/wd/hub`
 	$(which chromedriver)
-	WEBDRIVER_REMOTE='{"hostname":"localhost","port":9515}' BROWSERS='[{"version":"","browserName":"chrome","platform":"Linux"}]' node test/runner.js
+	WEBDRIVER_REMOTE='{"hostname":"localhost","port":9515}' BROWSERS='[{"version":"","browserName":"chrome","platform":"Linux"}]' ./node_modules/mocha/bin/mocha -R spec test/runner.js
 
 start-chromedriver:
 	chromedriver --url-base=/wd/hub
