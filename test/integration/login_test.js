@@ -1,117 +1,68 @@
 var assert = require('chai').assert
-  , fails = 0
 
-module.exports = function(browser, done){
-  var b = browser
+module.exports = function (browser, callback) {
 
-  b.rel('/')
-    .waitForVisibleByCssSelector("a.brand")
-    .comment('Login Visible')
-    .waitForVisibleByCssSelector("#navbar-signin-form")
+  describe('Login', function () {
 
-    .comment('Bad creds fail')
-      .rel('/')
-      .elementByName('email')
-      .type('test1@example.com')
-      .elementByName('password')
-      .type('BAD CREDS')
-      .elementById("navbar-signin-form", function(err, form){
-        assert.isNull(err)
-      })
-      .submit()
-      .url(function(err, url){
-        assert.isNull(err)
-        assert.include(url, "/login#fail")
-      })
-
-    .comment('Forgot password flow')
-      .rel("/")
-      .elementById("forgot-password-link")
-      .click()
-      .url(function(err, url){
-        assert.isNull(err)
-        assert.include(url, '/auth/forgot')
-      })
-      .elementByName('forgot-email')
-      .type('test1@example.com')
-      .elementById("send-forgot")
-      .click()
-      .elementByClassName('forgot-sent', function(err, el){
-        assert.isNull(err, "Error on forgot-password-sent page")
-      })
-    
-    .comment('Submitting login form works')
-      .rel('/')
-      .elementByName('email')
-      .type('test1@example.com')
-      .elementByName('password')
-      .type('open-sesame')
-      .elementById("navbar-signin-form")
-      .submit()
-      .elementByClassName('logged-in', function  (err, el) {
-        assert.isNull(err)
-        assert.ok(ok)
-      })
-   
-     // Now we're logged in 
-      .url(function(err, url){
-        assert.isNull(err)
-      })
-      .elementByClassName('no-projects', function(err, el){
-        assert.isNull(err)
-        assert.ok(el)
-      })
-   
-    .comment('Link to github')
-      .elementByClassName('provider-github')
-      .click()
-      .waitForVisibleByClassName('octicon-logo-github', 6000, function(err){
-        assert.isNull(err, "github didn't load")
-      })
-      .elementByName('login')
-      .type('strider-test-robot')
-      .elementByName('password')
-      .type("i0CheCtzY0yv4WP2o")
-      .elementByName('commit')
-      .click()
-      .waitForVisibleByClassName('StriderBlock_Brand', 6000, function(err){
-        assert.isNull(err, "Timed out waiting for github auth")
-      })
-
-    .comment('Add project from github')
-      .rel('/projects')
-      .elementByClassName('add-repo')
-      .click()
-      .elementByCssSelector('.project-type.btn')
-      .click()
-
-    .comment('start a test')
-      .waitForElementByCssSelector('.btn-success', 5000)
-      .click()
-      .waitForElementByLinkText('Click to watch it run', 3000)
-      .click()
-      .url(function(err, url){
-        assert.isNull(err)
-        assert.include(url, "strider-test-robot/strider-extension-loader")
-      })
-
-    .comment('Go to test page')
-      .rel('/strider-test-robot/strider-extension-loader/')
-      .elementByClassName('test-only-action')
-      .click()
-
-    .fail(function(err){
-      console.log("ERROR:", err.message)
-      console.error(err.stack)
-      fails ++
-      done(err)
+    it('should be visible', function () {
+      return browser.rel('/')
+        .waitForElementByCssSelector('a.brand')
+        .isDisplayed()
     })
-    .fin(function(){
-      console.log("!FIN", arguments)
-      b.quit(function () {
-        done(null, fails)
+
+    it('should fail with invalid credentials', function () {
+      return browser.rel('/')
+        .elementByName('email')
+        .type('test1@example.com')
+        .elementByName('password')
+        .type('BAD CREDS')
+        .submit()
+        .url().should.eventually.include('/login#fail')
+    })
+
+    it('should have a forgotten password page', function () {
+      return browser.rel("/")
+        .elementById("forgot-password-link")
+        .click()
+        .url().should.eventually.include('/auth/forgot')
+    })
+
+    it('should show forgotten password success page', function () {
+      return browser.rel("/auth/forgot")
+        .elementByName('forgot-email')
+        .type('test1@example.com')
+        .elementById("send-forgot")
+        .click()
+        .elementByClassName('forgot-sent')
+        .then(function (element) {
+          assert.isNotNull(element)
+        })
+    })
+
+    it('should work with valid credentials', function () {
+      return browser.rel('/')
+        .elementByName('email')
+        .type('test1@example.com')
+        .elementByName('password')
+        .type('open-sesame')
+        .elementById("navbar-signin-form")
+        .submit()
+        .elementByClassName('logged-in')
+        .then(function (element) {
+          assert.isNotNull(element)
+        })
+        .elementByClassName('no-projects')
+        .then(function (element) {
+          assert.isNotNull(element)
+        })
+    })
+
+    after(function () {
+      return browser.quit(function () {
+        callback()
       })
-    }).done()
+    })
+
+  })
 
 }
-
