@@ -259,7 +259,7 @@ exports.config = function(req, res) {
       console.warn('Provider plugin not installed!', req.project.provider.id)
       return respond(data)
     }
-    if (typeof provider.getBranches === 'function' && creator_creds) {
+    if (typeof provider.getBranches === 'function' && (!plugin.hosted || creator_creds)) {
       provider.getBranches(creator_creds,
         req.project.provider.config, req.project, function(err, branches) {
           if (err) {
