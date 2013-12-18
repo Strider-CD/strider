@@ -254,7 +254,12 @@ exports.config = function(req, res) {
 
     var provider = common.extensions.provider[req.project.provider.id]
       , creator_creds = req.project.creator.account(req.project.provider).config
-    if (typeof provider.getBranches === 'function' && creator_creds) {
+    if (!provider) {
+      // TODO: alert the user through the UI
+      console.warn('Provider plugin not installed!', req.project.provider.id)
+      return respond(data)
+    }
+    if (typeof provider.getBranches === 'function' && (!provider.hosted || creator_creds)) {
       provider.getBranches(creator_creds,
         req.project.provider.config, req.project, function(err, branches) {
           if (err) {

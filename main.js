@@ -15,6 +15,7 @@ var app = require('./lib/app')
 
   , upgrade = require('./lib/models/upgrade').ensure
 
+  , slashes = require('connect-slashes')
   , passport = require('passport')
   , path = require('path')
   , async = require('async')
@@ -189,6 +190,7 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
         return cb(err, appInstance)
       }
       console.log('loaded plugins')
+      appInstance.use(slashes(true, true));
       app.run(appInstance)
       cb(null, appInstance)
     })
