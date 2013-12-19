@@ -106,26 +106,29 @@ exports.setConfig = function (req, res) {
 }
 
 exports.getRunnerConfig = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
+  if (!branch) {
+    return res.send(400, 'Invalid branch')
+  }
   res.send(branch.runner)
 }
 
 exports.setRunnerConfig = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
   branch.runner.config = req.body
   req.project.save(function (err, project) {
     if (err) return res.send(500, {error: 'Failed to save runner config'})
-    res.send(project.branch(req.params.branch).runner.config)
+    res.send(project.branch(req.query.branch).runner.config)
   })
 }
 
-// GET /:org/:repo/config/:branch/:pluginname
+// GET /:org/:repo/config/branch/:pluginname/?branch=:branch
 // Output: the config
 exports.getPluginConfig = function (req, res) {
   res.send(req.pluginConfig())
 }
 
-// POST /:org/:repo/config/:branch/:pluginname
+// POST /:org/:repo/config/branch/:pluginname/?branch=:branch
 // Set the configuration for a plugin on a branch. Output: the new config.
 exports.setPluginConfig = function (req, res) {
   req.pluginConfig(req.body, function (err, config) {
@@ -135,7 +138,7 @@ exports.setPluginConfig = function (req, res) {
 }
 
 exports.configureBranch = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
   if (!branch) {
     return res.send(400, 'Invalid branch')
   }
