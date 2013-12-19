@@ -251,49 +251,7 @@ exports.config = function(req, res) {
       if (b.owner) return 1
       return 0
     });
-
-    var provider = common.extensions.provider[req.project.provider.id]
-      , creator_creds = req.project.creator.account(req.project.provider).config
-    if (!provider) {
-      // TODO: alert the user through the UI
-      console.warn('Provider plugin not installed!', req.project.provider.id)
-      return respond(data)
-    }
-    if (typeof provider.getBranches === 'function' && (!provider.hosted || creator_creds)) {
-      provider.getBranches(creator_creds,
-        req.project.provider.config, req.project, function(err, branches) {
-          if (err) {
-            console.error("could not fetch branches for repo %s: %s", req.project.name, err)
-            respond(data);
-          }
-          var have = {}
-            , newBranches = false
-            , i
-          for (i=0; i<req.project.branches.length; i++) {
-            have[req.project.branches[i].name] = true
-          }
-          for (i=0; i<branches.length; i++) {
-            if (have[branches[i]]) continue;
-            newBranches = true
-            req.project.branches.push({
-              name: branches[i],
-              mirror_master: true
-            })
-            data.project.branches.push({
-              name: branches[i],
-              mirror_master: true
-            })
-          }
-          if (!newBranches) return respond(data)
-
-          Project.update({_id: req.project._id}, {$set: {branches: req.project.branches}}, function (err, project) {
-            if (err || !project) console.error('failed to save branches')
-            respond(data);
-          })
-      })
-    } else {
-      respond(data);
-    }
+    respond(data);
   })
 
   function respond(data) {

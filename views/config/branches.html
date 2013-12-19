@@ -2,15 +2,18 @@
   <fieldset>
     <legend>Branches</legend>
     <div class="alert alert-success hide"></div>
-    <p>Configure which branches will be watched for new commits.</p>
+    <p>
+      Configure which branches will be watched on this project.
+      A "*" may be used as a wildcard e.g "release/*" will match all branches that start with "release/".
+    </p>
     <div class="row-fluid">
       <div class="span6">
         <form name="branchForm" class="control-group form-inline">
           <div class="controls">
-              <input ng-model="new_email" type="email" required
-                     name="new_collaborator" placeholder="branch name"
+              <input ng-model="branchName" type="text" required
+                     name="name" placeholder="branch name"
                      class="span4"/>
-              <button class="btn" ng-click="add()">Add</button>
+              <button class="btn" ng-disabled="!branchForm.$valid" ng-click="add()">Add</button>
           </div>
         </form>
       </div>
@@ -18,14 +21,11 @@
     <div class="row-fluid">
       <div class="span6">
         <table>
-          <tr class="collaborator">
-            <td class="email">master</td>
-            <td class="remove"></td>
-          </tr>
-          <tr class="collaborator">
-            <td class="email">*</td>
+          <tr class="collaborator" ng-repeat="branch in branches">
+            <td class="email">[[branch.name]]</td>
             <td class="remove">
-              <span class="clickable">
+              <i ng-switch-when="true" class="icon-cog icon-spin"></i>
+              <span class="clickable" ng-hide="branch.name === 'master'" ng-click="remove(branch)">
                 <i class="icon-remove"></i>
               </span>
             </td>
