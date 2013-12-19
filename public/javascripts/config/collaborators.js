@@ -7,26 +7,29 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
   $scope.new_access = 0;
   $scope.collaborators = window.collaborators || [];
   $scope.remove = function (item) {
-    item.loading = true;
-    $scope.clearMessage();
-    $.ajax({
-      url: '/' + $scope.project.name + '/collaborators/',
-      type: 'DELETE',
-      data: {email: item.email},
-      success: function(data, ts, xhr) {
-        remove($scope.collaborators, item);
-        $scope.success(item.email + " is no longer a collaborator on this project.", true);
-      },
-      error: function(xhr, ts, e) {
-        item.loading = false;
-        if (xhr && xhr.responseText) {
-          var data = $.parseJSON(xhr.responseText);
-          $scope.error("Error deleting collaborator: " + data.errors[0], true);
-        } else {
-          $scope.error("Error deleting collaborator: " + e, true);
+    var actuallyDelete = confirm('Are you sure you want to remove ' + item.email + '?')
+    if (actuallyDelete) {
+      item.loading = true;
+      $scope.clearMessage();
+      $.ajax({
+        url: '/' + $scope.project.name + '/collaborators/',
+        type: 'DELETE',
+        data: {email: item.email},
+        success: function(data, ts, xhr) {
+          remove($scope.collaborators, item);
+          $scope.success(item.email + " is no longer a collaborator on this project.", true);
+        },
+        error: function(xhr, ts, e) {
+          item.loading = false;
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error deleting collaborator: " + data.errors[0], true);
+          } else {
+            $scope.error("Error deleting collaborator: " + e, true);
+          }
         }
-      }
-    });
+      });
+    }
   };
   $scope.add = function () {
     var data = {
