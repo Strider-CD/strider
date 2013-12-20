@@ -161,31 +161,3 @@ describe('utils', function () {
   })
 
 })
-
-
-
-
-// function test(string, against) {
-//   var regEx = new RegExp('^' + string.replace(/\*/g, '.*') + '$')
-//   return regEx.test(against)
-// }
-
-// console.log('true:')
-// console.log('* : master', test('*', 'master'))
-// console.log('master : master', test('master', 'master'))
-// console.log('master* : master', test('master*', 'master'))
-// console.log('*master : master', test('*master', 'master'))
-// console.log('master* : mastered', test('master*', 'mastered'))
-// console.log('*master : testmaster', test('*master', 'testmaster'))
-// console.log('*master* : testmastered', test('*master*', 'testmastered'))
-// console.log('feature/* : feature/my-new-feature', test('feature/*', 'feature/my-new-feature'))
-// console.log('feature/* : feature/', test('feature/*', 'feature/'))
-// console.log('feature/* : feature/', test('feature/*', 'feature/'))
-
-// console.log('false:')
-// console.log('master* : test', test('master*', 'test'))
-// console.log('*master : test', test('*master', 'test'))
-// console.log('master* : test', test('master*', 'test'))
-// console.log('feature/ : feature/my-new-feature', test('feature/', 'feature/my-new-feature'))
-// console.log('test : testing', test('test', 'testing'))
-
