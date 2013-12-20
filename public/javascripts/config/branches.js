@@ -55,4 +55,33 @@ app.controller('BranchesCtrl', ['$scope', function ($scope) {
       }
     })
   }
+
+  $scope.changeBranchOrder = {
+    update: function () {
+
+      $scope.$watch('branches', function () {
+        var data = { branches: $scope.branches }
+
+        $.ajax({
+          url: '/' + $scope.project.name + '/branches/',
+          type: 'PUT',
+          data: data,
+          dataType: 'json',
+          success: function(res, ts, xhr) {
+            $scope.success(res.message, true, false)
+          },
+          error: function(xhr, ts, e) {
+            if (xhr && xhr.responseText) {
+              var data = $.parseJSON(xhr.responseText)
+              $scope.error('Error adding branch: ' + data.errors[0], true)
+            } else {
+              $scope.error('Error adding branch: ' + e, true)
+            }
+          }
+        })
+      })
+
+    }
+  }
+
 }])

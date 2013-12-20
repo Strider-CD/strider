@@ -4,7 +4,7 @@
   <div class="enabled-plugins">
     <h3>Active Plugins</h3>
     <ul ng-model="branch.plugins" ui-sortable="inUseOptions" class="enabled-plugins-list">
-      <li class="plugin-item clearfix" ng-repeat="plugin in branch.plugins" ng-class="{ disabled: !plugin.enabled }">
+      <li class="plugin-item moveable clearfix" ng-repeat="plugin in branch.plugins" ng-class="{ disabled: !plugin.enabled }">
         <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
         <div class="rest">
           <span class="title">[[ plugins[plugin.id].title ]]</span>
@@ -22,7 +22,7 @@
   <div class="disabled-plugins">
     <h3>Available Plugins</h3>
     <ul ng-model="disabled_plugins[branch.name]" ui-sortable="{ connectWith: '.enabled-plugins-list' }" class="disabled-plugins-list">
-      <li class="plugin-item clearfix" ng-repeat="plugin in disabled_plugins[branch.name]">
+      <li class="plugin-item clearfix moveable" ng-repeat="plugin in disabled_plugins[branch.name]">
         <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
         <div class="rest">
           <span class="title">[[ plugins[plugin.id].title ]]</title>
