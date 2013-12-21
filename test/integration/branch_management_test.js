@@ -41,7 +41,7 @@ module.exports = function (browser, callback) {
         })
         .elementsByCssSelector('.branch-picker select option')
         .then(function (items) {
-          items.length.should.equal(3, 'number of items in branch select')
+          items.length.should.equal(2, 'number of items in branch select')
         })
     })
 
