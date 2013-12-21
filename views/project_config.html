@@ -35,7 +35,7 @@
       </a>
       {% endif %}
       <span class="branch-picker">
-        <select ng-model="branch" ng-options="branch as branch.name for branch in branches">
+        <select ng-model="branch" ng-options="branch as branch.name for branch in branches track by branch.name">
         </select>
         <button
            class="btn"
