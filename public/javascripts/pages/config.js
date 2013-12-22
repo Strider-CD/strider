@@ -195,7 +195,7 @@
         });
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/' + $scope.branch.name + '/',
+        url: '/' + $scope.project.name + '/config/branch/?branch=' + encodeURIComponent($scope.branch.name),
         type: 'PUT',
         data: JSON.stringify({plugin_order: data}),
         contentType: 'application/json',
@@ -282,7 +282,7 @@
         data.plugins = branch.plugins;
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/' + $scope.branch.name + '/',
+        url: '/' + $scope.project.name + '/config/branch/?branch=' + encodeURIComponent($scope.branch.name),
         type: 'PUT',
         data: JSON.stringify(data),
         contentType: 'application/json',
@@ -302,7 +302,7 @@
     $scope.generateKeyPair = function () {
       bootbox.confirm('Really generate a new keypair? This could break things if you have plugins that use the current ones.', function (really) {
         if (!really) return;
-        $.ajax('/' + $scope.project.name + '/keygen/' + $scope.branch.name, {
+        $.ajax('/' + $scope.project.name + '/keygen/?branch=' + encodeURIComponent($scope.branch.name), {
           type: 'POST',
           success: function (data, ts, xhr) {
             $scope.branch.privkey = data.privkey;
@@ -314,7 +314,7 @@
     };
 
     initPlugins();
-    
+
     $scope.gravatar = function (email) {
       if (!email) return '';
       var hash = md5(email.toLowerCase());
@@ -333,7 +333,7 @@
         return $scope.runnerConfigs[name];
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/master/runner',
+        url: '/' + $scope.project.name + '/config/master/runner/?branch=master',
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(data),
@@ -403,7 +403,7 @@
         throw new Error('Plugin not configured: ' + name);
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/' + branch.name + "/" + name,
+        url: '/' + $scope.project.name + '/config/branch/' + name + '/?branch=' + encodeURIComponent(branch.name),
         type: "PUT",
         contentType: 'application/json',
         data: JSON.stringify(data),

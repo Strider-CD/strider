@@ -160,6 +160,31 @@
 .clickable:hover {
   color: #777;
 }
+.moveable {
+  cursor: move;
+}
+
+.branch-list {
+  list-style: none;
+  margin-left: 0;
+}
+
+.branch-list .branch-item {
+  background-color: white;
+  padding: 5px 0 5px 0;
+  margin-bottom: 5px;
+}
+
+.branch-list .branch-item .branch-name {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.branch-list .branch-item .ismaster {
+  margin-left: 40px;
+}
+
+
 #provider-config {
   border: 1px solid #ccc;
   border-radius: 5px;
@@ -195,10 +220,10 @@
   font-weight: bold;
   line-height: 18px;
 }
-#project_config_collaborators .collaborator .remove i {
+.remove i {
   padding: 10px;
 }
-#project_config_collaborators .collaborator .remove i.icon-remove {
+.remove i.icon-remove {
   color: red;
 }
 #project_config_collaborators .collaborator td {

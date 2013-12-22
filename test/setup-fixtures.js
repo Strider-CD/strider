@@ -82,6 +82,14 @@ var importProjects = function(cb){
   })
 }
 
+var importConfig = function(cb){
+  models.Config.remove({}, function(err){
+    getFileFixture('config', function (err, configs) {
+      models.Config.collection.insert(configs, cb)
+    })
+  })
+}
+
 var importSettings = function(cb){
   models.Config.remove({}, function(err){
     if (err) throw err
@@ -144,6 +152,7 @@ module.exports = function(cb){
     , importProjects
     , importUsers
     , importJobs
+    , importConfig
     ]
     , function(err, stdout, stderr) {
       if (err) {throw err;}

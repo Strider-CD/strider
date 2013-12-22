@@ -9,7 +9,7 @@ module.exports = {
 }
 
 function keygen(req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
   if (!branch) return res.send(404, 'Branch not found')
   keypair(req.project.name + ' - stridercd', function (err, priv, pub) {
     if (err) return res.send(500, 'Failed to generate keypair')

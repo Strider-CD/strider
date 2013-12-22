@@ -15,6 +15,7 @@
   var branches = {{ branches | scriptjson | raw }};
   var statusBlocks = {{ statusBlocks | scriptjson | raw }};
   var collaborators = {{ collaborators | scriptjson | raw }};
+  var branches = {{ project.branches | scriptjson | raw }};
   var userIsCreator = {{ userIsCreator }};
   var userConfigs = {{ userConfigs | scriptjson | raw }};
 </script>
@@ -34,7 +35,7 @@
       </a>
       {% endif %}
       <span class="branch-picker">
-        <select ng-model="branch" ng-options="branch as branch.name for branch in project.branches">
+        <select ng-model="branch" ng-options="branch as branch.name for branch in branches track by branch.name">
         </select>
         <button
            class="btn"
@@ -49,10 +50,22 @@
           </span>
         </button>
       </span>
-      <a class="btn btn-primary" data-placement="bottom" data-toggle="tooltip" title="Retest &amp; Deploy Branch" ng-click="startDeploy()">
+      <a
+        class="btn btn-primary"
+        ng-hide="branch.name.indexOf('*') > -1"
+        data-placement="bottom"
+        data-toggle="tooltip"
+        title="Retest &amp; Deploy Branch"
+        ng-click="startDeploy()">
         Deploy Branch
       </a>
-      <a class="btn btn-success" data-placement="bottom" data-toggle="tooltip" title="Retest Branch" ng-click="startTest()">
+      <a
+        class="btn btn-success"
+        ng-hide="branch.name.indexOf('*') > -1"
+        data-placement="bottom"
+        data-toggle="tooltip"
+        title="Retest Branch"
+        ng-click="startTest()">
         Test Branch
       </a>
     </h3>
@@ -141,5 +154,6 @@
 <script src="/javascripts/modules/moment.js"></script>
 <script src="/javascripts/pages/config.js"></script>
 <script src="/javascripts/config/collaborators.js"></script>
+<script src="/javascripts/config/branches.js"></script>
 <script src="/javascripts/pages/plugin-config-compiled.js"></script>
 {% endblock %}

@@ -106,26 +106,29 @@ exports.setConfig = function (req, res) {
 }
 
 exports.getRunnerConfig = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
+  if (!branch) {
+    return res.send(400, 'Invalid branch')
+  }
   res.send(branch.runner)
 }
 
 exports.setRunnerConfig = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
   branch.runner.config = req.body
   req.project.save(function (err, project) {
     if (err) return res.send(500, {error: 'Failed to save runner config'})
-    res.send(project.branch(req.params.branch).runner.config)
+    res.send(project.branch(req.query.branch).runner.config)
   })
 }
 
-// GET /:org/:repo/config/:branch/:pluginname
+// GET /:org/:repo/config/branch/:pluginname/?branch=:branch
 // Output: the config
 exports.getPluginConfig = function (req, res) {
   res.send(req.pluginConfig())
 }
 
-// POST /:org/:repo/config/:branch/:pluginname
+// POST /:org/:repo/config/branch/:pluginname/?branch=:branch
 // Set the configuration for a plugin on a branch. Output: the new config.
 exports.setPluginConfig = function (req, res) {
   req.pluginConfig(req.body, function (err, config) {
@@ -135,7 +138,7 @@ exports.setPluginConfig = function (req, res) {
 }
 
 exports.configureBranch = function (req, res) {
-  var branch = req.project.branch(req.params.branch)
+  var branch = req.project.branch(req.query.branch)
   if (!branch) {
     return res.send(400, 'Invalid branch')
   }
@@ -251,49 +254,7 @@ exports.config = function(req, res) {
       if (b.owner) return 1
       return 0
     });
-
-    var provider = common.extensions.provider[req.project.provider.id]
-      , creator_creds = req.project.creator.account(req.project.provider).config
-    if (!provider) {
-      // TODO: alert the user through the UI
-      console.warn('Provider plugin not installed!', req.project.provider.id)
-      return respond(data)
-    }
-    if (typeof provider.getBranches === 'function' && (!provider.hosted || creator_creds)) {
-      provider.getBranches(creator_creds,
-        req.project.provider.config, req.project, function(err, branches) {
-          if (err) {
-            console.error("could not fetch branches for repo %s: %s", req.project.name, err)
-            respond(data);
-          }
-          var have = {}
-            , newBranches = false
-            , i
-          for (i=0; i<req.project.branches.length; i++) {
-            have[req.project.branches[i].name] = true
-          }
-          for (i=0; i<branches.length; i++) {
-            if (have[branches[i]]) continue;
-            newBranches = true
-            req.project.branches.push({
-              name: branches[i],
-              mirror_master: true
-            })
-            data.project.branches.push({
-              name: branches[i],
-              mirror_master: true
-            })
-          }
-          if (!newBranches) return respond(data)
-
-          Project.update({_id: req.project._id}, {$set: {branches: req.project.branches}}, function (err, project) {
-            if (err || !project) console.error('failed to save branches')
-            respond(data);
-          })
-      })
-    } else {
-      respond(data);
-    }
+    respond(data);
   })
 
   function respond(data) {

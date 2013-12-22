@@ -20,6 +20,7 @@ describe('Strider', function () {
               , './integration/login_test.js'
               , './integration/global_admin_test.js'
               , './integration/github_test.js'
+              , './integration/branch_management_test.js'
               ]
 
   wd.addPromiseChainMethod('rel', function (url, cb) {

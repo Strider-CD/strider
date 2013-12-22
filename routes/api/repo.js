@@ -72,7 +72,7 @@ exports.clear_cache = function (req, res) {
  * *prefetch_config* - boolean for whether the strider.json should be fetched in advance. (default: true)
  * *account* - id of provider account
  * *repo_id* - id of the repo
- * *provider* json object of {id: , config: 
+ * *provider* json object of {id: , config:
  */
 exports.create_project = function(req, res) {
   var name = req.params.org + '/' + req.params.repo
@@ -138,36 +138,39 @@ exports.create_project = function(req, res) {
       return error(409, "project already exists")
     }
 
-    keypair(name + '-' + req.user.email, createProjectWithKey) 
+    keypair(name + '-' + req.user.email, createProjectWithKey)
   }
 
   function createProjectWithKey(err, privkey, pubkey) {
     if (err) return error(500, 'Failed to generate ssh keypair')
 
-    var project = {
-      name: name,
-      display_name: display_name,
-      display_url: display_url,
-      public: public,
-      prefetch_config: prefetch_config,
-      creator: req.user._id,
-      provider: provider,
-      branches: [{
-        name: 'master',
-        active: true,
-        mirror_master: false,
-        deploy_on_green: true,
-        pubkey: pubkey,
-        privkey: privkey,
-        plugins: plugins,
-        runner: {
-          id: 'simple-runner',
-          config: {
-            pty: false
+    var project =
+      { name: name
+      , display_name: display_name
+      , display_url: display_url
+      , public: public
+      , prefetch_config: prefetch_config
+      , creator: req.user._id
+      , provider: provider
+      , branches:
+        [
+          { name: 'master'
+          , active: true
+          , mirror_master: false
+          , deploy_on_green: true
+          , pubkey: pubkey
+          , privkey: privkey
+          , plugins: plugins
+          , runner:
+            { id: 'simple-runner'
+            , config: { pty: false }
+            }
           }
-        }
-      }]
-    }
+        , { name: '*'
+          , mirror_master: true
+          }
+        ]
+      }
 
     var plugin = common.extensions.provider[provider.id]
     if (!plugin.hosted || !plugin.setupRepo) {
@@ -193,7 +196,7 @@ exports.create_project = function(req, res) {
     }
     // Project object created, add to User object
     User.update({_id: req.user._id},
-        {$push: 
+        {$push:
             {projects: {
               name: name,
               display_name: p.display_name,

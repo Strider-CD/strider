@@ -1,0 +1,40 @@
+<div id="project_config_branches" ng-controller="BranchesCtrl" class="well">
+  <fieldset>
+    <legend>Branches</legend>
+    <div class="alert alert-success hide"></div>
+    <p>Configure which branches will be watched on this project.</p>
+    <p>A '*' may be used as a wildcard e.g 'release/*' will match all branches that start with 'release/'.</p>
+    <p>A '*' may be used on its own to signify that you want every branch to be watched.</p>
+    <p>
+      When using wildcards, the order which branches are listed is very important. '*' must be last.
+      If '*' is first, then all other branches will be ignored.
+    </p>
+    <div class="row-fluid">
+      <div class="span6">
+        <form name="branchForm" class="control-group form-inline">
+          <div class="controls">
+              <input ng-model="branchName" type="text" required
+                     name="name" placeholder="branch name"
+                     class="span4"/>
+              <button class="btn" ng-disabled="!branchForm.$valid" ng-click="add()">Add</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="row-fluid">
+      <div class="span6">
+        <ol ui-sortable="changeBranchOrder" class="branch-list" ng-model="branches">
+          <li class="branch-item moveable" ng-repeat="branch in branches">
+            <span class="remove">
+              <i ng-switch-when="true" class="icon-cog icon-spin"></i>
+              <span class="clickable" ng-hide="branch.name === 'master'" ng-click="remove(branch)">
+                <i class="icon-remove"></i>
+              </span>
+            </span>
+            <span class="branch-name" ng-class="{ismaster: branch.name === 'master'}">[[branch.name]]</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </fieldset>
+</div>
