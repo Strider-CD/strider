@@ -16,6 +16,7 @@
   var statusBlocks = {{ statusBlocks | scriptjson | raw }};
   var collaborators = {{ collaborators | scriptjson | raw }};
   var branches = {{ project.branches | scriptjson | raw }};
+  var allBranches = {{ allBranches | scriptjson | raw }};
   var userIsCreator = {{ userIsCreator }};
   var userConfigs = {{ userConfigs | scriptjson | raw }};
 </script>

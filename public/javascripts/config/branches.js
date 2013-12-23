@@ -5,6 +5,7 @@ app.controller('BranchesCtrl', ['$scope', function ($scope) {
   }
   $scope.branchName = ''
   $scope.branches = window.branches || []
+  $scope.allBranches = window.allBranches || []
   $scope.remove = function (item) {
     var actuallyDelete = confirm('Are you sure you want to remove ' + item.name + '?')
     if (actuallyDelete) {
