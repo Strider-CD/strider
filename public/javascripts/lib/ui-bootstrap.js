@@ -1439,7 +1439,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
         select:'&'
       },
       replace:true,
-      templateUrl:'template/typeahead/typeahead-popup.html',
+      // Hardcode this path until this is fixed: https://github.com/decipherinc/angular-tags/issues/16#issuecomment-26614629
+      templateUrl:'/ui-bootstrap/template/typeahead/typeahead-popup.html',
       link:function (scope, element, attrs) {
 
         scope.templateUrl = attrs.templateUrl;

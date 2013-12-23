@@ -13,7 +13,10 @@
       <div class="span6">
         <form name="branchForm" class="control-group form-inline">
           <div class="controls">
-              <input ng-model="branchName" type="text" required
+              <input ng-model="branchName"
+                     typeahead="branch for branch in allBranches | filter:$viewValue"
+                     typeahead-template-url="/ui-bootstrap/template/typeahead/typeahead-popup.html"
+                     type="text" required
                      name="name" placeholder="branch name"
                      class="span4"/>
               <button class="btn" ng-disabled="!branchForm.$valid" ng-click="add()">Add</button>
