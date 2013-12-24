@@ -13,6 +13,7 @@ var _ = require('underscore')
   , humane = require(BASE_PATH + 'humane')
   , jobs = require(BASE_PATH + 'jobs')
   , filter = require(BASE_PATH + 'ansi')
+  , gravatar = require('gravatar')
   , ljobs = jobs
   , Job = require(BASE_PATH + 'models').Job
   , User = require(BASE_PATH + 'models').User
@@ -41,7 +42,7 @@ exports.jobs_start = function(req, res) {
     author: {
       id: req.user._id,
       email: req.user.email,
-      image: null // TODO make gravatar from email
+      image: gravatar.url(req.user.email, {}, true)
     },
     message: type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting',
     timestamp: now,
