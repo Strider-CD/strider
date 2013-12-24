@@ -14,6 +14,7 @@
         <form name="branchForm" class="control-group form-inline">
           <div class="controls">
               <input ng-model="branchName"
+                     autocomplete="off"
                      typeahead="branch for branch in allBranches | filter:$viewValue"
                      typeahead-template-url="/ui-bootstrap/template/typeahead/typeahead-popup.html"
                      type="text" required
