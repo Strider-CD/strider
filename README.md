@@ -82,6 +82,7 @@ Internet-accessible deployment the following variables will need to be exported:
   at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
   and the callback URL should be server name with the path /auth/github/callback.
   E.g. https://strider.example.com/auth/github/callback
+  - `PLUGIN_BITBUCKET_APP_KEY`, `PLUGIN_BITBUCKET_APP_SECRET`, `PLUGIN_BITBBUCKET_HOSTNAME`: BitBucket app key, secret & server hostname. More info at https://github.com/Strider-CD/strider-bitbucket.
 
   - If you want email notifications, configure an SMTP server (we recommend Mailgun for SMTP if you need a server - free account gives 200 emails / day):
     - `SMTP_HOST`: SMTP server hostname e.g. smtp.example.com
