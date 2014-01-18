@@ -46,9 +46,11 @@ Book](http://strider.readthedocs.org/en/latest/intro.html).
 
 <a name="docker-quickstart" />
 ## Docker Quickstart
+
+`docker pull niallo/strider`
+
 For a fully self-contained and pre-built strider installation, check out
-[Strider in a box](https://github.com/Strider-CD/strider/tree/master/docker),
-made possible by the incredible [docker](http://docker.io) project.
+the [Strider Trusted Build](https://index.docker.io/u/niallo/strider/).
 
 There's a walkthrough of setting it up [on our blog](http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/).
 
