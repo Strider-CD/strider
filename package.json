@@ -54,6 +54,7 @@
     "connect-slashes": "0.0.11",
     "httpcheck": "0.0.1",
     "connect-flash": "~0.1.1",
+    "superagent": "~0.15.4",
     "cors": "~2.1.0"
   },
   "devDependencies": {
