@@ -37,6 +37,7 @@
     "strider-mailer": "~0",
     "strider-email-notifier": "~0",
     "strider-build-badge": "~0",
+    "strider-ruby": "~0.0.1",
     "connect": "~2.7.3",
     "express": "~3.4.5",
     "swig": "~0.14.0",

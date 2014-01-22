@@ -84,7 +84,7 @@ tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/mod
 lint:
 	@./node_modules/.bin/jshint --verbose $(tolint)
 
-strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom
+strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom strider-ruby
 
 link:
 	npm link $(strider_sub)

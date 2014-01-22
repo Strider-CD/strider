@@ -5,7 +5,7 @@
 
 # you can hack on them by editing under node_moduldes/strider-foo
 
-DEPS="strider-custom strider-python strider-node strider-env strider-sauce strider-simple-runner strider-extension-loader strider-github"
+DEPS="strider-custom strider-python strider-node strider-env strider-sauce strider-simple-runner strider-extension-loader strider-github strider-ruby"
 
 # NOTE: There are other modules we should make sure work with 1.4 too:
 # DEPS="$DEPS strider-jelly strider-qunit strider-browserstack"
