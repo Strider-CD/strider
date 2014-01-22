@@ -129,6 +129,23 @@ Once `Strider` has been installed and configured, it can be started with:
 
     node bin/strider
 
+<a name="heroku" />
+Strider on Heroku
+================
+
+To get up and running quickly on Heroku, you can create a new app and use the
+MongoLab free plan.
+
+    heroku create
+    heroku addons:add mongolab
+    git push heroku master
+    heroku open
+
+If you want support for languages other than Node.js and Python, you'll need to
+set the buildpack for your app. Currently this enables support for Ruby 2.0.0.
+
+    heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+
 <a name="library" />
 Require()'ing Strider
 =====================
