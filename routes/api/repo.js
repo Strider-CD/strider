@@ -218,7 +218,7 @@ exports.create_project = function(req, res) {
     })
   }
 
-  name = name.toLowerCase()
+  name = name.toLowerCase().replace(/ /g, '-')
   Project.findOne({name: name}, projectResult)
 
 }

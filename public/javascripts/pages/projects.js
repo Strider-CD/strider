@@ -44,6 +44,7 @@
         success: function () {
           $scope.projects.push({
             display_name: $scope.display_name,
+            name: $scope.display_name.replace(/ /g, '-').toLowerCase(),
             display_url: $scope.display_url,
             provider: {
               id: provider,

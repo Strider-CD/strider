@@ -86,6 +86,7 @@
     $scope.runnerConfigs = {};
     $scope.selectedTab = null;
     $scope.api_root = '/' + $scope.project.name + '/api/';
+    $scope.page = 'config';
 
     $('a[data-toggle="tab"]').on('show', function (e) {
       $scope.selectedTab = e.target.href.slice(1);
