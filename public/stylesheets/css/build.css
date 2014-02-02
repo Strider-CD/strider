@@ -39,7 +39,7 @@ body.job_view .body-content {
 body.job_view .job-left-col,
 body.job_view .job-detail-sidebar {
   position: absolute;
-  top: 30px;
+  top: 100px;
   bottom: 10px;
 }
 .job-pre-console {

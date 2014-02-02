@@ -24,9 +24,6 @@
 .finished-at .cancel-job:hover {
   color: black;
 }
-input {
-  box-sizing: content-box;
-}
 .alert a {
   font-weight: bold;
   text-decorate: underline;
@@ -52,7 +49,8 @@ input {
   height: 41px;
 }
 html,
-body {
+body,
+.tall {
   height: 100%;
 }
 body {
@@ -60,6 +58,11 @@ body {
 }
 .wrap {
   min-height: 100% !important;
+  height: 100%;
+}
+.no-bottom {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 .body-content {
   margin-top: 20px;
@@ -71,7 +74,7 @@ body {
 }
 #build-page .job-title h3 {
   font-size: 29px;
-  margin-top: -10px;
+  margin-top: 0px;
   margin-left: 18px;
 }
 #build-page .job-title h3 .test-only-action {
@@ -93,7 +96,6 @@ body {
       white-space: nowrap;
     }
     */
-
 }
 #build-page #list-of-builds td.committer {
   padding: 0;
@@ -341,7 +343,6 @@ footer {
 footer p {
   text-align: center;
   /* center align it with the container */
-
 }
 .dashboard-button,
 .repo-action,
@@ -375,14 +376,6 @@ footer p {
 #build-metadata {
   padding: 8px;
   border-radius: 3px;
-}
-#list-of-builds {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  right: 0;
-  bottom: 10px;
-  overflow: auto;
 }
 #list-of-builds table {
   margin-bottom: 0;
@@ -564,10 +557,10 @@ hero-vsub-unit label {
   background-color: #999999;
   border-radius: 3px;
 }
-@media (max-width: 767px) {
+@media (min-width: 768px) {
   body .wrap {
     padding-top: 60px;
-  }  
+  }
 }
 @media (min-width: 768px) {
   -webkit-border-radius: 0 0 6px 6px;
@@ -575,7 +568,9 @@ hero-vsub-unit label {
   border-radius: 0 0 6px 6px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);html,
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  
+  html,
   body {
     background-color: #eee;
   }
@@ -586,7 +581,6 @@ hero-vsub-unit label {
     margin-bottom: -80px;
     padding-bottom: 80px;
     /* 40px to make the container go all the way to the bottom of the topbar */
-  
   }
   .nav-collapse {
     padding-left: 80px;
@@ -594,7 +588,6 @@ hero-vsub-unit label {
   footer p {
     text-align: center;
     /* center align it with the container */
-  
   }
 }
 @media (max-width: 480px) {

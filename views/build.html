@@ -6,7 +6,7 @@
 <link rel="stylesheet" href="/stylesheets/css/build.css">
 <link rel="stylesheet" href="/stylesheets/css/plugin-status-compiled.css">
 {% endblock %}
-{% block bodyContent %}
+{% block fillContent %}
 {% set page = "build" %}
 <div class="app ng-cloak" ng-app="JobStatus">
   <script>
@@ -19,8 +19,8 @@
   <base href="/{{ page_base }}/"></base>
   <div id="build-page" class="main" ng-view></div>
   <script id="build-tpl.html" type="text/ng-template">
-    <div class="row-fluid job-page-intro">
-      <div class="span12 job-title">
+    <div class="row job-page-intro">
+      <div class="col-sm-12 job-title">
         {% pluginblock JobPagePreTitle %}{% endpluginblock %}
         <h3>
           {% if currentUser %}
@@ -50,10 +50,10 @@
       </div>
     </div>
     <div class='job-main'>
-        <div class='row-fluid job-wrap'>
+        <div class='row job-wrap'>
           {% pluginblock JobPagePreCols %}
           {% endpluginblock %}
-          <div class='span8 job-left-col'>
+          <div class='col-sm-8  job-left-col'>
             <div class="row-fluid [[ job.status ]]" id="build-metadata">
               <table>
                 <tbody>
@@ -64,7 +64,7 @@
               </table>
             </div>
             <div class='row job-pre-console'>
-              <div class='span12 job-pre-console-inner'>
+              <div class='col-sm-12 job-pre-console-inner'>
                 {% pluginblock JobPagePreConsole %}
                 {% endpluginblock %}
               </div>
@@ -107,7 +107,7 @@
             </div>
           </div>
 
-          <div class='span4 job-detail-sidebar pull-right'>
+          <div class='col-sm-4 job-detail-sidebar pull-right'>
             {% include "build/history.html" %}
           </div>
         </div>

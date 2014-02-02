@@ -30,9 +30,9 @@
         <ol ui-sortable="changeBranchOrder" class="branch-list" ng-model="branches">
           <li class="branch-item moveable" ng-repeat="branch in branches">
             <span class="remove">
-              <i ng-switch-when="true" class="icon-cog icon-spin"></i>
+              <i ng-switch-when="true" class="fa fa-cog fa-spin"></i>
               <span class="clickable" ng-hide="branch.name === 'master'" ng-click="remove(branch)">
-                <i class="icon-remove"></i>
+                <i class="fa fa-remove"></i>
               </span>
             </span>
             <span class="branch-name" ng-class="{ismaster: branch.name === 'master'}">[[branch.name]]</span>

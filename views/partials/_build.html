@@ -13,9 +13,9 @@
   <div class='row-fluid job-wrap' ng-controller="JobCtrl">
       {% pluginblock JobPagePreCols %}
       {% endpluginblock %}
-      <div class='span8 job-left-col'>
+      <div class='col-sm-8 job-left-col'>
         <div class='row-fluid'>
-          <div class='span12'>
+          <div class='col-lg-12'>
             <div id='spinner' class='alert alert-info hide' ng-show="job.status === 'running' || job.status === 'submitted'">
               <img class='spinner' src="/images/spinner.gif" />
               <span ng-switch="job.status">
@@ -26,28 +26,28 @@
           </div>
         </div>
         <div class='row-fluid [[ job.status ]]' id='build-metadata' ng-hide="job.status === 'running' || job.status === 'submitted'">
-          <div class='span3' ng-switch="job.status">
+          <div class='col-sm-3' ng-switch="job.status">
             <h3 class='failure-text' ng-switch-when="failure">FAILURE</h3>
             <h3 class='success-text' ng-switch-when="success">SUCCESS</h3>
             <div class="btn-group">
               {# what's admin-view for? #}
               <button ng-hide="admin-view" class='btn btn-warning test' ng-click="startTest(job.ref)"
                       ng-disabled="job.status === 'running'" data-toggle="tooltip"
-                      title="Retest"><i class="icon-refresh"></i></button>
+                      title="Retest"><i class="fa fa-refresh"></i></button>
               <button class='btn btn-info deploy' ng-click="startDeploy()"
-                      ng-disabled="job.status === 'running'" data-toggle="tooltip" title="Retest & Deploy">
-                <i class="icon-share-alt"></i>
+                      ng-disabled="job.status === 'running'" data-toggle="tooltip" title="Retest and Deploy">
+                <i class="fa fa-share-alt"></i>
               </button>
-              <a class='btn' href="config" data-toggle="tooltip" title="Configure"><i class="icon-cog"></i></a>
+              <a class='btn' href="config" data-toggle="tooltip" title="Configure"><i class="fa fa-cog"></i></a>
             </div>
           </div>
-          <div class='span9' ng-hide="job.status === 'running'">
+          <div class='col-sm-9' ng-hide="job.status === 'running'">
             {% include "partials/_build_results_detail.html" %}
           </div>
         </div>
 
         <div class='row job-pre-console'>
-          <div class='span12 job-pre-console-inner'>
+          <div class='col-sm-12 job-pre-console-inner'>
             {% pluginblock JobPagePreConsole %}
             {% endpluginblock %}
           </div>
@@ -58,19 +58,19 @@
         </div>
       </div>
 
-      <div class='span4 job-detail-sidebar pull-right'>
+      <div class='col-sm-4 job-detail-sidebar pull-right'>
         <div class='build-list-header'>
           <h3>Past Builds</h3>
         </div>
         <div id='list-of-builds'>
           {% for old in jobs %} 
           <div class='row-fluid build-list-item'>
-            <div class='span1'>
+            <div class='col-sm-1'>
               <a href="{{ old.url }}" title="View Build Detail">
                 {% if old.test_exitcode!=0 %}
-                <i class='icon-remove icon-red'></i>
+                <i class='fa fa-remove icon-red'></i>
                 {% else %}
-                <i class='icon-ok icon-green'></i>
+                <i class='fa fa-ok icon-green'></i>
                 {% endif %}
               </a>
             </div>

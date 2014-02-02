@@ -53,6 +53,8 @@ exports.index = function(req, res){
     })
 
     res.render('index.html', {
+      page: 'index',
+      signin: true,
       jobs: jobs,
       availableProviders: availableProviders,
       flash: req.flash()

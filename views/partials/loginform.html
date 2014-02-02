@@ -1,13 +1,28 @@
-<form class='login-form' action="/login" method="post">
-    <div>
-        <label>Email:</label>
-        <input type="text" name="email"/>
+<div class="row-fluid">
+  <div class="col-sm-12">
+    <div class="well">
+        <h3>Brilliant Continuous Deployment.</h3>
+        {% include "partials/_strider_copy.html" %}
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="images/logo-250x250-transp.png" style="height: 192px">
+            </div>
+            <div class="col-sm-8">
+                <form class='login-form' action="/login" method="post" role="form">
+                    <div class="form-group">
+                        <label for="email"><strong>Email:</strong></label>
+                        <input type="email" class="form-control" id="email" name="email" placeholder="test@example.com"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="password"><strong>Password:</strong></label>
+                        <input type="password" class="form-control" id="password" name="password"  placeholder="dontl00k"/>
+                    </div>
+                    <div>
+                        <input class="btn btn-success" type="submit" value="Log In"/>
+                    </div>
+                </form>
+                <p><strong><a href="/register">I have an invite code.</a></strong></p>
+            </div>
+        </div>
     </div>
-    <div>
-        <label>Password:</label>
-        <input type="password" name="password"/>
-    </div>
-    <div>
-        <input type="submit" value="Log In"/>
-    </div>
-</form>
+</div>

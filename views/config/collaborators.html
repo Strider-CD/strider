@@ -15,9 +15,9 @@
             <td class="image"><img ng-src="[[ collab.gravatar ]]&s=35"></td>
             <td class="email">[[collab.email]]</td>
             <td class="remove" ng-switch="collab.loading">
-              <i ng-switch-when="true" class="icon-cog icon-spin"></i>
+              <i ng-switch-when="true" class="fa fa-cog fa-spin"></i>
               <span ng-switch-default ng-hide="collab.owner || collab.yourself" class="clickable" ng-click="remove(collab)">
-                <i class="icon-remove"></i>
+                <i class="fa fa-remove"></i>
               </span>
             </td>
           </tr>

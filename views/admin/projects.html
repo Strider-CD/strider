@@ -15,7 +15,7 @@
     <tbody>
     {% for project in projects %}
         <tr>
-          <td>{% if not project.public %}<i class="icon-lock"></i>{% endif %}</td>
+          <td>{% if not project.public %}<i class="fa fa-lock"></i>{% endif %}</td>
           <td>
             <h3><a href="/{{ project.name }}/">{{ project.name }}</a></h3>
           </td>
@@ -31,7 +31,7 @@
             <li>
               {{ user.email }}
               {% if user.access == 2 %}
-              <i class="icon-key"></i>
+              <i class="fa fa-key"></i>
               {% endif %}
             </li>
             {% endfor %}

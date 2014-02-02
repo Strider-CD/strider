@@ -2,7 +2,7 @@
      ng-class="{ collapsed: job.phases[phase].collapsed }"
      ng-show="job.phases[phase].commands.length">
   <div class="title" ng-click="job.phases[phase].collapsed = !job.phases[phase].collapsed">
-    <i class="icon-caret-[[ job.phases[phase].collapsed ? 'right' : 'down' ]] arrow" ></i>
+    <i class="fa fa-caret-[[ job.phases[phase].collapsed ? 'right' : 'down' ]] arrow" ></i>
     <span class="name">[[ phase ]]</span>
     <span class="pull-right meta">
       <time class="duration" datetime="[[ job.phases[phase].finished ]]" since="[[ job.phases[phase].started ]]" duration="[[ job.phases[phase].duration ]]"></time>
@@ -15,7 +15,7 @@
        ng-class="{ comment: command.comment }"
        class="command plugin-[[ command.plugin ]]">
       <div class="title" ng-click="command.collapsed = !command.collapsed">
-        <span class="prompt">[[ command.comment ? '#' : '$' ]]</span> <span class="command-text">[[ command.command ]]</span> <i class="icon-plus plus" ng-show="command.collapsed"></i>
+        <span class="prompt">[[ command.comment ? '#' : '$' ]]</span> <span class="command-text">[[ command.command ]]</span> <i class="fa fa-plus plus" ng-show="command.collapsed"></i>
         <span class="meta pull-right">
           <span class="plugin">[[ command.plugin ]]</span>
           <time datetime="[[ command.started ]]" since="[[ command.started ]]" duration="[[ command.duration ]]"></time>

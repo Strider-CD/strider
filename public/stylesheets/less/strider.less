@@ -30,10 +30,6 @@
   }
 }
 
-input {
-  box-sizing: content-box;
-}
-
 .alert a {
   font-weight: bold;
   text-decorate: underline;
@@ -64,7 +60,7 @@ input {
   height: 41px;
 }
 
-html, body {
+html, body, .tall {
   height:100%;
 }
 body{
@@ -72,6 +68,11 @@ body{
 }
 .wrap {
   min-height:100% !important;
+  height: 100%;
+}
+.no-bottom {
+  margin-bottom: 0px;
+  padding-bottom: 0px;
 }
 .body-content{
   margin-top:20px;
@@ -88,7 +89,7 @@ body{
 #build-page {
   .job-title h3 {
     font-size: 29px;
-    margin-top: -10px;
+    margin-top: 0px;
     margin-left: 18px;
 
     .test-only-action {
@@ -406,13 +407,6 @@ footer p {
   border-radius: 3px;
 }
 #list-of-builds {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  right: 0;
-  bottom: 10px;
-  overflow: auto;
-
   table {
     margin-bottom: 0;
   }
