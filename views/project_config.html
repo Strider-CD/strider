@@ -30,12 +30,12 @@
     </div>
     <h3>
       Configuration - <a href="/{{ project.name }}/" class="header-emphasis">{{ project.display_name }}</a>
-      {% if project.provider.display_url %}
-      <a href="{{ project.provider.display_url }}" target="_blank">
-        <i class="icon-{{ provider.inline_icon }}"></i>
+      {% if project.provider %}
+      <a href="{{ project.display_url }}" target="_blank">
+        <i class="fa fa-{{ provider.id }}"></i>
       </a>
       {% endif %}
-      <span class="branch-picker">
+      <span class="branch-picker pull-right">
         <select ng-model="branch" ng-options="branch as branch.name for branch in branches track by branch.name">
         </select>
         <button
@@ -51,6 +51,8 @@
           </span>
         </button>
       </span>
+    </h3>
+    <span class="pull-right">
       <a
         class="btn btn-primary"
         ng-hide="branch.name.indexOf('*') > -1"
@@ -58,7 +60,8 @@
         data-toggle="tooltip"
         title="Retest &amp; Deploy Branch"
         ng-click="startDeploy()">
-        Deploy Branch
+        <i class="fa fa-cloud-upload"></i>
+        &nbsp;Deploy Branch
       </a>
       <a
         class="btn btn-success"
@@ -67,9 +70,11 @@
         data-toggle="tooltip"
         title="Retest Branch"
         ng-click="startTest()">
-        Test Branch
+        <i class="fa fa-bug"></i>
+        &nbsp;Test Branch
       </a>
-    </h3>
+    </span>
+    <br/>
     <p>
       <div class="tabbable tabs-left">
         <ul class="nav nav-tabs span2 config-tabs" ng-show="!branch.mirror_master">

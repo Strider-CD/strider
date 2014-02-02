@@ -28,22 +28,22 @@
                 ng-click="startDeploy(job)"
                 title="Retest &amp; Deploy"
                 class="clickable test-and-deploy-action">
-            <i class="icon-cloud-upload"></i>
+            <i class="fa fa-cloud-upload"></i>
           </span>
           <span ng-hide="job.running || !canAdminProject"
                 ng-click="startTest(job)"
                 title="Retest" class="clickable test-only-action">
-            <i class="icon-refresh"></i>
+            <i class="fa fa-refresh"></i>
           </span>
           <a href="/[[ project.name ]]/config"
              ng-hide="!canAdminProject"
              title="Configure">
-            <i class="icon-wrench"></i>
+            <i class="fa fa-wrench"></i>
           </a>
           {% endif %}
           <span class='job-repo'>{{ project.display_name }}</span>
           <a href="[[ project.display_url ]]" target="_blank">
-            <i class="icon-github"></i>
+            <i class="fa fa-github"></i>
           </a>
         </h3>
         {% pluginblock JobPagePostTitle %}{% endpluginblock %}
@@ -92,7 +92,7 @@
             {% endfor %}
 
             <div class="console-output">
-              <i class="icon-gear icon-light icon-spin loading-icon" ng-show="loading"></i>
+              <i class="fa fa-gear fa-spin loading-icon" ng-show="loading"></i>
               {% include "build/console.html" %}
               <div class="build-error" ng-show="job.status === 'errored' && job.error">
                 <div class="alert alert-error">[[ job.error.message ]]</div>
@@ -101,7 +101,7 @@
             </div>
 
             <div class="footer">
-              <a href="https://github.com/Strider-CD/strider">Strider-CD <i class="icon-github"></i></a>
+              <a href="https://github.com/Strider-CD/strider">Strider-CD <i class="fa fa-github"></i></a>
               | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
               | <a href="https://strider.readthedocs.com">Docs</a>
             </div>

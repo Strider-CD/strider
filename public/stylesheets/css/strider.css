@@ -564,6 +564,11 @@ hero-vsub-unit label {
   background-color: #999999;
   border-radius: 3px;
 }
+@media (max-width: 767px) {
+  body .wrap {
+    padding-top: 60px;
+  }  
+}
 @media (min-width: 768px) {
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
@@ -575,7 +580,7 @@ hero-vsub-unit label {
     background-color: #eee;
   }
   body .wrap {
-    padding-top: 40px;
+    padding-top: 60px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin-bottom: -80px;
