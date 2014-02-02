@@ -4,7 +4,7 @@
         ng-click="startDeploy(job)"
         data-toggle="tooltip" title="Retest &amp; Deploy"
         data-delay="200" class="clickable test-and-deploy-action">
-    <i class="icon-cloud-upload"></i>
+    <i class="icon-cloud-upload waiting-text"></i>
   </span>
 </td>
 {% endif %}
@@ -20,8 +20,10 @@
                 'running': 'icon-cog icon-spin',
                 'submitted': 'icon-time waiting-text',
                 'errored': 'icon-minus-sign error-text'}[job.status] ]]"></i>
-  <span ng-show="job.nojobs">No job history</span>
-  <span data-test="job-id">[[ job._id.substr(0,8) ]]</span>
+  <i ng-show="job.nojobs"
+     data-toggle="tooltip"
+     title="No Job History"
+     class="icon-question"></i>
   {% if page !== 'build' %}</a>{% endif %}
 </td>
 {% if page !== 'history' %}
