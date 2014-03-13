@@ -93,7 +93,6 @@ body {
       white-space: nowrap;
     }
     */
-
 }
 #build-page #list-of-builds td.committer {
   padding: 0;
@@ -123,8 +122,14 @@ body {
 #build-page #list-of-builds tr:hover {
   background-color: #eee;
 }
+#build-page .job-link {
+  min-width: 72px;
+}
 #build-page .commit-url {
   width: auto;
+}
+#build-page .finished-at {
+  min-width: 80px;
 }
 .last-builds {
   border-collapse: separate;
@@ -341,7 +346,6 @@ footer {
 footer p {
   text-align: center;
   /* center align it with the container */
-
 }
 .dashboard-button,
 .repo-action,
@@ -570,7 +574,9 @@ hero-vsub-unit label {
   border-radius: 0 0 6px 6px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);html,
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  
+  html,
   body {
     background-color: #eee;
   }
@@ -581,7 +587,6 @@ hero-vsub-unit label {
     margin-bottom: -80px;
     padding-bottom: 80px;
     /* 40px to make the container go all the way to the bottom of the topbar */
-  
   }
   .nav-collapse {
     padding-left: 80px;
@@ -589,7 +594,6 @@ hero-vsub-unit label {
   footer p {
     text-align: center;
     /* center align it with the container */
-  
   }
 }
 @media (max-width: 480px) {
