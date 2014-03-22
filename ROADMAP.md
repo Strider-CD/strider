@@ -12,6 +12,10 @@
 
 # Changelog / Past releases
 
+## 1.4.4
+
+Bugfix release for 1.4. Adds Windows support, many fixes and small improvements.
+
 ## 1.4.3 - [milestone](https://github.com/Strider-CD/strider/issues?milestone=10&state=open)
 
 Bugfix release for 1.4. No major new features.
