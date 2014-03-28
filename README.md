@@ -1,17 +1,17 @@
-# ![Strider](https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png)
+# ![Strider][logo]
 
-[![Build Status](http://public-ci.stridercd.com/Strider-CD/strider/badge)](https://public-ci.stridercd.com/Strider-CD/strider)
-[![Dependency Status](https://david-dm.org/Strider-CD/strider.png)](https://david-dm.org/Strider-CD/strider)
-[![devDependency Status](https://david-dm.org/Strider-CD/strider/dev-status.png)](https://david-dm.org/Strider-CD/strider#info=devDependencies)
-
+[![Build Status][build-img]][build-link]
+[![Dependency Status][dep-img]][dep-link]
+[![devDependency Status][dev-dep-img]][dev-dep-link]
+[![NPM][npm-badge-img]][npm-badge-link]
 ---
+
 
 ### Brilliant Continuous Deployment
 
-![Strider Screenshot](/docs/screenshots/dashboard.jpg?raw=true)
-[more screenshots](https://github.com/Strider-CD/strider/wiki/Screenshots)
+![Strider Screenshot][screenshot]
+[more screenshots][more-screenshots]
 
-[![NPM](https://nodei.co/npm/strider.png)](https://nodei.co/npm/strider/)
 
 Overview
 ========
@@ -20,59 +20,54 @@ Overview
 platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
 store. It is published under the BSD license.
 
-For more details, including features and more, check out the [introductory
-chapter of the Strider
-Book](http://strider.readthedocs.org/en/latest/intro.html).
+For more details, including features and more, check out the 
+[introductory chapter of the Strider Book][book-intro]
+
 
 ## README Contents
 
 - [General requirements](#general-requirements)
 - [Docker quickstart](#docker-quickstart)
-- [Running on Infrastructure](#infrastructure)
+- [Running on Infrastructure](#running-on-infrastructure)
     - [Configuring](#configuring)
-    - [Adding Users](#adduser)
-    - [Starting Strider](#startup)
-- [Require()'ing Strider](#library)
-- [Extension & plugin guide](#extensions)
-- [Support & Help](#support)
-- [Roadmap / Changelog](https://github.com/Strider-CD/strider/blob/master/ROADMAP.md)
+    - [Adding Users](#adding-initial-admin-user)
+    - [Starting Strider](#starting-strider)
+    - [Heroku](#strider-on-heroku)
+- [Require()'ing Strider](#requireing-strider)
+- [Extension & plugin guide](#extending--customizing-strider)
+- [Support & Help](#support--help)
+- [Roadmap / Changelog][roadmap]
 
-<a name="general-requirements" />
 ## General Requirements
 
 - nodejs, v0.8 or v0.10
 - mongodb (local or remote)
 - git
 
-<a name="docker-quickstart" />
 ## Docker Quickstart
 
 `docker pull niallo/strider`
 
 For a fully self-contained and pre-built strider installation, check out
-the [Strider Trusted Build](https://index.docker.io/u/niallo/strider/).
+the [Strider Trusted Build][pre-built].
 
-There's a walkthrough of setting it up [on our blog](http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/).
+There's a walkthrough of setting it up [on our blog][blog-walkthrough].
 
 
-<a name="infrastructure" />
-Running on Infrastructure
-=========================
+## Running on Infrastructure
 
-Make sure you have MongoDB installed on your system. You can get the latest version at
-http://www.mongodb.org/downloads
+Make sure you have MongoDB installed on your system. You can get the latest version at [mongodb.org][mongo-download].
 
-Next you will need Node.JS. You can get binary packages for most platforms at
-http://nodejs.org
+Next you will need Node.JS. You can get binary packages for most platforms at [nodejs.org][nodejs].
 
 Once you have Node.JS on your system, you can fetch & install all the dependencies for your Strider clone
 by executing the following command in the project root:
 
-    npm install
+```no-highlight
+npm install
+```
 
-<a name="configuring" />
-Configuring
-===========
+### Configuring
 
 `Strider` configuration comes from environment variables. Most of the default
 values should work fine for running on localhost, however for an
@@ -94,14 +89,14 @@ Internet-accessible deployment the following variables will need to be exported:
     - `SMTP_FROM`: Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
 
 
-<a name="adduser" />
-Adding Initial Admin User
-=========================
+### Adding Initial Admin User
 
 `Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
 other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
 
-    node bin/strider addUser
+```no-highlight
+node bin/strider addUser
+```
 
 Example run:
 
@@ -120,35 +115,34 @@ OK? (y/n) [y]:
 ```
 
 
-<a name="startup" />
-Starting Strider
-================
-
+### Starting Strider
 
 Once `Strider` has been installed and configured, it can be started with:
 
-    node bin/strider
+```no-highlight
+node bin/strider
+```
 
-<a name="heroku" />
-Strider on Heroku
-================
+### Strider on Heroku
 
 To get up and running quickly on Heroku, you can create a new app and use the
 MongoLab free plan.
 
-    heroku create
-    heroku addons:add mongolab
-    git push heroku master
-    heroku open
+```no-highlight
+heroku create
+heroku addons:add mongolab
+git push heroku master
+heroku open
+```
 
 If you want support for languages other than Node.js and Python, you'll need to
 set the buildpack for your app. Currently this enables support for Ruby 2.0.0.
 
-    heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+```no-highlight
+heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
+```
 
-<a name="library" />
-Require()'ing Strider
-=====================
+## Require()'ing Strider
 
 Strider can be `require()`-ed like any other NPM module. This is particularly useful when you want to
 
@@ -163,40 +157,55 @@ loaded from a particular filesystem location. Then you could write a simple
 initialization shim like the following:
 
 ```JavaScript
-
 var strider = require('strider')
 
 var instance = strider("/path/to/extensions/dir", config, function(err, initialized, appInstance) {
     console.log("Strider is now running")
 })
-
 ```
 
-<a name="extensions" />
-Extending & Customizing Strider
-===============================
+
+## Extending & Customizing Strider
 
 Strider is extremely customizable and extensible through plugins. Plugins can add hooks to perform arbitrary actions
 during build. They can modify the database schema to add custom fields. They can also register their own HTTP routes. Even
 the front-end is highly customizable through template extensions.
 
-For documentation on extending Strider, see [strider-extension-loader](https://github.com/Strider-CD/strider-extension-loader)'s README.
+For documentation on extending Strider, see [strider-extension-loader][extending]'s README.
 
-<a name="support" />
-Support & Help
-==============
 
+## Resources
+
+- [Strider on DigitalOcean][resource-digitalocean] - Covers setting up an Ubuntu machine with Strider using upstart.
+
+## Support & Help
 
 IRC: irc.freenode.net #strider
 
 We are very responsive to Github Issues - please think of them as a message board for the project!
 
 Strider is maintained and supported by [FrozenRidge,
-LLC](http://frozenridge.co). For commercial support, customization, integration
+LLC][maintainer]. For commercial support, customization, integration
 & hosting enquiries please email hi@frozenridge.co.
 
 
-<a name="gettingstarted" />
-
-```
-
+[logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
+[build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
+[build-link]: https://public-ci.stridercd.com/Strider-CD/strider
+[dep-img]: https://david-dm.org/Strider-CD/strider.svg
+[dep-link]: https://david-dm.org/Strider-CD/strider
+[dev-dep-img]: https://david-dm.org/Strider-CD/strider/dev-status.svg
+[dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
+[npm-badge-img]: https://nodei.co/npm/strider.svg
+[npm-badge-link]: https://nodei.co/npm/strider/
+[screenshot]: /docs/screenshots/dashboard.jpg?raw=true
+[more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
+[book-intro]: http://strider.readthedocs.org/en/latest/intro.html
+[roadmap]: https://github.com/Strider-CD/strider/blob/master/ROADMAP.md
+[pre-built]: https://index.docker.io/u/niallo/strider/
+[blog-walkthrough]: http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/
+[mongo-download]: http://www.mongodb.org/downloads
+[nodejs]: http://nodejs.org
+[resource-digitalocean]: http://fosterelli.co/creating-a-private-ci-with-strider.html
+[extending]: https://github.com/Strider-CD/strider-extension-loader
+[maintainer]: http://frozenridge.co
