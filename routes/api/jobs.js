@@ -34,6 +34,7 @@ var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
 exports.jobs_start = function(req, res) {
   var type = req.param('type') || TEST_ONLY
     , branch = req.param('branch') || 'master'
+    , message = req.param('message')
     , now = new Date()
     , trigger
     , job
@@ -44,10 +45,15 @@ exports.jobs_start = function(req, res) {
       email: req.user.email,
       image: gravatar.url(req.user.email, {}, true)
     },
-    message: type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting',
     timestamp: now,
     source: {type: 'UI', page: req.param('page') || 'unknown'}
   }
+
+  if (message)
+      trigger.message = message;
+  else
+      trigger.message = type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting';
+
   job = {
     type: type,
     user_id: req.user._id,

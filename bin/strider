@@ -117,7 +117,7 @@ function addUser(email, password, admin) {
   }
 }
 
-function runTest(email, password, project, branch) {
+function runTest(email, password, project, branch, message) {
   var Step = require('step')
     , readline = require('readline')
     , request = require('superagent')
@@ -133,9 +133,15 @@ function runTest(email, password, project, branch) {
         if(!err){
           agent.saveCookies(res);
           url = server_name + "/"+project+"/start"
-          var req = request.post(url)
+          var req = request.post(url),
+          postData = {branch: branch || "master"};
+            
           agent.attachCookies(req);
-          req.send({branch: branch || "master"});
+          
+          if (message)
+              postData.message = message;
+            
+          req.send(postData);
 
           req.end(function(err,res){
             if(!err){
@@ -303,6 +309,10 @@ parser.command('runTest')
       abbr: 'b'
     , help: "branch name (default: master)"
   })
+  .option('message', {
+      abbr: 'm'
+      , help: "Commit message (optional)"
+  })
   .callback(function(opts){
     if (opts.email) {
       opts.email = opts.email.toString()
@@ -316,7 +326,10 @@ parser.command('runTest')
     if(opts.branch) {
       opts.branch = opts.branch.toString()
     }
-    runTest(opts.email, opts.password, opts.project, opts.branch);
+    if(opts.message) {
+      opts.branch = opts.branch.toString()
+    }
+    runTest(opts.email, opts.password, opts.project, opts.branch, opts.message);
   })
   .help("Run a test")
 
