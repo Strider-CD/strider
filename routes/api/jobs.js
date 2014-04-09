@@ -49,10 +49,15 @@ exports.jobs_start = function(req, res) {
     source: {type: 'UI', page: req.param('page') || 'unknown'}
   }
 
-  if (message)
+  
+  if (message) {
       trigger.message = message;
-  else
-      trigger.message = type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting';
+  } else {
+      if (type === 'TEST_AND_DEPLOY')
+          trigger.message = 'Manually Redeploying';
+      else
+          trigger.message =  'Manually Retesting';
+  }
 
   job = {
     type: type,
