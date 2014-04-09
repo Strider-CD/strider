@@ -327,7 +327,7 @@ parser.command('runTest')
       opts.branch = opts.branch.toString()
     }
     if(opts.message) {
-      opts.branch = opts.branch.toString()
+      opts.message = opts.message.toString()
     }
     runTest(opts.email, opts.password, opts.project, opts.branch, opts.message);
   })
