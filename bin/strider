@@ -117,7 +117,7 @@ function addUser(email, password, admin) {
   }
 }
 
-function runTest(email, password, project) {
+function runTest(email, password, project, branch) {
   var Step = require('step')
     , readline = require('readline')
     , request = require('superagent')
@@ -135,6 +135,8 @@ function runTest(email, password, project) {
           url = server_name + "/"+project+"/start"
           var req = request.post(url)
           agent.attachCookies(req);
+          req.send({branch: branch || "master"});
+
           req.end(function(err,res){
             if(!err){
               console.log("Job started")
@@ -297,6 +299,10 @@ parser.command('runTest')
       abbr: 'j'
     , help: "Project name"
   })
+  .option('branch', {
+      abbr: 'b'
+    , help: "branch name (default: master)"
+  })
   .callback(function(opts){
     if (opts.email) {
       opts.email = opts.email.toString()
@@ -307,7 +313,10 @@ parser.command('runTest')
     if(opts.project) {
       opts.project = opts.project.toString()
     }
-    runTest(opts.email, opts.password, opts.project);
+    if(opts.branch) {
+      opts.branch = opts.branch.toString()
+    }
+    runTest(opts.email, opts.password, opts.project, opts.branch);
   })
   .help("Run a test")
 
