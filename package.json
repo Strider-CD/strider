@@ -33,7 +33,7 @@
     "strider-heroku": "~0.1.0",
     "strider-bitbucket": "~1.0.0",
     "strider-github": "~1.1.0",
-    "strider-git": "~0.1.0",
+    "strider-git": "Scalr/strider-git",
     "strider-mailer": "~0",
     "strider-email-notifier": "~0.4.0",
     "strider-build-badge": "~0",
