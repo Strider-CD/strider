@@ -480,7 +480,7 @@
         url: '/' + $scope.project.name + '/config',
         type: 'PUT',
         data: JSON.stringify({
-          public: $scope.project.public
+          public: !$scope.project.public
         }),
         contentType: 'application/json',
         success: function(data, ts, xhr) {
