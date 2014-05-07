@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.4.5",
+  "version": "1.4.6pre",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "stylus": "~0.37.0",
@@ -56,7 +56,8 @@
     "httpcheck": "0.0.1",
     "connect-flash": "~0.1.1",
     "superagent": "~0.15.4",
-    "cors": "~2.1.0"
+    "cors": "~2.1.0",
+    "strider-gitlab": "^1.0.1"
   },
   "devDependencies": {
     "mocha": "~1.14.0",
