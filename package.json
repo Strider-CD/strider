@@ -23,7 +23,7 @@
     "everypaas": "0.0.x",
     "pw": "0.0.4",
     "strider-extension-loader": "~0.4.2",
-    "strider-simple-runner": "~0.11.3",
+    "strider-simple-runner": "~0.12.0",
     "strider-env": "~0.4.4",
     "strider-python": "~0.2.1",
     "strider-custom": "~0.5.2",
