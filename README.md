@@ -80,7 +80,7 @@ Internet-accessible deployment the following variables will need to be exported:
   E.g. https://strider.example.com/auth/github/callback
   - `PLUGIN_BITBUCKET_APP_KEY`, `PLUGIN_BITBUCKET_APP_SECRET`, `PLUGIN_BITBBUCKET_HOSTNAME`: BitBucket app key, secret & server hostname. Needed if you're using BitBucket provider. More info at https://github.com/Strider-CD/strider-bitbucket.
 
-  - If you want email notifications, configure an SMTP server (we recommend Mailgun for SMTP if you need a server - free account gives 200 emails / day):
+  - If you want email notifications, configure an SMTP server in `/usr/local/lib/node_modules/strider/lib/libconfig.js` (we recommend Mailgun for SMTP if you need a server - free account gives 200 emails / day):
     - `SMTP_HOST`: SMTP server hostname e.g. smtp.example.com
     - `SMTP_PORT`: SMTP server port e.g. 587 (default)
     - `SMTP_USER`: SMTP auth username e.g. "myuser"
