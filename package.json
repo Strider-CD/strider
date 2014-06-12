@@ -28,7 +28,6 @@
     "strider-python": "~0.2.1",
     "strider-custom": "~0.5.2",
     "strider-node": "~0.3.4",
-    "strider-webhooks": "~0.1.1",
     "strider-heroku": "~0.1.0",
     "strider-bitbucket": "~1.0.1",
     "strider-github": "~1.2.1",
