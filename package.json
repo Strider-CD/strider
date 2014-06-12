@@ -36,6 +36,7 @@
     "strider-email-notifier": "~0.4.0",
     "strider-build-badge": "~0",
     "strider-ruby": "~0.0.2",
+    "strider-slack": "~0.1.0",
     "connect": "~2.17.3",
     "express": "~3.4.5",
     "swig": "~0.14.0",
