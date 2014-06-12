@@ -27,7 +27,6 @@
     "strider-env": "~0.4.4",
     "strider-python": "~0.2.1",
     "strider-custom": "~0.5.2",
-    "strider-sauce": "~0.6.2",
     "strider-node": "~0.3.4",
     "strider-webhooks": "~0.1.1",
     "strider-heroku": "~0.1.0",
