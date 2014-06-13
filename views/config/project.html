@@ -13,7 +13,7 @@
     Public URL: <a href="{{ serverName }}/{{ project.name }}/"><strong>{{ serverName }}/{{ project.name }}/</strong></a>
     </p>
     <label class="checkbox">
-      <input data-test="public" type="checkbox" ng-model="project.public" ng-click="saveProject()"> Make this project public
+      <input data-test="public" type="checkbox" ng-model="project.public" ng-change="saveProject()"> Make this project public
     </label>
 
     </p>
