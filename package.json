@@ -30,7 +30,7 @@
     "strider-node": "~0.3.4",
     "strider-heroku": "~0.1.0",
     "strider-bitbucket": "~1.0.1",
-    "strider-github": "~1.2.1",
+    "strider-github": "~1.2.2",
     "strider-git": "~0.2.0",
     "strider-mailer": "~0",
     "strider-email-notifier": "~0.4.0",
