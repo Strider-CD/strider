@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.4.6pre",
+  "version": "1.4.7pre",
   "dependencies": {
     "ansiparse": "0.0.5-1",
     "stylus": "~0.45.1",
@@ -29,7 +29,7 @@
     "strider-custom": "~0.5.2",
     "strider-node": "~0.3.5",
     "strider-heroku": "~0.1.0",
-    "strider-bitbucket": "~1.0.1",
+    "strider-bitbucket": "~1.0.3",
     "strider-github": "~1.2.2",
     "strider-git": "~0.2.0",
     "strider-mailer": "~0",
