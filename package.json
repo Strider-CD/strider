@@ -32,7 +32,7 @@
     "strider-bitbucket": "~1.0.3",
     "strider-github": "~1.2.2",
     "strider-git": "~0.2.0",
-    "strider-mailer": "~0",
+    "strider-mailer": "~0.1.0",
     "strider-email-notifier": "~0.4.0",
     "strider-build-badge": "~0",
     "strider-ruby": "~0.0.2",
