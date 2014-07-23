@@ -21,9 +21,15 @@
         <textarea ng-model="branch.pubkey"></textarea>
       </div>
     </div>
-    <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
+    <div class="row-fluid">
+      <div class="span3">
+        <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
+      </div>
+      <div class="span9">
+        <label class="checkbox pull-right">
+          <input ng-model="branch.envKeys" ng-click="saveGeneralBranch()" type="checkbox"> Make ssh keys available on the ENV as STRIDER_SSH_PUB and STRIDER_SSH_PRIV
+        </label>
+      </div>
+    </div>
   </div>
-  <label class="checkbox">
-    <input ng-model="branch.envKeys" ng-click="saveGeneralBranch()" type="checkbox"> Make ssh keys available on the ENV as STRIDER_SSH_PUB and STRIDER_SSH_PRIV
-  </label>
 </div>
