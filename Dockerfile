@@ -8,11 +8,11 @@ run  \
     useradd -m strider ;\
     dpkg-divert --local --rename --add /sbin/initctl ;\
     ln -s /bin/true /sbin/initctl ;\
-    echo "deb http://archive.ubuntu.com/ubuntu quantal main universe" > /etc/apt/sources.list ;\
     echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/10gen.list ;\
     apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 ;\
     apt-get update ;\
-    apt-get install -y curl wget supervisor openssh-server make build-essential libssl-dev python python-dev git default-jre-headless mongodb-10gen ;\
+    apt-get install -y curl wget supervisor openssh-server make build-essential libssl-dev python python-dev git default-jre-headless mongodb-10gen nodejs npm;\
+    ln -s /usr/bin/nodejs /usr/bin/node;\
     locale-gen en_US en_US.UTF-8 ;\
     mkdir -p /var/run/sshd ;\
     mkdir -p /var/log/supervisor ;\
