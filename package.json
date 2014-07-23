@@ -31,6 +31,7 @@
     "strider-heroku": "~0.1.0",
     "strider-bitbucket": "~1.0.3",
     "strider-github": "~1.2.2",
+    "strider-github-status": "git+https://git@github.com/GoodGuide/strider-github-status.git",
     "strider-git": "~0.2.0",
     "strider-mailer": "~0.1.0",
     "strider-email-notifier": "~0.4.0",
