@@ -73,18 +73,19 @@
         </form>
       </div>
       {# TODO hide this if there is only one group #}
-      <ul class="span2 nav nav-list nav-stacked groups-list">
-        <li ng-repeat="(name, group) in repos[account.provider][account.id]"
-            ng-class="{active: $first}">
-          <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]">
-            [[ name ]]
-            <span class="label label-success pull-right" ng-show="group.configured">[[ group.configured ]]</span>
-          </a>
-        </li>
-      </ul>
+      <div class="span2">
+        <ul class="nav nav-list nav-stacked groups-list">
+          <li ng-repeat="(name, group) in repos[account.provider][account.id]"
+              ng-class="{active: $first}">
+            <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]">
+              [[ name ]]
+              <span class="label label-success pull-right" ng-show="group.configured">[[ group.configured ]]</span>
+            </a>
+          </li>
+        </ul>
+      </div>
       <div class="tab-content span9">
-        <ul
-           ng-repeat="(name, group) in repos[account.provider][account.id]"
+        <ul ng-repeat="(name, group) in repos[account.provider][account.id]"
            id="group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]"
            class="tab-pane repo-list unstyled" ng-class="{ active: $first }">
           <li ng-repeat="repo in group.repos" class="repo" ng-class="{ configured: !!repo.project }">
