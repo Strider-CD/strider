@@ -76,6 +76,17 @@
     "watchify": "^0.10.2",
     "wd": "~0.2.0"
   },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.js",
+    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    } 
+  },
   "scripts": {
     "test": "make test",
     "start": "bin/strider",
