@@ -82,7 +82,10 @@
     "blanket": {
       "pattern": "lib",
       "data-cover-never": "node_modules"
-    }
+    },
+    "watch": "watchify -e public/javascript/shared.js -o shared.bundled.js"
+  },
+  "browser": {
   },
   "bin": {
     "strider": "bin/strider"
