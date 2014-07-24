@@ -7,7 +7,7 @@ var BASE_PATH = "../../lib/"
 var crypto = require('crypto')
   , Step = require('step')
 
-  , nibbler = require(BASE_PATH + 'nibbler')
+  , base32 = require('thirty-two')
   , humane = require(BASE_PATH + 'humane')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
   , Job = require(BASE_PATH + 'models').Job
@@ -25,9 +25,8 @@ var crypto = require('crypto')
  * Generate a sweet BASE32 invite code
  */
 function make_invite_code() {
-  var random = crypto.randomBytes(5).toString('hex')
-  // TODO get rid of nibbler and use a npm library
-  return nibbler.b32encode(random)
+  var random = crypto.randomBytes(5).toString('hex');
+  return base32.encode(random);
 }
 
 /*
