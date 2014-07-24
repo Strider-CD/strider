@@ -4,7 +4,6 @@ var _ = require('underscore')
   , User = models.User
   , crypto = require('crypto')
   , logging = require(BASE_PATH + 'logging')
-  , nibbler = require(BASE_PATH + 'nibbler')
   , Step = require('step')
   , mail = require(BASE_PATH + 'email')
 

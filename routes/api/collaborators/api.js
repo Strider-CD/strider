@@ -6,8 +6,8 @@ var models = require(BASE_PATH + 'models')
 
   , _ = require('lodash')
   , crypto = require('crypto')
+  , base32 = require('thirty-two')
 
-  , nibbler = require(BASE_PATH + 'nibbler')
   , mail = require(BASE_PATH + 'email')
 
 module.exports = {
@@ -34,7 +34,7 @@ function updateInvite(invite, collaboration, done) {
 
 function sendInvite(inviter, email, collaboration, done) {
   var random = crypto.randomBytes(5).toString('hex')
-    , invite_code = nibbler.b32encode(random)
+    , invite_code = base32.encode(random)
     , invite = new InviteCode({
         code: invite_code,
         emailed_to: email,
