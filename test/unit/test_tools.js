@@ -1,8 +1,5 @@
-var _ = require('underscore')
-  , utils = require('../../lib/tools')
+var utils = require('../../lib/tools')
   , expect = require('chai').expect
-  , fs = require('fs')
-  , path = require('path')
 
 describe('tools', function () {
 
