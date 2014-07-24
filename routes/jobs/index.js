@@ -4,22 +4,14 @@
 
 var BASE_PATH = "../../lib/"
 
-var  _ = require('underscore')
-   , crypto = require('crypto')
-   , mongoose = require('mongoose')
-   , Step = require('step')
-
+var  _ = require('lodash')
    , filter = require(BASE_PATH + 'ansi')
    , common = require(BASE_PATH + 'common')
-   , humane = require(BASE_PATH + 'humane')
-   , logging = require(BASE_PATH + 'logging')
    , ljobs = require(BASE_PATH + 'jobs')
    , utils = require(BASE_PATH + 'utils')
 
    , models = require(BASE_PATH + 'models')
    , Job = models.Job
-   , User = models.User
-   , Project = models.Project
    , pjson = require('../../package.json')
 
 module.exports = {

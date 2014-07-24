@@ -1,7 +1,5 @@
-var _ = require('underscore')
+var _ = require('lodash')
   , expect = require('chai').expect
-  , fs = require('fs')
-  , path = require('path')
   , lconf = require('../../lib/libconfig.js')
 
 describe('config', function () {

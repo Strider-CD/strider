@@ -4,15 +4,11 @@
 
 var BASE_PATH = "../../lib/"
 
-var  _ = require('underscore')
-  , crypto = require('crypto')
-  , base32 = require('thirty-two')
+var crypto = require('crypto')
   , Step = require('step')
 
-  , feature = require(BASE_PATH + 'feature')
+  , base32 = require('thirty-two')
   , humane = require(BASE_PATH + 'humane')
-  , logging = require(BASE_PATH + 'logging')
-  , email = require(BASE_PATH + 'email')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
   , Job = require(BASE_PATH + 'models').Job
   , User = require(BASE_PATH + 'models').User
@@ -38,7 +34,7 @@ function make_invite_code() {
  */
 exports.invites = function(req, res) {
   InviteCode.find({}).populate('consumed_by_user').sort({'_id': -1}).exec(function(err, results) {
-    _.each(results, function(invite) {
+    results.forEach(function(invite) {
       invite.created = humane.humaneDate(invite.created_timestamp)
       invite.consumed = humane.humaneDate(invite.consumed_timestamp)
     })
@@ -149,7 +145,7 @@ exports.job = function(req, res) {
     function processAndRender(err, results_detail, results) {
       if (err) throw err
 
-      _.each(results, function(job) {
+      results.forEach(function(job) {
         job.duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000)
         job.finished_at = humane.humaneDate(job.finished_timestamp)
         if (job.github_commit_info.id !== undefined) {

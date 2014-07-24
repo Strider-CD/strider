@@ -1,11 +1,8 @@
 var BASE_PATH = "../../../lib/";
-var _ = require('underscore')
+var _ = require('lodash')
   , models = require(BASE_PATH + 'models')
   , User = models.User
   , crypto = require('crypto')
-  , logging = require(BASE_PATH + 'logging')
-  , Step = require('step')
-  , mail = require(BASE_PATH + 'email')
 
   , api = require('./api')
 

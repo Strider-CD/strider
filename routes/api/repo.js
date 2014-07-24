@@ -6,14 +6,11 @@
 
 var BASE_PATH = '../../lib/';
 
-var _ = require('underscore')
-  , logging = require(BASE_PATH + 'logging')
-  , utils = require(BASE_PATH + 'utils')
+var utils = require(BASE_PATH + 'utils')
   , common = require(BASE_PATH + 'common')
   , User = require(BASE_PATH + 'models').User
   , Project = require(BASE_PATH + 'models').Project
   , Job = require(BASE_PATH + 'models').Job
-  , Step = require('step')
   , async = require('async')
 
   , keypair = require('ssh-keypair')

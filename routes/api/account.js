@@ -4,18 +4,11 @@
 
 var BASE_PATH = '../../lib/';
 
-var _ = require('underscore')
-  , crypto = require('crypto')
-  , check = require('validator').check
-  , Step = require('step')
+var check = require('validator').check
 
-  , auth = require(BASE_PATH + 'auth')
   , email = require(BASE_PATH + 'email')
-  , logging = require(BASE_PATH + 'logging')
   , models = require(BASE_PATH + 'models')
   , User = models.User
-
-  , api = require('./index.js')
 
 // PUT /api/account/:provider/:id
 exports.save = function (req, res) {
