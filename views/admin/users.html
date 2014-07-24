@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block bodyContent %}
-{% for message in flash %}
-<div class="alert alert-info">{{ message|raw }}</div>
-{% endfor %}
-<div class="span8">
+  {% for message in flash %}
+    <div class="alert alert-info">{{ message|raw }}</div>
+  {% endfor %}
+
   <h3>Admin: Users</h3>
   <table class="table-bordered table-striped table">
     <thead>
@@ -22,27 +22,25 @@
     <tbody>
     {% for user in users %}
       <tr>
-          <td>{{user.email}}</td>
-          <td>{{user.created_date}}</td>
-          <td>
-            {% if (user.account_level === 1) %}
-              <b>YES</b>
-            {% else %}
-              <a href="/admin/make_admin?user={{user.email}}">Make Admin</a>
-            {% endif %}
-          </td>
-          <td>
-          {% if user._id.toString() !== currentUser._id.toString() %}
-            <form method="post" class="remove-user" action="/admin/remove_user">
-              <input type="hidden" name="email" value="{{ user.email }}">
-              <button type="submit" class="btn btn-danger btn-small">Remove</button>
-            </form>
+        <td>{{user.email}}</td>
+        <td>{{user.created_date}}</td>
+        <td>
+          {% if (user.account_level === 1) %}
+            <b>YES</b>
+          {% else %}
+            <a href="/admin/make_admin?user={{user.email}}">Make Admin</a>
           {% endif %}
-          </td>
+        </td>
+        <td>
+        {% if user._id.toString() !== currentUser._id.toString() %}
+          <form method="post" class="remove-user" action="/admin/remove_user">
+            <input type="hidden" name="email" value="{{ user.email }}">
+            <button type="submit" class="btn btn-danger btn-small">Remove</button>
+          </form>
+        {% endif %}
+        </td>
       </tr>
-
     {% endfor %}
     </tbody>
   </table>
-</div>
 {% endblock %}

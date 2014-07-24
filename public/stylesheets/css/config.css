@@ -7,10 +7,8 @@
 .clearfix:after {
   content: " ";
   /* 1 */
-
   display: table;
   /* 2 */
-
 }
 .clearfix:after {
   clear: both;
@@ -160,35 +158,11 @@
 .clickable:hover {
   color: #777;
 }
-.moveable {
-  cursor: move;
-}
-
-.branch-list {
-  list-style: none;
-  margin-left: 0;
-}
-
-.branch-list .branch-item {
-  background-color: white;
-  padding: 5px 0 5px 0;
-  margin-bottom: 5px;
-}
-
-.branch-list .branch-item .branch-name {
-  font-weight: bold;
-  margin-left: 5px;
-}
-
-.branch-list .branch-item .ismaster {
-  margin-left: 40px;
-}
-
-
 #provider-config {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px 10px 10px;
+  margin-bottom: 20px;
 }
 #config-wrapper .config-tabs {
   margin: 5px 0 0;
@@ -220,10 +194,10 @@
   font-weight: bold;
   line-height: 18px;
 }
-.remove i {
+#project_config_collaborators .collaborator .remove i {
   padding: 10px;
 }
-.remove i.icon-remove {
+#project_config_collaborators .collaborator .remove i.icon-remove {
   color: red;
 }
 #project_config_collaborators .collaborator td {

@@ -20,6 +20,7 @@ var  _ = require('underscore')
    , Job = models.Job
    , User = models.User
    , Project = models.Project
+   , pjson = require('../../package.json')
 
 module.exports = {
   html: html,
@@ -119,7 +120,8 @@ function html(req, res) {
             job: job,
             statusBlocks: common.statusBlocks,
             showStatus: showStatus,
-            page_base: req.params.org + '/' + req.params.repo
+            page_base: req.params.org + '/' + req.params.repo,
+            version: pjson.version
           })
         },
         json: function() {
@@ -133,7 +135,6 @@ function html(req, res) {
         }
       })
     })
-
   })
 }
 

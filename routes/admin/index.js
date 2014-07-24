@@ -21,6 +21,7 @@ var  _ = require('underscore')
   , utils = require(BASE_PATH + 'utils')
   , users = require(BASE_PATH + 'users')
   , projects = require(BASE_PATH + 'projects')
+  , pjson = require('../../package.json')
 
 /*
  * make_invite_code()
@@ -43,7 +44,11 @@ exports.invites = function(req, res) {
       invite.consumed = humane.humaneDate(invite.consumed_timestamp)
     })
 
-    res.render('admin/invites.html', {invite_code: make_invite_code(), invite_codes:results})
+    res.render('admin/invites.html', {
+      invite_code: make_invite_code(),
+      invite_codes: results,
+      version: pjson.version
+    })
   })
 }
 
@@ -53,13 +58,14 @@ exports.invites = function(req, res) {
 
 exports.users = function(req,res) {
   User.find({}).sort({'_id': -1}).exec(function(err, users) {
-   res.render('admin/users.html',{
-     flash: req.flash('admin'),
-     users: users.map(function (user) {
-      user.created_date = humane.humaneDate(utils.timeFromId(user.id))
-      return user
-     })
-   })
+    res.render('admin/users.html', {
+      flash: req.flash('admin'),
+      version: pjson.version,
+      users: users.map(function (user) {
+        user.created_date = humane.humaneDate(utils.timeFromId(user.id))
+        return user
+      })
+    })
  })
 }
 
@@ -103,7 +109,8 @@ exports.projects = function(req,res) {
   projects.allProjects(function (err, projects) {
     if (err) return res.send(500, 'Error retrieving projects')
     res.render('admin/projects.html', {
-      projects: projects
+      projects: projects,
+      version: pjson.version
     })
   })
 }
@@ -187,19 +194,18 @@ exports.job = function(req, res) {
         var has_prod_deploy_target = false
         var admin_view = true
 
-        res.render('job.html',
-          {
-            admin_view: admin_view,
-            jobs: results,
-            results_detail: results_detail,
-            job_id:results[0].id.substr(0,8),
-            triggered_by_commit: triggered_by_commit,
-            org:org,
-            repo:repo,
-            repo_url:repo_url,
-            has_prod_deploy_target:has_prod_deploy_target
-          })
-        
+        res.render('job.html', {
+          admin_view: admin_view,
+          jobs: results,
+          results_detail: results_detail,
+          job_id: results[0].id.substr(0,8),
+          triggered_by_commit: triggered_by_commit,
+          org: org,
+          repo: repo,
+          repo_url: repo_url,
+          has_prod_deploy_target: has_prod_deploy_target,
+          version: pjson.version
+        })
       }
     }
   )
