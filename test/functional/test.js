@@ -1,19 +1,10 @@
-var  _ = require('underscore')
+var  _ = require('lodash')
   , app = require('../../lib/app')
   , models = require('../../lib/models')
-  , assert = require('assert')
   , common = require('../../lib/common')
-  , crypto = require('crypto')
-  , EventEmitter = require('events').EventEmitter
-  , fs = require('fs')
-  , mongoose = require('mongoose')
   , path = require('path')
-  , qs = require('querystring')
   , should = require('should')
-  , sinon = require('sinon')
   , Step = require('step')
-  ;
-
 
 
 describe('functional', function() {
@@ -71,7 +62,7 @@ describe('functional', function() {
       // log the various clients in
       before(function(done) {
         var complete = 0;
-        _.each(TEST_USERS, function(opts, email) {
+        TEST_USERS.forEach(function(opts, email) {
           clients[email] = request.post({url: TEST_BASE_URL + "login",
           form:{email:email, password:opts.password},
           jar:opts.jar,

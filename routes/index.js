@@ -4,7 +4,7 @@
 
 var BASE_PATH = "../lib/"
 
-var _ = require('underscore')
+var _ = require('lodash')
   , async = require('async')
   , Step = require('step')
   , fs = require('fs')
