@@ -3,6 +3,7 @@
   "version": "1.4.6pre",
   "dependencies": {
     "angular": "^1.2.19",
+    "angular-route": "^1.2.17-build.163.1",
     "ansiparse": "0.0.5-1",
     "async": "~0.9.0",
     "bcrypt": "~0.7.7",
@@ -77,15 +78,20 @@
     "wd": "~0.2.0"
   },
   "browser": {
-    "jquery": "./bower_components/jquery/dist/jquery.js",
-    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.js"
+    "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js"
   },
   "browserify-shim": {
+    "jquery": "jQuery",
     "bootstrap": {
       "depends": [
         "jquery:jQuery"
       ]
-    } 
+    }
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   },
   "scripts": {
     "test": "make test",
@@ -94,9 +100,7 @@
       "pattern": "lib",
       "data-cover-never": "node_modules"
     },
-    "watch": "watchify -e public/javascript/shared.js -o shared.bundled.js"
-  },
-  "browser": {
+    "watch": "watchify -e client/app.js -o dist/scripts/app.js"
   },
   "bin": {
     "strider": "bin/strider"

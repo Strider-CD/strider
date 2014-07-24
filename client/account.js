@@ -2,7 +2,7 @@ $(function() {
   window.PasswordView = Backbone.View.extend({
     el: $("#change_password"),
     events: {
-        "click .btn": "submit"
+      "click .btn": "submit"
     },
     render: function() {
       $(this.el).html(_.template($("#change-password").html()));

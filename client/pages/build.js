@@ -1,5 +1,8 @@
-
 /* globals JobDataMonitor: true, bootbox: true, console: true, io: true, PHASES: true, SKELS: true, job: true */
+'use strict';
+
+var _ = require('lodash');
+var angular = require('angular');
 
 function jobSort(a, b) {
   if (a.nojobs) {
@@ -154,6 +157,7 @@ function buildSwitcher($scope) {
 }
 
 var app = angular.module('JobStatus', ['moment', 'ansi', 'ngRoute']);
+
 app.config(['$interpolateProvider', '$locationProvider', '$routeProvider', function (interp, location, route) {
   interp.startSymbol('[[');
   interp.endSymbol(']]');
@@ -166,9 +170,11 @@ app.config(['$interpolateProvider', '$locationProvider', '$routeProvider', funct
     '/job/latest': one,
     '/job/:id': one
   };
+
   Object.keys(routes).forEach(function (path) {
     route.when(path, routes[path]);
   });
+
   // route.otherwise({redirectTo: '/'});
   location.html5Mode(true);
 }]);

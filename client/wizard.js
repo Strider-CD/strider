@@ -60,7 +60,6 @@ $(function() {
           title: "Set up Github connection",
           template: "#wizard-step-1",
         },
-
     ],
 
     template: _.template($("#wizard-app").html()),
