@@ -20,6 +20,10 @@ run mkdir -p /data/db && chown -R strider /data
 run mkdir -p /var/log/supervisor
 run mkdir -p /var/run/sshd
 
+# turn off pam otherwise the ssh login will not work
+run sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+run sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
+
 workdir /tmp
 
 # clone the strider repository
