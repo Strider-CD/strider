@@ -56,7 +56,6 @@
     "superagent": "~0.18.0",
     "swig": "~0.14.0",
     "thirty-two": "0.0.2",
-    "underscore": "~1.6.0",
     "validator": "~1.5.1",
     "winston": "0.5.11"
   },
