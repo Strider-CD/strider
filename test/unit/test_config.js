@@ -1,6 +1,7 @@
 var _ = require('lodash')
   , expect = require('chai').expect
   , lconf = require('../../lib/libconfig.js')
+  , sinon = require('sinon')
 
 describe('config', function () {
 
@@ -27,15 +28,18 @@ describe('config', function () {
     })
 
     it('should ignore invalid JSON', function () {
+      sinon.stub(console, 'warn')
       var rc = {}
         , gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'}
       lconf.addPlugins(rc, {
         PLUGIN_GITHUB: JSON.stringify(gc),
         PLUGIN_BITBUCKET: 'not valid json'
       })
+      expect(console.warn.callCount).to.eq(1);
       expect(rc.plugins).to.eql({
         github: gc
       })
+      console.warn.restore();
     })
 
     it('should get individual variables', function () {
@@ -81,6 +85,7 @@ describe('config', function () {
   })
 
   it('should pick up legacy github variables', function () {
+    sinon.stub(console, 'warn')
     var oe = process.env
       , config
     process.env = _.extend({}, process.env, {
@@ -97,6 +102,8 @@ describe('config', function () {
     config = lconf.getConfig()
     expect(config.plugins.github.appId).to.equal('one')
     expect(config.plugins.github.appSecret).to.equal('two')
+    expect(console.warn.callCount).to.eq(8);
+    console.warn.restore();
   })
 
   it('should pick up non-prefixed items', function () {

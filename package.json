@@ -60,17 +60,18 @@
     "winston": "0.5.11"
   },
   "devDependencies": {
-    "mocha": "~1.20.1",
-    "wd": "~0.2.0",
-    "commander": ">=0.5.2",
+    "blanket": "~1.1.5",
     "chai": "~1.8.1",
+    "chai-as-promised": "~4.1.0",
+    "commander": ">=0.5.2",
+    "expect.js": "~0.2.0",
     "jshint": "~2.3.0",
     "less": "~1.5.0",
-    "expect.js": "~0.2.0",
-    "blanket": "~1.1.5",
+    "mocha": "~1.20.1",
+    "mocha-as-promised": "~2.0.0",
     "should": "~2.1.0",
-    "chai-as-promised": "~4.1.0",
-    "mocha-as-promised": "~2.0.0"
+    "sinon": "^1.10.3",
+    "wd": "~0.2.0"
   },
   "scripts": {
     "test": "make test",
