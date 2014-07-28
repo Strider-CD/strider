@@ -158,6 +158,31 @@
 .clickable:hover {
   color: #777;
 }
+#project_config_branches .branch-list {
+  list-style: none;
+  margin-left: 0;
+}
+#project_config_branches .branch-list .branch-item {
+  background-color: white;
+  padding: 5px 0 5px 0;
+  margin-bottom: 5px;
+}
+#project_config_branches .branch-list .branch-item.moveable {
+  cursor: move;
+}
+#project_config_branches .branch-list .branch-item .branch-name {
+  font-weight: bold;
+  margin-left: 5px;
+}
+#project_config_branches .branch-list .branch-item .ismaster {
+  margin-left: 40px;
+}
+#project_config_branches .branch-list .branch-item .remove i {
+  padding: 10px;
+}
+#project_config_branches .branch-list .branch-item .remove i.icon-remove {
+  color: red;
+}
 #provider-config {
   border: 1px solid #ccc;
   border-radius: 5px;
