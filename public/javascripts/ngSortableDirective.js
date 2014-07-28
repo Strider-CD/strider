@@ -5,13 +5,23 @@
     return {
       compile: function ($element, attr) {
         var opts = {}
-        var onUpdate = attr['ngSortable'];
-        var getter = $parse(attr['ngModel']);
+          , onAdd = null
+          , onRemove = null
+          , fauxAdd = null
+          , groupName = attr['ngSortableGroupName']
+          , onUpdate = attr['ngSortable'] || attr['ngSortableUpdate']
+        ;
+        if (groupName) {
+          onAdd = attr['ngSortableAdded'];
+          onRemove = attr['ngSortableRemoved'];
+        }
+        //var onUpdate = $parse(attr['updated']);
+        //var fauxAdd = !attr['noFauxAdd'];
+
         return function (scope, element) {
           var bind = function (fn) {
             return function (event) {
-              var model = getter(scope);
-              var list = _.cloneDeep(model);
+              var list = _.cloneDeep($parse(attr['ngModel'])(scope));
               var $el = $(event.target);
               var newIndex = $el.index();
               var id = $($el).data('ng-sortable-id');
@@ -24,7 +34,7 @@
                 list.splice(oldIndex, 1);
                 list.splice(newIndex, 0, target);
                 scope.$apply(function() {
-                  scope[fn](list);
+                  $parse(fn)(scope)(list);
                 });
               } else {
                 // this requirement can go away if we set IDs ourself during compiletime
@@ -33,7 +43,13 @@
               }
             }
           };
-          if (onUpdate) opts.onUpdate = bind(onUpdate);
+          if (onUpdate)  opts.onUpdate = bind(onUpdate);
+          if (groupName) opts.group    = groupName;
+          if (onAdd)     opts.onAdd    = bind(onAdd);
+          if (onRemove)  opts.onRemove = bind(onRemove);
+          if (onUpdate)  opts.onUpdate = bind(onUpdate);
+          if (fauxAdd)   opts.fauxAdd  = true;
+
           scope.sortable = new Sortable(element.get(0), opts);
         };
       }
