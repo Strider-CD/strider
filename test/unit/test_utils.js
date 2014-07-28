@@ -57,6 +57,7 @@ describe('utils', function () {
       var expected = require('../fixtures/issue_477/mergedConfig.json');
       var out = utils.mergeConfigs(branch, config);
       expect(expected).to.deep.eq(out);
+      expect(out.runner.id).to.be.ok;
     });
   });
 
