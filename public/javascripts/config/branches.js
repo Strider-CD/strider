@@ -57,6 +57,7 @@ app.controller('BranchesCtrl', ['$scope', function ($scope) {
   }
 
   $scope.changeBranchOrder = function (list) {
+    $scope.branches = list;
     $.ajax({
       url: '/' + $scope.project.name + '/branches/',
       type: 'PUT',
