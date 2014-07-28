@@ -36,7 +36,9 @@
       </a>
       {% endif %}
       <span class="branch-picker">
-        <select ng-model="branch" ng-options="branch as branch.name for branch in branches track by branch.name">
+        <select ng-options="branch as branch.name for branch in branches track by branch.name"
+          ng-change="switchToTab(null, branch)"
+          ng-model="branch">
         </select>
         <button
            class="btn"
