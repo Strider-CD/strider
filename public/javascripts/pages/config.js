@@ -5,7 +5,8 @@
   window.app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
-  });
+  })
+  .directive('ngSortable', ngSortableDirective);
 
   function post(url, data, done) {
     $.ajax({
