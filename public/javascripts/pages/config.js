@@ -249,6 +249,12 @@
       }
     };
 
+    $scope.reorderPlugins = function(list) {
+      $scope.branch.plugins = list;
+      console.log(_.pluck($scope.branch.plugins, 'id'));
+      savePluginOrder();
+    };
+
     function initBranch(branch) {
       var plugins;
 

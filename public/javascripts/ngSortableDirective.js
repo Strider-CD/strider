@@ -6,11 +6,12 @@
       compile: function ($element, attr) {
         var opts = {}
         var onUpdate = attr['ngSortable'];
-        var model = attr['ngModel'];
+        var getter = $parse(attr['ngModel']);
         return function (scope, element) {
           var bind = function (fn) {
             return function (event) {
-              var list = _.clone(scope[model]);
+              var model = getter(scope);
+              var list = _.cloneDeep(model);
               var $el = $(event.target);
               var newIndex = $el.index();
               var id = $($el).data('ng-sortable-id');
@@ -26,7 +27,9 @@
                   scope[fn](list);
                 });
               } else {
-                throw new Error("No target. Did you set data attribute 'ng-sortable-id'? on your repeated elements?")
+                // this requirement can go away if we set IDs ourself during compiletime
+                // but generally you'll have an ID to give
+                throw new Error("Could not locate target element. Did you forget to set attribute data-ng-sortable-id on your repeated HTML elements?")
               }
             }
           };
