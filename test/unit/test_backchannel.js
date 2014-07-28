@@ -16,7 +16,7 @@ describe("BackChannel", function() {
       , Job = null
       , Runner = require('strider-simple-runner').Runner
 
-    beforeEach(function(done) {
+    before(function(done) {
       var provider = require('../fixtures/issue_477/common.extensions.provider.json');
       provider.github.getFile = sinon.stub().yields(new Error('no strider.json'), null)
       common.extensions = { provider: provider };
@@ -49,7 +49,7 @@ describe("BackChannel", function() {
       done();
     });
 
-    afterEach(function() {
+    after(function() {
       Project.findOne.restore();
       Job.create.restore();
       BackChannel.prototype.newJob.restore();
