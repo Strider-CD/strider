@@ -115,22 +115,6 @@
     $(function () {
       window.onpopstate = routeTabs; // support the back button
       routeTabs();
-
-      // we use after(2) because our router above should be first
-      // to take care of showing the first tab and we want to ignore
-      // the calls made by the 2 watchers below 
-
-      var watcherTabSwitcher = _.after(2, function (value) {
-        console.debug('watcherTabSwitcher');
-        switchToTab(null, value);
-      });
-
-      setTimeout(function() {
-        $scope.$watch('branch.mirror_master', watcherTabSwitcher);
-        $scope.$watch('branch', watcherTabSwitcher);
-        // we set this timeout here in order to ensure that any init code
-        // does not cause this to fire more than the anticipated 2 times
-      }, 200);
     });
     // End Config Tab Routing
     
@@ -144,6 +128,8 @@
       $('#' + tab).addClass('active');
       $('a[href=#' + tab + ']').tab('show');
     };
+
+    $scope.switchToTab = switchToTab;
 
     var save_branches = {};
 
