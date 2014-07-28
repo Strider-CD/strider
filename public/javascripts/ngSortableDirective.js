@@ -19,11 +19,15 @@
                 oldIndex = i;
                 return b._id === id;
               });
-              list.splice(oldIndex, 1);
-              list.splice(newIndex, 0, target);
-              scope.$apply(function() {
-                scope[fn](list);
-              });
+              if (target) {
+                list.splice(oldIndex, 1);
+                list.splice(newIndex, 0, target);
+                scope.$apply(function() {
+                  scope[fn](list);
+                });
+              } else {
+                throw new Error("No target. Did you set data attribute 'ng-sortable-id'? on your repeated elements?")
+              }
             }
           };
           if (onUpdate) opts.onUpdate = bind(onUpdate);
