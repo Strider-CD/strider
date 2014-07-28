@@ -50,6 +50,17 @@ describe('utils', function () {
 
   })
 
+  describe("mergeConfigs()", function() {
+    it("unregressed #477", function() {
+      var branch = require('../fixtures/issue_477/unmergedBranch.json');
+      var config = require('../fixtures/issue_477/unmergedConfig.json');
+      var expected = require('../fixtures/issue_477/mergedConfig.json');
+      var out = utils.mergeConfigs(branch, config);
+      expect(expected).to.deep.eq(out);
+      expect(out.runner.id).to.be.ok;
+    });
+  });
+
   describe('mergePlugins()', function () {
 
     it('should work for nulls', function () {
