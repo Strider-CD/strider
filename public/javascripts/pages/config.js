@@ -5,7 +5,8 @@
   window.app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
-  });
+  })
+  .directive('ngSortable', ngSortableDirective);
 
   function post(url, data, done) {
     $.ajax({
@@ -234,17 +235,41 @@
       });
     }
 
-    // options for the inUse plugin sortable
-    $scope.inUseOptions = {
-      connectWith: '.disabled-plugins-list',
-      distance: 5,
-      remove: function (e, ui) {
-        updateConfigured();
-      },
-      receive: function (e, ui) {
-        updateConfigured();
-        var plugins = $scope.branch.plugins;
-        plugins[ui.item.index()].enabled = true;
+    $scope.reorderPlugins = function(list) {
+      $scope.branch.plugins = list;
+      savePluginOrder();
+    };
+
+    $scope.enablePlugin = function (target, index, event) {
+      event.removeDragEl();
+      // add to enabled list
+      $scope.branch.plugins.splice(index, 0, target);
+      // enable it
+      _.find($scope.branch.plugins, { id: target.id }).enabled = true;
+      // remove from disabled list
+      var disabled = $scope.disabled_plugins[$scope.branch.name];
+      disabled.splice(_.indexOf(_.pluck(disabled, 'id'), target.id), 1);
+      updateConfigured()
+    };
+
+    $scope.disablePlugin = function (target, index, event) {
+      event.removeDragEl();
+      // add it to the disabled list
+      $scope.disabled_plugins[$scope.branch.name].splice(index, 0, target);
+      // remove it from enabled list
+      var enabled = $scope.branch.plugins;
+      enabled.splice(_.indexOf(_.pluck(enabled, 'id'), target.id), 1);
+      updateConfigured()
+    };
+
+    $scope.setImgStyle = function (plugin) {
+      var plugins = $scope.plugins
+        , icon = plugins[plugin.id].icon
+        , bg = null;
+      if (icon)
+        bg = "url('/ext/"+plugin.id+"/"+plugins[plugin.id].icon+"')";
+      plugin.imgStyle = {
+        'background-image': bg
       }
     };
 

@@ -1,4 +1,3 @@
-
 app.controller('BranchesCtrl', ['$scope', function ($scope) {
   function remove(ar, item) {
     ar.splice(ar.indexOf(item), 1)
@@ -57,32 +56,24 @@ app.controller('BranchesCtrl', ['$scope', function ($scope) {
     })
   }
 
-  $scope.changeBranchOrder = {
-    update: function () {
-
-      $scope.$watch('branches', function () {
-        var data = { branches: $scope.branches }
-
-        $.ajax({
-          url: '/' + $scope.project.name + '/branches/',
-          type: 'PUT',
-          data: data,
-          dataType: 'json',
-          success: function(res, ts, xhr) {
-            $scope.success(res.message, true, false)
-          },
-          error: function(xhr, ts, e) {
-            if (xhr && xhr.responseText) {
-              var data = $.parseJSON(xhr.responseText)
-              $scope.error('Error adding branch: ' + data.errors[0], true)
-            } else {
-              $scope.error('Error adding branch: ' + e, true)
-            }
-          }
-        })
-      })
-
-    }
+  $scope.changeBranchOrder = function (list) {
+    $scope.branches = list;
+    $.ajax({
+      url: '/' + $scope.project.name + '/branches/',
+      type: 'PUT',
+      data: { branches: list },
+      dataType: 'json',
+      success: function(res, ts, xhr) {
+        $scope.success(res.message, true, false)
+      },
+      error: function(xhr, ts, e) {
+        if (xhr && xhr.responseText) {
+          var data = $.parseJSON(xhr.responseText)
+          $scope.error('Error adding branch: ' + data.errors[0], true)
+        } else {
+          $scope.error('Error adding branch: ' + e, true)
+        }
+      }
+    })
   }
-
 }])
