@@ -106,7 +106,7 @@
                   <a href="/[[ repo.project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="icon-wrench"></i></a>
 
                   <span ng-switch="repo.really_remove">
-                    <button ng-switch-default class="btn btn-danger" ng-click="toggleRemove(repo)" ng-disabled="repo.really_remove">Remove</button>
+                    <button ng-switch-default class="btn btn-warning" ng-click="toggleRemove(repo)" ng-disabled="repo.really_remove">Remove</button>
                     <button ng-switch-when="true" ng-disabled="!repo.really_remove" class="btn btn-default" ng-click="toggleRemoveCancel(repo)">Cancel</button>
                   </span>
                 </span>
