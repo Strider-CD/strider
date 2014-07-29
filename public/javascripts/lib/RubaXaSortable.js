@@ -400,13 +400,14 @@
 						rootEl.dispatchEvent(_createEvent('remove', dragEl));
 
 						// Add event
-						dragEl.dispatchEvent(_createEvent('add', dragEl));
-
-            // In Angular we may want to remove because an ng-repeat
-            // list will update at the same time and cause a duplicate
-            if( this.options.fauxAdd ) {
+            var addEvent = _createEvent('add', dragEl);
+            // In an Angular ng-repeat context, the drag element
+            // must be removed just prior to updating the list.
+            // Pass a convenience function for this via the event.
+            addEvent.removeDragEl = function () {
               dragEl.parentNode.removeChild(dragEl);
-            }
+            };
+						dragEl.dispatchEvent(addEvent);
 					}
 					else if( dragEl.nextSibling !== nextEl ){
 						// Update event
