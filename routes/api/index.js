@@ -4,13 +4,7 @@
 
 var BASE_PATH = '../../lib/';
 
-var _ = require('underscore')
-  , crypto = require('crypto')
-  , check = require('validator').check
-  , Step = require('step')
-  , humane = require(BASE_PATH + 'humane')
-  , email = require(BASE_PATH + 'email')
-  , logging = require(BASE_PATH + 'logging')
+var email = require(BASE_PATH + 'email')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
 
 module.exports = {

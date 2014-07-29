@@ -4,15 +4,11 @@
 
 var BASE_PATH = "../../lib/"
 
-var  _ = require('underscore')
-  , crypto = require('crypto')
+var crypto = require('crypto')
   , Step = require('step')
 
-  , feature = require(BASE_PATH + 'feature')
+  , base32 = require('thirty-two')
   , humane = require(BASE_PATH + 'humane')
-  , logging = require(BASE_PATH + 'logging')
-  , nibbler = require(BASE_PATH + 'nibbler')
-  , email = require(BASE_PATH + 'email')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
   , Job = require(BASE_PATH + 'models').Job
   , User = require(BASE_PATH + 'models').User
@@ -29,9 +25,8 @@ var  _ = require('underscore')
  * Generate a sweet BASE32 invite code
  */
 function make_invite_code() {
-  var random = crypto.randomBytes(5).toString('hex')
-  // TODO get rid of nibbler and use a npm library
-  return nibbler.b32encode(random)
+  var random = crypto.randomBytes(5).toString('hex');
+  return base32.encode(random);
 }
 
 /*
@@ -39,7 +34,7 @@ function make_invite_code() {
  */
 exports.invites = function(req, res) {
   InviteCode.find({}).populate('consumed_by_user').sort({'_id': -1}).exec(function(err, results) {
-    _.each(results, function(invite) {
+    results.forEach(function(invite) {
       invite.created = humane.humaneDate(invite.created_timestamp)
       invite.consumed = humane.humaneDate(invite.consumed_timestamp)
     })
@@ -150,7 +145,7 @@ exports.job = function(req, res) {
     function processAndRender(err, results_detail, results) {
       if (err) throw err
 
-      _.each(results, function(job) {
+      results.forEach(function(job) {
         job.duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000)
         job.finished_at = humane.humaneDate(job.finished_timestamp)
         if (job.github_commit_info.id !== undefined) {

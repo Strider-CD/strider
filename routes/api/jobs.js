@@ -4,20 +4,9 @@
 
 var BASE_PATH = '../../lib/';
 
-var _ = require('underscore')
-  , async = require('async')
-  , api = require('./index.js')
-  , check = require('validator').check
-  , common = require(BASE_PATH + 'common')
-  , email = require(BASE_PATH + 'email')
-  , humane = require(BASE_PATH + 'humane')
+var common = require(BASE_PATH + 'common')
   , jobs = require(BASE_PATH + 'jobs')
-  , filter = require(BASE_PATH + 'ansi')
   , gravatar = require('gravatar')
-  , ljobs = jobs
-  , Job = require(BASE_PATH + 'models').Job
-  , User = require(BASE_PATH + 'models').User
-  , logging = require(BASE_PATH + 'logging')
 
 var TEST_ONLY = "TEST_ONLY";
 var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";

@@ -5,7 +5,8 @@
   window.app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
-  });
+  })
+  .directive('ngSortable', ngSortableDirective);
 
   function post(url, data, done) {
     $.ajax({
@@ -30,7 +31,7 @@
     var name = $element.attr('id').split('-').slice(1).join('-');
     $scope.saving = false;
     $scope.$watch('runnerConfigs[branch.name]["' + name + '"]', function (value) {
-      console.log('Runner config', name, value, $scope.runnerConfigs);
+      // console.debug('Runner config', name, value, $scope.runnerConfigs);
       $scope.config = value;
     });
     $scope.save = function () {
@@ -78,20 +79,58 @@
     $scope.userConfigs = window.userConfigs || {};
     $scope.statusBlocks = window.statusBlocks || {};
     $scope.configured = {};
-    // TODO make this aware of a #hash ?
     $scope.branch = $scope.project.branches[0];
     $scope.branches = window.branches || [];
     $scope.disabled_plugins = {};
     $scope.configs = {};
     $scope.runnerConfigs = {};
-    $scope.selectedTab = null;
     $scope.api_root = '/' + $scope.project.name + '/api/';
     $scope.page = 'config';
 
+    // Set the URL when a tab is selected
     $('a[data-toggle="tab"]').on('show', function (e) {
-      $scope.selectedTab = e.target.href.slice(1);
-      $scope.$digest();
+      var tabName = $(e.target).attr('href').replace('#', '');
+      var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
+      var state = window.history.state;
+      if (state && state.tabName === tabName) return; // don't double up!
+      window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
     });
+
+    // Begin Config Tab Routing
+    function routeTabs() {
+      var pathParts = window.location.pathname.split('/');
+      // Confirm we're on the config page
+      if (pathParts.slice(0, 4)[3] === "config") {
+        // Check the URL to see if we should go straight to a tab
+        var lastPart = pathParts[pathParts.length-1];
+        if (pathParts.length === 5 && lastPart.length) {
+          // Yes a tab was supplied
+          var tabName = lastPart;
+          switchToTab(tabName);
+        } else {
+          // No tab was supplied -- derive from branch
+          switchToTab(null, $scope.branch);
+        }
+      }
+    }
+    $(function () {
+      window.onpopstate = routeTabs; // support the back button
+      routeTabs();
+    });
+    // End Config Tab Routing
+    
+    function switchToTab(tab, watchValue) {
+      if (!_.isString(tab)) {
+        tab = watchValue && watchValue.name === 'master' ? 'tab-project' : 'tab-basic';
+      }
+      console.info('switching to tab '+tab);
+      $('#' + tab + '-tab-handle').tab('show');
+      $('.tab-pane.active').removeClass('active');
+      $('#' + tab).addClass('active');
+      $('a[href=#' + tab + ']').tab('show');
+    };
+
+    $scope.switchToTab = switchToTab;
 
     var save_branches = {};
 
@@ -151,23 +190,6 @@
       $scope.saveGeneralBranch(true);
     };
 
-    $scope.$watch('branch.mirror_master', function (value) {
-      setTimeout(function () {
-        var tab = value && value.name === 'master' ? 'project' : 'basic';
-        $('#' + tab + '-tab-handle').tab('show');
-        $('.tab-pane.active').removeClass('active');
-        $('#tab-' + tab).addClass('active');
-      }, 0);
-    });
-    $scope.$watch('branch', function (value) {
-      setTimeout(function () {
-        var tab = value && value.name === 'master' ? 'project' : 'basic';
-        $('#' + tab + '-tab-handle').tab('show');
-        $('.tab-pane.active').removeClass('active');
-        $('#tab-' + tab).addClass('active');
-      }, 0);
-    });
-
     $scope.setRunner = function (name) {
       $scope.branch.runner = {
         id: name,
@@ -213,17 +235,41 @@
       });
     }
 
-    // options for the inUse plugin sortable
-    $scope.inUseOptions = {
-      connectWith: '.disabled-plugins-list',
-      distance: 5,
-      remove: function (e, ui) {
-        updateConfigured();
-      },
-      receive: function (e, ui) {
-        updateConfigured();
-        var plugins = $scope.branch.plugins;
-        plugins[ui.item.index()].enabled = true;
+    $scope.reorderPlugins = function(list) {
+      $scope.branch.plugins = list;
+      savePluginOrder();
+    };
+
+    $scope.enablePlugin = function (target, index, event) {
+      event.removeDragEl();
+      // add to enabled list
+      $scope.branch.plugins.splice(index, 0, target);
+      // enable it
+      _.find($scope.branch.plugins, { id: target.id }).enabled = true;
+      // remove from disabled list
+      var disabled = $scope.disabled_plugins[$scope.branch.name];
+      disabled.splice(_.indexOf(_.pluck(disabled, 'id'), target.id), 1);
+      updateConfigured()
+    };
+
+    $scope.disablePlugin = function (target, index, event) {
+      event.removeDragEl();
+      // add it to the disabled list
+      $scope.disabled_plugins[$scope.branch.name].splice(index, 0, target);
+      // remove it from enabled list
+      var enabled = $scope.branch.plugins;
+      enabled.splice(_.indexOf(_.pluck(enabled, 'id'), target.id), 1);
+      updateConfigured()
+    };
+
+    $scope.setImgStyle = function (plugin) {
+      var plugins = $scope.plugins
+        , icon = plugins[plugin.id].icon
+        , bg = null;
+      if (icon)
+        bg = "url('/ext/"+plugin.id+"/"+plugins[plugin.id].icon+"')";
+      plugin.imgStyle = {
+        'background-image': bg
       }
     };
 

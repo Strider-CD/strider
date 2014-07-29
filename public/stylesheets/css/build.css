@@ -115,6 +115,7 @@ body.job_view .job-detail-sidebar {
 .console-output,
 .console-output pre {
   background-color: black;
+  font-family: monospace;
   color: white;
 }
 .console-output pre {

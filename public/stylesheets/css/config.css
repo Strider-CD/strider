@@ -75,7 +75,7 @@
 .enabled-plugins ul,
 .disabled-plugins ul {
   min-width: 200px;
-  min-height: 100px;
+  min-height: 54px;
   margin: 5px 0 0 0;
   background-color: #eee;
   padding: 5px;
@@ -86,6 +86,8 @@
 }
 .enabled-plugins .drop-here,
 .disabled-plugins .drop-here {
+  pointer-events:none;
+  position: absolute;
   list-style: none;
   padding: 20px 10px;
   font-size: 1.5em;
@@ -157,6 +159,31 @@
 }
 .clickable:hover {
   color: #777;
+}
+#project_config_branches .branch-list {
+  list-style: none;
+  margin-left: 0;
+}
+#project_config_branches .branch-list .branch-item {
+  background-color: white;
+  padding: 5px 0 5px 0;
+  margin-bottom: 5px;
+}
+#project_config_branches .branch-list .branch-item.moveable {
+  cursor: move;
+}
+#project_config_branches .branch-list .branch-item .branch-name {
+  font-weight: bold;
+  margin-left: 5px;
+}
+#project_config_branches .branch-list .branch-item .ismaster {
+  margin-left: 40px;
+}
+#project_config_branches .branch-list .branch-item .remove i {
+  padding: 10px;
+}
+#project_config_branches .branch-list .branch-item .remove i.icon-remove {
+  color: red;
 }
 #provider-config {
   border: 1px solid #ccc;

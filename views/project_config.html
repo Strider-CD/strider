@@ -36,7 +36,9 @@
       </a>
       {% endif %}
       <span class="branch-picker">
-        <select ng-model="branch" ng-options="branch as branch.name for branch in branches track by branch.name">
+        <select ng-options="branch as branch.name for branch in branches track by branch.name"
+          ng-change="switchToTab(null, branch)"
+          ng-model="branch">
         </select>
         <button
            class="btn"
@@ -146,6 +148,8 @@
     </p>
   </div>
 </div>
+<script src="/javascripts/lib/RubaXaSortable.js"></script>
+<script src="/javascripts/ngSortableDirective.js"></script>
 <script src="/javascripts/lib/bootstrap-switch.js"></script>
 <script src="/javascripts/lib/codemirror-compressed.js"></script>
 <script src="/javascripts/lib/ui-codemirror.js"></script>
