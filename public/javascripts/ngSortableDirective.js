@@ -7,40 +7,47 @@
         var opts = {}
           , onAdd = null
           , onRemove = null
-          , fauxAdd = null
-          , groupName = attr['ngSortableGroupName']
+          , groupName = attr['ngSortableGroup']
           , onUpdate = attr['ngSortable'] || attr['ngSortableUpdate']
+          , dataSource = attr['ngSortableSource']
+          , model = attr['ngModel']
         ;
         if (groupName) {
+          if (!dataSource)
+            throw new Error("Use of a group requires specifying a data source via ng-sortable-source");
           onAdd = attr['ngSortableAdded'];
           onRemove = attr['ngSortableRemoved'];
         }
-        //var onUpdate = $parse(attr['updated']);
-        //var fauxAdd = !attr['noFauxAdd'];
-
+        var key = attr['ngSortableKey'] || '_id';
         return function (scope, element) {
-          var bind = function (fn) {
+          var bind = function (fnStr) {
+            var fn = $parse(fnStr)(scope);
             return function (event) {
-              var list = _.cloneDeep($parse(attr['ngModel'])(scope));
-              var $el = $(event.target);
-              var newIndex = $el.index();
-              var id = $($el).data('ng-sortable-id');
-              var oldIndex = null;
-              var target = _.find(list, function (b, i) {
-                oldIndex = i;
-                return b._id === id;
-              });
-              if (target) {
-                list.splice(oldIndex, 1);
-                list.splice(newIndex, 0, target);
-                scope.$apply(function() {
-                  $parse(fn)(scope)(list);
+              scope.$apply(function() {
+                var data = event.type === 'update' ? model : dataSource;
+                var list = _.cloneDeep($parse(data)(scope))
+                  , $el = $(event.target)
+                  , id = $($el).attr('ng-sortable-id')
+                  , oldIndex = null
+                  , newIndex = $el.index();
+                if ( ! id ) throw new Error("No ng-sortable-id on element.");
+                var target = _.find(list, function (b, i) {
+                  oldIndex = i;
+                  return b[key] === id;
                 });
-              } else {
-                // this requirement can go away if we set IDs ourself during compiletime
-                // but generally you'll have an ID to give
-                throw new Error("Could not locate target element. Did you forget to set attribute data-ng-sortable-id on your repeated HTML elements?")
-              }
+                if (!target) {
+                  // this requirement can go away if we set IDs ourself during compiletime
+                  // but generally you'll have an ID to give
+                  throw new Error("Could not locate target element. Did you forget to set attribute data-ng-sortable-id on your repeated HTML elements?")
+                }
+                if (event.type === 'update') {
+                  list.splice(oldIndex, 1);
+                  list.splice(newIndex, 0, target);
+                  fn(list);
+                } else if (event.type === "add") {
+                  fn(target, newIndex, event);
+                }
+              });
             }
           };
           if (onUpdate)  opts.onUpdate = bind(onUpdate);
@@ -48,12 +55,10 @@
           if (onAdd)     opts.onAdd    = bind(onAdd);
           if (onRemove)  opts.onRemove = bind(onRemove);
           if (onUpdate)  opts.onUpdate = bind(onUpdate);
-          if (fauxAdd)   opts.fauxAdd  = true;
 
           scope.sortable = new Sortable(element.get(0), opts);
         };
       }
     }
   }];
-
 }());
