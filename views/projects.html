@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% pluginblock ExtraStyles %}
-<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
 <link rel="stylesheet" href="/stylesheets/css/projects.css"/>
 <script>
   var providers = {{ providers | scriptjson | raw }};
@@ -184,7 +183,6 @@
 </div>
 
 {% include "partials/spinner.html" %}
-<script src="/javascripts/lib/bootstrap-switch.js"></script>
 
 <script src="/javascripts/modules/alerts.js"></script>
 <script src="/javascripts/modules/moment.js"></script>
