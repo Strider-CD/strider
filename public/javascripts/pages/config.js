@@ -1,4 +1,4 @@
-/* global app: true, console: true, md5: true, bootbox: true */
+/* global app: true, console: true, md5: true, bootbox: true, ngSortableDirective: true */
 
 ;(function () {
 
@@ -128,7 +128,7 @@
       $('.tab-pane.active').removeClass('active');
       $('#' + tab).addClass('active');
       $('a[href=#' + tab + ']').tab('show');
-    };
+    }
 
     $scope.switchToTab = switchToTab;
 
