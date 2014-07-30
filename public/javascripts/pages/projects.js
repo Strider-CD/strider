@@ -71,6 +71,18 @@
     $scope.repos = window.repos;
     $scope.providers = window.providers;
     $scope.projectsPage = true;
+    $scope.toggleAdd = function (repo) {
+      repo.adding = 'pick-type';
+    };
+    $scope.toggleAddCancel = function (repo) {
+      repo.adding = false;
+    };
+    $scope.toggleRemove = function (repo) {
+      repo.really_remove = true;
+    };
+    $scope.toggleRemoveCancel = function (repo) {
+      repo.really_remove = false;
+    };
     $scope.removeProject = function (account, repo, group) {
       repo.really_remove = 'removing';
       $.ajax('/' + repo.name + '/', {
