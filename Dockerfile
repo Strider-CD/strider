@@ -3,8 +3,6 @@
 from ubuntu:14.04
 maintainer Niall O'Higgins <niallo@frozenridge.co>
 
-# do this as single-line run until https://github.com/dotcloud/docker/issues/1171 is fixed
-
 # create strider user
 run useradd -m strider
 
