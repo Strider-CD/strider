@@ -2,6 +2,7 @@
 
 function addUser(email, password, admin) {
   var Step = require('step')
+    , fs = require('fs')
     , readline = require('readline')
     , User = require('../lib/models').User
     , Config = require('../lib/models').Config
