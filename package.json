@@ -50,6 +50,7 @@
     "strider-node": "~0.3.5",
     "strider-python": "~0.2.1",
     "strider-ruby": "~0.0.2",
+    "strider-sauce": "^0.6.2",
     "strider-simple-runner": "~0.12.1",
     "strider-slack": "^1.0.0",
     "strider-ssh-deploy": "^0.3.1",
