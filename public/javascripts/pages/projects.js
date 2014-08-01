@@ -85,6 +85,8 @@
     };
     $scope.removeProject = function (account, repo, group) {
       repo.really_remove = 'removing';
+      repo.adding = false;
+
       $.ajax('/' + repo.name + '/', {
         type: 'DELETE',
         success: function (data, ts, xhr) {
