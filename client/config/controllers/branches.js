@@ -1,10 +1,14 @@
-app.controller('BranchesCtrl', ['$scope', function ($scope) {
-  function remove(ar, item) {
-    ar.splice(ar.indexOf(item), 1)
-  }
+'use strict';
+
+var $ = require('jquery');
+var branches = global.branches || [];
+var allBranches = global.allBranches || [];
+
+function BranchesController($scope) {
   $scope.branchName = ''
-  $scope.branches = window.branches || []
-  $scope.allBranches = window.allBranches || []
+  $scope.branches = branches;
+  $scope.allBranches = allBranches;
+
   $scope.remove = function (item) {
     var actuallyDelete = confirm('Are you sure you want to remove ' + item.name + '?')
     if (actuallyDelete) {
@@ -30,6 +34,7 @@ app.controller('BranchesCtrl', ['$scope', function ($scope) {
       })
     }
   }
+
   $scope.add = function () {
     var data = { name: $scope.branchName }
 
@@ -76,4 +81,10 @@ app.controller('BranchesCtrl', ['$scope', function ($scope) {
       }
     })
   }
-}])
+}
+
+function remove(ar, item) {
+  ar.splice(ar.indexOf(item), 1)
+}
+
+module.exports = BranchesController;
