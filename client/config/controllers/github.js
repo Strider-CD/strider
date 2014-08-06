@@ -1,8 +1,8 @@
-function removeWebhooks(repo_url, next) {
-}
+'use strict';
 
+var $ = require('jquery');
 
-app.controller('GithubCtrl', ['$scope', function ($scope) {
+function GithubController($scope) {
   $scope.removeWebhooks = function () {
     bootbox.confirm('<h2>Really remove the github webhooks?</h2> <p>If you only want to temporarily disable build on commit, go to the "Deactivate" tab', 'Just kidding', 'Yes, really', function (result) {
       if (!result) return
@@ -23,5 +23,6 @@ app.controller('GithubCtrl', ['$scope', function ($scope) {
       });
     });
   };
-}]);
+}
 
+module.exports = GithubController;

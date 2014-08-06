@@ -1,5 +1,8 @@
+'use strict';
 
-app.controller('HerokuCtrl', ['$scope', function ($scope) {
+var $ = require('jquery');
+
+function HerokuController($scope) {
   $scope.heroku = $scope.panelData.heroku;
   $scope.deploy_on_green = ($scope.repo.prod_deploy_target ?
                             $scope.repo.prod_deploy_target.deploy_on_green : true);
@@ -109,5 +112,6 @@ app.controller('HerokuCtrl', ['$scope', function ($scope) {
       type: "POST",
     });
   };
-}]);
+}
 
+module.exports = HerokuController;

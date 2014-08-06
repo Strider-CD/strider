@@ -6,6 +6,10 @@ var ProviderController = require('./controllers/provider');
 var JobController = require('./controllers/job');
 var ConfigController = require('./controllers/config');
 var BranchesController = require('./controllers/branches');
+var CollaboratorsController = require('./controllers/collaborators');
+var DeactivateController = require('./controllers/deactivate');
+var HerokuController = require('./controllers/heroku');
+var GithubController = require('./controllers/github');
 
 var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
@@ -16,6 +20,10 @@ var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortabl
 .controller('ProviderController', ['$scope', ProviderController])
 .controller('JobController', ['$scope', '$element', JobController])
 .controller('BranchesCtrl', ['$scope', BranchesController]);
+.controller('CollaboratorsCtrl', ['$scope', CollaboratorsController])
+.controller('DeactivateCtrl', ['$scope', DeactivateController])
+.controller('HerokuCtrl', ['$scope', HerokuController])
+.controller('GithubCtrl', ['$scope', GithubController])
 .directive('ngSortable', ngSortableDirective);
 
 module.exports = app;

@@ -1,5 +1,8 @@
+'use strict';
 
-app.controller('DeactivateCtrl', ['$scope', function ($scope) {
+var $ = require('jquery');
+
+function DeactivateController($scope) {
   var message = 'This will remove all configuration and history for this project. You can always re-add it on the /projects page';
   $scope.active = $scope.panelData.deactivate;
   $scope.loading = false;
@@ -54,4 +57,6 @@ app.controller('DeactivateCtrl', ['$scope', function ($scope) {
       });
     });
   };
-}]);
+}
+
+module.exports = DeactivateController;

@@ -1,8 +1,8 @@
+'use strict';
 
-app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
-  function remove(ar, item) {
-    ar.splice(ar.indexOf(item), 1);
-  }
+var $ = require('jquery');
+
+function CollaboratorsController($scope) {
   $scope.new_email = '';
   $scope.new_access = 0;
   $scope.collaborators = window.collaborators || [];
@@ -62,4 +62,10 @@ app.controller('CollaboratorsCtrl', ['$scope', function ($scope) {
       }
     });
   };
-}]);
+}
+
+function remove(ar, item) {
+  ar.splice(ar.indexOf(item), 1);
+}
+
+module.exports = CollaboratorsController;
