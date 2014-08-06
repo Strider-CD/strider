@@ -82,14 +82,7 @@
   "browser": {
     "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js"
   },
-  "browserify-shim": {
-    "jquery": "jQuery",
-    "bootstrap": {
-      "depends": [
-        "jquery:jQuery"
-      ]
-    }
-  },
+  "browserify-shim": "./shim.js",
   "browserify": {
     "transform": [
       "browserify-shim"
