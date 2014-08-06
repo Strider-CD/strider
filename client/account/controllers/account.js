@@ -1,33 +1,12 @@
 'use strict';
 
-var angular = require('angular');
+var $ = require('jquery');
+var user = global.user || {};
+var providers = global.providers || {};
 
-function setupAccounts(user) {
-  var accounts = {};
-
-  if (!user.accounts || !user.accounts.length) {
-    return accounts;
-  }
-
-  for (var i=0; i<user.accounts.length; i++) {
-    if (!accounts[user.accounts[i].provider]) {
-      accounts[user.accounts[i].provider] = [];
-    }
-
-    accounts[user.accounts[i].provider].push(user.accounts[i]);
-  }
-
-  return accounts;
-}
-
-var app = window.app = angular.module('Account', ['Alerts'], function ($interpolateProvider) {
-  $interpolateProvider.startSymbol('[[');
-  $interpolateProvider.endSymbol(']]');
-});
-
-app.controller('AccountController', ['$scope', '$sce', function ($scope, $sce) {
-  $scope.user = window.user || {};
-  $scope.providers = window.providers || {};
+function AccountController($scope, $sce) {
+  $scope.user = user;
+  $scope.providers = providers;
   $scope.accounts = setupAccounts($scope.user);
 
   $scope.deleteAccount = function (account) {
@@ -125,27 +104,24 @@ app.controller('AccountController', ['$scope', '$sce', function ($scope, $sce) {
       type: "POST"
     });
   };
-}]);
+}
 
-app.controller('ProviderController', ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-  var name = $attrs.id.split('-')[2];
-  $scope.$watch('account.config', function (value) {
-    $scope.config = value;
-  });
+module.exports = AccountController;
 
-  $scope.save = function () {
-    $scope.saving = true;
-    $scope.saveAccount(name, $scope.account, function () {
-      $scope.saving = false;
-    });
-  };
-}]);
+function setupAccounts(user) {
+  var accounts = {};
 
-app.controller('JobController', ['$scope', '$element', '$attrs', function ($scope, $element, $attrs) {
-  var name = $attrs.id.split('-')[1];
-  $scope.$watch('user.jobplugins["' + name + '"]', function (value) {
-    $scope.config = value;
-  });
-}]);
+  if (!user.accounts || !user.accounts.length) {
+    return accounts;
+  }
 
-module.exports = app;
+  for (var i=0; i<user.accounts.length; i++) {
+    if (!accounts[user.accounts[i].provider]) {
+      accounts[user.accounts[i].provider] = [];
+    }
+
+    accounts[user.accounts[i].provider].push(user.accounts[i]);
+  }
+
+  return accounts;
+}
