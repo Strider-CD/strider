@@ -132,6 +132,16 @@ exports.setRunnerConfig = function (req, res) {
   })
 }
 
+exports.setRunnerId = function (req, res) {
+  var branch = req.project.branch(req.query.branch)
+  branch.runner.id = req.body.id
+  branch.runner.config = req.body.config
+  req.project.save(function (err, project) {
+    if (err) return res.send(500, {error: 'Failed to save runner config'})
+    res.send(project.branch(req.query.branch).runner.id)
+  })
+}
+
 // GET /:org/:repo/config/branch/:pluginname/?branch=:branch
 // Output: the config
 exports.getPluginConfig = function (req, res) {
