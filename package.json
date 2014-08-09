@@ -47,6 +47,7 @@
     "strider-gitlab": "^1.0.1",
     "strider-heroku": "~0.1.0",
     "strider-mailer": "~0.1.0",
+    "strider-metadata": "~0.0.1",
     "strider-node": "~0.3.5",
     "strider-python": "~0.2.1",
     "strider-ruby": "~0.0.2",
