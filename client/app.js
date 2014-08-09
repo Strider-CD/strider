@@ -12,4 +12,6 @@ $navbar.find('li').removeClass('active');
 $navbar.find('a[href="' + global.location.pathname + '"]')
   .parent().addClass('active');
 
-app.controller('BranchesCtrl', require('./config/branches'));
+// Modules
+require('./config');
+require('./account');
