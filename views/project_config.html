@@ -47,9 +47,13 @@
           <span ng-switch-when="true">
             Customize Branch
           </span>
-          <span ng-switch-when="false">
+          <span ng-switch-when="false" ng-click="really_mirror_master = true" ng-hide="really_mirror_master">
             Mirror Master
           </span>
+          <button ng-show="really_mirror_master" class="btn btn-danger" ng-click="mirrorMaster()">
+            Really Mirror Master
+          </button>
+          <button ng-show="really_mirror_master" class="btn btn-default" ng-click="really_mirror_master = false">Keep Customizations</button>
         </button>
       </span>
       <a

@@ -184,11 +184,12 @@
         $scope.branch = $.extend(true, $scope.branch, master);
         $scope.branch.name = name;
         initBranch($scope.branch);
-      } else {
-        var yes = confirm("Are you sure you want to discard customizations on "+$scope.branch.name+" and instead mirror the master branch?")
-        if (! yes) return;
-        $scope.branch.mirror_master = true;
       }
+      $scope.saveGeneralBranch(true);
+    };
+
+    $scope.mirrorMaster = function () {
+      $scope.branch.mirror_master = true;
       $scope.saveGeneralBranch(true);
     };
 
