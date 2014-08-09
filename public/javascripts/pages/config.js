@@ -119,11 +119,11 @@
     });
     // End Config Tab Routing
     
-    function switchToTab(tab, watchValue) {
+    function switchToTab(tab, branch) {
       if (!_.isString(tab)) {
-        tab = watchValue && watchValue.name === 'master' ? 'tab-project' : 'tab-basic';
+        tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
       }
-      console.info('switching to tab '+tab);
+      console.debug('tab: '+tab+', branch: '+$scope.branch.name);
       $('#' + tab + '-tab-handle').tab('show');
       $('.tab-pane.active').removeClass('active');
       $('#' + tab).addClass('active');
