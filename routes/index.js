@@ -159,6 +159,16 @@ exports.setPluginConfig = function (req, res) {
 
 exports.configureBranch = function (req, res) {
   var branch = req.project.branch(req.query.branch)
+  if (branch.name !== req.query.branch) {
+    console.warn('possibly manipulating unintended branch (expected '+req.query.branch+', got '+branch.name+') ... trying to recover');
+    var realBranch = _.findWhere(req.project.branches, { name: req.query.branch });
+    if (realBranch) {
+      branch = realBranch;
+      console.info("found and using intended branch: "+branch.name)
+    } else {
+      console.warn("recovery unsuccessful, continuing to modify "+branch.name);
+    }
+  }
   if (!branch) {
     return res.send(400, 'Invalid branch')
   }
