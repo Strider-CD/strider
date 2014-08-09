@@ -191,10 +191,10 @@
     };
 
     $scope.setRunner = function (name) {
-      $scope.branch.runner = {
-        id: name,
-        config: $scope.runnerConfigs[name]
-      };
+      var config = $scope.runnerConfigs[name]
+      $scope.branch.runner.id = name;
+      $scope.branch.runner.config = config;
+      $scope.saveRunner(name, config)
     };
 
     function updateConfigured() {
@@ -368,6 +368,25 @@
       return 'https://secure.gravatar.com/avatar/' + hash + '?d=identicon';
     }
 
+    $scope.saveRunner = function (id, config) {
+      $.ajax({
+        url: '/' + $scope.project.name + '/config/branch/runner/id/?branch=' + encodeURIComponent($scope.branch.name),
+        data: JSON.stringify({id: id, config: config}),
+        contentType: 'application/json',
+        type: 'PUT',
+        success: function() {
+          // TODO indicate to the user?
+          $scope.success('Saved runner config.', true);
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error setting runner id to " + id);
+          }
+        }
+      });
+    };
+
     // todo: pass in name?
     $scope.runnerConfig = function (branch, data, next) {
       if (arguments.length === 2) {
@@ -380,7 +399,7 @@
         return $scope.runnerConfigs[name];
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/master/runner/?branch=master',
+        url: '/' + $scope.project.name + '/config/branch/runner/?branch=' + encodeURIComponent($scope.branch.name),
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(data),
