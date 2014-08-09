@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% pluginblock ExtraStyles %}
-<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css"/>
 <link rel="stylesheet" href="/stylesheets/css/projects.css"/>
 <script>
   var providers = {{ providers | scriptjson | raw }};
@@ -104,9 +103,17 @@
                     Really remove
                   </button>
                   <a href="/[[ repo.project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="icon-wrench"></i></a>
-                  <button class="btn btn-danger" ng-click="repo.really_remove = true" ng-disabled="repo.really_remove">Remove</button>
+
+                  <span ng-switch="repo.really_remove">
+                    <button ng-switch-default class="btn btn-warning" ng-click="toggleRemove(repo)" ng-disabled="repo.really_remove">Remove</button>
+                    <button ng-switch-when="true" ng-disabled="!repo.really_remove" class="btn btn-default" ng-click="toggleRemoveCancel(repo)">Cancel</button>
+                  </span>
                 </span>
-                <button ng-disabled="repo.adding" ng-switch-default class="btn add-repo btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
+
+                <div ng-switch-default ng-switch="repo.adding">
+                  <button ng-disabled="repo.adding" ng-switch-default class="btn add-repo btn-primary" ng-click="toggleAdd(repo)">Add</button>
+                  <button ng-disabled="!repo.adding" ng-switch-when="pick-type" class="btn cancel-add-repo btn-default" ng-click="toggleAddCancel(repo)">Cancel</button>
+                </div>
               </div>
             <div class="adding-repo pull-right" ng-show="repo.adding" ng-switch="repo.adding">
               <div class="pick-type" ng-switch-when="pick-type">
@@ -184,10 +191,8 @@
 </div>
 
 {% include "partials/spinner.html" %}
-<div id="dashboard"></div>
-<script src="/javascripts/lib/bootstrap-switch.js"></script>
+
 <script src="/javascripts/modules/alerts.js"></script>
 <script src="/javascripts/modules/moment.js"></script>
 <script src="/javascripts/pages/projects.js"></script>
-
 {% endblock %}
