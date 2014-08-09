@@ -87,43 +87,57 @@
     $scope.api_root = '/' + $scope.project.name + '/api/';
     $scope.page = 'config';
 
-    // Set the URL when a tab is selected
-    $('a[data-toggle="tab"]').on('show', function (e) {
-      var tabName = $(e.target).attr('href').replace('#', '');
-      var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
-      var state = window.history.state;
-      if (state && state.tabName === tabName) return; // don't double up!
-      window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
-    });
-
-    // Begin Config Tab Routing
-    function routeTabs() {
-      var pathParts = window.location.pathname.split('/');
-      // Confirm we're on the config page
-      if (pathParts.slice(0, 4)[3] === "config") {
-        // Check the URL to see if we should go straight to a tab
-        var lastPart = pathParts[pathParts.length-1];
-        if (pathParts.length === 5 && lastPart.length) {
-          // Yes a tab was supplied
-          var tabName = lastPart;
-          switchToTab(tabName);
-        } else {
-          // No tab was supplied -- derive from branch
-          switchToTab(null, $scope.branch);
+    $(function ConfigPageRouting() {
+      var router = {
+        init: function () {
+          // Set the URL when a tab is selected
+          $('a[data-toggle="tab"]').on('show', function (e) {
+            var tabName = $(e.target).attr('href').replace('#', '');
+            var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
+            var state = window.history.state;
+            if (state && state.tabName === tabName) return; // don't double up!
+            window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
+          });
+          window.onpopstate = this.route; // support the back button
+          this.route();
+        },
+        route: function() {
+          var pathParts = window.location.pathname.split('/');
+          // Confirm we're on the config page
+          if (pathParts.slice(0, 4)[3] === "config") {
+            this.routeConfigPage(pathParts)
+          }
+        },
+        routeConfigPage: function (pathParts) {
+          // Check the SessionStore to see if we should select a branch
+          var branchName = sessionStorage.getItem('branchName')
+          if (branchName) switchToBranch(branchName);
+          else sessionStorage.removeItem('branchName');
+          // Check the URL to see if we should go straight to a tab
+          var lastPart = pathParts[pathParts.length-1];
+          if (pathParts.length === 5 && lastPart.length) {
+            // Yes a tab was supplied
+            var tabName = lastPart;
+            switchToTab(tabName, $scope.branch);
+          }
         }
       }
-    }
-    $(function () {
-      window.onpopstate = routeTabs; // support the back button
-      routeTabs();
+      router.init()
     });
-    // End Config Tab Routing
+    
+    function switchToBranch(name) {
+      var branch = _.findWhere($scope.branches, { name: name });
+      if (branch) $scope.branch = branch;
+      sessionStorage.setItem('branchName', $scope.branch.name);
+      switchToTab(null, $scope.branch);
+    }
+
+    $scope.switchToBranch = switchToBranch;
     
     function switchToTab(tab, branch) {
       if (!_.isString(tab)) {
         tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
       }
-      console.debug('tab: '+tab+', branch: '+$scope.branch.name);
       $('#' + tab + '-tab-handle').tab('show');
       $('.tab-pane.active').removeClass('active');
       $('#' + tab).addClass('active');
