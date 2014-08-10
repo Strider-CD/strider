@@ -39,41 +39,62 @@
           ng-change="switchToTab(null, branch)"
           ng-model="branch">
         </select>
-        <button
-           class="btn"
-           ng-hide="branch.name === 'master'"
-           ng-switch="!!branch.mirror_master"
-           ng-click="toggleBranch()">
-          <span ng-switch-when="true">
-            Customize Branch
-          </span>
-          <span ng-switch-when="false" ng-click="really_mirror_master = true" ng-hide="really_mirror_master">
-            Mirror Master
-          </span>
-          <button ng-show="really_mirror_master" class="btn btn-danger" ng-click="mirrorMaster()">
-            Really Mirror Master
+
+        <span ng-hide="branch.name === 'master'">
+          <button class="btn"
+            ng-if="!!branch.mirror_master"
+            ng-hide="branch.really_mirror_master"
+            ng-click="toggleBranch()">
+            <span>
+              Customize Branch
+            </span>
           </button>
-          <button ng-show="really_mirror_master" class="btn btn-default" ng-click="really_mirror_master = false">Keep Customizations</button>
-        </button>
+
+          <button class="btn"
+            ng-if="!branch.mirror_master"
+            ng-hide="branch.really_mirror_master"
+            ng-click="branch.really_mirror_master = true">
+            <span>
+              Mirror Master
+            </span>
+          </button>
+
+          <button class="btn btn-default"
+            ng-show="branch.really_mirror_master"
+            ng-click="branch.really_mirror_master = false">
+            <span>
+              Keep Customizations
+            </span>
+          </button>
+          <button class="btn btn-danger"
+            ng-show="branch.really_mirror_master"
+            ng-click="mirrorMaster()">
+            <span>
+              Really Mirror Master
+            </span>
+          </button>
+        </span>
       </span>
-      <a
-        class="btn btn-primary"
-        ng-hide="branch.name.indexOf('*') > -1"
-        data-placement="bottom"
-        data-toggle="tooltip"
-        title="Retest &amp; Deploy Branch"
-        ng-click="startDeploy()">
-        Deploy Branch
-      </a>
-      <a
-        class="btn btn-success"
-        ng-hide="branch.name.indexOf('*') > -1"
-        data-placement="bottom"
-        data-toggle="tooltip"
-        title="Retest Branch"
-        ng-click="startTest()">
-        Test Branch
-      </a>
+      <span ng-hide="branch.really_mirror_master">
+        <a
+          class="btn btn-primary"
+          ng-hide="branch.name.indexOf('*') > -1"
+          data-placement="bottom"
+          data-toggle="tooltip"
+          title="Retest &amp; Deploy Branch"
+          ng-click="startDeploy()">
+          Deploy Branch
+        </a>
+        <a
+          class="btn btn-success"
+          ng-hide="branch.name.indexOf('*') > -1"
+          data-placement="bottom"
+          data-toggle="tooltip"
+          title="Retest Branch"
+          ng-click="startTest()">
+          Test Branch
+        </a>
+      </span>
     </h3>
     <p>
       <div class="tabbable tabs-left">

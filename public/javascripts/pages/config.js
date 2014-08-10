@@ -190,6 +190,7 @@
 
     $scope.mirrorMaster = function () {
       $scope.branch.mirror_master = true;
+      delete $scope.branch.really_mirror_master;
       $scope.saveGeneralBranch(true);
     };
 
