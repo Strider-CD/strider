@@ -5,7 +5,7 @@ var AccountController = require('./controllers/account');
 var ProviderController = require('./controllers/provider');
 var JobController = require('./controllers/job');
 
-var app = angular.module('Account', ['Alerts'], function ($interpolateProvider) {
+var app = angular.module('account', ['alerts'], function ($interpolateProvider) {
   $interpolateProvider.startSymbol('[[');
   $interpolateProvider.endSymbol(']]');
 })
