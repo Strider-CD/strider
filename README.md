@@ -41,7 +41,7 @@ For more details, including features and more, check out the
 
 - nodejs, v0.8 or v0.10
 - mongodb (local or remote)
-- git
+- git >= 1.7.10
 
 ## Docker Quickstart
 
