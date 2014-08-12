@@ -3,7 +3,7 @@
 'use strict';
 
 var angular = require('angular');
-var routes = require('./config/routes.js');
+var routes = require('./configs/routes.js');
 var pluginStatus = require('./directives/plugin-status');
 var JobController = require('./controllers/job');
 
