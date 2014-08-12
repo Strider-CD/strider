@@ -39,6 +39,12 @@ angular.module('ui.codemirror', [])
         deferCodeMirror = function () {
           codeMirror = CodeMirror.fromTextArea(elm[0], opts);
 
+          // Refresh codemirror externally this way...
+          //$('[ui-codemirror]').trigger('refresh')
+          elm.on('refresh', function () {
+            codeMirror.refresh()
+          });
+
           if (angular.isDefined(scope[attrs.uiCodemirror])) {
             scope.$watch(attrs.uiCodemirror, function (newValues) {
               for (var key in newValues) {
