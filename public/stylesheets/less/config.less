@@ -182,7 +182,6 @@
 /* done with sortable */
 
 #project_config_collaborators {
-
   form {
     padding-top: 8px;
   }
@@ -205,10 +204,45 @@
   }
 }
 
+#project_config_branches {
+
+  .branch-list {
+    list-style: none;
+    margin-left: 0;
+
+    .branch-item {
+      background-color: white;
+      padding: 5px 0 5px 0;
+      margin-bottom: 5px;
+
+      &.moveable {
+        cursor: move;
+      }
+
+      .branch-name {
+        font-weight: bold;
+        margin-left: 5px;
+      }
+
+      .ismaster {
+        margin-left: 40px;
+      }
+
+      .remove i {
+        padding: 10px;
+        &.icon-remove {
+          color: red;
+        }
+      }
+    }
+  }
+}
+
 #provider-config {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 5px 10px 10px;
+  margin-bottom: 20px;
 }
 
 #config-wrapper {

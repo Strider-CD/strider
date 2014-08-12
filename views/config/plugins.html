@@ -1,42 +1,4 @@
-<div class="pick-plugins clearfix">
-  <h3>Choose Plugins</h3>
-  <p>Drag and drop plugins from Available to Active to enable them for this project. Plugins are run in the order they are specified here. Active plugins can be configured by clicking their corresponding tabs on the left.</p>
-  <div class="enabled-plugins">
-    <h3>Active Plugins</h3>
-    <ul ng-model="branch.plugins" ui-sortable="inUseOptions" class="enabled-plugins-list">
-      <li class="plugin-item moveable clearfix" ng-repeat="plugin in branch.plugins" ng-class="{ disabled: !plugin.enabled }">
-        <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
-        <div class="rest">
-          <span class="title">[[ plugins[plugin.id].title ]]</span>
-          <label type="checkbox">
-            <input ng-change="savePluginOrder()" ng-model="plugin.enabled" type="checkbox"> Enabled
-          </label>
-          <label type="checkbox" ng-show="statusBlocks.job[plugin.id]">
-            <input ng-change="savePluginOrder()" ng-model="plugin.showStatus" type="checkbox"> Show Status
-          </label>
-        </div>
-      </li>
-      <li ng-hide="branch.plugins.length" class="drop-here">Drag and drop here</li>
-    </ul>
-  </div>
-  <div class="disabled-plugins">
-    <h3>Available Plugins</h3>
-    <ul ng-model="disabled_plugins[branch.name]" ui-sortable="{ connectWith: '.enabled-plugins-list' }" class="disabled-plugins-list">
-      <li class="plugin-item clearfix moveable" ng-repeat="plugin in disabled_plugins[branch.name]">
-        <div class="img" style="background-image: url('/ext/[[ plugin.id ]]/[[ plugins[plugin.id].icon ]]')"></div>
-        <div class="rest">
-          <span class="title">[[ plugins[plugin.id].title ]]</title>
-        </div>
-      </li>
-      <li ng-hide="disabled_plugins[branch.name].length" class="drop-here">Drag and drop here</li>
-    </ul>
-  </div>
-</div>
-{#
-Disable for now since there is only one runner.
-Once we have multiple runners and this makes sense, bring it back.
 <div class="pick-runner clearfix">
-  <button ng-click="savePlugins()" class="btn btn-primary save-top-right">Save</button>
   <h3>Pick the Runner</h3>
   {% for runner in runners %}
   <div ng-click="setRunner('{{ loop.key }}')"
@@ -47,4 +9,54 @@ Once we have multiple runners and this makes sense, bring it back.
   </div>
   {% endfor %}
 </div>
-#}
+<div class="pick-plugins clearfix">
+  <h3>Choose Plugins</h3>
+  <p>Drag and drop plugins from Available to Active to enable them for this project. Plugins are run in the order they are specified here. Active plugins can be configured by clicking their corresponding tabs on the left.</p>
+  <div class="enabled-plugins">
+    <h3>Active Plugins</h3>
+    <span ng-hide="branch.plugins.length" class="drop-here">Drag and drop here</span>
+    <ul class="enabled-plugins-list"
+      ng-sortable="reorderPlugins"
+      ng-sortable-key="id"
+      ng-sortable-group="plugins"
+      ng-sortable-added="enablePlugin"
+      ng-sortable-source="plugins"
+      ng-model="branch.plugins">
+      <li class="plugin-item moveable clearfix"
+        ng-sortable-id="[[plugin.id]]"
+        ng-repeat="plugin in branch.plugins"
+        ng-class="{ disabled: !plugin.enabled }">
+        <div class="img" ng-style="plugin.imgStyle" ng-init="setImgStyle(plugin)"></div>
+        <div class="rest">
+          <span class="title">[[ plugins[plugin.id].title ]]</span>
+          <label type="checkbox">
+            <input ng-change="savePluginOrder()" ng-model="plugin.enabled" type="checkbox"> Enabled
+          </label>
+          <label type="checkbox" ng-show="statusBlocks.job[plugin.id]">
+            <input ng-change="savePluginOrder()" ng-model="plugin.showStatus" type="checkbox"> Show Status
+          </label>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="disabled-plugins">
+    <h3>Available Plugins</h3>
+    <span class="drop-here" ng-hide="disabled_plugins[branch.name].length">Drag and drop here</span>
+    <ul class="disabled-plugins-list"
+      ng-sortable
+      ng-sortable-key="id"
+      ng-sortable-group="plugins"
+      ng-sortable-added="disablePlugin"
+      ng-sortable-source="plugins"
+      ng-model="disabled_plugins[branch.name]">
+      <li class="plugin-item clearfix moveable"
+        ng-repeat="plugin in disabled_plugins[branch.name]"
+        ng-sortable-id="[[plugin.id]]">
+        <div class="img" ng-style="plugin.imgStyle" ng-init="setImgStyle(plugin)"></div>
+        <div class="rest">
+          <span class="title">[[ plugins[plugin.id].title ]]</title>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

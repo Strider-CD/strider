@@ -4,20 +4,9 @@
 
 var BASE_PATH = '../../lib/';
 
-var _ = require('underscore')
-  , async = require('async')
-  , api = require('./index.js')
-  , check = require('validator').check
-  , common = require(BASE_PATH + 'common')
-  , email = require(BASE_PATH + 'email')
-  , humane = require(BASE_PATH + 'humane')
+var common = require(BASE_PATH + 'common')
   , jobs = require(BASE_PATH + 'jobs')
-  , filter = require(BASE_PATH + 'ansi')
   , gravatar = require('gravatar')
-  , ljobs = jobs
-  , Job = require(BASE_PATH + 'models').Job
-  , User = require(BASE_PATH + 'models').User
-  , logging = require(BASE_PATH + 'logging')
 
 var TEST_ONLY = "TEST_ONLY";
 var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
@@ -34,6 +23,7 @@ var TEST_AND_DEPLOY = "TEST_AND_DEPLOY";
 exports.jobs_start = function(req, res) {
   var type = req.param('type') || TEST_ONLY
     , branch = req.param('branch') || 'master'
+    , message = req.param('message')
     , now = new Date()
     , trigger
     , job
@@ -44,10 +34,20 @@ exports.jobs_start = function(req, res) {
       email: req.user.email,
       image: gravatar.url(req.user.email, {}, true)
     },
-    message: type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting',
     timestamp: now,
     source: {type: 'UI', page: req.param('page') || 'unknown'}
   }
+
+  
+  if (message) {
+      trigger.message = message;
+  } else {
+      if (type === 'TEST_AND_DEPLOY')
+          trigger.message = 'Manually Redeploying';
+      else
+          trigger.message =  'Manually Retesting';
+  }
+
   job = {
     type: type,
     user_id: req.user._id,

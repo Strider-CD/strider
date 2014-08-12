@@ -257,7 +257,7 @@ body {
   white-space: nowrap;
 }
 @media (max-width: 980px) {
-  #dashboard .commit-header,
+  #dashboard .triggered-by-header,
   #dashboard .commit-url,
   #dashboard .job-link a span {
     display: none;

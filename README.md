@@ -1,6 +1,5 @@
 # ![Strider][logo]
 
-[![Build Status][build-img]][build-link]
 [![Dependency Status][dep-img]][dep-link]
 [![devDependency Status][dev-dep-img]][dev-dep-link]
 [![NPM][npm-badge-img]][npm-badge-link]
@@ -42,7 +41,7 @@ For more details, including features and more, check out the
 
 - nodejs, v0.8 or v0.10
 - mongodb (local or remote)
-- git
+- git >= 1.7.10
 
 ## Docker Quickstart
 
@@ -196,7 +195,7 @@ LLC][maintainer]. For commercial support, customization, integration
 [dep-link]: https://david-dm.org/Strider-CD/strider
 [dev-dep-img]: https://david-dm.org/Strider-CD/strider/dev-status.svg
 [dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
-[npm-badge-img]: https://nodei.co/npm/strider.svg
+[npm-badge-img]: https://nodei.co/npm/strider.svg?downloads=true&stars=true
 [npm-badge-link]: https://nodei.co/npm/strider/
 [screenshot]: /docs/screenshots/dashboard.jpg?raw=true
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots

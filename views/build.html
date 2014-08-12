@@ -43,7 +43,7 @@
           {% endif %}
           <span class='job-repo'>{{ project.display_name }}</span>
           <a href="[[ project.display_url ]]" target="_blank">
-            <i class="icon-github"></i>
+            <i class="icon-[[ project.provider.id ]]"></i>
           </a>
         </h3>
         {% pluginblock JobPagePostTitle %}{% endpluginblock %}

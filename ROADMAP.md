@@ -12,6 +12,10 @@
 
 # Changelog / Past releases
 
+## 1.4.5
+
+Bugfix release for 1.4. Fixes bugs in email notifications, github and bitbucket.
+
 ## 1.4.4
 
 Bugfix release for 1.4. Adds Windows support, many fixes and small improvements.

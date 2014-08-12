@@ -27,8 +27,13 @@
     </div>
     <div class="row-fluid">
       <div class="span6">
-        <ol ui-sortable="changeBranchOrder" class="branch-list" ng-model="branches">
-          <li class="branch-item moveable" ng-repeat="branch in branches">
+        <ol class="branch-list"
+          ng-sortable="changeBranchOrder"
+          ng-sortable-key="name"
+          ng-model="branches">
+          <li class="branch-item moveable"
+            ng-repeat="branch in branches"
+            ng-sortable-id="[[branch.name]]">
             <span class="remove">
               <i ng-switch-when="true" class="icon-cog icon-spin"></i>
               <span class="clickable" ng-hide="branch.name === 'master'" ng-click="remove(branch)">

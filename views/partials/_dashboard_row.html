@@ -34,12 +34,6 @@
     <i class="icon-refresh"></i>
   </span>
 </td>
-<td class="configure" ng-hide="page === 'build'">
-  <a href="/[[ job.project.name || project.name ]]/config"
-     data-toggle="tooltip" data-delay="500" title="Configure">
-    <i class="icon-wrench"></i>
-  </a>
-</td>
 {% endif %}
 <td class="project-name" ng-hide="page === 'build'">
   <a href="/[[ job.project.name || project.name ]]/">
@@ -113,3 +107,11 @@
     </div>
   </div>
 </td>
+{% if !public && currentUser %}
+<td class="configure" ng-hide="page === 'build'">
+  <a href="/[[ job.project.name || project.name ]]/config"
+     data-toggle="tooltip" data-delay="500" title="Configure">
+    <i class="icon-wrench"></i>
+  </a>
+</td>
+{% endif %}

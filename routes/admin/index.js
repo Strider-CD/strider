@@ -4,15 +4,11 @@
 
 var BASE_PATH = "../../lib/"
 
-var  _ = require('underscore')
-  , crypto = require('crypto')
+var crypto = require('crypto')
   , Step = require('step')
 
-  , feature = require(BASE_PATH + 'feature')
+  , base32 = require('thirty-two')
   , humane = require(BASE_PATH + 'humane')
-  , logging = require(BASE_PATH + 'logging')
-  , nibbler = require(BASE_PATH + 'nibbler')
-  , email = require(BASE_PATH + 'email')
   , InviteCode = require(BASE_PATH + 'models').InviteCode
   , Job = require(BASE_PATH + 'models').Job
   , User = require(BASE_PATH + 'models').User
@@ -21,6 +17,7 @@ var  _ = require('underscore')
   , utils = require(BASE_PATH + 'utils')
   , users = require(BASE_PATH + 'users')
   , projects = require(BASE_PATH + 'projects')
+  , pjson = require('../../package.json')
 
 /*
  * make_invite_code()
@@ -28,9 +25,8 @@ var  _ = require('underscore')
  * Generate a sweet BASE32 invite code
  */
 function make_invite_code() {
-  var random = crypto.randomBytes(5).toString('hex')
-  // TODO get rid of nibbler and use a npm library
-  return nibbler.b32encode(random)
+  var random = crypto.randomBytes(5).toString('hex');
+  return base32.encode(random);
 }
 
 /*
@@ -38,12 +34,16 @@ function make_invite_code() {
  */
 exports.invites = function(req, res) {
   InviteCode.find({}).populate('consumed_by_user').sort({'_id': -1}).exec(function(err, results) {
-    _.each(results, function(invite) {
+    results.forEach(function(invite) {
       invite.created = humane.humaneDate(invite.created_timestamp)
       invite.consumed = humane.humaneDate(invite.consumed_timestamp)
     })
 
-    res.render('admin/invites.html', {invite_code: make_invite_code(), invite_codes:results})
+    res.render('admin/invites.html', {
+      invite_code: make_invite_code(),
+      invite_codes: results,
+      version: pjson.version
+    })
   })
 }
 
@@ -53,13 +53,14 @@ exports.invites = function(req, res) {
 
 exports.users = function(req,res) {
   User.find({}).sort({'_id': -1}).exec(function(err, users) {
-   res.render('admin/users.html',{
-     flash: req.flash('admin'),
-     users: users.map(function (user) {
-      user.created_date = humane.humaneDate(utils.timeFromId(user.id))
-      return user
-     })
-   })
+    res.render('admin/users.html', {
+      flash: req.flash('admin'),
+      version: pjson.version,
+      users: users.map(function (user) {
+        user.created_date = humane.humaneDate(utils.timeFromId(user.id))
+        return user
+      })
+    })
  })
 }
 
@@ -103,7 +104,8 @@ exports.projects = function(req,res) {
   projects.allProjects(function (err, projects) {
     if (err) return res.send(500, 'Error retrieving projects')
     res.render('admin/projects.html', {
-      projects: projects
+      projects: projects,
+      version: pjson.version
     })
   })
 }
@@ -143,7 +145,7 @@ exports.job = function(req, res) {
     function processAndRender(err, results_detail, results) {
       if (err) throw err
 
-      _.each(results, function(job) {
+      results.forEach(function(job) {
         job.duration = Math.round((job.finished_timestamp - job.created_timestamp)/1000)
         job.finished_at = humane.humaneDate(job.finished_timestamp)
         if (job.github_commit_info.id !== undefined) {
@@ -187,19 +189,18 @@ exports.job = function(req, res) {
         var has_prod_deploy_target = false
         var admin_view = true
 
-        res.render('job.html',
-          {
-            admin_view: admin_view,
-            jobs: results,
-            results_detail: results_detail,
-            job_id:results[0].id.substr(0,8),
-            triggered_by_commit: triggered_by_commit,
-            org:org,
-            repo:repo,
-            repo_url:repo_url,
-            has_prod_deploy_target:has_prod_deploy_target
-          })
-        
+        res.render('job.html', {
+          admin_view: admin_view,
+          jobs: results,
+          results_detail: results_detail,
+          job_id: results[0].id.substr(0,8),
+          triggered_by_commit: triggered_by_commit,
+          org: org,
+          repo: repo,
+          repo_url: repo_url,
+          has_prod_deploy_target: has_prod_deploy_target,
+          version: pjson.version
+        })
       }
     }
   )
