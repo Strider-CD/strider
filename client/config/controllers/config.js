@@ -1,7 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
-var post = require('../../helpers/post');
+var post = require('../../utils/post');
 var branches = global.branches || [];
 
 function ConfigController($scope, $element, $sce) {
