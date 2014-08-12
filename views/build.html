@@ -8,7 +8,7 @@
 {% endblock %}
 {% block bodyContent %}
 {% set page = "build" %}
-<div class="app ng-cloak" ng-app="JobStatus">
+<div class="app ng-cloak" ng-app="job-status">
   <script>
     var project = {{ project | scriptjson() | raw }};
     var jobs = {{ jobs | scriptjson() | raw }};
