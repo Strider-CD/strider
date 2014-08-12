@@ -195,7 +195,7 @@ LLC][maintainer]. For commercial support, customization, integration
 [dep-link]: https://david-dm.org/Strider-CD/strider
 [dev-dep-img]: https://david-dm.org/Strider-CD/strider/dev-status.svg
 [dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
-[npm-badge-img]: https://nodei.co/npm/strider.svg
+[npm-badge-img]: https://nodei.co/npm/strider.svg?downloads=true&stars=true
 [npm-badge-link]: https://nodei.co/npm/strider/
 [screenshot]: /docs/screenshots/dashboard.jpg?raw=true
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
