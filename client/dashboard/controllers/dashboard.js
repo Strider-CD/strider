@@ -1,6 +1,27 @@
+// TODO: cleanup comments
 /* global JobMonitor: true, io: true */
+'use strict';
 
-var PHASES = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
+var $ = require('jquery');
+
+module.exports = function ($scope, $element) {
+  var socket = window.socket || (window.socket = io.connect())
+    , dash = new Dashboard(socket, $scope);
+  $scope.providers = window.providers;
+  $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
+  $('#dashboard').show();
+  $scope.startDeploy = function (job) {
+    $('.tooltip').hide();
+    socket.emit('deploy', job.project.name)
+  };
+  $scope.startTest = function (job) {
+    $('.tooltip').hide();
+    socket.emit('test', job.project.name)
+  };
+  $scope.cancelJob = function (id) {
+    socket.emit('cancel', id)
+  };
+};
 
 function cleanJob(job) {
   delete job.phases;
@@ -20,13 +41,6 @@ function Dashboard(socket, $scope) {
   this.scope = $scope;
   this.scope.loadingJobs = false;
   this.scope.jobs = window.jobs;
-  /*
-  this.sock.emit('dashboard:jobs', function (jobs) {
-    $scope.jobs = jobs;
-    $scope.loadingJobs = false;
-    $scope.$digest();
-  });
-  */
 }
 
 _.extend(Dashboard.prototype, JobMonitor.prototype, {
@@ -63,26 +77,3 @@ _.extend(Dashboard.prototype, JobMonitor.prototype, {
 Dashboard.prototype.statuses['phase.done'] = function (data) {
   this.phase = data.next;
 };
-
-angular.module('dashboard', ['moment'], function ($interpolateProvider) {
-  $interpolateProvider.startSymbol('[[');
-  $interpolateProvider.endSymbol(']]');
-}).controller('Dashboard', ['$scope', '$element', function ($scope, $element) {
-  var socket = window.socket || (window.socket = io.connect())
-    , dash = new Dashboard(socket, $scope);
-  $scope.providers = window.providers;
-  $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
-  $('#dashboard').show();
-  $scope.startDeploy = function (job) {
-    $('.tooltip').hide();
-    socket.emit('deploy', job.project.name)
-  };
-  $scope.startTest = function (job) {
-    $('.tooltip').hide();
-    socket.emit('test', job.project.name)
-  };
-  $scope.cancelJob = function (id) {
-    socket.emit('cancel', id)
-  };
-}]);
-
