@@ -39,9 +39,9 @@ angular.module('ui.codemirror', [])
         deferCodeMirror = function () {
           codeMirror = CodeMirror.fromTextArea(elm[0], opts);
 
-          // Reload codemirror externally this way...
-          //$('textarea[ui-codemirror]').trigger('refreshCodeMirror')
-          elm.on('refreshCodeMirror', function () {
+          // Refresh codemirror externally this way...
+          //$('[ui-codemirror]').trigger('refresh')
+          elm.on('refresh', function () {
             codeMirror.refresh()
           });
 
