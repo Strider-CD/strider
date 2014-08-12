@@ -144,6 +144,11 @@
       $('a[href=#' + tab + ']').tab('show');
     }
 
+    // When a tab is shown, reload any CodeMirror instances within
+    $('[data-toggle=tab]').on('shown', function (e) {
+      $(e.target.hash).find('textarea[ui-codemirror]').trigger('refreshCodeMirror')
+    });
+
     $scope.switchToTab = switchToTab;
 
     var save_branches = {};
