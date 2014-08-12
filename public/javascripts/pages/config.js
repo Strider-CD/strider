@@ -146,7 +146,8 @@
 
     // When a tab is shown, reload any CodeMirror instances within
     $('[data-toggle=tab]').on('shown', function (e) {
-      $(e.target.hash).find('textarea[ui-codemirror]').trigger('refreshCodeMirror')
+      var tabId = $(e.target).attr('href');
+      $(tabId).find('[ui-codemirror]').trigger('refresh');
     });
 
     $scope.switchToTab = switchToTab;
