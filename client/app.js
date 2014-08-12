@@ -15,6 +15,7 @@ $navbar.find('a[href="' + global.location.pathname + '"]')
 // Modules
 require('./config');
 require('./account');
+require('./job-status');
 
-var app = angular.module('app', ['config', 'account']);
+var app = angular.module('app', ['config', 'account', 'job-status']);
 
