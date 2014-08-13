@@ -1,9 +1,6 @@
 'use strict';
 
-var angular = require('angular');
-var app = angular.module('Alerts', []);
-  
-app.controller('AlertsController', ['$scope', '$sce', function ($scope, $sce) {
+module.exports = function ($scope, $sce) {
   $scope.message = null;
 
   $scope.error = function (text, digest) {
@@ -76,6 +73,4 @@ app.controller('AlertsController', ['$scope', '$sce', function ($scope, $sce) {
       $scope.$digest();
     }, 1000);
   };
-}]);
-
-module.exports = app;
+};

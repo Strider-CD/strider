@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 {% if apresController %}
-  <html data-apres-controller="{{apresController}}" data-controller-params="{{apresParams}}">
+  <html data-apres-controller="{{apresController}}" data-controller-params="{{apresParams}}" ng-app="app">
 {% else %}
-  <html>
+  <html ng-app="app">
 {% endif %}
   <head>
     <style>

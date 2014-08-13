@@ -17,5 +17,7 @@ require('./config');
 require('./account');
 require('./job-status');
 require('./dashboard');
+require('./projects');
+require('./alerts');
 
-var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard']);
+var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard', 'projects']);

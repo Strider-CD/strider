@@ -27,7 +27,7 @@
   </div>
 </div>
 
-<div class="projects-page" ng-app="Projects" ng-controller="AlertsController">
+<div class="projects-page" ng-app="projects" ng-controller="AlertsController">
   {% for messages in flash %}
     {% for message in messages %}
   <div class="alert alert-info">{{ message|raw }}</div>

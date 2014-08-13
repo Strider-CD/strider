@@ -81,7 +81,8 @@
     "wd": "~0.2.0"
   },
   "browser": {
-    "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js"
+    "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
+    "ngSortableDirective": "./public/libs/ngSortableDirective.js"
   },
   "browserify-shim": "./shim.js",
   "browserify": {

@@ -8,5 +8,11 @@ module.exports = {
     depends: {
       'jquery': 'jQuery'
     }
+  },
+  ngSortableDirective: {
+    exports: 'ngSortableDirective',
+    depends: {
+      'angular': 'angular'
+    }
   }
 };
