@@ -3,6 +3,7 @@
 'use strict';
 
 var $ = require('jquery');
+var JobMonitor = require('../../utils/job-monitor');
 
 module.exports = function ($scope, $element) {
   var socket = window.socket || (window.socket = io.connect())

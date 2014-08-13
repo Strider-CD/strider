@@ -98,6 +98,7 @@
       "data-cover-never": "node_modules"
     },
     "watch": "watchify -e client/app.js -o dist/scripts/app.js",
+    "build": "browserify -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min"
   },

@@ -18,6 +18,9 @@ require('./account');
 require('./job-status');
 require('./dashboard');
 require('./projects');
+
+// Shared?
 require('./alerts');
+require('./ansi');
 
 var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard', 'projects']);

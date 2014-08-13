@@ -1,5 +1,5 @@
 // TODO: go through this comment
-/* globals JobDataMonitor: true, bootbox: true, console: true, io: true, PHASES: true, SKELS: true, job: true */
+/* globals bootbox: true, io: true, SKELS: true, job: true */
 'use strict';
 
 var angular = require('angular');
