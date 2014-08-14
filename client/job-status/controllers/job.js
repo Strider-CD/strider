@@ -9,7 +9,7 @@ var SKELS = require('../../utils/skels');
 var outputConsole;
 var runtime = null;
 
-module.exports = function ($scope, $router, $location, $filter) {
+module.exports = function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}
     , project = window.project
     , jobid = params.id || (window.job && window.job._id)

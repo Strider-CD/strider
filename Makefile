@@ -8,7 +8,7 @@ endif
 build: less
 	@:
 
-less_files := strider.less config.less build.less dashboard.less projects.less admin/users.less
+less_files := libs.less strider.less config.less build.less dashboard.less projects.less admin/users.less
 css_files := $(patsubst %.less,dist/styles/%.css,$(less_files))
 
 less: $(css_files)
