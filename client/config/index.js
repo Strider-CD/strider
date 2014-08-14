@@ -1,4 +1,4 @@
-/* global md5: true, bootbox: true, ngSortableDirective: true */
+/* global md5: true, bootbox: true */
 
 var angular = require('angular');
 var RunnerController = require('./controllers/runner');
@@ -22,7 +22,7 @@ var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortabl
   .controller('BranchesCtrl', ['$scope', BranchesController])
   .controller('CollaboratorsCtrl', ['$scope', CollaboratorsController])
   .controller('DeactivateCtrl', ['$scope', DeactivateController])
-  .controller('HerokuCtrl', ['$scope', HerokuController])
+  .controller('HerokuController', ['$scope', HerokuController])
   .controller('GithubCtrl', ['$scope', GithubController])
   .directive('ngSortable', ngSortableDirective);
 

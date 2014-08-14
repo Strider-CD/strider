@@ -1,6 +1,8 @@
 'use strict';
 
 var $ = require('jquery');
+var md5 = require('md5');
+var bootbox = require('bootbox');
 var post = require('../../utils/post');
 var branches = global.branches || [];
 

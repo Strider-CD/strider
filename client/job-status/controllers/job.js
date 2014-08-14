@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var bootbox = require('bootbox');
 var JobDataMonitor = require('../../utils/job-data-monitor');
 var PHASES = require('../../utils/phases');
 var outputConsole;

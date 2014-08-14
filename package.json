@@ -82,7 +82,14 @@
   },
   "browser": {
     "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
-    "ngSortableDirective": "./public/libs/ngSortableDirective.js"
+    "ngSortableDirective": "./public/libs/ngSortableDirective.js",
+    "md5": "./public/javascripts/lib/md5.js",
+    "bootbox": "./public/javascripts/lib/bootbox.min.js",
+    "codemirror": "./public/javascripts/lib/codemirror-compressed.js",
+    "timeago": "./public/javascripts/lib/jquery.timeago.js",
+    "ui-codemirror": "./public/javascripts/lib/ui-codemirror.js",
+    "ui-bootstrap": "./public/javascripts/lib/ui-bootstrap.js",
+    "ui-sortable": "./public/javascripts/lib/sortable.js"
   },
   "browserify-shim": "./shim.js",
   "browserify": {

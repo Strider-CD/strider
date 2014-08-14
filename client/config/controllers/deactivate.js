@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var bootbox = require('bootbox');
 
 function DeactivateController($scope) {
   var message = 'This will remove all configuration and history for this project. You can always re-add it on the /projects page';

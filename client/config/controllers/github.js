@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var bootbox = require('bootbox');
 
 function GithubController($scope) {
   $scope.removeWebhooks = function () {

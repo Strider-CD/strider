@@ -12,6 +12,11 @@ $navbar.find('li').removeClass('active');
 $navbar.find('a[href="' + global.location.pathname + '"]')
   .parent().addClass('active');
 
+// Third party
+require('ui-bootstrap');
+require('ui-codemirror');
+require('ui-sortable');
+
 // Modules
 require('./config');
 require('./account');
@@ -22,5 +27,6 @@ require('./projects');
 // Shared?
 require('./alerts');
 require('./ansi');
+require('./moment');
 
 var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard', 'projects']);
