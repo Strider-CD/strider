@@ -9,11 +9,11 @@ build: less
 	@:
 
 less_files := strider.less config.less build.less dashboard.less projects.less admin/users.less
-css_files := $(patsubst %.less,public/stylesheets/css/%.css,$(less_files))
+css_files := $(patsubst %.less,dist/styles/%.css,$(less_files))
 
 less: $(css_files)
 
-public/stylesheets/css/%.css: public/stylesheets/less/%.less
+dist/styles/%.css: client/styles/%.less
 	./node_modules/.bin/lessc $< > $@
 
 # === Dev ===
@@ -78,7 +78,7 @@ test-client-local:
 
 test-syntax: lint
 
-tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
+tolint := *.js *.json lib routes client
 
 lint:
 	@./node_modules/.bin/jshint --verbose $(tolint)

@@ -2,6 +2,7 @@
 
 var _ = require('lodash');
 var JobMonitor = require('./job-monitor');
+var SKELS = require('./skels');
 
 function JobDataMonitor() {
  JobMonitor.apply(this, arguments);

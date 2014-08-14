@@ -2,8 +2,10 @@
 
 var _ = require('lodash');
 var bootbox = require('bootbox');
+var $ = require('jquery');
 var JobDataMonitor = require('../../utils/job-data-monitor');
 var PHASES = require('../../utils/phases');
+var SKELS = require('../../utils/skels');
 var outputConsole;
 var runtime = null;
 

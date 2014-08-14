@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var angular = require('angular');
 var time = require('./directives/time');
 var toggle = require('./directives/toggle');
 var rawHtml = require('./directives/raw-html');

@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = require('jquery');
+var _ = require('lodash');
 var md5 = require('md5');
 var bootbox = require('bootbox');
 var post = require('../../utils/post');
@@ -73,7 +74,7 @@ function ConfigController($scope, $element, $sce) {
 
   $scope.refreshBranches = function () {
     // TODO implement
-    throw Error('Not implemented');
+    throw new Error('Not implemented');
   };
 
   $scope.setEnabled = function (plugin, enabled) {

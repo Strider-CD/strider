@@ -3,6 +3,7 @@
 'use strict';
 
 var $ = require('jquery');
+var _ = require('lodash');
 var JobMonitor = require('../../utils/job-monitor');
 
 module.exports = function ($scope, $element) {
