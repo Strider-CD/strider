@@ -51,7 +51,7 @@ run /usr/bin/mongod --smallfiles --fork --logpath /data/mongo.log --dbpath /data
 run echo 'strider:str!der\nroot:str!der' | chpasswd
 
 # start strider on run
-cmd "/usr/bin/supervisord"
+cmd ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # 22 is ssh server
 # 3000 is strider
