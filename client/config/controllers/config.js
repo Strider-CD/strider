@@ -17,56 +17,75 @@ function ConfigController($scope, $element, $sce) {
   $scope.statusBlocks = window.statusBlocks || {};
   $scope.configured = {};
   $scope.branch = $scope.project.branches[0];
-  $scope.branches = branches;
+  $scope.branches = window.branches || [];
   $scope.disabled_plugins = {};
   $scope.configs = {};
   $scope.runnerConfigs = {};
   $scope.api_root = '/' + $scope.project.name + '/api/';
   $scope.page = 'config';
 
-  // Set the URL when a tab is selected
-  $('a[data-toggle="tab"]').on('show', function (e) {
-    var tabName = $(e.target).attr('href').replace('#', '');
-    var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
-    var state = window.history.state;
-    if (state && state.tabName === tabName) return; // don't double up!
-    window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
-  });
-
-  // Begin Config Tab Routing
-  function routeTabs() {
-    var pathParts = window.location.pathname.split('/');
-    // Confirm we're on the config page
-    if (pathParts.slice(0, 4)[3] === "config") {
-      // Check the URL to see if we should go straight to a tab
-      var lastPart = pathParts[pathParts.length-1];
-      if (pathParts.length === 5 && lastPart.length) {
-        // Yes a tab was supplied
-        var tabName = lastPart;
-        switchToTab(tabName);
-      } else {
-        // No tab was supplied -- derive from branch
-        switchToTab(null, $scope.branch);
+  $(function ConfigPageRouting() {
+    var router = {
+      init: function () {
+        // Set the URL when a tab is selected
+        $('a[data-toggle="tab"]').on('show', function (e) {
+          var tabName = $(e.target).attr('href').replace('#', '');
+          var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
+          var state = window.history.state;
+          if (state && state.tabName === tabName) return; // don't double up!
+          window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
+        });
+        window.onpopstate = this.route; // support the back button
+        this.route();
+      },
+      route: function() {
+        var pathParts = window.location.pathname.split('/');
+        // Confirm we're on the config page
+        if (pathParts.slice(0, 4)[3] === "config") {
+          this.routeConfigPage(pathParts)
+        }
+      },
+      routeConfigPage: function (pathParts) {
+        // Check the SessionStore to see if we should select a branch
+        var branchName = sessionStorage.getItem('branchName')
+        if (branchName) switchToBranch(branchName);
+        else sessionStorage.removeItem('branchName');
+        // Check the URL to see if we should go straight to a tab
+        var lastPart = pathParts[pathParts.length-1];
+        if (pathParts.length === 5 && lastPart.length) {
+          // Yes a tab was supplied
+          var tabName = lastPart;
+          switchToTab(tabName, $scope.branch);
+        }
       }
     }
+    router.init()
+  });
+  
+  function switchToBranch(name) {
+    var branch = _.findWhere($scope.branches, { name: name });
+    if (branch) $scope.branch = branch;
+    sessionStorage.setItem('branchName', $scope.branch.name);
+    switchToTab(null, $scope.branch);
   }
 
-  $(function () {
-    window.onpopstate = routeTabs; // support the back button
-    routeTabs();
-  });
-  // End Config Tab Routing
+  $scope.switchToBranch = switchToBranch;
   
-  function switchToTab(tab, watchValue) {
+  function switchToTab(tab, branch) {
     if (!_.isString(tab)) {
-      tab = watchValue && watchValue.name === 'master' ? 'tab-project' : 'tab-basic';
+      tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
     }
-    console.info('switching to tab '+tab);
     $('#' + tab + '-tab-handle').tab('show');
     $('.tab-pane.active').removeClass('active');
     $('#' + tab).addClass('active');
     $('a[href=#' + tab + ']').tab('show');
   }
+
+  // When a tab is shown, reload any CodeMirror instances within
+  $('[data-toggle=tab]').on('shown', function (e) {
+    var tabId = $(e.target).attr('href');
+    $(tabId).find('[ui-codemirror]').trigger('refresh');
+  });
 
   $scope.switchToTab = switchToTab;
 
@@ -74,7 +93,7 @@ function ConfigController($scope, $element, $sce) {
 
   $scope.refreshBranches = function () {
     // TODO implement
-    throw new Error('Not implemented');
+    throw Error('Not implemented');
   };
 
   $scope.setEnabled = function (plugin, enabled) {
@@ -122,9 +141,13 @@ function ConfigController($scope, $element, $sce) {
       $scope.branch = $.extend(true, $scope.branch, master);
       $scope.branch.name = name;
       initBranch($scope.branch);
-    } else {
-      $scope.branch.mirror_master = true;
     }
+    $scope.saveGeneralBranch(true);
+  };
+
+  $scope.mirrorMaster = function () {
+    $scope.branch.mirror_master = true;
+    delete $scope.branch.really_mirror_master;
     $scope.saveGeneralBranch(true);
   };
 
@@ -304,7 +327,7 @@ function ConfigController($scope, $element, $sce) {
     if (!email) return '';
     var hash = md5(email.toLowerCase());
     return 'https://secure.gravatar.com/avatar/' + hash + '?d=identicon';
-  };
+  }
 
   $scope.saveRunner = function (id, config) {
     $.ajax({

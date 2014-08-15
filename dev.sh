@@ -5,6 +5,7 @@
 
 # you can hack on them by editing under node_moduldes/strider-foo
 
+npm install lodash
 DEPS=$(node -e "var _ = require('lodash'), deps = _.keys(require('./package').dependencies); console.log(_.filter(deps, function(i){ return /^strider-/.test(i) }).join(' '));")
 
 BASE="git@github.com:/Strider-CD"
