@@ -132,13 +132,5 @@ JobMonitor.prototype = {
   }
 };
 
-function ensureCommand(phase) {
-  var command = phase.commands[phase.commands.length - 1]
-  if (!command || typeof(command.finished) !== 'undefined') {
-    command = _.extend({}, SKELS.command)
-    phase.commands.push(command)
-  }
-  return command
-}
 
 module.exports = JobMonitor;

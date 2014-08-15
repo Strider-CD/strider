@@ -8,6 +8,7 @@ var PHASES = require('../../utils/phases');
 var SKELS = require('../../utils/skels');
 var outputConsole;
 var runtime = null;
+var job = window.job;
 
 module.exports = function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}

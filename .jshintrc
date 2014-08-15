@@ -20,5 +20,6 @@
   , "beforeEach"
   , "after"
   , "afterEach"
+  , "confirm"
   ]
 }

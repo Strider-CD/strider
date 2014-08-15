@@ -4,7 +4,7 @@ var $ = require('jquery');
 
 module.exports = function ($scope) {
   setTimeout(function () {
-    if (location.hash === '#manual') $('a[href="#manual-setup"]').tab('show');
+    if (window.location.hash === '#manual') $('a[href="#manual-setup"]').tab('show');
   }, 200);
   $scope.accounts = window.accounts;
   $scope.repos = window.repos;

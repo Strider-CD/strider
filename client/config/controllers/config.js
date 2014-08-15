@@ -47,9 +47,9 @@ function ConfigController($scope, $element, $sce) {
       },
       routeConfigPage: function (pathParts) {
         // Check the SessionStore to see if we should select a branch
-        var branchName = sessionStorage.getItem('branchName')
+        var branchName = window.sessionStorage.getItem('branchName')
         if (branchName) switchToBranch(branchName);
-        else sessionStorage.removeItem('branchName');
+        else window.sessionStorage.removeItem('branchName');
         // Check the URL to see if we should go straight to a tab
         var lastPart = pathParts[pathParts.length-1];
         if (pathParts.length === 5 && lastPart.length) {
@@ -65,7 +65,7 @@ function ConfigController($scope, $element, $sce) {
   function switchToBranch(name) {
     var branch = _.findWhere($scope.branches, { name: name });
     if (branch) $scope.branch = branch;
-    sessionStorage.setItem('branchName', $scope.branch.name);
+    window.sessionStorage.setItem('branchName', $scope.branch.name);
     switchToTab(null, $scope.branch);
   }
 
@@ -93,7 +93,7 @@ function ConfigController($scope, $element, $sce) {
 
   $scope.refreshBranches = function () {
     // TODO implement
-    throw Error('Not implemented');
+    throw new Error('Not implemented');
   };
 
   $scope.setEnabled = function (plugin, enabled) {
