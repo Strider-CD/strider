@@ -34,7 +34,6 @@ test-smoke:
 test-unit:
 	@./node_modules/.bin/mocha -R spec test/unit/test_middleware.js
 	@./node_modules/.bin/mocha -R spec test/unit/test_ansi.js
-	@./node_modules/.bin/mocha -R spec test/unit/test_api.js
 	@./node_modules/.bin/mocha -R spec test/unit/test_config.js
 	@./node_modules/.bin/mocha -R spec test/unit/test_utils.js
 

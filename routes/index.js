@@ -4,7 +4,7 @@
 
 var BASE_PATH = "../lib/"
 
-var _ = require('underscore')
+var _ = require('lodash')
   , async = require('async')
   , Step = require('step')
   , fs = require('fs')
@@ -36,18 +36,25 @@ exports.index = function(req, res){
   // Without it, Safari will cache the logged-in version despite logout!
   // See https://github.com/Strider-CD/strider/issues/284
   req.headers['if-none-match'] = 'no-match-for-this';
+
   if (req.session.return_to) {
     var return_to = req.session.return_to
     req.session.return_to=null
     return res.redirect(return_to)
   }
+
   var code = ""
+
   if (req.param('code') !== undefined) {
     code = req.param('code')
-    return res.render('register.html', {invite_code:code})
-  }
-  jobs.latestJobs(req.user, true, function (err, jobs) {
 
+    return res.render('register.html', {
+      invite_code:code,
+      version: pjson.version
+    });
+  }
+
+  jobs.latestJobs(req.user, true, function (err, jobs) {
     var availableProviders = Object.keys(common.userConfigs.provider).map(function(k){
       return common.userConfigs.provider[k]
     })
@@ -55,7 +62,8 @@ exports.index = function(req, res){
     res.render('index.html', {
       jobs: jobs,
       availableProviders: availableProviders,
-      flash: req.flash()
+      flash: req.flash(),
+      version: pjson.version
     })
   })
 };
@@ -67,6 +75,7 @@ exports.index = function(req, res){
 exports.account = function(req, res){
   var hosted = {}
     , providers = common.userConfigs.provider
+
   for (var id in providers) {
     if (common.extensions.provider[id].hosted) {
       hosted[id] = providers[id]
@@ -79,7 +88,8 @@ exports.account = function(req, res){
         user: utils.sanitizeUser(req.user.toJSON()),
         providers: hosted,
         userConfigs: common.userConfigs,
-        flash: req.flash('account')
+        flash: req.flash('account'),
+        version: pjson.version
       });
     },
     json: function() {
@@ -119,6 +129,16 @@ exports.setRunnerConfig = function (req, res) {
   req.project.save(function (err, project) {
     if (err) return res.send(500, {error: 'Failed to save runner config'})
     res.send(project.branch(req.query.branch).runner.config)
+  })
+}
+
+exports.setRunnerId = function (req, res) {
+  var branch = req.project.branch(req.query.branch)
+  branch.runner.id = req.body.id
+  branch.runner.config = req.body.config
+  req.project.save(function (err, project) {
+    if (err) return res.send(500, {error: 'Failed to save runner config'})
+    res.send(project.branch(req.query.branch).runner.id)
   })
 }
 
@@ -477,7 +497,8 @@ function renderProjects(refresh, req, res) {
               manualProjects: manualProjects,
               repos: repomap,
               flash: req.flash(),
-              project_types: availableProjectTypes()
+              project_types: availableProjectTypes(),
+              version: pjson.version
             });
           },
           json: function() {

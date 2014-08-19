@@ -20,11 +20,9 @@ var app = require('./lib/app')
   , path = require('path')
   , async = require('async')
   , _ = require('lodash')
+  , pkg = require('./package')
 
-// require('express-namespace')
-
-common.extensions = {}
-// require('./defaultExtensions')(common.extensions);
+common.extensions = {};
 
 //
 // ### Register panel
@@ -37,11 +35,11 @@ function registerPanel(key, value) {
   key = value.id // 
   console.log("!! registerPanel", key)
   if (common.extensions[key] === undefined) {
-    common.extensions[key] = {panel : value}
+    common.extensions[key] = { panel: value };
   } else {
-    if (common.extensions[key].panel){
-      console.log("!!", key, common.extensions[key], value)
-      throw "Multiple Panels for " + key
+    if (common.extensions[key].panel) {
+      console.log("!!", key, common.extensions[key], value);
+      throw "Multiple Panels for " + key;
     }
     common.extensions[key].panel = value;
   }
@@ -50,7 +48,7 @@ function registerPanel(key, value) {
 module.exports = function(extdir, c, callback) {
   var appConfig = config;
   // override with c
-  for (var k in c){
+  for (var k in c) {
     appConfig[k] = c[k];
   }
 
@@ -63,8 +61,9 @@ module.exports = function(extdir, c, callback) {
   if ('function' !== typeof Loader) {
     throw new Error('Your version of strider-extension-loader is out of date')
   }
-  var loader = appInstance.loader = new Loader([path.join(__dirname, 'public/stylesheets/less')])
-  common.loader = loader
+
+  var loader = appInstance.loader = new Loader([path.join(__dirname, 'public/stylesheets/less')]);
+  common.loader = loader;
   //
   // ### Strider Context Object
   //
@@ -94,105 +93,126 @@ module.exports = function(extdir, c, callback) {
   // Make extension context available throughout application.
   common.context = context;
 
-  var SCHEMA_VERSION = Config.SCHEMA_VERSION
+  var SCHEMA_VERSION = Config.SCHEMA_VERSION;
+
   upgrade(SCHEMA_VERSION, function (err) {
     if (err) return cb(err)
+
     loadExtensions(loader, extdir, context, appInstance, function (err) {
       // kill zombie jobs
       killZombies(function () {
-        var tasks = []
+        var tasks = [];
+
         if (!common.extensions.runner || 'object' !== typeof common.extensions.runner) {
-          console.error('Strider seems to have been misconfigured - there are no available runner plugins. Please make sure all dependencies are up to date.')
-          process.exit(1)
+          console.error('Strider seems to have been misconfigured - there are no available runner plugins. Please make sure all dependencies are up to date.');
+          process.exit(1);
         }
+
         Object.keys(common.extensions.runner).forEach(function (name) {
-          var runner = common.extensions.runner[name]
+          var runner = common.extensions.runner[name];
+
           if (!runner) {
-            console.log('no runner', name)
-            return
+            console.log('no runner', name);
+            return;
           }
+
           tasks.push(function (next) {
             Job.find({'runner.id': name, finished: null}, function (err, jobs) {
-              if (err) return next(err)
-              runner.findZombies(jobs, next)
-            })
+              if (err) return next(err);
+
+              runner.findZombies(jobs, next);
+            });
           })
-        })
+        });
+
         async.parallel(tasks, function (err, zombies) {
-          if (err) return cb(err)
-          var ids = [].concat.apply([], zombies).map(function (job) { return job._id })
-            , now = new Date()
+          if (err) return cb(err);
+
+          var ids = [].concat.apply([], zombies).map(function (job) { return job._id });
+          var now = new Date();
+
           Job.update({_id: {$in: ids}}, {$set: {finished: now, errored: true, error: {message: 'Job timeout', stack: ''}}}, function (err) {
             Job.update({_id: {$in: ids}, started: null}, {$set: {started:  now}}, function (err) {
-              cb(err, appInstance)
-            })
-          })
-        })
-      })
-    })
-  })
+              cb(err, appInstance);
+            });
+          });
+        });
+      });
+    });
+  });
 
-  return appInstance
+  return appInstance;
 }
 
 function killZombies(done) {
-  console.log("Marking zombie jobs as finished...")
+  console.log("Marking zombie jobs as finished...");
+
   Job.update({archived: null, finished: null},
     {$set: {finished: new Date(), errored: true}}, {multi: true}, 
     function(err, count) {
-      if (err) throw err
-      console.log("%d zombie jobs marked as finished", count)
-      done()
+      if (err) throw err;
+      console.log("%d zombie jobs marked as finished", count);
+      done();
     }
-  )
+  );
 }
 
 function loadExtensions(loader, extdir, context, appInstance, cb) {
   loader.collectExtensions(extdir, function (err) {
-    if (err) return cb(err)
+    if (err) return cb(err);
+
     async.parallel([
       function (next) {
         loader.initWebAppExtensions(context, function (err, webapps) {
-          if (err) return next(err)
-          common.extensions = webapps
-          console.log('initalized webapps')
+          if (err) return next(err);
+
+          common.extensions = webapps;
+          console.log('initalized webapps');
+
           for (var type in webapps) {
-            console.log('[' + type + ' plugins]')
+            console.log('[' + type + ' plugins]');
             for (var id in webapps[type]) {
-              console.log('- ' + id)
+              console.log('- ' + id);
             }
           }
-          next()
+
+          next();
         })
       },
+
       function (next) {
         loader.initTemplates(function (err, templates) {
-          if (err) return next(err)
+          if (err) return next(err);
+
           for (var name in templates) {
             pluginTemplates.register(name, templates[name])
           }
+
           console.log('loaded templates')
           next()
         })
       },
+
       function (next) {
-        loader.initStaticDirs(appInstance, function(err) {
-          console.log('initalized static directories')
-          next()
-        })
+        loader.initStaticDirs(appInstance, function (err) {
+          console.log('initalized static directories');
+          next();
+        });
       },
+
       function (next) {
-        api_config.cacheConfig(loader, next)
+        api_config.cacheConfig(loader, next);
       }
     ], function (err) {
       if (err) {
-        console.error('Failed to load plugins')
-        return cb(err, appInstance)
+        console.error('Failed to load plugins');
+        return cb(err, appInstance);
       }
-      console.log('loaded plugins')
+
+      console.log('loaded plugins');
       appInstance.use(slashes(true, true));
-      app.run(appInstance)
-      cb(null, appInstance)
-    })
-  })
+      app.run(appInstance);
+      cb(null, appInstance);
+    });
+  });
 }

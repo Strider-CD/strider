@@ -3,25 +3,17 @@
  */
 
 var BASE_PATH = '../../../lib/';
-
-var _ = require('underscore')
-  , crypto = require('crypto')
-  , auth = require(BASE_PATH + 'auth')
-  , humane = require(BASE_PATH + 'humane')
-  , User = require(BASE_PATH + 'models').User
-  , Job = require(BASE_PATH + 'models').Job
-
-  ;
+var User = require(BASE_PATH + 'models').User
 
 /*
  * GET /admin/users 
  */ 
-exports.get_user_list = function(req,res)
-{
-  var users=[];
+exports.get_user_list = function(req,res) {
+  var users = [];
+
   User.find({}).sort({'email': 1}).exec(function(err,results){
-    _.each(results, function(user) {
-      users.push({"id": user.id, "email": user.email});
+    results.forEach(function(user) {
+      users.push({ id: user.id, email: user.email });
     });
 
     var output = JSON.stringify(users, null, '\t');

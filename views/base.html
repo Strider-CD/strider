@@ -52,7 +52,6 @@
                       <li><a href='/admin/invites'>Invites</a></li>
                       <li><a href='/admin/users'>Users</a></li>
                       <li><a href='/admin/projects'>Projects</a></li>
-                      <li><a href='/admin/jobs'>Jobs</a></li>
                     </ul>
                 {% endif %}
               {% endif %}
@@ -83,9 +82,8 @@
       <div class="body-content">
         <div class="row">
           <div class='span12'>
-
-          {% block bodyContent %}
-          {% endblock %}
+            {% block bodyContent %}
+            {% endblock %}
           </div>
         </div>
       </div>
@@ -95,9 +93,12 @@
     <footer>
     <p class='StriderBlock_FooterText'>
     {% pluginblock FooterText %}
-      <a href = 'https://github.com/Strider-CD/strider'>Strider-CD</a>
+      <a href="http://stridercd.com/">Strider-CD</a>
     | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
     | <a href="https://github.com/Strider-CD/strider/blob/master/README.md">Docs</a>
+    {% if version %}
+    | <a href="https://github.com/Strider-CD/strider/releases/tag/{{version}}">{{version}}</a>
+    {% endif %}
     {% if !currentUser %}
     | <a id="forgot-password-link" href="/auth/forgot">Forgot your password?</a>
     {% endif %}

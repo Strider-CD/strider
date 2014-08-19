@@ -1,0 +1,100 @@
+{
+  "bitbucket": {
+    "appConfig": {
+      "appKey": "yxP57RbJNLsCjzvn3p",
+      "appSecret": "n65ZnGRkE58AsVfPMKugaPSuWKGXMtTg",
+      "hostname": "http://localhost:3000"
+    },
+    "accountConfig": {},
+    "config": {
+      "pull_requests": {
+        "enum": [
+          "all",
+          "none",
+          "whitelist"
+        ]
+      },
+      "whitelist": [
+        {
+          "level": {
+            "enum": [
+              "tester",
+              "admin"
+            ]
+          }
+        }
+      ],
+      "auth": {}
+    },
+    "fastFile": true,
+    "hosted": true
+  },
+  "git": {
+    "config": {
+      "auth": {
+        "type": {
+          "enum": [
+            "ssh",
+            "https",
+            "http"
+          ]
+        }
+      }
+    },
+    "fastFile": false
+  },
+  "github": {
+    "appConfig": {
+      "hostname": "http://localhost:3000",
+      "appId": "a3af4568e9d8ca4165fe",
+      "appSecret": "18651128b57787a3336094e2ba1af240dfe44f6c",
+      "apiBase": "https://api.github.com"
+    },
+    "fastFile": true,
+    "accountConfig": {},
+    "config": {
+      "pull_requests": {
+        "enum": [
+          "all",
+          "none",
+          "whitelist"
+        ]
+      },
+      "whitelist": [
+        {
+          "level": {
+            "enum": [
+              "tester",
+              "admin"
+            ]
+          }
+        }
+      ],
+      "auth": {}
+    },
+    "hosted": true
+  },
+  "gitlab": {
+    "config": {
+      "pull_requests": {
+        "enum": [
+          "all",
+          "none",
+          "whitelist"
+        ]
+      },
+      "whitelist": [
+        {
+          "level": {
+            "enum": [
+              "tester",
+              "admin"
+            ]
+          }
+        }
+      ],
+      "auth": {}
+    },
+    "hosted": true
+  }
+}

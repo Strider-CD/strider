@@ -1,42 +1,57 @@
-# DOCKER-VERSION 0.6.6
+# DOCKER-VERSION 1.0.0
 
-from  ubuntu
+from ubuntu:14.04
 maintainer Niall O'Higgins <niallo@frozenridge.co>
 
-# do this as single-line run until https://github.com/dotcloud/docker/issues/1171 is fixed
-run  \
-    useradd -m strider ;\
-    dpkg-divert --local --rename --add /sbin/initctl ;\
-    ln -s /bin/true /sbin/initctl ;\
-    echo "deb http://archive.ubuntu.com/ubuntu quantal main universe" > /etc/apt/sources.list ;\
-    echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' > /etc/apt/sources.list.d/10gen.list ;\
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10 ;\
-    apt-get update ;\
-    apt-get install -y curl wget supervisor openssh-server make build-essential libssl-dev python python-dev git default-jre-headless mongodb-10gen ;\
-    locale-gen en_US en_US.UTF-8 ;\
-    mkdir -p /var/run/sshd ;\
-    mkdir -p /var/log/supervisor ;\
-    mkdir -p /data/db ;\
-    locale-gen en_US en_US.UTF-8 ;\
-    curl https://raw.github.com/isaacs/nave/master/nave.sh > /bin/nave && chmod a+x /bin/nave ;\
-    nave usemain stable ;\
-    echo 'root:str!der' | chpasswd ;\
-    git clone -b master https://github.com/Strider-CD/strider.git /src ;\
-    cd /src; (rm -rf node_modules || exit 0) && npm install ;\
-    /usr/bin/mongod --smallfiles --fork --logpath mongo.log ;\
-    sleep 2 ;\
-    /src/bin/strider addUser --email test@example.com --password dontlook --admin true ;\
-    /usr/bin/mongod --shutdown ;\
-    /usr/bin/mongod --smallfiles --fork --logpath mongo.log ;\
-    sleep 2 ;\
-    echo "db.users.find()" | mongo localhost/strider-foss | grep test@example.com ;\
-    chown -R strider /src
+# create strider user
+run useradd -m strider
 
-# inject supervisord.conf
-add  docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+# update package cache and install some packages
+run apt-get -y update
+run apt-get -y install nodejs npm git make build-essential openssh-server mongodb-server supervisor libssl-dev python python-dev git default-jre-headless
 
-# supervisord will run ssh, and strider, and restart them if they crash
-cmd  ["/usr/bin/supervisord", "-n"]
+# create a link to nodejs called node
+run update-alternatives --install /usr/bin/node node /usr/bin/nodejs 10
+
+# create some directories for the database, ssh, and supervisor logs
+run mkdir -p /data/db && chown -R strider /data
+run mkdir -p /var/log/supervisor
+run mkdir -p /var/run/sshd
+
+# turn off pam otherwise the ssh login will not work
+run sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+run sed -ri 's/#UsePAM no/UsePAM no/g' /etc/ssh/sshd_config
+
+workdir /tmp
+
+# clone the strider repository
+run git clone -b master https://github.com/Strider-CD/strider.git strider-src
+
+# you can also use the strider repo existing on disc by commenting the git clone command
+# and uncommenting the add command below
+#add ./ /tmp/strider-src
+
+run npm install -g strider-src
+
+# copy the supervisor config and the strider start script used by it
+run cp strider-src/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+run cp strider-src/docker/start-strider.sh /usr/local/bin/start-strider.sh
+
+# remove the source again
+run rm -rf strider-src
+
+# create a database and admin account.
+# WARNING: If you are using this image for production do not forget to remove this account.
+run /usr/bin/mongod --smallfiles --fork --logpath /data/mongo.log --dbpath /data/db && \
+    /usr/local/bin/strider addUser --email test@example.com --password dontlook --admin true  && \
+    /usr/bin/mongod --shutdown
+
+# change the root and strider password so we can login via ssh
+# Root access is prohibited by default through ssh. To get root access login as strider and su to root.
+run echo 'strider:str!der\nroot:str!der' | chpasswd
+
+# start strider on run
+cmd ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
 
 # 22 is ssh server
 # 3000 is strider

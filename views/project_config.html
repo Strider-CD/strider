@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="/stylesheets/css/codemirror/twilight.css">
 <link rel="stylesheet" href="/stylesheets/css/config.css">
 <link rel="stylesheet" href="/stylesheets/css/plugin-config-compiled.css">
-<link rel="stylesheet" href="/stylesheets/css/bootstrap-switch.css">
 {% endblock %}
 {% block bodyContent %}
 <script>
@@ -36,39 +35,66 @@
       </a>
       {% endif %}
       <span class="branch-picker">
-        <select ng-model="branch" ng-options="branch as branch.name for branch in branches track by branch.name">
+        <select ng-options="branch as branch.name for branch in branches track by branch.name"
+          ng-change="switchToBranch(branch)"
+          ng-model="branch">
         </select>
-        <button
-           class="btn"
-           ng-hide="branch.name === 'master'"
-           ng-switch="!!branch.mirror_master"
-           ng-click="toggleBranch()">
-          <span ng-switch-when="true">
-            Customize Branch
-          </span>
-          <span ng-switch-when="false">
-            Mirror Master
-          </span>
-        </button>
+
+        <span ng-hide="branch.name === 'master'">
+          <button class="btn"
+            ng-if="!!branch.mirror_master"
+            ng-hide="branch.really_mirror_master"
+            ng-click="toggleBranch()">
+            <span>
+              Customize Branch
+            </span>
+          </button>
+
+          <button class="btn"
+            ng-if="!branch.mirror_master"
+            ng-hide="branch.really_mirror_master"
+            ng-click="branch.really_mirror_master = true">
+            <span>
+              Mirror Master
+            </span>
+          </button>
+
+          <button class="btn btn-default"
+            ng-show="branch.really_mirror_master"
+            ng-click="branch.really_mirror_master = false">
+            <span>
+              Keep Customizations
+            </span>
+          </button>
+          <button class="btn btn-danger"
+            ng-show="branch.really_mirror_master"
+            ng-click="mirrorMaster()">
+            <span>
+              Really Mirror Master
+            </span>
+          </button>
+        </span>
       </span>
-      <a
-        class="btn btn-primary"
-        ng-hide="branch.name.indexOf('*') > -1"
-        data-placement="bottom"
-        data-toggle="tooltip"
-        title="Retest &amp; Deploy Branch"
-        ng-click="startDeploy()">
-        Deploy Branch
-      </a>
-      <a
-        class="btn btn-success"
-        ng-hide="branch.name.indexOf('*') > -1"
-        data-placement="bottom"
-        data-toggle="tooltip"
-        title="Retest Branch"
-        ng-click="startTest()">
-        Test Branch
-      </a>
+      <span ng-hide="branch.really_mirror_master">
+        <a
+          class="btn btn-primary"
+          ng-hide="branch.name.indexOf('*') > -1"
+          data-placement="bottom"
+          data-toggle="tooltip"
+          title="Retest &amp; Deploy Branch"
+          ng-click="startDeploy()">
+          Deploy Branch
+        </a>
+        <a
+          class="btn btn-success"
+          ng-hide="branch.name.indexOf('*') > -1"
+          data-placement="bottom"
+          data-toggle="tooltip"
+          title="Retest Branch"
+          ng-click="startTest()">
+          Test Branch
+        </a>
+      </span>
     </h3>
     <p>
       <div class="tabbable tabs-left">
@@ -146,7 +172,9 @@
     </p>
   </div>
 </div>
-<script src="/javascripts/lib/bootstrap-switch.js"></script>
+
+<script src="/javascripts/lib/RubaXaSortable.js"></script>
+<script src="/javascripts/ngSortableDirective.js"></script>
 <script src="/javascripts/lib/codemirror-compressed.js"></script>
 <script src="/javascripts/lib/ui-codemirror.js"></script>
 <script src="/javascripts/lib/jquery-ui.js"></script>

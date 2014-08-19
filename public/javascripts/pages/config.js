@@ -1,11 +1,12 @@
-/* global app: true, console: true, md5: true, bootbox: true */
+/* global app: true, console: true, md5: true, bootbox: true, ngSortableDirective: true */
 
 ;(function () {
 
   window.app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'Alerts', 'moment'], function ($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
-  });
+  })
+  .directive('ngSortable', ngSortableDirective);
 
   function post(url, data, done) {
     $.ajax({
@@ -30,7 +31,7 @@
     var name = $element.attr('id').split('-').slice(1).join('-');
     $scope.saving = false;
     $scope.$watch('runnerConfigs[branch.name]["' + name + '"]', function (value) {
-      console.log('Runner config', name, value, $scope.runnerConfigs);
+      // console.debug('Runner config', name, value, $scope.runnerConfigs);
       $scope.config = value;
     });
     $scope.save = function () {
@@ -78,20 +79,78 @@
     $scope.userConfigs = window.userConfigs || {};
     $scope.statusBlocks = window.statusBlocks || {};
     $scope.configured = {};
-    // TODO make this aware of a #hash ?
     $scope.branch = $scope.project.branches[0];
     $scope.branches = window.branches || [];
     $scope.disabled_plugins = {};
     $scope.configs = {};
     $scope.runnerConfigs = {};
-    $scope.selectedTab = null;
     $scope.api_root = '/' + $scope.project.name + '/api/';
     $scope.page = 'config';
 
-    $('a[data-toggle="tab"]').on('show', function (e) {
-      $scope.selectedTab = e.target.href.slice(1);
-      $scope.$digest();
+    $(function ConfigPageRouting() {
+      var router = {
+        init: function () {
+          // Set the URL when a tab is selected
+          $('a[data-toggle="tab"]').on('show', function (e) {
+            var tabName = $(e.target).attr('href').replace('#', '');
+            var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
+            var state = window.history.state;
+            if (state && state.tabName === tabName) return; // don't double up!
+            window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
+          });
+          window.onpopstate = this.route; // support the back button
+          this.route();
+        },
+        route: function() {
+          var pathParts = window.location.pathname.split('/');
+          // Confirm we're on the config page
+          if (pathParts.slice(0, 4)[3] === "config") {
+            this.routeConfigPage(pathParts)
+          }
+        },
+        routeConfigPage: function (pathParts) {
+          // Check the SessionStore to see if we should select a branch
+          var branchName = sessionStorage.getItem('branchName')
+          if (branchName) switchToBranch(branchName);
+          else sessionStorage.removeItem('branchName');
+          // Check the URL to see if we should go straight to a tab
+          var lastPart = pathParts[pathParts.length-1];
+          if (pathParts.length === 5 && lastPart.length) {
+            // Yes a tab was supplied
+            var tabName = lastPart;
+            switchToTab(tabName, $scope.branch);
+          }
+        }
+      }
+      router.init()
     });
+    
+    function switchToBranch(name) {
+      var branch = _.findWhere($scope.branches, { name: name });
+      if (branch) $scope.branch = branch;
+      sessionStorage.setItem('branchName', $scope.branch.name);
+      switchToTab(null, $scope.branch);
+    }
+
+    $scope.switchToBranch = switchToBranch;
+    
+    function switchToTab(tab, branch) {
+      if (!_.isString(tab)) {
+        tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
+      }
+      $('#' + tab + '-tab-handle').tab('show');
+      $('.tab-pane.active').removeClass('active');
+      $('#' + tab).addClass('active');
+      $('a[href=#' + tab + ']').tab('show');
+    }
+
+    // When a tab is shown, reload any CodeMirror instances within
+    $('[data-toggle=tab]').on('shown', function (e) {
+      var tabId = $(e.target).attr('href');
+      $(tabId).find('[ui-codemirror]').trigger('refresh');
+    });
+
+    $scope.switchToTab = switchToTab;
 
     var save_branches = {};
 
@@ -145,34 +204,21 @@
         $scope.branch = $.extend(true, $scope.branch, master);
         $scope.branch.name = name;
         initBranch($scope.branch);
-      } else {
-        $scope.branch.mirror_master = true;
       }
       $scope.saveGeneralBranch(true);
     };
 
-    $scope.$watch('branch.mirror_master', function (value) {
-      setTimeout(function () {
-        var tab = value && value.name === 'master' ? 'project' : 'basic';
-        $('#' + tab + '-tab-handle').tab('show');
-        $('.tab-pane.active').removeClass('active');
-        $('#tab-' + tab).addClass('active');
-      }, 0);
-    });
-    $scope.$watch('branch', function (value) {
-      setTimeout(function () {
-        var tab = value && value.name === 'master' ? 'project' : 'basic';
-        $('#' + tab + '-tab-handle').tab('show');
-        $('.tab-pane.active').removeClass('active');
-        $('#tab-' + tab).addClass('active');
-      }, 0);
-    });
+    $scope.mirrorMaster = function () {
+      $scope.branch.mirror_master = true;
+      delete $scope.branch.really_mirror_master;
+      $scope.saveGeneralBranch(true);
+    };
 
     $scope.setRunner = function (name) {
-      $scope.branch.runner = {
-        id: name,
-        config: $scope.runnerConfigs[name]
-      };
+      var config = $scope.runnerConfigs[name]
+      $scope.branch.runner.id = name;
+      $scope.branch.runner.config = config;
+      $scope.saveRunner(name, config)
     };
 
     function updateConfigured() {
@@ -213,17 +259,41 @@
       });
     }
 
-    // options for the inUse plugin sortable
-    $scope.inUseOptions = {
-      connectWith: '.disabled-plugins-list',
-      distance: 5,
-      remove: function (e, ui) {
-        updateConfigured();
-      },
-      receive: function (e, ui) {
-        updateConfigured();
-        var plugins = $scope.branch.plugins;
-        plugins[ui.item.index()].enabled = true;
+    $scope.reorderPlugins = function(list) {
+      $scope.branch.plugins = list;
+      savePluginOrder();
+    };
+
+    $scope.enablePlugin = function (target, index, event) {
+      event.removeDragEl();
+      // add to enabled list
+      $scope.branch.plugins.splice(index, 0, target);
+      // enable it
+      _.find($scope.branch.plugins, { id: target.id }).enabled = true;
+      // remove from disabled list
+      var disabled = $scope.disabled_plugins[$scope.branch.name];
+      disabled.splice(_.indexOf(_.pluck(disabled, 'id'), target.id), 1);
+      updateConfigured()
+    };
+
+    $scope.disablePlugin = function (target, index, event) {
+      event.removeDragEl();
+      // add it to the disabled list
+      $scope.disabled_plugins[$scope.branch.name].splice(index, 0, target);
+      // remove it from enabled list
+      var enabled = $scope.branch.plugins;
+      enabled.splice(_.indexOf(_.pluck(enabled, 'id'), target.id), 1);
+      updateConfigured()
+    };
+
+    $scope.setImgStyle = function (plugin) {
+      var plugins = $scope.plugins
+        , icon = plugins[plugin.id].icon
+        , bg = null;
+      if (icon)
+        bg = "url('/ext/"+plugin.id+"/"+plugins[plugin.id].icon+"')";
+      plugin.imgStyle = {
+        'background-image': bg
       }
     };
 
@@ -322,6 +392,25 @@
       return 'https://secure.gravatar.com/avatar/' + hash + '?d=identicon';
     }
 
+    $scope.saveRunner = function (id, config) {
+      $.ajax({
+        url: '/' + $scope.project.name + '/config/branch/runner/id/?branch=' + encodeURIComponent($scope.branch.name),
+        data: JSON.stringify({id: id, config: config}),
+        contentType: 'application/json',
+        type: 'PUT',
+        success: function() {
+          // TODO indicate to the user?
+          $scope.success('Saved runner config.', true);
+        },
+        error: function(xhr, ts, e) {
+          if (xhr && xhr.responseText) {
+            var data = $.parseJSON(xhr.responseText);
+            $scope.error("Error setting runner id to " + id);
+          }
+        }
+      });
+    };
+
     // todo: pass in name?
     $scope.runnerConfig = function (branch, data, next) {
       if (arguments.length === 2) {
@@ -334,7 +423,7 @@
         return $scope.runnerConfigs[name];
       }
       $.ajax({
-        url: '/' + $scope.project.name + '/config/master/runner/?branch=master',
+        url: '/' + $scope.project.name + '/config/branch/runner/?branch=' + encodeURIComponent($scope.branch.name),
         type: 'PUT',
         contentType: 'application/json',
         data: JSON.stringify(data),
