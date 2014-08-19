@@ -15,6 +15,7 @@ $navbar.find('a[href="' + global.location.pathname + '"]')
 // Third party
 require('ui-bootstrap');
 require('ui-codemirror');
+require('ui-sortable');
 
 // Modules
 require('./config');

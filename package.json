@@ -29,7 +29,6 @@
     "mailer": "~0.6.7",
     "moment": "~2.1.0",
     "mongoose": "~3.6.10",
-    "ng-sortable": "0.0.2",
     "nodemailer": "~0.6.5",
     "nomnom": "1.6.x",
     "passport": "~0.2.0",
