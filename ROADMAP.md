@@ -2,6 +2,9 @@
 
 # Upcoming Releases
 
+## 1.5.1
+
+- Docker support in core.
 
 
 # Changelog / Past releases
