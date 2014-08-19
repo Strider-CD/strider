@@ -11,9 +11,9 @@ var DeactivateController = require('./controllers/deactivate');
 var HerokuController = require('./controllers/heroku');
 var GithubController = require('./controllers/github');
 var interpolate = require('./configs/interpolate');
-var ngSortableDirective = require('ngSortableDirective');
+var ngSortableDirective = require('ng-sortable');
 
-var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'alerts', 'moment'])
+var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'alerts', 'moment'])
   .config(['$interpolateProvider', interpolate])
   .controller('Config', ['$scope', '$element', '$sce', ConfigController])
   .controller('RunnerController', ['$scope', '$element', RunnerController])
