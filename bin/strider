@@ -216,6 +216,99 @@ function runTest(email, password, project, branch, message, deploy) {
   }
 }
 
+function runDeploy(email, password, project, branch, message) {
+  var Step = require('step')
+    , readline = require('readline')
+    , request = require('superagent')
+
+
+  var run = function() {
+    var agent = request.agent()
+    var server_name = require('../lib/config').server_name
+    var url = server_name + "/api/session"
+    request.post(url)
+      .send({ email: email, password: password })
+      .end(function(err, res){
+        if(!err){
+          agent.saveCookies(res);
+          url = server_name + "/"+project+"/start"
+          var req = request.post(url),
+          postData = {branch: branch || "master"};
+            
+          agent.attachCookies(req);
+          
+          if (message)
+              postData.message = message;
+            
+          postData.type = 'TEST_AND_DEPLOY'
+          req.send(postData);
+
+          req.end(function(err,res){
+            if(!err){
+              console.log("Job started")
+            }
+            else{
+              console.log("Error: ",err);
+            }
+            process.exit(0);
+          })
+
+        }
+        else{
+          console.log("Login error")
+          process.exit(0);
+        }
+    });
+  }
+
+  if(!email || !password || !project){
+    var rl = readline.createInterface({
+      input: process.stdin,
+      output: process.stdout
+    });
+
+    Step(
+      function getEmail(){
+          var next = this;
+          if (email){
+            next();
+          } else {
+            rl.question("Enter email []: ", function(em){
+              email = em;
+              next();
+            });
+          }
+        }
+      , function getPwd(){
+          var next = this;
+          if (password){
+            next();
+          } else {
+            rl.question("Enter password []: ", function(pwd){
+              password = pwd;
+              next();
+            });
+          }
+        }
+      , function getProject(){
+          var next = this;
+          if (project){
+            next();
+          } else {
+            rl.question("Project name []: ", function(pr){
+              project = pr;
+              next();
+            });
+          }
+      }
+      , run
+      );
+  }
+  else{
+    run();
+  }
+}
+
 var start = function(extpath){
   var common = require('../lib/common');
   var path = require('path');
@@ -344,6 +437,47 @@ parser.command('runTest')
     runTest(opts.email, opts.password, opts.project, opts.branch, opts.message, opts.deploy);
   })
   .help("Run a test and optionally deploy")
+
+parser.command('runDeploy')
+  .option('email', {
+      abbr: 'l'
+    , help: "User's email"
+  })
+  .option('password', {
+      abbr: 'p'
+    , help: "User's password"
+  })
+  .option('project', {
+      abbr: 'j'
+    , help: "Project name"
+  })
+  .option('branch', {
+      abbr: 'b'
+    , help: "branch name (default: master)"
+  })
+  .option('message', {
+      abbr: 'm'
+      , help: "Commit message (optional)"
+  })
+  .callback(function(opts){
+    if (opts.email) {
+      opts.email = opts.email.toString()
+    }
+    if (opts.password) {
+      opts.password = opts.password.toString()
+    }
+    if(opts.project) {
+      opts.project = opts.project.toString()
+    }
+    if(opts.branch) {
+      opts.branch = opts.branch.toString()
+    }
+    if(opts.message) {
+      opts.message = opts.message.toString()
+    }
+    runDeploy(opts.email, opts.password, opts.project, opts.branch, opts.message);
+  })
+  .help("Run a deployment")
 
 parser.nocommand('start')
   .option('extension_path', {
