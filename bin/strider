@@ -136,20 +136,23 @@ function runTest(email, password, project, branch, message) {
           url = server_name + "/"+project+"/start"
           var req = request.post(url),
           postData = {branch: branch || "master"};
-            
+
           agent.attachCookies(req);
-          
+
           if (message)
               postData.message = message;
-            
+
           req.send(postData);
 
-          req.end(function(err,res){
-            if(!err){
+          req.end(function(err, res){
+            if(!err && res.statusCode !== 404){
               console.log("Job started")
             }
+            else if(res.statusCode === 404){
+	            console.log("Error: Repo was not found")
+            }
             else{
-              console.log("Error: ",err);
+              console.log("Error: ", err);
             }
             process.exit(0);
           })
