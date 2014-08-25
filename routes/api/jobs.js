@@ -27,37 +27,47 @@ exports.jobs_start = function(req, res) {
     , now = new Date()
     , trigger
     , job
-  trigger = {
-    type: 'manual',
-    author: {
-      id: req.user._id,
-      email: req.user.email,
-      image: gravatar.url(req.user.email, {}, true)
-    },
-    timestamp: now,
-    source: {type: 'UI', page: req.param('page') || 'unknown'}
-  }
+    , Project = common.context.models.Project
 
-  
-  if (message) {
-      trigger.message = message;
-  } else {
-      if (type === 'TEST_AND_DEPLOY')
-          trigger.message = 'Manually Redeploying';
-      else
-          trigger.message =  'Manually Retesting';
-  }
+    Project.findOne({name: req.project.name}, function (err, project) {
+        if(err || !project) {
+            return res.json(404);
+        }
 
-  job = {
-    type: type,
-    user_id: req.user._id,
-    project: req.project.name,
-    ref: {branch: branch},
-    trigger: trigger,
-    created: now
-  }
-  common.emitter.emit('job.prepare', job)
-  res.json(job)
+        trigger = {
+            type: 'manual',
+            author: {
+                id: req.user._id,
+                email: req.user.email,
+                image: gravatar.url(req.user.email, {}, true)
+            },
+            timestamp: now,
+            source: {type: 'UI', page: req.param('page') || 'unknown'}
+        }
+
+
+        if (message) {
+            trigger.message = message;
+        } else {
+            if (type === 'TEST_AND_DEPLOY')
+                trigger.message = 'Manually Redeploying';
+            else
+                trigger.message =  'Manually Retesting';
+        }
+
+        job = {
+            type: type,
+            user_id: req.user._id,
+            project: req.project.name,
+            ref: {branch: branch},
+            trigger: trigger,
+            created: now
+        }
+        common.emitter.emit('job.prepare', job)
+        res.json(job)
+    });
+
+
 };
 
 /*
