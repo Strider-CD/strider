@@ -2,6 +2,10 @@ module.exports = function (browser, callback) {
 
   describe('Github Integration', function () {
 
+    beforeEach(function() {
+      this.currentTest.browser = browser;
+    });
+
     it('should link account with github', function () {
       return browser.rel('/')
         .elementByName('email')
@@ -30,7 +34,7 @@ module.exports = function (browser, callback) {
         .click()
         .elementByCssSelector('.project-type.btn')
         .click()
-        .waitForElementByCssSelector('.btn-success', 6000)
+        .waitForElementByCssSelector('.btn-success', 5000)
         .click()
         .waitForElementByLinkText('Click to watch it run', 3000)
         .click()
