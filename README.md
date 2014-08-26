@@ -186,6 +186,7 @@ LLC][maintainer]. For commercial support, customization, integration
 & hosting enquiries please email hi@frozenridge.co.
 
 
+
 [logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
 [build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
 [build-link]: https://public-ci.stridercd.com/Strider-CD/strider
