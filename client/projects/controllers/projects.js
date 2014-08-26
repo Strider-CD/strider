@@ -4,11 +4,11 @@ var $ = require('jquery');
 
 module.exports = function ($scope) {
   setTimeout(function () {
-    if (window.location.hash === '#manual') $('a[href="#manual-setup"]').tab('show');
+    if (global.location.hash === '#manual') $('a[href="#manual-setup"]').tab('show');
   }, 200);
-  $scope.accounts = window.accounts;
-  $scope.repos = window.repos;
-  $scope.providers = window.providers;
+  $scope.accounts = global.accounts;
+  $scope.repos = global.repos;
+  $scope.providers = global.providers;
   $scope.projectsPage = true;
   $scope.toggleAdd = function (repo) {
     repo.adding = 'pick-type';

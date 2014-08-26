@@ -1,4 +1,4 @@
-/* global md5: true, bootbox: true */
+'use strict';
 
 var angular = require('angular');
 var RunnerController = require('./controllers/runner');

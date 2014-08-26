@@ -5,11 +5,12 @@
 var $ = require('jquery');
 var _ = require('lodash');
 var JobMonitor = require('../../utils/job-monitor');
+var io = require('socket.io-client');
 
 module.exports = function ($scope, $element) {
-  var socket = window.socket || (window.socket = io.connect())
+  var socket = io.connect()
     , dash = new Dashboard(socket, $scope);
-  $scope.providers = window.providers;
+  $scope.providers = global.providers
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $('#dashboard').show();
   $scope.startDeploy = function (job) {
@@ -42,7 +43,7 @@ function Dashboard(socket, $scope) {
   JobMonitor.call(this, socket, $scope.$digest.bind($scope));
   this.scope = $scope;
   this.scope.loadingJobs = false;
-  this.scope.jobs = window.jobs;
+  this.scope.jobs = global.jobs;
 }
 
 _.extend(Dashboard.prototype, JobMonitor.prototype, {

@@ -3,28 +3,29 @@
 var _ = require('lodash');
 var bootbox = require('bootbox');
 var $ = require('jquery');
+var io = require('socket.io-client');
 var JobDataMonitor = require('../../utils/job-data-monitor');
 var PHASES = require('../../utils/phases');
 var SKELS = require('../../utils/skels');
 var outputConsole;
 var runtime = null;
-var job = window.job;
+var job = global.job;
 
 module.exports = function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}
-    , project = window.project
-    , jobid = params.id || (window.job && window.job._id)
-    , socket = window.socket || (window.socket || io.connect())
+    , project = global.project
+    , jobid = params.id || (global.job && global.job._id)
+    , socket = io.connect()
     , lastRoute = $route.current
-    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, window.jobs, window.job)
+    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job)
 
-  outputConsole = document.querySelector('.console-output');
+  outputConsole = global.document.querySelector('.console-output');
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
-  $scope.jobs = window.jobs;
-  $scope.job = window.job;
-  $scope.canAdminProject = window.canAdminProject
-  $scope.showStatus = window.showStatus;
+  $scope.jobs = global.jobs;
+  $scope.job = global.job;
+  $scope.canAdminProject = global.canAdminProject
+  $scope.showStatus = global.showStatus;
   if ($scope.job && $scope.job.phases.test.commands.length) {
     if (job.phases.environment) {
       job.phases.environment.collapsed = true;
@@ -62,8 +63,8 @@ module.exports = function ($scope, $route, $location, $filter) {
   }
 
   $scope.$on('$locationChangeSuccess', function(event) {
-    if (window.location.pathname.match(/\/config$/)) {
-      window.location = window.location;
+    if (global.location.pathname.match(/\/config$/)) {
+      global.location = global.location;
       return;
     }
     params = $route.current.params;
@@ -287,7 +288,7 @@ function buildSwitcher($scope) {
     }
     if (idx === -1) {
       console.log('Failed to find job.');
-      return window.location = window.location
+      return global.location = global.location
     }
     idx += dy;
     if (idx < 0 || idx >= $scope.jobs.length) {
@@ -297,5 +298,5 @@ function buildSwitcher($scope) {
     $scope.selectJob($scope.jobs[idx]._id);
     $scope.$root.$digest();
   }
-  document.addEventListener('keydown', switchBuilds);
+  global.document.addEventListener('keydown', switchBuilds);
 }

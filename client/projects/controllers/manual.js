@@ -5,7 +5,7 @@ var $ = require('jquery');
 module.exports = function ($scope, $attrs) {
   var provider = $attrs.id.split('-')[1];
   $scope.config = {};
-  $scope.projects = window.manualProjects[provider] || [];
+  $scope.projects = global.manualProjects[provider] || [];
   $scope.remove = function (project) {
     project.really_remove = 'removing';
     $.ajax('/' + project.name + '/', {

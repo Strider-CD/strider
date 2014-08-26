@@ -43,7 +43,7 @@ function DeactivateController($scope) {
           $scope.success("Project removed.");
           $scope.$root.$digest();
           setTimeout(function () {
-            window.location = '/';
+            global.location = '/';
           }, 500);
         },
         error: function(xhr, ts, e) {

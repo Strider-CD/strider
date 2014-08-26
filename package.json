@@ -90,7 +90,8 @@
     "timeago": "./public/libs/jquery.timeago.js",
     "ui-codemirror": "./public/libs/ui-codemirror.js",
     "ui-bootstrap": "./public/libs/ui-bootstrap.js",
-    "ui-sortable": "./public/libs/ui-sortable.js"
+    "ui-sortable": "./public/libs/ui-sortable.js",
+    "socket.io-client": "./bower_components/socket.io-client/socket.io.js"
   },
   "browserify-shim": "./shim.js",
   "browserify": {

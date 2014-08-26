@@ -5,7 +5,7 @@ var $ = require('jquery');
 function CollaboratorsController($scope) {
   $scope.new_email = '';
   $scope.new_access = 0;
-  $scope.collaborators = window.collaborators || [];
+  $scope.collaborators = global.collaborators || [];
   $scope.remove = function (item) {
     var actuallyDelete = confirm('Are you sure you want to remove ' + item.email + '?')
     if (actuallyDelete) {

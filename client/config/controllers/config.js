@@ -6,18 +6,24 @@ var md5 = require('md5');
 var bootbox = require('bootbox');
 var post = require('../../utils/post');
 var branches = global.branches || [];
+var project = global.project || {};
+var plugins = global.plugins || {};
+var runners = global.runners || {};
+var userIsCreator = global.userIsCreator || false;
+var userConfigs = global.userConfigs || {};
+var statusBlocks = global.statusBlocks || {};
 
 function ConfigController($scope, $element, $sce) {
   // this is the parent controller.
-  $scope.project = window.project || {};
-  $scope.plugins = window.plugins || {};
-  $scope.runners = window.runners || {};
-  $scope.userIsCreator = window.userIsCreator || false;
-  $scope.userConfigs = window.userConfigs || {};
-  $scope.statusBlocks = window.statusBlocks || {};
+  $scope.project = project;
+  $scope.plugins = plugins;
+  $scope.runners = runners;
+  $scope.userIsCreator = userIsCreator;
+  $scope.userConfigs = userConfigs;
+  $scope.statusBlocks = statusBlocks;
   $scope.configured = {};
   $scope.branch = $scope.project.branches[0];
-  $scope.branches = window.branches || [];
+  $scope.branches = branches;
   $scope.disabled_plugins = {};
   $scope.configs = {};
   $scope.runnerConfigs = {};
@@ -30,16 +36,16 @@ function ConfigController($scope, $element, $sce) {
         // Set the URL when a tab is selected
         $('a[data-toggle="tab"]').on('show', function (e) {
           var tabName = $(e.target).attr('href').replace('#', '');
-          var rootPath = window.location.pathname.split('/').slice(0, 4).join('/');
-          var state = window.history.state;
+          var rootPath = global.location.pathname.split('/').slice(0, 4).join('/');
+          var state = global.history.state;
           if (state && state.tabName === tabName) return; // don't double up!
-          window.history.pushState({ tabName: tabName }, document.title, rootPath+'/'+tabName)
+          global.history.pushState({ tabName: tabName }, global.document.title, rootPath+'/'+tabName)
         });
-        window.onpopstate = this.route; // support the back button
+        global.onpopstate = this.route; // support the back button
         this.route();
       },
       route: function() {
-        var pathParts = window.location.pathname.split('/');
+        var pathParts = global.location.pathname.split('/');
         // Confirm we're on the config page
         if (pathParts.slice(0, 4)[3] === "config") {
           this.routeConfigPage(pathParts)
@@ -47,9 +53,9 @@ function ConfigController($scope, $element, $sce) {
       },
       routeConfigPage: function (pathParts) {
         // Check the SessionStore to see if we should select a branch
-        var branchName = window.sessionStorage.getItem('branchName')
+        var branchName = global.sessionStorage.getItem('branchName')
         if (branchName) switchToBranch(branchName);
-        else window.sessionStorage.removeItem('branchName');
+        else global.sessionStorage.removeItem('branchName');
         // Check the URL to see if we should go straight to a tab
         var lastPart = pathParts[pathParts.length-1];
         if (pathParts.length === 5 && lastPart.length) {
@@ -61,16 +67,16 @@ function ConfigController($scope, $element, $sce) {
     }
     router.init()
   });
-  
+
   function switchToBranch(name) {
     var branch = _.findWhere($scope.branches, { name: name });
     if (branch) $scope.branch = branch;
-    window.sessionStorage.setItem('branchName', $scope.branch.name);
+    global.sessionStorage.setItem('branchName', $scope.branch.name);
     switchToTab(null, $scope.branch);
   }
 
   $scope.switchToBranch = switchToBranch;
-  
+
   function switchToTab(tab, branch) {
     if (!_.isString(tab)) {
       tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
@@ -458,7 +464,7 @@ function ConfigController($scope, $element, $sce) {
       url: '/' + $scope.project.name + '/',
       type: 'DELETE',
       success: function () {
-        window.location = '/';
+        global.location = '/';
       },
       error: function () {
         $scope.deleting = false;
@@ -467,13 +473,14 @@ function ConfigController($scope, $element, $sce) {
     });
   };
 
-  $scope.startTest = function () {
+  // TODO: where is name coming from, I guessed it's from the params
+  $scope.startTest = function (name) {
     $.ajax({
       url: '/' + $scope.project.name + '/start',
       data:{branch: $scope.branch.name, type: "TEST_ONLY", page:"config"},
       type: 'POST',
       success: function() {
-        window.location = '/' + $scope.project.name + '/';
+        global.location = '/' + $scope.project.name + '/';
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
@@ -484,13 +491,14 @@ function ConfigController($scope, $element, $sce) {
     });
   };
 
-  $scope.startDeploy = function () {
+  // TODO: where is name coming from, I guessed it's from the params
+  $scope.startDeploy = function (name) {
     $.ajax({
       url: '/' + $scope.project.name + '/start',
       data:{branch: $scope.branch.name, type: "TEST_AND_DEPLOY", page:"config"},
       type: 'POST',
       success: function() {
-        window.location = '/' + $scope.project.name + '/';
+        global.location = '/' + $scope.project.name + '/';
       },
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
