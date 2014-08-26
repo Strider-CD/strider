@@ -2,15 +2,20 @@
 
 # Upcoming Releases
 
-## 1.5
+## 1.5.1
 
-- Multiple sub-jobs (need to work out nomenclature) - allowing testing in different environments
-- Refactor models into an API rather than relying on mongo queries everywhere.
-- Easier theming (theme plugin type)
-- Make strider a class - no more global shared scope
-- Auth plugins
+- Docker support in core.
+
 
 # Changelog / Past releases
+
+## 1.5.0 - 2014-08-18
+
+- Many bugfixes and improvements.
+- New plugin: strider-ssh-deploy. Continuously deploy your code to servers over SSH. [ https://github.com/Strider-CD/strider-ssh-deploy ]
+- New plugin: strider-slack: SlackHQ integration [ https://github.com/Strider-CD/strider-slack ]
+- New Plugin: strider-metadata: Add job metadata to environment [ https://github.com/Strider-CD/strider-metadata ]
+
 
 ## 1.4.5
 

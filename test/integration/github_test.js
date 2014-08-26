@@ -2,6 +2,10 @@ module.exports = function (browser, callback) {
 
   describe('Github Integration', function () {
 
+    beforeEach(function() {
+      this.currentTest.browser = browser;
+    });
+
     it('should link account with github', function () {
       return browser.rel('/')
         .elementByName('email')

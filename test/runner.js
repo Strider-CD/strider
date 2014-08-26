@@ -59,6 +59,44 @@ describe('Strider', function () {
     })
   })
 
+  /**
+   * Screenshots and current test are dumped into a failures/ dir in project root */
+  var mkdirp = require('mkdirp');
+  var fs = require('fs');
+  var path = require('path');
+  var runstamp = new Date().getTime().toString();
+  var failuresDir = path.join(__dirname, '..', 'failures', runstamp);
+
+  afterEach(function (done) {
+    var test = this.currentTest;
+    if (test.state !== "failed") return done();
+    var timestamp = new Date().getTime().toString();
+    var scopeDir = path.join(failuresDir, timestamp);
+    mkdirp(scopeDir, function (err) {
+      if (err) return done(err);
+      test.browser.takeScreenshot(function (err, base64Data) {
+        if (err) return done(err);
+        var png = path.join(scopeDir, "screenshot.png");
+        fs.writeFile(png, base64Data, 'base64', function(err) {
+          if (err) return done(err);
+          console.log('Failure screenshot saved to '+png)
+          var json = path.join(scopeDir, "currentTest.json");
+          fs.writeFile(json, JSON.stringify({
+            title: test.title,
+            duration: test.duration,
+            state: test.state,
+            err: test.err,
+            'jsonwire-error': test['jsonwire-error']
+          }, null, 4), function (err) {
+            if (err) return done(err);
+            console.log('Failure metadata saved to '+json)
+            done();
+          })
+        });
+      })
+    });
+  })
+
   describe('in each browser,', function () {
     async.each
     ( browsers

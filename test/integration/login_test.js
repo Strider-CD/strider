@@ -4,6 +4,10 @@ module.exports = function (browser, callback) {
 
   describe('Login', function () {
 
+    beforeEach(function() {
+      this.currentTest.browser = browser;
+    });
+
     it('should be visible', function () {
       return browser.rel('/')
         .waitForElementByCssSelector('a.brand')

@@ -16,4 +16,5 @@ public/stylesheets/css/plugin-status-compiled.css
 *compiled.js
 test/last-shot
 dist
-coverage
+/coverage
+/failures

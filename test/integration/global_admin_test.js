@@ -4,6 +4,10 @@ module.exports = function (browser, callback) {
 
   describe('global admins', function () {
 
+    beforeEach(function() {
+      this.currentTest.browser = browser;
+    });
+
     it('should be able to see all projects', function () {
       return browser.rel('/')
         .elementByName('email')

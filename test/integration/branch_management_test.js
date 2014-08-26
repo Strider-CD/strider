@@ -1,6 +1,10 @@
 module.exports = function (browser, callback) {
   describe('Branch Management', function () {
 
+    beforeEach(function() {
+      this.currentTest.browser = browser;
+    });
+
     it('should show the branch management panel', function () {
       return browser.rel('/')
         .elementByName('email')

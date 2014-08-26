@@ -1,6 +1,10 @@
 module.exports = function (browser, callback) {
   describe('the Build Page', function () {
 
+    beforeEach(function() {
+      this.currentTest.browser = browser;
+    });
+
     it('should show the project listing page', function () {
       return browser.rel('/')
         .elementByName('email')

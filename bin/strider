@@ -118,7 +118,7 @@ function addUser(email, password, admin) {
   }
 }
 
-function runTest(email, password, project, branch, message) {
+function runTest(email, password, project, branch, message, deploy) {
   var Step = require('step')
     , readline = require('readline')
     , request = require('superagent')
@@ -131,25 +131,31 @@ function runTest(email, password, project, branch, message) {
     request.post(url)
       .send({ email: email, password: password })
       .end(function(err, res){
-        if(!err){
+        if(!err && res.statusCode !== 404){
           agent.saveCookies(res);
           url = server_name + "/"+project+"/start"
           var req = request.post(url),
           postData = {branch: branch || "master"};
-            
+
           agent.attachCookies(req);
-          
+
           if (message)
               postData.message = message;
-            
+
+          if(deploy)
+              postData.type = 'TEST_AND_DEPLOY';
+
           req.send(postData);
 
-          req.end(function(err,res){
-            if(!err){
+          req.end(function(err, res){
+            if(!err && res.statusCode !== 404){
               console.log("Job started")
             }
+            else if(res.statusCode === 404){
+              console.log("Error: Repo was not found")
+            }
             else{
-              console.log("Error: ",err);
+              console.log("Error: ", err);
             }
             process.exit(0);
           })
@@ -314,6 +320,11 @@ parser.command('runTest')
       abbr: 'm'
       , help: "Commit message (optional)"
   })
+  .option('deploy', {
+      abbr: 'd'
+      , flag: true
+      , help: "Deploy on green"
+  })
   .callback(function(opts){
     if (opts.email) {
       opts.email = opts.email.toString()
@@ -330,9 +341,9 @@ parser.command('runTest')
     if(opts.message) {
       opts.message = opts.message.toString()
     }
-    runTest(opts.email, opts.password, opts.project, opts.branch, opts.message);
+    runTest(opts.email, opts.password, opts.project, opts.branch, opts.message, opts.deploy);
   })
-  .help("Run a test")
+  .help("Run a test and optionally deploy")
 
 parser.nocommand('start')
   .option('extension_path', {
