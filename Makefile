@@ -11,7 +11,7 @@ build: less
 less_files := libs.less strider.less config.less build.less dashboard.less projects.less admin/users.less
 css_files := $(patsubst %.less,dist/styles/%.css,$(less_files))
 
-less: $(css_files)
+less: prepare-dist $(css_files)
 
 dist/styles/%.css: client/styles/%.less
 	./node_modules/.bin/lessc $< > $@
@@ -104,7 +104,7 @@ release: test build authors-list
 
 prepare-dist:
 	mkdir -p dist/scripts
-	rm -rf dist/scripts/*
+	mkdir -p dist/styles/admin
 
 browserify-build: prepare-dist
 	npm run build
