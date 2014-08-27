@@ -24,9 +24,13 @@ watch:
 serve:
 	@./bin/strider
 
+browserify:
+	npm run build
+
+
 ## ================= Test Suite ====================================
 
-test: test-syntax test-smoke test-unit test-browser
+test: browserify test-syntax test-smoke test-unit test-browser
 
 test-smoke:
 	# TODO Smoke tests should fail _fast_ on silly errors.
