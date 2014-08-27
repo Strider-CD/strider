@@ -5,7 +5,7 @@ else
 test-env := test-sauce
 endif
 
-build: less
+build: less browserify-build
 	@:
 
 less_files := libs.less strider.less config.less build.less dashboard.less projects.less admin/users.less
