@@ -102,7 +102,14 @@ authors-list:
 release: test build authors-list
 	npm version minor
 
+prepare-dist:
+	mkdir -p dist/scripts
+	rm -rf dist/scripts/*
 
+browserify-build: prepare-dist
+	npm run build
 
+browserify-watch: prepare-dist
+	npm run watch
 
 .PHONY: test lint watch build less start-chromedriver
