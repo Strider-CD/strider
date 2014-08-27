@@ -13,8 +13,9 @@
   "dependencies": {
     "bootstrap": "~2.0.0",
     "fontawesome": "~4.1.0",
-    "socket.io-client": "~1.0.6",
-    "jquery.scrollTo": "~1.4.13",
-    "Sortable": "~0.4.1"
+    "Sortable": "~0.4.1",
+    "bootbox": "3.3.0",
+    "codemirror": "3.18.0",
+    "jquery-timeago": "1.3.0"
   }
 }

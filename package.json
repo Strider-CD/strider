@@ -86,9 +86,9 @@
     "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
     "sortable": "./bower_components/Sortable/Sortable.js",
     "md5": "./public/libs/md5.js",
-    "bootbox": "./public/libs/bootbox.min.js",
-    "codemirror": "./public/libs/codemirror-compressed.js",
-    "timeago": "./public/libs/jquery.timeago.js",
+    "bootbox": "./bower_components/bootbox/bootbox.js",
+    "codemirror": "./bower_components/codemirror/lib/codemirror.js",
+    "timeago": "./bower_components/jquery-timeago/jquery.timeago.js",
     "ui-codemirror": "./public/libs/ui-codemirror.js",
     "ui-bootstrap": "./public/libs/ui-bootstrap.js",
     "ui-sortable": "./public/libs/ui-sortable.js"
