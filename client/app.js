@@ -30,3 +30,7 @@ require('./ansi');
 require('./moment');
 
 var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard', 'projects']);
+
+// For access from plugins, need a better way
+global.app = app;
+global.$ = $;

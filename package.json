@@ -84,7 +84,6 @@
   },
   "browser": {
     "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
-    "ngSortableDirective": "./public/libs/ngSortableDirective.js",
     "sortable": "./bower_components/Sortable/Sortable.js",
     "md5": "./public/libs/md5.js",
     "bootbox": "./public/libs/bootbox.min.js",
