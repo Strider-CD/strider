@@ -81,7 +81,7 @@ function ansiparse(str) {
 
   for (var i = 0; i < str.length; i++) {
     if (matchingControl !== null) {
-      if (matchingControl === '\\033' && str[i] === '\\[') {
+      if (matchingControl === '\033' && str[i] === '\[') {
         //
         // We've matched full control code. Lets start matching formating data.
         //
