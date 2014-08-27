@@ -108,7 +108,7 @@ module.exports = function ($scope, $route, $location, $filter) {
       title: 'Commit'
     },
     manual: {
-      icon: 'hand-right',
+      icon: 'hand-o-right',
       title: 'Manual'
     },
     plugin: {

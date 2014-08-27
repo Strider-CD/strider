@@ -4,7 +4,7 @@
         ng-click="startDeploy(job)"
         data-toggle="tooltip" title="Retest &amp; Deploy"
         data-delay="200" class="clickable test-and-deploy-action">
-    <i class="icon-cloud-upload"></i>
+    <i class="fa fa-cloud-upload"></i>
   </span>
 </td>
 {% endif %}
@@ -15,11 +15,11 @@
   <i ng-hide="job.nojobs"
      data-toggle="tooltip"
      title="[[ job.status ]]"
-     class="[[ {'passed': 'icon-check-sign success-text',
-                'failed': 'icon-exclamation-sign failure-text',
-                'running': 'icon-cog icon-spin',
-                'submitted': 'icon-time waiting-text',
-                'errored': 'icon-minus-sign error-text'}[job.status] ]]"></i>
+     class="fa [[ {'passed': 'fa-check-circle success-text',
+                'failed': 'fa-exclamation-circle failure-text',
+                'running': 'fa-cog fa-spin',
+                'submitted': 'fa-clock-o waiting-text',
+                'errored': 'fa-minus-circle error-text'}[job.status] ]]"></i>
   <span ng-show="job.nojobs">No job history</span>
   <span data-test="job-id">[[ job._id.substr(0,8) ]]</span>
   {% if page !== 'build' %}</a>{% endif %}
@@ -31,7 +31,7 @@
         ng-click="startTest(job)"
         title="Retest" data-delay="500"
         class="clickable test-only-action">
-    <i class="icon-refresh"></i>
+    <i class="fa fa-refresh"></i>
   </span>
 </td>
 {% endif %}
@@ -68,24 +68,24 @@
   <a href="[[ job.trigger.url ]]" target="_blank">
   {% endif %}
     <span class="small-text">
-      <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
+      <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
       [[ job.trigger.message ]]
     </span>
   {% if page === "history" %}
   <a href="[[ job.trigger.url ]]" target="_blank">
-    <i class="icon-external-link"></i>
+    <i class="fa fa-external-link"></i>
   {% endif %}
   </a>
   </span>
   <span class="small-text" ng-switch-default>
-    <i class="trigger-icon icon-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
+    <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
     [[ job.trigger.message ]]
   </span>
 </td>
 {% if page !== 'history' %}
 <td class="github-link" ng-hide="page === 'build'">
   <a href="[[ job.project.display_url || project.display_url ]]" target="_blank">
-    <i class="icon-[[ providers[job.project.provider.id].inline_icon || 'globe' ]]"></i>
+    <i class="fa fa-[[ providers[job.project.provider.id].inline_icon || 'globe' ]]"></i>
   </a>
 </td>
 {% endif %}
@@ -96,7 +96,7 @@
 </td>
 <td class="finished-at" ng-switch="job.status === 'running'">
   {% if page !== 'history' %}
-  <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job" class="icon-remove-sign cancel-job" ng-click="cancelJob(job._id)"></i>
+  <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job" class="fa fa-remove cancel-job" ng-click="cancelJob(job._id)"></i>
   {% endif %}
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago"></time>
@@ -111,7 +111,7 @@
 <td class="configure" ng-hide="page === 'build'">
   <a href="/[[ job.project.name || project.name ]]/config"
      data-toggle="tooltip" data-delay="500" title="Configure">
-    <i class="icon-wrench"></i>
+    <i class="fa fa-wrench"></i>
   </a>
 </td>
 {% endif %}

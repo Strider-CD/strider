@@ -9,10 +9,14 @@ module.exports = {
       'jquery': 'jQuery'
     }
   },
+  sortable: {
+    exports: 'Sortable'
+  },
   ngSortableDirective: {
     exports: 'ngSortableDirective',
     depends: {
-      'angular': 'angular'
+      'angular': 'angular',
+      'sortable': 'Sortable'
     }
   },
   'ui-bootstrap': {
