@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var $ = require('jquery');
 var Sortable = require('sortable');
 
 module.exports= function ($parse) {
