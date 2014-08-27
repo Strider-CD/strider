@@ -37,7 +37,7 @@
     "pw": "0.0.4",
     "rc": "~0.4.0",
     "request": "~2.36.0",
-    "socket.io": "~0.9.16",
+    "socket.io": "~1.0.6",
     "socket.io-client": "^1.0.6",
     "ssh-keypair": "git+https://github.com/jaredly/ssh-keypair",
     "step": "0.0.5",
