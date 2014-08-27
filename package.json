@@ -52,7 +52,7 @@
     "strider-metadata": "~0.0.1",
     "strider-ruby": "~0.0.2",
     "strider-simple-runner": "~0.13.1",
-    "strider-slack": "~1.0.0",
+    "strider-slack": "~1.0.2",
     "strider-ssh-deploy": "^0.3.1",
     "stylus": "~0.45.1",
     "superagent": "~0.18.0",
