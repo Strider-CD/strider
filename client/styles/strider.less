@@ -1,81 +1,18 @@
 @import "strider-colors.less";
+@import "alerts.less";
 
-/** alerts things. Move this to alerts.less? **/
-@media (min-width: 981px) {
-  #notify .message {
-    max-width: 425px;
-  }
-}
-
-@media (min-width: 1200px) {
-  #notify .message {
-    max-width: 655px;
-  }
-}
-
-@media (max-width: 980px) and (min-width: 769px) {
-  #notify .message {
-    max-width: 210px;
-  }
-}
-
-.finished-at .cancel-job {
-  color: red;
-  margin: 0 10px;
-  cursor: pointer;
-  font-size: 18px;
-  float: right;
-  
-  &:hover {
-    color: black;
-  }
-}
-
-input {
-  box-sizing: content-box;
-}
-
-.alert a {
-  font-weight: bold;
-  text-decorate: underline;
-}
-
-#notify {
-  opacity: 0;
-  position: fixed;
-  z-index: 100;
-  top: 60px;
-  right: 170px;
-
-  -webkit-transition: opacity .25s ease-in-out;
-     -moz-transition: opacity .25s ease-in-out;
-          transition: opacity .25s ease-in-out;
-
-  &.visible {
-    opacity: 1;
-  }
-
-  .message {
-    overflow: hidden;
-  }
-}
-
-.notify-wrapper {
-  box-sizing: border-box;
-  height: 41px;
-}
 
 html, body {
-  height:100%;
+  height: 100%;
 }
 body{
   background-color: #fff;
 }
 .wrap {
-  min-height:100% !important;
+  min-height: 100% !important;
 }
 .body-content{
-  margin-top:20px;
+  margin-top: 20px;
 }
 
 #kickoff-app {
@@ -99,6 +36,7 @@ body{
       color: rgb(41, 0, 255);
     }
   }
+
   #list-of-builds {
     td.committer {
       padding: 0;
@@ -128,18 +66,6 @@ body{
     tr:hover {
       background-color: #eee;
     }
-    /*
-    .finished-at,
-    .refresh,
-    .committer,
-    .deploy,
-    .configure,
-    .run-time,
-    .job-link {
-      width: 1px;
-      white-space: nowrap;
-    }
-    */
   }
   .job-link {
     min-width: 72px;
@@ -156,9 +82,9 @@ body{
 .last-builds {
   border-collapse: separate;
   border-spacing: 2px;
-  margin:9px;
-  .status-passed {  background-color: @strider-bg-passed; }
-  .status-failed {  background-color: @strider-bg-failed; }
+  margin: 9px;
+  .status-passed { background-color: @strider-bg-passed; }
+  .status-failed { background-color: @strider-bg-failed; }
   .status-errored { background-color: @strider-bg-errored; }
 } 
 
@@ -776,6 +702,9 @@ span.underline {
   left: 10px;
   top: 11px;
   left: -6px;
+}
+.navbar .btn-navbar {
+  color: #fff;
 }
 /* pricing (from wrapbootstrap template) */
 #pricing h2 {
