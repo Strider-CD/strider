@@ -2,6 +2,7 @@
   "name": "strider",
   "version": "1.5.0",
   "dependencies": {
+    "MD5": "^1.2.1",
     "angular": "^1.2.19",
     "angular-route": "^1.2.17-build.163.1",
     "ansiparse": "0.0.5-1",
@@ -85,7 +86,6 @@
   "browser": {
     "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
     "sortable": "./bower_components/Sortable/Sortable.js",
-    "md5": "./public/libs/md5.js",
     "bootbox": "./bower_components/bootbox/bootbox.js",
     "codemirror": "./bower_components/codemirror/lib/codemirror.js",
     "timeago": "./bower_components/jquery-timeago/jquery.timeago.js",

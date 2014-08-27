@@ -2,7 +2,7 @@
 
 var $ = require('jquery');
 var _ = require('lodash');
-var md5 = require('md5');
+var md5 = require('MD5');
 var bootbox = require('bootbox');
 var post = require('../../utils/post');
 var branches = global.branches || [];
