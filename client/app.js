@@ -5,7 +5,6 @@ require('bootstrap');
 var $ = require('jquery');
 var angular = require('angular');
 var ngRoute = require('angular-route');
-var _ = require('lodash');
 var $navbar = $('.navbar');
 
 $navbar.find('li').removeClass('active');
@@ -34,3 +33,4 @@ var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard',
 // For access from plugins, need a better way
 global.app = app;
 global.$ = $;
+global.angular = angular;
