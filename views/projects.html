@@ -76,7 +76,7 @@
         <ul class="nav nav-list nav-stacked groups-list">
           <li ng-repeat="(name, group) in repos[account.provider][account.id]"
               ng-class="{active: $first}">
-            <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]">
+            <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ $index ]]">
               [[ name ]]
               <span class="label label-success pull-right" ng-show="group.configured">[[ group.configured ]]</span>
             </a>
@@ -85,7 +85,7 @@
       </div>
       <div class="tab-content span9">
         <ul ng-repeat="(name, group) in repos[account.provider][account.id]"
-           id="group-[[ account.provider ]]-[[ account.id ]]-[[ name ]]"
+           id="group-[[ account.provider ]]-[[ account.id ]]-[[ $index ]]"
            class="tab-pane repo-list unstyled" ng-class="{ active: $first }">
           <li ng-repeat="repo in group.repos" class="repo" ng-class="{ configured: !!repo.project }">
             <div>
