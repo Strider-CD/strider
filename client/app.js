@@ -3,6 +3,7 @@
 require('bootstrap');
 
 var $ = require('jquery');
+var _ = require('lodash');
 var angular = require('angular');
 var ngRoute = require('angular-route');
 var $navbar = $('.navbar');
@@ -34,3 +35,4 @@ var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard',
 global.app = app;
 global.$ = $;
 global.angular = angular;
+global._ = _;
