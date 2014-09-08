@@ -208,7 +208,7 @@ function ConfigController($scope, $element, $sce) {
   };
 
   $scope.enablePlugin = function (target, index, event) {
-    event.removeDragEl();
+    removeDragEl(event.target);
     // add to enabled list
     $scope.branch.plugins.splice(index, 0, target);
     // enable it
@@ -220,7 +220,7 @@ function ConfigController($scope, $element, $sce) {
   };
 
   $scope.disablePlugin = function (target, index, event) {
-    event.removeDragEl();
+    removeDragEl(event.target);
     // add it to the disabled list
     $scope.disabled_plugins[$scope.branch.name].splice(index, 0, target);
     // remove it from enabled list
@@ -531,6 +531,12 @@ function ConfigController($scope, $element, $sce) {
   };
 
   $scope.post = post;
+}
+
+function removeDragEl(element) {
+  if (element && element.parentNode) {
+    element.parentNode.removeChild(element);
+  }
 }
 
 module.exports = ConfigController;
