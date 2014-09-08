@@ -148,12 +148,13 @@ exports.getPluginConfig = function (req, res) {
   res.send(req.pluginConfig())
 }
 
-// POST /:org/:repo/config/branch/:pluginname/?branch=:branch
+// POST /:org/:repo/config/branch/:plugin/?branch=:branch
 // Set the configuration for a plugin on a branch. Output: the new config.
 exports.setPluginConfig = function (req, res) {
   req.pluginConfig(req.body, function (err, config) {
     if (err) return res.send(500, {error: 'Failed to save plugin config'})
     res.send(config)
+    common.emitter.emit('branch.plugin_config', req.project, req.query.branch, req.params.plugin, req.body)
   })
 }
 
@@ -197,6 +198,7 @@ function setPluginOrder(req, res, branch) {
   req.project.save(function (err) {
     if (err) return res.send(500, 'Failed to save plugin config')
     res.send({success: true})
+    common.emitter.emit('branch.plugin_order', req.project, branch.name, plugins)
   })
 }
 
