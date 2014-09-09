@@ -5,9 +5,11 @@
 html, body {
   height: 100%;
 }
+
 body {
   background-color: #fff;
 }
+
 .wrap {
   min-height: 100% !important;
 }
@@ -533,24 +535,30 @@ hero-vsub-unit label {
   background-color: #999999;
   border-radius: 3px;
 }
+
+@media (min-width: 980px) {
+  body .wrap {
+    padding-top: 40px;
+  }
+}
+
 @media (min-width: 768px) {
   -webkit-border-radius: 0 0 6px 6px;
   -moz-border-radius: 0 0 6px 6px;
   border-radius: 0 0 6px 6px;
   -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);html,
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  
+  html,
   body {
     background-color: #eee;
   }
   body .wrap {
-    padding-top: 40px;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     margin-bottom: -80px;
     padding-bottom: 80px;
-    /* 40px to make the container go all the way to the bottom of the topbar */
-  
   }
   .nav-collapse {
     padding-left: 80px;
