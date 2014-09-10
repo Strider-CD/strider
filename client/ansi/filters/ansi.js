@@ -81,6 +81,7 @@ function ansiparse(str) {
 
   for (var i = 0; i < str.length; i++) {
     if (matchingControl !== null) {
+      /* jshint ignore:start */
       if (matchingControl === '\033' && str[i] === '\[') {
         //
         // We've matched full control code. Lets start matching formating data.
@@ -93,7 +94,7 @@ function ansiparse(str) {
           state.text = matchingText;
           handleResult(state);
           state = {};
-          matchingText = "";
+          matchingText = '';
         }
 
         matchingControl = null;
@@ -108,6 +109,7 @@ function ansiparse(str) {
         matchingControl = null;
       }
       continue;
+      /* jshint ignore:end */
     }
     else if (matchingData !== null) {
       if (str[i] == ';') {
