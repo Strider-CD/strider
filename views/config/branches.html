@@ -37,7 +37,7 @@
             <span class="remove">
               <i ng-switch-when="true" class="fa fa-cog fa-spin"></i>
               <span class="clickable" ng-hide="branch.name === 'master'" ng-click="remove(branch)">
-                <i class="fa fa-remove"></i>
+                <i class="fa fa-times"></i>
               </span>
             </span>
             <span class="branch-name" ng-class="{ismaster: branch.name === 'master'}">[[branch.name]]</span>

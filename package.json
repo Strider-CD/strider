@@ -101,7 +101,7 @@
   },
   "scripts": {
     "test": "make test",
-    "start": "bin/strider",
+    "start": "npm run build && bin/strider",
     "blanket": {
       "pattern": "lib",
       "data-cover-never": "node_modules"

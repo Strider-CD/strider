@@ -96,7 +96,7 @@
 </td>
 <td class="finished-at" ng-switch="job.status === 'running'">
   {% if page !== 'history' %}
-  <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job" class="fa fa-remove cancel-job" ng-click="cancelJob(job._id)"></i>
+  <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job" class="fa fa-times cancel-job" ng-click="cancelJob(job._id)"></i>
   {% endif %}
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago"></time>
