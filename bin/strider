@@ -65,7 +65,16 @@ function addUser(email, password, admin) {
           } else {
             rl.question("Enter email []: ", function(em){
               email = em;
-              next();
+              User.findByEmail(email, function (err, users) {
+                if (users.length) {
+                  console.error('User already exists with the \'' + email + '\' email address. Please enter a unique email address.');
+                  email = undefined;
+                  getEmail.call(next);
+                }
+                else {
+                  next();
+                }
+              });
             });
           }
         }
