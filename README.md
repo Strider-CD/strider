@@ -175,6 +175,7 @@ For documentation on extending Strider, see [strider-extension-loader][extending
 
 - [Strider on DigitalOcean][resource-digitalocean] - Covers setting up an Ubuntu machine with Strider using upstart.
 - [Strider plugin template][resource-plugin-template] - Simple setup for getting started with your own plugin.
+- [Panamax Strider template][resource-panamax-template] - Strider template for use with Panamax.
 
 ## Support & Help
 
@@ -206,5 +207,6 @@ LLC][maintainer]. For commercial support, customization, integration
 [nodejs]: http://nodejs.org
 [resource-digitalocean]: http://fosterelli.co/creating-a-private-ci-with-strider.html
 [resource-plugin-template]: https://github.com/bitwit/strider-template
+[resource-panamax-template]: https://github.com/CenturyLinkLabs/panamax-contest-templates/blob/master/stridercd_mrsmith.pmx
 [extending]: https://github.com/Strider-CD/strider-extension-loader
 [maintainer]: http://frozenridge.co
