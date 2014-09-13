@@ -4,6 +4,7 @@ Gemfile.lock
 .dotcloud/*
 config.sh
 .idea/*
+*.swp
 public/javascripts/pages/account-plugins-compiled.js
 public/javascripts/pages/plugin-config-compiled.js
 public/javascripts/pages/plugin-status-compiled.js

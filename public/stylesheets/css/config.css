@@ -75,7 +75,7 @@
 .enabled-plugins ul,
 .disabled-plugins ul {
   min-width: 200px;
-  min-height: 54px;
+  min-height: 100px;
   margin: 5px 0 0 0;
   background-color: #eee;
   padding: 5px;
@@ -86,8 +86,6 @@
 }
 .enabled-plugins .drop-here,
 .disabled-plugins .drop-here {
-  pointer-events:none;
-  position: absolute;
   list-style: none;
   padding: 20px 10px;
   font-size: 1.5em;
