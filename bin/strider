@@ -1,365 +1,126 @@
 #!/usr/bin/env node
 
-function addUser(email, password, admin) {
-  var Step = require('step')
-    , fs = require('fs')
-    , readline = require('readline')
-    , User = require('../lib/models').User
-    , Config = require('../lib/models').Config
-    , isFreshDb = require('../lib/models/upgrade').isFreshDb
-    , needConfigObj = require('../lib/models/upgrade').needConfigObj
-    , isNeeded = require('../lib/models/upgrade').isNeeded
-    , upgrade = require('../lib/models/upgrade').ensure
-    , pw = require('pw')
-
-  var level = admin ? 1 : 0;
-
-  var add  = function() {
-    console.log("adding")
-    var createUser = function(email, password, level) {
-      var u = new User();
-      u.email = email;
-      u.created = new Date();
-      u.set('password', password);
-      u.account_level = level;
-      u.save(function(err) {
-        if (err) {
-          console.log("Error adding user:", err);
-          process.exit(1);
-        }
-        console.log("User added successfully! Enjoy.");
-        process.exit(0);
-      });
-    };
-    isFreshDb(function(err, res) {
-      if (res) {
-        needConfigObj(function(err, res) {
-          if (res) {
-            var c = new Config();
-            c.version = Config.SCHEMA_VERSION;
-            c.save(function() { createUser(email, password, level); });
-          } else {
-            createUser(email, password, level);
-          }
-        });
-      } else {
-        upgrade(Config.SCHEMA_VERSION, function(err, need) {
-            createUser(email, password, level);
-        });
-      }
-    });
-  }
-
-
-  if (!email || !password){
-    var rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-
-    Step(
-        function getEmail(){
-          var next = this;
-          if (email){
-            next();
-          } else {
-            rl.question("Enter email []: ", function(em){
-              email = em;
-              User.findByEmail(email, function (err, users) {
-                if (users.length) {
-                  console.error('User already exists with the \'' + email + '\' email address. Please enter a unique email address.');
-                  email = undefined;
-                  getEmail.call(next);
-                }
-                else {
-                  next();
-                }
-              });
-            });
-          }
-        }
-      , function getAdmin(){
-          var next = this;
-          if (level){
-            next()
-          } else {
-            rl.question("Is admin? (y/n) [n]", function(a){
-              level = a ? 1 : undefined;
-              next();
-            });
-          }
-        }
-      , function getPwd(){
-          var next = this;
-          if (password){
-            next();
-          } else {
-            rl.close();
-            process.stdout.write("Enter password []: ");
-            pw(function(pwd){
-              password = pwd;
-              rl = readline.createInterface({
-                input: process.stdin,
-                output: process.stdout
-              });
-              next();
-            })
-          }
-        }
-      , function confirm(){
-        var next = this;
-        process.stdout.write("\nEmail:\t\t" + email + "\n");
-        process.stdout.write("Password:\t" + password.replace(/.*/, '****') + "\n");
-        process.stdout.write("isAdmin:\t" + (level ? 'y' : 'n') + "\n");
-        rl.question("OK? (y/n) [y]", function(ok){
-          if (ok === 'y' || ok === ''){
-            next();
-          } else {
-            console.log("Goodbye!");
-            process.exit(0);
-          }
-        })
-      }
-      , add
-    );
-  } else {
-    add();
-  }
-}
-
-function runTest(email, password, project, branch, message, deploy) {
-  var Step = require('step')
-    , readline = require('readline')
-    , request = require('superagent')
-
-
-  var run = function() {
-    var agent = request.agent()
-    var server_name = require('../lib/config').server_name
-    var url = server_name + "/api/session"
-    request.post(url)
-      .send({ email: email, password: password })
-      .end(function(err, res){
-        if(!err && res.statusCode !== 404){
-          agent.saveCookies(res);
-          url = server_name + "/"+project+"/start"
-          var req = request.post(url),
-          postData = {branch: branch || "master"};
-
-          agent.attachCookies(req);
-
-          if (message)
-              postData.message = message;
-
-          if(deploy)
-              postData.type = 'TEST_AND_DEPLOY';
-
-          req.send(postData);
-
-          req.end(function(err, res){
-            if(!err && res.statusCode !== 404){
-              console.log("Job started")
-            }
-            else if(res.statusCode === 404){
-              console.log("Error: Repo was not found")
-            }
-            else{
-              console.log("Error: ", err);
-            }
-            process.exit(0);
-          })
-
-        }
-        else{
-          console.log("Login error")
-          process.exit(0);
-        }
-    });
-  }
-
-  if(!email || !password || !project){
-    var rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-
-    Step(
-      function getEmail(){
-          var next = this;
-          if (email){
-            next();
-          } else {
-            rl.question("Enter email []: ", function(em){
-              email = em;
-              next();
-            });
-          }
-        }
-      , function getPwd(){
-          var next = this;
-          if (password){
-            next();
-          } else {
-            rl.question("Enter password []: ", function(pwd){
-              password = pwd;
-              next();
-            });
-          }
-        }
-      , function getProject(){
-          var next = this;
-          if (project){
-            next();
-          } else {
-            rl.question("Project name []: ", function(pr){
-              project = pr;
-              next();
-            });
-          }
-      }
-      , run
-      );
-  }
-  else{
-    run();
-  }
-}
-
-var start = function(extpath){
-  var common = require('../lib/common');
-  var path = require('path');
-  var main = require('../main');
-  var extpaths = require('../lib/config').extpath.split(":")
-  var extdir = []
-
-  for (var i in extpaths){
-    // Extensions are either in ../node_modules (if local)
-    // or __dirname/../
-    extdir.push(path.resolve(__dirname + "../" + extpaths[i]));
-    try {
-      fs.statSync(extdir);
-    } catch(e) {
-      extdir.pop();
-      extdir.push(path.resolve(__dirname + "/../" + extpaths[i]));
-    }
-  }
-
-  if (extpath){
-    extdir.push(path.resolve(extpath));
-  }
-
-  // Save extension dir
-  common.extdir = extdir;
-  main(extdir)
-}
-
+var parser = require('nomnom');
+var version = require('../package.json').version;
+var addUser = require('./add-user');
+var runTest = require('./run-test');
+var start = require('./start');
+var connect = require('./connect');
 
 // Parse Arguments and run...
 
 // Note: nom nom doesn't play nice with `rc`. this means that passing config
 // options to strider via CLI params will not work as expected. For example:
 // bin/strider --db_uri=mongo://localhost addUser -l foo@example.com -p 123 -a
-var parser = require('nomnom')
-  , version = require('../package.json').version
 
 parser.option('version', {
-    abbr: 'v'
-  , flag: true
-  , help: 'Print version and exit'
-  , callback: function() {
-      return version;
-    }
+  abbr: 'v',
+  flag: true,
+  help: 'Print version and exit',
+  callback: function() {
+    return version;
+  }
 });
 
 parser.command('addUser')
   .option('email', {
-      abbr: 'l'
-    , help: "User's email"
+    abbr: 'l',
+    help: 'User\'s email address'
   })
   .option('password', {
-      abbr: 'p'
-    , help: "User's password"
+    abbr: 'p',
+    help: 'User\'s password'
   })
   .option('admin', {
-      abbr: 'a'
-    , help: "This user is an admin"
-    , default: false
-    , flag: true
+    abbr: 'a',
+    help: 'Specify if this user is an admin',
+    'default': false,
+    flag: true
+  })
+  .option('force', {
+    abbr: 'f',
+    help: 'Force create user, overwrites previous user with the same email address',
+    'default': false,
+    flag: true
   })
   .callback(function(opts){
-    var connect = function(cb) {
-      var mongoose = require('mongoose'),
-          mongodbUrl = require('../lib/config').db_uri;
-
-      console.log("Connecting to MongoDB URL: %s", mongodbUrl);
-      mongoose.connect(mongodbUrl, cb);
-    };
-
     connect(function(err) {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
+
+
       if (opts.email) {
-        opts.email = opts.email.toString()
+        opts.email = opts.email.toString();
       }
+
       if (opts.password) {
-        opts.password = opts.password.toString()
+        opts.password = opts.password.toString();
       }
-      addUser(opts.email, opts.password, opts.admin);
+
+      addUser(opts.email, opts.password, opts.admin, opts.force);
     })
   })
-  .help("Create a Strider user")
+  .help('Create a Strider user');
+
 
 parser.command('runTest')
   .option('email', {
-      abbr: 'l'
-    , help: "User's email"
+    abbr: 'l',
+    help: 'User\'s email address'
   })
   .option('password', {
-      abbr: 'p'
-    , help: "User's password"
+    abbr: 'p',
+    help: 'User\'s password'
   })
   .option('project', {
-      abbr: 'j'
-    , help: "Project name"
+    abbr: 'j',
+    help: 'Project name'
   })
   .option('branch', {
-      abbr: 'b'
-    , help: "branch name (default: master)"
+    abbr: 'b',
+    help: 'Branch name (default: master)'
   })
   .option('message', {
-      abbr: 'm'
-      , help: "Commit message (optional)"
+    abbr: 'm',
+    help: 'Commit message (optional)'
   })
   .option('deploy', {
-      abbr: 'd'
-      , flag: true
-      , help: "Deploy on green"
+    abbr: 'd',
+    flag: true,
+    help: 'Deploy on green'
   })
   .callback(function(opts){
     if (opts.email) {
-      opts.email = opts.email.toString()
+      opts.email = opts.email.toString();
     }
+
     if (opts.password) {
-      opts.password = opts.password.toString()
+      opts.password = opts.password.toString();
     }
-    if(opts.project) {
-      opts.project = opts.project.toString()
+
+    if (opts.project) {
+      opts.project = opts.project.toString();
     }
-    if(opts.branch) {
-      opts.branch = opts.branch.toString()
+
+    if (opts.branch) {
+      opts.branch = opts.branch.toString();
     }
-    if(opts.message) {
-      opts.message = opts.message.toString()
+
+    if (opts.message) {
+      opts.message = opts.message.toString();
     }
+
     runTest(opts.email, opts.password, opts.project, opts.branch, opts.message, opts.deploy);
   })
-  .help("Run a test and optionally deploy")
+  .help('Run a test and optionally deploy')
 
 parser.nocommand('start')
   .option('extension_path', {
-      abbr: 'm'
-    , help: "Specify path to extensions (defaults to node_modules)"
+    abbr: 'm',
+    help: 'Specify path to extensions (defaults to node_modules)'
   })
-  .callback(function(opts){
+  .callback(function(opts) {
     start(opts.extension_path);
   });
 
@@ -367,4 +128,4 @@ if (!module.parent) {
   parser.parse();
 }
 
-module.exports = start
+module.exports = start;
