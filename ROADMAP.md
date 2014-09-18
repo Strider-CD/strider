@@ -5,6 +5,9 @@
 ## 1.5.1
 
 - Docker support in core.
+- Bring back password reset.
+- addUser retry if email taken.
+- `strider addUser -f` for overwritting user.
 
 
 # Changelog / Past releases
