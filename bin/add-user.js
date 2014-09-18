@@ -1,12 +1,13 @@
 'use strict';
 
+var Step = require('step');
+var fs = require('fs');
+var readline = require('readline');
+var pw = require('pw');
+var saveUser = require('./save-user');
+var User = require('../lib/models').User;
+
 function addUser(email, password, admin, force) {
-  var Step = require('step');
-  var fs = require('fs');
-  var readline = require('readline');
-  var pw = require('pw');
-  var saveUser = require('./save-user');
-  var User = require('../lib/models').User;
   var level = admin ? 1 : 0;
 
   if (!email || !password) {

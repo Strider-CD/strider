@@ -5,14 +5,15 @@ var Config = require('../lib/models').Config;
 var createUser = require('./create-user');
 
 function saveUser(email, password, admin, force) {
-  Upgrade.isFreshDb(function(err, res) {
-    if (res) {
-      Upgrade.needConfigObj(function(err, res) {
-        if (res) {
+  Upgrade.isFreshDb(function (err, isFresh) {
+    if (isFresh) {
+      Upgrade.needConfigObj(function (err, needsConfig) {
+        if (needsConfig) {
           var c = new Config();
+
           c.version = Config.SCHEMA_VERSION;
 
-          c.save(function() {
+          c.save(function () {
             createUser(email, password, admin, force);
           });
         } else {
@@ -20,7 +21,7 @@ function saveUser(email, password, admin, force) {
         }
       });
     } else {
-      Upgrade.ensure(Config.SCHEMA_VERSION, function(err, need) {
+      Upgrade.ensure(Config.SCHEMA_VERSION, function () {
         createUser(email, password, admin, force);
       });
     }
