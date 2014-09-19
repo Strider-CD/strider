@@ -81,21 +81,22 @@
 
     <footer>
       <p class='StriderBlock_FooterText'>
-      {% pluginblock FooterText %}
-        <a href="http://stridercd.com/">Strider-CD</a>
-      | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
-      | <a href="https://github.com/Strider-CD/strider/blob/master/README.md">Docs</a>
-      {% if version %}
-      | <a href="https://github.com/Strider-CD/strider/releases/tag/{{version}}">{{version}}</a>
-      {% endif %}
-      {% if !currentUser %}
-      | <a id="forgot-password-link" href="/auth/forgot">Forgot your password?</a>
-      {% endif %}
-      {% endpluginblock %}
+        {% pluginblock FooterText %}
+            <a href="http://stridercd.com/">Strider-CD</a>
+          | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
+          | <a href="https://github.com/Strider-CD/strider/blob/master/README.md">Docs</a>
+          {% if version %}
+          | <a href="https://github.com/Strider-CD/strider/releases/tag/{{version}}">{{version}}</a>
+          {% endif %}
+          {% if !currentUser %}
+          | <a id="forgot-password-link" href="/forgot">Forgot your password?</a>
+          {% endif %}
+        {% endpluginblock %}
       </p>
 
       {% block footerScripts %}
       {% endblock %}
+
       {% block pageScripts %}
       {% endblock %}
     </footer>
