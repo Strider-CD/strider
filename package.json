@@ -53,7 +53,7 @@
     "strider-ruby": "~0.0.2",
     "strider-simple-runner": "~0.13.1",
     "strider-slack": "~1.0.2",
-    "strider-ssh-deploy": "^0.3.3",
+    "strider-ssh-deploy": "^0.3.4",
     "stylus": "~0.45.1",
     "superagent": "~0.18.0",
     "swig": "~0.14.0",
