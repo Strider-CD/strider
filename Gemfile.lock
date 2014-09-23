@@ -1,1 +1,7 @@
-# Dummy Gemfile required for Heroku buildpacks
+GEM
+  specs:
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
