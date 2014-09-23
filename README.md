@@ -122,8 +122,10 @@ node bin/strider
 
 ### Strider on Heroku
 
-To get up and running quickly on Heroku, you can create a new app and use the
-MongoLab free plan.
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+To get up and running quickly on Heroku, you can simply use the button above.
+If you run into any issues, you can deploy manually with the steps below.
 
 ```no-highlight
 heroku create
