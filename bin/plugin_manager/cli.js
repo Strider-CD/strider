@@ -5,9 +5,9 @@ module.exports = function (parser) {
     require('./list_local_plugins')()
   })
 
-  //parser.command('lsr')
-  //.help('List official strider plugins available on github')
-  //.callback(function(opts){
-  //  listOfficialPlugins()
-  //})
+  parser.command('lsr')
+  .help('List remote plugins available for install')
+  .callback(function(opts){
+    require('./list_remote_plugins')()
+  })
 }
