@@ -11,8 +11,8 @@ module.exports = function() {
   var yaml = require ('js-yaml')
   var remote = require('./remote_plugins')
   var local = require('./local_plugins')
-  //var url = 'https://raw.githubusercontent.com/Strider-CD/strider-plugins/master/index'
-  var url = 'http://localhost:8000/index'
+  var url = 'https://raw.githubusercontent.com/Strider-CD/strider-plugins/master/index'
+  //var url = 'http://localhost:8000/index'
   remote.fetchIndex(url).then(function (remotePlugins) {
     local.listAll(function (err, localPlugins) {
       localPlugins = local.zip(localPlugins)
