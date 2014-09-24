@@ -1,8 +1,13 @@
-var getPluginPath = require('../../lib/plugin_path');
-
 module.exports = function (parser) {
-  parser.command('list-plugins')
+  parser.command('ls')
+  .help('List locally installed plugins')
   .callback(function(opts){
-    console.log(pluginsPath)
+    require('./list_local_plugins')()
   })
+
+  //parser.command('lsr')
+  //.help('List official strider plugins available on github')
+  //.callback(function(opts){
+  //  listOfficialPlugins()
+  //})
 }

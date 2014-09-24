@@ -15,6 +15,20 @@ var connect = require('./connect');
 
 require('./plugin_manager').cli(parser)
 
+parser
+  .option('version', {
+    abbr: 'v',
+    flag: true,
+    help: 'Print version and exit',
+    callback: function() {
+      return version;
+    }
+  })
+  .option('extension_path', {
+    abbr: 'm',
+    help: 'Specify path to extensions (defaults to node_modules)'
+  })
+
 parser.command('addUser')
   .option('email', {
     abbr: 'l',
@@ -109,18 +123,6 @@ parser.command('runTest')
   .help('Run a test and optionally deploy')
 
 parser.nocommand('start')
-  .option('version', {
-    abbr: 'v',
-    flag: true,
-    help: 'Print version and exit',
-    callback: function() {
-      return version;
-    }
-  })
-  .option('extension_path', {
-    abbr: 'm',
-    help: 'Specify path to extensions (defaults to node_modules)'
-  })
   .callback(function(opts) {
     start(opts.extension_path);
   });
