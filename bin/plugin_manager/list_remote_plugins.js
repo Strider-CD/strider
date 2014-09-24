@@ -1,12 +1,11 @@
 module.exports = function() {
-  var fs = require('fs')
   var yaml = require ('js-yaml')
-  var fetchRepos = require('./fetch_github_repos')
-  var url = 'https://api.github.com/orgs/Strider-CD/repos?per_page=100'
-  fetchRepos(url).then(function (repos) {
-    repos.forEach(function (repo) {
-      var file = '/Users/keyvan/Projects/Strider-CD/strider-plugins/plugins/'+repo.name
-      fs.writeFile(file, yaml.dump(repo))
+  var remote = require('./remote_plugins')
+  //var url = 'https://raw.githubusercontent.com/Strider-CD/strider-plugins/master/index'
+  var url = 'http://localhost:8000/index'
+  remote.fetchIndex(url).then(function (items) {
+    items.forEach(function (item) {
+      console.log(item)
     })
   }).error(errHandle).catch(errHandle)
 }
