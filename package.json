@@ -33,6 +33,7 @@
     "nomnom": "1.6.x",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
+    "prompt": "^0.2.14",
     "pw": "0.0.4",
     "rc": "~0.4.0",
     "request": "~2.36.0",
