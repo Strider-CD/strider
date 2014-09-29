@@ -10,4 +10,10 @@ module.exports = function (parser) {
   .callback(function(opts){
     require('./list_remote_plugins')()
   })
+
+  parser.command('new')
+  .help('Create a new plugin')
+  .callback(function (opts) {
+    require('./create_new_plugin')()
+  })
 }
