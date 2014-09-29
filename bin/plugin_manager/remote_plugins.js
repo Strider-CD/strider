@@ -1,6 +1,7 @@
 var Promise = require('bluebird')
 var request = require('request')
 var _ = require('lodash')
+var yaml = require('js-yaml')
 
 function get(url, cb) {
   console.log("Performing GET "+url)
@@ -21,12 +22,11 @@ function fetchPluginIndex(url) {
   return new Promise(function(resolve, reject){
     cb = function (err, res, body) {
       if (err) reject(err);
-      var rows = body.trim().split('\n')
-      resolve(_.map(rows, function(row) {
-        var parts = row.split(' ')
+      var data = yaml.load(body);
+      resolve(_.map(data, function(version, name) {
         return {
-          name: parts[0].trim(),
-          version: parts[1].trim()
+          name: name,
+          version: version
         }
       }));
     }
