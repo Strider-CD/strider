@@ -1,7 +1,7 @@
 node_modules
 bower_components
 npm-debug.log
-Gemfile.lock
+.bundle/
 .dotcloud/*
 config.sh
 .idea/*
