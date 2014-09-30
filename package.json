@@ -46,7 +46,7 @@
     },
     "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && browserify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && make less && browserify -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min"
   },
