@@ -1,6 +1,55 @@
 {
   "name": "strider",
   "version": "1.5.0",
+  "bin": {
+    "strider": "bin/strider"
+  },
+  "main": "main.js",
+  "description": "Brilliant continuous deployment platform",
+  "keywords": [
+    "strider",
+    "continuous integration",
+    "continuous deployment",
+    "testing",
+    "deployment"
+  ],
+  "engines": {
+    "node": "> 0.8.x",
+    "npm": "> 1.1.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Strider-CD/strider.git"
+  },
+  "browser": {
+    "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
+    "sortable": "./bower_components/Sortable/Sortable.js",
+    "bootbox": "./bower_components/bootbox/bootbox.js",
+    "codemirror": "./bower_components/codemirror/lib/codemirror.js",
+    "timeago": "./bower_components/jquery-timeago/jquery.timeago.js",
+    "ui-codemirror": "./public/libs/ui-codemirror.js",
+    "ui-bootstrap": "./public/libs/ui-bootstrap.js",
+    "ui-sortable": "./public/libs/ui-sortable.js"
+  },
+  "browserify-shim": "./shim.js",
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "scripts": {
+    "test": "make test",
+    "start": "npm run build && bin/strider",
+    "blanket": {
+      "pattern": "lib",
+      "data-cover-never": "node_modules"
+    },
+    "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts",
+    "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && browserify -e client/app.js -o dist/scripts/app.js",
+    "unitcov": "istanbul cover _mocha --recursive test/unit",
+    "unitdev": "mocha -w --recursive test/unit -R min"
+  },
   "dependencies": {
     "MD5": "^1.2.1",
     "angular": "^1.2.19",
@@ -82,53 +131,5 @@
     "should": "~2.1.0",
     "watchify": "^0.10.2",
     "wd": "~0.2.0"
-  },
-  "browser": {
-    "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
-    "sortable": "./bower_components/Sortable/Sortable.js",
-    "bootbox": "./bower_components/bootbox/bootbox.js",
-    "codemirror": "./bower_components/codemirror/lib/codemirror.js",
-    "timeago": "./bower_components/jquery-timeago/jquery.timeago.js",
-    "ui-codemirror": "./public/libs/ui-codemirror.js",
-    "ui-bootstrap": "./public/libs/ui-bootstrap.js",
-    "ui-sortable": "./public/libs/ui-sortable.js"
-  },
-  "browserify-shim": "./shim.js",
-  "browserify": {
-    "transform": [
-      "browserify-shim"
-    ]
-  },
-  "scripts": {
-    "test": "make test",
-    "start": "npm run build && bin/strider",
-    "blanket": {
-      "pattern": "lib",
-      "data-cover-never": "node_modules"
-    },
-    "watch": "watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "browserify -e client/app.js -o dist/scripts/app.js",
-    "unitcov": "istanbul cover _mocha --recursive test/unit",
-    "unitdev": "mocha -w --recursive test/unit -R min"
-  },
-  "bin": {
-    "strider": "bin/strider"
-  },
-  "main": "main.js",
-  "description": "Brilliant continuous deployment platform",
-  "keywords": [
-    "strider",
-    "continuous integration",
-    "continuous deployment",
-    "testing",
-    "deployment"
-  ],
-  "engines": {
-    "node": "> 0.8.x",
-    "npm": "> 1.1.x"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/Strider-CD/strider.git"
   }
 }
