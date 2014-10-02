@@ -44,9 +44,10 @@
       "pattern": "lib",
       "data-cover-never": "node_modules"
     },
-    "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts",
+    "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts && [ -d dist/styles ] || mkdir -p dist/styles",
+    "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && make less && browserify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min"
   },

@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% pluginblock ExtraStyles %}
-<link rel="stylesheet" href="/styles/projects.css"/>
 <script>
   var providers = {{ providers | scriptjson | raw }};
   var accounts = {{ currentUser.accounts | scriptjson | raw }};

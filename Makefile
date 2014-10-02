@@ -8,14 +8,6 @@ endif
 build: less browserify-build
 	@:
 
-less_files := libs.less strider.less config.less build.less dashboard.less projects.less admin/users.less
-css_files := $(patsubst %.less,dist/styles/%.css,$(less_files))
-
-less: prepare-dist $(css_files)
-
-dist/styles/%.css: client/styles/%.less
-	./node_modules/.bin/lessc $< > $@
-
 # === Dev ===
 
 watch:
