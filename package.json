@@ -26,6 +26,7 @@
     "sortable": "./bower_components/Sortable/Sortable.js",
     "bootbox": "./bower_components/bootbox/bootbox.js",
     "codemirror": "./bower_components/codemirror/lib/codemirror.js",
+    "codemirror-shell": "./bower_components/codemirror/mode/shell/shell.js",
     "timeago": "./bower_components/jquery-timeago/jquery.timeago.js",
     "ui-codemirror": "./public/libs/ui-codemirror.js",
     "ui-bootstrap": "./public/libs/ui-bootstrap.js",

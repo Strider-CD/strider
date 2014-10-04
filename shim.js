@@ -1,12 +1,12 @@
 'use strict';
 
 module.exports = {
-  'jquery': {
+  jquery: {
     exports: 'jQuery'
   },
-  'bootstrap': {
+  bootstrap: {
     depends: {
-      'jquery': 'jQuery'
+      jquery: 'jQuery'
     }
   },
   sortable: {
@@ -15,13 +15,13 @@ module.exports = {
   ngSortableDirective: {
     exports: 'ngSortableDirective',
     depends: {
-      'angular': 'angular',
-      'sortable': 'Sortable'
+      angular: 'angular',
+      sortable: 'Sortable'
     }
   },
   'ui-bootstrap': {
     depends: {
-      'angular': 'angular'
+      angular: 'angular'
     }
   },
   md5: {
@@ -33,15 +33,21 @@ module.exports = {
   codemirror: {
     exports: 'CodeMirror'
   },
+  'codemirror-shell': {
+    depends: {
+      codemirror: 'CodeMirror'
+    }
+  },
   'ui-codemirror': {
     depends: {
-      'angular': 'angular',
-      'codemirror': 'CodeMirror'
+      angular: 'angular',
+      codemirror: 'CodeMirror',
+      'codemirror-shell': null 
     }
   },
   'ui-sortable': {
     depends: {
-      'angular': 'angular'
+      angular: 'angular'
     }
   },
   timeago: {
