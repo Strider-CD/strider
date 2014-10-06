@@ -50,6 +50,9 @@ the [Strider Trusted Build][pre-built].
 
 There's a walkthrough of setting it up [on our blog][blog-walkthrough].
 
+### Modular Docker Image
+
+Please see [docker-strider](https://github.com/keyvanfatehi/docker-strider)
 
 ## Running on Infrastructure
 
