@@ -33,7 +33,7 @@
     {% endfor %}
   {% endfor %}
   <div class="accounts-nav">
-    <ul class="nav nav-pills">
+    <ul class="nav nav-tabs">
       {% for account in currentUser.accounts %}
       <li{% if loop.first %} class="active"{% endif %}>
         <a href="#account-{{ account.provider }}-{{ account.id }}" data-toggle="tab">
@@ -42,7 +42,7 @@
         </a>
       </li>
       {% endfor %}
-      <li>
+      <li class="pull-right">
         <a href="#manual-setup" data-toggle="tab"{% if !currentUser.accounts.length %} class="active"{% endif %}>Manual Add</a>
       </li>
       {% for provider in unconfigured %}
@@ -63,13 +63,6 @@
 
   <div class="tab-content" ng-controller="ProjectsController">
     <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
-      <div class="pull-right">
-        <form action="/projects" method="post">
-          <input type="hidden" name="refresh" value=[[ account.provider ]] />
-          <input type="hidden" name="aid" value=[[ account.id ]] />
-          <button class="refresh btn btn-warning" ng-click="submit()"><i class="fa fa-refresh"></i></button>
-        </form>
-      </div>
       {# TODO hide this if there is only one group #}
       <div class="span2">
         <ul class="nav nav-list nav-stacked groups-list">
@@ -77,12 +70,23 @@
               ng-class="{active: $first}">
             <a data-toggle="tab" href="#group-[[ account.provider ]]-[[ account.id ]]-[[ $index ]]">
               [[ name ]]
-              <span class="label label-success pull-right" ng-show="group.configured">[[ group.configured ]]</span>
+              <span class="label label-inverse pull-right" ng-show="group.configured">[[ group.configured ]]</span>
             </a>
           </li>
         </ul>
+
+      <div class="refresh-account">
+        <form action="/projects" method="post">
+          <input type="hidden" name="refresh" value=[[ account.provider ]] />
+          <input type="hidden" name="aid" value=[[ account.id ]] />
+          <button class="refresh btn btn-warning" ng-click="submit()">
+            Refresh Account <i class="fa fa-refresh"></i>
+          </button>
+        </form>
       </div>
-      <div class="tab-content span9">
+        
+      </div>
+      <div class="tab-content span10">
         <ul ng-repeat="(name, group) in repos[account.provider][account.id]"
            id="group-[[ account.provider ]]-[[ account.id ]]-[[ $index ]]"
            class="tab-pane repo-list unstyled" ng-class="{ active: $first }">
