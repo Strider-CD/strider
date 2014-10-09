@@ -1,0 +1,63 @@
+@media (min-width: 981px) {
+  #notify .message {
+    max-width: 425px;
+  }
+}
+
+@media (min-width: 1200px) {
+  #notify .message {
+    max-width: 655px;
+  }
+}
+
+@media (max-width: 980px) and (min-width: 769px) {
+  #notify .message {
+    max-width: 210px;
+  }
+}
+
+.finished-at .cancel-job {
+  color: red;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 18px;
+  float: right;
+  
+  &:hover {
+    color: black;
+  }
+}
+
+input {
+  box-sizing: content-box;
+}
+
+.alert a {
+  font-weight: bold;
+  text-decorate: underline;
+}
+
+#notify {
+  opacity: 0;
+  position: fixed;
+  z-index: 100;
+  top: 60px;
+  right: 240px;
+
+  -webkit-transition: opacity .25s ease-in-out;
+     -moz-transition: opacity .25s ease-in-out;
+          transition: opacity .25s ease-in-out;
+
+  &.visible {
+    opacity: 1;
+  }
+
+  .message {
+    overflow: hidden;
+  }
+}
+
+.notify-wrapper {
+  box-sizing: border-box;
+  height: 41px;
+}

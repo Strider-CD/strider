@@ -1,7 +1,6 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="/stylesheets/css/dashboard.css">
 {% endblock %}
 
 {% block bodyContent %}
@@ -51,7 +50,7 @@
               {% if provider.setupLink %}
               <span class="link-accounts">
                 <a href="{{ provider.setupLink }}" class="btn btn-primary provider-{{provider.id}}">
-                {% if provider.inline_icon %}<i class="icon-{{ provider.inline_icon }}"></i> {% endif %}{{ provider.title }}
+                {% if provider.inline_icon %}<i class="fa fa-{{ provider.inline_icon }}"></i> {% endif %}{{ provider.title }}
               </a>
               </span>
               {% endif %}
@@ -95,9 +94,5 @@
 
   </div>
 </div>
-
-<script src="/javascripts/modules/moment.js"></script>
-<script src="/javascripts/modules/job-monitor.js"></script>
-<script src="/javascripts/pages/dashboard.js"></script>
 
 {% endblock %}

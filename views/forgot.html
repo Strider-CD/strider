@@ -2,13 +2,14 @@
 
 {% block bodyContent %}
   <div class="row-fluid">
-
-    {% for messages in flash %}
+    <div class="span12">
       {% for message in messages %}
-        <div class="alert alert-info">{{ message|raw }}</div>
+        <div class="alert alert-warning">{{ message|raw }}</div>
       {% endfor %}
-    {% endfor %}
+    </div>
+  </div>
 
+  <div class="row-fluid">
     <div class="span12">
       <div class="well">
         <h3>Forgot you password?</h3>

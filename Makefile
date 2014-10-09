@@ -5,16 +5,8 @@ else
 test-env := test-sauce
 endif
 
-build: less
+build: less browserify-build
 	@:
-
-less_files := strider.less config.less build.less dashboard.less projects.less admin/users.less
-css_files := $(patsubst %.less,public/stylesheets/css/%.css,$(less_files))
-
-less: $(css_files)
-
-public/stylesheets/css/%.css: public/stylesheets/less/%.less
-	./node_modules/.bin/lessc $< > $@
 
 # === Dev ===
 
@@ -24,9 +16,13 @@ watch:
 serve:
 	@./bin/strider
 
+browserify:
+	npm run build
+
+
 ## ================= Test Suite ====================================
 
-test: test-syntax test-smoke test-unit test-browser
+test: browserify test-syntax test-smoke test-unit test-browser
 
 test-smoke:
 	# TODO Smoke tests should fail _fast_ on silly errors.
@@ -78,7 +74,7 @@ test-client-local:
 
 test-syntax: lint
 
-tolint := *.js *.json lib routes public/javascripts/pages public/javascripts/modules
+tolint := *.js *.json lib routes client
 
 lint:
 	@./node_modules/.bin/jshint --verbose $(tolint)
@@ -98,7 +94,14 @@ authors-list:
 release: test build authors-list
 	npm version minor
 
+prepare-dist:
+	mkdir -p dist/scripts
+	mkdir -p dist/styles/admin
 
+browserify-build: prepare-dist
+	npm run build
 
+browserify-watch: prepare-dist
+	npm run watch
 
 .PHONY: test lint watch build less start-chromedriver

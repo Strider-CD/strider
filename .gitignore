@@ -1,4 +1,5 @@
 node_modules
+bower_components
 npm-debug.log
 .bundle/
 .dotcloud/*
@@ -15,5 +16,6 @@ public/stylesheets/css/plugin-status-compiled.css
 *compiled.css
 *compiled.js
 test/last-shot
+dist
 /coverage
 /failures

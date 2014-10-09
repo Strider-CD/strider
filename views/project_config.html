@@ -1,10 +1,7 @@
 {% extends "base.html" %}
 
 {% block extra_head %}
-<link rel="stylesheet" href="/stylesheets/css/codemirror.css">
-<link rel="stylesheet" href="/stylesheets/css/codemirror/twilight.css">
-<link rel="stylesheet" href="/stylesheets/css/config.css">
-<link rel="stylesheet" href="/stylesheets/css/plugin-config-compiled.css">
+<link rel="stylesheet" href="/styles/plugin-config-compiled.css">
 {% endblock %}
 {% block bodyContent %}
 <script>
@@ -31,7 +28,7 @@
       Configuration - <a href="/{{ project.name }}/" class="header-emphasis">{{ project.display_name }}</a>
       {% if project.provider.display_url %}
       <a href="{{ project.provider.display_url }}" target="_blank">
-        <i class="icon-{{ provider.inline_icon }}"></i>
+        <i class="fa fa-{{ provider.inline_icon }}"></i>
       </a>
       {% endif %}
       <span class="branch-picker">
@@ -172,17 +169,4 @@
     </p>
   </div>
 </div>
-
-<script src="/javascripts/lib/RubaXaSortable.js"></script>
-<script src="/javascripts/ngSortableDirective.js"></script>
-<script src="/javascripts/lib/codemirror-compressed.js"></script>
-<script src="/javascripts/lib/ui-codemirror.js"></script>
-<script src="/javascripts/lib/jquery-ui.js"></script>
-<script src="/javascripts/lib/sortable.js"></script>
-<script src="/javascripts/modules/alerts.js"></script>
-<script src="/javascripts/modules/moment.js"></script>
-<script src="/javascripts/pages/config.js"></script>
-<script src="/javascripts/config/collaborators.js"></script>
-<script src="/javascripts/config/branches.js"></script>
-<script src="/javascripts/pages/plugin-config-compiled.js"></script>
 {% endblock %}
