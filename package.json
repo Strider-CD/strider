@@ -45,6 +45,7 @@
       "pattern": "lib",
       "data-cover-never": "node_modules"
     },
+    "postinstall": "bower install",
     "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts && [ -d dist/styles ] || mkdir -p dist/styles",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
