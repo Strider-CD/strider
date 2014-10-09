@@ -133,6 +133,7 @@
     "mocha": "~1.21.4",
     "mocha-as-promised": "~2.0.0",
     "should": "~2.1.0",
+    "sinon": "^1.10.3",
     "watchify": "^0.10.2",
     "wd": "~0.3.8"
   }
