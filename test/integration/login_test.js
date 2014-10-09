@@ -28,16 +28,16 @@ module.exports = function (browser, callback) {
       return browser.rel("/")
         .elementById("forgot-password-link")
         .click()
-        .url().should.eventually.include('/auth/forgot')
+        .url().should.eventually.include('/forgot')
     })
 
     it('should show forgotten password success page', function () {
-      return browser.rel("/auth/forgot")
-        .elementByName('forgot-email')
+      return browser.rel("/forgot")
+        .elementByName('email')
         .type('test1@example.com')
-        .elementById("send-forgot")
+        .elementByClassName("primary")
         .click()
-        .elementByClassName('forgot-sent')
+        .elementByClassName('alert-warning')
         .then(function (element) {
           assert.isNotNull(element)
         })

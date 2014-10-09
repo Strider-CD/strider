@@ -63,6 +63,7 @@
 
   <div class="tab-content" ng-controller="ProjectsController">
     <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
+
       {# TODO hide this if there is only one group #}
       <div class="span2">
         <ul class="nav nav-list nav-stacked groups-list">
@@ -75,17 +76,17 @@
           </li>
         </ul>
 
-      <div class="refresh-account">
-        <form action="/projects" method="post">
-          <input type="hidden" name="refresh" value=[[ account.provider ]] />
-          <input type="hidden" name="aid" value=[[ account.id ]] />
-          <button class="refresh btn btn-warning" ng-click="submit()">
-            Refresh Account <i class="fa fa-refresh"></i>
-          </button>
-        </form>
+        <div class="refresh-account">
+          <form action="/projects" method="post">
+            <input type="hidden" name="refresh" value=[[ account.provider ]] />
+            <input type="hidden" name="aid" value=[[ account.id ]] />
+            <button class="refresh btn btn-warning" ng-click="submit()">
+              Refresh Account <i class="fa fa-refresh"></i>
+            </button>
+          </form>
+        </div>
       </div>
-        
-      </div>
+
       <div class="tab-content span10">
         <ul ng-repeat="(name, group) in repos[account.provider][account.id]"
            id="group-[[ account.provider ]]-[[ account.id ]]-[[ $index ]]"
@@ -95,16 +96,19 @@
               <a href="[[ repo.display_url ]]" target="_blank" class="hosted-url">
                 <i class="fa fa-globe"></i>
               </a>
+
               <span ng-switch="!!repo.project">
                 <a class="view-jobs" ng-switch-when="true" href="/[[ repo.name ]]/">[[ repo.display_name ]]</a>
                 <span ng-switch-default>[[ repo.display_name ]]</span>
               </span>
+
               <div class="pull-right action" ng-switch="!!repo.project">
                 <span ng-switch-when="true">
                   <button ng-show="repo.really_remove" class="btn btn-danger" ng-click="removeProject(account, repo, group)" ng-disabled="repo.really_remove === 'removing'">
                     <i class="fa fa-refresh fa-spin" ng-show="repo.really_remove === 'removing'"></i>
                     Really remove
                   </button>
+
                   <a href="/[[ repo.project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="fa fa-wrench"></i></a>
 
                   <span ng-switch="repo.really_remove">
