@@ -93,6 +93,11 @@ body.job_view .job-detail-sidebar {
   -webkit-flex: 1;
   flex: 1;
 
+  .nav-tabs {
+    background-color: #fff;
+    margin-bottom: 0;
+  }
+
   .prompt {
     color: yellow;
     margin-left: 5px;
@@ -113,6 +118,26 @@ body.job_view .job-detail-sidebar {
     }
   }
 
+  .commands {
+    .meta {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ddd;
+      border-top: 0;
+      padding: 0.5em;
+
+      time {
+        width: 41px;
+        display: inline-block;
+        text-align: right;
+      }
+
+      .plugin {
+        color: #09a;
+      }
+    }
+  }
+
   .command {
     &.comment {
       .title {
@@ -122,26 +147,13 @@ body.job_view .job-detail-sidebar {
       }
     }
 
+
     > .title {
       cursor: pointer;
       padding-right: 10px;
 
       &:hover {
         background-color: #222;
-      }
-      
-      .meta {
-        color: #999;
-
-        time {
-          width: 41px;
-          display: inline-block;
-          text-align: right;
-        }
-
-        .plugin {
-          color: #09a;
-        }
       }
     }
   }
@@ -171,8 +183,6 @@ body.job_view .job-detail-sidebar {
       }
 
     }
-
-    margin-bottom: 10px;
 
     &:last-child {
       margin-bottom: 0;
