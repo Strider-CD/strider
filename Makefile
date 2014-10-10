@@ -62,6 +62,12 @@ test-local:
 	# You need to run chromedriver for this to work. If you don't have it,
 	# you can get it w/ npm install -g chromedriver
 	# Then `chromedriver  --url-base=/wd/hub`
+	#
+	# Limit to a single test suite by specifying the filename:
+	# e.g. TEST_SUITE=login_test make test-local
+	#
+	# You can combine this with `watchy` to improve your workflow:
+	# e.g. TEST_SUITE=login_test watchy -w test/integration/login_test.js -- make test-local
 	$(which chromedriver)
 	WEBDRIVER_REMOTE='{"hostname":"localhost","port":9515}' BROWSERS='[{"version":"","browserName":"chrome","platform":"Linux"}]' ./node_modules/mocha/bin/mocha -R spec test/runner.js
 
