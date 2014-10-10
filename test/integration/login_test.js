@@ -33,7 +33,7 @@ module.exports = function (browser, callback) {
 
     it('should show forgotten password success page', function () {
       return browser.rel('/forgot')
-        .elementByName('email')
+        .elementByCss('form[action="/forgot"] [name=email]')
         .type('test1@example.com')
         .elementByClassName('primary')
         .click()
