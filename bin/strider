@@ -1,131 +1,34 @@
 #!/usr/bin/env node
-
-var parser = require('nomnom');
-var version = require('../package.json').version;
-var addUser = require('./add-user');
-var runTest = require('./run-test');
-var start = require('./start');
-var connect = require('./connect');
-
-// Parse Arguments and run...
-
-// Note: nom nom doesn't play nice with `rc`. this means that passing config
-// options to strider via CLI params will not work as expected. For example:
-// bin/strider --db_uri=mongo://localhost addUser -l foo@example.com -p 123 -a
-
-parser.option('version', {
-  abbr: 'v',
-  flag: true,
-  help: 'Print version and exit',
-  callback: function() {
-    return version;
+var cli = require('strider-cli')({
+  version: require('../package.json').version,
+  models: function() {
+    return require('../lib/models')
+  },
+  common: function() {
+    return require('../lib/common')
+  },
+  main: function() {
+    return require('../main')
+  },
+  getPluginPath: function() {
+    return require('../lib/plugin_path')
+  },
+  upgrade: function() {
+    return require('../lib/models/upgrade')
+  },
+  config: function() {
+    return require('../lib/config');
+  },
+  connect: function(cb) {
+    var mongoose = require('mongoose');
+    var mongodbUrl = require('../lib/config').db_uri;
+    console.log('Connecting to MongoDB URL: %s\n', mongodbUrl);
+    mongoose.connect(mongodbUrl, cb);
   }
 });
 
-parser.command('addUser')
-  .option('email', {
-    abbr: 'l',
-    help: 'User\'s email address'
-  })
-  .option('password', {
-    abbr: 'p',
-    help: 'User\'s password'
-  })
-  .option('admin', {
-    abbr: 'a',
-    help: 'Specify if this user is an admin',
-    'default': false,
-    flag: true
-  })
-  .option('force', {
-    abbr: 'f',
-    help: 'Force create user, overwrites previous user with the same email address',
-    'default': false,
-    flag: true
-  })
-  .callback(function(opts){
-    connect(function(err) {
-      if (err) {
-        throw err;
-      }
-
-
-      if (opts.email) {
-        opts.email = opts.email.toString();
-      }
-
-      if (opts.password) {
-        opts.password = opts.password.toString();
-      }
-
-      addUser(opts.email, opts.password, opts.admin, opts.force);
-    })
-  })
-  .help('Create a Strider user');
-
-
-parser.command('runTest')
-  .option('email', {
-    abbr: 'l',
-    help: 'User\'s email address'
-  })
-  .option('password', {
-    abbr: 'p',
-    help: 'User\'s password'
-  })
-  .option('project', {
-    abbr: 'j',
-    help: 'Project name'
-  })
-  .option('branch', {
-    abbr: 'b',
-    help: 'Branch name (default: master)'
-  })
-  .option('message', {
-    abbr: 'm',
-    help: 'Commit message (optional)'
-  })
-  .option('deploy', {
-    abbr: 'd',
-    flag: true,
-    help: 'Deploy on green'
-  })
-  .callback(function(opts){
-    if (opts.email) {
-      opts.email = opts.email.toString();
-    }
-
-    if (opts.password) {
-      opts.password = opts.password.toString();
-    }
-
-    if (opts.project) {
-      opts.project = opts.project.toString();
-    }
-
-    if (opts.branch) {
-      opts.branch = opts.branch.toString();
-    }
-
-    if (opts.message) {
-      opts.message = opts.message.toString();
-    }
-
-    runTest(opts.email, opts.password, opts.project, opts.branch, opts.message, opts.deploy);
-  })
-  .help('Run a test and optionally deploy')
-
-parser.nocommand('start')
-  .option('extension_path', {
-    abbr: 'm',
-    help: 'Specify path to extensions (defaults to node_modules)'
-  })
-  .callback(function(opts) {
-    start(opts.extension_path);
-  });
-
 if (!module.parent) {
-  parser.parse();
+  cli.parser.parse();
 }
 
-module.exports = start;
+module.exports = cli.start;

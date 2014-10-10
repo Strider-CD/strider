@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.5.0",
+  "version": "1.6.0-pre",
   "bin": {
     "strider": "bin/strider"
   },
@@ -61,6 +61,7 @@
     "async": "~0.9.0",
     "bcrypt": "~0.8.0",
     "bluebird": "^2.3.2",
+    "cli-table": "^0.3.0",
     "connect": "~2.17.3",
     "connect-flash": "~0.1.1",
     "connect-mongo": "~0.4.1",
@@ -83,7 +84,6 @@
     "moment": "~2.8.3",
     "mongoose": "~3.8.17",
     "nodemailer": "~0.6.5",
-    "nomnom": "~1.8.0",
     "passport": "~0.2.0",
     "passport-local": "~1.0.0",
     "pw": "0.0.4",
@@ -96,6 +96,7 @@
     "strider-bitbucket": "~1.0.3",
     "strider-build-badge": "~0",
     "strider-custom": "~0.5.3",
+    "strider-cli": "~1.0.0",
     "strider-email-notifier": "~0.4.0",
     "strider-env": "~0.4.4",
     "strider-extension-loader": "~0.4.3",
