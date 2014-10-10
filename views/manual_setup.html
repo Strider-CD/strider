@@ -56,22 +56,6 @@
     <div class="actions"><a class="btn btn-primary continue">Start Test Run</a></div>
   </div>
 </script>
-<script src="/socket.io/socket.io.js"></script>
-<script src="/javascripts/jquery.clippy.min.js" type="text/javascript"></script>
-<script type="text/javascript" src="/javascripts/manual_setup.js"></script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    init_manual_setup();
-    window.setup_model = new SetupModel();
-    window.SetupApp = new SetupAppView({model: setup_model});
-    window.app_router = new window.ManualSetupRouter();
-    Backbone.history.start({pushState:false, root: '/manual_setup/'});
-    // Blank hash should navigate to start.
-    if (!window.location.hash) {
-      window.app_router.navigate("start", {trigger: true});
-    }
-  });
-</script>
 <div class="span8">
   <div id="spinner"></div>
 </div>

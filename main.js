@@ -62,7 +62,7 @@ module.exports = function(extdir, c, callback) {
     throw new Error('Your version of strider-extension-loader is out of date')
   }
 
-  var loader = appInstance.loader = new Loader([path.join(__dirname, 'public/stylesheets/less')]);
+  var loader = appInstance.loader = new Loader([path.join(__dirname, 'client/styles')]);
   common.loader = loader;
   //
   // ### Strider Context Object
@@ -205,6 +205,7 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
       }
     ], function (err) {
       if (err) {
+        console.error(err);
         console.error('Failed to load plugins');
         return cb(err, appInstance);
       }

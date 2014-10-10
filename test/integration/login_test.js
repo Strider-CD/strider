@@ -1,18 +1,18 @@
+'use strict';
+
 var assert = require('chai').assert
 
 module.exports = function (browser, callback) {
-
   describe('Login', function () {
-
-    beforeEach(function() {
+    beforeEach(function () {
       this.currentTest.browser = browser;
     });
 
     it('should be visible', function () {
       return browser.rel('/')
         .waitForElementByCssSelector('a.brand')
-        .isDisplayed()
-    })
+        .isDisplayed();
+    });
 
     it('should fail with invalid credentials', function () {
       return browser.rel('/')
@@ -21,27 +21,27 @@ module.exports = function (browser, callback) {
         .elementByName('password')
         .type('BAD CREDS')
         .submit()
-        .url().should.eventually.include('/login#fail')
-    })
+        .url().should.eventually.include('/login#fail');
+    });
 
     it('should have a forgotten password page', function () {
-      return browser.rel("/")
-        .elementById("forgot-password-link")
+      return browser.rel('/')
+        .elementById('forgot-password-link')
         .click()
-        .url().should.eventually.include('/auth/forgot')
-    })
+        .url().should.eventually.include('/forgot');
+    });
 
     it('should show forgotten password success page', function () {
-      return browser.rel("/auth/forgot")
-        .elementByName('forgot-email')
+      return browser.rel('/forgot')
+        .elementByCss('form[action="/forgot"] [name=email]')
         .type('test1@example.com')
-        .elementById("send-forgot")
+        .elementByClassName('primary')
         .click()
-        .elementByClassName('forgot-sent')
+        .elementByClassName('alert-info')
         .then(function (element) {
-          assert.isNotNull(element)
-        })
-    })
+          assert.isNotNull(element);
+        });
+    });
 
     it('should work with valid credentials', function () {
       return browser.rel('/')
@@ -53,20 +53,18 @@ module.exports = function (browser, callback) {
         .submit()
         .elementByClassName('logged-in')
         .then(function (element) {
-          assert.isNotNull(element)
+          assert.isNotNull(element);
         })
         .elementByClassName('no-projects')
         .then(function (element) {
-          assert.isNotNull(element)
-        })
-    })
+          assert.isNotNull(element);
+        });
+    });
 
     after(function () {
       return browser.quit(function () {
-        callback()
-      })
-    })
-
-  })
-
-}
+        callback();
+      });
+    });
+  });
+};

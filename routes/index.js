@@ -246,6 +246,7 @@ exports.config = function(req, res) {
       throw err
     }
     var data = {
+      version: pjson.version,
       collaborators: [],
       serverName: config.server_name,
       project: req.project.toJSON(),

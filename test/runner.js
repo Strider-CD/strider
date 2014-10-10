@@ -16,12 +16,15 @@ describe('Strider', function () {
   this.timeout(20000)
 
   // TESTS
-  var tests = [ './integration/build_page_test.js'
-              , './integration/login_test.js'
-              , './integration/global_admin_test.js'
-              , './integration/github_test.js'
-              , './integration/branch_management_test.js'
-              ]
+  var tests = (
+    process.env.TEST_SUITE ? 
+    [ './integration/'+process.env.TEST_SUITE+'.js' ] :
+    [ './integration/build_page_test.js'
+    , './integration/login_test.js'
+    , './integration/global_admin_test.js'
+    , './integration/github_test.js'
+    , './integration/branch_management_test.js'
+  ])
 
   wd.addPromiseChainMethod('rel', function (url, cb) {
     return this.get("http://localhost:4000" + url, cb)

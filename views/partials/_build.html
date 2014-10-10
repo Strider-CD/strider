@@ -9,7 +9,7 @@
 <script>
   var project = {{ project | json_encode() | raw }};
 </script>
-<div class='app' ng-app="JobStatus">
+<div class='app' ng-app="job-status">
   <div class='row-fluid job-wrap' ng-controller="JobCtrl">
       {% pluginblock JobPagePreCols %}
       {% endpluginblock %}
@@ -33,12 +33,12 @@
               {# what's admin-view for? #}
               <button ng-hide="admin-view" class='btn btn-warning test' ng-click="startTest(job.ref)"
                       ng-disabled="job.status === 'running'" data-toggle="tooltip"
-                      title="Retest"><i class="icon-refresh"></i></button>
+                      title="Retest"><i class="fa fa-refresh"></i></button>
               <button class='btn btn-info deploy' ng-click="startDeploy()"
                       ng-disabled="job.status === 'running'" data-toggle="tooltip" title="Retest & Deploy">
-                <i class="icon-share-alt"></i>
+                <i class="fa fa-share-alt"></i>
               </button>
-              <a class='btn' href="config" data-toggle="tooltip" title="Configure"><i class="icon-cog"></i></a>
+              <a class='btn' href="config" data-toggle="tooltip" title="Configure"><i class="fa fa-cog"></i></a>
             </div>
           </div>
           <div class='span9' ng-hide="job.status === 'running'">
@@ -68,9 +68,9 @@
             <div class='span1'>
               <a href="{{ old.url }}" title="View Build Detail">
                 {% if old.test_exitcode!=0 %}
-                <i class='icon-remove icon-red'></i>
+                <i class='fa fa-times icon-red'></i>
                 {% else %}
-                <i class='icon-ok icon-green'></i>
+                <i class='fa fa-check icon-green'></i>
                 {% endif %}
               </a>
             </div>
@@ -81,5 +81,3 @@
       </div>
   </div>
 </div>
-
-<script src="/javascripts/pages/build.js"></script>
