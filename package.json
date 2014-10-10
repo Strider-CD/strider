@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.6.0-pre",
+  "version": "1.6.0-pre.1",
   "bin": {
     "strider": "bin/strider"
   },
