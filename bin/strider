@@ -1,29 +1,53 @@
 #!/usr/bin/env node
 var cli = require('strider-cli')({
   version: require('../package.json').version,
+  /*
+   * Main application entrypoint
+   */
+  main: function() {
+    return require('../main')
+  },
   models: function() {
     return require('../lib/models')
   },
   common: function() {
     return require('../lib/common')
   },
-  main: function() {
-    return require('../main')
-  },
+  /*
+   * Plugin path determination logic
+   */
   getPluginPath: function() {
     return require('../lib/plugin_path')
   },
+  /*
+   * Database schema upgrade logic
+   */
   upgrade: function() {
     return require('../lib/models/upgrade')
   },
+  /*
+   * Config normalizer
+   */
   config: function() {
     return require('../lib/config');
   },
+  /*
+   * Database connection function
+   */
   connect: function(cb) {
     var mongoose = require('mongoose');
     var mongodbUrl = require('../lib/config').db_uri;
     console.log('Connecting to MongoDB URL: %s\n', mongodbUrl);
     mongoose.connect(mongodbUrl, cb);
+  },
+  /* 
+   * Path to file to touch to restart strider
+   */
+  restartFile: function() {
+    var fs = require('fs');
+    var path = require('path');
+    var dir = path.join(__dirname, '..');
+    return path.join(dir, '.restart')
   }
 });
 
