@@ -1,9 +1,7 @@
 <ul class="nav nav-tabs">
-  <li ng-repeat="phase in phases" class="phase phase-[[ phase ]]"
-     ng-class="{ disabled: job.phases[phase].commands.length === 0 }">
-    <a ng-href="[[job.phases[phase].commands.length === 0 ? '' : '#phase-' + phase]]" data-toggle="tab">
-      <i class="fa fa-gear fa-light fa-spin loading-icon" ng-show="loading"></i>
-      <i class="fa [[ job.phases[phase].exitCode === 0 ? 'fa-check-circle success-text' : 'fa-exclamation-circle failure-text' ]] ng-hide" ng-show="!loading"></i>
+  <li ng-repeat="phase in phases" class="phase phase-[[ phase ]]">
+    <a href="#phase-[[phase]]" data-toggle="tab">
+      <i class="fa [[ tabIcon(job.phases[phase]) ]] ng-hide" ng-show="!loading"></i>
       [[ phase ]]
     </a>
   </li>

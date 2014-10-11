@@ -12,17 +12,25 @@ _.extend(JobDataMonitor.prototype, JobMonitor.prototype, {});
 
 JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, {
   'phase.done': function (data) {
-    this.phases[data.phase].finished = data.time;
-    this.phases[data.phase].duration = data.elapsed
-    this.phases[data.phase].exitCode = data.code;
+    var phase = this.phases[data.phase];
+
+    phase.finished = data.time;
+    phase.duration = data.elapsed
+    phase.exitCode = data.exitCode;
+    phase.running = false;
+
     if (['prepare', 'environment', 'cleanup'].indexOf(data.phase) !== -1) {
-      this.phases[data.phase].collapsed = true;
+      phase.collapsed = true;
     }
     if (data.phase === 'test') this.test_status = data.code;
     if (data.phase === 'deploy') this.deploy_status = data.code;
     if (!data.next || !this.phases[data.next]) return;
+
+    var nextPhase = this.phases[data.next];
     this.phase = data.next;
-    this.phases[data.next].started = data.time;
+
+    nextPhase.started = data.time;
+    nextPhase.running = true;
   },
   'command.comment': function (data) {
     var phase = this.phases[this.phase]
