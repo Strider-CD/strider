@@ -7,7 +7,7 @@ var routes = require('./configs/routes.js');
 var pluginStatus = require('./directives/plugin-status');
 var JobController = require('./controllers/job');
 
-var app = angular.module('job-status', ['moment', 'ansi', 'ngRoute'])
+var app = angular.module('job-status', ['moment', 'ansi', 'ngRoute', 'ui.bootstrap'])
   .config(['$interpolateProvider', '$locationProvider', '$routeProvider', routes])
   .controller('JobCtrl', ['$scope', '$route', '$location', '$filter', JobController])
   .directive('pluginStatus', pluginStatus);

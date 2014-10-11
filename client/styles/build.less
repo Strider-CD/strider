@@ -61,11 +61,12 @@ body.job_view .job-detail-sidebar {
 }
 
 .footer {
-  color: white;
+  color: #666;;
+  border: 1px solid #ddd;
   font-weight: bold;
   text-align: center;
   padding-bottom: 2px;
-  background-color: #444;
+  background-color: #FFF;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -81,7 +82,8 @@ body.job_view .job-detail-sidebar {
   }
 
   .footer a {
-    color: white
+    color: #4F8DBA;
+    font-weight: normal;
   }
 }
 
@@ -118,7 +120,7 @@ body.job_view .job-detail-sidebar {
     }
   }
 
-  .commands {
+  .phase-content {
     .meta {
       background-color: #fff;
       color: #333;
@@ -136,6 +138,13 @@ body.job_view .job-detail-sidebar {
         color: #09a;
       }
     }
+  }
+
+  .commands {
+    overflow-y: auto;
+    overflow-x: visible;
+    min-height: 200px;
+    max-height: 600px;
   }
 
   .command {
@@ -159,7 +168,7 @@ body.job_view .job-detail-sidebar {
   }
 
   &, pre {
-    background-color: black;
+    background-color: #333;
     font-family: monospace;
     color: white;
   }
