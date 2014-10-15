@@ -55,8 +55,8 @@
   },
   "dependencies": {
     "MD5": "^1.2.1",
-    "angular": "^1.2.19",
-    "angular-route": "^1.2.17-build.163.1",
+    "angular": "1.2.19",
+    "angular-route": "1.2.17-build.163.1",
     "ansiparse": "0.0.5-1",
     "async": "~0.9.0",
     "bcrypt": "~0.8.0",
