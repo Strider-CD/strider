@@ -3,6 +3,7 @@ var common = require('../../../lib/common')
   , pluginPath = require('../../../lib/plugin_path')()
   , localPlugins = require('strider-cli/plugin_manager/local_plugins')(pluginPath)
   , client = require('strider-cli/node_modules/strider-ecosystem-client')
+  , semver = require('semver')
 
 
 /* Web interface for global plugin management */
@@ -24,17 +25,30 @@ module.exports = function(req, res, next) {
 
     localPlugins.listAll(function(err, localPlugins) {
       localPlugins.forEach(function(plugin) {
-        if (! plugins[plugin.name]) {
+        var known = false;
+        if (plugins[plugin.name]) {
+          known = true;
+        } else {
+          known = false;
           var pkg = require(path.join(plugin.path, 'package.json'))
           plugins[plugin.name] = {
             description: pkg.description,
             type: pkg.strider.type,
-            latestVersion: 'unlisted'
+            latestVersion: 'unknown'
           }
         }
+
         plugins[plugin.name].installedVersion = plugin.version
         plugins[plugin.name].installedPath = plugin.path
         plugins[plugin.name].installed = true
+        if (known) {
+          plugins[plugin.name].outdated = semver.lt(
+            plugins[plugin.name].installedVersion,
+            plugins[plugin.name].latestVersion
+          )
+        } else {
+          plugins[plugin.name].outdated = false
+        }
       })
 
       res.render('admin/plugins.html', {

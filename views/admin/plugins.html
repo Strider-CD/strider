@@ -39,6 +39,9 @@
       <td>
         {% if plugin.installed %}
           <a class="btn btn-danger" href="/admin/plugins?action=uninstall&name={{ loop.key }}">Uninstall</a>
+          {% if plugin.outdated %}
+          <a class="btn btn-warning" href="/admin/plugins?action=upgrade&name={{ loop.key }}">Upgrade</a>
+          {% endif %}
         {% else %}
           <a class="btn btn-primary" href="/admin/plugins?action=install&name={{ loop.key }}">Install</a>
         {% endif %}
