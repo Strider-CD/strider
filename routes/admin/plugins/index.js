@@ -25,7 +25,7 @@ module.exports = function(req, res, next) {
     localPlugins.listAll(function(err, localPlugins) {
       localPlugins.forEach(function(plugin) {
         if (! plugins[plugin.name]) {
-          var pkg = require(require('path').join(plugin.path, 'package.json'))
+          var pkg = require(path.join(plugin.path, 'package.json'))
           plugins[plugin.name] = {
             description: pkg.description,
             type: pkg.strider.type,
