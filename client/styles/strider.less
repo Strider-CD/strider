@@ -210,6 +210,12 @@ body {
   }
 }
 
+@media (max-width: 979px) and (min-width: 768px) {
+  body.job_view .body-content {
+    top: 56px;
+  }
+}
+
 @media (max-width: 980px) {
   #dashboard {
     .triggered-by-header,
@@ -241,6 +247,14 @@ body {
     .finished-at {
       display: none;
     }
+  }
+
+  #build-page .job-title h3 {
+    margin-bottom: 0.5em;
+  }
+
+  .navbar-fixed-top {
+    margin-bottom: 0;
   }
 }
 
