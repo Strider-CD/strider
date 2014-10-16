@@ -114,6 +114,7 @@ OK? (y/n) [y]:
 22 Oct 21:21:01 - info: User added successfully! Enjoy.
 ```
 
+See the [strider-cli] for more details.
 
 ### Starting Strider
 
@@ -215,3 +216,4 @@ LLC][maintainer]. For commercial support, customization, integration
 [resource-panamax-template]: https://github.com/CenturyLinkLabs/panamax-contest-templates/blob/master/stridercd_mrsmith.pmx
 [extending]: https://github.com/Strider-CD/strider-extension-loader
 [maintainer]: http://frozenridge.co
+[strider-cli]: https://github.com/Strider-CD/strider-cli
