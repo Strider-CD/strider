@@ -17,7 +17,7 @@ var cli = require('strider-cli')({
    * Plugin path determination logic
    */
   getPluginPath: function() {
-    return require('../lib/plugin_path')
+    return require('../lib/plugin-path')
   },
   /*
    * Database schema upgrade logic
