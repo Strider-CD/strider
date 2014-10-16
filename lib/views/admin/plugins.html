@@ -2,6 +2,11 @@
 
 {% block bodyContent %}
 
+<script>
+  var plugins = {{ plugins | scriptjson | raw }};
+</script>
+
+<div ng-app="PluginManager" ng-controller="PluginTableController as table">
 <h1>Plugin Manager</h1>
 <table class="table-bordered table-striped table">
   <thead>
@@ -11,44 +16,59 @@
       <th>Description</th>
       <th>Latest</th>
       <th>Installed</th>
-      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     {% for plugin in plugins %}
-    <tr>
+    <tr ng-cloak class="ng-cloak" ng-controller="PluginController as plugin" ng-init='plugin.loadPlugin("{{ loop.key }}")'>
       <td>
-        {{ plugin.type }}
+        [[ plugin.type ]]
       </td>
       <td>
-        <a href="{{ plugin.url }}" target="blank">{{ loop.key }}</a>
+        <a href="[[ plugin.url ]]" target="blank">[[ plugin.id ]]</a>
       </td>
       <td>
-        {{ plugin.description }}
-        {% if plugin.installed %}
-        <br>
-        <span class="plugin_path">{{ plugin.installedPath }}</span>
-        {% endif %}
+        [[ plugin.description ]]
+        <span ng-if="plugin.installed" class="plugin_path">
+          <br>[[ plugin.installedPath ]]
+        </span>
       </td>
       <td>
-        {{ plugin.latestVersion }}
+        [[ plugin.latestVersion ]]
       </td>
       <td>
-        {{ plugin.installedVersion }}
+        <span ng-show="plugin.idle">[[ plugin.installedVersion ]]</span>
+        <span ng-hide="plugin.idle">
+          <i class="fa fa-spinner fa-spin"></i>
+        </span>
       </td>
       <td>
-        {% if plugin.installed %}
-          <a class="btn btn-danger" href="/admin/plugins?action=uninstall&name={{ loop.key }}">Uninstall</a>
-          {% if plugin.outdated %}
-          <a class="btn btn-warning" href="/admin/plugins?action=upgrade&name={{ loop.key }}">Upgrade</a>
-          {% endif %}
-        {% else %}
-          <a class="btn btn-primary" href="/admin/plugins?action=install&name={{ loop.key }}">Install</a>
-        {% endif %}
+        <div ng-hide="plugin.idle">
+          <span>Please wait...</span><br>
+          <span>[[ plugin.status ]]</span>
+        </div>
+        <div ng-show="plugin.idle">
+
+          <a ng-disabled="table.busy || !plugin.idle"
+            ng-if="plugin.installed" class="btn btn-danger"
+            ng-click="table.uninstall(plugin)">Uninstall</a>
+
+          <a ng-disabled="table.busy || !plugin.idle"
+            ng-if="plugin.installed && plugin.outdated"
+            class="btn btn-warning"
+            ng-click="table.upgrade(plugin)">Upgrade</a>
+
+          <a ng-disabled="table.busy || !plugin.idle"
+            ng-if="!plugin.installed" class="btn btn-primary"
+            ng-click="table.install(plugin)">Install</a>
+
+        </div>
       </td>
     </tr>
     {% endfor %}
   </tbody>
 </table>
+</div>
 
 {% endblock %}
