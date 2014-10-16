@@ -110,6 +110,13 @@ exports.projects = function(req,res) {
   })
 }
 
+/*
+ * GET /admin/plugins - admin interface for plugins
+ */
+
+exports.plugins = require('./plugins')
+
+
 // XXX: what are we trying to do here??? - jaredly
 
 /*

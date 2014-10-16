@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+
+<h1>Plugin Manager</h1>
+<table class="table-bordered table-striped table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Latest</th>
+      <th>Installed</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for plugin in plugins %}
+    <tr>
+      <td>
+        {{ plugin.type }}
+      </td>
+      <td>
+        <a href="{{ plugin.url }}" target="blank">{{ loop.key }}</a>
+      </td>
+      <td>
+        {{ plugin.description }}
+        {% if plugin.installed %}
+        <br>
+        <span class="plugin_path">{{ plugin.installedPath }}</span>
+        {% endif %}
+      </td>
+      <td>
+        {{ plugin.latestVersion }}
+      </td>
+      <td>
+        {{ plugin.installedVersion }}
+      </td>
+      <td>
+        {% if plugin.installed %}
+          <a class="btn btn-danger" href="/admin/plugins?action=uninstall&name={{ loop.key }}">Uninstall</a>
+        {% else %}
+          <a class="btn btn-primary" href="/admin/plugins?action=install&name={{ loop.key }}">Install</a>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}
