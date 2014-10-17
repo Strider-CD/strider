@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (interp, location, route) {
+module.exports = function (location, route) {
   var one = {
     controller: 'JobCtrl',
     templateUrl: 'build-tpl.html'
