@@ -10,7 +10,7 @@ var CollaboratorsController = require('./controllers/collaborators');
 var DeactivateController = require('./controllers/deactivate');
 var HerokuController = require('./controllers/heroku');
 var GithubController = require('./controllers/github');
-var interpolate = require('./configs/interpolate');
+var interpolate = require('../utils/interpolate');
 var ngSortableDirective = require('../utils/ng-sortable-directive');
 
 var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'alerts', 'moment'])

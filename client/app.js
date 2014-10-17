@@ -18,9 +18,9 @@ require('ui-codemirror');
 require('ui-sortable');
 
 // Modules
-require('./config');
 require('./account');
-require('./plugin_manager');
+require('./config');
+require('./plugin-manager');
 require('./job-status');
 require('./dashboard');
 require('./projects');
@@ -33,7 +33,7 @@ require('./moment');
 var app = angular.module('app', [
   'config',
   'account',
-  'plugin_manager',
+  'plugin-manager',
   'job-status',
   'dashboard',
   'projects'

@@ -1,8 +1,6 @@
 'use strict';
 
 module.exports = function (interp, location, route) {
-  interp.startSymbol('[[');
-  interp.endSymbol(']]');
   var one = {
     controller: 'JobCtrl',
     templateUrl: 'build-tpl.html'
