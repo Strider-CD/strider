@@ -62,7 +62,7 @@ module.exports = function(extdir, c, callback) {
     throw new Error('Your version of strider-extension-loader is out of date')
   }
 
-  var loader = appInstance.loader = new Loader([path.join(__dirname, 'client/styles')]);
+  var loader = appInstance.loader = new Loader([path.join(__dirname, 'client/styles')], true);
   common.loader = loader;
   //
   // ### Strider Context Object

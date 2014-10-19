@@ -9,7 +9,7 @@ var interpolate = require('../utils/interpolate');
 var app = angular.module('account', ['alerts'])
   .config(['$interpolateProvider', interpolate])
   .controller('AccountController', ['$scope', '$sce', AccountController])
-  .controller('ProviderController', ['$scope', '$element', '$attrs', ProviderController])
-  .controller('JobController', ['$scope', '$element', '$attrs', JobController]);
+  .controller('Account.ProviderController', ['$scope', '$element', '$attrs', ProviderController])
+  .controller('Account.JobController', ['$scope', '$element', '$attrs', JobController]);
 
 module.exports = app;

@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-{% if apresController %}
-  <html data-apres-controller="{{apresController}}" data-controller-params="{{apresParams}}" ng-app="app">
-{% else %}
-  <html ng-app="app">
-{% endif %}
+<html ng-app="app">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title class='StriderBlock_title'>{% pluginblock title %}Strider: Brilliant Continuous Deployment{% endpluginblock %}</title>
@@ -13,6 +9,7 @@
     {% pluginblock AfterHead %}{% endpluginblock %}
     {% pluginblock ExtraStyles %}{% endpluginblock %}
   </head>
+
   <body class="{% block bodyclass %}{% endblock %}">
     <div class="navbar navbar-fixed-top navbar-inverse">
       {% pluginblock TopNav %}
@@ -23,41 +20,42 @@
           </a>
           <a href="/" class="brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
           <div class="nav-collapse StriderBlock_Nav">
+
             {% pluginblock Nav %}
-            <ul class="nav">
-              <li><a href="/">Dashboard</a></li>
+              <ul class="nav">
+                <li><a href="/">Dashboard</a></li>
+                {% if currentUser %}
+                  <li><a href="/projects">Projects</a></li>
+                  <li><a href="/account">Account</a></li>
+                  {% if currentUser.account_level > 0 %}
+                    <li class='dropdown'>
+                      <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
+                      <ul class='dropdown-menu'>
+                        <li><a href='/admin/invites'>Invites</a></li>
+                        <li><a href='/admin/users'>Users</a></li>
+                        <li><a href='/admin/projects'>Projects</a></li>
+                        <li><a href='/admin/plugins'>Plugins</a></li>
+                      </ul>
+                  {% endif %}
+                {% endif %}
+              </ul>
 
               {% if currentUser %}
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/account">Account</a></li>
-                {% if currentUser.account_level > 0 %}
-                  <li class='dropdown'>
-                    <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
-                    <ul class='dropdown-menu'>
-                      <li><a href='/admin/invites'>Invites</a></li>
-                      <li><a href='/admin/users'>Users</a></li>
-                      <li><a href='/admin/projects'>Projects</a></li>
-                      <li><a href='/admin/plugins'>Plugins</a></li>
-                    </ul>
-                {% endif %}
+                <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
+                |  (<a href="/logout">logout</a>)</p>
               {% endif %}
 
-            </ul>
-            {% if currentUser %}
-              <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
-              |  (<a href="/logout">logout</a>)</p>
-            {% endif %}
+              {% if not currentUser %}
+                <form id="navbar-signin-form" 
+                   action="/login" method="post" class="navbar-form pull-right">
+                  <input type="text" placeholder="Email" name="email" class="input-small">
+                  <input type="password" 
+                      placeholder="Password" name="password" class="input-small">
+                  <button type="submit" class="btn">Sign In</button>
+                </form><!--/.nav-collapse -->
+              {% endif %}
+            {% endpluginblock %}
 
-            {% if not currentUser %}
-            <form id="navbar-signin-form" 
-               action="/login" method="post" class="navbar-form pull-right">
-              <input type="text" placeholder="Email" name="email" class="input-small">
-              <input type="password" 
-                  placeholder="Password" name="password" class="input-small">
-              <button type="submit" class="btn">Sign In</button>
-            </form><!--/.nav-collapse -->
-          {% endif %}
-          {% endpluginblock %}
           </div>
         </div>     
         {% endpluginblock %}
@@ -65,7 +63,7 @@
     </div>
 
     <div class="wrap">
-    {% block fillContent%} 
+    {% block fillContent %}
       <div class="strider-fillpage content container">
         <div class="body-content">
           <div class="row">
@@ -94,11 +92,8 @@
         {% endpluginblock %}
       </p>
 
-      {% block footerScripts %}
-      {% endblock %}
-
-      {% block pageScripts %}
-      {% endblock %}
+      {% block footerScripts %}{% endblock %}
+      {% block pageScripts %}{% endblock %}
     </footer>
 
     <script src="/scripts/app.js"></script>
