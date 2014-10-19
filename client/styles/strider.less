@@ -21,9 +21,6 @@ body {
   min-height: 100% !important;
 }
 
-.body-content{
-  margin-top: 20px;
-}
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
 .ng-cloak, .x-ng-cloak {
@@ -210,12 +207,6 @@ body {
   }
 }
 
-@media (max-width: 979px) and (min-width: 768px) {
-  body.job_view .body-content {
-    top: 56px;
-  }
-}
-
 @media (max-width: 980px) {
   #dashboard {
     .triggered-by-header,
@@ -371,11 +362,6 @@ footer p {
   border-radius: 3px;
 }
 #list-of-builds {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  right: 0;
-  bottom: 10px;
   overflow: auto;
 
   table {
@@ -562,7 +548,7 @@ hero-vsub-unit label {
 
 @media (min-width: 980px) {
   body .wrap {
-    padding-top: 40px;
+    padding-top: 73px;
   }
 
   .nav-collapse {
@@ -788,6 +774,10 @@ span.underline {
 .table tbody tr:hover > td,
 .table tbody tr:hover > th {
   background-color: transparent;
+}
+
+.navbar-fixed-top {
+  margin-bottom: 18px;
 }
 
 #tab-project .inline-input {

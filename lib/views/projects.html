@@ -62,7 +62,7 @@
     </div>
 
   <div class="tab-content" ng-controller="ProjectsController">
-    <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="row tab-pane" ng-class="{ active: $first }">
+    <div ng-repeat="account in accounts" id="account-[[ account.provider ]]-[[ account.id ]]" class="tab-pane" ng-class="{ active: $first }">
 
       {# TODO hide this if there is only one group #}
       <div class="span2">
