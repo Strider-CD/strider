@@ -95,7 +95,7 @@
     </h3>
     <p>
       <div class="tabbable tabs-left">
-        <ul class="nav nav-tabs span2 config-tabs" ng-show="!branch.mirror_master">
+        <ul class="nav nav-tabs config-tabs" ng-show="!branch.mirror_master">
           <li class="active"><a id="project-tab-handle" href="#tab-project" data-toggle="tab">Project</a></li>
           <li><a id="basic-tab-handle" href="#tab-basic" data-toggle="tab">Branch</a></li>
           <li><a href="#tab-plugins" data-toggle="tab">Plugins</a></li>
@@ -114,7 +114,7 @@
           {% endfor %}
         </ul>
         <div ng-switch="branch.mirror_master">
-          <div ng-switch-when="true" class="tab-content span10">
+          <div ng-switch-when="true" class="tab-content">
             <p class="well">
               The configuration for this branch is the same as master,
               except that "deploy_on_green" is
