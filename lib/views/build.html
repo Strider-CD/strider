@@ -92,13 +92,14 @@
             </div>
             {% endfor %}
 
+            <div class="build-error" ng-show="job.status === 'errored' && job.error">
+              <div class="alert alert-error">[[ job.error.message ]]</div>
+              <pre ng-show="job.error.stack">[[ job.error.stack ]]</pre>
+            </div>
+
             <div class="console-output">
               <i class="fa fa-gear fa-light fa-spin loading-icon" ng-show="loading"></i>
               {% include "build/console.html" %}
-              <div class="build-error" ng-show="job.status === 'errored' && job.error">
-                <div class="alert alert-error">[[ job.error.message ]]</div>
-                <pre>[[ job.error.stack ]]</pre>
-              </div>
             </div>
 
             <div class="footer">
