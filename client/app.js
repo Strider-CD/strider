@@ -18,8 +18,9 @@ require('ui-codemirror');
 require('ui-sortable');
 
 // Modules
-require('./config');
 require('./account');
+require('./config');
+require('./plugin-manager');
 require('./job-status');
 require('./dashboard');
 require('./projects');
@@ -29,7 +30,14 @@ require('./alerts');
 require('./ansi');
 require('./moment');
 
-var app = angular.module('app', ['config', 'account', 'job-status', 'dashboard', 'projects']);
+var app = angular.module('app', [
+  'config',
+  'account',
+  'plugin-manager',
+  'job-status',
+  'dashboard',
+  'projects'
+]);
 
 // For access from plugins, need a better way
 global.app = app;

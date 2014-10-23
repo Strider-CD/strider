@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+
+<script>
+  var plugins = {{ plugins | scriptjson | raw }};
+</script>
+
+<div ng-app="PluginManager" ng-controller="PluginTableController as table">
+<h1>Plugin Manager</h1>
+<table class="table-bordered table-striped table">
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Latest</th>
+      <th>Installed</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for plugin in plugins %}
+    <tr ng-cloak class="ng-cloak" ng-controller="PluginController as plugin" ng-init='plugin.loadPlugin("{{ loop.key }}")'>
+      <td>
+        [[ plugin.type ]]
+      </td>
+      <td>
+        <a href="[[ plugin.url ]]" target="blank">[[ plugin.id ]]</a>
+      </td>
+      <td>
+        [[ plugin.description ]]
+        <span ng-if="plugin.installed" class="plugin_path">
+          <br>[[ plugin.installedPath ]]
+        </span>
+      </td>
+      <td>
+        [[ plugin.latestVersion ]]
+      </td>
+      <td>
+        <span ng-show="plugin.idle">[[ plugin.installedVersion ]]</span>
+        <span ng-hide="plugin.idle">
+          <i class="fa fa-spinner fa-spin"></i>
+        </span>
+      </td>
+      <td>
+        <div ng-hide="plugin.idle">
+          <span>Please wait...</span><br>
+          <span>[[ plugin.status ]]</span>
+        </div>
+        <div ng-show="plugin.idle">
+
+          <a ng-disabled="table.busy || !plugin.idle"
+            ng-if="plugin.installed" class="btn btn-danger"
+            ng-click="table.uninstall(plugin)">Uninstall</a>
+
+          <a ng-disabled="table.busy || !plugin.idle"
+            ng-if="plugin.installed && plugin.outdated"
+            class="btn btn-warning"
+            ng-click="table.upgrade(plugin)">Upgrade</a>
+
+          <a ng-disabled="table.busy || !plugin.idle"
+            ng-if="!plugin.installed" class="btn btn-primary"
+            ng-click="table.install(plugin)">Install</a>
+
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+{% endblock %}

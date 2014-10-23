@@ -5,10 +5,10 @@ var app = require('./lib/app')
   , middleware = require('./lib/middleware')
   , auth = require('./lib/auth')
   , models = require('./lib/models')
-  , pluginTemplates = require('./lib/pluginTemplates')
+  , pluginTemplates = require('./lib/plugin-templates')
   , utils = require('./lib/utils')
 
-  , api_config = require('./routes/api/config')
+  , api_config = require('./lib/routes/api/config')
 
   , Job = models.Job
   , Config = models.Config
@@ -62,7 +62,7 @@ module.exports = function(extdir, c, callback) {
     throw new Error('Your version of strider-extension-loader is out of date')
   }
 
-  var loader = appInstance.loader = new Loader([path.join(__dirname, 'client/styles')]);
+  var loader = appInstance.loader = new Loader([path.join(__dirname, 'client/styles')], true);
   common.loader = loader;
   //
   // ### Strider Context Object

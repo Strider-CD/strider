@@ -15,8 +15,8 @@ $.timeago.settings.strings.hours = '%d hours';
 $.timeago.settings.localeTitle = true;
 
 var app = angular.module('moment', [])
-  .directive("time", time)
-  .directive("toggle", toggle)
+  .directive('time', time)
+  .directive('toggle', toggle)
   .directive('rawHtml', rawHtml)
   .filter('percentage', percentage);
 

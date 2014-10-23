@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html ng-app="app">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title class='StriderBlock_title'>{% pluginblock title %}Strider: Brilliant Continuous Deployment{% endpluginblock %}</title>
+    <link rel="shortcut icon" href="{% block favicon %}/favicon.ico{% endblock %}" />
+    <link rel="stylesheet" href="/styles/styles.css">
+    {% block extra_head %}{% endblock %}
+    {% pluginblock AfterHead %}{% endpluginblock %}
+    {% pluginblock ExtraStyles %}{% endpluginblock %}
+  </head>
+
+  <body class="{% block bodyclass %}{% endblock %}">
+    <div class="navbar navbar-fixed-top navbar-inverse">
+      {% pluginblock TopNav %}
+      <div class="navbar-inner">
+        <div class="container-fluid">
+          <a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar">
+            <i class="fa fa-bars fa-lg"></i>
+          </a>
+          <a href="/" class="brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
+          <div class="nav-collapse StriderBlock_Nav">
+
+            {% pluginblock Nav %}
+              <ul class="nav">
+                <li><a href="/">Dashboard</a></li>
+                {% if currentUser %}
+                  <li><a href="/projects">Projects</a></li>
+                  <li><a href="/account">Account</a></li>
+                  {% if currentUser.account_level > 0 %}
+                    <li class='dropdown'>
+                      <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
+                      <ul class='dropdown-menu'>
+                        <li><a href='/admin/invites'>Invites</a></li>
+                        <li><a href='/admin/users'>Users</a></li>
+                        <li><a href='/admin/projects'>Projects</a></li>
+                        <li><a href='/admin/plugins'>Plugins</a></li>
+                      </ul>
+                  {% endif %}
+                {% endif %}
+              </ul>
+
+              {% if currentUser %}
+                <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
+                |  (<a href="/logout">logout</a>)</p>
+              {% endif %}
+
+              {% if not currentUser %}
+                <form id="navbar-signin-form" 
+                   action="/login" method="post" class="navbar-form pull-right">
+                  <input type="text" placeholder="Email" name="email" class="input-small">
+                  <input type="password" 
+                      placeholder="Password" name="password" class="input-small">
+                  <button type="submit" class="btn">Sign In</button>
+                </form><!--/.nav-collapse -->
+              {% endif %}
+            {% endpluginblock %}
+
+          </div>
+        </div>     
+        {% endpluginblock %}
+      </div>
+    </div>
+
+    <div class="wrap">
+    {% block fillContent %}
+      <div class="strider-fillpage content container-fluid">
+        <div class="body-content">
+          <div class="row-fluid">
+            <div class="span12">
+              {% block bodyContent %}
+              {% endblock %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endblock %}
+    </div>
+
+    <footer>
+      <p class='StriderBlock_FooterText'>
+        {% pluginblock FooterText %}
+            <a href="http://stridercd.com/">Strider-CD</a>
+          | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
+          | <a href="https://github.com/Strider-CD/strider/blob/master/README.md">Docs</a>
+          {% if version %}
+          | <a href="https://github.com/Strider-CD/strider/releases/tag/{{version}}">{{version}}</a>
+          {% endif %}
+          {% if !currentUser %}
+          | <a id="forgot-password-link" href="/forgot">Forgot your password?</a>
+          {% endif %}
+        {% endpluginblock %}
+      </p>
+
+      {% block footerScripts %}{% endblock %}
+      {% block pageScripts %}{% endblock %}
+    </footer>
+
+    <script src="/scripts/app.js"></script>
+    <script src="/scripts/plugin-config-compiled.js"></script>
+    <script src="/scripts/account-plugins-compiled.js"></script>
+    <script src="/scripts/plugin-status-compiled.js"></script>
+  </body>
+</html>

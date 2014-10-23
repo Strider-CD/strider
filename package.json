@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.6.0-pre.1",
+  "version": "1.6.0-pre.2",
   "bin": {
     "strider": "bin/strider"
   },
@@ -45,7 +45,7 @@
       "pattern": "lib",
       "data-cover-never": "node_modules"
     },
-    "postinstall": "bower install",
+    "postinstall": "bower install --config.interactive=false",
     "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts && [ -d dist/styles ] || mkdir -p dist/styles",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
@@ -55,7 +55,7 @@
   },
   "dependencies": {
     "MD5": "^1.2.1",
-    "angular": "1.2.19",
+    "angular": "1.2.23",
     "angular-route": "1.2.17-build.163.1",
     "ansiparse": "0.0.5-1",
     "async": "~0.9.0",
@@ -89,14 +89,15 @@
     "pw": "0.0.4",
     "rc": "~0.5.1",
     "request": "~2.44.0",
+    "semver": "^4.1.0",
     "socket.io": "~1.1.0",
     "socket.io-client": "^1.0.6",
     "ssh-keypair": "^1.0.1",
     "step": "0.0.5",
     "strider-bitbucket": "~1.0.3",
     "strider-build-badge": "~0",
+    "strider-cli": "~1.3.4",
     "strider-custom": "~0.5.3",
-    "strider-cli": "~1.2.0",
     "strider-email-notifier": "~0.4.0",
     "strider-env": "~0.4.4",
     "strider-extension-loader": "~0.4.3",

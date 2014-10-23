@@ -1,7 +1,7 @@
 'use strict';
 
 var angular = require('angular');
-var interpolate = require('./configs/interpolate');
+var interpolate = require('../utils/interpolate');
 var DashboardController = require('./controllers/dashboard');
 
 var app = angular.module('dashboard', ['moment'])

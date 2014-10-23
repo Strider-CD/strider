@@ -4,6 +4,7 @@
 @import "dashboard.less";
 @import "projects.less";
 @import "admin/users.less";
+@import "admin/plugins.less";
 
 @import "strider-colors.less";
 @import "alerts.less";
@@ -20,13 +21,17 @@ body {
   min-height: 100% !important;
 }
 
-.body-content{
-  margin-top: 20px;
-}
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
 .ng-cloak, .x-ng-cloak {
   display: none !important;
+}
+
+.truncate {
+  width: 340px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #kickoff-app {
@@ -39,7 +44,7 @@ body {
 
 #build-page {
   .job-title h3 {
-    font-size: 29px;
+    font-size: 1.7em;
     margin-top: -10px;
     margin-left: 18px;
 
@@ -52,6 +57,8 @@ body {
   }
 
   #list-of-builds {
+    max-height: 672px;
+
     td.committer {
       padding: 0;
       img {
@@ -241,6 +248,14 @@ body {
       display: none;
     }
   }
+
+  #build-page .job-title h3 {
+    margin-bottom: 0.5em;
+  }
+
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
 }
 
 @media (max-width: 650px) {
@@ -356,11 +371,6 @@ footer p {
   border-radius: 3px;
 }
 #list-of-builds {
-  position: absolute;
-  top: 25px;
-  left: 0;
-  right: 0;
-  bottom: 10px;
   overflow: auto;
 
   table {
@@ -547,7 +557,7 @@ hero-vsub-unit label {
 
 @media (min-width: 980px) {
   body .wrap {
-    padding-top: 40px;
+    padding-top: 73px;
   }
 
   .nav-collapse {
@@ -559,8 +569,7 @@ hero-vsub-unit label {
   body .wrap {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    margin-bottom: -80px;
-    padding-bottom: 80px;
+    padding-bottom: 20px;
   }
 
   footer p {
@@ -769,10 +778,19 @@ span.underline {
   padding-top: 30px;
 }
 
+#server-errors {
+  list-style-type: none;
+  margin-left: 0;
+}
+
 // Bootstrap overrides
 .table tbody tr:hover > td,
 .table tbody tr:hover > th {
   background-color: transparent;
+}
+
+.navbar-fixed-top {
+  margin-bottom: 18px;
 }
 
 #tab-project .inline-input {

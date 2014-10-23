@@ -267,17 +267,22 @@ function ConfigController($scope, $element, $sce) {
     updateConfigured();
   };
 
-  $scope.setImgStyle = function (plugin) {
+  $scope.setImgStyle = function (pluginInfo) {
+    var pluginId = pluginInfo.id;
     var plugins = $scope.plugins;
-    var icon = plugins[plugin.id].icon;
-    var bg = null;
+    var plugin = plugins[pluginId];
+    var icon, iconBg;
 
-    if (icon) {
-      bg = 'url(\'/ext/' + plugin.id + '/' + plugins[plugin.id].icon + '\')';
+    if (plugin) {
+      icon = plugin.icon;
+
+      if (icon) {
+        iconBg = 'url(\'/ext/' + pluginId + '/' + icon + '\')';
+      }
     }
 
-    plugin.imgStyle = {
-      'background-image': bg
+    pluginInfo.imgStyle = {
+      'background-image': iconBg
     };
   };
 
