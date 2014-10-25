@@ -111,7 +111,7 @@
     "strider-python": "~0.2.1",
     "strider-ruby": "~0.0.2",
     "strider-simple-runner": "~0.13.1",
-    "strider-slack": "~1.0.2",
+    "strider-slack": "~2.0.0",
     "strider-ssh-deploy": "^0.3.4",
     "stylus": "~0.49.1",
     "superagent": "~0.20.0",
