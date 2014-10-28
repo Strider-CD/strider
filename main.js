@@ -1,26 +1,26 @@
-var app = require('./lib/app')
-  , common = require('./lib/common')
-  , config = require('./lib/config')
-  , Loader = require('strider-extension-loader')
-  , middleware = require('./lib/middleware')
-  , auth = require('./lib/auth')
-  , models = require('./lib/models')
-  , pluginTemplates = require('./lib/plugin-templates')
-  , utils = require('./lib/utils')
+'use strict';
 
-  , api_config = require('./lib/routes/api/config')
+var path = require('path');
+var passport = require('passport');
+var async = require('async');
+var _ = require('lodash');
+var Loader = require('strider-extension-loader');
 
-  , Job = models.Job
-  , Config = models.Config
+var app = require('./lib/app');
+var common = require('./lib/common');
+var config = require('./lib/config');
+var middleware = require('./lib/middleware');
+var auth = require('./lib/auth');
+var models = require('./lib/models');
+var pluginTemplates = require('./lib/plugin-templates');
+var utils = require('./lib/utils');
+var apiConfig = require('./lib/routes/api/config');
+var upgrade = require('./lib/models/upgrade').ensure;
+var loadExtensions = require('./lib/utils/load-extensions');
+var pkg = require('./package');
 
-  , upgrade = require('./lib/models/upgrade').ensure
-
-  , slashes = require('connect-slashes')
-  , passport = require('passport')
-  , path = require('path')
-  , async = require('async')
-  , _ = require('lodash')
-  , pkg = require('./package')
+var Job = models.Job;
+var Config = models.Config;
 
 common.extensions = {};
 
@@ -32,23 +32,26 @@ common.extensions = {};
 //
 function registerPanel(key, value) {
   // Nothing yet registered for this panel
-  key = value.id // 
-  console.log("!! registerPanel", key)
+  key = value.id;
+  console.log('!! registerPanel', key)
+
   if (common.extensions[key] === undefined) {
     common.extensions[key] = { panel: value };
   } else {
     if (common.extensions[key].panel) {
-      console.log("!!", key, common.extensions[key], value);
-      throw "Multiple Panels for " + key;
+      console.log('!!', key, common.extensions[key], value);
+      throw 'Multiple Panels for ' + key;
     }
+
     common.extensions[key].panel = value;
   }
 }
 
 module.exports = function(extdir, c, callback) {
   var appConfig = config;
+  var k;
   // override with c
-  for (var k in c) {
+  for (k in c) {
     appConfig[k] = c[k];
   }
 
@@ -58,11 +61,12 @@ module.exports = function(extdir, c, callback) {
     if (err) throw err;
   }
 
-  if ('function' !== typeof Loader) {
-    throw new Error('Your version of strider-extension-loader is out of date')
+  if (typeof Loader !== 'function') {
+    throw new Error('Your version of strider-extension-loader is out of date');
   }
 
-  var loader = appInstance.loader = new Loader([path.join(__dirname, 'client/styles')], true);
+  var loader = new Loader([path.join(__dirname, 'client/styles')], true);
+  appInstance.loader = loader;
   common.loader = loader;
   //
   // ### Strider Context Object
@@ -104,7 +108,8 @@ module.exports = function(extdir, c, callback) {
         var tasks = [];
 
         if (!common.extensions.runner || 'object' !== typeof common.extensions.runner) {
-          console.error('Strider seems to have been misconfigured - there are no available runner plugins. Please make sure all dependencies are up to date.');
+          console.error('Strider seems to have been misconfigured - there are no available runner plugins. ' +
+            'Please make sure all dependencies are up to date.');
           process.exit(1);
         }
 
@@ -117,8 +122,13 @@ module.exports = function(extdir, c, callback) {
           }
 
           tasks.push(function (next) {
-            Job.find({'runner.id': name, finished: null}, function (err, jobs) {
-              if (err) return next(err);
+            Job.find({
+              'runner.id': name,
+              finished: null
+            }, function (err, jobs) {
+              if (err) {
+                return next(err);
+              }
 
               runner.findZombies(jobs, next);
             });
@@ -145,75 +155,15 @@ module.exports = function(extdir, c, callback) {
 }
 
 function killZombies(done) {
-  console.log("Marking zombie jobs as finished...");
+  console.log('Marking zombie jobs as finished...');
 
   Job.update({archived: null, finished: null},
     {$set: {finished: new Date(), errored: true}}, {multi: true}, 
     function(err, count) {
       if (err) throw err;
-      console.log("%d zombie jobs marked as finished", count);
+      console.log('%d zombie jobs marked as finished', count);
       done();
     }
   );
 }
 
-function loadExtensions(loader, extdir, context, appInstance, cb) {
-  loader.collectExtensions(extdir, function (err) {
-    if (err) return cb(err);
-
-    async.parallel([
-      function (next) {
-        loader.initWebAppExtensions(context, function (err, webapps) {
-          if (err) return next(err);
-
-          common.extensions = webapps;
-          console.log('initalized webapps');
-
-          for (var type in webapps) {
-            console.log('[' + type + ' plugins]');
-            for (var id in webapps[type]) {
-              console.log('- ' + id);
-            }
-          }
-
-          next();
-        })
-      },
-
-      function (next) {
-        loader.initTemplates(function (err, templates) {
-          if (err) return next(err);
-
-          for (var name in templates) {
-            pluginTemplates.register(name, templates[name])
-          }
-
-          console.log('loaded templates')
-          next()
-        })
-      },
-
-      function (next) {
-        loader.initStaticDirs(appInstance, function (err) {
-          console.log('initalized static directories');
-          next();
-        });
-      },
-
-      function (next) {
-        api_config.cacheConfig(loader, next);
-      }
-    ], function (err) {
-      if (err) {
-        console.error(err);
-        console.error('Failed to load plugins');
-        return cb(err, appInstance);
-      }
-
-      console.log('loaded plugins');
-      appInstance.use(slashes(true, true));
-      app.run(appInstance);
-      cb(null, appInstance);
-    });
-  });
-}
