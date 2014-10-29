@@ -10,15 +10,15 @@ var CollaboratorsController = require('./controllers/collaborators');
 var DeactivateController = require('./controllers/deactivate');
 var HerokuController = require('./controllers/heroku');
 var GithubController = require('./controllers/github');
-var interpolate = require('./configs/interpolate');
+var interpolate = require('../utils/interpolate');
 var ngSortableDirective = require('../utils/ng-sortable-directive');
 
 var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'alerts', 'moment'])
   .config(['$interpolateProvider', interpolate])
   .controller('Config', ['$scope', '$element', '$sce', ConfigController])
-  .controller('RunnerController', ['$scope', '$element', RunnerController])
-  .controller('ProviderController', ['$scope', ProviderController])
-  .controller('JobController', ['$scope', '$element', JobController])
+  .controller('Config.RunnerController', ['$scope', '$element', RunnerController])
+  .controller('Config.ProviderController', ['$scope', ProviderController])
+  .controller('Config.JobController', ['$scope', '$element', JobController])
   .controller('BranchesCtrl', ['$scope', BranchesController])
   .controller('CollaboratorsCtrl', ['$scope', CollaboratorsController])
   .controller('DeactivateCtrl', ['$scope', DeactivateController])

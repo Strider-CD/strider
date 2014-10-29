@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="/styles/account-plugins-compiled.css">
+{% endblock %}
+
+{% block bodyContent %}
+  <div class="row-fluid">
+    <div class='span8'>
+      <div id="settings"></div>
+    </div>
+  </div>
+
+  <script>
+    var user = {{ user | scriptjson | raw }};
+    var providers = {{ providers | scriptjson | raw }};
+  </script>
+
+  <div class="row-fluid" ng-app="Account" ng-controller="AlertsController">
+    <div class="span12">
+      <h3>Account Management:</h3>
+    </div>
+
+      <div class="notify-wrapper pull-right">
+        <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
+          <a type="button" class="close" ng-click="clearMessage()">&times;</a>
+          <div class="message" ng-bind-html="message.text"></div>
+        </div>
+      </div>
+
+     <div class="row-fluid">
+      <div class="tabbable tabs-left" ng-controller="AccountController">
+        <ul class="nav nav-tabs">
+          <li class="active"><a href="#email" data-toggle="tab">Email Address</a></li>
+          <li><a href="#password" data-toggle="tab">Password</a></li>
+          {% for provider in providers %}
+          <li>
+            <a href="#provider-{{ loop.key }}" data-toggle="tab">{{ provider.title }}</a>
+          </li>
+          {% endfor %}
+          {% for job in userConfigs.job %}
+          <li>
+            <a href="#job-{{ loop.key }}" data-toggle="tab">{{ job.title }}</a>
+          </li>
+          {% endfor %}
+        </ul>
+
+        <div class="tab-content">
+          {#
+            To configure what shows up here, change the "accountConfig"
+            option in the strider.json definition for the provider
+            plugin. This only shows up if "hosted" is true
+
+          #}
+
+          {% for message in flash %}
+          <div class="alert alert-info">{{ message|raw }}</div>
+          {% endfor %}
+          {% for provider in providers %}
+          <div id="provider-{{loop.key}}" class="tab-pane provider-tab">
+            <h2>{{ provider.title }} Accounts</h2>
+            <div class="well" ng-repeat="account in accounts['{{loop.key}}']">
+              {% if provider.html %}
+              <button class="btn pull-right btn-danger" ng-click="deleteAccount(account)">Delete Account</button>
+              <h3>
+                Title: <input ng-model="account.title">
+              </h3>
+              <div id="provider-account-{{ loop.key }}" ng-controller="{{provider.controller}}">
+                {% autoescape false %}
+                {{ provider.html }}
+                {% endautoescape %}
+              </div>
+              {% else %}
+              <h3 ng-switch="!!account.display_url">
+                <span ng-switch-when="false">[[ account.title ]]</span>
+                <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
+                <button class="btn btn-danger pull-right" ng-click="deleteAccount(account)">Delete Account</button>
+              </h3>
+              {% endif %}
+            </div>
+            <div ng-switch="!!providers['{{ loop.key }}'].setupLink">
+              <div ng-switch-when="true">
+                <a class="btn btn-success" href="[[ providers['{{ loop.key }}'].setupLink ]]">Add Account</a>
+                <span ng-show="accounts['{{ loop.key }}'].length">
+                  <strong>Note:</strong> You may need to sign out of {{ loop.key }} if you want to add a different account
+                </span>
+              </div>
+              <button ng-switch-default class="btn btn-success" ng-click="addAccount('{{ loop.key }}')">Add Account</button>
+            </div>
+          </div>
+          {% endfor %}
+          {% for job in userConfigs.job %}
+          <div id="job-{{loop.key}}" class="tab-pane job-tab" ng-controller="{{job.controller}}">
+            {% autoescape false %}
+            {{ job.html | raw }}
+            {% endautoescape %}
+          </div>
+          {% endfor %}
+          
+          <div id="email" class="tab-pane active">
+            <div id="account_email">
+              <div class="email-message">
+                <div class="well">
+                  <fieldset>
+                    <legend>Change Email</legend>
+                    <div class="control-group email">
+                      <label class="control-label"for="email">Account Email Address</label>
+                    </div>
+                    <div class="controls">
+                      <input class="xlarge" type="text" name="email" ng-model="user.email" />
+                      <span class="help-inline email"></span>
+                    </div>
+                    <div class="actions">
+                      <button class="btn" ng-click="changeEmail()">Change Email</button>
+                    </div>
+                  </fieldset>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="password" class="tab-pane">
+            <div id="change_password">
+              <form class="password-message" name="passwordForm">
+                <div class="well">
+                  <fieldset>
+                    <legend>Change Password</legend>
+                    <div class="control-group password">
+                      <label class="control-label" for="password">New Password</label>
+                    </div>
+                    <div class="controls">
+                      <input class="xlarge" type="password" ng-minlength="8" name="password" ng-model="password">
+                      <span class="help-inline password"></span>
+                      <span ng-show="passwordForm.password.$dirty && passwordForm.password.$error.minlength">Password must be longer than 8 characters</span>
+                    </div>
+                    <div class="control-group password-confirm">
+                      <label class="control-label" for="password_confirm">Confirm Password</label>
+                    </div>
+                    <div class="controls">
+                      <input class="xlarge" type="password" name="confirm_password" ng-model="confirm_password">
+                      <span class="help-inline password-confirm"></span>
+                      <span ng-show="passwordForm.password.$valid && confirm_password !== password">Passwords must match</span>
+                    </div>
+                    <div class="actions">
+                      <button class="btn" ng-click="changePassword()" ng-disabled="!passwordForm.$valid || confirm_password !== password">Change Password</a>
+                    </div>
+                  </fieldset>
+                </div>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+{% endblock %}
