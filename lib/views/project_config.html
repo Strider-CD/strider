@@ -124,33 +124,23 @@
         <div class="span10">
             <div ng-switch="branch.mirror_master">
               <div ng-switch-when="true" class="tab-content">
-                <p class="well">
+                <p class="alert alert-warning">
                   The configuration for this branch is the same as master,
                   except that "deploy_on_green" is
                   false. Click <button class="btn" ng-click="toggleBranch()">Customize Branch</button> to
                   configure this branch separate from master.
                 </p>
               </div>
+
               <div class="tab-content" ng-switch-default>
                 <div id="loading" class="hide">
                   <img src="/images/spinner.gif" class="spinner"/>
                   [[ loadingMessage ]]
                 </div>
 
-                <div id="tab-project" class="tab-pane">
-                  {% include "config/project.html" %}
-                </div>
-
-                <div id="tab-branches" class="tab-pane">
-                  {% include "config/branches.html" %}
-                </div>
 
                 <div id="tab-branch-settings" class="tab-pane active">
                   {% include "config/branch-settings.html" %}
-                </div>
-
-                <div id="tab-provider" class="tab-pane">
-                  {% include "config/provider.html" %}
                 </div>
 
                 <div id="tab-plugins" class="tab-pane">
@@ -180,6 +170,20 @@
                   {% endautoescape %}
                 </div>
                 {% endfor %}
+              </div>
+
+              <div class="tab-content">
+                <div id="tab-project" class="tab-pane">
+                  {% include "config/project.html" %}
+                </div>
+
+                <div id="tab-branches" class="tab-pane">
+                  {% include "config/branches.html" %}
+                </div>
+
+                <div id="tab-provider" class="tab-pane">
+                  {% include "config/provider.html" %}
+                </div>
               </div>
             </div>
           </div>
