@@ -41,6 +41,8 @@ function ConfigController($scope, $element, $sce) {
           var rootPath = global.location.pathname.split('/').slice(0, 4).join('/');
           var state = global.history.state;
 
+          selectTab(tabName);
+
           if (state && state.tabName === tabName) {
             return; // don't double up!
           }
@@ -91,6 +93,11 @@ function ConfigController($scope, $element, $sce) {
     router.init()
   });
 
+  function selectTab(tabName) {
+    $('.tab-pane.active, .nav-tabs > li.active').removeClass('active');
+    $('#' + tabName).addClass('active');
+  }
+
   function switchToBranch(name) {
     var branch = _.findWhere($scope.branches, { name: name });
 
@@ -99,7 +106,7 @@ function ConfigController($scope, $element, $sce) {
     }
 
     global.sessionStorage.setItem('branchName', $scope.branch.name);
-    switchToTab(null, $scope.branch);
+    switchToTab('tab-branch-settings', $scope.branch);
   }
 
   $scope.switchToBranch = switchToBranch;
@@ -110,8 +117,7 @@ function ConfigController($scope, $element, $sce) {
     }
 
     $('#' + tab + '-tab-handle').tab('show');
-    $('.tab-pane.active').removeClass('active');
-    $('#' + tab).addClass('active');
+    selectTab(tab);
     $('a[href=#' + tab + ']').tab('show');
   }
 

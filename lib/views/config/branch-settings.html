@@ -3,12 +3,14 @@
     <input type="checkbox" ng-model="branch.active" data-test="active" ng-change="saveGeneralBranch()"> Active
   </label>
   <p class="help-text">When a branch is deactivated, tests and deploys can only be triggered manually.</p>
+
   <label class="checkbox">
     <input type="checkbox" ng-model="branch.deploy_on_green" ng-change="saveGeneralBranch()"> Deploy on Green
   </label>
   <p class="help-text">When "deploy on green" is disabled, automatically triggered builds will not deploy.</p>
+
   <div id="ssh-keys">
-    <h3>Ssh keys</h3>
+    <h3>SSH keys</h3>
     <p>These keys will be available to any plugins that need ssh
       keys. Plugins may however choose to use different keys.</p>
     <div class="row-fluid">
@@ -21,7 +23,8 @@
         <textarea ng-model="branch.pubkey"></textarea>
       </div>
     </div>
-    <div class="row-fluid">
+
+    <div class="row-fluid spaced-group">
       <div class="span3">
         <button ng-click="generateKeyPair()" class="btn">Generate new keypair</button>
       </div>
@@ -29,6 +32,45 @@
         <label class="checkbox pull-right">
           <input ng-model="branch.envKeys" ng-change="saveGeneralBranch()" type="checkbox"> Make ssh keys available on the ENV as STRIDER_SSH_PUB and STRIDER_SSH_PRIV
         </label>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <h3>Reset Branch Configuration</h3>
+        
+        <p>
+          This will reset all of the configuration for this branch to
+          be exactly like the 'master' branch. You will have a chance to decline after
+          selecting 'Mirror Master'.
+        </p>
+
+        <div class="spaced-group" ng-hide="branch.name === 'master'">
+          <button class="btn btn-default"
+            ng-if="!branch.mirror_master"
+            ng-hide="branch.really_mirror_master"
+            ng-click="branch.really_mirror_master = true">
+            <span>
+              Mirror Master
+            </span>
+          </button>
+
+          <button class="btn btn-default"
+            ng-show="branch.really_mirror_master"
+            ng-click="branch.really_mirror_master = false">
+            <span>
+              Keep Customizations
+            </span>
+          </button>
+
+          <button class="btn btn-danger"
+            ng-show="branch.really_mirror_master"
+            ng-click="mirrorMaster()">
+            <span>
+              Really Mirror Master
+            </span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
