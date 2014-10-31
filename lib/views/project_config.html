@@ -89,7 +89,8 @@
             </li>
 
             {% for runner in runners %}
-              <li ng-show="!branch.mirror_master && branch.runner.id === '{{ loop.key }}'">
+              <li ng-show="!branch.mirror_master && branch.runner.id === '{{ loop.key }}'"
+                class="plugin-nav runner-nav">
                 <a href="#runner-{{ loop.key }}" data-toggle="tab">
                   <i class="fa fa-bicycle"></i> Runner: {{ runner.title }}
                 </a>
@@ -98,7 +99,8 @@
 
             {% for plugin in plugins %}
               <li ng-show="!branch.mirror_master && configured[branch.name]['{{ loop.key }}']"
-                  ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }">
+                  ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
+                  class="plugin-nav">
                 <a href="#plugin-{{ loop.key }}" data-toggle="tab">
                   <i class="fa fa-plug"></i> {{ plugin.title }}
                 </a>
