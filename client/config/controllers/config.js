@@ -167,9 +167,14 @@ function ConfigController($scope, $element, $sce) {
     });
   };
 
+  $scope.$watch('branch.isCustomizable', function (value) {
+    switchToTab('tab-branch-settings', $scope.branch);
+  });
+
   $scope.toggleBranch = function () {
     if ($scope.branch.mirror_master) {
       $scope.branch.mirror_master = false;
+      $scope.branch.isCustomizable = true;
 
       var name = $scope.branch.name;
       var master;
@@ -191,6 +196,7 @@ function ConfigController($scope, $element, $sce) {
 
   $scope.mirrorMaster = function () {
     $scope.branch.mirror_master = true;
+    $scope.branch.isCustomizable = false;
     delete $scope.branch.really_mirror_master;
     $scope.saveGeneralBranch(true);
   };

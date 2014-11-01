@@ -43,7 +43,7 @@
           <h4><i class="fa fa-code-fork"></i> Branch</h4>
           <span class="branch-picker">
             <select ng-options="branch as branch.name for branch in branches track by branch.name"
-              ng-change="switchToBranch(branch)"
+              ng-change="switchToBranch(branch.name)"
               ng-model="branch">
             </select>
 
@@ -126,7 +126,7 @@
               <div ng-switch-when="true" class="tab-content">
                 <p class="alert alert-warning">
                   The configuration for this branch is the same as master,
-                  except that "deploy_on_green" is
+                  except that "deploy on green" is
                   false. Click <button class="btn" ng-click="toggleBranch()">Customize Branch</button> to
                   configure this branch separate from master.
                 </p>
