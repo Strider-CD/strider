@@ -5,12 +5,6 @@
 {% endblock %}
 
 {% block bodyContent %}
-  <div class="row-fluid">
-    <div class='span8'>
-      <div id="settings"></div>
-    </div>
-  </div>
-
   <script>
     var user = {{ user | scriptjson | raw }};
     var providers = {{ providers | scriptjson | raw }};
