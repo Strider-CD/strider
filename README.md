@@ -31,12 +31,16 @@ For more details check out the [introductory chapter of the Strider Book][book-i
 ## README Contents
 
 - [General requirements](#general-requirements)
-- [Docker quickstart](#docker-quickstart)
 - [Running on Infrastructure](#running-on-infrastructure)
     - [Configuring](#configuring)
     - [Adding Users](#adding-initial-admin-user)
     - [Starting Strider](#starting-strider)
+    - [Managing Plugins](#managing-plugins)
+        - [Listing Available Plugins](#listing-available-plugins)
+        - [Installing Plugins](#installing-plugins)
+        - [Creating New Plugins](#creating-new-plugins)
     - [Heroku](#strider-on-heroku)
+- [Docker quickstart](#docker-quickstart)
 - [Require()'ing Strider](#requireing-strider)
 - [Extension & plugin guide](#extending--customizing-strider)
 - [Support & Help](#support--help)
@@ -48,18 +52,6 @@ For more details check out the [introductory chapter of the Strider Book][book-i
 - mongodb (local or remote)
 - git >= 1.7.10
 
-## Docker Quickstart
-
-`docker pull niallo/strider`
-
-For a fully self-contained and pre-built strider installation, check out
-the [Strider Trusted Build][pre-built].
-
-There's a walkthrough of setting it up [on our blog][blog-walkthrough].
-
-### Modular Docker Image
-
-Please see [docker-strider](https://github.com/keyvanfatehi/docker-strider)
 
 ## Running on Infrastructure
 
@@ -128,7 +120,7 @@ See the [strider-cli] for more details.
 Once `Strider` has been installed and configured, it can be started with:
 
 ```no-highlight
-node bin/strider
+npm start
 ```
 
 ### Managing Plugins
@@ -201,6 +193,21 @@ set the buildpack for your app. Currently this enables support for Ruby 2.0.0.
 ```no-highlight
 heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
 ```
+
+
+## Docker Quickstart
+
+`docker pull niallo/strider`
+
+For a fully self-contained and pre-built strider installation, check out
+the [Strider Trusted Build][pre-built].
+
+There's a walkthrough of setting it up [on our blog][blog-walkthrough].
+
+### Modular Docker Image
+
+Please see [docker-strider](https://github.com/keyvanfatehi/docker-strider)
+
 
 ## Require()'ing Strider
 
