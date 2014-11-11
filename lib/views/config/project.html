@@ -1,25 +1,19 @@
-<div class="project-config" ng-show="branch.name === 'master'">
-  <div id="provider-config" ng-controller="{{ provider.controller }}">
-    <h3>Provider: {{ provider.title }}</h3>
-    {% autoescape false %}
-    {{ provider.html }}
-    {% endautoescape %}
-  </div>
-
+<div class="project-config">
   <div class="well" id="visibility-config">
     <legend>Project Visibility</legend>
-    <p class="help-text">Projects are private by default. Job history, status and console output of public projects are visible to anyone who knows the URL.
-    <p>
-    Public URL: <a href="{{ serverName }}/{{ project.name }}/"><strong>{{ serverName }}/{{ project.name }}/</strong></a>
-    </p>
-    <label class="checkbox">
-      <input data-test="public" type="checkbox" ng-model="project.public" ng-change="saveProject()"> Make this project public
-    </label>
 
+    <p class="help-text">Projects are private by default. Job history, status and console output of public projects are visible to anyone who knows the URL.
+      <p>
+        Public URL: <a href="{{ serverName }}/{{ project.name }}/"><strong>{{ serverName }}/{{ project.name }}/</strong></a>
+      </p>
+      <label class="checkbox">
+        <input data-test="public" type="checkbox" ng-model="project.public" ng-change="saveProject()"> Make this project public
+      </label>
     </p>
   </div>
-  {% include "config/branches.html" %}
+
   {% include "config/collaborators.html" %}
+
   <div class="row-fluid">
     <div class="span6">
       <h3>Delete Project</h3>
@@ -44,10 +38,4 @@
       </button>
     </div>
   </div>
-</div>
-<div class="well" ng-hide="branch.name === 'master'">
-  To configure the provider and collaborators,
-  <button class="btn" ng-click="switchToMaster()">
-    switch to the master branch
-  </button>.
 </div>
