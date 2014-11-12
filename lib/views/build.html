@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block preTitle %}
+  {{ project.display_name }} (Build) -
+{% endblock %}
+
 {% block bodyclass %}job_view{% endblock %}
 
 {% block extra_head %}
