@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block preTitle %}
+  {{ project.display_name }} (Config) -
+{% endblock %}
+
 {% block extra_head %}
   <link rel="stylesheet" href="/styles/plugin-config-compiled.css">
 {% endblock %}

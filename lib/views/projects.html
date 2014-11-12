@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block preTitle %}
+  Projects -
+{% endblock %}
+
 {% pluginblock ExtraStyles %}
   <script>
     var providers = {{ providers | scriptjson | raw }};
