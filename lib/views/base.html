@@ -44,18 +44,7 @@
                 <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
                 |  (<a href="/logout">logout</a>)</p>
               {% endif %}
-
-              {% if not currentUser %}
-                <form id="navbar-signin-form" 
-                   action="/login" method="post" class="navbar-form pull-right">
-                  <input type="text" placeholder="Email" name="email" class="input-small">
-                  <input type="password" 
-                      placeholder="Password" name="password" class="input-small">
-                  <button type="submit" class="btn">Sign In</button>
-                </form><!--/.nav-collapse -->
-              {% endif %}
             {% endpluginblock %}
-
           </div>
         </div>     
         {% endpluginblock %}
