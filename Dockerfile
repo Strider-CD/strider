@@ -31,7 +31,7 @@ run git clone -b master https://github.com/Strider-CD/strider.git strider-src
 # and uncommenting the add command below
 #add ./ /tmp/strider-src
 
-run npm install -g strider-src
+run npm install -g bower strider-src
 
 # copy the supervisor config and the strider start script used by it
 run cp strider-src/docker/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
