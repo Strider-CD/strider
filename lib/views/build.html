@@ -97,8 +97,14 @@
             {% endfor %}
 
             <div class="build-error" ng-show="job.status === 'errored' && job.error">
-              <div class="alert alert-error">[[ job.error.message ]]</div>
-              <pre ng-show="job.error.stack">[[ job.error.stack ]]</pre>
+              <div class="alert alert-error">
+                <i class="fa fa-exclamation-triangle"></i>
+                [[ job.error.message ]]
+                <a href="#" class="pull-right" ng-click="toggleErrorDetails()" ng-if="job.error.stack">
+                  <i class="fa fa-ellipsis-h"></i>
+                </a>
+                <pre ng-if="showErrorDetails" ng-show="job.error.stack">[[ job.error.stack ]]</pre>
+              </div>
             </div>
 
             <div class="console-output">
