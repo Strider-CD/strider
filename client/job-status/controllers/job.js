@@ -83,6 +83,15 @@ module.exports = function ($scope, $route, $location, $filter) {
   };
   */
 
+  $scope.toggleErrorDetails = function () {
+    if ($scope.showErrorDetails) {
+      $scope.showErrorDetails = false;
+    }
+    else {
+      $scope.showErrorDetails = true;
+    }
+  };
+
   $scope.clearCache = function () {
     $scope.clearingCache = true;
     $.ajax('/' + $scope.project.name + '/cache/' + $scope.job.ref.branch, {

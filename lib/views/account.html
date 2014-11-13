@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 
+{% block preTitle %}
+  Account -
+{% endblock %}
+
 {% block extra_head %}
   <link rel="stylesheet" href="/styles/account-plugins-compiled.css">
 {% endblock %}
 
 {% block bodyContent %}
-  <div class="row-fluid">
-    <div class='span8'>
-      <div id="settings"></div>
-    </div>
-  </div>
-
   <script>
     var user = {{ user | scriptjson | raw }};
     var providers = {{ providers | scriptjson | raw }};

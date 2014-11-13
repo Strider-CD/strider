@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
-{% block fillContent %}
+{% block preTitle %}
+  Register -
+{% endblock %}
+
+{% block bodyContent %}
   {% include "partials/errors.html" %}
   {% include "partials/signupform.html" %}
 {% endblock %}

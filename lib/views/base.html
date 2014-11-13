@@ -2,7 +2,7 @@
 <html ng-app="app">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title class='StriderBlock_title'>{% pluginblock title %}Strider: Brilliant Continuous Deployment{% endpluginblock %}</title>
+    <title class='StriderBlock_title'>{% block preTitle %}{% endblock %}{% pluginblock title %}Strider: Brilliant Continuous Deployment{% endpluginblock %}</title>
     <link rel="shortcut icon" href="{% block favicon %}/favicon.ico{% endblock %}" />
     <link rel="stylesheet" href="/styles/styles.css">
     {% block extra_head %}{% endblock %}
@@ -44,18 +44,7 @@
                 <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
                 |  (<a href="/logout">logout</a>)</p>
               {% endif %}
-
-              {% if not currentUser %}
-                <form id="navbar-signin-form" 
-                   action="/login" method="post" class="navbar-form pull-right">
-                  <input type="text" placeholder="Email" name="email" class="input-small">
-                  <input type="password" 
-                      placeholder="Password" name="password" class="input-small">
-                  <button type="submit" class="btn">Sign In</button>
-                </form><!--/.nav-collapse -->
-              {% endif %}
             {% endpluginblock %}
-
           </div>
         </div>     
         {% endpluginblock %}

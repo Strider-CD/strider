@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block preTitle %}
+  Admin: Invites -
+{% endblock %}
+
 {% block bodyContent %}
 <div class="row-fluid">
   <div class="span12">
@@ -18,7 +22,7 @@
         </div>
       </div>
       <div class="actions">
-        <input type="submit" value="Send Invitation" class="btn primary"/>
+        <input type="submit" value="Send Invitation" class="btn btn-primary"/>
       </div>
     </form>
   </div>
@@ -35,6 +39,7 @@
             <th>Emailed To</th>
             <th>Consumed By</th>
             <th>Consumed Date</th>
+            <th>Action</th>
           </tr>
       </thead>
       <tbody>
@@ -43,16 +48,30 @@
               <td>{{invite.code}}</td>
               <td>{{invite.created}}</td>
               <td>{{invite.emailed_to}}</td>
+
               {% if invite.consumed_by_user %}
               <td>{{invite.consumed_by_user.email}}</td>
               {% else %}
               <td>-</td>
               {% endif %}
+
               {% if invite.consumed %}
               <td>{{invite.consumed}}</td>
               {% else %}
               <td>-</td>
               {% endif %}
+
+              {% if invite.consumed %}
+                <td></td>
+              {% else %}
+                <td>
+                  <form action="/api/admin/invite/revoke" method="POST">
+                    <input type="hidden" name="invite_code" value="{{invite.code}}">
+                    <button type="submit" class="btn btn-danger">Revoke</button>
+                  </form>
+                </td>
+              {% endif %}
+
           </tr>
           {% endfor %}
       </tbody>

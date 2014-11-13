@@ -2,12 +2,22 @@
 
 # Upcoming Releases
 
-## 1.5.1
+## 1.6.0
 
 - Docker support in core.
 - Bring back password reset.
 - addUser retry if email taken.
 - `strider addUser -f` for overwritting user.
+- New project config page layout, see #629
+- Plugin manager
+- Invite revoke
+- Layout/Style fixes
+- Plugin dependency updates
+- Bug fixes
+- Modular client-side (browserify)
+- Major cleanup of client-side code
+- strider-cli moved out
+- etc..
 
 
 # Changelog / Past releases
