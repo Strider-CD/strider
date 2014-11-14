@@ -6,7 +6,10 @@ module.exports = function($http, $timeout) {
   this.uninstall = function(plugin) {
     this.busy = true;
     plugin.uninstall(function(err) {
-      if (err) alert(err.message);
+      if (err) {
+        global.alert(err.message);
+      }
+
       this.busy = false;
     }.bind(this))
   }
