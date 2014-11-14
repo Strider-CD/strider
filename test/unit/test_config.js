@@ -1,7 +1,7 @@
-var _ = require('lodash')
-  , expect = require('chai').expect
-  , lconf = require('../../lib/libconfig.js')
-  , sinon = require('sinon')
+var _ = require('lodash');
+var expect = require('chai').expect;
+var lconf = require('../../lib/libconfig.js');
+var sinon = require('sinon');
 
 describe('config', function () {
 
@@ -62,16 +62,19 @@ describe('config', function () {
   })
 
   it('should arrange the smtp config', function () {
-    var oe = process.env
-      , config
+    var oe = process.env;
+    var config;
+
     process.env = _.extend({}, process.env, {
       SMTP_HOST: 'here',
       SMTP_PORT: 777,
       SMTP_USER: 'me',
       SMTP_PASS: 'mine',
       SMTP_FROM: 'me@example.com'
-    })
-    config = lconf.getConfig(true)
+    });
+
+    config = lconf.getConfig();
+
     expect(config.smtp).to.eql({
       host: 'here',
       port: 777,
@@ -80,9 +83,10 @@ describe('config', function () {
         pass: 'mine'
       },
       from: 'me@example.com'
-    })
-    process.env = oe
-  })
+    });
+
+    process.env = oe;
+  });
 
   it('should pick up legacy github variables', function () {
     sinon.stub(console, 'warn')
