@@ -185,6 +185,7 @@ If you run into any issues, you can deploy manually with the steps below.
 heroku create
 heroku addons:add mongolab
 heroku config:set BUILDPACK_URL=https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt
+heroku config:set SERVER_NAME=https://[your-app-name].herokuapp.com
 git push heroku master
 heroku open
 ```
@@ -195,6 +196,8 @@ use the following buildpack to compose multiple buildpacks:
 ```no-highlight
 heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
 ```
+
+You might also want to set `DB_URI` if using a remote mongodb instance.
 
 
 ## Docker Quickstart
