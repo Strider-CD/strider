@@ -40,7 +40,7 @@
   },
   "scripts": {
     "test": "make test",
-    "start": "npm run build && bin/strider",
+    "start": "bin/strider",
     "dev": "npm run build-debug && bin/strider",
     "blanket": {
       "pattern": "lib",
