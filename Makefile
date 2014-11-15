@@ -80,7 +80,7 @@ test-client-local:
 
 test-syntax: lint
 
-tolint := *.js *.json lib routes client
+tolint := *.js *.json lib client
 
 lint:
 	@./node_modules/.bin/jshint --verbose $(tolint)

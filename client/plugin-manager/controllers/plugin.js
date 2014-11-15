@@ -1,5 +1,7 @@
 'use strict';
 
+var plugins = global.plugins || {};
+
 module.exports = function($http, $timeout) {
   this.idle = true
   this.status = 'idle'
