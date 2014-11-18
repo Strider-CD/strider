@@ -17,14 +17,13 @@ Here are the technologies to be familiar with:
 
 ## Setup
 
-How to get setup (if you're using the [docker
-image](https://github.com/Strider-CD/strider-dockerfile) you can skip this:
+How to get setup (if you're using docker, see the [Docker section in the README][docker], you can skip this):
 
 - grab the repo
 - `npm install`
 - run the tests with `npm test` to make sure your environment is setup
   properly. If you don't have it already, install
-  [mongodb](http://docs.mongodb.org/manual/installation/). You could also
+  [mongodb]. You could also
   develop using an externally hosted mongodb if you want, just set `DB_URI`.
 
 ## Making Code Contributions
@@ -49,4 +48,7 @@ Before submitting pull requests, please run `npm test` to make sure you didn't
 break anything. If you're adding or changing backend functionality, include tests.
 
 If you're adding or changing the front-end, please include one or more
-explanitory screenshots in the pull request.
+explanatory screenshots in the pull request.
+
+[docker]: https://github.com/Strider-CD/strider#docker-quickstart
+[mongodb]: http://docs.mongodb.org/manual/installation/
