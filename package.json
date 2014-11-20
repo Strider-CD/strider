@@ -47,7 +47,7 @@
       "data-cover-never": "node_modules"
     },
     "postinstall": "bower install --config.interactive=false --allow-root && npm run build",
-    "pre": "[ -d dist/scripts ] || mkdir -p dist/scripts && [ -d dist/styles ] || mkdir -p dist/styles",
+    "pre": "mkdirp dist/scripts dist/styles", 
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
