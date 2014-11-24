@@ -72,6 +72,7 @@ npm install
 values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
+  - `HOST` : Host where strider listens, optional (defaults to 0.0.0.0).
   - `PORT` : Port that strider runs on, optional (defaults to 3000).
   - `DB_URI` : MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
   - `SERVER_NAME` : Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash)
