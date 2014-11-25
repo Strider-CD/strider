@@ -15,9 +15,9 @@
 <table class="table-bordered table-striped table">
   <thead>
     <tr>
-      <th>Type</th>
       <th>Name</th>
       <th>Description</th>
+      <th>Type</th>
       <th>Latest</th>
       <th>Installed</th>
       <th></th>
@@ -27,9 +27,6 @@
     {% for plugin in plugins %}
     <tr ng-cloak class="ng-cloak" ng-controller="PluginController as plugin" ng-init='plugin.loadPlugin("{{ loop.key }}")'>
       <td>
-        [[ plugin.type ]]
-      </td>
-      <td>
         <a href="[[ plugin.url ]]" target="blank">[[ plugin.id ]]</a>
       </td>
       <td>
@@ -37,6 +34,9 @@
         <span ng-if="plugin.installed" class="plugin_path">
           <br>[[ plugin.installedPath ]]
         </span>
+      </td>
+      <td>
+        [[ plugin.type ]]
       </td>
       <td>
         [[ plugin.latestVersion ]]
