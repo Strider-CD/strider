@@ -11,7 +11,7 @@
     "tests"
   ],
   "dependencies": {
-    "bootstrap": "~2.0.0",
+    "bootstrap": "~2.3.2",
     "fontawesome": "~4.2.0",
     "Sortable": "~0.4.1",
     "bootbox": "3.3.0",

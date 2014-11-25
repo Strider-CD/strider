@@ -1,14 +1,3 @@
-{% if page !== 'history' && !public && currentUser %}
-  <td class="deploy" ng-hide="page === 'build'">
-    <span ng-hide="job.running"
-          ng-click="startDeploy(job)"
-          data-toggle="tooltip" title="Retest &amp; Deploy"
-          data-delay="200" class="clickable test-and-deploy-action">
-      <i class="fa fa-cloud-upload"></i>
-    </span>
-  </td>
-{% endif %}
-
 <td class="job-link">
   {% if page !== 'build' %}
     <a href="/[[ job.project.name || project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]">
@@ -32,6 +21,15 @@
 
 {% if page !== 'history' %}
   {% if !public && currentUser %}
+    <td class="deploy" ng-hide="page === 'build'">
+      <span ng-hide="job.running"
+            ng-click="startDeploy(job)"
+            data-toggle="tooltip" title="Retest &amp; Deploy"
+            data-delay="200" class="clickable test-and-deploy-action">
+        <i class="fa fa-cloud-upload"></i>
+      </span>
+    </td>
+
     <td class="refresh" ng-hide="page === 'build'">
       <span ng-hide="job.running" data-toggle="tooltip"
             ng-click="startTest(job)"
@@ -62,9 +60,9 @@
 
 <td class="committer">
   <div ng-show="job.trigger.author.image" ng-switch="!!job.trigger.author.url">
-    <img ng-switch-when="false" ng-src="[[ job.trigger.author.image ]]"/>
+    <img ng-switch-when="false" ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
     <a ng-switch-default href="[[ job.trigger.author.url ]]" target="_blank">
-      <img ng-src="[[ job.trigger.author.image ]]"/>
+      <img ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
     </a>
   </div>
 </td>
