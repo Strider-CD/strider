@@ -9,8 +9,6 @@ module.exports = function ($scope, $element) {
   var socket = io.connect();
   var dash = new Dashboard(socket, $scope);
 
-  //$('#dashboard').show();
-
   $scope.providers = global.providers
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
 
