@@ -157,10 +157,24 @@
           <form name="create{{ loop.key }}">
             <h3>{{ item.provider.title }}</h3>
             <div class="general">
+              <p>
+              <small>Public projects are visible to unauthenticated users.</small>
               <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
+              </p>
+
+              <p>
+              <small>Provides a link in the UI if you put a url there, so you can easily jump to viewing the repo on github or wherever</small>
+              <br/>
               <input type="text" ng-model="display_url" placeholder="Display Url">
-              <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name (must contain a single '/')">
+              </p>
+
+              <p>
+              <small>A github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
+              <br/>
+              <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name">
+              </p>
             </div>
+
             <div class="provider-specific">
               {{ item.provider.html | raw }}
             </div>
