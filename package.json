@@ -120,7 +120,7 @@
     "superagent": "~0.20.0",
     "swig": "~0.14.0",
     "thirty-two": "0.0.2",
-    "validator": "~1.5.1",
+    "validator": "~3.22.1",
     "winston": "^0.8.0"
   },
   "devDependencies": {
