@@ -12,7 +12,7 @@
       <div class="span6">
         <table>
           <tr class="collaborator" ng-repeat="collab in collaborators">
-            <td class="image"><img ng-src="[[ collab.gravatar ]]&s=35"></td>
+            <td class="image"><img ng-src="[[ collab.gravatar ]]&s=35" class="img-circle"></td>
             <td class="email">[[collab.email]]</td>
             <td class="remove" ng-switch="collab.loading">
               <i ng-switch-when="true" class="fa fa-cog fa-spin"></i>
