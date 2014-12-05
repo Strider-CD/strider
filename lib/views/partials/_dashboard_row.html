@@ -6,11 +6,7 @@
   <i ng-hide="job.nojobs"
      data-toggle="tooltip"
      title="[[ job.status ]]"
-     class="fa [[ {'passed': 'fa-check-circle success-text',
-                'failed': 'fa-exclamation-circle failure-text',
-                'running': 'fa-cog fa-spin',
-                'submitted': 'fa-clock-o waiting-text',
-                'errored': 'fa-minus-circle error-text'}[job.status] ]]"></i>
+     class="fa [[ statusClasses[job.status] ]]"></i>
   <span ng-show="job.nojobs">No job history</span>
   <span data-test="job-id">[[ job._id.substr(0,8) ]]</span>
 

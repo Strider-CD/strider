@@ -6,10 +6,19 @@ var $ = require('jquery');
 var _ = require('lodash');
 var JobMonitor = require('../../utils/job-monitor');
 var io = require('socket.io-client');
+var statusClasses = {
+  passed: 'fa-check-circle success-text',
+  failed: 'fa-exclamation-circle failure-text',
+  running: 'fa-cog fa-spin',
+  submitted: 'fa-clock-o waiting-text',
+  errored: 'fa-minus-circle error-text'
+};
 
 module.exports = function ($scope, $element) {
-  var socket = io.connect()
-    , dash = new Dashboard(socket, $scope);
+  var socket = io.connect();
+  var dash = new Dashboard(socket, $scope);
+
+  $scope.statusClasses = statusClasses;
   $scope.providers = global.providers
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $('#dashboard').show();
