@@ -13,61 +13,61 @@
   <body class="{% block bodyclass %}{% endblock %}">
     <div class="navbar navbar-fixed-top navbar-inverse">
       {% pluginblock TopNav %}
-      <div class="navbar-inner">
-        <div class="container-fluid">
-          <a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar">
-            <i class="fa fa-bars fa-lg"></i>
-          </a>
-          <a href="/" class="brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
-          <div class="nav-collapse StriderBlock_Nav">
+        <div class="navbar-inner">
+          <div class="container-fluid">
+            <a data-toggle="collapse" data-target=".nav-collapse" class="btn btn-navbar">
+              <i class="fa fa-bars fa-lg"></i>
+            </a>
+            <a href="/" class="brand StriderBlock_Brand">{% pluginblock Brand %}Strider{% endpluginblock %}</a>
 
-            {% pluginblock Nav %}
-              <ul class="nav">
-                <li><a href="/">Dashboard</a></li>
-                {% if currentUser %}
-                  <li><a href="/projects">Projects</a></li>
-                  <li><a href="/account">Account</a></li>
-                  {% if currentUser.account_level > 0 %}
-                    <li class='dropdown'>
-                      <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
-                      <ul class='dropdown-menu'>
-                        <li><a href='/admin/invites'>Invites</a></li>
-                        <li><a href='/admin/users'>Users</a></li>
-                        <li><a href='/admin/projects'>Projects</a></li>
-                        <li><a href='/admin/plugins'>Plugins</a></li>
-                      </ul>
+            <div class="nav-collapse StriderBlock_Nav">
+              {% pluginblock Nav %}
+                <ul class="nav">
+                  <li><a href="/">Dashboard</a></li>
+                  {% if currentUser %}
+                    <li><a href="/projects">Projects</a></li>
+                    <li><a href="/account">Account</a></li>
+                    {% if currentUser.account_level > 0 %}
+                      <li class='dropdown'>
+                        <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
+                        <ul class='dropdown-menu'>
+                          <li><a href='/admin/invites'>Invites</a></li>
+                          <li><a href='/admin/users'>Users</a></li>
+                          <li><a href='/admin/projects'>Projects</a></li>
+                          <li><a href='/admin/plugins'>Plugins</a></li>
+                        </ul>
+                    {% endif %}
                   {% endif %}
-                {% endif %}
-              </ul>
+                </ul>
 
-              {% if currentUser %}
-                <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
-                |  (<a href="/logout">logout</a>)</p>
-              {% endif %}
-            {% endpluginblock %}
-          </div>
-        </div>     
-        {% endpluginblock %}
-      </div>
+                {% if currentUser %}
+                  <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
+                  |  (<a href="/logout">logout</a>)</p>
+                {% endif %}
+              {% endpluginblock %}
+            </div>
+          </div>     
+        </div>
+      {% endpluginblock %}
     </div>
 
     <div class="wrap">
-    {% block fillContent %}
-      <div class="strider-fillpage content container-fluid">
-        <div class="body-content">
-          <div class="row-fluid">
-            <div class="span12">
-              {% block bodyContent %}
-              {% endblock %}
+      {% block fillContent %}
+        <div class="strider-fillpage content container-fluid">
+          <div class="body-content">
+            <div class="row-fluid">
+              <div class="span12">
+                {% block bodyContent %}
+                {% endblock %}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    {% endblock %}
+      {% endblock %}
     </div>
 
     <footer>
-      <p class='StriderBlock_FooterText'>
+      <p class="StriderBlock_FooterText">
         {% pluginblock FooterText %}
             <a href="http://stridercd.com/">Strider-CD</a>
           | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>

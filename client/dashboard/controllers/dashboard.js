@@ -1,5 +1,3 @@
-// TODO: cleanup comments
-/* global JobMonitor: true, io: true */
 'use strict';
 
 var $ = require('jquery');
@@ -8,19 +6,22 @@ var JobMonitor = require('../../utils/job-monitor');
 var io = require('socket.io-client');
 
 module.exports = function ($scope, $element) {
-  var socket = io.connect()
-    , dash = new Dashboard(socket, $scope);
+  var socket = io.connect();
+  var dash = new Dashboard(socket, $scope);
+
   $scope.providers = global.providers
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
-  $('#dashboard').show();
+
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
     socket.emit('deploy', job.project.name)
   };
+
   $scope.startTest = function (job) {
     $('.tooltip').hide();
     socket.emit('test', job.project.name)
   };
+
   $scope.cancelJob = function (id) {
     socket.emit('cancel', id)
   };
@@ -41,6 +42,7 @@ function cleanJob(job) {
 // - browser.update (event, args, access)
 function Dashboard(socket, $scope) {
   JobMonitor.call(this, socket, $scope.$digest.bind($scope));
+
   this.scope = $scope;
   this.scope.loadingJobs = false;
   this.scope.jobs = global.jobs;
