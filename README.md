@@ -40,7 +40,7 @@ For more details check out the [introductory chapter of the Strider Book][book-i
         - [Installing Plugins](#installing-plugins)
         - [Creating New Plugins](#creating-new-plugins)
     - [Heroku](#strider-on-heroku)
-- [Docker quickstart](#docker-quickstart)
+    - [Docker](#strider-in-docker)
 - [Require()'ing Strider](#requireing-strider)
 - [Extension & plugin guide](#extending--customizing-strider)
 - [Support & Help](#support--help)
@@ -201,19 +201,13 @@ heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-mult
 You might also want to set `DB_URI` if using a remote mongodb instance.
 
 
-## Docker Quickstart
+### Strider in Docker
 
-`docker pull niallo/strider`
+Many users like to run Strider within a Docker container.
+Although this works well, supporting it is outside the scope of the Strider project.
 
-For a fully self-contained and pre-built strider installation, check out
-the [Strider Trusted Build][pre-built].
-
-There's a walkthrough of setting it up [on our blog][blog-walkthrough].
-
-### Modular Docker Image
-
-Please see [docker-strider](https://github.com/keyvanfatehi/docker-strider)
-
+We recommend using [docker-strider](https://github.com/Strider-CD/docker-strider) as a base image when designing your Docker-based Strider installation.
+Please post related issues in the [issues section](https://github.com/Strider-CD/docker-strider/issues) for that repository.
 
 ## Require()'ing Strider
 
@@ -274,8 +268,6 @@ LLC][maintainer]. For commercial support, customization, integration
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [book-intro]: http://strider.readthedocs.org/en/latest/intro.html
 [roadmap]: https://github.com/Strider-CD/strider/blob/master/ROADMAP.md
-[pre-built]: https://index.docker.io/u/niallo/strider/
-[blog-walkthrough]: http://blog.frozenridge.co/docker-and-stridercd-brilliant-continuous-integration-in-a-box/
 [mongo-download]: http://www.mongodb.org/downloads
 [nodejs]: http://nodejs.org
 [resource-digitalocean]: http://fosterelli.co/creating-a-private-ci-with-strider.html
