@@ -89,6 +89,11 @@ Internet-accessible deployment the following variables will need to be exported:
     - `SMTP_PASS`: SMTP auth password e.g. "supersecret"
     - `SMTP_FROM`: Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
 
+Additional Configurations (you might need to follow these instructions if you use any of these, please do so before filing issues):
+    * [Github][github-config]
+    * [Bitbucket][bitbucket-config]
+    * [Gitlab][gitlab-config]
+    * [Heroku][heroku-config]
 
 ### Adding Initial Admin User
 
@@ -276,3 +281,7 @@ LLC][maintainer]. For commercial support, customization, integration
 [extending]: https://github.com/Strider-CD/strider-extension-loader
 [maintainer]: http://frozenridge.co
 [strider-cli]: https://github.com/Strider-CD/strider-cli
+[github-config]: https://github.com/Strider-CD/strider-github#required-configuration
+[bitbucket-config]: https://github.com/Strider-CD/strider-bitbucket#configuration
+[gitlab-config]: https://github.com/Strider-CD/strider-gitlab#setup
+[heroku-config]: https://github.com/Strider-CD/strider-heroku#important-config
