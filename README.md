@@ -41,7 +41,6 @@ For more details check out the [introductory chapter of the Strider Book][book-i
         - [Creating New Plugins](#creating-new-plugins)
     - [Heroku](#strider-on-heroku)
     - [Docker](#strider-in-docker)
-- [Require()'ing Strider](#requireing-strider)
 - [Extension & plugin guide](#extending--customizing-strider)
 - [Support & Help](#support--help)
 - [Roadmap / Changelog][roadmap]
@@ -188,25 +187,7 @@ For more information on the internals check out the new plugin that was generate
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 To get up and running quickly on Heroku, you can simply use the button above.
-If you run into any issues, you can deploy manually with the steps below.
-
-```no-highlight
-heroku create
-heroku addons:add mongolab
-heroku config:set BUILDPACK_URL=https://github.com/mbuchetics/heroku-buildpack-nodejs-grunt
-heroku config:set SERVER_NAME=https://[your-app-name].herokuapp.com
-git push heroku master
-heroku open
-```
-
-If you want support for languages other than Node.js and Python, you'll need to
-use the following buildpack to compose multiple buildpacks:
-
-```no-highlight
-heroku config:add BUILDPACK_URL=https://github.com/ddollar/heroku-buildpack-multi.git
-```
-
-You might also want to set `DB_URI` if using a remote mongodb instance.
+If you run into any issues, see the [wiki entry](https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku).
 
 
 ### Strider in Docker
@@ -217,34 +198,20 @@ Although this works well, supporting it is outside the scope of the Strider proj
 We recommend using [docker-strider](https://github.com/Strider-CD/docker-strider) as a base image when designing your Docker-based Strider installation.
 Please post related issues in the [issues section](https://github.com/Strider-CD/docker-strider/issues) for that repository.
 
-## Require()'ing Strider
-
-Strider can be `require()`-ed like any other NPM module. This is particularly useful when you want to
-
-- Make Strider a dependency at a specific version
-- Choose exactly which plugins to install
-- Customize configuration
-- Do other crazy stuff
-
-For example, you could have a project with its own `package.json` that depends
-on `strider` at a specific version, along with any other extensions you choose
-loaded from a particular filesystem location. Then you could write a simple
-initialization shim like the following:
-
-```JavaScript
-var strider = require('strider')
-
-var instance = strider("/path/to/extensions/dir", config, function(err, initialized, appInstance) {
-    console.log("Strider is now running")
-})
-```
-
 
 ## Resources
 
 - [Strider on DigitalOcean][resource-digitalocean] - Covers setting up an Ubuntu machine with Strider using upstart.
 - [Strider plugin template][resource-plugin-template] - Simple setup for getting started with your own plugin.
 - [Panamax Strider template][resource-panamax-template] - Strider template for use with Panamax.
+
+
+## Advanced Topics
+
+Advanced topics are located in the [Wiki](https://github.com/Strider-CD/strider/wiki), here's a small
+subset of what's covered:
+
+- [Requiring Strider](https://github.com/Strider-CD/strider/wiki/Requiring-Strider)
 
 ## Support & Help
 
