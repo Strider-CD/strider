@@ -35,13 +35,9 @@ For more details check out the [introductory chapter of the Strider Book][book-i
     - [Configuring](#configuring)
     - [Adding Users](#adding-initial-admin-user)
     - [Starting Strider](#starting-strider)
-    - [Managing Plugins](#managing-plugins)
-        - [Listing Available Plugins](#listing-available-plugins)
-        - [Installing Plugins](#installing-plugins)
-        - [Creating New Plugins](#creating-new-plugins)
     - [Heroku](#strider-on-heroku)
     - [Docker](#strider-in-docker)
-- [Extension & plugin guide](#extending--customizing-strider)
+- [Advanced Topics](#advanced-topics)
 - [Support & Help](#support--help)
 - [Roadmap / Changelog][roadmap]
 
@@ -132,56 +128,6 @@ Once `Strider` has been installed and configured, it can be started with:
 npm start
 ```
 
-### Managing Plugins
-
-Strider plugins are simply node modules, however managing them with npm can prove problematic. To combat this, the `strider` binary helps you manage plugins. You can use it to:
-
-- list local plugins
-- list remote plugins
-- install plugins
-- remove plugins
-- create new plugins
-
-#### Listing Available Plugins
-
-To list all plugins run `bin/strider list --all`
-
-The data is fetched from the official Strider [ecosystem index](https://github.com/Strider-CD/ecosystem-index) with version numbers cross-referenced against your locally installed plugins.
-
-#### Installing Plugins
-
-If you found a plugin that you'd like to install, let's say it's called `strider-sweet-plugin` you can do so easily
-
-Just run `bin/strider install strider-sweet-plugin`
-
-First we check to see if you've got it installed already. If not, we look it up in the [ecosystem index](https://github.com/Strider-CD/ecosystem-index) to find out which github repository and tag to clone. Finally we npm install and restart strider if it's running.
-
-Please note that the restart technique will only work if you're using `bin/strider` to run strider. Otherwise you'll need to manually restart strider.
-
-#### Creating New Plugins
-
-To get started, run `bin/strider init`
-
-```no-highlight
-plugin: name:  strider-sweet-plugin
-plugin: description:  Candy and stuff!
-plugin: author:
-Cloning into '/Users/keyvan/Projects/Strider-CD/strider/node_modules/strider-sweet-plugin'...
-remote: Counting objects: 20, done.
-remote: Total 20 (delta 0), reused 0 (delta 0)
-Unpacking objects: 100% (20/20), done.
-Checking connectivity... done.
-
-A strider plugin template has been prepared for you in the following directory
-        /Users/keyvan/Projects/Strider-CD/strider/node_modules/strider-sweet-plugin
-Please view the README and begin editing the package.json.
-Make sure to change the git remote to wherever you're hosting your plugin source code
-When you're ready to publish, submit a pull request to https://github.com/Strider-CD/strider-plugins
-If you have any questions or need help, you can find us in irc.freenode.net #strider
-```
-
-For more information on the internals check out the new plugin that was generated. Many features of Strider plugins are shown and well-commented. For more details about extending Strider check out [existing plugins](https://github.com/Strider-CD?query=strider-) or [strider-extension-loader][extending]
-
 ### Strider on Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
@@ -212,6 +158,7 @@ Advanced topics are located in the [Wiki](https://github.com/Strider-CD/strider/
 subset of what's covered:
 
 - [Requiring Strider](https://github.com/Strider-CD/strider/wiki/Requiring-Strider)
+- [Managing Plugins](https://github.com/Strider-CD/strider/wiki/Managing-Plugins)
 
 ## Support & Help
 
