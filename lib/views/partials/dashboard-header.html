@@ -1,7 +1,9 @@
 <thead>
-  {% if !public %}<th class="deploy-header"></th>{% endif %}
   <th class="job-header">Job</th>
-  {% if !public %}<th class="refresh-header"></th>{% endif %}
+  {% if !public %}
+    <th class="deploy-header"></th>
+    <th class="refresh-header"></th>
+  {% endif %}
   <th>Project</th>
   <th class="history"></th>
   <th class="committer-header"></th>

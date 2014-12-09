@@ -11,7 +11,7 @@
       content: " "; /* 1 */
       display: table; /* 2 */
   }
-  
+
   &:after {
       clear: both;
   }
@@ -74,16 +74,12 @@
 }
 
 .branch-actions {
-  margin-bottom: 1em;
+  margin-bottom: 10px;
 
-  a.btn {
+  .btn {
     box-sizing: border-box;
     width: 50%;
   }
-}
-
-.btn-block {
-  width: 100%;
 }
 
 .spaced-group {
@@ -92,7 +88,7 @@
 
 .tab-pane.plugin-tab {
   position: relative;
-  
+
   .disabled-note {
     position: absolute;
     top: 0;
@@ -145,7 +141,7 @@
   &.disabled {
     background-color: #ccc;
   }
-  
+
   input {
     display: inline;
   }
@@ -210,10 +206,9 @@
     width: 200px;
     margin-bottom: 0;
   }
-  
+
   .access-toggle {
     display: inline-block;
-    margin-bottom: -11px;
   }
 }
 
@@ -318,9 +313,9 @@
     }
 
     > :first-child {
+      width: 50px;
       border-top-left-radius: 15px;
       border-bottom-left-radius: 15px;
-      padding-left: 10px;
     }
 
     > :last-child {

@@ -1,5 +1,7 @@
 'use strict';
 
+var plugins = global.plugins || {};
+
 module.exports = function($http, $timeout) {
   this.idle = true
   this.status = 'idle'
@@ -40,16 +42,16 @@ module.exports = function($http, $timeout) {
   }
 
   this.perform = function(action, cb) {
-    this.status = 'requesting '+action
+    this.status = "Installing "+this.id;
     this.idle = false;
     return $http.put('/admin/plugins', {
       action: action,
       id: this.id
     }).success(function(data, status, headers, config) {
-      this.status = action+' in progress';
+      this.status = 'Restarting';
       $timeout(function() {
         waitForRestart(function() {
-          this.status = 'done'
+          this.status = 'Done'
           this.idle = true
           cb()
         }.bind(this))

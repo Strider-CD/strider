@@ -1,1 +1,1 @@
-web: node bin/strider
+web: npm start

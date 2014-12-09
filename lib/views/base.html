@@ -26,7 +26,6 @@
                 <li><a href="/">Dashboard</a></li>
                 {% if currentUser %}
                   <li><a href="/projects">Projects</a></li>
-                  <li><a href="/account">Account</a></li>
                   {% if currentUser.account_level > 0 %}
                     <li class='dropdown'>
                       <a href = '#' class='dropdown-toggle' data-toggle='dropdown'>Admin</a>
@@ -41,12 +40,23 @@
               </ul>
 
               {% if currentUser %}
-                <p class='navbar-text pull-right logged-in'>Logged in as {{ currentUser.email }}
-                |  (<a href="/logout">logout</a>)</p>
+                <ul class="nav pull-right">
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <img src="{{ currentUser.gravatar }}" class="img-circle current-user-gravatar">
+                      {{ currentUser.email }} <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li><a href="/account"><i class="fa fa-user"></i> Account</a></li>
+                      <li class="divider"></li>
+                      <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+                    </ul>
+                  </li>
+                </ul>
               {% endif %}
             {% endpluginblock %}
           </div>
-        </div>     
+        </div>
         {% endpluginblock %}
       </div>
     </div>
