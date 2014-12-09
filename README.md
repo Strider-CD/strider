@@ -89,11 +89,14 @@ Internet-accessible deployment the following variables will need to be exported:
     - `SMTP_PASS`: SMTP auth password e.g. "supersecret"
     - `SMTP_FROM`: Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
 
-Additional Configurations (you might need to follow these instructions if you use any of these, please do so before filing issues):
-    * [Github][github-config]
-    * [Bitbucket][bitbucket-config]
-    * [Gitlab][gitlab-config]
-    * [Heroku][heroku-config]
+#### Additional Configurations
+
+You might need to follow these instructions if you use any of these, please do so before filing issues.
+
+- [Github][github-config]  
+- [Bitbucket][bitbucket-config]  
+- [Gitlab][gitlab-config]  
+- [Heroku][heroku-config]  
 
 ### Adding Initial Admin User
 
