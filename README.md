@@ -67,22 +67,17 @@ npm install
 values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
-  - `HOST` : Host where strider listens, optional (defaults to 0.0.0.0).
-  - `PORT` : Port that strider runs on, optional (defaults to 3000).
-  - `DB_URI` : MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
-  - `SERVER_NAME` : Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash)
-  - `PLUGIN_GITHUB_APP_ID`, `PLUGIN_GITHUB_APP_SECRET`: Github app ID & secret (assuming not running on localhost:3000) - you can register a new one
-  at https://github.com/settings/applications/new - the Main URL should be the same as server name above,
-  and the callback URL should be server name with the path /auth/github/callback.
-  E.g. https://strider.example.com/auth/github/callback
-  - `PLUGIN_BITBUCKET_APP_KEY`, `PLUGIN_BITBUCKET_APP_SECRET`, `PLUGIN_BITBBUCKET_HOSTNAME`: BitBucket app key, secret & server hostname. Needed if you're using BitBucket provider. More info at https://github.com/Strider-CD/strider-bitbucket.
-
+  - `SERVER_NAME` - Required; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash)
+  - `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
+  - `PORT` - Port that strider runs on, optional (defaults to 3000).
+  - `DB_URI` - MongoDB DB URI if not localhost (you can safely use MongoLab free plan - works great)
+ 
   - If you want email notifications, configure an SMTP server (we recommend Mailgun for SMTP if you need a server - free account gives 200 emails / day):
-    - `SMTP_HOST`: SMTP server hostname e.g. smtp.example.com
-    - `SMTP_PORT`: SMTP server port e.g. 587 (default)
-    - `SMTP_USER`: SMTP auth username e.g. "myuser"
-    - `SMTP_PASS`: SMTP auth password e.g. "supersecret"
-    - `SMTP_FROM`: Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
+    - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
+    - `SMTP_PORT` - SMTP server port e.g. 587 (default)
+    - `SMTP_USER` - SMTP auth username e.g. "myuser"
+    - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
+    - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
 
 #### Additional Configurations
 
