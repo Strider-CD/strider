@@ -113,18 +113,25 @@ module.exports = function ($scope, $route, $location, $filter) {
     }
     // don't refresh the page
     $route.current = lastRoute;
+
     if (jobid !== params.id) {
       jobid = params.id;
+
       var cached = jobman.get(jobid, function (err, job, cached) {
         setupPhases(job.phases, 'test');
         $scope.job = job;
+
         if ($scope.job.phases.test.commands.length) {
           setupPhases(job.phases, 'test');
         }
-        if (!cached) $scope.$digest();
+
+        if (!cached) {
+          $scope.$digest();
+        }
       });
+
       if (!cached) {
-        for (var i=0; i<$scope.jobs.length; i++) {
+        for (var i = 0; i < $scope.jobs.length; i++) {
           if ($scope.jobs[i]._id === jobid) {
             $scope.job = $scope.jobs[i];
             break;
