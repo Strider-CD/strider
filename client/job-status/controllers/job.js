@@ -9,23 +9,23 @@ var PHASES = require('../../utils/phases');
 var SKELS = require('../../utils/skels');
 var job = global.job;
 var runtime = null;
-var outputConsole;
 
 module.exports = function ($scope, $route, $location, $filter) {
-  var params = $route.current ? $route.current.params : {}
-    , project = global.project
-    , jobid = params.id || (global.job && global.job._id)
-    , socket = io.connect()
-    , lastRoute = $route.current
-    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job)
+  var params = $route.current ? $route.current.params : {};
+  var project = global.project;
+  var jobid = params.id || (global.job && global.job._id);
+  var socket = io.connect();
+  var lastRoute = $route.current;
+  var jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job);
+  var outputConsole = global.document.querySelector('.console-output');
 
-  outputConsole = global.document.querySelector('.console-output');
   $scope.phases = PHASES;
   $scope.project = project;
   $scope.jobs = global.jobs;
   $scope.job = global.job;
   $scope.canAdminProject = global.canAdminProject
   $scope.showStatus = global.showStatus;
+
   $scope.tabIcon = function (phase) {
     if (!phase) {
       return'fa-circle-o';
@@ -72,16 +72,8 @@ module.exports = function ($scope, $route, $location, $filter) {
           phase.queued = true;
         }
       }
-    }); 
+    });
   }
-
-  /*
-  var now = new Date().getTime()
-  $scope.sortDate = function (item) {
-    if (!item.finished) return new Date().getTime();
-    return new Date(item.finished).getTime();
-  };
-  */
 
   $scope.toggleErrorDetails = function () {
     if ($scope.showErrorDetails) {
@@ -113,8 +105,12 @@ module.exports = function ($scope, $route, $location, $filter) {
       global.location = global.location;
       return;
     }
-    params = $route.current.params;
-    if (!params.id) params.id = $scope.jobs[0]._id;
+
+    params = $route.current ? $route.current.params : {};
+
+    if (!params.id) {
+      params.id = $scope.jobs[0]._id;
+    }
     // don't refresh the page
     $route.current = lastRoute;
     if (jobid !== params.id) {
