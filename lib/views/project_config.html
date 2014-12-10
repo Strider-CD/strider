@@ -50,16 +50,9 @@
               ng-change="switchToBranch(branch.name)"
               ng-model="branch">
             </select>
-
-            <div class="spaced-group" ng-hide="branch.really_mirror_master"
-                ng-if="!!branch.mirror_master">
-              <button class="btn btn-default btn-block" ng-click="toggleBranch()">
-                Customize Branch
-              </button>
-            </div>
           </span>
 
-          <div class="branch-actions btn-group btn-block" ng-hide="branch.mirror_master">
+          <div class="branch-actions btn-group btn-block">
             <button type="button"
               class="btn btn-primary"
               ng-hide="branch.name.indexOf('*') > -1"
