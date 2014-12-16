@@ -17,11 +17,13 @@ In simple mode:
 Example, using all possible keys:
 
 ```json
-{ "deploy_on_green": false,
-  environment: 'npm set registry https://whatever',
-  prepare: 'npm install',
+{
+  "deploy_on_green": false,
+  "environment": "npm set registry https://whatever",
+  "prepare": "npm install",
   "test": "mocha --recursive test/unit",
-  cleanup: 'rm -f some stuff' }
+  "cleanup": "rm -f some stuff"
+}
 ```
 
 ## Normal Mode
