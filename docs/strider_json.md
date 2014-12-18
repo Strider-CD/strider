@@ -22,6 +22,7 @@ Example, using all possible keys:
   "environment": "npm set registry https://whatever",
   "prepare": "npm install",
   "test": "mocha --recursive test/unit",
+  "deploy": "would not run in this case",
   "cleanup": "rm -f some stuff"
 }
 ```
