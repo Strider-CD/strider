@@ -72,7 +72,7 @@ Internet-accessible deployment the following variables will need to be exported:
   - `PORT` - Port that strider runs on, optional (defaults to 3000).
   - `DB_URI` - MongoDB DB URI if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
  
-  - If you want email notifications, configure an SMTP server (we recommend Mailgun for SMTP if you need a server - free account gives 200 emails / day):
+  - If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
     - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
     - `SMTP_PORT` - SMTP server port e.g. 587 (default)
     - `SMTP_USER` - SMTP auth username e.g. "myuser"
@@ -184,6 +184,7 @@ LLC][maintainer]. For commercial support, customization, integration
 [screenshot]: /docs/screenshots/dashboard.jpg?raw=true
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [mongolab]: https://mongolab.com/plans/pricing/
+[mailgun]: http://www.mailgun.com/pricing
 [book-intro]: http://strider.readthedocs.org/en/latest/intro.html
 [roadmap]: https://github.com/Strider-CD/strider/blob/master/ROADMAP.md
 [mongo-download]: http://www.mongodb.org/downloads
