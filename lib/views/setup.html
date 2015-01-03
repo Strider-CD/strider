@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+  <div class="row-fluid" ng-app="setup" ng-controller="Setup" class="ng-cloak">
+    {% for messages in flash %}
+      {% for message in messages %}
+        <div class="alert alert-info">{{ message|raw }}</div>
+      {% endfor %}
+    {% endfor %}
+
+    <h3>Setup Strider</h3>
+
+    <div class="row-fluid">
+      <div class="span6">
+        <form class="strider-basics">
+          <fieldset>
+            <legend>Basics</legend>
+
+            <label for="basic-servername">Server Name</label>
+            <input id="basic-servername" type="text" placeholder="Publically visible url" required=true>
+            <span class="help-block">Publicaly accessible URL for this instance of Strider, e.g. ci.mydomain.com</span>
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="span6">
+        <form class="strider-db">
+          <fieldset>
+            <legend>Database</legend>
+
+            <label>Host</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>Port</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>User</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>Password</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span6">
+        <form class="strider-db">
+          <fieldset>
+            <legend>Email</legend>
+
+            <label>Host</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>Port</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>User</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>Password</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>From Email Address</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+          </fieldset>
+        </form>
+      </div>
+
+      <div class="span6">
+        <form class="strider-admin">
+          <fieldset>
+            <legend>Admin User</legend>
+
+            <label>Email</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>Password</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+
+            <label>Password Confirm</label>
+            <input type="text" placeholder="Type something…">
+            <span class="help-block">Example block-level help text here.</span>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div class="row-fluid">
+      <div class="span12">
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
