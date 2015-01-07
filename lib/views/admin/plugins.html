@@ -27,7 +27,7 @@
       {% for plugin in plugins %}
       <tr ng-cloak class="ng-cloak" ng-controller="PluginController as plugin" ng-init='plugin.loadPlugin("{{ loop.key }}")'>
         <td>
-          <a href="[[ plugin.url ]]" target="blank">[[ plugin.id ]]</a>
+          <a href="[[ plugin.url ]]" target="blank" title="[[ plugin.id ]]">[[ plugin.name ]]</a>
         </td>
         <td>
           [[ plugin.description ]]
