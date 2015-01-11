@@ -4,7 +4,11 @@ module.exports = function($http, $timeout) {
   this.busy = false;
 
   this.hasUpgrades = function() {
-    $('.autoupgrade').length > 0
+    for (var name in plugins) {
+      var plugin = plugins[name];
+      if (plugin.outdated) return true;
+    }
+    return $('.autoupgrade').length > 0;
   }
 
   this.upgradeAll = function() {
