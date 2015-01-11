@@ -11,8 +11,8 @@
 </script>
 
 <div ng-app="PluginManager" ng-controller="PluginTableController as table">
-  <a ng-if="table.hasUpgrades()" ng-disabled="table.busy" class="btn btn-warning pull-right"
-    ng-click="table.upgradeAll()">Upgrade All</a>
+  <button ng-if="table.hasUpgrades()" ng-disabled="table.busy" class="btn btn-warning pull-right"
+    ng-click="table.upgradeAll()">Upgrade All</button>
 
   <h3>Plugin Manager</h3>
 
@@ -58,18 +58,18 @@
           </div>
           <div ng-show="plugin.idle">
 
-            <a ng-disabled="table.busy || !plugin.idle"
+            <button ng-disabled="table.busy || !plugin.idle"
               ng-if="plugin.installed" class="btn btn-danger"
-              ng-click="table.uninstall(plugin)">Uninstall</a>
+              ng-click="table.uninstall(plugin)">Uninstall</button>
 
-            <a ng-disabled="table.busy || !plugin.idle"
+            <button ng-disabled="table.busy || !plugin.idle"
               ng-if="plugin.installed && plugin.outdated"
-              class="btn btn-warning autoupgrade"
-              ng-click="table.upgrade(plugin)">Upgrade</a>
+              class="btn btn-warning"
+              ng-click="table.upgrade(plugin)">Upgrade</button>
 
-            <a ng-disabled="table.busy || !plugin.idle"
+            <button ng-disabled="table.busy || !plugin.idle"
               ng-if="!plugin.installed" class="btn btn-primary"
-              ng-click="table.install(plugin)">Install</a>
+              ng-click="table.install(plugin)">Install</button>
 
           </div>
         </td>
