@@ -9,6 +9,7 @@ module.exports = function($http, $timeout) {
   this.loadPlugin = function(id) {
     this.id = id
     this.plugin = plugins[id]
+    this.plugin.controller = this;
     for (var key in this.plugin) {
       this[key] = this.plugin[key]
     }
@@ -16,7 +17,8 @@ module.exports = function($http, $timeout) {
   }
 
   this.upgrade = function(cb) {
-    this.perform('upgrade', function() {
+    this.perform('upgrade', function(err) {
+      if (err) return cb(err);
       this.installed = true;
       this.outdated = false;
       this.installedVersion = this.latestVersion;

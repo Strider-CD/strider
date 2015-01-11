@@ -11,7 +11,13 @@
 </script>
 
 <div ng-app="PluginManager" ng-controller="PluginTableController as table">
+  <div ng-cloak class="ng-cloak">
+    <button ng-if="table.hasUpgrades" ng-disabled="table.busy" class="btn btn-warning pull-right"
+      ng-click="table.upgradeAll()">Upgrade All</button>
+  </div>
+
   <h3>Plugin Manager</h3>
+
   <table class="table-bordered table-striped table">
     <thead>
       <tr>
@@ -54,18 +60,18 @@
           </div>
           <div ng-show="plugin.idle">
 
-            <a ng-disabled="table.busy || !plugin.idle"
+            <button ng-disabled="table.busy || !plugin.idle"
               ng-if="plugin.installed" class="btn btn-danger"
-              ng-click="table.uninstall(plugin)">Uninstall</a>
+              ng-click="table.uninstall(plugin)">Uninstall</button>
 
-            <a ng-disabled="table.busy || !plugin.idle"
+            <button ng-disabled="table.busy || !plugin.idle"
               ng-if="plugin.installed && plugin.outdated"
               class="btn btn-warning"
-              ng-click="table.upgrade(plugin)">Upgrade</a>
+              ng-click="table.upgrade(plugin)">Upgrade</button>
 
-            <a ng-disabled="table.busy || !plugin.idle"
+            <button ng-disabled="table.busy || !plugin.idle"
               ng-if="!plugin.installed" class="btn btn-primary"
-              ng-click="table.install(plugin)">Install</a>
+              ng-click="table.install(plugin)">Install</button>
 
           </div>
         </td>
