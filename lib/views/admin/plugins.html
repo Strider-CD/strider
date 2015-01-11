@@ -11,8 +11,10 @@
 </script>
 
 <div ng-app="PluginManager" ng-controller="PluginTableController as table">
-  <button ng-if="table.hasUpgrades()" ng-disabled="table.busy" class="btn btn-warning pull-right"
-    ng-click="table.upgradeAll()">Upgrade All</button>
+  <div ng-cloak class="ng-cloak">
+    <button ng-if="table.hasUpgrades" ng-disabled="table.busy" class="btn btn-warning pull-right"
+      ng-click="table.upgradeAll()">Upgrade All</button>
+  </div>
 
   <h3>Plugin Manager</h3>
 
