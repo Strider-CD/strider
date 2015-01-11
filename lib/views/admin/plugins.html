@@ -11,7 +11,11 @@
 </script>
 
 <div ng-app="PluginManager" ng-controller="PluginTableController as table">
+  <a ng-if="table.hasUpgrades()" ng-disabled="table.busy" class="btn btn-warning pull-right"
+    ng-click="table.upgradeAll()">Upgrade All</a>
+
   <h3>Plugin Manager</h3>
+
   <table class="table-bordered table-striped table">
     <thead>
       <tr>
@@ -60,7 +64,7 @@
 
             <a ng-disabled="table.busy || !plugin.idle"
               ng-if="plugin.installed && plugin.outdated"
-              class="btn btn-warning"
+              class="btn btn-warning autoupgrade"
               ng-click="table.upgrade(plugin)">Upgrade</a>
 
             <a ng-disabled="table.busy || !plugin.idle"

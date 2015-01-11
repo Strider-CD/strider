@@ -3,6 +3,14 @@
 module.exports = function($http, $timeout) {
   this.busy = false;
 
+  this.hasUpgrades = function() {
+    $('.autoupgrade').length > 0
+  }
+
+  this.upgradeAll = function() {
+    $('.autoupgrade').click();
+  }
+
   this.uninstall = function(plugin) {
     this.busy = true;
     plugin.uninstall(function(err) {
