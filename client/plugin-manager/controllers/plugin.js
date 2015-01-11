@@ -25,7 +25,8 @@ module.exports = function($http, $timeout) {
   }
 
   this.install = function(cb) {
-    this.perform('install', function() {
+    this.perform('install', function(err) {
+      if (err) return cb(err);
       this.installed = true;
       this.installedVersion = this.latestVersion;
       cb();

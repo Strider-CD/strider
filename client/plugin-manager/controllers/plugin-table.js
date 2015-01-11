@@ -16,7 +16,11 @@ module.exports = function($http, $timeout) {
 
   this.install = function(plugin) {
     this.busy = true;
-    plugin.install(function() {
+    plugin.install(function(err) {
+      if (err) {
+        global.alert(err.message);
+      }
+
       this.busy = false;
     }.bind(this))
   }
