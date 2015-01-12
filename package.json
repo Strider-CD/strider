@@ -143,7 +143,6 @@
     "less": "^1.7.5",
     "mkdirp": "^0.5.0",
     "mocha": "^1.21.4",
-    "mocha-as-promised": "^2.0.0",
     "path-to-regexp": "^1.0.2",
     "should": "^2.1.0",
     "sinon": "^1.10.3",
