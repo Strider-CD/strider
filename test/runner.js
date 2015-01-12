@@ -6,8 +6,6 @@ var async = require('async')
   , chai = require("chai")
   , chaiAsPromised = require("chai-as-promised")
 
-
-require('mocha-as-promised')()
 chai.use(chaiAsPromised)
 chai.should()
 chaiAsPromised.transferPromiseness = wd.transferPromiseness
