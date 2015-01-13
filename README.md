@@ -1,7 +1,7 @@
 # ![Strider][logo]
 
-[![NPM][npm-badge-img]][npm-badge-link]
-[![Code Climate][cc-badge]][cc-badge-link]
+[![NPM][npm-badge-img]][npm-badge-link]  
+[![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link]
 ---
 
 
@@ -202,3 +202,5 @@ LLC][maintainer]. For commercial support, customization, integration
 [heroku-config]: https://github.com/Strider-CD/strider-heroku#important-config
 [cc-badge]: https://codeclimate.com/github/Strider-CD/strider/badges/gpa.svg
 [cc-badge-link]: https://codeclimate.com/github/Strider-CD/strider
+[david-badge]: https://david-dm.org/Strider-CD/strider.svg
+[david-badge-link]: https://david-dm.org/Strider-CD/strider
