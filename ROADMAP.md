@@ -2,7 +2,14 @@
 
 # Upcoming Releases
 
-## 1.6.0
+## 1.7.0
+
+- ...
+
+
+# Changelog / Past releases
+
+## 1.6.0 - 2015-01-10
 
 - Docker support in core.
 - Bring back password reset.
@@ -19,8 +26,6 @@
 - strider-cli moved out
 - etc..
 
-
-# Changelog / Past releases
 
 ## 1.5.0 - 2014-08-18
 
