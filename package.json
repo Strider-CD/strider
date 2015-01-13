@@ -39,22 +39,17 @@
     ]
   },
   "scripts": {
+    "postinstall": "bower install --config.interactive=false --allow-root && npm run build",
     "test": "make test",
     "start": "bin/strider",
-    "dev": "npm run build-debug && bin/strider",
+    "watch": "gulp build --watch",
+    "build": "gulp build",
+    "unitcov": "istanbul cover _mocha --recursive test/unit",
+    "unitdev": "mocha -w --recursive test/unit -R min",
     "blanket": {
       "pattern": "lib",
       "data-cover-never": "node_modules"
-    },
-    "postinstall": "bower install --config.interactive=false --allow-root && npm run build",
-    "pre": "mkdirp dist/scripts dist/styles",
-    "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
-    "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
-    "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -e client/app.js -o dist/scripts/app.js",
-    "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
-    "unitcov": "istanbul cover _mocha --recursive test/unit",
-    "unitdev": "mocha -w --recursive test/unit -R min"
+    }
   },
   "dependencies": {
     "MD5": "^1.2.1",
@@ -132,20 +127,25 @@
   "devDependencies": {
     "blanket": "^1.1.5",
     "bower": "^1.3.12",
-    "browserify": "^6.3.3",
+    "browserify": "^8.1.0",
     "browserify-shim": "^3.8.0",
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.0",
     "commander": ">=0.5.2",
+    "del": "^1.1.1",
     "expect.js": "^0.3.1",
+    "gulp": "git://github.com/gulpjs/gulp#4.0",
+    "gulp-less": "^2.0.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-util": "^3.0.2",
     "jshint": "^2.5.6",
-    "less": "^2.2.0",
-    "mkdirp": "^0.5.0",
     "mocha": "^1.21.4",
     "path-to-regexp": "^1.0.2",
     "should": "^2.1.0",
     "sinon": "^1.10.3",
-    "watchify": "^0.10.2",
-    "wd": "^0.3.8"
+    "vinyl-source-stream": "^1.0.0",
+    "watchify": "^2.2.1",
+    "wd": "^0.3.8",
+    "yargs": "^1.3.3"
   }
 }
