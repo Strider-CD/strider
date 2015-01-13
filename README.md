@@ -1,6 +1,7 @@
 # ![Strider][logo]
 
 [![NPM][npm-badge-img]][npm-badge-link]
+[![Code Climate][cc-badge]][cc-badge-link]
 ---
 
 
@@ -199,3 +200,5 @@ LLC][maintainer]. For commercial support, customization, integration
 [bitbucket-config]: https://github.com/Strider-CD/strider-bitbucket#configuration
 [gitlab-config]: https://github.com/Strider-CD/strider-gitlab#setup
 [heroku-config]: https://github.com/Strider-CD/strider-heroku#important-config
+[cc-badge]: https://codeclimate.com/github/Strider-CD/strider/badges/gpa.svg
+[cc-badge-link]: https://codeclimate.com/github/Strider-CD/strider
