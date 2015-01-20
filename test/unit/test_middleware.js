@@ -36,7 +36,7 @@ describe('middleware', function() {
     });
   });
 
-  describe("#require_params()", function() {
+  describe("#requireParams()", function() {
     it("should fallthrough if all params are present", function() {
       var mock_req = {
         params: {
@@ -49,7 +49,7 @@ describe('middleware', function() {
       };
       var response_api = {end: function() {}};
 
-      middleware.require_params(["org", "repo"])(mock_req, response_api,
+      middleware.requireParams(["org", "repo"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
 
       response_api.statusCode.should.eql(200);
@@ -65,9 +65,9 @@ describe('middleware', function() {
         }
       };
       var body;
-      var response_api = {end: function(b) {body = b;}};
+      var response_api = { status: function(s) { return { json: function (b) { body = b; } }}};
 
-      middleware.require_params(["org", "repo"])(mock_req, response_api,
+      middleware.requireParams(["org", "repo"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
 
       response_api.statusCode.should.eql(400);
@@ -87,7 +87,7 @@ describe('middleware', function() {
       var body;
       var response_api = {end: function(b) {body = b;}};
 
-      middleware.require_params(["org", "repo"])(mock_req, response_api,
+      middleware.requireParams(["org", "repo"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
 
       response_api.statusCode.should.eql(400);
