@@ -123,7 +123,7 @@ See the [strider-cli] for more details.
 Once `Strider` has been installed and configured, it can be started with:
 
 ```no-highlight
-npm start
+NODE_ENV=production npm start
 ```
 
 ### Strider on Heroku
