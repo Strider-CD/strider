@@ -122,7 +122,6 @@
     "strider-simple-runner": "^0.13.1",
     "strider-slack": "^2.0.0",
     "strider-ssh-deploy": "^0.4.0",
-    "stylus": "^0.49.1",
     "superagent": "^0.21.0",
     "swig": "^0.14.0",
     "thirty-two": "0.0.2",
