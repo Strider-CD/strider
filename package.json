@@ -46,7 +46,7 @@
       "pattern": "lib",
       "data-cover-never": "node_modules"
     },
-    "postinstall": "bower install --config.interactive=false --allow-root && npm run build",
+    "postinstall": "bower install --allow-root && npm run build",
     "pre": "mkdirp dist/scripts dist/styles",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
