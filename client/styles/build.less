@@ -58,11 +58,12 @@ body.job_view .body-content {
 }
 
 .footer {
-  color: white;
+  color: #666;;
+  border: 1px solid #ddd;
   font-weight: bold;
   text-align: center;
   padding-bottom: 2px;
-  background-color: #444;
+  background-color: #FFF;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -78,18 +79,45 @@ body.job_view .body-content {
   }
 
   .footer a {
-    color: white
+    color: #4F8DBA;
+    font-weight: normal;
   }
 }
 
 .console-output {
-  max-height: 600px;
-  overflow-y: auto;
-  overflow-x: visible; 
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   -webkit-flex: 1;
   flex: 1;
+
+  .nav-tabs {
+    background-color: transparent;
+    margin-bottom: 0;
+
+    .phase {
+      .active {
+        font-weight: bold;
+      }
+
+      &.disabled {
+        font-weight: normal;
+
+        &, .fa {
+          color: #999;
+        }
+
+        a {
+          cursor: default !important;
+          border: 1px solid transparent;
+
+          &:hover {
+            background-color: transparent;
+            color: #000 !important;
+          }
+        }
+      }
+    }
+  }
 
   .prompt {
     color: yellow;
@@ -111,6 +139,34 @@ body.job_view .body-content {
     }
   }
 
+  .phase-content {
+    .meta {
+      background-color: #fff;
+      color: #333;
+      border: 1px solid #ddd;
+      border-top: 0;
+      padding: 0.5em;
+
+      time {
+        width: 41px;
+        display: inline-block;
+        text-align: right;
+      }
+
+      .plugin {
+        color: #09a;
+      }
+    }
+  }
+
+  .commands {
+    overflow-y: auto;
+    overflow-x: visible;
+    min-height: 200px;
+    max-height: 600px;
+    background-color: #333;
+  }
+
   .command {
     &.comment {
       .title {
@@ -120,6 +176,7 @@ body.job_view .body-content {
       }
     }
 
+
     > .title {
       cursor: pointer;
       padding-right: 10px;
@@ -127,25 +184,11 @@ body.job_view .body-content {
       &:hover {
         background-color: #222;
       }
-      
-      .meta {
-        color: #999;
-
-        time {
-          width: 41px;
-          display: inline-block;
-          text-align: right;
-        }
-
-        .plugin {
-          color: #09a;
-        }
-      }
     }
   }
 
   &, pre {
-    background-color: black;
+    background-color: #FFFFFF;
     font-family: monospace;
     color: white;
   }
@@ -155,6 +198,7 @@ body.job_view .body-content {
     margin: 0;
     border-radius: 0;
     border-width: 0;
+    background-color: #333;
   }
 
   .phase {
@@ -169,8 +213,6 @@ body.job_view .body-content {
       }
 
     }
-
-    margin-bottom: 10px;
 
     &:last-child {
       margin-bottom: 0;
@@ -210,7 +252,7 @@ body.job_view footer {
 @media (max-width: 768px) {
   pre.console-output {
     position: static;
-    max-height: 500px; 
+    max-height: 500px;
   }
   body.job_view #build-metadata .span3 {
     display: inline-block;

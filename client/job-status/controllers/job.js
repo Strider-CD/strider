@@ -7,44 +7,73 @@ var io = require('socket.io-client');
 var JobDataMonitor = require('../../utils/job-data-monitor');
 var PHASES = require('../../utils/phases');
 var SKELS = require('../../utils/skels');
-var outputConsole;
-var runtime = null;
 var job = global.job;
+var runtime = null;
 
 module.exports = function ($scope, $route, $location, $filter) {
-  var params = $route.current ? $route.current.params : {}
-    , project = global.project
-    , jobid = params.id || (global.job && global.job._id)
-    , socket = io.connect()
-    , lastRoute = $route.current
-    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job)
+  var params = $route.current ? $route.current.params : {};
+  var project = global.project;
+  var jobid = params.id || (global.job && global.job._id);
+  var socket = io.connect();
+  var lastRoute = $route.current;
+  var jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job);
+  var outputConsole = global.document.querySelector('.console-output');
 
-  outputConsole = global.document.querySelector('.console-output');
-  $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
+  $scope.phases = PHASES;
   $scope.project = project;
   $scope.jobs = global.jobs;
   $scope.job = global.job;
   $scope.canAdminProject = global.canAdminProject
   $scope.showStatus = global.showStatus;
+
+  $scope.tabIcon = function (phase) {
+    if (!phase) {
+      return'fa-circle-o';
+    }
+
+    if (phase.running || (phase.started && !phase.finished)) {
+      return 'fa-spin fa-gear';
+    }
+
+    if (phase.queued) {
+      return 'fa-circle';
+    }
+    else {
+      if (phase.finished) {
+        if (phase.exitCode === 0) {
+          return 'fa-check-circle success-text';
+        }
+        else {
+          return 'fa-exclamation-circle failure-text';
+        }
+      }
+
+      return 'fa-circle-o';
+    }
+  };
+
   if ($scope.job && $scope.job.phases.test.commands.length) {
-    if (job.phases.environment) {
-      job.phases.environment.collapsed = true;
-    }
-    if (job.phases.prepare) {
-      job.phases.prepare.collapsed = true;
-    }
-    if (job.phases.cleanup) {
-      job.phases.cleanup.collapsed = true;
-    }
+    setupPhases(job.phases, 'test');
   }
 
-  /*
-  var now = new Date().getTime()
-  $scope.sortDate = function (item) {
-    if (!item.finished) return new Date().getTime();
-    return new Date(item.finished).getTime();
-  };
-  */
+  function setupPhases(phases, type) {
+    _.forEach(phases, function (phase, name) {
+      if (type === 'test' && name === 'deploy') {
+        return;
+      }
+
+      if (PHASES.indexOf(name) === 0) {
+        if (!phase.finished) {
+          phase.running = true;
+        }
+      }
+      else {
+        if (!phase.finished && !phase.running) {
+          phase.queued = true;
+        }
+      }
+    });
+  }
 
   $scope.toggleErrorDetails = function () {
     if ($scope.showErrorDetails) {
@@ -76,32 +105,33 @@ module.exports = function ($scope, $route, $location, $filter) {
       global.location = global.location;
       return;
     }
-    params = $route.current.params;
-    if (!params.id) params.id = $scope.jobs[0]._id;
+
+    params = $route.current ? $route.current.params : {};
+
+    if (!params.id) {
+      params.id = $scope.jobs[0]._id;
+    }
     // don't refresh the page
     $route.current = lastRoute;
+
     if (jobid !== params.id) {
       jobid = params.id;
+
       var cached = jobman.get(jobid, function (err, job, cached) {
-        if (job.phases.environment) {
-          job.phases.environment.collapsed = true;
-        }
-        if (job.phases.prepare) {
-          job.phases.prepare.collapsed = true;
-        }
-        if (job.phases.cleanup) {
-          job.phases.cleanup.collapsed = true;
-        }
+        setupPhases(job.phases, 'test');
         $scope.job = job;
+
         if ($scope.job.phases.test.commands.length) {
-          $scope.job.phases.environment.collapsed = true;
-          $scope.job.phases.prepare.collapsed = true;
-          $scope.job.phases.cleanup.collapsed = true;
+          setupPhases(job.phases, 'test');
         }
-        if (!cached) $scope.$digest();
+
+        if (!cached) {
+          $scope.$digest();
+        }
       });
+
       if (!cached) {
-        for (var i=0; i<$scope.jobs.length; i++) {
+        for (var i = 0; i < $scope.jobs.length; i++) {
           if ($scope.jobs[i]._id === jobid) {
             $scope.job = $scope.jobs[i];
             break;
@@ -221,21 +251,16 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     }
     if (!job.phases) {
       job.phases = {};
-      for (i=0; i<PHASES.length; i++) {
+
+      for (i = 0; i < PHASES.length; i++) {
         job.phases[PHASES[i]] = _.cloneDeep(SKELS.phase);
       }
-      job.phases[job.phase].started = new Date()
+
+      job.phases[job.phase].started = new Date();
+      job.phases[job.phase].running = true;
     } else {
       if (job.phases.test.commands.length) {
-        if (job.phases.environment) {
-          job.phases.environment.collapsed = true;
-        }
-        if (job.phases.prepare) {
-          job.phases.prepare.collapsed = true;
-        }
-        if (job.phases.cleanup) {
-          job.phases.cleanup.collapsed = true;
-        }
+        setupPhases(job.phases, 'test');
       }
     }
 
