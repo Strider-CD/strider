@@ -4,15 +4,9 @@
 
 var $ = require('jquery');
 var _ = require('lodash');
-var JobMonitor = require('../../utils/job-monitor');
 var io = require('socket.io-client');
-var statusClasses = {
-  passed: 'fa-check-circle success-text',
-  failed: 'fa-exclamation-circle failure-text',
-  running: 'fa-cog fa-spin',
-  submitted: 'fa-clock-o waiting-text',
-  errored: 'fa-minus-circle error-text'
-};
+var JobMonitor = require('../../utils/job-monitor');
+var statusClasses = require('../../utils/status-classes');
 
 module.exports = function ($scope, $element) {
   var socket = io.connect();
