@@ -36,20 +36,17 @@ describe('middleware', function() {
     });
   });
 
-  describe("#require_params()", function() {
+  describe("#requireBody()", function() {
     it("should fallthrough if all params are present", function() {
       var mock_req = {
-        params: {
-          org: "beyondfog",
-          repo: "strider"
-        },
-        param: function(key) {
-          return this.params[key];
+        body: {
+          email: "user@email.com",
+          name: "New Guy"
         }
       };
       var response_api = {end: function() {}};
 
-      middleware.require_params(["org", "repo"])(mock_req, response_api,
+      middleware.requireBody(["email", "name"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
 
       response_api.statusCode.should.eql(200);
@@ -57,17 +54,14 @@ describe('middleware', function() {
 
     it("should error if at least one params is missing", function() {
       var mock_req = {
-        params: {
-          org: "beyondfog",
-        },
-        param: function(key) {
-          return this.params[key];
+        body: {
+          name: "New Guy"
         }
       };
       var body;
       var response_api = {end: function(b) {body = b;}};
 
-      middleware.require_params(["org", "repo"])(mock_req, response_api,
+      middleware.requireBody(["email", "name"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
 
       response_api.statusCode.should.eql(400);
@@ -78,16 +72,12 @@ describe('middleware', function() {
 
     it("should error if multiple params are missing", function() {
       var mock_req = {
-        params: {
-        },
-        param: function(key) {
-          return this.params[key];
-        }
+        body: {}
       };
       var body;
       var response_api = {end: function(b) {body = b;}};
 
-      middleware.require_params(["org", "repo"])(mock_req, response_api,
+      middleware.requireBody(["email", "name"])(mock_req, response_api,
         function() { response_api.statusCode = 200 });
 
       response_api.statusCode.should.eql(400);
