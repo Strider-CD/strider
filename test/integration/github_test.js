@@ -26,7 +26,7 @@ module.exports = function (browser, callback) {
         .type('test1@example.com')
         .elementByName('password')
         .type('open-sesame')
-        .elementById("navbar-signin-form")
+        .elementByClassName('login-form')
         .submit()
         .elementByClassName('provider-github')
         .click()
