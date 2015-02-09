@@ -11,7 +11,7 @@ module.exports = function (browser, callback) {
         .type('test2@example.com')
         .elementByName('password')
         .type('test')
-        .elementById('navbar-signin-form')
+        .elementByClassName('login-form')
         .submit()
         .elementsByCssSelector('[data-test="latest-build"]')
         .then(function (items) {

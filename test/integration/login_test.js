@@ -21,7 +21,7 @@ module.exports = function (browser, callback) {
         .elementByName('password')
         .type('BAD CREDS')
         .submit()
-        .url().should.eventually.include('/login#fail');
+        .url().should.eventually.include('?failed=true');
     });
 
     it('should have a forgotten password page', function () {
@@ -49,12 +49,8 @@ module.exports = function (browser, callback) {
         .type('test1@example.com')
         .elementByName('password')
         .type('open-sesame')
-        .elementById("navbar-signin-form")
+        .elementByClassName('login-form')
         .submit()
-        .elementByClassName('logged-in')
-        .then(function (element) {
-          assert.isNotNull(element);
-        })
         .elementByClassName('no-projects')
         .then(function (element) {
           assert.isNotNull(element);
