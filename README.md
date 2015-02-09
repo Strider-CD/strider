@@ -84,6 +84,8 @@ Internet-accessible deployment the following variables will need to be exported:
 
 #### Additional Configurations
 
+- `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
+
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
 - [Github][github-config]  
@@ -206,3 +208,4 @@ LLC][maintainer]. For commercial support, customization, integration
 [cc-badge-link]: https://codeclimate.com/github/Strider-CD/strider
 [david-badge]: https://david-dm.org/Strider-CD/strider.svg
 [david-badge-link]: https://david-dm.org/Strider-CD/strider
+[body-parser]: https://github.com/expressjs/body-parser
