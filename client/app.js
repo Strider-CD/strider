@@ -11,6 +11,8 @@ var $navbar = $('.navbar');
 $navbar.find('li').removeClass('active');
 $navbar.find('a[href="' + global.location.pathname + '"]')
   .parent().addClass('active');
+$('#layout-header').hide();
+$('#invite-box').height($('#signup-box').height());
 
 // Third party
 require('ui-bootstrap');

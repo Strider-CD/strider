@@ -15,12 +15,12 @@ describe('Strider', function () {
 
   // TESTS
   var tests = (
-    process.env.TEST_SUITE ? 
+    process.env.TEST_SUITE ?
     [ './integration/'+process.env.TEST_SUITE+'.js' ] :
     [ './integration/build_page_test.js'
     , './integration/login_test.js'
     , './integration/global_admin_test.js'
-    , './integration/github_test.js'
+    //, './integration/github_test.js'
     , './integration/branch_management_test.js'
   ])
 

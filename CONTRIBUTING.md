@@ -38,7 +38,7 @@ Make sure to check npm for any libraries that you need to use before resorting t
 
 If using Bower (or any other libs), make sure to add the files with an alias
 to the `"browser"` section in `package.json` and also add a shim in `shims.js`.
-**Don't use globals, always use `require`.** The oly exception is if passing in data
+**Don't use globals, always use `require`.** The only exception is if passing in data
 from the server into a page, then use something like `global.myDataObject`. If you can
 comment where something originates from, that's appreciated as well.
 

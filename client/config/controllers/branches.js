@@ -66,7 +66,8 @@ function BranchesController($scope) {
     $.ajax({
       url: '/' + $scope.project.name + '/branches/',
       type: 'PUT',
-      data: { branches: list },
+      data: JSON.stringify({ branches: list }),
+      contentType: 'application/json',
       dataType: 'json',
       success: function(res, ts, xhr) {
         $scope.success(res.message, true, false)
