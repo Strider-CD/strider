@@ -1,13 +1,15 @@
 {% extends "base.html" %}
 
 {% block bodyContent %}
-  <div class="row-fluid">
-    <div class="span12">
-      {% for message in messages %}
-        <div class="alert alert-warning">{{ message|raw }}</div>
-      {% endfor %}
+  {% if messages.length %}
+    <div class="row-fluid">
+      <div class="span12">
+        {% for message in messages %}
+          <div class="alert alert-warning">{{ message|raw }}</div>
+        {% endfor %}
+      </div>
     </div>
-  </div>
+  {% endif %}
 
   <div class="row-fluid">
     <div class="span12">

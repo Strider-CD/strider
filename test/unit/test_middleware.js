@@ -49,17 +49,17 @@ describe('middleware', function () {
     });
   });
 
-  describe('#requireParams()', function () {
+  describe('#requireBody()', function() {
     it('should fallthrough if all params are present', function () {
       var mockReq = httpMocks.createRequest({
-        params: {
-          org: 'beyondfog',
-          repo: 'strider'
+        body: {
+          email: 'user@email.com',
+          name: 'New Guy'
         }
       });
       var mockRes = httpMocks.createResponse();
 
-      middleware.requireParams(['org', 'repo'])(mockReq, mockRes, function () {
+      middleware.requireBody(['email', 'name'])(mockReq, mockRes, function () {
         mockRes.statusCode = 200;
       });
 
@@ -68,13 +68,13 @@ describe('middleware', function () {
 
     it('should error if at least one params is missing', function () {
       var mockReq = httpMocks.createRequest({
-        params: {
-          org: 'beyondfog',
+        body: {
+          name: 'New Guy'
         },
       });
       var mockRes = httpMocks.createResponse();
 
-      middleware.requireParams(['org', 'repo'])(mockReq, mockRes, function () {
+      middleware.requireBody(['email', 'name'])(mockReq, mockRes, function () {
         mockRes.statusCode = 200;
       });
 
@@ -87,7 +87,7 @@ describe('middleware', function () {
       var mockReq = httpMocks.createRequest();
       var mockRes = httpMocks.createResponse();
 
-      middleware.requireParams(['org', 'repo'])(mockReq, mockRes, function () {
+      middleware.requireBody(['email', 'name'])(mockReq, mockRes, function () {
         mockRes.statusCode = 200;
       });
 

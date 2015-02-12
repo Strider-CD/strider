@@ -62,6 +62,8 @@ by executing the following command in the project root:
 npm install
 ```
 
+> Note: Sometimes there are issues with permissions and installing global modules, in those cases run `npm config set prefix ~/npm` to set your global modules directory to '~/npm'. You will also have to add `~/npm/bin` to your `PATH` environment variable.
+
 ### Configuring
 
 `Strider` configuration comes from environment variables. Most of the default
@@ -81,6 +83,8 @@ Internet-accessible deployment the following variables will need to be exported:
     - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
 
 #### Additional Configurations
+
+- `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
@@ -121,7 +125,7 @@ See the [strider-cli] for more details.
 Once `Strider` has been installed and configured, it can be started with:
 
 ```no-highlight
-npm start
+NODE_ENV=production npm start
 ```
 
 ### Strider on Heroku
@@ -204,3 +208,4 @@ LLC][maintainer]. For commercial support, customization, integration
 [cc-badge-link]: https://codeclimate.com/github/Strider-CD/strider
 [david-badge]: https://david-dm.org/Strider-CD/strider.svg
 [david-badge-link]: https://david-dm.org/Strider-CD/strider
+[body-parser]: https://github.com/expressjs/body-parser

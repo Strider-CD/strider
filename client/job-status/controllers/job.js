@@ -7,25 +7,29 @@ var io = require('socket.io-client');
 var JobDataMonitor = require('../../utils/job-data-monitor');
 var PHASES = require('../../utils/phases');
 var SKELS = require('../../utils/skels');
+var statusClasses = require('../../utils/status-classes');
 var outputConsole;
 var runtime = null;
 var job = global.job;
 
 module.exports = function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}
-    , project = global.project
-    , jobid = params.id || (global.job && global.job._id)
-    , socket = io.connect()
-    , lastRoute = $route.current
-    , jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job)
+  var project = global.project;
+  var jobid = params.id || (global.job && global.job._id);
+  var socket = io.connect();
+  var lastRoute = $route.current;
+  var jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job);
 
   outputConsole = global.document.querySelector('.console-output');
+
+  $scope.statusClasses = statusClasses;
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $scope.project = project;
   $scope.jobs = global.jobs;
   $scope.job = global.job;
-  $scope.canAdminProject = global.canAdminProject
+  $scope.canAdminProject = global.canAdminProject;
   $scope.showStatus = global.showStatus;
+
   if ($scope.job && $scope.job.phases.test.commands.length) {
     if (job.phases.environment) {
       job.phases.environment.collapsed = true;
@@ -37,14 +41,6 @@ module.exports = function ($scope, $route, $location, $filter) {
       job.phases.cleanup.collapsed = true;
     }
   }
-
-  /*
-  var now = new Date().getTime()
-  $scope.sortDate = function (item) {
-    if (!item.finished) return new Date().getTime();
-    return new Date(item.finished).getTime();
-  };
-  */
 
   $scope.toggleErrorDetails = function () {
     if ($scope.showErrorDetails) {
