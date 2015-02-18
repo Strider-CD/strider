@@ -24,6 +24,11 @@ module.exports = {
       angular: 'angular'
     }
   },
+  'angular-wizard': {
+    depends: {
+      angular: 'angular'
+    }
+  },
   md5: {
     exports: 'md5'
   },

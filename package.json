@@ -29,6 +29,7 @@
     "codemirror": "./vendor/CodeMirror/js/codemirror.js",
     "codemirror-shell": "./vendor/CodeMirror/js/shell.js",
     "timeago": "./vendor/jquery-timeago/js/jquery.timeago.js",
+    "angular-wizard": "./vendor/angular-wizard/js/angular-wizard.js",
     "ui-codemirror": "./public/libs/ui-codemirror.js",
     "ui-bootstrap": "./public/libs/ui-bootstrap.js"
   },
