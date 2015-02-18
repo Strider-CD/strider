@@ -25,6 +25,7 @@ require('./plugin-manager');
 require('./job-status');
 require('./dashboard');
 require('./projects');
+require('./setup');
 
 // Shared?
 require('./alerts');
@@ -37,7 +38,8 @@ var app = angular.module('app', [
   'plugin-manager',
   'job-status',
   'dashboard',
-  'projects'
+  'projects',
+  'setup'
 ]);
 
 // For access from plugins, need a better way
