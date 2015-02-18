@@ -10,14 +10,14 @@
 
     <h3>Setup Strider</h3>
 
-    <wizard on-finish="finishedWizard()">
+    <wizard on-finish="finishedWizard()" ng-cloak>
       <wz-step title="Basics">
         <form class="strider-basics">
           <fieldset>
             <legend>Basics</legend>
 
             <label for="basic-servername">Server Name</label>
-            <input id="basic-servername" type="text" placeholder="Publically visible url" required=true>
+            <input id="basic-servername" type="text" placeholder="Publically visible url" required=true ng-model="config.general.serverName">
             <span class="help-block">Publicaly accessible URL for this instance of Strider, e.g. ci.mydomain.com</span>
           </fieldset>
           <button wz-next type="submit" class="btn btn-default">Next</button>
@@ -30,19 +30,19 @@
             <legend>Database</legend>
 
             <label>Host</label>
-            <input type="text" placeholder="Type something…">
+            <input type="text" placeholder="Host" ng-model="config.db.host">
             <span class="help-block">Example block-level help text here.</span>
 
             <label>Port</label>
-            <input type="text" placeholder="Type something…">
+            <input type="text" placeholder="Port" ng-model="config.db.port">
             <span class="help-block">Example block-level help text here.</span>
 
             <label>User</label>
-            <input type="text" placeholder="Type something…">
+            <input type="text" placeholder="User" ng-model="config.db.user">
             <span class="help-block">Example block-level help text here.</span>
 
             <label>Password</label>
-            <input type="text" placeholder="Type something…">
+            <input type="text" placeholder="Password" ng-model="config.db.password">
             <span class="help-block">Example block-level help text here.</span>
           </fieldset>
           <button wz-next type="submit" class="btn btn-default">Next</button>
@@ -56,15 +56,15 @@
             <legend>Admin User</legend>
 
             <label>Email</label>
-            <input type="text" placeholder="Type something…">
+            <input type="email" placeholder="Email" ng-model="config.admin.email">
             <span class="help-block">Example block-level help text here.</span>
 
             <label>Password</label>
-            <input type="text" placeholder="Type something…">
+            <input type="password" placeholder="Password" ng-mode="config.admin.password">
             <span class="help-block">Example block-level help text here.</span>
 
             <label>Password Confirm</label>
-            <input type="text" placeholder="Type something…">
+            <input type="password" placeholder="Password Confirmation" ng-model="config.admin.passwordConfirmation">
             <span class="help-block">Example block-level help text here.</span>
           </fieldset>
           <button wz-next type="submit" class="btn btn-default">Next</button>
@@ -97,7 +97,7 @@
             <input type="text" placeholder="Type something…">
             <span class="help-block">Example block-level help text here.</span>
           </fieldset>
-          <button wz-next type="submit" class="btn btn-primary">Finish</button>
+          <button wz-finish type="submit" class="btn btn-primary">Finish</button>
         </form>
       </wz-step>
     </wizard>

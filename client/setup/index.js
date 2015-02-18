@@ -8,6 +8,6 @@ require('angular-wizard');
 
 var app = angular.module('setup', ['mgo-angular-wizard'])
   .config(['$interpolateProvider', interpolate])
-  .controller('Setup', ['$scope', '$element', SetupController]);
+  .controller('Setup', ['$scope', '$http', SetupController]);
 
 module.exports = app;
