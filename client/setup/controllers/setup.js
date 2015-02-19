@@ -10,7 +10,7 @@ module.exports = function ($scope, $http) {
 
   $scope.finishedWizard = function () {
     console.log('finished', $scope.config);
-    $http.post('/setup', $scope.config)
+    $http.post('/api/setup', $scope.config)
       .success(function (data) {
         global.location.reload();
       })
