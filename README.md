@@ -44,10 +44,10 @@ For more details check out the [introductory chapter of the Strider Book][book-i
 
 ## General Requirements
 
-- nodejs >= v0.8
-- npm >= 2.0 (preferred)
-- git >= 1.7.10
-- mongodb (local or remote)
+- [nodejs] >= v0.8
+- [npm] >= 2.0 (preferred)
+- [git] >= 1.7.10
+- [mongodb] (local or remote)
 - [node-gyp]
 
 
@@ -212,3 +212,7 @@ LLC][maintainer]. For commercial support, customization, integration
 [david-badge-link]: https://david-dm.org/Strider-CD/strider
 [body-parser]: https://github.com/expressjs/body-parser
 [node-gyp]: https://github.com/TooTallNate/node-gyp#installation
+[git]: http://git-scm.com/
+[nodejs]: http://nodejs.org/
+[npm]: https://docs.npmjs.com/getting-started/installing-node
+[mongodb]: http://www.mongodb.org/downloads
