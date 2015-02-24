@@ -50,6 +50,8 @@ For more details check out the [introductory chapter of the Strider Book][book-i
 - [mongodb] (local or remote)
 - [node-gyp]
 
+_Note: Installing on OS X might require XCode to be installed._
+
 
 ## Running on Infrastructure
 
