@@ -47,7 +47,7 @@ For more details check out the [introductory chapter of the Strider Book][book-i
 - [nodejs] >= v0.8
 - [npm] >= 2.0 (preferred)
 - [git] >= 1.7.10
-- [mongodb] (local or remote)
+- [mongodb][mongo-download] (local or remote)
 - [node-gyp]
 
 _Note: Installing on OS X might require XCode to be installed._
@@ -197,7 +197,6 @@ LLC][maintainer]. For commercial support, customization, integration
 [book-intro]: http://strider.readthedocs.org/en/latest/intro.html
 [roadmap]: https://github.com/Strider-CD/strider/blob/master/ROADMAP.md
 [mongo-download]: http://www.mongodb.org/downloads
-[nodejs]: http://nodejs.org
 [resource-digitalocean]: http://fosterelli.co/creating-a-private-ci-with-strider.html
 [resource-plugin-template]: https://github.com/bitwit/strider-template
 [resource-panamax-template]: https://github.com/CenturyLinkLabs/panamax-contest-templates/blob/master/stridercd_mrsmith.pmx
@@ -217,4 +216,3 @@ LLC][maintainer]. For commercial support, customization, integration
 [git]: http://git-scm.com/
 [nodejs]: http://nodejs.org/
 [npm]: https://docs.npmjs.com/getting-started/installing-node
-[mongodb]: http://www.mongodb.org/downloads
