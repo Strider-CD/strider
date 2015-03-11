@@ -4,7 +4,8 @@
 
 ## 1.7.0
 
-- ...
+- Corporate Proxy Support ([#741](https://github.com/Strider-CD/strider/pull/741))
+- Initial setup via UI ([#681](https://github.com/Strider-CD/strider/pull/681))
 
 
 # Changelog / Past releases
