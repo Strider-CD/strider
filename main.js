@@ -5,6 +5,7 @@ var passport = require('passport');
 var async = require('async');
 var _ = require('lodash');
 var Loader = require('strider-extension-loader');
+var globalTunnel = require('global-tunnel');
 
 var app = require('./lib/app');
 var common = require('./lib/common');
@@ -23,7 +24,11 @@ var Job = models.Job;
 var Config = models.Config;
 
 common.extensions = {};
-
+//
+// Use globa-tunnel to provide proxy support.
+// The http_proxy environment variable will be used if the first parameter to globalTunnel.initialize is null.
+//
+globalTunnel.initialize();
 //
 // ### Register panel
 //

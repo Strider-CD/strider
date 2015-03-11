@@ -132,7 +132,8 @@
     "browserify-shim": "^3.8.0",
     "less": "^2.2.0",
     "mkdirp": "^0.5.0",
-    "path-to-regexp": "^1.0.2"
+    "path-to-regexp": "^1.0.2",
+    "global-tunnel": "^1.2.0"
   },
   "devDependencies": {
     "blanket": "^1.1.5",
