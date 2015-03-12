@@ -6,6 +6,7 @@
 
 - Corporate Proxy Support ([#741](https://github.com/Strider-CD/strider/pull/741))
 - Initial setup via UI ([#681](https://github.com/Strider-CD/strider/pull/681))
+- Use latest core plugins
 
 
 # Changelog / Past releases
