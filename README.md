@@ -174,6 +174,8 @@ You can find us on irc.freenode.net in #strider
 
 If nobody is responding, don't leave immediately. Someone will eventually respond. If you don't want to wait please create a Github issue! Many Strider contributors don't use IRC at all, but will respond pretty quickly to new Github Issues.
 
+For a view of what's going on with the project, check out our boards by setting up [ZenBoard] and visiting the "Boards" page.
+
 ### Commercial Support
 
 Strider is maintained and supported by [FrozenRidge,
@@ -216,3 +218,4 @@ LLC][maintainer]. For commercial support, customization, integration
 [git]: http://git-scm.com/
 [nodejs]: http://nodejs.org/
 [npm]: https://docs.npmjs.com/getting-started/installing-node
+[ZenBoard]: https://www.zenhub.io/
