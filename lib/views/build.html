@@ -27,29 +27,29 @@
     <div class="row-fluid job-page-intro">
       <div class="span12 job-title">
         {% pluginblock JobPagePreTitle %}{% endpluginblock %}
-        <h3>
+        <h3 class="clearfix">
           {% if currentUser %}
-          <span ng-hide="job.running || !canAdminProject"
-                ng-click="startDeploy(job)"
-                title="Retest &amp; Deploy"
-                class="clickable test-and-deploy-action">
-            <i class="fa fa-cloud-upload"></i>
-          </span>
-          <span ng-hide="job.running || !canAdminProject"
-                ng-click="startTest(job)"
-                title="Retest" class="clickable test-only-action">
-            <i class="fa fa-refresh"></i>
-          </span>
-          <a href="/[[ project.name ]]/config"
-             ng-hide="!canAdminProject"
-             title="Configure">
-            <i class="fa fa-wrench"></i>
-          </a>
+            <span ng-hide="job.running || !canAdminProject"
+                  ng-click="startDeploy(job)"
+                  title="Retest &amp; Deploy"
+                  class="clickable test-and-deploy-action">
+              <i class="fa fa-cloud-upload"></i>
+            </span>
+            <span ng-hide="job.running || !canAdminProject"
+                  ng-click="startTest(job)"
+                  title="Retest" class="clickable test-only-action">
+              <i class="fa fa-refresh"></i>
+            </span>
           {% endif %}
           <span class='job-repo'>{{ project.display_name }}</span>
           <a href="[[ project.display_url ]]" target="_blank">
             <i class="fa fa-[[ project.provider.id ]]"></i>
           </a>
+          {% if currentUser %}
+            <a href="/appgeo/unisys_2014-0331.cbpwaittimes/config" ng-hide="!canAdminProject" title="Configure" class="btn btn-default pull-right">
+              <i class="fa fa-wrench"></i> Configure
+            </a>
+          {% endif %}
         </h3>
         {% pluginblock JobPagePostTitle %}{% endpluginblock %}
       </div>
