@@ -3,8 +3,7 @@
 module.exports = function ($scope, $http) {
   $scope.config = {
     general: {},
-    db: {},
-    email: {},
+    smtp: {},
     admin: {}
   };
 
