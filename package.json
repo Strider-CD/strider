@@ -95,7 +95,7 @@
     "method-override": "^2.3.0",
     "mkdirp": "^0.5.0",
     "moment": "^2.8.3",
-    "mongoose": "^3.8.17",
+    "mongoose": "3.8.*",
     "morgan": "^1.5.0",
     "nodemailer": "^0.6.5",
     "passport": "^0.2.0",
