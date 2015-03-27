@@ -4,12 +4,20 @@
 
 ## 1.7.0
 
-- Corporate Proxy Support ([#741](https://github.com/Strider-CD/strider/pull/741))
 - Initial setup via UI ([#681](https://github.com/Strider-CD/strider/pull/681))
 - Use latest core plugins
 
 
 # Changelog / Past releases
+
+## 1.6.5 - 2015-03-27
+
+- [FEATURE] Corporate Proxy Support ([#741](https://github.com/Strider-CD/strider/pull/741))
+- [ENHANCEMENT] io.js support ([commit](https://github.com/Strider-CD/strider/commit/d7f25263e89fb0d84cb43d86c981b84ac7a6f373))
+- [ENHANCEMENT] Make configure button more obvious on build page ([commit](https://github.com/Strider-CD/strider/commit/f271df1ebaeefaa41a97bfb42ce8789db2d3a86f))
+- [BUGFIX] mongoose version issues ([#752](https://github.com/Strider-CD/strider/issues/752))
+- [BUGFIX] Fix issue with mission critical routes ([#748](https://github.com/Strider-CD/strider/issues/748))
+- Readme updates
 
 ## 1.6.0 - 2015-01-10
 
