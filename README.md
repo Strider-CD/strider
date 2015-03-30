@@ -44,9 +44,9 @@ For more details check out the [introductory chapter of the Strider Book][book-i
 
 ## General Requirements
 
-- [nodejs] >= v0.8
-- [npm] >= 2.0 (preferred)
-- [git] >= 1.7.10
+- [nodejs] >= v0.10
+- [npm] >= 2.0
+- [git] >= 2.0
 - [mongodb][mongo-download] (local or remote)
 - [node-gyp]
 
