@@ -22,12 +22,12 @@
     "url": "git://github.com/Strider-CD/strider.git"
   },
   "browser": {
-    "bootstrap": "./bower_components/bootstrap/docs/assets/js/bootstrap.js",
-    "sortable": "./bower_components/Sortable/Sortable.js",
-    "bootbox": "./bower_components/bootbox/bootbox.js",
-    "codemirror": "./bower_components/codemirror/lib/codemirror.js",
-    "codemirror-shell": "./bower_components/codemirror/mode/shell/shell.js",
-    "timeago": "./bower_components/jquery-timeago/jquery.timeago.js",
+    "bootstrap": "./vendor/bootstrap/bootstrap.js",
+    "sortable": "./vendor/Sortable/Sortable.js",
+    "bootbox": "./vendor/bootbox/bootbox.js",
+    "codemirror": "./vendor/codemirror/codemirror.js",
+    "codemirror-shell": "./vendor/codemirror/shell.js",
+    "timeago": "./vendor/jquery-timeago/jquery.timeago.js",
     "ui-codemirror": "./public/libs/ui-codemirror.js",
     "ui-bootstrap": "./public/libs/ui-bootstrap.js",
     "ui-sortable": "./public/libs/ui-sortable.js"
