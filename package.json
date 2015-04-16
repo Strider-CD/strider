@@ -104,7 +104,7 @@
     "pw": "0.0.4",
     "rc": "^0.5.1",
     "request": "^2.49.0",
-    "semver": "^4.1.0",
+    "semver": "^4.3.3",
     "serve-favicon": "^2.2.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.0.6",
