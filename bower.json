@@ -1,15 +1,7 @@
 {
   "name": "strider",
-  "version": "1.4.3",
+  "version": "1.6.6",
   "private": true,
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "app/bower_components",
-    "test",
-    "tests"
-  ],
   "dependencies": {
     "bootstrap": "~2.3.2",
     "fontawesome": "~4.2.0",
