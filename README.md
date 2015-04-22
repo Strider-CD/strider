@@ -27,8 +27,6 @@ Strider is extremely customizable through plugins. Plugins can
 - create or modify user interfaces within Strider.
 - so much more! just use your imagination!
 
-For more details check out the [introductory chapter of the Strider Book][book-intro]
-
 ## README Contents
 
 - [General requirements](#general-requirements)
