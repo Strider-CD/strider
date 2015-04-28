@@ -6,6 +6,23 @@
   },
   "main": "main.js",
   "description": "Brilliant continuous deployment platform",
+  "scripts": {
+    "test": "make test",
+    "start": "bin/strider",
+    "dev": "npm run build-debug && bin/strider",
+    "blanket": {
+      "pattern": "lib",
+      "data-cover-never": "node_modules"
+    },
+    "pre": "mkdirp dist/scripts dist/styles",
+    "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
+    "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
+    "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -e client/app.js -o dist/scripts/app.js",
+    "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
+    "unitcov": "istanbul cover _mocha --recursive test/unit",
+    "unitdev": "mocha -w --recursive test/unit -R min"
+  },
   "keywords": [
     "strider",
     "continuous integration",
@@ -37,24 +54,6 @@
     "transform": [
       "browserify-shim"
     ]
-  },
-  "scripts": {
-    "test": "make test",
-    "start": "bin/strider",
-    "dev": "npm run build-debug && bin/strider",
-    "blanket": {
-      "pattern": "lib",
-      "data-cover-never": "node_modules"
-    },
-    "pre": "mkdirp dist/scripts dist/styles",
-    "vendor": "bower-installer",
-    "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
-    "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
-    "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -e client/app.js -o dist/scripts/app.js",
-    "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
-    "unitcov": "istanbul cover _mocha --recursive test/unit",
-    "unitdev": "mocha -w --recursive test/unit -R min"
   },
   "dependencies": {
     "MD5": "^1.2.1",
