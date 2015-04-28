@@ -957,6 +957,7 @@ function ConfigController($scope, $element, $sce) {
   function savePluginOrder() {
     var plugins = $scope.branch.plugins;
     var branch = $scope.branch;
+    var project = $scope.project;
     var data = [];
 
     for (var i = 0; i < plugins.length; i++) {
@@ -967,21 +968,12 @@ function ConfigController($scope, $element, $sce) {
       });
     }
 
-    $.ajax({
-      url: '/' + $scope.project.name + '/config/branch/?branch=' + encodeURIComponent($scope.branch.name),
-      type: 'PUT',
-      data: JSON.stringify({ plugin_order: data }),
-      contentType: 'application/json',
-      success: function (data, ts, xhr) {
-        $scope.success('Plugin order on branch ' + branch.name + ' saved.', true);
-      },
-      error: function (xhr, ts, e) {
-        if (xhr && xhr.responseText) {
-          $scope.error('Error saving plugin order on branch ' + branch.name + ': ' + xhr.responseText, true);
-        } else {
-          $scope.error('Error saving plugin order on branch ' + branch.name + ': ' + e, true);
-        }
+    saveProjectConfig({ plugin_order: data }, branch, project, function (err, result) {
+      if (err) {
+        return $scope.error('Error saving plugin order on branch ' + branch.name + ': ' + err, true);
       }
+
+      $scope.success('Plugin order on branch ' + branch.name + ' saved.', true);
     });
   }
 
@@ -1085,6 +1077,7 @@ function ConfigController($scope, $element, $sce) {
 
   $scope.saveGeneralBranch = function (plugins) {
     var branch = $scope.branch;
+    var project = $scope.project;
     var data = {
       active: branch.active,
       privkey: branch.privkey,
@@ -1099,21 +1092,12 @@ function ConfigController($scope, $element, $sce) {
       data.plugins = branch.plugins;
     }
 
-    $.ajax({
-      url: '/' + $scope.project.name + '/config/branch/?branch=' + encodeURIComponent($scope.branch.name),
-      type: 'PUT',
-      data: JSON.stringify(data),
-      contentType: 'application/json',
-      success: function (data, ts, xhr) {
-        $scope.success('General config for branch ' + branch.name + ' saved.', true);
-      },
-      error: function (xhr, ts, e) {
-        if (xhr && xhr.responseText) {
-          $scope.error('Error saving general config for branch ' + branch.name + ': ' + xhr.responseText, true);
-        } else {
-          $scope.error('Error saving general config for branch ' + branch.name + ': ' + e, true);
-        }
+    saveProjectConfig(data, branch, project, function (err, result) {
+      if (err) {
+        return $scope.error('Error saving general config for branch ' + branch.name + ': ' + err, true);
       }
+
+      $scope.success('General config for branch ' + branch.name + ' saved.', true);
     });
   };
 
@@ -1360,6 +1344,21 @@ function removeDragEl(element) {
   if (element && element.parentNode) {
     element.parentNode.removeChild(element);
   }
+}
+
+function saveProjectConfig(data, branch, project, cb) {
+  $.ajax({
+    url: '/' + project.name + '/config/branch/?branch=' + encodeURIComponent(branch.name),
+    type: 'PUT',
+    data: JSON.stringify(data),
+    contentType: 'application/json',
+    success: function (data, ts, xhr) {
+      cb(undefined, data);
+    },
+    error: function (xhr, ts, e) {
+      cb(xhr && xhr.responseText || e);
+    }
+  });
 }
 
 module.exports = ConfigController;
