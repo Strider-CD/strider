@@ -151,6 +151,7 @@
           </ul>
         </div>
       </div>
+
       <div class="tab-pane" id="manual-setup">
         {% for item in manual %}
         <div id="manual-{{ loop.key }}" ng-controller="ManualController">
@@ -158,20 +159,20 @@
             <h3>{{ item.provider.title }}</h3>
             <div class="general">
               <p>
-              <small>Public projects are visible to unauthenticated users.</small>
-              <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
+                <small>Public projects are visible to unauthenticated users.</small>
+                <div ng-model="public" class="btn public-btn" btn-checkbox>Public</div>
               </p>
 
               <p>
-              <small>Provides a link in the UI if you put a url there, so you can easily jump to viewing the repo on github or wherever</small>
-              <br/>
-              <input type="text" ng-model="display_url" placeholder="Display Url">
+                <label for="manual-display-url" class="bold-label">Link To Repository</label>
+                <input id="manual-display-url" type="text" ng-model="display_url" placeholder="Display Url">
+                <small>Provides a link in the UI so you can easily jump to viewing the project's repository wherever it's hosted.</small>
               </p>
 
               <p>
-              <small>A github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
-              <br/>
-              <input type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name">
+                <label for="manual-namespace" class="bold-label">Project Namespace (required)</label>
+                <input id="manual-namespace" type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name">
+                <small>A Github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
               </p>
             </div>
 
@@ -186,16 +187,50 @@
                 <a ng-show="project.display_url" href="[[ project.display_url ]]" target="_blank" class="hosted-url">
                   <i class="fa fa-globe"></i>
                 </a>
+
                 <a class="view-jobs" href="/[[ project.name ]]/">[[ project.display_name ]]</a>
-              <div class="pull-right">
-                <button ng-show="project.really_remove" class="btn btn-danger" ng-click="remove(project)" ng-disabled="project.really_remove === 'removing'">
-                  <i class="fa fa-refresh fa-spin" ng-show="project.really_remove === 'removing'"></i>
-                  Really remove
-                </button>
-                <a href="/[[ project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="fa fa-wrench"></i></a>
-                <button class="btn btn-danger" ng-click="project.really_remove = true" ng-disabled="project.really_remove">Remove</button>
-                <button ng-disabled="repo.adding" class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
+
+                <div class="pull-right">
+                  <button ng-show="project.really_remove" class="btn btn-danger" ng-click="remove(project)" ng-disabled="project.really_remove === 'removing'">
+                    <i class="fa fa-refresh fa-spin" ng-show="project.really_remove === 'removing'"></i>
+                    Really remove
+                  </button>
+                  <a href="/[[ project.name ]]/config" data-toggle="tooltip" title="Configure"><i class="fa fa-wrench"></i></a>
+                  <button class="btn btn-danger" ng-click="project.really_remove = true" ng-disabled="project.really_remove">Remove</button>
+                  <button ng-disabled="repo.adding" class="btn btn-primary" ng-click="repo.adding = 'pick-type'">Add</button>
+                </div>
+                <!--
+              <div class="adding-repo pull-right" ng-show="repo.adding" ng-switch="repo.adding">
+                <div class="pick-type" ng-switch-when="pick-type">
+                  <span class="text">What type of project?</span>
+                  {% for type in project_types %}
+                  <div data-toggle="tooltip"
+                       data-placement="bottom"
+                       title="{{ type.description }}"
+                       class="project-type btn"
+                       ng-click="repo.adding = 'loading'; setupProject(account, repo, '{{ loop.key }}', group)">
+                    {{ loop.key }}
+                  </div>
+                  {% endfor %}
+                </div>
+                <div ng-switch-when="loading" class="setting-up">
+                  <span class="text">
+                    Setting up
+                    <i class="fa fa-refresh fa-spin"></i>
+                  </span>
+                </div>
+                <div ng-switch-when="done">
+                  <button type="button" class="close" ng-click="repo.adding=false">&times;</button>
+                  <span class="text">Complete!</span>
+                  <div class="btn btn-success" ng-click="startTest(repo)">
+                    Start the first test
+                  </div>
+                  <a class="btn" href="/[[ repo.project.name ]]/config">
+                    Configure
+                  </a>
+                </div>
               </div>
+              -->
               </div>
             </li>
           </ul>
