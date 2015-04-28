@@ -1693,11 +1693,11 @@ module.exports = function ($scope, $element) {
   $('#dashboard').show();
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
-    socket.emit('deploy', job.project.name)
+    socket.emit('deploy', job.project.name, job.ref.branch)
   };
   $scope.startTest = function (job) {
     $('.tooltip').hide();
-    socket.emit('test', job.project.name)
+    socket.emit('test', job.project.name, job.ref.branch)
   };
   $scope.cancelJob = function (id) {
     socket.emit('cancel', id)
