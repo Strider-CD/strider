@@ -53175,8 +53175,8 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 (function (global){
 
 ; angular = global.angular = require("angular");
-CodeMirror = global.CodeMirror = require("/Users/iradchenko/sandbox/strider/vendor/codemirror/codemirror.js");
-require("/Users/iradchenko/sandbox/strider/vendor/codemirror/shell.js");
+CodeMirror = global.CodeMirror = require("/Users/iradchenko/sandbox/strider/vendor/codemirror/js/codemirror.js");
+require("/Users/iradchenko/sandbox/strider/vendor/codemirror/js/shell.js");
 ;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 /*global angular, CodeMirror, Error*/
 /**
@@ -53298,7 +53298,7 @@ angular.module('ui.codemirror', [])
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"/Users/iradchenko/sandbox/strider/vendor/codemirror/codemirror.js":114,"/Users/iradchenko/sandbox/strider/vendor/codemirror/shell.js":115,"angular":50}],110:[function(require,module,exports){
+},{"/Users/iradchenko/sandbox/strider/vendor/codemirror/js/codemirror.js":114,"/Users/iradchenko/sandbox/strider/vendor/codemirror/js/shell.js":115,"angular":50}],110:[function(require,module,exports){
 (function (global){
 
 ; angular = global.angular = require("angular");
@@ -62929,7 +62929,7 @@ window.CodeMirror = (function() {
 },{}],115:[function(require,module,exports){
 (function (global){
 
-; CodeMirror = global.CodeMirror = require("/Users/iradchenko/sandbox/strider/vendor/codemirror/codemirror.js");
+; CodeMirror = global.CodeMirror = require("/Users/iradchenko/sandbox/strider/vendor/codemirror/js/codemirror.js");
 ;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 CodeMirror.defineMode('shell', function() {
 
@@ -63053,7 +63053,7 @@ CodeMirror.defineMIME('text/x-sh', 'shell');
 }).call(global, module, undefined, undefined);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"/Users/iradchenko/sandbox/strider/vendor/codemirror/codemirror.js":114}],116:[function(require,module,exports){
+},{"/Users/iradchenko/sandbox/strider/vendor/codemirror/js/codemirror.js":114}],116:[function(require,module,exports){
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
