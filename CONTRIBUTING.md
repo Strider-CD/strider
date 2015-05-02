@@ -21,6 +21,7 @@ How to get setup (if you're using docker, see the [Docker section in the README]
 
 - grab the repo
 - `npm install`
+- `bower install && npm run vendor`
 - run the tests with `npm test` to make sure your environment is setup
   properly. If you don't have it already, install
   [mongodb]. You could also
@@ -41,6 +42,9 @@ to the `"browser"` section in `package.json` and also add a shim in `shims.js`.
 **Don't use globals, always use `require`.** The only exception is if passing in data
 from the server into a page, then use something like `global.myDataObject`. If you can
 comment where something originates from, that's appreciated as well.
+
+After installing Bower dependencies, make sure that `npm run vendor` copies all the needed files.
+If not, you can add the needed files in the `"install"` section of `bower.json`.
 
 ## Pull Requests
 
