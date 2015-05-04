@@ -5,24 +5,13 @@ else
 test-env := test-sauce
 endif
 
-build: less browserify-build
-	@:
-
-# === Dev ===
-
-watch:
-	watch make
-
-serve:
-	@./bin/strider
-
-browserify:
+build:
 	npm run build
 
 
 ## ================= Test Suite ====================================
 
-test: browserify test-syntax test-smoke test-unit test-browser
+test: build test-syntax test-smoke test-unit test-browser
 
 test-smoke:
 	# TODO Smoke tests should fail _fast_ on silly errors.
@@ -85,29 +74,8 @@ tolint := *.js *.json lib client
 lint:
 	@./node_modules/.bin/jshint --verbose $(tolint)
 
-strider_sub := strider-env strider-simple-worker strider-python strider-sauce strider-custom strider-ruby
-
-link:
-	npm link $(strider_sub)
-
-unlink:
-	npm install $(strider_sub)
-
 authors-list:
 	git shortlog -e -n -s $$commit | awk '{ args[NR] = $$0; sum += $$0 } END { for (i = 1; i <= NR; ++i) { printf "%-60s %2.1f%%\n", args[i], 100 * args[i] / sum } }' > AUTHORS
 
 
-release: test build authors-list
-	npm version minor
-
-prepare-dist:
-	mkdir -p dist/scripts
-	mkdir -p dist/styles/admin
-
-browserify-build: prepare-dist
-	npm run build
-
-browserify-watch: prepare-dist
-	npm run watch
-
-.PHONY: test lint watch build less start-chromedriver
+.PHONY: test lint start-chromedriver
