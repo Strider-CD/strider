@@ -67,7 +67,7 @@
     "compression": "^1.2.2",
     "connect": "^2.17.3",
     "connect-flash": "^0.1.1",
-    "connect-mongo": "^0.4.2",
+    "connect-mongo": "^0.8.1",
     "connect-slashes": "0.0.11",
     "consolidate": "0.10.0",
     "cookie": "0.0.5",
