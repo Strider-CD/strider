@@ -3,8 +3,20 @@
     <div id="manual-{{ loop.key }}" ng-controller="ManualController">
       <form name="create{{ loop.key }}">
         <h3>{{ item.provider.title }}</h3>
+        <div class="row-fluid">
+        <div class="general span6">
+          <p>
+            <label for="manual-display-url" class="bold-label">Link To Repository</label>
+            <input id="manual-display-url" type="text" ng-model="display_url" placeholder="Display Url"><br>
+            <small>Provides a link in the UI so you can easily jump to viewing the project's repository wherever it's hosted.</small>
+          </p>
 
-        <div class="general">
+          <p>
+            <label for="manual-namespace" class="bold-label">Project Namespace (required)</label>
+            <input id="manual-namespace" type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name"><br>
+            <small>A Github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
+          </p>
+
           <p>
             <label class="checkbox">
               <input id="manual-public" type="checkbox" ng-model="public">
@@ -12,22 +24,11 @@
             </label>
             <small>Public projects are visible to unauthenticated users.</small>
           </p>
-
-          <p>
-            <label for="manual-display-url" class="bold-label">Link To Repository</label>
-            <input id="manual-display-url" type="text" ng-model="display_url" placeholder="Display Url">
-            <small>Provides a link in the UI so you can easily jump to viewing the project's repository wherever it's hosted.</small>
-          </p>
-
-          <p>
-            <label for="manual-namespace" class="bold-label">Project Namespace (required)</label>
-            <input id="manual-namespace" type="text" required ng-pattern="/[\w-]\/[\w-]/" ng-model="display_name" placeholder="Name">
-            <small>A Github-style namespace/name combination for the project. e.g. Strider-CD/strider</small>
-          </p>
         </div>
 
-        <div class="provider-specific">
+        <div class="provider-specific span6">
           {{ item.provider.html | raw }}
+        </div>
         </div>
         <button ng-disabled="!create{{ loop.key }}.$valid" class="btn btn-primary" ng-click="create()">Create New</button>
       </form>
