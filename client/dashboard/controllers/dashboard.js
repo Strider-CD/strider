@@ -18,16 +18,27 @@ module.exports = function ($scope, $element) {
   $('#dashboard').show();
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
-    socket.emit('deploy', job.project.name, job.ref.branch)
+    var branchToUse = determineTargetBranch(job);
+    socket.emit('deploy', job.project.name, branchToUse);
   };
   $scope.startTest = function (job) {
     $('.tooltip').hide();
-    socket.emit('test', job.project.name, job.ref.branch)
+    var branchToUse = determineTargetBranch(job);
+    socket.emit('test', job.project.name, branchToUse);
   };
   $scope.cancelJob = function (id) {
-    socket.emit('cancel', id)
+    socket.emit('cancel', id);
   };
 };
+
+/**
+ * Given a job, returns a branch name that should be used for a deployment or test action.
+ * @param {Object} job The job for which to determine the target branch.
+ * @returns {String} If a reference build is defined, returns the name of the branch of the reference build; "master" otherwise.
+ */
+function determineTargetBranch(job){
+  return job.ref ? job.ref.branch : "master";
+}
 
 function cleanJob(job) {
   delete job.phases;
