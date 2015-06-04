@@ -1,17 +1,17 @@
-var async = require('async')
-  , wd = require('wd')
-  , remote = JSON.parse(process.env.WEBDRIVER_REMOTE || '{"hostname":"localhost", "port":9515}')
-  , browsers = JSON.parse(process.env.BROWSERS || '[{"browserName":"chrome"}]' )
-  , strider = require('./strider')
-  , chai = require("chai")
-  , chaiAsPromised = require("chai-as-promised")
+var async = require('async');
+var wd = require('wd');
+var remote = JSON.parse(process.env.WEBDRIVER_REMOTE || '{"hostname":"localhost", "port":9515}');
+var browsers = JSON.parse(process.env.BROWSERS || '[{"browserName":"chrome"}]' );
+var strider = require('./strider');
+var chai = require("chai");
+var chaiAsPromised = require("chai-as-promised");
 
-chai.use(chaiAsPromised)
-chai.should()
-chaiAsPromised.transferPromiseness = wd.transferPromiseness
+chai.use(chaiAsPromised);
+chai.should();
+chaiAsPromised.transferPromiseness = wd.transferPromiseness;
 
 describe('Strider', function () {
-  this.timeout(20000)
+  this.timeout(20000);
 
   // TESTS
   var tests = (
@@ -22,17 +22,16 @@ describe('Strider', function () {
     , './integration/global_admin_test.js'
     //, './integration/github_test.js'
     , './integration/branch_management_test.js'
-  ])
+  ]);
 
   wd.addPromiseChainMethod('rel', function (url, cb) {
-    return this.get("http://localhost:4000" + url, cb)
-  })
+    return this.get("http://localhost:4000" + url, cb);
+  });
 
   var runTests = function (conn, doneBrowser) {
-    var commands = []
-    async.each
-    ( tests
-    , function (suite, cb) {
+    var commands = [];
+
+    async.each(tests, function (suite, cb) {
         var browser = wd.promiseChainRemote(remote)
         browser.on('status', function(info) {
           console.log(info)
@@ -73,15 +72,20 @@ describe('Strider', function () {
     if (test.state !== "failed") return done();
     var timestamp = new Date().getTime().toString();
     var scopeDir = path.join(failuresDir, timestamp);
+
     mkdirp(scopeDir, function (err) {
       if (err) return done(err);
+
       test.browser.takeScreenshot(function (err, base64Data) {
         if (err) return done(err);
+
         var png = path.join(scopeDir, "screenshot.png");
+
         fs.writeFile(png, base64Data, 'base64', function(err) {
           if (err) return done(err);
           console.log('Failure screenshot saved to '+png)
           var json = path.join(scopeDir, "currentTest.json");
+
           fs.writeFile(json, JSON.stringify({
             title: test.title,
             duration: test.duration,
@@ -96,16 +100,9 @@ describe('Strider', function () {
         });
       })
     });
-  })
+  });
 
   describe('in each browser,', function () {
-    async.each
-    ( browsers
-    , runTests
-    )
-  })
-
-})
-
-
-
+    async.each(browsers, runTests);
+  });
+});

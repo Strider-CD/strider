@@ -10,7 +10,6 @@ build:
 
 
 ## ================= Test Suite ====================================
-
 test: build test-syntax test-smoke test-unit test-browser
 
 test-smoke:
