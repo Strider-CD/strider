@@ -100,7 +100,7 @@
     "serve-favicon": "^2.2.0",
     "socket.io": "^1.2.1",
     "socket.io-client": "^1.0.6",
-    "ssh-keypair": "^1.0.1",
+    "ssh-keypair": "^2.0.0",
     "step": "0.0.5",
     "strider-bitbucket": "^1.0.3",
     "strider-build-badge": "^0",
