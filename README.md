@@ -1,9 +1,9 @@
 # ![Strider][logo]
 
 [![NPM][npm-badge-img]][npm-badge-link]  
-[![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link]
----
+[![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]
 
+---
 
 ### Brilliant Continuous Deployment
 
@@ -218,3 +218,5 @@ LLC][maintainer]. For commercial support, customization, integration
 [npm]: https://docs.npmjs.com/getting-started/installing-node
 [ZenBoard]: https://www.zenhub.io/
 [irc]: https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider
+[travis-badge]: https://travis-ci.org/Strider-CD/strider.svg
+[travis-badge-link]: https://travis-ci.org/Strider-CD/strider
