@@ -1,11 +1,13 @@
 language: node_js
+node_js:
+  - "0.12"
+  - "0.10"
+
 addons:
   sauce_connect: true
-node_js:
-  - "0.10"
-  - "0.8"
+
 services: mongodb
+
 branches:
   except:
     - 1_4_refactor
-
