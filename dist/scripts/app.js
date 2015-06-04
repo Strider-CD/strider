@@ -1692,16 +1692,27 @@ module.exports = function ($scope, $element) {
   $('#dashboard').show();
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
-    socket.emit('deploy', job.project.name, job.ref.branch)
+    var branchToUse = determineTargetBranch(job);
+    socket.emit('deploy', job.project.name, branchToUse);
   };
   $scope.startTest = function (job) {
     $('.tooltip').hide();
-    socket.emit('test', job.project.name, job.ref.branch)
+    var branchToUse = determineTargetBranch(job);
+    socket.emit('test', job.project.name, branchToUse);
   };
   $scope.cancelJob = function (id) {
-    socket.emit('cancel', id)
+    socket.emit('cancel', id);
   };
 };
+
+/**
+ * Given a job, returns a branch name that should be used for a deployment or test action.
+ * @param {Object} job The job for which to determine the target branch.
+ * @returns {String} If a reference build is defined, returns the name of the branch of the reference build; "master" otherwise.
+ */
+function determineTargetBranch(job){
+  return job.ref ? job.ref.branch : "master";
+}
 
 function cleanJob(job) {
   delete job.phases;
@@ -2611,7 +2622,10 @@ module.exports = function ($scope) {
       }
     });
   };
+
   $scope.setupProject = function (account, repo, type, group) {
+    repo.lastError = '';
+
     $.ajax('/' + repo.name + '/', {
       type: 'PUT',
       contentType: 'application/json',
@@ -2633,14 +2647,21 @@ module.exports = function ($scope) {
         $scope.$digest();
       },
       error: function (xhr, ts, e) {
+        var error;
+
         if (xhr && xhr.responseText) {
-          $scope.error("Error creating project for repo " + repo.name + ": " + xhr.responseText, true);
+          error = 'Error creating project for repo ' + repo.name + ': ' + xhr.responseText;
         } else {
-          $scope.error("Error creating project for repo " + repo.name + ": " + e, true);
+          error = 'Error creating project for repo ' + repo.name + ': ' + e;
         }
+
+        $scope.error(error, true);
+        repo.lastError = error;
+        repo.adding = '';
       }
     });
   };
+
   $scope.startTest = function (repo) {
     $.ajax('/' + repo.project.name + '/start', {
       type: 'POST',

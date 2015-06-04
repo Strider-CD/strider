@@ -44,7 +44,10 @@ module.exports = function ($scope) {
       }
     });
   };
+
   $scope.setupProject = function (account, repo, type, group) {
+    repo.lastError = '';
+
     $.ajax('/' + repo.name + '/', {
       type: 'PUT',
       contentType: 'application/json',
@@ -66,14 +69,21 @@ module.exports = function ($scope) {
         $scope.$digest();
       },
       error: function (xhr, ts, e) {
+        var error;
+
         if (xhr && xhr.responseText) {
-          $scope.error("Error creating project for repo " + repo.name + ": " + xhr.responseText, true);
+          error = 'Error creating project for repo ' + repo.name + ': ' + xhr.responseText;
         } else {
-          $scope.error("Error creating project for repo " + repo.name + ": " + e, true);
+          error = 'Error creating project for repo ' + repo.name + ': ' + e;
         }
+
+        $scope.error(error, true);
+        repo.lastError = error;
+        repo.adding = '';
       }
     });
   };
+
   $scope.startTest = function (repo) {
     $.ajax('/' + repo.project.name + '/start', {
       type: 'POST',
