@@ -73,7 +73,7 @@
     <a href="[[ job.trigger.url ]]" target="_blank">
   {% endif %}
 
-  <span class="small-text truncate">
+  <span class="small-text truncate" title="[[ job.trigger.message ]]">
     <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
     [[ job.trigger.message ]]
   </span>
@@ -85,7 +85,7 @@
   </a>
   </span>
 
-  <span class="small-text" ng-switch-default>
+  <span class="small-text" ng-switch-default title="[[ job.trigger.message ]]">
     <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
     [[ job.trigger.message ]]
   </span>
