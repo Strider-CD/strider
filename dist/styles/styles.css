@@ -9064,7 +9064,7 @@ body {
   display: none !important;
 }
 .truncate {
-  width: 340px;
+  width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
