@@ -53,12 +53,15 @@ body {
     }
   }
 
+  .job-detail-sidebar {
+    margin-top: -59px;
+  }
+
   #list-of-builds {
     max-height: 672px;
 
-    .truncate {
-      max-width: 110px;
-      display: block;
+    table td {
+      vertical-align: middle;
     }
 
     td.committer {
@@ -91,10 +94,48 @@ body {
     }
   }
   .job-link {
-    min-width: 73px;
+    min-width: 80px;
   }
   .commit-url {
-    width: auto;
+    max-width: 416px;
+    .truncate {
+      max-width: 110px;
+      @media (min-width: 1400px) {
+        max-width: 154px;
+      }
+      @media (min-width: 1600px) {
+        max-width: 133px;
+      }
+      @media (min-width: 2048px) {
+        max-width: 276px;
+      }
+      //display: block;
+    }
+  }
+
+  .run-time {
+    text-align: center;
+  }
+
+  .finished-at {
+    min-width: 100px;
+    text-align: center;
+    @media(max-width: 1600px){
+      min-width: 16px;
+    }
+  }
+
+  .summary-icon {
+    display: inline-block;
+    @media(min-width: 1600px){
+      display: none;
+    }
+  }
+  .summary-text {
+    display: none;
+    @media(min-width: 1600px){
+      display: inline-block;
+    }
   }
 }
 

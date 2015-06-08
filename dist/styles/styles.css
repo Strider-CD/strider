@@ -9080,12 +9080,14 @@ body {
 #build-page .job-title h3 .test-and-deploy-action {
   color: #2900ff;
 }
+#build-page .job-detail-sidebar {
+  margin-top: -59px;
+}
 #build-page #list-of-builds {
   max-height: 672px;
 }
-#build-page #list-of-builds .truncate {
-  max-width: 110px;
-  display: block;
+#build-page #list-of-builds table td {
+  vertical-align: middle;
 }
 #build-page #list-of-builds td.committer {
   padding: 0;
@@ -9116,10 +9118,56 @@ body {
   background-color: #eee;
 }
 #build-page .job-link {
-  min-width: 73px;
+  min-width: 80px;
 }
 #build-page .commit-url {
-  width: auto;
+  max-width: 416px;
+}
+#build-page .commit-url .truncate {
+  max-width: 110px;
+}
+@media (min-width: 1400px) {
+  #build-page .commit-url .truncate {
+    max-width: 154px;
+  }
+}
+@media (min-width: 1600px) {
+  #build-page .commit-url .truncate {
+    max-width: 133px;
+  }
+}
+@media (min-width: 2048px) {
+  #build-page .commit-url .truncate {
+    max-width: 276px;
+  }
+}
+#build-page .run-time {
+  text-align: center;
+}
+#build-page .finished-at {
+  min-width: 100px;
+  text-align: center;
+}
+@media (max-width: 1600px) {
+  #build-page .finished-at {
+    min-width: 16px;
+  }
+}
+#build-page .summary-icon {
+  display: inline-block;
+}
+@media (min-width: 1600px) {
+  #build-page .summary-icon {
+    display: none;
+  }
+}
+#build-page .summary-text {
+  display: none;
+}
+@media (min-width: 1600px) {
+  #build-page .summary-text {
+    display: inline-block;
+  }
 }
 .last-builds {
   border-collapse: separate;
