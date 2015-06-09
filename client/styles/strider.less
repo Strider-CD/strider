@@ -42,6 +42,48 @@ body {
   }
 }
 
+// Make the console output and past builds fill the full height of the browser.
+.job_view {
+  height: 100%;
+  .wrap {
+    height: 98%;
+    .content {
+      height: 100%;
+      .body-content {
+        height: 100%;
+        > .row-fluid {
+          height: 100%;
+          .span12 {
+            height: 100%;
+            .app {
+              height: 100%;
+              #build-page {
+                height: 100%;
+                .job-main {
+                  height: 95%;
+                  padding-bottom: 20px;
+                  .job-wrap {
+                    height: 100%;
+                    .job-left-col {
+                      height: 100%;
+                    }
+                    .job-detail-sidebar {
+                      height: 100%;
+                      #list-of-builds {
+                        height: 100%;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 #build-page {
   .job-title h3 {
     .test-only-action {
@@ -58,8 +100,6 @@ body {
   }
 
   #list-of-builds {
-    max-height: 672px;
-
     table td {
       vertical-align: middle;
     }
