@@ -9134,6 +9134,11 @@ body {
   width: 25px;
   max-width: inherit;
 }
+@media (max-width: 1400px) {
+  #build-page #list-of-builds td.committer {
+    display: none;
+  }
+}
 #build-page #list-of-builds tr {
   background-color: transparent;
   cursor: pointer;
@@ -9161,12 +9166,12 @@ body {
 }
 @media (min-width: 1400px) {
   #build-page #list-of-builds .commit-url .truncate {
-    max-width: 154px;
+    max-width: 136px;
   }
 }
 @media (min-width: 1600px) {
   #build-page #list-of-builds .commit-url .truncate {
-    max-width: 133px;
+    max-width: 115px;
   }
 }
 @media (min-width: 2048px) {
