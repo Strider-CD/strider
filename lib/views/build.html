@@ -62,13 +62,7 @@
             {% endpluginblock %}
             <div class='job-left-col'>
               <div class="row-fluid [[ job.status ]]" id="build-metadata">
-                <table>
-                  <tbody>
-                    <tr class="dashboard-row">
-                      {% include "partials/build_metadata.html" with page %}
-                    </tr>
-                  </tbody>
-                </table>
+                {% include "partials/build_metadata.html" with page %}
               </div>
               <div class='row job-pre-console'>
                 <div class='span12 job-pre-console-inner'>

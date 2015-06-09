@@ -8669,13 +8669,12 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 #build-metadata .progress-meter {
   min-width: 200px;
 }
-#build-metadata table {
-  margin-bottom: 0;
-  width: 100%;
+#build-metadata .job-link-id {
+  padding: 0 5px;
+  vertical-align: super;
 }
-#build-metadata table .committer img {
-  margin-top: -8px;
-  max-width: inherit;
+#build-metadata .committer img {
+  max-width: 30px;
 }
 .commit-url .trigger-icon {
   font-size: 15px;

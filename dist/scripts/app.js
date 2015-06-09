@@ -27437,7 +27437,7 @@ var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 }(typeof exports === 'undefined' ? (this.base64js = {}) : exports))
 
 },{}],54:[function(require,module,exports){
-exports.read = function(buffer, offset, isLE, mLen, nBytes) {
+exports.read = function (buffer, offset, isLE, mLen, nBytes) {
   var e, m,
       eLen = nBytes * 8 - mLen - 1,
       eMax = (1 << eLen) - 1,
@@ -27445,32 +27445,32 @@ exports.read = function(buffer, offset, isLE, mLen, nBytes) {
       nBits = -7,
       i = isLE ? (nBytes - 1) : 0,
       d = isLE ? -1 : 1,
-      s = buffer[offset + i];
+      s = buffer[offset + i]
 
-  i += d;
+  i += d
 
-  e = s & ((1 << (-nBits)) - 1);
-  s >>= (-nBits);
-  nBits += eLen;
-  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8);
+  e = s & ((1 << (-nBits)) - 1)
+  s >>= (-nBits)
+  nBits += eLen
+  for (; nBits > 0; e = e * 256 + buffer[offset + i], i += d, nBits -= 8) {}
 
-  m = e & ((1 << (-nBits)) - 1);
-  e >>= (-nBits);
-  nBits += mLen;
-  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8);
+  m = e & ((1 << (-nBits)) - 1)
+  e >>= (-nBits)
+  nBits += mLen
+  for (; nBits > 0; m = m * 256 + buffer[offset + i], i += d, nBits -= 8) {}
 
   if (e === 0) {
-    e = 1 - eBias;
+    e = 1 - eBias
   } else if (e === eMax) {
-    return m ? NaN : ((s ? -1 : 1) * Infinity);
+    return m ? NaN : ((s ? -1 : 1) * Infinity)
   } else {
-    m = m + Math.pow(2, mLen);
-    e = e - eBias;
+    m = m + Math.pow(2, mLen)
+    e = e - eBias
   }
-  return (s ? -1 : 1) * m * Math.pow(2, e - mLen);
-};
+  return (s ? -1 : 1) * m * Math.pow(2, e - mLen)
+}
 
-exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
+exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
   var e, m, c,
       eLen = nBytes * 8 - mLen - 1,
       eMax = (1 << eLen) - 1,
@@ -27478,49 +27478,49 @@ exports.write = function(buffer, value, offset, isLE, mLen, nBytes) {
       rt = (mLen === 23 ? Math.pow(2, -24) - Math.pow(2, -77) : 0),
       i = isLE ? 0 : (nBytes - 1),
       d = isLE ? 1 : -1,
-      s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0;
+      s = value < 0 || (value === 0 && 1 / value < 0) ? 1 : 0
 
-  value = Math.abs(value);
+  value = Math.abs(value)
 
   if (isNaN(value) || value === Infinity) {
-    m = isNaN(value) ? 1 : 0;
-    e = eMax;
+    m = isNaN(value) ? 1 : 0
+    e = eMax
   } else {
-    e = Math.floor(Math.log(value) / Math.LN2);
+    e = Math.floor(Math.log(value) / Math.LN2)
     if (value * (c = Math.pow(2, -e)) < 1) {
-      e--;
-      c *= 2;
+      e--
+      c *= 2
     }
     if (e + eBias >= 1) {
-      value += rt / c;
+      value += rt / c
     } else {
-      value += rt * Math.pow(2, 1 - eBias);
+      value += rt * Math.pow(2, 1 - eBias)
     }
     if (value * c >= 2) {
-      e++;
-      c /= 2;
+      e++
+      c /= 2
     }
 
     if (e + eBias >= eMax) {
-      m = 0;
-      e = eMax;
+      m = 0
+      e = eMax
     } else if (e + eBias >= 1) {
-      m = (value * c - 1) * Math.pow(2, mLen);
-      e = e + eBias;
+      m = (value * c - 1) * Math.pow(2, mLen)
+      e = e + eBias
     } else {
-      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen);
-      e = 0;
+      m = value * Math.pow(2, eBias - 1) * Math.pow(2, mLen)
+      e = 0
     }
   }
 
-  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8);
+  for (; mLen >= 8; buffer[offset + i] = m & 0xff, i += d, m /= 256, mLen -= 8) {}
 
-  e = (e << mLen) | m;
-  eLen += mLen;
-  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8);
+  e = (e << mLen) | m
+  eLen += mLen
+  for (; eLen > 0; buffer[offset + i] = e & 0xff, i += d, e /= 256, eLen -= 8) {}
 
-  buffer[offset + i - d] |= s * 128;
-};
+  buffer[offset + i - d] |= s * 128
+}
 
 },{}],55:[function(require,module,exports){
 
@@ -27559,7 +27559,7 @@ module.exports = isArray || function (val) {
 
 },{}],56:[function(require,module,exports){
 /*!
- * jQuery JavaScript Library v1.11.2
+ * jQuery JavaScript Library v1.11.3
  * http://jquery.com/
  *
  * Includes Sizzle.js
@@ -27569,7 +27569,7 @@ module.exports = isArray || function (val) {
  * Released under the MIT license
  * http://jquery.org/license
  *
- * Date: 2014-12-17T15:27Z
+ * Date: 2015-04-28T16:19Z
  */
 
 (function( global, factory ) {
@@ -27624,7 +27624,7 @@ var support = {};
 
 
 var
-	version = "1.11.2",
+	version = "1.11.3",
 
 	// Define a local copy of jQuery
 	jQuery = function( selector, context ) {
@@ -28129,7 +28129,12 @@ jQuery.each("Boolean Number String Function Array Date RegExp Object Error".spli
 });
 
 function isArraylike( obj ) {
-	var length = obj.length,
+
+	// Support: iOS 8.2 (not reproducible in simulator)
+	// `in` check used to prevent JIT error (gh-2145)
+	// hasOwn isn't used here due to false negatives
+	// regarding Nodelist length in IE
+	var length = "length" in obj && obj.length,
 		type = jQuery.type( obj );
 
 	if ( type === "function" || jQuery.isWindow( obj ) ) {
@@ -37909,12 +37914,12 @@ return jQuery;
 (function (global){
 /**
  * @license
- * Lo-Dash 2.4.1 (Custom Build) <http://lodash.com/>
+ * Lo-Dash 2.4.2 (Custom Build) <https://lodash.com/>
  * Build: `lodash modern -o ./dist/lodash.js`
  * Copyright 2012-2013 The Dojo Foundation <http://dojofoundation.org/>
  * Based on Underscore.js 1.5.2 <http://underscorejs.org/LICENSE>
  * Copyright 2009-2013 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
- * Available under MIT license <http://lodash.com/license>
+ * Available under MIT license <https://lodash.com/license>
  */
 ;(function() {
 
@@ -39403,6 +39408,7 @@ return jQuery;
     var setBindData = !defineProperty ? noop : function(func, value) {
       descriptor.value = value;
       defineProperty(func, '__bindData__', descriptor);
+      descriptor.value = null;
     };
 
     /**
@@ -44048,7 +44054,7 @@ return jQuery;
      * debugging. See http://www.html5rocks.com/en/tutorials/developertools/sourcemaps/#toc-sourceurl
      *
      * For more information on precompiling templates see:
-     * http://lodash.com/custom-builds
+     * https://lodash.com/custom-builds
      *
      * For more information on Chrome extension sandboxes see:
      * http://developer.chrome.com/stable/extensions/sandboxingEval.html
@@ -44617,7 +44623,7 @@ return jQuery;
      * @memberOf _
      * @type string
      */
-    lodash.VERSION = '2.4.1';
+    lodash.VERSION = '2.4.2';
 
     // add "Chaining" functions to the wrapper
     lodash.prototype.chain = wrapperChain;
@@ -51695,7 +51701,7 @@ function toArray(list, index) {
 (function (global){
 
 ; angular = global.angular = require("angular");
-;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 angular.module("ui.bootstrap", ["ui.bootstrap.buttons","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.pagination","ui.bootstrap.rating","ui.bootstrap.timepicker","ui.bootstrap.bindHtml","ui.bootstrap.typeahead"]);
 angular.module('ui.bootstrap.buttons', [])
 
@@ -53198,7 +53204,7 @@ angular.module('ui.bootstrap.typeahead', ['ui.bootstrap.position', 'ui.bootstrap
 ; angular = global.angular = require("angular");
 CodeMirror = global.CodeMirror = require("/Users/iradchenko/sandbox/strider/vendor/CodeMirror/js/codemirror.js");
 require("/Users/iradchenko/sandbox/strider/vendor/CodeMirror/js/shell.js");
-;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 /*global angular, CodeMirror, Error*/
 /**
  * Binds a CodeMirror widget to a <textarea> element.
@@ -53323,7 +53329,7 @@ angular.module('ui.codemirror', [])
 (function (global){
 
 ; angular = global.angular = require("angular");
-;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 /*
  jQuery UI Sortable plugin wrapper
 
@@ -53452,7 +53458,7 @@ angular.module('ui.sortable', [])
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"angular":50}],111:[function(require,module,exports){
 (function (global){
-;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 // CodeMirror is the only global var we claim
 window.CodeMirror = (function() {
   "use strict";
@@ -59348,7 +59354,7 @@ window.CodeMirror = (function() {
 (function (global){
 
 ; CodeMirror = global.CodeMirror = require("/Users/iradchenko/sandbox/strider/vendor/CodeMirror/js/codemirror.js");
-;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 CodeMirror.defineMode('shell', function() {
 
   var words = {};
@@ -59473,7 +59479,7 @@ CodeMirror.defineMIME('text/x-sh', 'shell');
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"/Users/iradchenko/sandbox/strider/vendor/CodeMirror/js/codemirror.js":111}],113:[function(require,module,exports){
 (function (global){
-;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /**!
  * Sortable
  * @author	RubaXa   <trash@rubaxa.org>
@@ -60119,7 +60125,7 @@ CodeMirror.defineMIME('text/x-sh', 'shell');
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],114:[function(require,module,exports){
 (function (global){
-;__browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /**
  * bootbox.js v3.3.0
  *
@@ -60790,7 +60796,7 @@ window.bootbox = bootbox;
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
-;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 /* ===================================================
  * bootstrap-transition.js v2.3.2
  * http://twbs.github.com/bootstrap/javascript.html#transitions
@@ -63078,7 +63084,7 @@ window.bootbox = bootbox;
 (function (global){
 
 ; jQuery = global.jQuery = require("jquery");
-;__browserify_shim_require__=require;(function browserifyShim(module, define, require) {
+; var __browserify_shim_require__=require;(function browserifyShim(module, define, require) {
 /**
  * Timeago is a jQuery plugin that makes it easy to support automatically
  * updating fuzzy timestamps (e.g. "4 minutes ago" or "about 1 day ago").
