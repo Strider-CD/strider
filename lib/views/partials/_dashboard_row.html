@@ -112,7 +112,9 @@
 
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago summary-text"></time>
-    <i class="fa fa-clock-o summary-icon" data-toggle="tooltip" data-placement="top" title="[[ job.finished ]]"></i>
+    {% if page === 'history' %}
+      <i class="fa fa-clock-o summary-icon" data-toggle="tooltip" data-placement="top" title="[[ job.finished ]]"></i>
+    {% endif %}
   </span>
   <div ng-switch-when="true" class="progress-meter">
     <div class="progress progress-striped active progress-info">
