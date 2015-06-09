@@ -24,105 +24,109 @@
   <div id="build-page" class="main" ng-view></div>
 
   <script id="build-tpl.html" type="text/ng-template">
-    <div class="row-fluid job-page-intro">
-      <div class="span12 job-title">
-        {% pluginblock JobPagePreTitle %}{% endpluginblock %}
-        <h3 class="clearfix">
-          {% if currentUser %}
-            <span ng-hide="job.running || !canAdminProject"
-                  ng-click="startDeploy(job)"
-                  title="Retest &amp; Deploy"
-                  class="clickable test-and-deploy-action">
-              <i class="fa fa-cloud-upload"></i>
-            </span>
-            <span ng-hide="job.running || !canAdminProject"
-                  ng-click="startTest(job)"
-                  title="Retest" class="clickable test-only-action">
-              <i class="fa fa-refresh"></i>
-            </span>
-          {% endif %}
-          <span class='job-repo'>{{ project.display_name }}</span>
-          <a href="[[ project.display_url ]]" target="_blank">
-            <i class="fa fa-[[ project.provider.id ]]"></i>
-          </a>
-          {% if currentUser %}
-            <a href="/[[ project.name ]]/config" ng-hide="!canAdminProject" title="Configure" class="btn btn-default pull-right">
-              <i class="fa fa-wrench"></i> Configure
+    <div class="span8">
+      <div class="row-fluid job-page-intro">
+
+        <div class="job-title">
+          {% pluginblock JobPagePreTitle %}{% endpluginblock %}
+          <h3 class="clearfix">
+            {% if currentUser %}
+              <span ng-hide="job.running || !canAdminProject"
+                    ng-click="startDeploy(job)"
+                    title="Retest &amp; Deploy"
+                    class="clickable test-and-deploy-action">
+                <i class="fa fa-cloud-upload"></i>
+              </span>
+              <span ng-hide="job.running || !canAdminProject"
+                    ng-click="startTest(job)"
+                    title="Retest" class="clickable test-only-action">
+                <i class="fa fa-refresh"></i>
+              </span>
+            {% endif %}
+            <span class='job-repo'>{{ project.display_name }}</span>
+            <a href="[[ project.display_url ]]" target="_blank">
+              <i class="fa fa-[[ project.provider.id ]]"></i>
             </a>
-          {% endif %}
-        </h3>
-        {% pluginblock JobPagePostTitle %}{% endpluginblock %}
+            {% if currentUser %}
+              <a href="/[[ project.name ]]/config" ng-hide="!canAdminProject" title="Configure" class="btn btn-default pull-right">
+                <i class="fa fa-wrench"></i> Configure
+              </a>
+            {% endif %}
+          </h3>
+          {% pluginblock JobPagePostTitle %}{% endpluginblock %}
+        </div>
+      </div>
+      <div class='job-main'>
+          <div class='row-fluid job-wrap'>
+            {% pluginblock JobPagePreCols %}
+            {% endpluginblock %}
+            <div class='job-left-col'>
+              <div class="row-fluid [[ job.status ]]" id="build-metadata">
+                <table>
+                  <tbody>
+                    <tr class="dashboard-row">
+                      {% include "partials/_dashboard_row.html" with page %}
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class='row job-pre-console'>
+                <div class='span12 job-pre-console-inner'>
+                  {% pluginblock JobPagePreConsole %}
+                  {% endpluginblock %}
+                </div>
+              </div>
+
+              {% for block in statusBlocks.runner %}
+              <div class="status-{{ loop.key }} plugin-status runner-status {{ block.attrs.class }}"
+                   plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
+                {{ block.html | raw }}
+              </div>
+              {% endfor %}
+
+              {% if statusBlocks.provider[project.provider.id] %}
+              <div class="status-{{ loop.key }} plugin-status provider-status {{ block.attrs.class }}"
+                   plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
+                {{ block.html | raw }}
+              </div>
+              {% endif %}
+
+              {% for block in statusBlocks.job %}
+              <div class="status-{{ loop.key }} plugin-status job-plugin-status {{ block.attrs.class }}"
+                   plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
+                {{ block.html | raw }}
+              </div>
+              {% endfor %}
+
+              <div class="build-error" ng-show="job.status === 'errored' && job.error">
+                <div class="alert alert-error">
+                  <i class="fa fa-exclamation-triangle"></i>
+                  [[ job.error.message ]]
+                  <a href="#" class="pull-right" ng-click="toggleErrorDetails()" ng-if="job.error.stack">
+                    <i class="fa fa-ellipsis-h"></i>
+                  </a>
+                  <pre ng-if="showErrorDetails" ng-show="job.error.stack">[[ job.error.stack ]]</pre>
+                </div>
+              </div>
+
+              <div class="console-output">
+                <i class="fa fa-gear fa-light fa-spin loading-icon" ng-show="loading"></i>
+                {% include "build/console.html" %}
+              </div>
+
+              <div class="footer">
+                <a href="https://github.com/Strider-CD/strider">Strider-CD <i class="fa fa-github"></i></a>
+                | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
+                | <a href="http://strider.readthedocs.org/en/latest/intro.html">Docs</a>
+              </div>
+            </div>
+          </div>
       </div>
     </div>
-    <div class='job-main'>
-        <div class='row-fluid job-wrap'>
-          {% pluginblock JobPagePreCols %}
-          {% endpluginblock %}
-          <div class='span8 job-left-col'>
-            <div class="row-fluid [[ job.status ]]" id="build-metadata">
-              <table>
-                <tbody>
-                  <tr class="dashboard-row">
-                    {% include "partials/_dashboard_row.html" with page %}
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class='row job-pre-console'>
-              <div class='span12 job-pre-console-inner'>
-                {% pluginblock JobPagePreConsole %}
-                {% endpluginblock %}
-              </div>
-            </div>
-
-            {% for block in statusBlocks.runner %}
-            <div class="status-{{ loop.key }} plugin-status runner-status {{ block.attrs.class }}"
-                 plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
-              {{ block.html | raw }}
-            </div>
-            {% endfor %}
-
-            {% if statusBlocks.provider[project.provider.id] %}
-            <div class="status-{{ loop.key }} plugin-status provider-status {{ block.attrs.class }}"
-                 plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
-              {{ block.html | raw }}
-            </div>
-            {% endif %}
-
-            {% for block in statusBlocks.job %}
-            <div class="status-{{ loop.key }} plugin-status job-plugin-status {{ block.attrs.class }}"
-                 plugin-status="{{ loop.key }}"{% for val in block.attrs %}{% if loop.key != 'class' %} {{ loop.key }}="{{ val }}"{% endif %}{% endfor %}>
-              {{ block.html | raw }}
-            </div>
-            {% endfor %}
-
-            <div class="build-error" ng-show="job.status === 'errored' && job.error">
-              <div class="alert alert-error">
-                <i class="fa fa-exclamation-triangle"></i>
-                [[ job.error.message ]]
-                <a href="#" class="pull-right" ng-click="toggleErrorDetails()" ng-if="job.error.stack">
-                  <i class="fa fa-ellipsis-h"></i>
-                </a>
-                <pre ng-if="showErrorDetails" ng-show="job.error.stack">[[ job.error.stack ]]</pre>
-              </div>
-            </div>
-
-            <div class="console-output">
-              <i class="fa fa-gear fa-light fa-spin loading-icon" ng-show="loading"></i>
-              {% include "build/console.html" %}
-            </div>
-
-            <div class="footer">
-              <a href="https://github.com/Strider-CD/strider">Strider-CD <i class="fa fa-github"></i></a>
-              | <a href="https://github.com/Strider-CD/strider/issues?state=open">Get Help / Report a Bug</a>
-              | <a href="http://strider.readthedocs.org/en/latest/intro.html">Docs</a>
-            </div>
-          </div>
-
-          <div class='span4 job-detail-sidebar pull-right'>
-            {% include "build/history.html" %}
-          </div>
-        </div>
+    <div class="span4">
+      <div class='job-detail-sidebar'>
+        {% include "build/history.html" %}
+      </div>
     </div>
   </script>
 </div>

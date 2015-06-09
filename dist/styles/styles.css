@@ -9097,20 +9097,23 @@ body {
 .job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page {
   height: 100%;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page .job-main {
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main {
   height: 95%;
   padding-bottom: 20px;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page .job-main .job-wrap {
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap {
   height: 100%;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page .job-main .job-wrap .job-left-col {
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-left-col {
   height: 100%;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page .job-main .job-wrap .job-detail-sidebar {
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-detail-sidebar {
   height: 100%;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page .job-main .job-wrap .job-detail-sidebar #list-of-builds {
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-detail-sidebar #list-of-builds {
   height: 100%;
 }
 #build-page .job-title h3 .test-only-action {
@@ -9118,9 +9121,6 @@ body {
 }
 #build-page .job-title h3 .test-and-deploy-action {
   color: #2900ff;
-}
-#build-page .job-detail-sidebar {
-  margin-top: -59px;
 }
 #build-page #list-of-builds table td {
   vertical-align: middle;
