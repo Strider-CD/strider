@@ -4,7 +4,11 @@ var $ = require('jquery');
 
 module.exports = function ($scope, $attrs) {
   var provider = $attrs.id.split('-')[1];
-  $scope.config = {};
+  $scope.config = {
+    auth: {
+      type: 'none'
+    }
+  };
   $scope.projects = global.manualProjects[provider] || [];
   $scope.remove = function (project) {
     project.really_remove = 'removing';
