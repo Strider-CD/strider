@@ -45,7 +45,10 @@
 </div>
 
 <div class="finished-at span2" ng-switch="job.status === 'running'">
-  <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job" class="fa fa-times cancel-job" ng-click="cancelJob(job._id)"></i>
+  {% if currentUser %}
+    <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job"
+      class="fa fa-times cancel-job" ng-click="cancelJob(job._id)"></i>
+  {% endif %}
 
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago summary-text"></time>
