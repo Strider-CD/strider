@@ -48,7 +48,11 @@ module.exports = function($scope) {
       if (err) {
         global.alert(err.message);
       }
-
+      
+      // cleanup plugin in main list
+      plugins[plugin.id].installed = false;
+      delete plugins[plugin.id].outdated;
+      
       this.busy = false;
     }.bind(this))
   }
