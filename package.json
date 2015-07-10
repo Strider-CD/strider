@@ -43,10 +43,6 @@
     "test": "make test",
     "start": "bin/strider",
     "dev": "npm run build-debug && bin/strider",
-    "blanket": {
-      "pattern": "lib",
-      "data-cover-never": "node_modules"
-    },
     "pre": "mkdirp dist/scripts dist/styles",
     "vendor": "bower-installer",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
