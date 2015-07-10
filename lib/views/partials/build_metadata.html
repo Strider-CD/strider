@@ -45,10 +45,6 @@
 </div>
 
 <div class="finished-at span2" ng-switch="job.status === 'running'">
-  {% if currentUser %}
-    <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" title="Cancel Job"
-      class="fa fa-times cancel-job" ng-click="cancelJob(job._id)"></i>
-  {% endif %}
 
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago summary-text"></time>
@@ -57,5 +53,25 @@
     <div class="progress progress-striped active progress-info">
       <div class="bar" style="width:[[ (phases.indexOf(job.phase)+1)/phases.length*100 ]]%; max-width: 100%"></div>
     </div>
+  </div>
+
+  <div class="dropdown pull-right">
+    <div class="dropdown-toggle btn btn-link" data-toggle="dropdown">
+      <i class="fa fa-ellipsis-v"></i>
+    </div>
+    <ul class="dropdown-menu">
+      {% if currentUser %}
+        <li ng-show="job.status === 'running' || job.status === 'submitted'">
+          <a ng-click="cancelJob(job._id)">
+            <i class="fa fa-times muted"></i> Cancel Job
+          </a>
+        </li>
+      {% endif %}
+      <li>
+        <a ng-click="restartJob(job)">
+          <i class="fa fa-retweet muted"></i> Restart Job
+        </a>
+      </li>
+    </ul>
   </div>
 </div>

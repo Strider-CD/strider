@@ -173,6 +173,9 @@ module.exports = function ($scope, $route, $location, $filter) {
       status: 'submitted'
     };
   };
+  $scope.restartJob = function (job) {
+    console.log('restartJob: not implemented');
+  };
   $scope.cancelJob = function (id) {
     socket.emit('cancel', id)
   };
