@@ -6,7 +6,7 @@
   },
   "main": "main.js",
   "description": "Brilliant continuous deployment platform",
-  "license": "BSD",
+  "license": "BSD-3-Clause",
   "keywords": [
     "strider",
     "continuous integration",
@@ -52,7 +52,7 @@
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -t babelify -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min"
@@ -128,6 +128,7 @@
   "devDependencies": {
     "angular": "1.2.23",
     "angular-route": "1.2.17-build.163.1",
+    "babelify": "^6.1.2",
     "blanket": "^1.1.5",
     "bower-installer": "^1.2.0",
     "browserify": "^6.3.3",
