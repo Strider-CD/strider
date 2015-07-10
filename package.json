@@ -6,6 +6,7 @@
   },
   "main": "main.js",
   "description": "Brilliant continuous deployment platform",
+  "license": "BSD",
   "keywords": [
     "strider",
     "continuous integration",
