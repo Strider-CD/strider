@@ -18,7 +18,7 @@ function AccountController($scope, $sce) {
       $scope.success('Account removed');
       return;
     }
-    $.ajax('/api/account/' + account.provider + '/' + account.id, {
+    $.ajax(`/api/account/${account.provider}/${account.id}`, {
       type: 'DELETE',
       success: function () {
         var idx = $scope.accounts[account.provider].indexOf(account);
@@ -27,8 +27,8 @@ function AccountController($scope, $sce) {
         $scope.user.accounts.splice(idx, 1);
         $scope.success('Account removed', true);
       },
-      error: function () {
-        $scope.error('Failed to remove account', true);
+      error: function (err) {
+        $scope.error(err && err.responseText ? err.responseText : 'Failed to remove account', true);
       }
     });
   };
