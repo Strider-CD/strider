@@ -1,4 +1,4 @@
-// strict not used due to use of octal literals
+'use strict';
 
 module.exports = function () {
   return function (input) {
@@ -47,7 +47,7 @@ function ansiparse(str) {
   }
   //
   // General workflow for this thing is:
-  // \033\[33mText
+  // \x21\[33mText
   // |     |  |
   // |     |  matchingText
   // |     matchingData
@@ -82,7 +82,7 @@ function ansiparse(str) {
   for (var i = 0; i < str.length; i++) {
     if (matchingControl !== null) {
       /* jshint ignore:start */
-      if (matchingControl === '\033' && str[i] === '\[') {
+      if (matchingControl === '\x21' && str[i] === '\[') {
         //
         // We've matched full control code. Lets start matching formating data.
         //
@@ -114,7 +114,7 @@ function ansiparse(str) {
     else if (matchingData !== null) {
       if (str[i] == ';') {
         //
-        // `;` separates many formatting codes, for example: `\033[33;43m`
+        // `;` separates many formatting codes, for example: `\x21[33;43m`
         // means that both `33` and `43` should be applied.
         //
         // TODO: this can be simplified by modifying state here.
@@ -170,7 +170,7 @@ function ansiparse(str) {
       continue;
     }
 
-    if (str[i] == '\033') {
+    if (str[i] == '\x21') {
       matchingControl = str[i];
     }
     else if (str[i] == '\u0008') {
@@ -223,7 +223,7 @@ function ansifilter(data, plaintext, cache) {
   var startswithcr = /^[^\n]*\r[^\n]/.test(data);
   var output = ansiparse(data);
 
-  var res = output.replace(/\033/g, '');
+  var res = output.replace(/\x21/g, '');
   if (startswithcr) res = '\r' + res;
   
   return res;
