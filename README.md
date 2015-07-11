@@ -229,3 +229,4 @@ LLC][maintainer]. For commercial support, customization, integration
 [irc]: https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
+[apiDoc]: http://apidocjs.com/#getting-started
