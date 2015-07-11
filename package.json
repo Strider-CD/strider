@@ -48,7 +48,7 @@
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -t babelify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min"
