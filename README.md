@@ -183,12 +183,6 @@ If nobody is responding, don't leave immediately. Someone will eventually respon
 
 For a view of what's going on with the project, check out our boards by setting up [ZenBoard] and visiting the "Boards" page.
 
-### Commercial Support
-
-Strider is maintained and supported by [FrozenRidge,
-LLC][maintainer]. For commercial support, customization, integration
-& hosting enquiries please email hi@frozenridge.co.
-
 
 [logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
 [build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
