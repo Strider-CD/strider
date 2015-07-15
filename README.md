@@ -37,6 +37,7 @@ Strider is extremely customizable through plugins. Plugins can
     - [Heroku](#strider-on-heroku)
     - [Docker](#strider-in-docker)
 - [Advanced Topics](#advanced-topics)
+- [API Documentation](#api-documentation)
 - [Support & Help](#support--help)
 - [Roadmap / Changelog][roadmap]
 
@@ -75,6 +76,7 @@ Internet-accessible deployment the following variables will need to be exported:
   - `SERVER_NAME` - Required; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash)
   - `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
   - `PORT` - Port that strider runs on, optional (defaults to 3000).
+  - `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
   - `DB_URI` - MongoDB DB URI if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
   - `HTTP_PROXY` - Proxy support, optional (defaults to null)
   - If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
@@ -162,6 +164,13 @@ subset of what's covered:
 - [Requiring Strider](https://github.com/Strider-CD/strider/wiki/Requiring-Strider)
 - [Managing Plugins](https://github.com/Strider-CD/strider/wiki/Managing-Plugins)
 
+## API Documentation
+
+An effort has been started to document the existing REST API, and to have versioned documentation going forward.
+We use [apiDoc] for the documentation.
+
+To build the documentation run `npm run gendocs` and the documentation will be accessable from `apidocs/index.html`.
+
 ## Support & Help
 
 We are very responsive to Github Issues - please think of them as a message board for the project!
@@ -173,12 +182,6 @@ You can find us on [irc.freenode.net in #strider][irc].
 If nobody is responding, don't leave immediately. Someone will eventually respond. If you don't want to wait please create a Github issue! Many Strider contributors don't use IRC at all, but will respond pretty quickly to new Github Issues.
 
 For a view of what's going on with the project, check out our boards by setting up [ZenBoard] and visiting the "Boards" page.
-
-### Commercial Support
-
-Strider is maintained and supported by [FrozenRidge,
-LLC][maintainer]. For commercial support, customization, integration
-& hosting enquiries please email hi@frozenridge.co.
 
 
 [logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
@@ -220,3 +223,4 @@ LLC][maintainer]. For commercial support, customization, integration
 [irc]: https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
+[apiDoc]: http://apidocjs.com/#getting-started

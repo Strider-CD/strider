@@ -6,6 +6,7 @@
   },
   "main": "main.js",
   "description": "Brilliant continuous deployment platform",
+  "license": "BSD-3-Clause",
   "keywords": [
     "strider",
     "continuous integration",
@@ -42,19 +43,16 @@
     "test": "make test",
     "start": "bin/strider",
     "dev": "npm run build-debug && bin/strider",
-    "blanket": {
-      "pattern": "lib",
-      "data-cover-never": "node_modules"
-    },
     "pre": "mkdirp dist/scripts dist/styles",
     "vendor": "bower-installer",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
-    "unitdev": "mocha -w --recursive test/unit -R min"
+    "unitdev": "mocha -w --recursive test/unit -R min",
+    "gendocs": "apidoc -i lib/ -o apidocs/"
   },
   "dependencies": {
     "MD5": "^1.2.1",
@@ -103,7 +101,7 @@
     "strider-bitbucket": "^1.0.3",
     "strider-build-badge": "^0",
     "strider-cli": "^1.4.1",
-    "strider-custom": "^0.5.3",
+    "strider-custom": "^0.6.0",
     "strider-email-notifier": "^0.4.2",
     "strider-env": "^0.4.4",
     "strider-extension-loader": "^0.4.5",
@@ -127,6 +125,8 @@
   "devDependencies": {
     "angular": "1.2.23",
     "angular-route": "1.2.17-build.163.1",
+    "apidoc": "^0.13.1",
+    "babelify": "^6.1.2",
     "blanket": "^1.1.5",
     "bower-installer": "^1.2.0",
     "browserify": "^6.3.3",
