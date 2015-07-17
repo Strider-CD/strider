@@ -28,7 +28,7 @@
           {% if (user.account_level === 1) %}
             <b>YES</b>
           {% else %}
-            <a href="/admin/make_admin?user={{user.email}}">Make Admin</a>
+            <a href="/admin/make_admin?user={{user.email | url_encode}}">Make Admin</a>
           {% endif %}
         </td>
         <td>
