@@ -69,12 +69,12 @@ body {
                       .job-left-col {
                         height: 100%;
                       }
-                      .job-detail-sidebar {
-                        height: 100%;
-                        #list-of-builds {
-                          height: 100%;
-                        }
-                      }
+                    }
+                  }
+                  .job-detail-sidebar {
+                    height: 100%;
+                    #list-of-builds {
+                      height: 96%;
                     }
                   }
                 }
@@ -99,8 +99,13 @@ body {
   }
 
   #list-of-builds {
-    table td {
-      vertical-align: middle;
+    overflow: auto;
+
+    table {
+      margin-bottom: 0;
+      td {
+        vertical-align: middle;
+      }
     }
 
     td.committer {
@@ -464,13 +469,6 @@ footer p {
 #build-metadata {
   padding: 8px;
   border-radius: 3px;
-}
-#list-of-builds {
-  overflow: auto;
-
-  table {
-    margin-bottom: 0;
-  }
 }
 #build-detail-buttons {
   border: 1px solid;

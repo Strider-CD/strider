@@ -8838,7 +8838,7 @@ body.job_view footer {
   line-height: 27px;
 }
 .run-time time {
-  line-height: 36px;
+  line-height: 29px;
 }
 #dashboard .finished-at .cancel-job {
   font-size: 18px;
@@ -9109,17 +9109,23 @@ body {
 .job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-left-col {
   height: 100%;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-detail-sidebar {
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar {
   height: 100%;
 }
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-detail-sidebar #list-of-builds {
-  height: 100%;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar #list-of-builds {
+  height: 96%;
 }
 #build-page .job-title h3 .test-only-action {
   color: green;
 }
 #build-page .job-title h3 .test-and-deploy-action {
   color: #2900ff;
+}
+#build-page #list-of-builds {
+  overflow: auto;
+}
+#build-page #list-of-builds table {
+  margin-bottom: 0;
 }
 #build-page #list-of-builds table td {
   vertical-align: middle;
@@ -9473,12 +9479,6 @@ footer p {
 #build-metadata {
   padding: 8px;
   border-radius: 3px;
-}
-#list-of-builds {
-  overflow: auto;
-}
-#list-of-builds table {
-  margin-bottom: 0;
 }
 #build-detail-buttons {
   border: 1px solid;
@@ -9896,4 +9896,3 @@ span.underline {
   border-radius: 3px;
   border: 1px solid transparent;
 }
-/*# sourceMappingURL=styles.css.map */
