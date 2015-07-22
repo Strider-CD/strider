@@ -1,0 +1,20 @@
+# Strider Editor/IDE Settings
+# This file is used to promote consistent source code standards
+# amongst all Strider-CD contributors.
+# More information can be found here: http://editorconfig.org/
+
+# General Settings
+root = true
+
+# Settings for all files
+[*]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# Settings specific to Markdown files
+[*.md]
+trim_trailing_whitespace = false
