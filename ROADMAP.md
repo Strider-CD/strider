@@ -2,13 +2,20 @@
 
 # Upcoming Releases
 
-## 1.7.0
+## Future
 
 - Initial setup via UI ([#681](https://github.com/Strider-CD/strider/pull/681))
 - Use latest core plugins
 
 
 # Changelog / Past releases
+
+## 1.7.0 - 2015-07-23
+
+- Upgrade all plugins ([#671](https://github.com/Strider-CD/strider/issues/671))
+- Fix config in Firefox ([#717](https://github.com/Strider-CD/strider/issues/717))
+- Easier install (no bower issues) ([#764](https://github.com/Strider-CD/strider/issues/764))
+- Many more bugs fixed, see the diff [2e3106a4...402c1d6](https://github.com/Strider-CD/strider/compare/2e3106a4bb228537727e8953c93efd7d754fcc56...402c1d6)
 
 ## 1.6.5 - 2015-03-27
 
