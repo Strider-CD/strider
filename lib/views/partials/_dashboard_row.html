@@ -18,7 +18,7 @@
 {% if page !== 'history' %}
   {% if !public && currentUser %}
     <td class="deploy" ng-hide="page === 'build'">
-      <span ng-hide="job.running"
+      <span ng-hide="job.running || job.project.access_level < 1"
             ng-click="startDeploy(job)"
             data-toggle="tooltip" title="Retest &amp; Deploy"
             data-delay="200" class="clickable test-and-deploy-action">
@@ -27,7 +27,8 @@
     </td>
 
     <td class="refresh" ng-hide="page === 'build'">
-      <span ng-hide="job.running" data-toggle="tooltip"
+      <span ng-hide="job.running || job.project.access_level < 1"
+            data-toggle="tooltip"
             ng-click="startTest(job)"
             title="Retest" data-delay="500"
             class="clickable test-only-action">
@@ -126,6 +127,7 @@
 {% if !public && currentUser %}
   <td class="configure" ng-hide="page === 'build'">
     <a href="/[[ job.project.name || project.name ]]/config"
+       ng-show="job.project.access_level > 1"
        data-toggle="tooltip" data-delay="500" title="Configure">
       <i class="fa fa-wrench"></i>
     </a>
