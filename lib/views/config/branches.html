@@ -34,7 +34,7 @@
           <li class="branch-item moveable"
             ng-repeat="branch in branches"
             ng-sortable-id="[[branch.name]]">
-            <span class="remove">
+            <span class="remove pull-right">
               <i ng-switch-when="true" class="fa fa-cog fa-spin"></i>
               <span class="clickable" ng-hide="branch.name === 'master'" ng-click="remove(branch)">
                 <i class="fa fa-times"></i>

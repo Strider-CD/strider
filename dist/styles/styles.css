@@ -8584,9 +8584,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   font-weight: bold;
   margin-left: 5px;
 }
-#project_config_branches .branch-list .branch-item .ismaster {
-  margin-left: 40px;
-}
 #project_config_branches .branch-list .branch-item .remove i {
   padding: 0 10px;
 }
