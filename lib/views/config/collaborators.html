@@ -34,6 +34,7 @@
                      class="collab-email span2 inline-input"/>
               <div class="btn-group access-toggle">
                 <button class="btn" required ng-model="new_access" btn-radio="0">Read</button>
+                <button class="btn" required ng-model="new_access" btn-radio="1">Run</button>
                 <button class="btn" required ng-model="new_access" btn-radio="2">Admin</button>
               </div>
               <button ng-disabled="!collabForm.$valid" ng-click="add()" class="btn btn-add-collab">Add</button>

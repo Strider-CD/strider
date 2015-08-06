@@ -31,13 +31,13 @@
           {% pluginblock JobPagePreTitle %}{% endpluginblock %}
           <h3 class="clearfix">
             {% if currentUser %}
-              <span ng-hide="job.running || !canAdminProject"
+              <span ng-hide="job.running || job.project.access_level < 1"
                     ng-click="startDeploy(job)"
                     title="Retest &amp; Deploy"
                     class="clickable test-and-deploy-action">
                 <i class="fa fa-cloud-upload"></i>
               </span>
-              <span ng-hide="job.running || !canAdminProject"
+              <span ng-hide="job.running || job.project.access_level < 1"
                     ng-click="startTest(job)"
                     title="Retest" class="clickable test-only-action">
                 <i class="fa fa-refresh"></i>
@@ -48,7 +48,7 @@
               <i class="fa fa-[[ project.provider.id ]]"></i>
             </a>
             {% if currentUser %}
-              <a href="/[[ project.name ]]/config" ng-hide="!canAdminProject" title="Configure" class="btn btn-default pull-right">
+              <a href="/[[ project.name ]]/config" ng-hide="job.project.access_level < 2" title="Configure" class="btn btn-default pull-right">
                 <i class="fa fa-wrench"></i> Configure
               </a>
             {% endif %}
