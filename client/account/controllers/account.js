@@ -18,7 +18,7 @@ function AccountController($scope, $sce) {
       $scope.success('Account removed');
       return;
     }
-    $.ajax('/api/account/' + account.provider + '/' + account.id, {
+    $.ajax(`/api/account/${account.provider}/${account.id}`, {
       type: 'DELETE',
       success: function () {
         var idx = $scope.accounts[account.provider].indexOf(account);

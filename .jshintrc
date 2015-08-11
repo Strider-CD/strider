@@ -1,4 +1,5 @@
 {
+  "esnext": true,
   "strict": false,
   "laxcomma": true,
   "laxbreak": true,
