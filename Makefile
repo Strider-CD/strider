@@ -1,8 +1,13 @@
 has_sauce := $(SAUCE_USERNAME)
+no_browser_tests := $(NO_BROWSER_TESTS)
+ifdef no_browser_tests
+test-env := 
+else
 ifndef has_sauce
 test-env := test-local
 else
 test-env := test-sauce
+endif
 endif
 
 build:
