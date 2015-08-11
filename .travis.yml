@@ -4,6 +4,8 @@ node_js:
   - v0.12
   - v0.10
 
+sudo: false
+
 addons:
   sauce_connect: true
 
