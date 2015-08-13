@@ -10,6 +10,10 @@
 
 # Changelog / Past releases
 
+## 1.7.1 - 2015-08-03
+
+- Fix plugin template registration ([#838](https://github.com/Strider-CD/strider/pull/838))
+
 ## 1.7.0 - 2015-07-23
 
 - Upgrade all plugins ([#671](https://github.com/Strider-CD/strider/issues/671))
