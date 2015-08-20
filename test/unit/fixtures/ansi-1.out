@@ -1,7 +1,7 @@
   SettingsManager, when initialized
     with a single item
       ✓ should retrieve 
-      ✓ should set & retrieve 
+      ✓ should set &amp; retrieve 
     with a nested item
       ✓ should be accessible as a.b 
       ✓ should inherit type when not specified 
