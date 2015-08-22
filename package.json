@@ -107,7 +107,7 @@
     "strider-env": "^0.4.4",
     "strider-extension-loader": "^0.4.5",
     "strider-git": "^0.2.0",
-    "strider-github": "^1.3.0",
+    "strider-github": "^2.1.1",
     "strider-heroku": "^0.1.1",
     "strider-mailer": "^0.2.0",
     "strider-metadata": "^0.0.3",
