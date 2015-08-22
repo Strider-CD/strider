@@ -99,7 +99,7 @@
     "socket.io-client": "^1.0.6",
     "ssh-keypair": "^2.0.0",
     "step": "0.0.5",
-    "strider-bitbucket": "^1.0.3",
+    "strider-bitbucket": "^1.2.0",
     "strider-build-badge": "^0",
     "strider-cli": "^1.4.1",
     "strider-custom": "^0.6.0",
