@@ -55,7 +55,7 @@
     </div>
   </div>
 
-  <div class="dropdown pull-right">
+  <div class="current-build-menu dropdown pull-right">
     <div class="dropdown-toggle btn btn-link" data-toggle="dropdown">
       <i class="fa fa-ellipsis-v"></i>
     </div>
@@ -63,13 +63,13 @@
       {% if currentUser %}
         <li ng-show="job.status === 'running' || job.status === 'submitted'">
           <a ng-click="cancelJob(job._id)">
-            <i class="fa fa-times muted"></i> Cancel Job
+            <i class="fa fa-times"></i> Cancel Job
           </a>
         </li>
       {% endif %}
       <li>
-        <a ng-click="restartJob(job)">
-          <i class="fa fa-retweet muted"></i> Restart Job
+        <a ng-click="restartJob(job)" disabled=true>
+          <i class="fa fa-retweet"></i> Restart Job
         </a>
       </li>
     </ul>
