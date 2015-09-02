@@ -55,7 +55,7 @@
     "gendocs": "apidoc -i lib/ -o apidocs/"
   },
   "dependencies": {
-    "md5": "^1.2.1",
+    "md5": "^2.0.0",
     "ansi_up": "^1.3.0",
     "async": "^1.2.1",
     "bcryptjs": "^2.1.0",
