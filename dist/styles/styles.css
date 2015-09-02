@@ -8665,7 +8665,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   margin-bottom: 5px;
 }
 #build-metadata .progress-meter {
-  min-width: 200px;
+  min-width: 50px;
 }
 #build-metadata .job-link-id {
   padding: 0 5px;
@@ -8673,6 +8673,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 #build-metadata .committer img {
   max-width: 30px;
+}
+#build-metadata .current-build-menu .dropdown-menu {
+  top: 28px;
 }
 .commit-url .trigger-icon {
   font-size: 15px;
