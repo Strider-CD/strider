@@ -48,8 +48,8 @@
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
-    "build-debug": "npm run pre && npm run styles-debug && browserify -d -e client/app.js -o dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -d -t [babelify --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
+    "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min",
     "gendocs": "apidoc -i lib/ -o apidocs/"
@@ -130,7 +130,7 @@
     "babelify": "^6.1.2",
     "blanket": "^1.1.5",
     "bower-installer": "^1.2.0",
-    "browserify": "^6.3.3",
+    "browserify": "^11.1.0",
     "browserify-shim": "^3.8.0",
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.0",
@@ -139,12 +139,13 @@
     "jquery": "^2.1.4",
     "jshint": "^2.5.6",
     "less": "^2.2.0",
+    "minifyify": "^7.0.6",
     "mkdirp": "^0.5.0",
     "mocha": "^1.21.4",
     "node-mocks-http": "^1.2.4",
     "should": "^2.1.0",
     "sinon": "^1.10.3",
-    "watchify": "^0.10.2",
+    "watchify": "^3.4.0",
     "wd": "^0.3.8"
   }
 }
