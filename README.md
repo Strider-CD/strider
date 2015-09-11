@@ -1,7 +1,6 @@
 # ![Strider][logo]
 
-[![NPM][npm-badge-img]][npm-badge-link]  
-[![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]
+[![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]
 
 ---
 
@@ -183,7 +182,6 @@ If nobody is responding, don't leave immediately. Someone will eventually respon
 
 For a view of what's going on with the project, check out our boards by setting up [ZenBoard] and visiting the "Boards" page.
 
-
 [logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
 [build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
 [build-link]: https://public-ci.stridercd.com/Strider-CD/strider
@@ -191,8 +189,8 @@ For a view of what's going on with the project, check out our boards by setting 
 [dep-link]: https://david-dm.org/Strider-CD/strider
 [dev-dep-img]: https://david-dm.org/Strider-CD/strider/dev-status.svg
 [dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
-[npm-badge-img]: https://nodei.co/npm/strider.svg?downloads=true&stars=true
-[npm-badge-link]: https://nodei.co/npm/strider/
+[npm-badge-img]: https://badge.fury.io/js/strider.svg
+[npm-badge-link]: http://badge.fury.io/js/strider
 [screenshot]: /docs/screenshots/dashboard.jpg?raw=true
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [mongolab]: https://mongolab.com/plans/pricing/
