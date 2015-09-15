@@ -15,7 +15,7 @@ var job = global.job;
 module.exports = function ($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {}
   var project = global.project;
-  var jobid = params.id || (global.job && global.job._id);
+  var jobid = global.job && global.job._id;
   var socket = io.connect();
   var lastRoute = $route.current;
   var jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job);
@@ -67,7 +67,7 @@ module.exports = function ($scope, $route, $location, $filter) {
     });
   }
 
-  $scope.$on('$locationChangeSuccess', function(event) {
+  $scope.$on('$routeChangeSuccess', function(event) {
     if (global.location.pathname.match(/\/config$/)) {
       global.location = global.location;
       return;
