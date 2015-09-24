@@ -37,6 +37,8 @@ Strider is extremely customizable through plugins. Plugins can
     - [Docker](#strider-in-docker)
 - [Advanced Topics](#advanced-topics)
 - [API Documentation](#api-documentation)
+- [Resources](#resources)
+    - [Strider Tutorial Series][resource-strider-futurestudio-tutorials]
 - [Support & Help](#support--help)
 - [Roadmap / Changelog][roadmap]
 
