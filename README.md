@@ -150,6 +150,7 @@ Please post related issues in the [issues section](https://github.com/Strider-CD
 
 ## Resources
 
+- [Strider Tutorial Series][resource-strider-futurestudio-tutorials] - Extensive guides about Strider covering platform setup, 3rd party integrations (GitHub, GitLab, etc), continuous deployments (Heroku, SSH), notifications (email, Slack, HipChat), how to create your own Strider plugin and many more.
 - [Strider on DigitalOcean][resource-digitalocean] - Covers setting up an Ubuntu machine with Strider using upstart.
 - [Strider plugin template][resource-plugin-template] - Simple setup for getting started with your own plugin.
 - [Panamax Strider template][resource-panamax-template] - Strider template for use with Panamax.
@@ -222,3 +223,4 @@ For a view of what's going on with the project, check out our boards by setting 
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
 [apiDoc]: http://apidocjs.com/#getting-started
+[resource-strider-futurestudio-tutorials]: https://futurestud.io/blog/strider-getting-started-platform-overview/
