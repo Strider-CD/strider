@@ -94,15 +94,13 @@
               </li>
             {% endfor %}
 
-            {% for plugin in plugins %}
-              <li ng-show="!branch.mirror_master && configured[branch.name]['{{ loop.key }}']"
-                  ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
-                  class="plugin-nav">
-                <a href="#plugin-{{ loop.key }}" data-toggle="tab">
-                  <i class="fa fa-plug"></i> {{ plugin.title }}
-                </a>
-              </li>
-            {% endfor %}
+            <li ng-repeat="plugin in branch.plugins" ng-show="!branch.mirror_master"
+                ng-class="{ disabled: !plugin.enabled }"
+                class="plugin-nav">
+              <a href="#plugin-[[ plugin.id ]]" data-toggle="tab">
+                <i class="fa fa-plug"></i> [[ plugins[plugin.id].title ]]
+              </a>
+            </li>
           </ul>
 
           <h4><i class="fa fa-briefcase"></i> Project</h4>

@@ -27,7 +27,7 @@ function ConfigController($scope, $element, $sce) {
   $scope.disabled_plugins = {};
   $scope.configs = {};
   $scope.runnerConfigs = {};
-  $scope.api_root = '/' + $scope.project.name + '/api/';
+  $scope.api_root = `/${$scope.project.name}/api/`;
   $scope.page = 'config';
 
   $(function ConfigPageRouting() {
@@ -52,7 +52,7 @@ function ConfigController($scope, $element, $sce) {
 
         // support the back button
         global.onpopstate = function () {
-          self.route(); 
+          self.route();
         };
 
         this.route();
@@ -73,8 +73,7 @@ function ConfigController($scope, $element, $sce) {
 
         if (branchName) {
           switchToBranch(branchName);
-        }
-        else {
+        } else {
           global.sessionStorage.removeItem('branchName');
         }
 
@@ -116,9 +115,9 @@ function ConfigController($scope, $element, $sce) {
       tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
     }
 
-    $('#' + tab + '-tab-handle').tab('show');
+    $(`#${tab}-tab-handle`).tab('show');
     selectTab(tab);
-    $('a[href=#' + tab + ']').tab('show');
+    $(`a[href=#${tab}]`).tab('show');
   }
 
   // When a tab is shown, reload any CodeMirror instances within
@@ -337,9 +336,9 @@ function ConfigController($scope, $element, $sce) {
   function initPlugins() {
     var branches = $scope.project.branches;
 
-    for (var i = 0; i < branches.length; i++) {
-      initBranch(branches[i]);
-    }
+    branches.forEach(branch => {
+      initBranch(branch);
+    });
   }
 
   $scope.saveGeneralBranch = function (plugins) {
