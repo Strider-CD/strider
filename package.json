@@ -52,7 +52,8 @@
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
     "unitcov": "istanbul cover _mocha --recursive test/unit",
     "unitdev": "mocha -w --recursive test/unit -R min",
-    "gendocs": "apidoc -i lib/ -o apidocs/"
+    "gendocs": "apidoc -i lib/ -o apidocs/",
+    "debug": "node debug bin/strider --no-cluster"
   },
   "dependencies": {
     "md5": "^2.0.0",
