@@ -112,7 +112,7 @@
     "strider-heroku": "^0.1.1",
     "strider-mailer": "^0.2.0",
     "strider-metadata": "^0.0.3",
-    "strider-node": "^0.6.5",
+    "strider-node": "git://github.com/janruehling/strider-node.git#fixMd5Dependency",
     "strider-python": "^0.2.1",
     "strider-ruby": "^0.0.2",
     "strider-simple-runner": "^0.13.1",
