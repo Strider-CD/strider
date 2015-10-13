@@ -67,7 +67,7 @@ module.exports = function ($scope, $route, $location, $filter) {
     });
   }
 
-  $scope.$on('$routeChangeSuccess', function(event) {
+  $scope.$on('$locationChangeSuccess', function(event) {
     if (global.location.pathname.match(/\/config$/)) {
       global.location = global.location;
       return;
