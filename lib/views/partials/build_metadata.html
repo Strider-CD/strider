@@ -68,7 +68,7 @@
         </li>
       {% endif %}
       <li>
-        <a ng-click="restartJob(job)" disabled=true>
+        <a ng-click="restartJob(job)" disabled="[[ job.status === 'running' || job.status === 'submitted' ? true : false ]]">
           <i class="fa fa-retweet"></i> Restart Job
         </a>
       </li>
