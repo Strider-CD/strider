@@ -126,8 +126,8 @@
     "winston": "^1.0.0"
   },
   "devDependencies": {
-    "angular": "1.2.23",
-    "angular-route": "1.2.17-build.163.1",
+    "angular": "^1.4.7",
+    "angular-route": "^1.4.7",
     "apidoc": "^0.13.1",
     "babelify": "^6.1.2",
     "blanket": "^1.1.5",
