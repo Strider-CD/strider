@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "bootstrap": "~2.3.2",
-    "fontawesome": "~4.2.0",
+    "fontawesome": "~4.4.0",
     "Sortable": "~0.4.1",
     "bootbox": "3.3.0",
     "codemirror": "3.18.0",
