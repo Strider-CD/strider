@@ -8591,6 +8591,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 #project_config_branches .branch-list .branch-item .remove i.fa-times {
   color: red;
 }
+#project_config_branches .branch-list .branch-item .remove i.fa-clone {
+  color: #ccc;
+}
 #provider-config {
   border: 1px solid #ccc;
   border-radius: 5px;
