@@ -75,9 +75,39 @@ function BranchesController($scope) {
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText)
-          $scope.error('Error adding branch: ' + data.errors[0], true)
+          $scope.error('Error changing order of branch: ' + data.errors[0], true)
         } else {
-          $scope.error('Error adding branch: ' + e, true)
+          $scope.error('Error changing order of branch: ' + e, true)
+        }
+      }
+    })
+  }
+
+  $scope.clone = function (item) {
+    var cloneName = prompt('Enter name of the clone', item.name);
+    if (cloneName === null) {
+      return;
+    }
+    var data = { name: item.name, cloneName: cloneName }
+
+    $.ajax({
+      url: '/' + $scope.project.name + '/branches/',
+      type: 'POST',
+      data: data,
+      dataType: 'json',
+      success: function(res, ts, xhr) {
+        $scope.branchName = ''
+        if (res.created) {
+          $scope.branches.push(res.branch)
+        }
+        $scope.success(res.message, true, !res.created)
+      },
+      error: function(xhr, ts, e) {
+        if (xhr && xhr.responseText) {
+          var data = $.parseJSON(xhr.responseText)
+          $scope.error('Error clonning branch: ' + data.errors[0], true)
+        } else {
+          $scope.error('Error clonning branch: ' + e, true)
         }
       }
     })
