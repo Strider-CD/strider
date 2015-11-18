@@ -6789,7 +6789,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 .fa-border {
   padding: .2em .25em .15em;
-  border: solid 0.08em #eee;
+  border: solid 0.08em #eeeeee;
   border-radius: .1em;
 }
 .pull-right {
@@ -6887,7 +6887,7 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   font-size: 2em;
 }
 .fa-inverse {
-  color: #fff;
+  color: #ffffff;
 }
 /* Font Awesome uses the Unicode Private Use Area (PUA) to ensure screen
    readers do not read off random characters that represent icons */
@@ -9154,16 +9154,16 @@ h3 {
   cursor: pointer;
 }
 #build-page #list-of-builds .active.failed {
-  background-color: #FFD2D0;
+  background-color: #ffd2d0;
 }
 #build-page #list-of-builds .active.errored {
-  background-color: #DDD;
+  background-color: #dddddd;
 }
 #build-page #list-of-builds .active.passed {
-  background-color: #CFFFD2;
+  background-color: #cfffd2;
 }
 #build-page #list-of-builds .active.running {
-  background-color: #D7F3FF;
+  background-color: #d7f3ff;
 }
 #build-page #list-of-builds tr:hover {
   background-color: #eee;
@@ -9229,13 +9229,13 @@ h3 {
   margin: 9px;
 }
 .last-builds .status-passed {
-  background-color: #CFFFD2;
+  background-color: #cfffd2;
 }
 .last-builds .status-failed {
-  background-color: #FFD2D0;
+  background-color: #ffd2d0;
 }
 .last-builds .status-errored {
-  background-color: #DDD;
+  background-color: #dddddd;
 }
 .progress {
   margin-bottom: 0;
@@ -9581,28 +9581,28 @@ a.repeats {
   margin: 0px;
 }
 .passed {
-  background-color: #CFFFD2;
+  background-color: #cfffd2;
 }
 .failed {
-  background-color: #FFD2D0;
+  background-color: #ffd2d0;
 }
 .errored {
-  background-color: #DDD;
+  background-color: #dddddd;
 }
 .running {
-  background-color: #D7F3FF;
+  background-color: #d7f3ff;
 }
 .warning {
   background-color: #fffca9;
 }
 .submitted {
-  background-color: #D7F3FF;
+  background-color: #d7f3ff;
 }
 .repeated.passed {
-  background-color: #CFFFD2;
+  background-color: #cfffd2;
 }
 .repeated.failed {
-  background-color: #FFD2D0;
+  background-color: #ffd2d0;
 }
 td.screenshot img {
   width: 40px;
