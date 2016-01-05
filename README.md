@@ -45,12 +45,13 @@ Strider is extremely customizable through plugins. Plugins can
 ## General Requirements
 
 - [nodejs] >= 0.10
-- [npm] >= 2.0
+- [npm] >= 2.0 < 3
 - [git] >= 2.0
 - [mongodb][mongo-download] (local or remote)
 - [node-gyp]
 
 _Note: Installing on OS X might require XCode to be installed._
+_Note: We are currently not having great success with Strider + npm3, please use npm2._
 
 
 ## Running on Infrastructure
