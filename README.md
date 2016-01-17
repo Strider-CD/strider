@@ -75,7 +75,7 @@ npm install
 values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
-  - `SERVER_NAME` - Required; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash)
+  - `SERVER_NAME` - Required; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
   - `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
   - `PORT` - Port that strider runs on, optional (defaults to 3000).
   - `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
