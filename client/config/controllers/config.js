@@ -117,7 +117,7 @@ function ConfigController($scope, $element, $sce) {
 
     $(`#${tab}-tab-handle`).tab('show');
     selectTab(tab);
-    $(`a[href=#${tab}]`).tab('show');
+    $(`a[href='#${tab}']`).tab('show');
   }
 
   // When a tab is shown, reload any CodeMirror instances within
