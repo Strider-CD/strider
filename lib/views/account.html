@@ -59,23 +59,27 @@
             {% for provider in providers %}
               <div id="provider-{{loop.key}}" class="tab-pane provider-tab">
                 <h3>{{ provider.title }} Accounts</h3>
-                <div class="well" ng-repeat="account in accounts['{{loop.key}}']">
+                <div class="well clearfix" ng-repeat="account in accounts['{{loop.key}}']">
                   {% if provider.html %}
-                  <button class="btn pull-right btn-danger" ng-click="deleteAccount(account)">Delete Account</button>
-                  <h3>
-                    Title: <input ng-model="account.title">
-                  </h3>
-                  <div id="provider-account-{{ loop.key }}" ng-controller="{{provider.controller}}">
-                    {% autoescape false %}
-                    {{ provider.html }}
-                    {% endautoescape %}
-                  </div>
+                    <button class="btn pull-right btn-danger" ng-click="deleteAccount(account)">Delete Account</button>
+                    <div class="control-group">
+                      <label class="control-label">Account Name</label>
+                      <div class="controls">
+                        <input ng-model="account.title" type="text">
+                      </div>
+                    </div>
+
+                    <div id="provider-account-{{ loop.key }}" ng-controller="{{provider.controller}}">
+                      {% autoescape false %}
+                      {{ provider.html }}
+                      {% endautoescape %}
+                    </div>
                   {% else %}
-                  <h3 ng-switch="!!account.display_url">
-                    <span ng-switch-when="false">[[ account.title ]]</span>
-                    <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
-                    <button class="btn btn-danger pull-right" ng-click="deleteAccount(account)">Delete Account</button>
-                  </h3>
+                    <h3 ng-switch="!!account.display_url" class="clearfix">
+                      <span ng-switch-when="false">[[ account.title ]]</span>
+                      <a target="_blank" href="[[ account.display_url ]]" ng-switch-default>[[ account.title ]]</a>
+                      <button class="btn btn-danger pull-right" ng-click="deleteAccount(account)">Delete Account</button>
+                    </h3>
                   {% endif %}
                 </div>
                 <div ng-switch="!!providers['{{ loop.key }}'].setupLink">
