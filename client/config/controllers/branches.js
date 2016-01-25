@@ -107,9 +107,9 @@ function BranchesController($scope) {
       error: function(xhr, ts, e) {
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText)
-          $scope.error('Error clonning branch: ' + data.errors[0], true)
+          $scope.error('Error cloning branch: ' + data.errors[0], true)
         } else {
-          $scope.error('Error clonning branch: ' + e, true)
+          $scope.error('Error cloning branch: ' + e, true)
         }
       }
     })
