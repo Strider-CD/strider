@@ -108,6 +108,10 @@ module.exports = function ($scope, $route, $location, $filter) {
   });
 
   $scope.triggers = {
+    pullrequst: {
+      icon: 'exchange',
+      title: 'Pullrequest'
+    },
     commit: {
       icon: 'code-fork',
       title: 'Commit'
