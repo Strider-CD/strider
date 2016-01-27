@@ -108,7 +108,7 @@ module.exports = function ($scope, $route, $location, $filter) {
   });
 
   $scope.triggers = {
-    pullrequst: {
+    pullrequest: {
       icon: 'exchange',
       title: 'Pullrequest'
     },
