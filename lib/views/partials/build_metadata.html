@@ -45,10 +45,10 @@
 </div>
 
 <div class="finished-at span2" ng-switch="job.status === 'running'">
-
   <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
     <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago summary-text"></time>
   </span>
+
   <div ng-switch-when="true" class="progress-meter">
     <div class="progress progress-striped active progress-info">
       <div class="bar" style="width:[[ (phases.indexOf(job.phase)+1)/phases.length*100 ]]%; max-width: 100%"></div>
