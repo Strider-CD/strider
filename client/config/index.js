@@ -13,7 +13,7 @@ var GithubController = require('./controllers/github');
 var interpolate = require('../utils/interpolate');
 var ngSortableDirective = require('../utils/ng-sortable-directive');
 
-var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortable', 'alerts', 'moment'])
+var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'alerts', 'moment'])
   .config(['$interpolateProvider', interpolate])
   .controller('Config', ['$scope', '$element', '$sce', ConfigController])
   .controller('Config.RunnerController', ['$scope', '$element', RunnerController])
