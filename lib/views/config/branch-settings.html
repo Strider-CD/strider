@@ -38,7 +38,7 @@
     <div class="row-fluid" ng-hide="branch.name === 'master'">
       <div class="span12">
         <h3>Reset Branch Configuration</h3>
-        
+
         <p>
           This will reset all of the configuration for this branch to
           be exactly like the 'master' branch. You will have a chance to decline after
@@ -74,4 +74,6 @@
       </div>
     </div>
   </div>
+
+  <button ng-click="saveGeneralBranch()" class="btn btn-primary pull-right">Save</button>
 </div>
