@@ -6,7 +6,7 @@
     <thead></thead>
     <tbody>
       <!-- -->
-      <tr ng-repeat="job in jobs | orderBy:sortDate:true"
+      <tr ng-repeat="job in jobs | orderBy:'created':true"
           class="row-fluid build-list-item [[job.status]]"
           data-id="[[ job._id ]]"
           ng-click="selectJob(job._id)"
