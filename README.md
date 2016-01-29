@@ -40,7 +40,7 @@ Strider is extremely customizable through plugins. Plugins can
 - [Resources](#resources)
     - [Strider Tutorial Series][resource-strider-futurestudio-tutorials]
 - [Support & Help](#support--help)
-- [Roadmap / Changelog][roadmap]
+- [Changelog][changelog]
 
 ## General Requirements
 
@@ -200,7 +200,7 @@ For a view of what's going on with the project, check out our boards by setting 
 [mongolab]: https://mongolab.com/plans/pricing/
 [mailgun]: http://www.mailgun.com/pricing
 [book-intro]: http://strider.readthedocs.org/en/latest/intro.html
-[roadmap]: https://github.com/Strider-CD/strider/blob/master/ROADMAP.md
+[changelog]: https://github.com/Strider-CD/strider/blob/master/CHANGELOG.md
 [mongo-download]: http://www.mongodb.org/downloads
 [resource-digitalocean]: http://fosterelli.co/creating-a-private-ci-with-strider.html
 [resource-plugin-template]: https://github.com/bitwit/strider-template

@@ -1,10 +1,3 @@
-
-
-# Upcoming Releases
-
-## Future
-
-
 # Changelog / Past releases
 
 ## 1.7.5 - 2015-10-2
