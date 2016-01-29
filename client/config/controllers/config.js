@@ -29,6 +29,13 @@ function ConfigController($scope, $element, $sce) {
   $scope.runnerConfigs = {};
   $scope.api_root = `/${$scope.project.name}/api/`;
   $scope.page = 'config';
+  $scope.finishedRepeat = function (id) {
+    // When a tab is shown, reload any CodeMirror instances within
+    $('[data-toggle=tab]').on('shown', function (e) {
+      var tabId = $(e.target).attr('href');
+      $(tabId).find('[ui-codemirror]').trigger('refresh');
+    });
+  };
 
   $(function ConfigPageRouting() {
     var router = {
@@ -95,6 +102,7 @@ function ConfigController($scope, $element, $sce) {
   function selectTab(tabName) {
     $('.tab-pane.active, .nav-tabs > li.active').removeClass('active');
     $('#' + tabName).addClass('active');
+    $scope.selectedTab = tabName;
   }
 
   function switchToBranch(name) {

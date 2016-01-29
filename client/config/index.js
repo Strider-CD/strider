@@ -24,6 +24,13 @@ var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'ui.sortabl
   .controller('DeactivateCtrl', ['$scope', DeactivateController])
   .controller('HerokuController', ['$scope', HerokuController])
   .controller('GithubCtrl', ['$scope', GithubController])
-  .directive('ngSortable', ['$parse', ngSortableDirective]);
+  .directive('ngSortable', ['$parse', ngSortableDirective])
+  .directive('repeatEnd', function () {
+    return function (scope, element, attrs) {
+      if (scope.$last && scope.$parent.finishedRepeat) {
+        scope.$parent.finishedRepeat(attrs);
+      }
+    };
+  });
 
 module.exports = app;
