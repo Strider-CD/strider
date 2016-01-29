@@ -42,12 +42,7 @@ module.exports = {
     depends: {
       angular: 'angular',
       codemirror: 'CodeMirror',
-      'codemirror-shell': null 
-    }
-  },
-  'ui-sortable': {
-    depends: {
-      angular: 'angular'
+      'codemirror-shell': null
     }
   },
   timeago: {

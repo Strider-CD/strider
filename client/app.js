@@ -17,7 +17,6 @@ $('#invite-box').height($('#signup-box').height());
 // Third party
 require('ui-bootstrap');
 require('ui-codemirror');
-require('ui-sortable');
 
 // Modules
 require('./account');
