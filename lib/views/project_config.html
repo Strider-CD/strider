@@ -96,7 +96,7 @@
 
             <li ng-repeat="plugin in branch.plugins" ng-show="!branch.mirror_master"
                 ng-class="{ disabled: !plugin.enabled }"
-                class="plugin-nav">
+                class="plugin-nav" repeat-end>
               <a href="#plugin-[[ plugin.id ]]" data-toggle="tab">
                 <i class="fa fa-plug"></i> [[ plugins[plugin.id].title ]]
               </a>
@@ -143,27 +143,27 @@
                 </div>
 
                 {% for runner in runners %}
-                <div id="runner-{{loop.key}}" class="tab-pane" ng-controller="{{runner.controller}}">
-                  {% autoescape false %}
-                  {{ runner.html }}
-                  {% endautoescape %}
-                </div>
+                  <div id="runner-{{loop.key}}" class="tab-pane" ng-controller="{{runner.controller}}">
+                    {% autoescape false %}
+                    {{ runner.html }}
+                    {% endautoescape %}
+                  </div>
                 {% endfor %}
 
                 {% for plugin in plugins %}
-                <div id="plugin-{{loop.key}}" class="tab-pane plugin-tab" ng-controller="{{plugin.controller}}">
-                  {#<div class="disabled-note"
-                       ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
-                       ng-switch="configs[branch.name]['{{ loop.key }}'].enabled">
-                    <span ng-switch-when="false">
-                      This plugin is disabled. <button class="btn" ng-click="setEnabled('{{ loop.key }}', true)">Enable</button>
-                    </span>
-                    <span ng-switch-default><button class="btn" ng-click="setEnabled('{{ loop.key }}', false)">Disable</button></span>
-                  </div>#}
-                  {% autoescape false %}
-                  {{ plugin.html }}
-                  {% endautoescape %}
-                </div>
+                  <div id="plugin-{{loop.key}}" class="tab-pane plugin-tab" ng-controller="{{plugin.controller}}">
+                    {#<div class="disabled-note"
+                         ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
+                         ng-switch="configs[branch.name]['{{ loop.key }}'].enabled">
+                      <span ng-switch-when="false">
+                        This plugin is disabled. <button class="btn" ng-click="setEnabled('{{ loop.key }}', true)">Enable</button>
+                      </span>
+                      <span ng-switch-default><button class="btn" ng-click="setEnabled('{{ loop.key }}', false)">Disable</button></span>
+                    </div>#}
+                    {% autoescape false %}
+                    {{ plugin.html }}
+                    {% endautoescape %}
+                  </div>
                 {% endfor %}
               </div>
 
