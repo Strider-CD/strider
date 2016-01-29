@@ -4,11 +4,36 @@
 
 ## Future
 
-- Initial setup via UI ([#681](https://github.com/Strider-CD/strider/pull/681))
-- Use latest core plugins
-
 
 # Changelog / Past releases
+
+## 1.7.5 - 2015-10-2
+
+- Client fixes in config and job pages
+
+## 1.7.4 - 2015-08-31
+
+- Add missing client build
+
+## 1.7.3 - 2015-08-31
+
+- Update strider dependencies
+- ANSI fixes ([#848](https://github.com/Strider-CD/strider/pull/848))
+- Fix job aborting if strider.json not found ([#849](https://github.com/Strider-CD/strider/pull/849))
+- Fix job model location ([#847](https://github.com/Strider-CD/strider/pull/847))
+- Fix crash if plugin missing ([#845](https://github.com/Strider-CD/strider/pull/845))
+- Update fonts and styles
+- Cleanup of main.js, move to utils
+
+## 1.7.2 - 2015-08-11
+
+- Test fixes for travis ([#843](https://github.com/Strider-CD/strider/pull/843))
+- Fix invite code render ([#842](https://github.com/Strider-CD/strider/pull/842))
+- Project access levels for sockets ([#839](https://github.com/Strider-CD/strider/pull/839))
+- Dropdown fix and new plugin blocks ([#841](https://github.com/Strider-CD/strider/pull/841))
+- Fix user invite email ([#840](https://github.com/Strider-CD/strider/pull/840))
+- Update jquery to 2.x
+- JSHint updates
 
 ## 1.7.1 - 2015-08-03
 
