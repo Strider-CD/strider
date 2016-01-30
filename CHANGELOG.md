@@ -1,5 +1,24 @@
 # Changelog / Past releases
 
+## 1.7.6 - 2016-01-29
+
+- Update dependencies
+- Delete unused dependencies and files
+- Add strider-gitlab as dep
+- Invite code checks email
+- Update angular and router
+- Fix module usage for ecosystem client
+- Case-sensitive emails
+- Fix provider accounts title
+- Fix tab switching error
+- Project branch cloning
+- Github config more explicit
+- Fix accesslevel for new projects with no jobs
+- Error on malformed projects
+- Fix codemirror refresh
+- Add save button to branch settings page
+- Sort build history by created date
+
 ## 1.7.5 - 2015-10-2
 
 - Client fixes in config and job pages
