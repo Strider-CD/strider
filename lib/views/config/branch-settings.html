@@ -8,6 +8,14 @@
     <input type="checkbox" ng-model="branch.deploy_on_green"> Deploy on Green
   </label>
   <p class="help-text">When "deploy on green" is disabled, automatically triggered builds will not deploy.</p>
+  
+  <label class="checkbox">
+    <input type="checkbox" ng-model="branch.deploy_on_pull_request"> Deploy on Pull Request
+  </label>
+  <p class="help-text">When "deploy on pull request" is disabled, pull request builds will not deploy.</p>
+  
+  
+
 
   <div id="ssh-keys">
     <h3>SSH keys</h3>
