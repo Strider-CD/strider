@@ -125,6 +125,7 @@
         "public": true,
         "active": true,
         "deploy_on_green": true,
+        "deploy_on_pull_request": false,
         "runner": {
           "id": "simple-runner",
           "config": {

@@ -359,6 +359,7 @@ function ConfigController($scope, $element, $sce) {
       envKeys: branch.envKeys,
       mirror_master: branch.mirror_master,
       deploy_on_green: branch.deploy_on_green,
+      deploy_on_pull_request: branch.deploy_on_pull_request,
       runner: branch.runner
     };
 
