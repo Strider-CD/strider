@@ -1,5 +1,13 @@
 # Changelog / Past releases
 
+## 1.7.7 - 2016-02-12
+
+- Update moment to a secure version
+- Add option to disable deploy on PR ([#908](https://github.com/Strider-CD/strider/pull/908))
+- Update everypaas
+- Update github provider
+- Fix strider.json fetch for Github provider ([#914](https://github.com/Strider-CD/strider/pull/914))
+
 ## 1.7.6 - 2016-01-29
 
 - Update dependencies
