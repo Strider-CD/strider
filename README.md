@@ -75,9 +75,10 @@ npm install
 values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
-  - `SERVER_NAME` - Required; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
+  - `SERVER_NAME` - **Required**; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
   - `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
   - `PORT` - Port that strider runs on, optional (defaults to 3000).
+  - `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
   - `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
   - `DB_URI` - MongoDB DB URI if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
   - `HTTP_PROXY` - Proxy support, optional (defaults to null)
