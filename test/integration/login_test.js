@@ -57,6 +57,28 @@ module.exports = function (browser, callback) {
         });
     });
 
+    it('should log out', function () {
+      return browser.rel('/logout')
+        .waitForElementByClassName('login-form')
+        .isDisplayed()
+    })
+
+    it('should redirect to /login and back', function () {
+      return browser.rel('/strider-cd/test-node')
+        .url().should.eventually.include('/login')
+        .elementByName('email')
+        .type('test2@example.com')
+        .elementByName('password')
+        .type('test')
+        .elementByClassName('login-form')
+        .submit()
+        .url().should.eventually.include('/strider-cd/test-node')
+        .elementById('build-metadata')
+        .then(function (element) {
+          assert.isNotNull(element);
+        });
+    })
+
     after(function () {
       return browser.quit(function () {
         callback();
