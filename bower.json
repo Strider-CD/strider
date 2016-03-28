@@ -26,7 +26,10 @@
     "sources": {
       "bootbox": "bower_components/bootbox/bootbox.js",
       "jquery-timeago": "bower_components/jquery-timeago/jquery.timeago.js",
-      "angular-wizard": "bower_components/angular-wizard/dist/angular-wizard.js",
+      "angular-wizard": [
+        "bower_components/angular-wizard/dist/angular-wizard.js",
+        "bower_components/angular-wizard/dist/angular-wizard.less"
+      ],
       "bootstrap": [
         "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
         "bower_components/bootstrap/docs/assets/css/bootstrap.css",
