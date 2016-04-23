@@ -1,23 +1,13 @@
 language: node_js
 node_js:
-  - iojs
-  - v0.12
-  - v0.10
+  - "0.10"
+  - "0.12"
+  - "4"
+  - "node"
 
 sudo: false
 
 env:
   - NO_BROWSER_TESTS=true
 
-matrix:
-  allow_failures:
-    - node_js: iojs
-
-addons:
-  sauce_connect: true
-
 services: mongodb
-
-branches:
-  except:
-    - 1_4_refactor
