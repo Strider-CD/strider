@@ -1,8 +1,10 @@
 language: node_js
 node_js:
-  - iojs
-  - v0.12
-  - v0.10
+  - "0.10"
+  - "0.12"
+  - "4"
+  - "node"
+  - "iojs"
 
 sudo: false
 
