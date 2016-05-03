@@ -4,92 +4,94 @@
 {% endblock %}
 
 {% block bodyContent %}
-<script>
-  window.jobs = {{ jobs | scriptjson | raw }};
-  var providers = {{ providers | scriptjson | raw }};
-</script>
-<div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
-  <div>
-    <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">
-      <img class='spinner' src="/images/spinner.gif" />
-      <span ng-switch="running.status">
-        <span ng-switch-when="running">Running job...</span>
-        <span ng-switch-when="submitted">Job submitted...</span>
-      </span>
-    </div>
-  </div>
+  <script>
+    window.jobs = {{ jobs | scriptjson | raw }};
+    var providers = {{ providers | scriptjson | raw }};
+  </script>
 
-  {% for messages in flash %}
-    {% for message in messages %}
-      <div class="alert alert-info">{{ message|raw }}</div>
-    {% endfor %}
-  {% endfor %}
-
-  <div id="dashboard" style="display:none">
+  <div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
     <div>
-      <div class="row-fluid">
-        <div class="span12 dashboard-section">
-          {% if !currentUser %}
-            <div class='StriderBlock_LoggedOutFillContent'>
-              {% pluginblock LoggedOutFillContent %}
-                {% include "partials/errors.html" %}
-                {% include "partials/loginform.html" %}
-              {% endpluginblock %}
-            </div>
-          {% endif %}
-
-          {% if currentUser && jobs.yours.length < 1 %}
-          <div class="alert alert-info no-projects" data-test="no-personal-projects">
-            <h3>You don't have any projects configured.</h3>
-            {% if availableProviders.length %}
-              <h4>Link Accounts:</h4>
-              {% for provider in availableProviders %}
-              {% if provider.setupLink %}
-              <span class="link-accounts">
-                <a href="{{ provider.setupLink }}" class="btn btn-primary provider-{{provider.id}}">
-                {% if provider.inline_icon %}<i class="fa fa-{{ provider.inline_icon }}"></i> {% endif %}{{ provider.title }}
-              </a>
-              </span>
-              {% endif %}
-              {% endfor %}
-            {% else if !currentUser.accounts.length %}
-            <a class="btn btn-primary" href="/account">Configure Accounts</a>
-            {% endif %}
-            {% if currentUser.accounts.length %}
-            <a class="btn btn-success" href="/projects">Add projects</a>
-            {% else %}
-            or <a class="btn btn-success" href="/projects#manual">Add a project manually</a>
-            {% endif %}
-          </div>
-          {% endif %}
-          <div ng-show="jobs.yours.length">
-            <h3>Your Projects</h3 ng-cloak>
-            <table id="job-list" class="table">
-              {% include "partials/dashboard-header.html" %}
-              <tbody>
-                <tr ng-repeat="job in jobs.yours" data-test="latest-build">
-                  {% include "partials/_dashboard_row.html" %}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div ng-show="jobs.public.length">
-            <h3>Public Projects</h3 ng-cloak>
-            <table id="job-list" class="table">
-              {% set config = { "public": true } %}
-              {% include "partials/dashboard-header.html" with config %}
-              <tbody>
-                <tr ng-repeat="job in jobs.public">
-                  {% include "partials/_dashboard_row.html" with config %}
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
+      <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">
+        <img class='spinner' src="/images/spinner.gif" />
+        <span ng-switch="running.status">
+          <span ng-switch-when="running">Running job...</span>
+          <span ng-switch-when="submitted">Job submitted...</span>
+        </span>
       </div>
     </div>
 
-  </div>
-</div>
+    {% for messages in flash %}
+      {% for message in messages %}
+        <div class="alert alert-info">{{ message|raw }}</div>
+      {% endfor %}
+    {% endfor %}
 
+    <div id="dashboard" style="display:none">
+      <div>
+        <div class="row-fluid">
+          <div class="span12 dashboard-section">
+            {% if !currentUser %}
+              <div class='StriderBlock_LoggedOutFillContent'>
+                {% pluginblock LoggedOutFillContent %}
+                  {% include "partials/errors.html" %}
+                  {% include "partials/loginform.html" %}
+                {% endpluginblock %}
+              </div>
+            {% endif %}
+
+            {% if currentUser && jobs.yours.length < 1 %}
+              <div class="well no-projects" data-test="no-personal-projects">
+                <h3>You don't have any projects configured.</h3>
+                {% if availableProviders.length %}
+                  <h4>Link Accounts:</h4>
+                  {% for provider in availableProviders %}
+                    {% if provider.setupLink %}
+                      <span class="link-accounts">
+                        <a href="{{ provider.setupLink }}" class="btn btn-primary provider-{{provider.id}}">
+                        {% if provider.inline_icon %}<i class="fa fa-{{ provider.inline_icon }}"></i> {% endif %}{{ provider.title }}
+                      </a>
+                      </span>
+                    {% endif %}
+                  {% endfor %}
+                {% else if !currentUser.accounts.length %}
+                  <a class="btn btn-primary" href="/account">Configure Accounts</a>
+                {% endif %}
+                {% if currentUser.accounts.length %}
+                  <a class="btn btn-success" href="/projects">Add projects</a>
+                {% else %}
+                  or <a class="btn btn-success" href="/projects#manual">Add a project manually</a>
+                {% endif %}
+              </div>
+            {% endif %}
+
+            <div ng-show="jobs.yours.length">
+              <h3>Your Projects</h3 ng-cloak>
+              <table id="job-list" class="table">
+                {% include "partials/dashboard-header.html" %}
+                <tbody>
+                  <tr ng-repeat="job in jobs.yours" data-test="latest-build">
+                    {% include "partials/_dashboard_row.html" %}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div ng-show="jobs.public.length">
+              <h3>Public Projects</h3 ng-cloak>
+              <table id="job-list" class="table">
+                {% set config = { "public": true } %}
+                {% include "partials/dashboard-header.html" with config %}
+                <tbody>
+                  <tr ng-repeat="job in jobs.public">
+                    {% include "partials/_dashboard_row.html" with config %}
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 {% endblock %}
