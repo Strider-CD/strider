@@ -113,7 +113,7 @@
     "strider-heroku": "^0.1.1",
     "strider-mailer": "^0.2.0",
     "strider-metadata": "^0.0.3",
-    "strider-node": "^0.6.6",
+    "strider-node": "^0.7.1",
     "strider-python": "^0.2.1",
     "strider-ruby": "^0.0.2",
     "strider-simple-runner": "^0.14.0",
