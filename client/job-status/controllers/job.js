@@ -174,10 +174,10 @@ module.exports = function ($scope, $route, $location, $filter) {
     };
   };
   $scope.restartJob = function (job) {
-    console.log('restartJob: not implemented');
+    socket.emit('restart', job);
   };
   $scope.cancelJob = function (id) {
-    socket.emit('cancel', id)
+    socket.emit('cancel', id);
   };
 };
 
