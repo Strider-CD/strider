@@ -40,7 +40,7 @@ var cli = require('strider-cli')({
     console.log('Connecting to MongoDB URL: %s\n', mongodbUrl);
     mongoose.connect(mongodbUrl, cb);
   },
-  /* 
+  /*
    * Path to file to touch to restart strider
    */
   restartFile: function() {
