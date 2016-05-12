@@ -85,6 +85,7 @@ Internet-accessible deployment the following variables will need to be exported:
   - If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
     - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
     - `SMTP_PORT` - SMTP server port e.g. 587 (default)
+    - `SMTP_SECURE` - SMTP server TLS or SSL ("true" or "false")
     - `SMTP_USER` - SMTP auth username e.g. "myuser"
     - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
     - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
