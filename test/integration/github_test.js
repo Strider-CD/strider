@@ -8,13 +8,13 @@ module.exports = function (browser, callback) {
       password: 'i0CheCtzY0yv4WP2o',
       repo: 'strider-extension-loader',
       token: 'df24805561a32092b24fe274136c299e842d5fcf'
-    }
+    };
 
     before(function(done) {
-      var url = 'http://localhost:4000/'+robot.username+'/'+robot.repo+'/api/github/webhook'
-      var repo = robot.username+'/'+robot.repo
-      deleteHooks(repo, url, robot.token, done)
-    })
+      var url = 'http://localhost:4000/' + robot.username + '/' + robot.repo + '/api/github/webhook';
+      var repo = robot.username + '/' + robot.repo;
+      deleteHooks(repo, url, robot.token, done);
+    });
 
     beforeEach(function() {
       this.currentTest.browser = browser;
