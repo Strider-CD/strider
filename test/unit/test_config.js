@@ -70,7 +70,8 @@ describe('config', function () {
       SMTP_PORT: 777,
       SMTP_USER: 'me',
       SMTP_PASS: 'mine',
-      SMTP_FROM: 'me@example.com'
+      SMTP_FROM: 'me@example.com',
+      SMTP_SECURE: 'true'
     });
 
     config = lconf.getConfig();
@@ -82,7 +83,8 @@ describe('config', function () {
         user: 'me',
         pass: 'mine'
       },
-      from: 'me@example.com'
+      from: 'me@example.com',
+      secure: 'true'
     });
 
     process.env = oe;
