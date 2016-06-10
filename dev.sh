@@ -16,11 +16,14 @@ BASE="git@github.com:Strider-CD"
 
 mkdir -p node_modules
 
-
 for module in $DEPS
 do
+  if [ $module == "strider-ecosystem-client" ]; then
+    module="ecosystem-client"
+  fi
+  repo="$module.git"
   if [ ! -d ../$module ]; then
-    git clone $BASE/$module ../$module
+    git clone $BASE/$repo ../$module
   fi
   pushd ../$module
   npm i
