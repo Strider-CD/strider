@@ -225,7 +225,7 @@ For a view of what's going on with the project, check out our boards by setting 
 [npm]: https://docs.npmjs.com/getting-started/installing-node
 [ZenBoard]: https://www.zenhub.io/
 [irc]: https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider
-[travis-badge]: https://travis-ci.org/Strider-CD/strider.svg
+[travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
 [apiDoc]: http://apidocjs.com/#getting-started
 [resource-strider-futurestudio-tutorials]: https://futurestud.io/blog/strider-getting-started-platform-overview/
