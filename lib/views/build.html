@@ -104,7 +104,7 @@
                 <div class="build-error" ng-show="job.status === 'errored' && job.error">
                   <div class="alert alert-error">
                     <i class="fa fa-exclamation-triangle"></i>
-                    [[ job.error.message ]]
+                    [[ job.error.message.substr(0,10000) ]]
                     <a href="#" class="pull-right" ng-click="toggleErrorDetails()" ng-if="job.error.stack">
                       <i class="fa fa-ellipsis-h"></i>
                     </a>
