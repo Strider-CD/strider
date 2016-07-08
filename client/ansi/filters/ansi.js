@@ -5,6 +5,7 @@ var ansi_up = require('ansi_up');
 module.exports = function () {
   return function (input, plaintext) {
     if (!input) return '';
+    if (input.length > 100000) return input;
     // handle the characters for "delete line" and "move to start of line"
     var startswithcr = /^[^\n]*\r[^\n]/.test(input);
     input = input.replace(/^[^\n\r]*\u001b\[2K/gm, '')
