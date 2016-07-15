@@ -137,6 +137,7 @@
     "chai": "^1.9.2",
     "chai-as-promised": "^4.1.0",
     "commander": ">=0.5.2",
+    "eslint": "^3.0.1",
     "expect.js": "^0.3.1",
     "jquery": "^2.1.4",
     "jshint": "^2.5.6",
