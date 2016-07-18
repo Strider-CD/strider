@@ -4,10 +4,17 @@ var $ = require('jquery');
 var user = global.user || {};
 var providers = global.providers || {};
 
-function AccountController($scope, $sce) {
+function AccountController($scope) {
   $scope.user = user;
   $scope.providers = providers;
   $scope.accounts = setupAccounts($scope.user);
+
+  // We can't use $location here, because $locationProvider is set to use HTML5 mode and the hrefs in Strider
+  // are _all over the place_ and no base href is set anywhere. That's why $location refuses to work properly.
+  var locationHash = window.location.hash;
+  if (locationHash) {
+    $('a[href="' + locationHash + '"]').tab('show');
+  }
 
   $scope.deleteAccount = function (account) {
     if (account.unsaved) {
