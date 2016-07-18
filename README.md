@@ -1,6 +1,7 @@
 # ![Strider][logo]
 
-[![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]
+[![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]  
+[![Gitter][gitter-badge]][gitter-badge-link]
 
 ---
 
@@ -227,5 +228,7 @@ For a view of what's going on with the project, check out our boards by setting 
 [irc]: https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
+[gitter-badge]: https://img.shields.io/badge/GITTER-join%20chat-green.svg
+[gitter-badge-link]: https://gitter.im/Strider-CD
 [apiDoc]: http://apidocjs.com/#getting-started
 [resource-strider-futurestudio-tutorials]: https://futurestud.io/blog/strider-getting-started-platform-overview/
