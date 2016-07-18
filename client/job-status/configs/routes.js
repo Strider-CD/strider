@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (location, route) {
+module.exports = function ($locationProvider, $routeProvider) {
   var one = {
     controller: 'JobCtrl',
     templateUrl: 'build-tpl.html'
@@ -12,9 +12,9 @@ module.exports = function (location, route) {
   };
 
   Object.keys(routes).forEach(function (path) {
-    route.when(path, routes[path]);
+    $routeProvider.when(path, routes[path]);
   });
 
   // route.otherwise({redirectTo: '/'});
-  location.html5Mode(true);
+  $locationProvider.html5Mode(true);
 };

@@ -39,10 +39,10 @@ module.exports = function (extdir, c, callback) {
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
   var cb = callback || function (err) {
-    if (err) {
-      throw err;
-    }
-  };
+      if (err) {
+        throw err;
+      }
+    };
 
   if (typeof Loader !== 'function') {
     throw new Error('Your version of strider-extension-loader is out of date');
@@ -123,11 +123,19 @@ module.exports = function (extdir, c, callback) {
         async.parallel(tasks, function (err, zombies) {
           if (err) return cb(err);
 
-          var ids = [].concat.apply([], zombies).map(function (job) { return job._id });
+          var ids = [].concat.apply([], zombies).map(function (job) {
+            return job._id
+          });
           var now = new Date();
 
-          Job.update({_id: {$in: ids}}, {$set: {finished: now, errored: true, error: {message: 'Job timeout', stack: ''}}}, function (err) {
-            Job.update({_id: {$in: ids}, started: null}, {$set: {started:  now}}, function (err) {
+          Job.update({_id: {$in: ids}}, {
+            $set: {
+              finished: now,
+              errored: true,
+              error: {message: 'Job timeout', stack: ''}
+            }
+          }, function (err) {
+            Job.update({_id: {$in: ids}, started: null}, {$set: {started: now}}, function (err) {
               cb(err, appInstance);
             });
           });

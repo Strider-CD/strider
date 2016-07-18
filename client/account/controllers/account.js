@@ -39,7 +39,7 @@ function AccountController($scope, $sce) {
     if (!$scope.accounts[provider]) {
       $scope.accounts[provider] = [];
     }
-    for (var i=0; i<$scope.accounts[provider].length; i++) {
+    for (var i = 0; i < $scope.accounts[provider].length; i++) {
       aid = parseInt($scope.accounts[provider][i].id, 10);
       if (aid >= id) {
         id = aid + 1;
@@ -66,7 +66,7 @@ function AccountController($scope, $sce) {
       error: function (xhr, ts, e) {
         $scope.error('Unable to save account', true);
       },
-      success: function(data, ts, xhr) {
+      success: function (data, ts, xhr) {
         delete account.unsaved;
         next()
         $scope.success('Account saved', true);
@@ -78,10 +78,10 @@ function AccountController($scope, $sce) {
     $.ajax("/api/account/password", {
       data: {password: $scope.password},
       dataType: "json",
-      error: function(xhr, ts, e) {
+      error: function (xhr, ts, e) {
         $scope.error('Unable to change password', true);
       },
-      success: function(data, ts, xhr) {
+      success: function (data, ts, xhr) {
         $scope.password = '';
         $scope.confirm_password = '';
         $scope.success('Password changed', true);
@@ -92,13 +92,13 @@ function AccountController($scope, $sce) {
 
   $scope.changeEmail = function () {
     $.ajax("/api/account/email", {
-      data: {email:$scope.user.email},
+      data: {email: $scope.user.email},
       dataType: "json",
-      error: function(xhr, ts, e) {
+      error: function (xhr, ts, e) {
         var resp = $.parseJSON(xhr.responseText);
         $scope.error('Failed to change email: ' + resp.errors[0].message, true);
       },
-      success: function(data, ts, xhr) {
+      success: function (data, ts, xhr) {
         $scope.success('Email successfully changed', true);
       },
       type: "POST"
@@ -115,7 +115,7 @@ function setupAccounts(user) {
     return accounts;
   }
 
-  for (var i=0; i<user.accounts.length; i++) {
+  for (var i = 0; i < user.accounts.length; i++) {
     if (!accounts[user.accounts[i].provider]) {
       accounts[user.accounts[i].provider] = [];
     }
