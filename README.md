@@ -1,6 +1,6 @@
 # ![Strider][logo]
 
-[![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]  
+[![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]<br />
 [![Gitter][gitter-badge]][gitter-badge-link]
 
 ---
@@ -18,7 +18,7 @@ Overview
 platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
 store. It is published under the BSD license.
 
-Strider is extremely customizable through plugins. Plugins can 
+Strider is extremely customizable through plugins. Plugins can
 
 - add hooks to perform arbitrary actions during build.
 - modify the database schema to add custom fields.
@@ -26,6 +26,10 @@ Strider is extremely customizable through plugins. Plugins can
 - subscribe to and emit socket events.
 - create or modify user interfaces within Strider.
 - so much more! just use your imagination!
+
+> The Strider CD homepage is [http://stridercd.com/](http://stridercd.com/)<br />
+> Strider CD source code is on [github](https://github.com/Strider-CD/strider)<br />
+> Strider CD is supported by FrozenRidge, LLC, a California limited liability company.
 
 ## README Contents
 
@@ -97,10 +101,10 @@ Internet-accessible deployment the following variables will need to be exported:
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
-- [Github][github-config]  
-- [Bitbucket][bitbucket-config]  
-- [Gitlab][gitlab-config]  
-- [Heroku][heroku-config]  
+- [Github][github-config]
+- [Bitbucket][bitbucket-config]
+- [Gitlab][gitlab-config]
+- [Heroku][heroku-config]
 
 ### Adding Initial Admin User
 
