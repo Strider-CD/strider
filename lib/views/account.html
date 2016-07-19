@@ -82,7 +82,7 @@
                     </h3>
                   {% endif %}
                 </div>
-                <div ng-switch="!!providers['{{ loop.key }}'].setupLink">
+                <div ng-switch="!providers['{{ loop.key }}'].template">
                   <div ng-switch-when="true">
                     <a class="btn btn-success" href="[[ providers['{{ loop.key }}'].setupLink ]]">Add Account</a>
                     <span ng-show="accounts['{{ loop.key }}'].length">
