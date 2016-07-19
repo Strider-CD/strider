@@ -1,0 +1,20 @@
+'use strict';
+
+module.exports = function ($scope, $http) {
+  $scope.config = {
+    general: {},
+    smtp: {},
+    admin: {}
+  };
+
+  $scope.finishedWizard = function () {
+    console.log('finished', $scope.config);
+    $http.post('/api/setup', $scope.config)
+      .success(function (data) {
+        global.location.reload();
+      })
+      .error(function (error) {
+        console.error('Setup error: ', error);
+      });
+  };
+};

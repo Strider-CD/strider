@@ -8,6 +8,7 @@
     "Sortable": "~0.4.1",
     "bootbox": "3.3.0",
     "codemirror": "3.18.0",
+    "angular-wizard": "~0.4.2",
     "jquery-timeago": "1.3.0"
   },
   "install" : {
@@ -25,6 +26,10 @@
     "sources": {
       "bootbox": "bower_components/bootbox/bootbox.js",
       "jquery-timeago": "bower_components/jquery-timeago/jquery.timeago.js",
+      "angular-wizard": [
+        "bower_components/angular-wizard/dist/angular-wizard.js",
+        "bower_components/angular-wizard/dist/angular-wizard.less"
+      ],
       "bootstrap": [
         "bower_components/bootstrap/docs/assets/css/bootstrap-responsive.css",
         "bower_components/bootstrap/docs/assets/css/bootstrap.css",

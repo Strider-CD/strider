@@ -15,13 +15,19 @@ var models = require('./lib/models');
 var pluginTemplates = require('./lib/plugin-templates');
 var upgrade = require('./lib/models/upgrade').ensure;
 var loadExtensions = require('./lib/utils/load-extensions');
+<<<<<<< HEAD
 var killZombies = require('./lib/utils/kill-zombies');
 var registerPanel = require('./lib/utils/register-panel');
+=======
+var initRegisterPanel = require('./lib/utils/register-panel');
+var pkg = require('./package');
+>>>>>>> Move registerPanel to utils, fix comments
 
 var Job = models.Job;
 var Config = models.Config;
 
 common.extensions = {};
+<<<<<<< HEAD
 //
 // Use globa-tunnel to provide proxy support.
 // The http_proxy environment variable will be used if the first parameter to globalTunnel.initialize is null.
@@ -29,6 +35,16 @@ common.extensions = {};
 globalTunnel.initialize();
 
 module.exports = function (extdir, c, callback) {
+=======
+
+/**
+ * Use globa-tunnel to provide proxy support.
+ * The http_proxy environment variable will be used if the first parameter to globalTunnel.initialize is null.
+ */
+globalTunnel.initialize();
+
+module.exports = function(extdir, c, callback) {
+>>>>>>> Move registerPanel to utils, fix comments
   var appConfig = config;
   var k;
   // override with c
@@ -49,15 +65,18 @@ module.exports = function (extdir, c, callback) {
   }
 
   var loader = new Loader([path.join(__dirname, 'client/styles')], true);
+
   appInstance.loader = loader;
   common.loader = loader;
-  //
-  // ### Strider Context Object
-  //
-  // Context object is passed to each extension.  It carries various config
-  // settings, as well as handles to enable functions to register things.
-  // Context can also be accessed as a singleton within Strider as
-  // common.context.
+
+  /**
+   * ### Strider Context Object
+   *
+   * Context object is passed to each extension.  It carries various config
+   * settings, as well as handles to enable functions to register things.
+   * Context can also be accessed as a singleton within Strider as
+   * common.context.
+   */
   var context = {
     serverName: appConfig.strider_server_name,
     config: appConfig,
@@ -72,7 +91,11 @@ module.exports = function (extdir, c, callback) {
     middleware: middleware,
     auth: auth, //TODO - may want to make this a subset of the auth module
     passport: passport,
+<<<<<<< HEAD
     registerPanel: registerPanel(common),
+=======
+    registerPanel: initRegisterPanel(common.extensions),
+>>>>>>> Move registerPanel to utils, fix comments
     registerBlock: pluginTemplates.registerBlock,
     app: appInstance
   };
