@@ -38,11 +38,13 @@ module.exports = function (extdir, c, callback) {
 
   // Initialize the (web) app
   var appInstance = app.init(appConfig);
-  var cb = callback || function (err) {
-      if (err) {
-        throw err;
-      }
-    };
+  var cb = callback || defaultCallback;
+
+  function defaultCallback(err) {
+    if (err) {
+      throw err;
+    }
+  }
 
   if (typeof Loader !== 'function') {
     throw new Error('Your version of strider-extension-loader is out of date');
@@ -87,7 +89,7 @@ module.exports = function (extdir, c, callback) {
       return cb(err);
     }
 
-    loadExtensions(loader, extdir, context, appInstance, function (err) {
+    loadExtensions(loader, extdir, context, appInstance, function () {
       // kill zombie jobs
       killZombies(function () {
         var tasks = [];
@@ -134,7 +136,7 @@ module.exports = function (extdir, c, callback) {
               errored: true,
               error: {message: 'Job timeout', stack: ''}
             }
-          }, function (err) {
+          }, function () {
             Job.update({_id: {$in: ids}, started: null}, {$set: {started: now}}, function (err) {
               cb(err, appInstance);
             });
