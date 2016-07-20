@@ -1,33 +1,33 @@
 
 function choice(items) {
-  return items[parseInt(Math.random() * items.length)]
+  return items[parseInt(Math.random() * items.length)];
 }
 
 function id() {
   var hex = 'abcdef1234567890'
-    , ret = ''
+    , ret = '';
   for (var i=0; i<16; i++) {
-    ret += choice(hex)
+    ret += choice(hex);
   }
-  return ret
+  return ret;
 }
 
 function status(running) {
-  var states = ['passed', 'failed', 'errored']
-  if (running) states = states.concat(['running', 'submitted'])
-  return choice(states)
+  var states = ['passed', 'failed', 'errored'];
+  if (running) states = states.concat(['running', 'submitted']);
+  return choice(states);
 }
 
 function prev() {
   var num = parseInt(Math.random() * 5)
-    , jobs = []
+    , jobs = [];
   for (var i=0; i<num; i++) {
     jobs.push({
       _id: id(),
       status: status()
-    })
+    });
   }
-  return jobs
+  return jobs;
 }
 
 function project() {
@@ -42,7 +42,7 @@ function project() {
     provider: {
       id: choice(['github', 'bitbucket', 'gitlab'])
     }
-  }
+  };
 }
 
 function githubTrigger() {
@@ -63,7 +63,7 @@ function githubTrigger() {
       type: 'plugin',
       plugin: 'github'
     }
-  }
+  };
 }
 
 function manualTrigger() {
@@ -77,12 +77,12 @@ function manualTrigger() {
       type: 'UI',
       page: 'dashboard'
     }
-  }
+  };
 }
 
 function trigger() {
-  if (Math.random() > .5) return githubTrigger()
-  return manualTrigger()
+  if (Math.random() > .5) return githubTrigger();
+  return manualTrigger();
 }
 
 function job() {
@@ -94,20 +94,20 @@ function job() {
     type: 'TEST_ONLY',
     finished: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 20 * Math.random()),
     duration: Math.random() * 30000 + 5000
-  }
+  };
 }
 
 function jobs() {
   var num = parseInt(Math.random() * 10 + 5)
-    , jobs = []
+    , jobs = [];
   for (var i=0; i<num; i++) {
-    jobs.push(job())
+    jobs.push(job());
   }
-  return jobs
+  return jobs;
 }
 
 module.exports = function (testname, params, req, done) {
-  if (testname === 'none') return done(null, {jobs: {}, currentUser: true, user: true})
+  if (testname === 'none') return done(null, {jobs: {}, currentUser: true, user: true});
   done(null, {
     currentUser: {
       account_level: 1,
@@ -128,5 +128,5 @@ module.exports = function (testname, params, req, done) {
       yours: testname !== 'public' ? jobs() : [],
       public: jobs()
     }
-  })
-}
+  });
+};

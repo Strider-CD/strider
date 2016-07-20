@@ -1,2 +1,2 @@
 
-module.exports = require('./basic.json')
+module.exports = require('./basic.json');

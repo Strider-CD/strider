@@ -1,6 +1,6 @@
 'use strict';
 
-var assert = require('chai').assert
+var assert = require('chai').assert;
 
 module.exports = function (browser, callback) {
   describe('Login', function () {
@@ -60,8 +60,8 @@ module.exports = function (browser, callback) {
     it('should log out', function () {
       return browser.rel('/logout')
         .waitForElementByClassName('login-form')
-        .isDisplayed()
-    })
+        .isDisplayed();
+    });
 
     it('should redirect to /login and back', function () {
       return browser.rel('/strider-cd/test-node')
@@ -77,7 +77,7 @@ module.exports = function (browser, callback) {
         .then(function (element) {
           assert.isNotNull(element);
         });
-    })
+    });
 
     after(function () {
       return browser.quit(function () {

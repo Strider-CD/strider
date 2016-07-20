@@ -2,7 +2,7 @@
 
 module.exports = {
   sioWait: sioWait
-}
+};
 
 function sioWait(event, cb) {
   function handler() {

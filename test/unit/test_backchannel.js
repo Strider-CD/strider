@@ -2,23 +2,23 @@ var expect = require('chai').expect
   , BackChannel = require('../../lib/backchannel')
   , EventEmitter = require('events').EventEmitter
   , sinon = require('sinon')
-  , common = require('../../lib/common')
+  , common = require('../../lib/common');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
-describe("BackChannel", function() {
+describe('BackChannel', function () {
 
-  describe("#prepareJob()", function() {
+  describe('#prepareJob()', function () {
     var bc = null
       , emitter = null
       , ws = null
       , Project = null
       , Job = null
-      , Runner = require('strider-simple-runner').Runner
+      , Runner = require('strider-simple-runner').Runner;
 
-    before(function(done) {
+    before(function (done) {
       var provider = require('../fixtures/issue_477/common.extensions.provider.json');
-      provider.github.getFile = sinon.stub().yields(new Error('no strider.json'), null)
+      provider.github.getFile = sinon.stub().yields(new Error('no strider.json'), null);
       common.extensions = { provider: provider };
       var models = require('../../lib/models');
       Project = models.Project;
@@ -30,13 +30,13 @@ describe("BackChannel", function() {
 
       project.creator = new User(project.creator);
 
-      project.branch = sinon.stub().returns({runner: {id: 'runner-id' }})
+      project.branch = sinon.stub().returns({runner: {id: 'runner-id' }});
 
       sinon.stub(Project, 'findOne').returns({
         populate: sinon.stub().returns({
           exec: sinon.stub().yields(null, project)
         })
-      })
+      });
 
       sinon.stub(Job, 'create').yields(null, new Job(require('../fixtures/issue_477/mjob.json')));
 
@@ -49,18 +49,18 @@ describe("BackChannel", function() {
       done();
     });
 
-    after(function() {
+    after(function () {
       Project.findOne.restore();
       Job.create.restore();
       BackChannel.prototype.newJob.restore();
     });
 
-    it("calls #newJob() only once", function() {
+    it('calls #newJob() only once', function () {
       expect(BackChannel.prototype.newJob.callCount).to.eq(1);
     });
 
-    it("sends the correct arguments to #newJob()", function() {
-      var call = BackChannel.prototype.newJob.getCall(0)
+    it('sends the correct arguments to #newJob()', function () {
+      var call = BackChannel.prototype.newJob.getCall(0);
       var job = call.args[0];
       var config = call.args[1];
       expect(Object.keys(job)).to.have.length(13);

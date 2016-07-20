@@ -1,5 +1,5 @@
 var utils = require('../../lib/utils')
-  , expect = require('chai').expect
+  , expect = require('chai').expect;
 
 describe('utils', function () {
 
@@ -16,10 +16,10 @@ describe('utils', function () {
       })).to.eql({
         runtime: 'whatever',
         test: 'npm test'
-      })
-    })
+      });
+    });
 
-  })
+  });
 
   describe('validateAgainstSchema()', function () {
 
@@ -45,13 +45,13 @@ describe('utils', function () {
         noCheck: {
           nexted: 23
         }
-      })
-    })
+      });
+    });
 
-  })
+  });
 
-  describe("mergeConfigs()", function() {
-    it("unregressed #477", function() {
+  describe('mergeConfigs()', function () {
+    it('unregressed #477', function () {
       var branch = require('../fixtures/issue_477/unmergedBranch.json');
       var config = require('../fixtures/issue_477/unmergedConfig.json');
       var expected = require('../fixtures/issue_477/mergedConfig.json');
@@ -64,10 +64,10 @@ describe('utils', function () {
   describe('mergePlugins()', function () {
 
     it('should work for nulls', function () {
-      expect(utils.mergePlugins(null, null)).to.equal(null)
-      expect(utils.mergePlugins([], null)).to.eql([])
-      expect(utils.mergePlugins(null, [])).to.eql([])
-    })
+      expect(utils.mergePlugins(null, null)).to.equal(null);
+      expect(utils.mergePlugins([], null)).to.eql([]);
+      expect(utils.mergePlugins(null, [])).to.eql([]);
+    });
 
     it('should collect plugins', function () {
       expect(utils.mergePlugins([
@@ -81,8 +81,8 @@ describe('utils', function () {
         {id: 'four', config: {four: 4}},
         {id: 'one', config: {one: 1}},
         {id: 'two', config: {two: 2}}
-      ])
-    })
+      ]);
+    });
 
     it('should collect and overwrite', function () {
       expect(utils.mergePlugins([
@@ -95,10 +95,10 @@ describe('utils', function () {
         {id: 'three', config: {three: 3}},
         {id: 'four', config: {four: 4}},
         {id: 'two', config: {two: 2}}
-      ])
-    })
+      ]);
+    });
 
-  })
+  });
 
   describe('findBranch()', function () {
 
@@ -109,63 +109,63 @@ describe('utils', function () {
       , { name: '*test' }
       , { name: '*test*' }
       , { name: '*' }
-      ]
+      ];
 
     it('should find a branch with no wildcards', function () {
-      var branch = utils.findBranch(branches, 'test')
-      expect(branch.name).to.equal('test')
-    })
+      var branch = utils.findBranch(branches, 'test');
+      expect(branch.name).to.equal('test');
+    });
 
     it('should find a branch with wildcard at end', function () {
-      var branch = utils.findBranch(branches, 'test*')
-      expect(branch.name).to.equal('test*')
-    })
+      var branch = utils.findBranch(branches, 'test*');
+      expect(branch.name).to.equal('test*');
+    });
 
     it('should find a branch with wildcard at start', function () {
-      var branch = utils.findBranch(branches, '*test')
-      expect(branch.name).to.equal('*test')
-    })
+      var branch = utils.findBranch(branches, '*test');
+      expect(branch.name).to.equal('*test');
+    });
 
     it('should find a branch with wildcard at start and end', function () {
-      var branch = utils.findBranch(branches, '*test*')
-      expect(branch.name).to.equal('*test*')
-    })
+      var branch = utils.findBranch(branches, '*test*');
+      expect(branch.name).to.equal('*test*');
+    });
 
     it('should find a branch with wildcard in middle', function () {
-      var branch = utils.findBranch(branches, 'test*test')
-      expect(branch.name).to.equal('test*test')
-    })
+      var branch = utils.findBranch(branches, 'test*test');
+      expect(branch.name).to.equal('test*test');
+    });
 
     it('should find a branch with only wildcard', function () {
-      var branch = utils.findBranch(branches, '*')
-      expect(branch.name).to.equal('*')
-    })
+      var branch = utils.findBranch(branches, '*');
+      expect(branch.name).to.equal('*');
+    });
 
     it('should match wildcard in middle branch', function () {
-      var branch = utils.findBranch(branches, 'testingtest')
-      expect(branch.name).to.equal('test*test')
-    })
+      var branch = utils.findBranch(branches, 'testingtest');
+      expect(branch.name).to.equal('test*test');
+    });
 
     it('should match wildcard at end branch', function () {
-      var branch = utils.findBranch(branches, 'testing')
-      expect(branch.name).to.equal('test*')
-    })
+      var branch = utils.findBranch(branches, 'testing');
+      expect(branch.name).to.equal('test*');
+    });
 
     it('should match wildcard at start branch', function () {
-      var branch = utils.findBranch(branches, 'mytest')
-      expect(branch.name).to.equal('*test')
-    })
+      var branch = utils.findBranch(branches, 'mytest');
+      expect(branch.name).to.equal('*test');
+    });
 
     it('should match wildcard at start and end branch', function () {
-      var branch = utils.findBranch(branches, 'mytestingbranch')
-      expect(branch.name).to.equal('*test*')
-    })
+      var branch = utils.findBranch(branches, 'mytestingbranch');
+      expect(branch.name).to.equal('*test*');
+    });
 
     it('should match wildcard only branch', function () {
-      var branch = utils.findBranch(branches, 'branch')
-      expect(branch.name).to.equal('*')
-    })
+      var branch = utils.findBranch(branches, 'branch');
+      expect(branch.name).to.equal('*');
+    });
 
-  })
+  });
 
-})
+});

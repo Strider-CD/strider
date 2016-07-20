@@ -1,4 +1,4 @@
-var deleteHooks = require('strider-github/lib/api').deleteHooks
+var deleteHooks = require('strider-github/lib/api').deleteHooks;
 
 module.exports = function (browser, callback) {
 
@@ -10,13 +10,13 @@ module.exports = function (browser, callback) {
       token: 'df24805561a32092b24fe274136c299e842d5fcf'
     };
 
-    before(function(done) {
+    before(function (done) {
       var url = 'http://localhost:4000/' + robot.username + '/' + robot.repo + '/api/github/webhook';
       var repo = robot.username + '/' + robot.repo;
       deleteHooks(repo, url, robot.token, done);
     });
 
-    beforeEach(function() {
+    beforeEach(function () {
       this.currentTest.browser = browser;
     });
 
@@ -39,8 +39,8 @@ module.exports = function (browser, callback) {
         .elementByName('commit')
         .click()
         .waitForElementByClassName('StriderBlock_Brand', 6000)
-        .isDisplayed()
-    })
+        .isDisplayed();
+    });
 
     it('should create a project from github and run its first test', function () {
       return browser.rel('/projects')
@@ -53,14 +53,14 @@ module.exports = function (browser, callback) {
         .waitForElementByLinkText('Click to watch it run', 3000)
         .click()
         .waitForElementByCssSelector('.job-repo', 2000)
-        .url().should.eventually.include(robot.username+'/'+robot.repo)
-    })
+        .url().should.eventually.include(robot.username+'/'+robot.repo);
+    });
 
     after(function () {
       return browser.quit(function () {
-        callback()
-      })
-    })
+        callback();
+      });
+    });
 
-  })
-}
+  });
+};

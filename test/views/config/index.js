@@ -1,14 +1,14 @@
 
 var fs = require('fs')
-  , path = require('path')
+  , path = require('path');
 
 module.exports = function (testname, params, req, done) {
   var txt = fs.readFileSync(path.join(__dirname, 'basic.json'), 'utf8')
-    , data
+    , data;
   try {
-    data = JSON.parse(txt)
+    data = JSON.parse(txt);
   } catch (e) {
-    return done(e)
+    return done(e);
   }
-  done(null, data)
-}
+  done(null, data);
+};

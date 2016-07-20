@@ -3,8 +3,8 @@ var wd = require('wd');
 var remote = JSON.parse(process.env.WEBDRIVER_REMOTE || '{"hostname":"localhost", "port":9515}');
 var browsers = JSON.parse(process.env.BROWSERS || '[{"browserName":"chrome"}]' );
 var strider = require('./strider');
-var chai = require("chai");
-var chaiAsPromised = require("chai-as-promised");
+var chai = require('chai');
+var chaiAsPromised = require('chai-as-promised');
 
 chai.use(chaiAsPromised);
 chai.should();
@@ -25,39 +25,39 @@ describe('Strider', function () {
   ]);
 
   wd.addPromiseChainMethod('rel', function (url, cb) {
-    return this.get("http://localhost:4000" + url, cb);
+    return this.get('http://localhost:4000' + url, cb);
   });
 
   var runTests = function (conn, doneBrowser) {
     var commands = [];
 
     async.each(tests, function (suite, cb) {
-        var browser = wd.promiseChainRemote(remote)
-        browser.on('status', function(info) {
-          console.log(info)
-        })
-        browser.on('command', function(meth, path, data) {
-          if (meth && path && data) commands.push([' command > ' + meth, path, JSON.stringify(data || '')].join(' '))
-        })
-        browser.on('error', function(info) {
-          console.log(info)
-        })
-        require(suite)(browser.init(conn).get("http://localhost:4000/"), cb)
+      var browser = wd.promiseChainRemote(remote);
+      browser.on('status', function (info) {
+        console.log(info);
+      });
+      browser.on('command', function (meth, path, data) {
+        if (meth && path && data) commands.push([' command > ' + meth, path, JSON.stringify(data || '')].join(' '));
+      });
+      browser.on('error', function (info) {
+        console.log(info);
+      });
+      require(suite)(browser.init(conn).get('http://localhost:4000/'), cb);
+    }
+    , function (err){
+      if (err) {
+        console.log(commands.join('\n'));
       }
-    , function(err){
-        if (err) {
-          console.log(commands.join('\n'))
-        }
-        doneBrowser(err)
-      }
-    )
-  }
+      doneBrowser(err);
+    }
+    );
+  };
 
   before(function (done) {
     strider(function () {
-      done()
-    })
-  })
+      done();
+    });
+  });
 
   /**
    * Screenshots and current test are dumped into a failures/ dir in project root */
@@ -69,7 +69,7 @@ describe('Strider', function () {
 
   afterEach(function (done) {
     var test = this.currentTest;
-    if (test.state !== "failed") return done();
+    if (test.state !== 'failed') return done();
     var timestamp = new Date().getTime().toString();
     var scopeDir = path.join(failuresDir, timestamp);
 
@@ -79,12 +79,12 @@ describe('Strider', function () {
       test.browser.takeScreenshot(function (err, base64Data) {
         if (err) return done(err);
 
-        var png = path.join(scopeDir, "screenshot.png");
+        var png = path.join(scopeDir, 'screenshot.png');
 
-        fs.writeFile(png, base64Data, 'base64', function(err) {
+        fs.writeFile(png, base64Data, 'base64', function (err) {
           if (err) return done(err);
-          console.log('Failure screenshot saved to '+png)
-          var json = path.join(scopeDir, "currentTest.json");
+          console.log('Failure screenshot saved to '+png);
+          var json = path.join(scopeDir, 'currentTest.json');
 
           fs.writeFile(json, JSON.stringify({
             title: test.title,
@@ -94,11 +94,11 @@ describe('Strider', function () {
             'jsonwire-error': test['jsonwire-error']
           }, null, 4), function (err) {
             if (err) return done(err);
-            console.log('Failure metadata saved to '+json)
+            console.log('Failure metadata saved to '+json);
             done();
-          })
+          });
         });
-      })
+      });
     });
   });
 

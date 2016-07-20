@@ -1,7 +1,6 @@
 'use strict';
 
-var assert = require('assert');
-var should = require('should');
+var should = require('chai').should();
 var httpMocks = require('node-mocks-http');
 var auth = require('../../lib/auth');
 var middleware = require('../../lib/middleware');
@@ -19,7 +18,7 @@ describe('middleware', function () {
       });
 
       mockRes.statusCode.should.eql(401);
-      mockReq.user = { account_level: 1 };
+      mockReq.user = {account_level: 1};
 
       middleware.require_admin(mockReq, mockRes, function () {
         mockRes.statusCode = 200;
@@ -40,7 +39,7 @@ describe('middleware', function () {
 
       mockRes.statusCode.should.eql(401);
 
-      mockReq.user = { account_level: 1 };
+      mockReq.user = {account_level: 1};
       middleware.require_admin(mockReq, mockRes, function () {
         mockRes.statusCode = 200;
       });
@@ -49,7 +48,7 @@ describe('middleware', function () {
     });
   });
 
-  describe('#requireBody()', function() {
+  describe('#requireBody()', function () {
     it('should fallthrough if all params are present', function () {
       var mockReq = httpMocks.createRequest({
         body: {

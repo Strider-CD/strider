@@ -27,5 +27,5 @@ module.exports = function (request) {
         , account_level: 0
         , noProjects: true
         }
-      ]
-}
+      ];
+};

@@ -1,6 +1,6 @@
 module.exports = function (browser, callback) {
   describe('The Build Page', function () {
-    beforeEach(function() {
+    beforeEach(function () {
       this.currentTest.browser = browser;
     });
 
@@ -38,4 +38,4 @@ module.exports = function (browser, callback) {
       });
     });
   });
-}
+};
