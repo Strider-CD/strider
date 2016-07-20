@@ -40,7 +40,7 @@ JobMonitor.prototype = {
       this.sock.on(event, handler.bind(this));
     }
     for (var status in this.statuses) {
-      this.sock.on('job.status.' + status, this.update.bind(this, status))
+      this.sock.on('job.status.' + status, this.update.bind(this, status));
     }
   },
   // access: 'yours', 'public', 'admin'
@@ -112,22 +112,22 @@ JobMonitor.prototype = {
       var method = data.method || 'replace';
       var parent;
       parent = path.reduce(function (obj, attr) {
-        return obj[attr] || (obj[attr] = {})
+        return obj[attr] || (obj[attr] = {});
       }, this.plugin_data || (this.plugin_data = {}));
       if (method === 'replace') {
-        parent[last] = data.data
+        parent[last] = data.data;
       } else if (method === 'push') {
         if (!parent[last]) {
-          parent[last] = []
+          parent[last] = [];
         }
-        parent[last].push(data.data)
+        parent[last].push(data.data);
       } else if (method === 'extend') {
         if (!parent[last]) {
-          parent[last] = {}
+          parent[last] = {};
         }
-        _.extend(parent[last], data.data)
+        _.extend(parent[last], data.data);
       } else {
-        console.error('Invalid "plugin data" method received from plugin', data.plugin, data.method, data)
+        console.error('Invalid "plugin data" method received from plugin', data.plugin, data.method, data);
       }
     }
   }

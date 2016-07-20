@@ -13,7 +13,7 @@ module.exports = function ($scope, $element) {
   var dash = new Dashboard(socket, $scope);
 
   $scope.statusClasses = statusClasses;
-  $scope.providers = global.providers
+  $scope.providers = global.providers;
   $scope.phases = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
   $('#dashboard').show();
   $scope.startDeploy = function (job) {
@@ -37,7 +37,7 @@ module.exports = function ($scope, $element) {
  * @returns {String} If a reference build is defined, returns the name of the branch of the reference build; "master" otherwise.
  */
 function determineTargetBranch(job){
-  return job.ref ? job.ref.branch : "master";
+  return job.ref ? job.ref.branch : 'master';
 }
 
 function cleanJob(job) {

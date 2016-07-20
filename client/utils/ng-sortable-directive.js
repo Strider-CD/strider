@@ -41,7 +41,7 @@ module.exports = function ($parse) {
               if (!target) {
                 // this requirement can go away if we set IDs ourself during compiletime
                 // but generally you'll have an ID to give
-                throw new Error('Could not locate target element. Did you forget to set attribute data-ng-sortable-id on your repeated HTML elements?')
+                throw new Error('Could not locate target element. Did you forget to set attribute data-ng-sortable-id on your repeated HTML elements?');
               }
               if (event.type === 'update') {
                 list.splice(oldIndex, 1);
@@ -51,7 +51,7 @@ module.exports = function ($parse) {
                 fn(target, newIndex, event);
               }
             });
-          }
+          };
         }
         if (onUpdate)  opts.onUpdate = bind(onUpdate);
         if (groupName) opts.group = groupName;
@@ -62,5 +62,5 @@ module.exports = function ($parse) {
         scope.sortable = new Sortable(element.get(0), opts);
       };
     }
-  }
+  };
 };

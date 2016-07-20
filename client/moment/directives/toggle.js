@@ -4,10 +4,10 @@ var $ = require('jquery');
 
 module.exports = function () {
   return {
-    restrict: "A",
-    link: function(scope, element, attrs) {
+    restrict: 'A',
+    link: function (scope, element, attrs) {
       if (attrs.toggle !== 'tooltip') return;
-      setTimeout(function() {
+      setTimeout(function () {
         $(element).tooltip();
       }, 0);
       attrs.$observe('title', function () {
@@ -19,4 +19,4 @@ module.exports = function () {
       });
     }
   };
-}
+};

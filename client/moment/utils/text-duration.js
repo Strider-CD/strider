@@ -24,14 +24,14 @@ var time_units = [
 
 module.exports = function textDuration(duration, el, whole) {
   if (!duration) return $(el).text('');
-  var cls = '', text;
-  for (var i=0; i<time_units.length; i++) {
+  var cls = '';
+  for (var i = 0; i < time_units.length; i++) {
     if (duration < time_units[i].ms) continue;
     cls = time_units[i].cls;
-    text = duration + '';
+    var text = duration + '';
     if (time_units[i].ms) {
-      if (whole) text = parseInt(duration / time_units[i].ms)
-      else text = parseInt(duration / time_units[i].ms * 10) / 10
+      if (whole) text = parseInt(duration / time_units[i].ms);
+      else text = parseInt(duration / time_units[i].ms * 10) / 10;
     }
     text += time_units[i].suffix;
     break;

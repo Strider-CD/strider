@@ -94,9 +94,9 @@ function ConfigController($scope, $element, $sce) {
           switchToTab(tabName, $scope.branch);
         }
       }
-    }
+    };
 
-    router.init()
+    router.init();
   });
 
   function selectTab(tabName) {
@@ -209,7 +209,7 @@ function ConfigController($scope, $element, $sce) {
   };
 
   $scope.setRunner = function (name) {
-    var config = $scope.runnerConfigs[name]
+    var config = $scope.runnerConfigs[name];
 
     $scope.branch.runner.id = name;
     $scope.branch.runner.config = config;
@@ -402,7 +402,7 @@ function ConfigController($scope, $element, $sce) {
 
     var hash = md5(email.toLowerCase());
     return 'https://secure.gravatar.com/avatar/' + hash + '?d=identicon';
-  }
+  };
 
   $scope.saveRunner = function (id, config) {
     $.ajax({

@@ -7,7 +7,7 @@ function CollaboratorsController($scope) {
   $scope.new_access = 0;
   $scope.collaborators = global.collaborators || [];
   $scope.remove = function (item) {
-    var actuallyDelete = confirm('Are you sure you want to remove ' + item.email + '?')
+    var actuallyDelete = confirm('Are you sure you want to remove ' + item.email + '?');
     if (actuallyDelete) {
       item.loading = true;
       $scope.clearMessage();
@@ -15,17 +15,17 @@ function CollaboratorsController($scope) {
         url: '/' + $scope.project.name + '/collaborators/',
         type: 'DELETE',
         data: {email: item.email},
-        success: function(data, ts, xhr) {
+        success: function (data, ts, xhr) {
           remove($scope.collaborators, item);
-          $scope.success(item.email + " is no longer a collaborator on this project.", true);
+          $scope.success(item.email + ' is no longer a collaborator on this project.', true);
         },
-        error: function(xhr, ts, e) {
+        error: function (xhr, ts, e) {
           item.loading = false;
           if (xhr && xhr.responseText) {
             var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error deleting collaborator: " + data.errors[0], true);
+            $scope.error('Error deleting collaborator: ' + data.errors[0], true);
           } else {
-            $scope.error("Error deleting collaborator: " + e, true);
+            $scope.error('Error deleting collaborator: ' + e, true);
           }
         }
       });
@@ -41,10 +41,10 @@ function CollaboratorsController($scope) {
 
     $.ajax({
       url: '/' + $scope.project.name + '/collaborators/',
-      type: "POST",
+      type: 'POST',
       data: data,
-      dataType: "json",
-      success: function(res, ts, xhr) {
+      dataType: 'json',
+      success: function (res, ts, xhr) {
         $scope.new_access = 0;
         $scope.new_email = '';
         if (res.created) {
@@ -52,12 +52,12 @@ function CollaboratorsController($scope) {
         }
         $scope.success(res.message, true, !res.created);
       },
-      error: function(xhr, ts, e) {
+      error: function (xhr, ts, e) {
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText);
-          $scope.error("Error adding collaborator: " + data.errors[0], true);
+          $scope.error('Error adding collaborator: ' + data.errors[0], true);
         } else {
-          $scope.error("Error adding collaborator: " + e, true);
+          $scope.error('Error adding collaborator: ' + e, true);
         }
       }
     });

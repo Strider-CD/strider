@@ -11,20 +11,20 @@ function DeactivateController($scope) {
     $scope.active = !$scope.active;
     var data = {url: $scope.repo.url, active: $scope.active};
     $.ajax({
-      url: "/api/repo",
-      type: "POST",
+      url: '/api/repo',
+      type: 'POST',
       data: data,
-      dataType: "json",
-      success: function(data, ts, xhr) {
+      dataType: 'json',
+      success: function (data, ts, xhr) {
         $scope.success($scope.active ? 'Activated' : 'Deactivated');
         $scope.$root.$digest();
       },
-      error: function(xhr, ts, e) {
+      error: function (xhr, ts, e) {
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText);
-          $scope.error("Error settings active state: " + data.errors[0]);
+          $scope.error('Error settings active state: ' + data.errors[0]);
         } else {
-          $scope.error("Error settings active state: " + e);
+          $scope.error('Error settings active state: ' + e);
         }
         $scope.active = !$scope.active;
         $scope.$root.$digest();
@@ -36,22 +36,22 @@ function DeactivateController($scope) {
     bootbox.confirm('<h2>Really Delete Project Data?</h2><p>' + message + '</p>', 'Just kidding', 'Yes, really', function (really) {
       if (!really) return;
       $.ajax({
-        url: "/api/repo",
-        type: "DELETE",
+        url: '/api/repo',
+        type: 'DELETE',
         data: {url: $scope.repo.url},
-        success: function(data, ts, xhr) {
-          $scope.success("Project removed.");
+        success: function (data, ts, xhr) {
+          $scope.success('Project removed.');
           $scope.$root.$digest();
           setTimeout(function () {
             global.location = '/';
           }, 500);
         },
-        error: function(xhr, ts, e) {
+        error: function (xhr, ts, e) {
           if (xhr && xhr.responseText) {
             var data = $.parseJSON(xhr.responseText);
-            $scope.error("Error deleting project: " + data.errors[0]);
+            $scope.error('Error deleting project: ' + data.errors[0]);
           } else {
-            $scope.error("Error deleting project: " + e);
+            $scope.error('Error deleting project: ' + e);
           }
           $scope.$root.$digest();
         }

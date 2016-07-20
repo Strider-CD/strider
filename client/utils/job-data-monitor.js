@@ -25,8 +25,8 @@ JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, 
     this.phases[data.next].started = data.time;
   },
   'command.comment': function (data) {
-    var phase = this.phases[this.phase]
-      , command = _.extend({}, SKELS.command);
+    var phase = this.phases[this.phase];
+    var command = _.extend({}, SKELS.command);
     command.command = data.comment;
     command.comment = true;
     command.plugin = data.plugin;
@@ -34,14 +34,14 @@ JobDataMonitor.prototype.statuses = _.extend({}, JobMonitor.prototype.statuses, 
     phase.commands.push(command);
   },
   'command.start': function (data) {
-    var phase = this.phases[this.phase]
-      , command = _.extend({}, SKELS.command, data);
+    var phase = this.phases[this.phase];
+    var command = _.extend({}, SKELS.command, data);
     command.started = data.time;
     phase.commands.push(command);
   },
   'command.done': function (data) {
-    var phase = this.phases[this.phase]
-      , command = phase.commands[phase.commands.length - 1];
+    var phase = this.phases[this.phase];
+    var command = phase.commands[phase.commands.length - 1];
     command.finished = data.time;
     command.duration = data.elapsed;
     command.exitCode = data.exitCode;
@@ -69,9 +69,9 @@ function ensureCommand(phase) {
   var command = phase.commands[phase.commands.length - 1];
   if (!command || typeof(command.finished) !== 'undefined') {
     command = _.extend({}, SKELS.command);
-    phase.commands.push(command)
+    phase.commands.push(command);
   }
-  return command
+  return command;
 }
 
 module.exports = JobDataMonitor;

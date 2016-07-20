@@ -17,7 +17,7 @@ module.exports = function ($scope, $attrs) {
       error: function () {
         $scope.error('Failed to remove project', true);
       }
-    })
+    });
   };
   $scope.create = function () {
     var name = $scope.display_name.toLowerCase();
@@ -53,7 +53,7 @@ module.exports = function ($scope, $attrs) {
         $scope.error('failed to create project', true);
       }
     });
-  }
+  };
 };
 
 function validName(name) {

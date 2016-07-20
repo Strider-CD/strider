@@ -13,7 +13,7 @@ var runtime = null;
 var job = global.job;
 
 module.exports = function ($scope, $route, $location, $filter) {
-  var params = $route.current ? $route.current.params : {}
+  var params = $route.current ? $route.current.params : {};
   var project = global.project;
   var jobid = params.id || (global.job && global.job._id);
   var socket = io.connect();
@@ -43,12 +43,7 @@ module.exports = function ($scope, $route, $location, $filter) {
   }
 
   $scope.toggleErrorDetails = function () {
-    if ($scope.showErrorDetails) {
-      $scope.showErrorDetails = false;
-    }
-    else {
-      $scope.showErrorDetails = true;
-    }
+    $scope.showErrorDetails = !$scope.showErrorDetails;
   };
 
   $scope.clearCache = function () {
@@ -65,9 +60,9 @@ module.exports = function ($scope, $route, $location, $filter) {
         bootbox.alert('Failed to clear the cache');
       }
     });
-  }
+  };
 
-  $scope.$on('$locationChangeSuccess', function(event) {
+  $scope.$on('$locationChangeSuccess', function () {
     if (global.location.pathname.match(/\/config$/)) {
       global.location = global.location;
       return;
@@ -97,7 +92,7 @@ module.exports = function ($scope, $route, $location, $filter) {
         if (!cached) $scope.$digest();
       });
       if (!cached) {
-        for (var i=0; i<$scope.jobs.length; i++) {
+        for (var i = 0; i < $scope.jobs.length; i++) {
           if ($scope.jobs[i]._id === jobid) {
             $scope.job = $scope.jobs[i];
             break;
@@ -142,15 +137,15 @@ module.exports = function ($scope, $route, $location, $filter) {
 
   $scope.$watch('job.std.merged_latest', function (value) {
     /* Tracking isn't quite working right
-    if ($scope.job.status === 'running') {
-      height = outputConsole.getBoundingClientRect().height;
-      tracking = height + outputConsole.scrollTop > outputConsole.scrollHeight - 50;
-      // console.log(tracking, height, outputConsole.scrollTop, outputConsole.scrollHeight);
-      if (!tracking) return;
-    }
-    */
-    var ansiFilter = $filter('ansi')
-    $('.job-output').last().append(ansiFilter(value))
+     if ($scope.job.status === 'running') {
+     height = outputConsole.getBoundingClientRect().height;
+     tracking = height + outputConsole.scrollTop > outputConsole.scrollHeight - 50;
+     // console.log(tracking, height, outputConsole.scrollTop, outputConsole.scrollHeight);
+     if (!tracking) return;
+     }
+     */
+    var ansiFilter = $filter('ansi');
+    $('.job-output').last().append(ansiFilter(value));
     outputConsole.scrollTop = outputConsole.scrollHeight;
     setTimeout(function () {
       outputConsole.scrollTop = outputConsole.scrollHeight;
@@ -159,7 +154,7 @@ module.exports = function ($scope, $route, $location, $filter) {
   // button handlers
   $scope.startDeploy = function (job) {
     $('.tooltip').hide();
-    socket.emit('deploy', project.name, job && job.ref.branch)
+    socket.emit('deploy', project.name, job && job.ref.branch);
     $scope.job = {
       project: $scope.job.project,
       status: 'submitted'
@@ -167,7 +162,7 @@ module.exports = function ($scope, $route, $location, $filter) {
   };
   $scope.startTest = function (job) {
     $('.tooltip').hide();
-    socket.emit('test', project.name, job && job.ref.branch)
+    socket.emit('test', project.name, job && job.ref.branch);
     $scope.job = {
       project: $scope.job.project,
       status: 'submitted'
@@ -186,7 +181,7 @@ function BuildPage(socket, project, change, scope, jobs, job) {
   this.scope = scope;
   this.project = project;
   this.jobs = {};
-  this.jobs[job._id] = job
+  this.jobs[job._id] = job;
 }
 
 _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
@@ -201,7 +196,7 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     this.jobs[job._id] = job;
     var found = -1
       , i;
-    for (i=0; i<this.scope.jobs.length; i++) {
+    for (i = 0; i < this.scope.jobs.length; i++) {
       if (this.scope.jobs[i]._id === job._id) {
         found = i;
         break;
@@ -216,14 +211,14 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
         out: '',
         err: '',
         merged: ''
-      }
+      };
     }
     if (!job.phases) {
       job.phases = {};
-      for (i=0; i<PHASES.length; i++) {
+      for (i = 0; i < PHASES.length; i++) {
         job.phases[PHASES[i]] = _.cloneDeep(SKELS.phase);
       }
-      job.phases[job.phase].started = new Date()
+      job.phases[job.phase].started = new Date();
     } else {
       if (job.phases.test.commands.length) {
         if (job.phases.environment) {
@@ -261,10 +256,12 @@ function setFavicon(status) {
 
 function animateFav() {
   var alt = false;
+
   function switchit() {
     setFavicon('running' + (alt ? '-alt' : ''));
     alt = !alt;
   }
+
   return setInterval(switchit, 500);
 }
 
@@ -284,11 +281,11 @@ function updateFavicon(value) {
 
 function buildSwitcher($scope) {
   function switchBuilds(evt) {
-    var dy = {40: 1, 38: -1}[evt.keyCode]
-      , id = $scope.job._id
-      , idx;
+    var dy = {40: 1, 38: -1}[evt.keyCode];
+    var id = $scope.job._id;
+    var idx;
     if (!dy) return;
-    for (var i=0; i<$scope.jobs.length; i++) {
+    for (var i = 0; i < $scope.jobs.length; i++) {
       if ($scope.jobs[i]._id === id) {
         idx = i;
         break;
@@ -296,7 +293,7 @@ function buildSwitcher($scope) {
     }
     if (idx === -1) {
       console.log('Failed to find job.');
-      return global.location = global.location
+      return global.location = global.location;
     }
     idx += dy;
     if (idx < 0 || idx >= $scope.jobs.length) {
@@ -306,5 +303,6 @@ function buildSwitcher($scope) {
     $scope.selectJob($scope.jobs[idx]._id);
     $scope.$root.$digest();
   }
+
   global.document.addEventListener('keydown', switchBuilds);
 }
