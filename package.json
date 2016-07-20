@@ -114,7 +114,7 @@
     "strider-slack": "^2.0.0",
     "strider-ssh-deploy": "^1.0.0",
     "swig": "^0.14.0",
-    "thirty-two": "0.0.2",
+    "thirty-two": "^1.0.1",
     "validator": "^3.22.1",
     "winston": "^1.0.0"
   },
