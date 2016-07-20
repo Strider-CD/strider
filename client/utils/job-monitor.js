@@ -1,10 +1,9 @@
 var _ = require('lodash');
 var PHASES = require('./phases');
-var SKELS = require('./skels');
 
 // The Job Monitor:
 // - update jobs based on browser events
-// 
+//
 
 function JobMonitor(socket, changed) {
   this.sock = socket;
@@ -27,10 +26,10 @@ JobMonitor.prototype = {
       this.changed();
     }
   },
-  job: function (id, access) {
+  job: function () {
     throw new Error('You must override this');
   },
-  addJob: function (job, access) {
+  addJob: function () {
     throw new Error('You must implement');
   },
   listen: function () {
@@ -46,10 +45,10 @@ JobMonitor.prototype = {
   },
   // access: 'yours', 'public', 'admin'
   update: function (event, args, access, dontchange) {
-    var id = args.shift()
-      , job = this.job(id, access)
-      , handler = this.statuses[event];
-    if (!job) return this.unknown(id, event, args, access)
+    var id = args.shift();
+    var job = this.job(id, access);
+    var handler = this.statuses[event];
+    if (!job) return this.unknown(id, event, args, access);
     if (!handler) return;
     if ('string' === typeof handler) {
       job.status = handler;
@@ -67,7 +66,7 @@ JobMonitor.prototype = {
     this.sock.emit(this.emits.getUnknown, id, this.gotUnknown.bind(this));
   },
   gotUnknown: function (job) {
-    if (!this.waiting[job._id]) return console.warn("Got unknownjob:response but wan't waiting for it...");
+    if (!this.waiting[job._id]) return console.warn('Got unknownjob:response but wan\'t waiting for it...');
     var access = this.waiting[job._id][0][2];
     if (job.status === 'submitted') {
       job.status = 'running';
@@ -76,7 +75,7 @@ JobMonitor.prototype = {
     // job.phase = job.phase || 'environment';
     this.addJob(job, access);
     // TODO: this.update searches for the job again. optimize
-    for (var i=0; i<this.waiting[job._id]; i++) {
+    for (var i = 0; i < this.waiting[job._id]; i++) {
       this.update.apply(this, this.waiting[i].concat([true]));
     }
     delete this.waiting[job._id];
@@ -97,8 +96,10 @@ JobMonitor.prototype = {
       this.phase = PHASES.indexOf(data.phase) + 1;
     },
     // this is just so we'll trigger the "unknown job" lookup sooner on the dashboard
-    'stdout': function (text) {},
-    'stderr': function (text) {},
+    'stdout': function () {
+    },
+    'stderr': function () {
+    },
     'warning': function (warning) {
       if (!this.warnings) {
         this.warnings = [];
@@ -106,13 +107,13 @@ JobMonitor.prototype = {
       this.warnings.push(warning);
     },
     'plugin-data': function (data) {
-      var path = data.path ? [data.plugin].concat(data.path.split('.')) : [data.plugin]
-      , last = path.pop()
-      , method = data.method || 'replace'
-      , parent
+      var path = data.path ? [data.plugin].concat(data.path.split('.')) : [data.plugin];
+      var last = path.pop();
+      var method = data.method || 'replace';
+      var parent;
       parent = path.reduce(function (obj, attr) {
         return obj[attr] || (obj[attr] = {})
-      }, this.plugin_data || (this.plugin_data = {}))
+      }, this.plugin_data || (this.plugin_data = {}));
       if (method === 'replace') {
         parent[last] = data.data
       } else if (method === 'push') {
@@ -131,6 +132,5 @@ JobMonitor.prototype = {
     }
   }
 };
-
 
 module.exports = JobMonitor;

@@ -8,7 +8,7 @@ function post(url, data, done) {
     type: 'POST',
     data: data,
     dataType: 'json',
-    success: function (data, ts, xhr) {
+    success: function () {
       done(null);
     },
     error: function (xhr, ts, e) {
