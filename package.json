@@ -39,7 +39,7 @@
     ]
   },
   "scripts": {
-    "test": "make test",
+    "test": "npm run build && npm run lint && npm run test-unit",
     "start": "bin/strider",
     "dev": "npm run build-debug && bin/strider",
     "pre": "mkdirp dist/scripts dist/styles",
@@ -49,8 +49,9 @@
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
-    "unitcov": "istanbul cover _mocha --recursive test/unit",
-    "unitdev": "mocha -w --recursive test/unit -R min",
+    "test-unit": "mocha -w --recursive test/unit -R min",
+    "lint": "eslint *.js lib client",
+    "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
     "gendocs": "apidoc -i lib/ -o apidocs/",
     "debug": "node debug bin/strider --no-cluster"
   },
@@ -130,6 +131,7 @@
     "chai-as-promised": "^4.1.0",
     "eslint": "^3.0.1",
     "expect.js": "^0.3.1",
+    "istanbul": "^0.4.4",
     "jquery": "^2.1.4",
     "less": "^2.2.0",
     "minifyify": "^7.3.3",
