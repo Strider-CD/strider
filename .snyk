@@ -1,0 +1,53 @@
+version: v1.5.0
+ignore: {}
+patch:
+  'npm:hawk:20160119':
+    - strider-bitbucket > request > hawk:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:minimatch:20160620':
+    - strider-cli > glob > minimatch:
+        patched: '2016-07-20T14:43:11.521Z'
+    - strider-ruby > strider-detection-rules > gumshoe > glob > minimatch:
+        patched: '2016-07-20T14:43:11.521Z'
+    - strider-python > strider-detection-rules > gumshoe > glob > minimatch:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:moment:20160126':
+    - strider-email-notifier > moment:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:ms:20151024':
+    - strider-cli > superagent > debug > ms:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:negotiator:20160616':
+    - socket.io > engine.io > accepts > negotiator:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:qs:20140806-1':
+    - strider-bitbucket > request > qs:
+        patched: '2016-07-20T14:43:11.521Z'
+    - strider-heroku > superagent > qs:
+        patched: '2016-07-20T14:43:11.521Z'
+    - strider-github > superagent > qs:
+        patched: '2016-07-20T14:43:11.521Z'
+    - strider-bitbucket > superagent > qs:
+        patched: '2016-07-20T14:43:11.521Z'
+    - httpcheck > request > qs:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:request:20160119':
+    - strider-bitbucket > request:
+        patched: '2016-07-20T14:43:11.521Z'
+    - httpcheck > request:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:tar:20151103':
+    - strider-ssh-deploy > npmd-pack > tar:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:uglify-js:20151024':
+    - jade > transformers > uglify-js:
+        patched: '2016-07-20T14:43:11.521Z'
+    - jade > constantinople > uglify-js:
+        patched: '2016-07-20T14:43:11.521Z'
+  'npm:ws:20160624':
+    - socket.io > engine.io > ws:
+        patched: '2016-07-20T14:43:11.521Z'
+    - socket.io-client > engine.io-client > ws:
+        patched: '2016-07-20T14:43:11.521Z'
+    - socket.io > socket.io-client > engine.io-client > ws:
+        patched: '2016-07-20T14:43:11.521Z'
