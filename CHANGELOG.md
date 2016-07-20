@@ -1,5 +1,31 @@
 # Changelog / Past releases
 
+## 1.8.0 - 2016-07-20
+
+Range: https://github.com/Strider-CD/strider/compare/4ed868a6be4411507c6c1b75b2ae6fd242d08f58...f5051ab79fda22043773b19ac2713d8b10ab0f32
+
+- Update moment again for security
+- Remove Heroku XHR polling ([#920](https://github.com/Strider-CD/strider/pull/920))
+- Document concurrent jobs env
+- Fix login redirects ([#923](https://github.com/Strider-CD/strider/pull/923))
+- Add plugin blocks for login form ([#924](https://github.com/Strider-CD/strider/pull/924))
+- Cleanup travis config
+- Lock in Angular version
+- Update plugin dependencies
+- Set name of local plugins ([#932](https://github.com/Strider-CD/strider/pull/932))
+- Add SMTP_SECURE config ([#933](https://github.com/Strider-CD/strider/pull/933))
+- Fix dev.sh script ([#943](https://github.com/Strider-CD/strider/pull/943))
+- Fix performance issues when viewing failed builds ([#952](https://github.com/Strider-CD/strider/pull/952))
+- Fix hard-coded admin notification email address ([#951](https://github.com/Strider-CD/strider/pull/951))
+- Fix ESLint usage ([#954](https://github.com/Strider-CD/strider/pull/954))
+- Fix footer being scrolled out of view
+- Go to hash-targetted tab
+- Add IntelliJ code style definition
+- Replace ssh-keypair with native JS solution (win support)
+- Allow strider.json to set runner
+- Add more `debug` instances for logging
+- Replace Makefile with npm scripts
+
 ## 1.7.7 - 2016-02-12
 
 - Update moment to a secure version
