@@ -4,7 +4,6 @@ node_js:
   - "node"
 
 env:
-  - NO_BROWSER_TESTS=true
   - CXX=g++-4.8
 
 addons:

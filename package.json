@@ -49,7 +49,7 @@
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --only client] -e client/app.js -o dist/scripts/app.js",
-    "test-unit": "mocha -w --recursive test/unit -R min",
+    "test-unit": "mocha --recursive test/unit",
     "lint": "eslint *.js bin lib client",
     "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
     "gendocs": "apidoc -i lib/ -o apidocs/",
