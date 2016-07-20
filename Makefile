@@ -1,7 +1,7 @@
 has_sauce := $(SAUCE_USERNAME)
 no_browser_tests := $(NO_BROWSER_TESTS)
 ifdef no_browser_tests
-test-env := 
+test-env :=
 else
 ifndef has_sauce
 test-env := test-local
@@ -73,10 +73,10 @@ test-client-local:
 
 test-syntax: lint
 
-tolint := *.js *.json lib client
+tolint := *.js lib client
 
 lint:
-	@./node_modules/.bin/jshint --verbose $(tolint)
+	@./node_modules/.bin/eslint $(tolint)
 
 authors-list:
 	git shortlog -e -n -s $$commit | awk '{ args[NR] = $$0; sum += $$0 } END { for (i = 1; i <= NR; ++i) { printf "%-60s %2.1f%%\n", args[i], 100 * args[i] / sum } }' > AUTHORS
