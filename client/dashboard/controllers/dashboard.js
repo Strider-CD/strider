@@ -1,5 +1,3 @@
-// TODO: cleanup comments
-/* global JobMonitor: true, io: true */
 'use strict';
 
 var $ = require('jquery');
@@ -8,9 +6,9 @@ var io = require('socket.io-client');
 var JobMonitor = require('../../utils/job-monitor');
 var statusClasses = require('../../utils/status-classes');
 
-module.exports = function ($scope, $element) {
+module.exports = function ($scope) {
   var socket = io.connect();
-  var dash = new Dashboard(socket, $scope);
+  new Dashboard(socket, $scope);
 
   $scope.statusClasses = statusClasses;
   $scope.providers = global.providers;
@@ -36,7 +34,7 @@ module.exports = function ($scope, $element) {
  * @param {Object} job The job for which to determine the target branch.
  * @returns {String} If a reference build is defined, returns the name of the branch of the reference build; "master" otherwise.
  */
-function determineTargetBranch(job){
+function determineTargetBranch(job) {
   return job.ref ? job.ref.branch : 'master';
 }
 
@@ -63,22 +61,22 @@ function Dashboard(socket, $scope) {
 _.extend(Dashboard.prototype, JobMonitor.prototype, {
   job: function (id, access) {
     var jobs = this.scope.jobs[access];
-    for (var i=0; i<jobs.length; i++) {
+    for (var i = 0; i < jobs.length; i++) {
       if (jobs[i]._id === id) return jobs[i];
     }
   },
   addJob: function (job, access) {
-    var jobs = this.scope.jobs[access]
-      , found = -1
-      , old;
-    for (var i=0; i<jobs.length; i++) {
+    var jobs = this.scope.jobs[access];
+    var found = -1;
+
+    for (var i = 0; i < jobs.length; i++) {
       if (jobs[i].project.name === job.project.name) {
         found = i;
         break;
       }
     }
     if (found !== -1) {
-      old = jobs.splice(found, 1)[0];
+      var old = jobs.splice(found, 1)[0];
       job.project.prev = old.project.prev;
     }
     if (job.phases) {
@@ -88,7 +86,7 @@ _.extend(Dashboard.prototype, JobMonitor.prototype, {
     }
     job.phase = 'environment';
     jobs.unshift(job);
-  },
+  }
 });
 
 Dashboard.prototype.statuses['phase.done'] = function (data) {

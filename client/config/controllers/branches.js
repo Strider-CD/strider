@@ -17,8 +17,8 @@ function BranchesController($scope) {
       $.ajax({
         url: '/' + $scope.project.name + '/branches/',
         type: 'DELETE',
-        data: { name: item.name },
-        success: function (data, ts, xhr) {
+        data: {name: item.name},
+        success: function () {
           remove($scope.branches, item);
           $scope.success(item.name + ' is no longer a configured branch.', true);
         },
@@ -36,14 +36,14 @@ function BranchesController($scope) {
   };
 
   $scope.add = function () {
-    var data = { name: $scope.branchName };
+    var data = {name: $scope.branchName};
 
     $.ajax({
       url: '/' + $scope.project.name + '/branches/',
       type: 'POST',
       data: data,
       dataType: 'json',
-      success: function (res, ts, xhr) {
+      success: function (res) {
         $scope.branchName = '';
         if (res.created) {
           $scope.branches.push(res.branch);
@@ -66,10 +66,10 @@ function BranchesController($scope) {
     $.ajax({
       url: '/' + $scope.project.name + '/branches/',
       type: 'PUT',
-      data: JSON.stringify({ branches: list }),
+      data: JSON.stringify({branches: list}),
       contentType: 'application/json',
       dataType: 'json',
-      success: function (res, ts, xhr) {
+      success: function (res) {
         $scope.success(res.message, true, false);
       },
       error: function (xhr, ts, e) {
@@ -90,14 +90,14 @@ function BranchesController($scope) {
       return;
     }
 
-    var data = { name: item.name, cloneName: cloneName };
+    var data = {name: item.name, cloneName: cloneName};
 
     $.ajax({
       url: '/' + $scope.project.name + '/branches/',
       type: 'POST',
       data: data,
       dataType: 'json',
-      success: function (res, ts, xhr) {
+      success: function (res) {
         $scope.branchName = '';
         if (res.created) {
           $scope.branches.push(res.branch);

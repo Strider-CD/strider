@@ -5,7 +5,7 @@ var $ = require('jquery');
 function HerokuController($scope) {
   $scope.heroku = $scope.panelData.heroku;
   $scope.deploy_on_green = ($scope.repo.prod_deploy_target ?
-                            $scope.repo.prod_deploy_target.deploy_on_green : true);
+    $scope.repo.prod_deploy_target.deploy_on_green : true);
   $scope.status = $scope.heroku ? 'configured' : 'unconfigured';
   $scope.heroku_apps = ['@@new@@'];
   $scope.which_app = '@@new@@';
@@ -21,12 +21,12 @@ function HerokuController($scope) {
     $.ajax('/api/heroku/account_integration', {
       data: {api_key: $scope.apikey},
       dataType: 'json',
-      error: function (xhr, ts, e) {
+      error: function () {
         $scope.error('Heroku API key invalid');
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      success: function (data, ts, xhr) {
+      success: function (data) {
         $scope.success('Heroku connected');
         $scope.apikey = data.api_key;
         $scope.heroku_apps = data.heroku_apps;
@@ -53,13 +53,13 @@ function HerokuController($scope) {
         app_name: app_name
       },
       dataType: 'json',
-      error: function (xhr, ts, e) {
+      error: function (xhr) {
         var data = $.parseJSON(xhr.responseText);
         $scope.error('Error: ' + data.errors[0]);
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      success: function (data, ts, xhr) {
+      success: function () {
         $scope.success('Heroku continuous deployment integration complete.');
         $scope.deploy_on_green = true;
         $scope.which_app = '@@new@@';
@@ -71,7 +71,7 @@ function HerokuController($scope) {
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      type: 'POST',
+      type: 'POST'
     });
   };
 
@@ -80,36 +80,36 @@ function HerokuController($scope) {
     $scope.loading = true;
     $.ajax('/api/heroku/config', {
       data: {url: $scope.repo.url, deploy_on_green: $scope.deploy_on_green},
-      error: function (xhr, ts, e) {
+      error: function () {
         $scope.error('Error toggling deploy on green.');
         $scope.deploy_on_green = !$scope.deploy_on_green;
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      success: function (data, ts, xhr) {
+      success: function () {
         $scope.success('Deploy on Green ' + ($scope.deploy_on_green ? 'enabled' : 'disabled'));
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      type: 'POST',
+      type: 'POST'
     });
   };
 
   $scope.removeHeroku = function () {
     $.ajax('/api/heroku/config', {
-      data: {url: $scope.repo.url, unset_heroku:1},
-      error: function (xhr, ts, e) {
+      data: {url: $scope.repo.url, unset_heroku: 1},
+      error: function () {
         $scope.error('Error removing Heroku config.');
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      success: function (data, ts, xhr) {
+      success: function () {
         $scope.success('Removed Heroku config.');
         $scope.status = 'unconfigured';
         $scope.loading = false;
         $scope.$root.$digest();
       },
-      type: 'POST',
+      type: 'POST'
     });
   };
 }

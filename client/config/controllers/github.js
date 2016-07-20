@@ -12,15 +12,15 @@ function GithubController($scope) {
       $.ajax('/api/github/webhooks/unset', {
         data: {url: $scope.repo.url},
         dataType: 'json',
-        error: function (xhr, ts, e) {
+        error: function () {
           $scope.error('Error removing webhooks.');
           $scope.$root.$digest();
         },
-        success: function (data, ts, xhr) {
+        success: function () {
           $scope.success('Webhooks removed.');
           $scope.$root.$digest();
         },
-        type: 'POST',
+        type: 'POST'
       });
     });
   };

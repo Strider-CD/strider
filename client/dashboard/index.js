@@ -6,6 +6,6 @@ var DashboardController = require('./controllers/dashboard');
 
 var app = angular.module('dashboard', ['moment'])
   .config(['$interpolateProvider', interpolate])
-  .controller('Dashboard', ['$scope', '$element', DashboardController]);
+  .controller('Dashboard', ['$scope', DashboardController]);
 
 module.exports = app;

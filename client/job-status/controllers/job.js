@@ -188,15 +188,15 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
   emits: {
     getUnknown: 'build:job'
   },
-  job: function (id, access) {
+  job: function (id) {
     return this.jobs[id];
   },
-  addJob: function (job, access) {
+  addJob: function (job) {
     if ((job.project.name || job.project) !== this.project) return;
     this.jobs[job._id] = job;
-    var found = -1
-      , i;
-    for (i = 0; i < this.scope.jobs.length; i++) {
+    var found = -1;
+
+    for (var i = 0; i < this.scope.jobs.length; i++) {
       if (this.scope.jobs[i]._id === job._id) {
         found = i;
         break;

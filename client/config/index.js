@@ -15,7 +15,7 @@ var ngSortableDirective = require('../utils/ng-sortable-directive');
 
 var app = angular.module('config', ['ui.bootstrap', 'ui.codemirror', 'alerts', 'moment'])
   .config(['$interpolateProvider', interpolate])
-  .controller('Config', ['$scope', '$element', '$sce', ConfigController])
+  .controller('Config', ['$scope', ConfigController])
   .controller('Config.RunnerController', ['$scope', '$element', RunnerController])
   .controller('Config.ProviderController', ['$scope', ProviderController])
   .controller('Config.JobController', ['$scope', '$element', JobController])

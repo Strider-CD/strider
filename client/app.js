@@ -5,7 +5,6 @@ require('bootstrap');
 var $ = require('jquery');
 var _ = require('lodash');
 var angular = require('angular');
-var ngRoute = require('angular-route');
 var $navbar = $('.navbar');
 
 $navbar.find('li').removeClass('active');

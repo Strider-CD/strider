@@ -15,7 +15,7 @@ function DeactivateController($scope) {
       type: 'POST',
       data: data,
       dataType: 'json',
-      success: function (data, ts, xhr) {
+      success: function () {
         $scope.success($scope.active ? 'Activated' : 'Deactivated');
         $scope.$root.$digest();
       },
@@ -39,7 +39,7 @@ function DeactivateController($scope) {
         url: '/api/repo',
         type: 'DELETE',
         data: {url: $scope.repo.url},
-        success: function (data, ts, xhr) {
+        success: function () {
           $scope.success('Project removed.');
           $scope.$root.$digest();
           setTimeout(function () {

@@ -15,7 +15,7 @@ function CollaboratorsController($scope) {
         url: '/' + $scope.project.name + '/collaborators/',
         type: 'DELETE',
         data: {email: item.email},
-        success: function (data, ts, xhr) {
+        success: function () {
           remove($scope.collaborators, item);
           $scope.success(item.email + ' is no longer a collaborator on this project.', true);
         },
@@ -44,7 +44,7 @@ function CollaboratorsController($scope) {
       type: 'POST',
       data: data,
       dataType: 'json',
-      success: function (res, ts, xhr) {
+      success: function (res) {
         $scope.new_access = 0;
         $scope.new_email = '';
         if (res.created) {
