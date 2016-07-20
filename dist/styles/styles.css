@@ -9798,7 +9798,6 @@ img.manual_setup {
 footer {
   border-top: 1px solid #ddd;
   background-color: #f0f0f0;
-  margin-top: 30px;
   padding: 10px;
 }
 footer p {
@@ -10021,6 +10020,8 @@ hero-vsub-unit label {
 @media (min-width: 980px) {
   body .wrap {
     padding-top: 50px;
+    padding-bottom: 51px;
+    margin-bottom: -51px;
   }
   .nav-collapse {
     padding-left: 80px;
@@ -10030,7 +10031,8 @@ hero-vsub-unit label {
   body .wrap {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-bottom: 20px;
+    padding-bottom: 51px;
+    margin-bottom: -51px;
   }
   footer p {
     text-align: center;
