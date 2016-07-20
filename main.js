@@ -126,7 +126,7 @@ module.exports = function (extdir, c, callback) {
           if (err) return cb(err);
 
           var ids = [].concat.apply([], zombies).map(function (job) {
-            return job._id
+            return job._id;
           });
           var now = new Date();
 
