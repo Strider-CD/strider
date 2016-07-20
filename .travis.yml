@@ -1,11 +1,7 @@
 language: node_js
 node_js:
-  - "0.10"
-  - "0.12"
   - "4"
   - "node"
-
-sudo: false
 
 env:
   - NO_BROWSER_TESTS=true
