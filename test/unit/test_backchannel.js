@@ -1,25 +1,25 @@
-var expect = require('chai').expect
-  , BackChannel = require('../../lib/backchannel')
-  , EventEmitter = require('events').EventEmitter
-  , sinon = require('sinon')
-  , common = require('../../lib/common');
+var expect = require('chai').expect;
+var BackChannel = require('../../lib/backchannel');
+var EventEmitter = require('events').EventEmitter;
+var sinon = require('sinon');
+var common = require('../../lib/common');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
 describe('BackChannel', function () {
 
   describe('#prepareJob()', function () {
-    var bc = null
-      , emitter = null
-      , ws = null
-      , Project = null
-      , Job = null
-      , Runner = require('strider-simple-runner').Runner;
+    var bc = null;
+    var emitter = null;
+    var ws = null;
+    var Project = null;
+    var Job = null;
+    var Runner = require('strider-simple-runner').Runner;
 
     before(function (done) {
       var provider = require('../fixtures/issue_477/common.extensions.provider.json');
       provider.github.getFile = sinon.stub().yields(new Error('no strider.json'), null);
-      common.extensions = { provider: provider };
+      common.extensions = {provider: provider, runner: {}};
       var models = require('../../lib/models');
       Project = models.Project;
       Job = models.Job;
@@ -30,7 +30,7 @@ describe('BackChannel', function () {
 
       project.creator = new User(project.creator);
 
-      project.branch = sinon.stub().returns({runner: {id: 'runner-id' }});
+      project.branch = sinon.stub().returns({runner: {id: 'runner-id'}});
 
       sinon.stub(Project, 'findOne').returns({
         populate: sinon.stub().returns({
@@ -64,7 +64,7 @@ describe('BackChannel', function () {
       var job = call.args[0];
       var config = call.args[1];
       expect(Object.keys(job)).to.have.length(13);
-      expect(config).to.deep.eq({ runner: { id: 'runner-id' } });
+      expect(config).to.deep.eq({runner: {id: 'runner-id'}});
     });
   });
 });

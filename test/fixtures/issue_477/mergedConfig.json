@@ -26,7 +26,8 @@
       "id": "custom",
       "enabled": false,
       "_id": "53d5a88a5d6ff7d51c00000f",
-      "showStatus": true
+      "showStatus": true,
+      "config": {}
     },
     {
       "id": "ssh_deploy",
