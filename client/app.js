@@ -7,6 +7,8 @@ var _ = require('lodash');
 var angular = require('angular');
 var $navbar = $('.navbar');
 
+require('angular-route');
+
 $navbar.find('li').removeClass('active');
 $navbar.find('a[href="' + global.location.pathname + '"]')
   .parent().addClass('active');
