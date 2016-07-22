@@ -15,6 +15,7 @@
     "semi": [2, "always"],
     "comma-style": [2, "last"],
     "one-var": [2, "never"],
+    "strict": [2, "global"],
     "no-console": 0,
     "no-use-before-define": [2, "nofunc"],
     "no-underscore-dangle": 0,
