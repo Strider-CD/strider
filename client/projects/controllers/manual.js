@@ -8,7 +8,7 @@ module.exports = function ($scope, $attrs) {
   $scope.projects = global.manualProjects[provider] || [];
   $scope.remove = function (project) {
     project.really_remove = 'removing';
-    $.ajax('/' + project.name + '/', {
+    $.ajax(`/${project.name}/`, {
       type: 'DELETE',
       success: function () {
         $scope.projects.splice($scope.projects.indexOf(project), 1);
@@ -22,7 +22,7 @@ module.exports = function ($scope, $attrs) {
   $scope.create = function () {
     var name = $scope.display_name.toLowerCase();
     if (!validName(name)) return;
-    $.ajax('/' + name + '/', {
+    $.ajax(`/${name}/`, {
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify({

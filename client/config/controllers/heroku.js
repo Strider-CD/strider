@@ -55,7 +55,7 @@ function HerokuController($scope) {
       dataType: 'json',
       error: function (xhr) {
         var data = $.parseJSON(xhr.responseText);
-        $scope.error('Error: ' + data.errors[0]);
+        $scope.error(`Error: ${data.errors[0]}`);
         $scope.loading = false;
         $scope.$root.$digest();
       },
@@ -87,7 +87,7 @@ function HerokuController($scope) {
         $scope.$root.$digest();
       },
       success: function () {
-        $scope.success('Deploy on Green ' + ($scope.deploy_on_green ? 'enabled' : 'disabled'));
+        $scope.success(`Deploy on Green ${($scope.deploy_on_green ? 'enabled' : 'disabled')}`);
         $scope.loading = false;
         $scope.$root.$digest();
       },

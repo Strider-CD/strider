@@ -27,7 +27,7 @@ module.exports = function () {
         var pluginCtrl = list[i].controller;
         pluginCtrl.upgrade(function (err) {
           if (err) {
-            return global.alert('Batch upgrade aborted due to error:\n' + err.message);
+            return global.alert(`Batch upgrade aborted due to error:\n${err.message}`);
           }
           ++ticks;
           upgrader(i + 1);

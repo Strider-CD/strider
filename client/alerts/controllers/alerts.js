@@ -41,7 +41,7 @@ module.exports = function ($scope, $sce) {
     }
 
     $scope.message = {
-      text: $sce.trustAsHtml('<strong>Done.</strong> ' + text),
+      text: $sce.trustAsHtml(`<strong>Done.</strong> ${text}`),
       type: 'success',
       showing: true
     };

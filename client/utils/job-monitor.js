@@ -42,7 +42,7 @@ JobMonitor.prototype = {
       this.sock.on(event, handler.bind(this));
     }
     for (var status in this.statuses) {
-      this.sock.on('job.status.' + status, this.update.bind(this, status));
+      this.sock.on(`job.status.${status}`, this.update.bind(this, status));
     }
   },
   // access: 'yours', 'public', 'admin'

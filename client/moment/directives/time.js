@@ -9,9 +9,9 @@ module.exports = function () {
     link: function (scope, element, attrs) {
       if ('undefined' !== typeof attrs.since && !attrs.duration) {
         var ival = since(attrs.since, element);
-        $(element).tooltip({title: 'Started ' + new Date(attrs.since).toLocaleString()});
+        $(element).tooltip({title: `Started ${new Date(attrs.since).toLocaleString()}`});
         attrs.$observe('since', function () {
-          $(element).tooltip({title: 'Started ' + new Date(attrs.since).toLocaleString()});
+          $(element).tooltip({title: `Started ${new Date(attrs.since).toLocaleString()}`});
           clearInterval(ival);
           ival = since(attrs.since, element);
         });
@@ -25,7 +25,7 @@ module.exports = function () {
         date = new Date(attrs.datetime);
         $(element).tooltip({title: date.toLocaleString()});
       }
-      
+
       if ('undefined' !== typeof attrs.duration) {
         attrs.$observe('duration', function () {
           textDuration(attrs.duration, element);

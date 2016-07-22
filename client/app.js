@@ -10,7 +10,7 @@ var $navbar = $('.navbar');
 require('angular-route');
 
 $navbar.find('li').removeClass('active');
-$navbar.find('a[href="' + global.location.pathname + '"]')
+$navbar.find(`a[href="${global.location.pathname}"]`)
   .parent().addClass('active');
 $('#layout-header').hide();
 $('#invite-box').height($('#signup-box').height());

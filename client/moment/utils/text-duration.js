@@ -28,7 +28,7 @@ module.exports = function textDuration(duration, el, whole) {
   for (var i = 0; i < time_units.length; i++) {
     if (duration < time_units[i].ms) continue;
     cls = time_units[i].cls;
-    var text = duration + '';
+    var text = `${duration}`;
     if (time_units[i].ms) {
       if (whole) text = parseInt(duration / time_units[i].ms);
       else text = parseInt(duration / time_units[i].ms * 10) / 10;

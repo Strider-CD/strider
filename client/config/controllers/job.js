@@ -5,11 +5,11 @@ function JobController($scope, $element) {
 
   $scope.saving = false;
 
-  $scope.$watch('userConfigs["' + name + '"]', function (value) {
+  $scope.$watch(`userConfigs["${name}"]`, function (value) {
     $scope.userConfig = value;
   });
 
-  $scope.$watch('configs[branch.name]["' + name + '"].config', function (value) {
+  $scope.$watch(`configs[branch.name]["${name}"].config`, function (value) {
     $scope.config = value;
   });
 

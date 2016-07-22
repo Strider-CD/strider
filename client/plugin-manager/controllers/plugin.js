@@ -45,7 +45,7 @@ module.exports = function ($http, $timeout) {
   };
 
   this.perform = function (action, cb) {
-    this.status = 'Installing ' + this.id;
+    this.status = `Installing ${this.id}`;
     this.idle = false;
     return $http.put('/admin/plugins', {
       action: action,

@@ -22,9 +22,9 @@ function DeactivateController($scope) {
       error: function (xhr, ts, e) {
         if (xhr && xhr.responseText) {
           var data = $.parseJSON(xhr.responseText);
-          $scope.error('Error settings active state: ' + data.errors[0]);
+          $scope.error(`Error settings active state: ${data.errors[0]}`);
         } else {
-          $scope.error('Error settings active state: ' + e);
+          $scope.error(`Error settings active state: ${e}`);
         }
         $scope.active = !$scope.active;
         $scope.$root.$digest();
@@ -33,7 +33,7 @@ function DeactivateController($scope) {
   };
 
   $scope.confirmDeleteProject = function () {
-    bootbox.confirm('<h2>Really Delete Project Data?</h2><p>' + message + '</p>', 'Just kidding', 'Yes, really', function (really) {
+    bootbox.confirm(`<h2>Really Delete Project Data?</h2><p>${message}</p>`, 'Just kidding', 'Yes, really', function (really) {
       if (!really) return;
       $.ajax({
         url: '/api/repo',
@@ -49,9 +49,9 @@ function DeactivateController($scope) {
         error: function (xhr, ts, e) {
           if (xhr && xhr.responseText) {
             var data = $.parseJSON(xhr.responseText);
-            $scope.error('Error deleting project: ' + data.errors[0]);
+            $scope.error(`Error deleting project: ${data.errors[0]}`);
           } else {
-            $scope.error('Error deleting project: ' + e);
+            $scope.error(`Error deleting project: ${e}`);
           }
           $scope.$root.$digest();
         }

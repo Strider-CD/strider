@@ -26,7 +26,7 @@ module.exports = function ($scope) {
     repo.really_remove = 'removing';
     repo.adding = false;
 
-    $.ajax('/' + repo.name + '/', {
+    $.ajax(`/${repo.name}/`, {
       type: 'DELETE',
       success: function () {
         repo.project = null;
@@ -37,9 +37,9 @@ module.exports = function ($scope) {
       error: function (xhr, ts, e) {
         repo.really_remove = false;
         if (xhr && xhr.responseText) {
-          $scope.error('Error creating project for repo ' + repo.name + ': ' + xhr.responseText, true);
+          $scope.error(`Error creating project for repo ${repo.name}: ${xhr.responseText}`, true);
         } else {
-          $scope.error('Error creating project for repo ' + repo.name + ': ' + e, true);
+          $scope.error(`Error creating project for repo ${repo.name}: ${e}`, true);
         }
       }
     });
@@ -48,7 +48,7 @@ module.exports = function ($scope) {
   $scope.setupProject = function (account, repo, type, group) {
     repo.lastError = '';
 
-    $.ajax('/' + repo.name + '/', {
+    $.ajax(`/${repo.name}/`, {
       type: 'PUT',
       contentType: 'application/json',
       data: JSON.stringify({
@@ -72,9 +72,9 @@ module.exports = function ($scope) {
         var error;
 
         if (xhr && xhr.responseText) {
-          error = 'Error creating project for repo ' + repo.name + ': ' + xhr.responseText;
+          error = `Error creating project for repo ${repo.name}: ${xhr.responseText}`;
         } else {
-          error = 'Error creating project for repo ' + repo.name + ': ' + e;
+          error = `Error creating project for repo ${repo.name}: ${e}`;
         }
 
         $scope.error(error, true);
@@ -85,17 +85,17 @@ module.exports = function ($scope) {
   };
 
   $scope.startTest = function (repo) {
-    $.ajax('/' + repo.project.name + '/start', {
+    $.ajax(`/${repo.project.name}/start`, {
       type: 'POST',
       success: function () {
         repo.adding = false;
-        $scope.success('Test started for ' + repo.project.name + '. <a href="/' + repo.project.name + '/">Click to watch it run</a>', true, true);
+        $scope.success(`Test started for ${repo.project.name}. <a href="/${repo.project.name}/">Click to watch it run</a>`, true, true);
       },
       error: function (xhr, ts, e) {
         if (xhr && xhr.responseText) {
-          $scope.error('Error starting test for project ' + repo.project.name + ': ' + xhr.responseText, true);
+          $scope.error(`Error starting test for project ${repo.project.name}: ${xhr.responseText}`, true);
         } else {
-          $scope.error('Error starting test for project ' + repo.project.name + ': ' + e, true);
+          $scope.error(`Error starting test for project ${repo.project.name}: ${e}`, true);
         }
       }
     });

@@ -13,7 +13,7 @@ function AccountController($scope, $window) {
   // are _all over the place_ and no base href is set anywhere. That's why $location refuses to work properly.
   var locationHash = $window.location.hash;
   if (locationHash) {
-    $('a[href="' + locationHash + '"]').tab('show');
+    $(`a[href="${locationHash}"]`).tab('show');
   }
 
   $scope.deleteAccount = function (account) {
@@ -54,7 +54,7 @@ function AccountController($scope, $window) {
     var acct = {
       id: id,
       provider: provider,
-      title: provider + ' ' + id,
+      title: `${provider} ${id}`,
       last_updated: new Date(),
       config: {},
       cache: [],
@@ -65,7 +65,7 @@ function AccountController($scope, $window) {
   };
 
   $scope.saveAccount = function (provider, account, next) {
-    $.ajax('/api/account/' + provider + '/' + account.id, {
+    $.ajax(`/api/account/${provider}/${account.id}`, {
       type: 'PUT',
       data: JSON.stringify(account),
       contentType: 'application/json',
@@ -102,7 +102,7 @@ function AccountController($scope, $window) {
       dataType: 'json',
       error: function (xhr) {
         var resp = $.parseJSON(xhr.responseText);
-        $scope.error('Failed to change email: ' + resp.errors[0].message, true);
+        $scope.error(`Failed to change email: ${resp.errors[0].message}`, true);
       },
       success: function () {
         $scope.success('Email successfully changed', true);

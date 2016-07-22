@@ -12,7 +12,7 @@ module.exports = function () {
               .replace(/\u001b\[K[^\n\r]*/g, '')
               .replace(/[^\n]*\r([^\n])/g, '$1')
               .replace(/^[^\n]*\u001b\[0G/gm, '');
-    if (startswithcr) input = '\r' + input;
+    if (startswithcr) input = `\r${input}`;
     if (plaintext) return ansi_up.ansi_to_text(input);
     return ansi_up.ansi_to_html(ansi_up.escape_for_html(input));
   };

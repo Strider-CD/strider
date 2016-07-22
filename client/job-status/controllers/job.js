@@ -48,7 +48,7 @@ module.exports = function ($scope, $route, $location, $filter) {
 
   $scope.clearCache = function () {
     $scope.clearingCache = true;
-    $.ajax('/' + $scope.project.name + '/cache/' + $scope.job.ref.branch, {
+    $.ajax(`/${$scope.project.name}/cache/${$scope.job.ref.branch}`, {
       type: 'DELETE',
       success: function () {
         $scope.clearingCache = false;
@@ -125,7 +125,7 @@ module.exports = function ($scope, $route, $location, $filter) {
   $scope.page = 'build';
   // a history item is clicked
   $scope.selectJob = function (id) {
-    $location.path('/job/' + id).replace();
+    $location.path(`/job/${id}`).replace();
   };
 
   // set the favicon according to job status
@@ -251,14 +251,14 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
 
 /** manage the favicons **/
 function setFavicon(status) {
-  $('link[rel*="icon"]').attr('href', '/images/icons/favicon-' + status + '.png');
+  $('link[rel*="icon"]').attr('href', `/images/icons/favicon-${status}.png`);
 }
 
 function animateFav() {
   var alt = false;
 
   function switchit() {
-    setFavicon('running' + (alt ? '-alt' : ''));
+    setFavicon(`running${(alt ? '-alt' : '')}`);
     alt = !alt;
   }
 
