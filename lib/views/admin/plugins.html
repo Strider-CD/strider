@@ -34,7 +34,7 @@
       <tr ng-cloak class="ng-cloak" ng-controller="PluginController as plugin" ng-init='plugin.loadPlugin("{{ loop.key }}")'>
         <td>
           {% if plugin.url %}
-          <a href="[[ plugin.url ]]" target="blank" title="[[ plugin.id ]]">[[ plugin.name ]]</a>
+          <a href="[[ plugin.url ]]" target="_blank" title="[[ plugin.id ]]">[[ plugin.name ]]</a>
           {% else %}
           <span title="[[ plugin.id ]]">[[ plugin.name ]]</span>
           {% endif %}
