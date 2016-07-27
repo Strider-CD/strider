@@ -165,6 +165,7 @@ Please post related issues in the [issues section](https://github.com/Strider-CD
 Advanced topics are located in the [Wiki](https://github.com/Strider-CD/strider/wiki), here's a small
 subset of what's covered:
 
+- [Advanced Configuration](https://github.com/Strider-CD/strider/wiki/Advanced-Configuration)
 - [Requiring Strider](https://github.com/Strider-CD/strider/wiki/Requiring-Strider)
 - [Managing Plugins](https://github.com/Strider-CD/strider/wiki/Managing-Plugins)
 
