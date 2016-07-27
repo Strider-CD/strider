@@ -106,7 +106,7 @@ function ConfigController($scope) {
   }
 
   function switchToBranch(name) {
-    var branch = _.findWhere($scope.branches, {name: name});
+    var branch = _.find($scope.branches, {name: name});
 
     if (branch) {
       $scope.branch = branch;
