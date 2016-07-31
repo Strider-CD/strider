@@ -52,7 +52,7 @@
     "test-unit": "mocha --recursive test/unit",
     "lint": "eslint *.js bin lib client",
     "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
-    "gendocs": "apidoc -i lib/ -o apidocs/",
+    "docs": "apidoc -i lib/ -o apidocs/",
     "debug": "node debug bin/strider --no-cluster"
   },
   "dependencies": {
