@@ -1,1 +1,0 @@
-define({  "name": "strider",  "version": "1.0.0",  "description": "Strider API",  "apidoc": "0.2.0",  "sampleUrl": false,  "generator": {    "name": "apidoc",    "time": "2016-07-31T02:00:18.960Z",    "url": "http://apidocjs.com",    "version": "0.16.1"  }});
