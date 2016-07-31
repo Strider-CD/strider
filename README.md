@@ -174,7 +174,9 @@ subset of what's covered:
 An effort has been started to document the existing REST API, and to have versioned documentation going forward.
 We use [apiDoc] for the documentation.
 
-To build the documentation run `npm run gendocs` and the documentation will be accessable from `apidocs/index.html`.
+To build the documentation run `npm run docs` and the documentation will be accessable from `apidocs/index.html`.
+
+**[View Strider API Docs](http://strider-api-docs.surge.sh/)**
 
 ## Support & Help
 
