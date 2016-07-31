@@ -1,0 +1,27 @@
+{
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "script"
+  },
+  "env": {
+    "node": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended",
+  "rules": {
+    "indent": [2, 2],
+    "brace-style": [2, "1tbs"],
+    "quotes": [2, "single"],
+    "semi": [2, "always"],
+    "comma-style": [2, "last"],
+    "one-var": [2, "never"],
+    "strict": [2, "global"],
+    "prefer-template": 2,
+    "no-console": 0,
+    "no-use-before-define": [2, "nofunc"],
+    "no-underscore-dangle": 0,
+    "no-constant-condition": 0,
+    "space-before-function-paren": [2, {"anonymous": "always", "named": "never"}],
+    "func-style": [2, "declaration"]
+  }
+}

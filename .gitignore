@@ -1,0 +1,35 @@
+# IntelliJ IDEA project files
+.idea/*
+!.idea/codeStyleSettings.xml
+
+# NodeJS dependencies
+node_modules/
+# Bower dependencies
+bower_components/
+
+# Test coverage
+coverage/
+
+# Generated API documentation
+apidocs/
+
+# Compiled frontend resources
+public/javascripts/pages/account-plugins-compiled.js
+public/javascripts/pages/plugin-config-compiled.js
+public/javascripts/pages/plugin-status-compiled.js
+public/stylesheets/css/account-plugins-compiled.css
+public/stylesheets/css/plugin-config-compiled.css
+public/stylesheets/css/plugin-status-compiled.css
+*compiled.css
+*compiled.js
+
+# Dropped when npm encounters errors
+npm-debug.log
+
+# Others/unknown
+.bundle/
+.dotcloud/*
+config.sh
+*.swp
+test/last-shot
+/failures
