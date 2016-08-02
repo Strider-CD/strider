@@ -53,7 +53,7 @@
     "lint": "eslint *.js bin lib client",
     "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
     "docs": "apidoc -i lib/ -o apidocs/",
-    "deploy:docs": "docpress b && git-update-ghpages Strider-CD/strider _docpress",
+    "deploy:docs": "docpress b && git-update-ghpages -b master Strider-CD/strider-cd.github.com _docpress",
     "debug": "node debug bin/strider --no-cluster"
   },
   "dependencies": {
