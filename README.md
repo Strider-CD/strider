@@ -199,7 +199,7 @@ For a view of what's going on with the project, check out our boards by setting 
 [dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
 [npm-badge-img]: https://badge.fury.io/js/strider.svg
 [npm-badge-link]: http://badge.fury.io/js/strider
-[screenshot]: /docs/screenshots/dashboard.jpg?raw=true
+[screenshot]: /docs/screenshots/dashboard.jpg
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [mongolab]: https://mongolab.com/plans/pricing/
 [mailgun]: http://www.mailgun.com/pricing
