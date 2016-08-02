@@ -12,6 +12,7 @@ coverage/
 
 # Generated API documentation
 apidocs/
+_docpress/
 
 # Compiled frontend resources
 public/javascripts/pages/account-plugins-compiled.js
