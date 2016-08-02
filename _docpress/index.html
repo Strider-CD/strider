@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="assets/style.css?t=a44c9e9d">
+    <script src="assets/script.js?t=2bcc4b59"></script>
+    <title>Strider</title>
+    <meta name="viewport" content="width=device-width">
+  </head>
+  <body class="-menu-visible">
+    <div class="doc-layout">
+      <div class="toggle menu-toggle js-menu-toggle"></div>
+      <div class="body page-index">
+        <div class="header-nav">
+          <div class="right">
+          </div>
+        </div>
+        <div class="markdown-body"><h1 id=""><img src="https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png" alt="Strider"></h1>
+<p><a href="http://badge.fury.io/js/strider"><img src="https://badge.fury.io/js/strider.svg" alt="NPM"></a> <a href="https://codeclimate.com/github/Strider-CD/strider"><img src="https://codeclimate.com/github/Strider-CD/strider/badges/gpa.svg" alt="Code Climate"></a> <a href="https://david-dm.org/Strider-CD/strider"><img src="https://david-dm.org/Strider-CD/strider.svg" alt="Dependency Status"></a> <a href="https://travis-ci.org/Strider-CD/strider"><img src="https://travis-ci.org/Strider-CD/strider.svg?branch=master" alt="Build Status"></a><br>
+<a href="https://gitter.im/Strider-CD"><img src="https://img.shields.io/badge/GITTER-join%20chat-green.svg" alt="Gitter"></a></p>
+<hr>
+<h3 id="brilliant-continuous-deployment">Brilliant Continuous Deployment</h3>
+<p><img src="screenshots/dashboard.jpg" alt="Strider Screenshot">
+<a href="https://github.com/Strider-CD/strider/wiki/Screenshots">more screenshots</a></p>
+<h1 id="overview">Overview</h1>
+<p><code>Strider</code> is an Open Source Continuous Deployment / Continuous Integration
+platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
+store. It is published under the BSD license.</p>
+<p>Strider is extremely customizable through plugins. Plugins can</p>
+<ul>
+<li>add hooks to perform arbitrary actions during build.</li>
+<li>modify the database schema to add custom fields.</li>
+<li>register their own HTTP routes.</li>
+<li>subscribe to and emit socket events.</li>
+<li>create or modify user interfaces within Strider.</li>
+<li>so much more! just use your imagination!</li>
+</ul>
+<h2 id="readme-contents">README Contents</h2>
+<ul>
+<li><a href="#general-requirements">General requirements</a></li>
+<li><a href="#running-on-infrastructure">Running on Infrastructure</a>
+<ul>
+<li><a href="#configuring">Configuring</a></li>
+<li><a href="#adding-initial-admin-user">Adding Users</a></li>
+<li><a href="#starting-strider">Starting Strider</a></li>
+<li><a href="#strider-on-heroku">Heroku</a></li>
+<li><a href="#strider-in-docker">Docker</a></li>
+</ul>
+</li>
+<li><a href="#advanced-topics">Advanced Topics</a></li>
+<li><a href="#api-documentation">API Documentation</a></li>
+<li><a href="#resources">Resources</a>
+<ul>
+<li><a href="https://futurestud.io/blog/strider-getting-started-platform-overview/">Strider Tutorial Series</a></li>
+</ul>
+</li>
+<li><a href="#support--help">Support &amp; Help</a></li>
+<li><a href="https://github.com/Strider-CD/strider/blob/master/CHANGELOG.md">Changelog</a></li>
+</ul>
+<h2 id="general-requirements">General Requirements</h2>
+<ul>
+<li><a href="http://nodejs.org/">nodejs</a> &gt;= 4.2</li>
+<li><a href="http://git-scm.com/">git</a> &gt;= 2.0</li>
+<li><a href="http://www.mongodb.org/downloads">mongodb</a> (local or remote)</li>
+<li><a href="https://github.com/TooTallNate/node-gyp#installation">node-gyp</a></li>
+</ul>
+<p><em>Note: Installing on OS X might require XCode to be installed.</em></p>
+<h2 id="running-on-infrastructure">Running on Infrastructure</h2>
+<p>Make sure you have MongoDB installed on your system. You can get the latest version at <a href="http://www.mongodb.org/downloads">mongodb.org</a>.</p>
+<p>Next you will need Node.JS. You can get binary packages for most platforms at <a href="http://nodejs.org/">nodejs.org</a>.</p>
+<p>Once you have Node.JS on your system, you can fetch &amp; install all the dependencies for your Strider clone
+by executing the following command in the project root:</p>
+<pre><code class="lang-no-highlight">npm install
+</code></pre>
+<blockquote>
+<p>Note: Sometimes there are issues with permissions and installing global modules, in those cases run <code>npm config set prefix ~/npm</code> to set your global modules directory to &apos;~/npm&apos;. You will also have to add <code>~/npm/bin</code> to your <code>PATH</code> environment variable.</p>
+</blockquote>
+<h3 id="configuring">Configuring</h3>
+<p><code>Strider</code> configuration comes from environment variables. Most of the default
+values should work fine for running on localhost, however for an
+Internet-accessible deployment the following variables will need to be exported:</p>
+<ul>
+<li><code>SERVER_NAME</code> - <strong>Required</strong>; Address at which server will be accessible on the Internet. E.g. <code>https://strider.example.com</code> (note: no trailing slash, and included protocol)</li>
+<li><code>HOST</code> - Host where strider listens, optional (defaults to 0.0.0.0).</li>
+<li><code>PORT</code> - Port that strider runs on, optional (defaults to 3000).</li>
+<li><code>CONCURRENT_JOBS</code> - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.</li>
+<li><code>STRIDER_CLONE_DEST</code> - Where the repositories are cloned to (defaults to ~/.strider)</li>
+<li><code>DB_URI</code> - MongoDB DB URI if not localhost (you can safely use <a href="https://mongolab.com/plans/pricing/">MongoLab free plan</a> - works great)</li>
+<li><code>HTTP_PROXY</code> - Proxy support, optional (defaults to null)</li>
+<li>If you want email notifications, configure an SMTP server (we recommend <a href="http://www.mailgun.com/pricing">Mailgun</a> for SMTP if you need a server - free account gives 200 emails / day):
+<ul>
+<li><code>SMTP_HOST</code> - SMTP server hostname e.g. <a href="http://smtp.example.com">smtp.example.com</a></li>
+<li><code>SMTP_PORT</code> - SMTP server port e.g. 587 (default)</li>
+<li><code>SMTP_SECURE</code> - SMTP server TLS or SSL (&quot;true&quot; or &quot;false&quot;)</li>
+<li><code>SMTP_USER</code> - SMTP auth username e.g. &quot;myuser&quot;</li>
+<li><code>SMTP_PASS</code> - SMTP auth password e.g. &quot;supersecret&quot;</li>
+<li><code>SMTP_FROM</code> - Default FROM address e.g. &quot;Strider <a href="mailto:noreply@stridercd.com">noreply@stridercd.com</a>&quot; (default)</li>
+</ul>
+</li>
+</ul>
+<h4 id="additional-configurations">Additional Configurations</h4>
+<ul>
+<li><code>BODY_PARSER_LIMIT</code> - Increase the maximum payload size that our <a href="https://github.com/expressjs/body-parser">body parser</a> will attempt to parse. Useful for github web hooks.</li>
+</ul>
+<p>You might need to follow these instructions if you use any of these, please do so before filing issues.</p>
+<ul>
+<li><a href="https://github.com/Strider-CD/strider-github#required-configuration">Github</a></li>
+<li><a href="https://github.com/Strider-CD/strider-bitbucket#configuration">Bitbucket</a></li>
+<li><a href="https://github.com/Strider-CD/strider-gitlab#setup">Gitlab</a></li>
+<li><a href="https://github.com/Strider-CD/strider-heroku#important-config">Heroku</a></li>
+</ul>
+<h3 id="adding-initial-admin-user">Adding Initial Admin User</h3>
+<p><code>Strider</code> isn&apos;t much use without an account to login with. Once you create an administrative user, you can invite as many
+other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:</p>
+<pre><code class="lang-no-highlight">node bin/strider addUser
+</code></pre>
+<p>Example run:</p>
+<pre><code class="lang-no-highlight">$ node bin/strider addUser
+Enter email []: strider@example.com
+Is admin? (y/n) [n]: y
+Enter password []: *******
+
+Email:    strider@example.com
+Password: ****
+isAdmin:  true
+OK? (y/n) [y]:
+22 Oct 21:21:01 - info: Connecting to MongoDB URL: mongodb://localhost/strider-foss
+22 Oct 21:21:01 - info: User added successfully! Enjoy.
+</code></pre>
+<p>See the <a href="https://github.com/Strider-CD/strider-cli">strider-cli</a> for more details.</p>
+<h3 id="starting-strider">Starting Strider</h3>
+<p>Once <code>Strider</code> has been installed and configured, it can be started with:</p>
+<pre><code class="lang-no-highlight">NODE_ENV=production npm start
+</code></pre>
+<h3 id="strider-on-heroku">Strider on Heroku</h3>
+<p><a href="https://heroku.com/deploy"><img src="https://www.herokucdn.com/deploy/button.png" alt="Deploy"></a></p>
+<p>To get up and running quickly on Heroku, you can simply use the button above.
+If you run into any issues, see the <a href="https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku">wiki entry</a>.</p>
+<h3 id="strider-in-docker">Strider in Docker</h3>
+<p>Many users like to run Strider within a Docker container.
+Although this works well, supporting it is outside the scope of the Strider project.</p>
+<p>We recommend using <a href="https://github.com/Strider-CD/docker-strider">docker-strider</a> as a base image when designing your Docker-based Strider installation.
+Please post related issues in the <a href="https://github.com/Strider-CD/docker-strider/issues">issues section</a> for that repository.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://futurestud.io/blog/strider-getting-started-platform-overview/">Strider Tutorial Series</a> - Extensive guides about Strider covering platform setup, 3rd party integrations (GitHub, GitLab, etc), continuous deployments (Heroku, SSH), notifications (email, Slack, HipChat), how to create your own Strider plugin and many more.</li>
+<li><a href="http://fosterelli.co/creating-a-private-ci-with-strider.html">Strider on DigitalOcean</a> - Covers setting up an Ubuntu machine with Strider using upstart.</li>
+<li><a href="https://github.com/bitwit/strider-template">Strider plugin template</a> - Simple setup for getting started with your own plugin.</li>
+<li><a href="https://github.com/CenturyLinkLabs/panamax-contest-templates/blob/master/stridercd_mrsmith.pmx">Panamax Strider template</a> - Strider template for use with Panamax.</li>
+</ul>
+<h2 id="advanced-topics">Advanced Topics</h2>
+<p>Advanced topics are located in the <a href="https://github.com/Strider-CD/strider/wiki">Wiki</a>, here&apos;s a small
+subset of what&apos;s covered:</p>
+<ul>
+<li><a href="https://github.com/Strider-CD/strider/wiki/Advanced-Configuration">Advanced Configuration</a></li>
+<li><a href="https://github.com/Strider-CD/strider/wiki/Requiring-Strider">Requiring Strider</a></li>
+<li><a href="https://github.com/Strider-CD/strider/wiki/Managing-Plugins">Managing Plugins</a></li>
+</ul>
+<h2 id="api-documentation">API Documentation</h2>
+<p>An effort has been started to document the existing REST API, and to have versioned documentation going forward.
+We use <a href="http://apidocjs.com/#getting-started">apiDoc</a> for the documentation.</p>
+<p>To build the documentation run <code>npm run docs</code> and the documentation will be accessable from <code>apidocs/index.html</code>.</p>
+<p><strong><a href="http://strider-api-docs.surge.sh/">View Strider API Docs</a></strong></p>
+<h2 id="support-and-help">Support &amp; Help</h2>
+<p>We are very responsive to Github Issues - please think of them as a message board for the project!</p>
+<h3 id="irc-channel">IRC Channel</h3>
+<p>You can find us on <a href="https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider">irc.freenode.net in #strider</a>.</p>
+<p>If nobody is responding, don&apos;t leave immediately. Someone will eventually respond. If you don&apos;t want to wait please create a Github issue! Many Strider contributors don&apos;t use IRC at all, but will respond pretty quickly to new Github Issues.</p>
+<p>For a view of what&apos;s going on with the project, check out our boards by setting up <a href="https://www.zenhub.io/">ZenBoard</a> and visiting the &quot;Boards&quot; page.</p>
+
+        </div>
+      </div>
+      <div class="menu toc-menu">
+        <li class="menu-item -level-0 -parent">
+          <ul class="submenu">
+            <li class="menu-item -level-1"><a href="index.html" class="link title -active link-index">Strider</a>
+            </li>
+            <li class="menu-item -level-1"><a href="#brilliant-continuous-deployment" class="link title link-brilliant-continuous-deployment">Brilliant Continuous Deployment</a>
+            </li>
+            <li class="menu-item -level-1"><a href="#readme-contents" class="link title link-readme-contents">README Contents</a>
+            </li>
+            <li class="menu-item -level-1"><a href="#general-requirements" class="link title link-general-requirements">General Requirements</a>
+            </li>
+            <li class="menu-item -level-1 -parent"><a href="#running-on-infrastructure" class="link title link-running-on-infrastructure">Running on Infrastructure</a>
+              <ul class="submenu">
+                <li class="menu-item -level-2"><a href="#configuring" class="link title link-configuring">Configuring</a>
+                </li>
+                <li class="menu-item -level-2"><a href="#adding-initial-admin-user" class="link title link-adding-initial-admin-user">Adding Initial Admin User</a>
+                </li>
+                <li class="menu-item -level-2"><a href="#starting-strider" class="link title link-starting-strider">Starting Strider</a>
+                </li>
+                <li class="menu-item -level-2"><a href="#strider-on-heroku" class="link title link-strider-on-heroku">Strider on Heroku</a>
+                </li>
+                <li class="menu-item -level-2"><a href="#strider-in-docker" class="link title link-strider-in-docker">Strider in Docker</a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item -level-1"><a href="#resources" class="link title link-resources">Resources</a>
+            </li>
+            <li class="menu-item -level-1"><a href="#advanced-topics" class="link title link-advanced-topics">Advanced Topics</a>
+            </li>
+            <li class="menu-item -level-1"><a href="#api-documentation" class="link title link-api-documentation">API Documentation</a>
+            </li>
+            <li class="menu-item -level-1 -parent"><a href="#support-and-help" class="link title link-support-and-help">Support &amp; Help</a>
+              <ul class="submenu">
+                <li class="menu-item -level-2"><a href="#irc-channel" class="link title link-irc-channel">IRC Channel</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </div>
+    </div>
+  </body>
+</html>
