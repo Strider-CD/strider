@@ -262,7 +262,7 @@ function ConfigController($scope) {
     _.find($scope.branch.plugins, {id: target.id}).enabled = true;
     // remove from disabled list
     var disabled = $scope.disabled_plugins[$scope.branch.name];
-    disabled.splice(_.indexOf(_.pluck(disabled, 'id'), target.id), 1);
+    disabled.splice(_.indexOf(_.map(disabled, 'id'), target.id), 1);
     updateConfigured();
   };
 
@@ -272,7 +272,7 @@ function ConfigController($scope) {
     $scope.disabled_plugins[$scope.branch.name].splice(index, 0, target);
     // remove it from enabled list
     var enabled = $scope.branch.plugins;
-    enabled.splice(_.indexOf(_.pluck(enabled, 'id'), target.id), 1);
+    enabled.splice(_.indexOf(_.map(enabled, 'id'), target.id), 1);
     updateConfigured();
   };
 
