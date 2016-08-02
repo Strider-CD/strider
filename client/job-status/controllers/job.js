@@ -62,7 +62,12 @@ module.exports = function ($scope, $route, $location, $filter) {
     });
   };
 
-  $scope.$on('$locationChangeSuccess', function () {
+  $scope.$on('$locationChangeSuccess', handleLocationChange);
+  // Treat the initial page load as a forced route change to make sure that the correct job is displayed.
+  // If we don't do this, the top-most job will be shown, even through the URL points to a different job.
+  handleLocationChange(true);
+
+  function handleLocationChange(force) {
     if (global.location.pathname.match(/\/config$/)) {
       global.location = global.location;
       return;
@@ -71,7 +76,7 @@ module.exports = function ($scope, $route, $location, $filter) {
     if (!params.id) params.id = $scope.jobs[0]._id;
     // don't refresh the page
     $route.current = lastRoute;
-    if (jobid !== params.id) {
+    if (jobid !== params.id || force) {
       jobid = params.id;
       var cached = jobman.get(jobid, function (err, job, cached) {
         if (job.phases.environment) {
@@ -100,7 +105,7 @@ module.exports = function ($scope, $route, $location, $filter) {
         }
       }
     }
-  });
+  }
 
   $scope.triggers = {
     commit: {
