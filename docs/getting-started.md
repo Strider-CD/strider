@@ -21,3 +21,25 @@ npm install -g strider
 
 This will give you access to the `strider` command, which we will use to start Strider
 in a bit.
+
+## Add Initial User
+
+Before we can run Strider, we must setup the first admin user, which will help use
+continue the setup and invite more users.
+
+Run the following command to start adding the user:
+
+```sh
+strider addUser
+```
+
+This will bring up a prompt that will ask you some basic details about
+your first user. Make sure to makr the user as an admin for the `isAdmin` option.
+
+## Starting Strider
+
+Now that we have our administrator setup, we can start Strider.
+
+```sh
+SERVER_NAME=<yourip>:3000 strider
+```
