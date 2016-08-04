@@ -92,6 +92,7 @@ Internet-accessible deployment the following variables will need to be exported:
 #### Additional Configurations
 
 - `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
+- `DEBUG` - Set this to `strider*` to enable all debug output. This is very helpful when troubleshooting issues or finding the cause of bugs in Strider. For more information see https://www.npmjs.com/package/debug
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
