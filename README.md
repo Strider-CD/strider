@@ -52,7 +52,7 @@ Strider is extremely customizable through plugins. Plugins can
 
 _Note: Installing on OS X might require XCode to be installed._
 
-- The package `krb5-devel`/`libkrb5-dev` might have to be installed to resolve Kerbros related build issues on some systems.
+- The package `krb5-devel`/`libkrb5-dev` might have to be installed to resolve Kerberos related build issues on some systems.
 
 
 ## Running on Infrastructure
