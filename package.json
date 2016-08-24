@@ -140,7 +140,7 @@
     "less": "^2.2.0",
     "minifyify": "^7.3.3",
     "mkdirp": "^0.5.0",
-    "mocha": "^2.5.3",
+    "mocha": "^3.0.0",
     "node-mocks-http": "^1.2.4",
     "sinon": "^1.10.3",
     "surge": "^0.18.0",
