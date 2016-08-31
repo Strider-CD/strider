@@ -9,7 +9,7 @@
     var providers = {{ providers | scriptjson | raw }};
   </script>
 
-  <div class='row-fluid' ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
+  <div class="container" ng-app="dashboard" ng-controller="Dashboard" class="ng-cloak">
     <div>
       <div id="spinner" class="alert alert-info hide" ng-show="running.status === 'running' || running.status === 'submitted'">
         <img class='spinner' src="/images/spinner.gif" />
@@ -28,7 +28,7 @@
 
     <div id="dashboard" style="display:none">
       <div>
-        <div class="row-fluid">
+        <div class="row">
           <div class="span12 dashboard-section">
             {% if !currentUser %}
               <div class='StriderBlock_LoggedOutFillContent'>
@@ -65,11 +65,10 @@
             {% endif %}
 
             <div ng-show="jobs.yours.length">
-              <h3>Your Projects</h3 ng-cloak>
-              <table id="job-list" class="table">
-                {% include "partials/dashboard-header.html" %}
+              <h3>Your Projects</h3>
+              <table id="job-list-yours" class="table">
                 <tbody>
-                  <tr ng-repeat="job in jobs.yours" data-test="latest-build">
+                  <tr ng-repeat="job in jobs.yours" data-test="latest-build" class="[[job.status]]">
                     {% include "partials/_dashboard_row.html" %}
                   </tr>
                 </tbody>
@@ -77,12 +76,12 @@
             </div>
 
             <div ng-show="jobs.public.length">
-              <h3>Public Projects</h3 ng-cloak>
-              <table id="job-list" class="table">
+              <h3>Public Projects</h3>
+              <table id="job-list-public" class="table">
                 {% set config = { "public": true } %}
                 {% include "partials/dashboard-header.html" with config %}
                 <tbody>
-                  <tr ng-repeat="job in jobs.public">
+                  <tr ng-repeat="job in jobs.public" class="[[job.status]]">
                     {% include "partials/_dashboard_row.html" with config %}
                   </tr>
                 </tbody>

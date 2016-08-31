@@ -1,4 +1,3 @@
-
 .no-projects {
   margin-top: 20px;
   margin-bottom: 25px;
@@ -24,33 +23,183 @@
 }
 
 #dashboard {
-  a, .clickable {
+  a.clickable {
     cursor: pointer;
     &:hover {
       text-decoration: none;
       color: #999;
     }
   }
-  .btn:hover {
-    color: white;
-  }
-}
 
-#dashboard {
   a.add-repo {
     color: #fff;
   }
+
   .history {
-    width:70px;
+    width: 70px;
   }
-  .last-builds {
-    tr td {
-      width:10px;
-      height:10px;
-      padding:0;
-      overflow:hidden;
-      border-top:none;    
+
+  #job-list-yours,
+  #job-list-public {
+    // We add a border on the left of each row, indicating the state of the last build.
+    tr ~ tr {
+      border-left: 3px solid grey;
+    }
+    tr.passed {
+      border-left: 3px solid green;
+    }
+    tr.failed {
+      border-left: 3px solid red;
     }
   }
 
+}
+
+.dashboard-row,
+#dashboard table tr {
+  .inline-block {
+    display: inline-block;
+  }
+
+  padding: 10px 0;
+  .action-buttons {
+    div {
+      visibility: hidden;
+    }
+  }
+  td {
+    padding: 10px 0;
+    position: relative;
+    font-size: 16px;
+    a:hover {
+      text-decoration: none;
+    }
+  }
+
+  td > a,
+  td > span {
+    display: inline-block;
+    padding: 5px 10px;
+  }
+  span.clickable,
+  a {
+    color: black;
+    cursor: pointer;
+  }
+  .github-link {
+    width: 1px;
+  }
+  &:hover {
+    .action-buttons {
+      & > div {
+        visibility: visible;
+      }
+    }
+  }
+  .small-text {
+    display: inline-block;
+  }
+  .action-buttons {
+    width: 100px;
+    text-align: center;
+    .btn-group {
+      padding-top: 4px;
+    }
+  }
+  .progress-meter {
+    .progress {
+      margin-bottom: 0;
+    }
+  }
+  .committer {
+    a {
+      padding: 0;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      max-width: inherit;
+      margin-bottom: -13px;
+      margin-top: -1px;
+    }
+  }
+  .project-name {
+    a {
+      font-size: 18px;
+      line-height: 27px;
+      width: 100%;
+    }
+  }
+  .run-time {
+    text-align: center;
+  }
+  .commit-url {
+    max-width: 300px;
+    overflow: hidden;
+  }
+}
+
+
+@media (max-width: 1304px) {
+  #dashboard {
+    .history,
+    .job-link a span {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 980px) {
+  #dashboard {
+    .triggered-by-header,
+    .commit-url,
+    .job-link a span {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #dashboard {
+    .finished-at {
+      display: none;
+    }
+  }
+
+  #build-page .job-title h3 {
+    margin-bottom: 0.5em;
+  }
+
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  #dashboard {
+    overflow: auto;
+
+    .deploy,
+    .deploy-header,
+    .refresh,
+    .refresh-header,
+    .configure,
+    .configure-header,
+    .committer,
+    .committer-header,
+    .github-header,
+    .github-link {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  #dashboard {
+    table tr .project-name a {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 25px;
+    }
+  }
 }

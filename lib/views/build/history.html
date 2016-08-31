@@ -12,7 +12,7 @@
           ng-click="selectJob(job._id)"
           ng-class="{active:job._id === $parent.job._id}">
         {% set ctx = {page: 'history'} %}
-        {% include "partials/_dashboard_row.html" with ctx %}
+        {% include "partials/_history_row.html" with ctx %}
       </tr>
     </tbody>
   </table>

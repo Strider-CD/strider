@@ -196,198 +196,8 @@ h3 {
   }
 }
 
-.last-builds {
-  border-collapse: separate;
-  border-spacing: 2px;
-  margin: 9px;
-  .status-passed { background-color: @strider-bg-passed; }
-  .status-failed { background-color: @strider-bg-failed; }
-  .status-errored { background-color: @strider-bg-errored; }
-}
-
 .progress {
   margin-bottom: 0;
-}
-
-.dashboard-row,
-#dashboard table tr {
-  padding: 10px 0;
-  .action-buttons {
-    div {
-      visibility: hidden;
-    }
-  }
-  td {
-    padding: 10px 0;
-    position: relative;
-    font-size: 16px;
-    a:hover {
-      text-decoration: none;
-    }
-  }
-
-  td > a,
-  td > span {
-    display: inline-block;
-    padding: 5px 10px;
-  }
-  span.clickable,
-  a {
-    color: black;
-    cursor: pointer;
-  }
-  .github-link {
-    width: 1px;
-  }
-  &:hover {
-    .action-buttons {
-      & > div {
-        visibility: visible;
-      }
-    }
-  }
-  .small-text {
-    display: inline-block;
-  }
-  .action-buttons {
-    width: 100px;
-    text-align: center;
-    .btn-group {
-      padding-top: 4px;
-    }
-  }
-  .progress-meter {
-    .progress {
-      margin-bottom: 0;
-    }
-  }
-  .committer {
-    a {
-      padding: 0;
-    }
-    img {
-      width: 35px;
-      height: 35px;
-      max-width: inherit;
-      margin-bottom: -13px;
-      margin-top: -1px;
-    }
-  }
-  .project-name {
-    a {
-      font-size: 18px;
-      line-height: 27px;
-      width: 100%;
-    }
-  }
-  .run-time {
-    text-align: center;
-  }
-  i {
-    font-size: 150%;
-  }
-  .commit-url {
-    max-width: 300px;
-    overflow: hidden;
-  }
-  .clickable i:hover,
-  a:hover {
-    color: #aaa;
-  }
-}
-
-.dashboard-row {
-  .finished-at,
-  .refresh,
-  .commit-url,
-  .committer,
-  .deploy,
-  .configure,
-  .run-time,
-  .job-link {
-    width: 1px;
-    white-space: nowrap;
-  }
-}
-
-@media (max-width: 1304px) {
-  #dashboard {
-    .history,
-    .job-link a span {
-      display: none;
-    }
-  }
-}
-
-@media (max-width: 980px) {
-  #dashboard {
-    .triggered-by-header,
-    .commit-url,
-    .job-link a span {
-      display: none;
-    }
-  }
-}
-
-@media (min-width: 769px) {
-  #dashboard {
-    .finished-at,
-    .refresh,
-    .commit-url,
-    .committer,
-    .deploy,
-    .configure,
-    .run-time,
-    .job-link {
-      width: 1px;
-      white-space: nowrap;
-    }
-  }
-}
-
-@media (max-width: 767px) {
-  #dashboard {
-    .finished-at {
-      display: none;
-    }
-  }
-
-  #build-page .job-title h3 {
-    margin-bottom: 0.5em;
-  }
-
-  .navbar-fixed-top {
-    margin-bottom: 0;
-  }
-}
-
-@media (max-width: 650px) {
-  #dashboard {
-    overflow: auto;
-
-    .deploy,
-    .deploy-header,
-    .refresh,
-    .refresh-header,
-    .configure,
-    .configure-header,
-    .committer,
-    .committer-header,
-    .github-header,
-    .github-link {
-      display: none;
-    }
-  }
-}
-
-@media (max-width: 450px) {
-  #dashboard {
-    table tr .project-name a {
-      font-size: 14px;
-      font-weight: normal;
-      line-height: 25px;
-    }
-  }
 }
 
 .configure-action i {
@@ -571,26 +381,50 @@ a.repeats {
 .passed {
   background-color: @strider-bg-passed;
 }
+.passed:hover {
+  background-color: darken(@strider-bg-passed, 10%);
+}
 .failed {
   background-color: @strider-bg-failed;
+}
+.failed:hover {
+  background-color: darken(@strider-bg-failed, 10%);
 }
 .errored {
   background-color: @strider-bg-errored;
 }
+.errored:hover {
+  background-color: darken(@strider-bg-errored, 10%);
+}
 .running {
   background-color: @strider-bg-running;
+}
+.running:hover {
+  background-color: darken(@strider-bg-running, 10%);
 }
 .warning {
   background-color: #fffca9;
 }
+.warning:hover {
+  background-color: darken(#fffca9, 10%);
+}
 .submitted {
   background-color: @strider-bg-running;
+}
+.submitted:hover {
+  background-color: darken(@strider-bg-running, 10%);
 }
 .repeated.passed {
   background-color: @strider-bg-passed;
 }
+.repeated.passed:hover {
+  background-color: darken(@strider-bg-passed, 10%);
+}
 .repeated.failed {
   background-color: @strider-bg-failed;
+}
+.repeated.failed:hover {
+  background-color: darken(@strider-bg-failed, 10%);
 }
 td.screenshot img {
   width: 40px;
