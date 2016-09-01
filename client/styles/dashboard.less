@@ -1,3 +1,5 @@
+@import "strider-colors";
+
 .no-projects {
   margin-top: 20px;
   margin-bottom: 25px;
@@ -43,16 +45,27 @@
   #job-list-public {
     // We add a border on the left of each row, indicating the state of the last build.
     tr ~ tr {
-      border-left: 3px solid grey;
+      border-left: 6px solid #BBB;
+      background-color: #DDD;
+      transition: .3s;
     }
+
     tr.passed {
-      border-left: 3px solid green;
+      border-left: 6px solid #387043;
+      background-color: #a4ceac;
     }
+    tr.passed:hover {
+      background-color: lighten(#a4ceac, 5);
+    }
+
     tr.failed {
-      border-left: 3px solid red;
+      border-left: 6px solid #B21019;
+      background-color: #de9a9e;
+    }
+    tr.failed:hover {
+      background-color: lighten(#de9a9e, 5%);
     }
   }
-
 }
 
 .dashboard-row,
@@ -61,19 +74,20 @@
     display: inline-block;
   }
 
-  padding: 10px 0;
-  .action-buttons {
-    div {
-      visibility: hidden;
-    }
+  .job-id {
+    font-family: monospace;
   }
+
+  .btn-link {
+    color: #333;
+  }
+
   td {
-    padding: 10px 0;
+    padding: 10px;
+    border-top: none;
+    border-bottom: 10px solid #fff;
     position: relative;
-    font-size: 16px;
-    a:hover {
-      text-decoration: none;
-    }
+    overflow: hidden;
   }
 
   td > a,
@@ -87,7 +101,7 @@
     cursor: pointer;
   }
   .github-link {
-    width: 1px;
+    margin-left: 5px;
   }
   &:hover {
     .action-buttons {
@@ -119,8 +133,7 @@
       width: 35px;
       height: 35px;
       max-width: inherit;
-      margin-bottom: -13px;
-      margin-top: -1px;
+      margin: 10px 10px 10px 0;
     }
   }
   .project-name {
@@ -133,12 +146,7 @@
   .run-time {
     text-align: center;
   }
-  .commit-url {
-    max-width: 300px;
-    overflow: hidden;
-  }
 }
-
 
 @media (max-width: 1304px) {
   #dashboard {
@@ -153,6 +161,7 @@
   #dashboard {
     .triggered-by-header,
     .commit-url,
+    .committer,
     .job-link a span {
       display: none;
     }
