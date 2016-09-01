@@ -18,12 +18,6 @@
   line-height: 36px;
 }
 
-#dashboard table tr {
-  .progress-meter {
-    margin-top: 10px;
-  }
-}
-
 #dashboard {
   a.clickable {
     cursor: pointer;
@@ -48,6 +42,14 @@
       border-left: 6px solid #BBB;
       background-color: #DDD;
       transition: .3s;
+    }
+
+    tr.running{
+      border-left: 6px solid #5eaaad;
+      background-color: @strider-bg-running;
+    }
+    tr.running:hover {
+      background-color: lighten(@strider-bg-running, 5%);
     }
 
     tr.passed {

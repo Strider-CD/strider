@@ -23,7 +23,7 @@
     </div>
 
     <div class="deploy inline-block">
-      <button ng-hide="job.running || job.project.access_level < 1"
+      <button ng-hide="job.status === 'running' || job.project.access_level < 1"
               ng-click="startDeploy(job)"
               data-toggle="tooltip" data-container="body" title="Retest &amp; Deploy"
               class="btn test-and-deploy-action">
@@ -33,12 +33,22 @@
     </div>
 
     <div class="refresh inline-block">
-      <button ng-hide="job.running || job.project.access_level < 1"
+      <button ng-hide="job.status === 'running' || job.project.access_level < 1"
               data-toggle="tooltip" data-container="body" title="Run the tests again"
               ng-click="startTest(job)"
               class="btn test-only-action">
         <i class="fa fa-refresh"></i>
         Test
+      </button>
+    </div>
+
+    <div class="cancel inline-block">
+      <button ng-show="job.status === 'running' || job.status === 'submitted'"
+              data-toggle="tooltip" data-container="body" title="Cancel running job"
+              ng-click="cancelJob(job._id)"
+              class="btn btn-warning">
+        <i class="fa fa-times cancel-job"></i>
+        Cancel
       </button>
     </div>
   </div>
@@ -69,7 +79,8 @@
     <span>[[ job.ref.branch ]]</span>
     [[job.status]]
 
-    after
+    <span ng-if="job.status === 'running'">for</span>
+    <span ng-if="job.status !== 'running'">after</span>
 
     <span class="run-time" ng-switch="job.status">
       <time ng-switch-when="running" class="duration" since="[[ job.created ]]" ng-hide="job.nojobs"></time>
@@ -78,10 +89,6 @@
     </span>
 
     <span class="finished-at" ng-switch="job.status === 'running'">
-      <i ng-show="job.status === 'running' || job.status === 'submitted'" data-toggle="tooltip" data-container="body"
-         title="Cancel Job"
-         class="fa fa-times cancel-job" ng-click="cancelJob(job._id)"></i>
-
       <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
         <time data-toggle="tooltip" data-container="body" data-placement="top" datetime="[[ job.finished ]]"
               class="timeago summary-text"></time>
