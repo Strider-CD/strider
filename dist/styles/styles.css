@@ -9192,6 +9192,9 @@ body.job_view footer {
   margin-top: 20px;
   margin-bottom: 25px;
 }
+.project-list {
+  margin: 0;
+}
 .finished-at time {
   line-height: 27px;
 }
@@ -9202,20 +9205,12 @@ body.job_view footer {
   font-size: 18px;
   line-height: 36px;
 }
-#dashboard table tr .progress-meter {
-  margin-top: 10px;
-}
-#dashboard a,
-#dashboard .clickable {
+#dashboard a.clickable {
   cursor: pointer;
 }
-#dashboard a:hover,
-#dashboard .clickable:hover {
+#dashboard a.clickable:hover {
   text-decoration: none;
   color: #999;
-}
-#dashboard .btn:hover {
-  color: white;
 }
 #dashboard a.add-repo {
   color: #fff;
@@ -9223,12 +9218,163 @@ body.job_view footer {
 #dashboard .history {
   width: 70px;
 }
-#dashboard .last-builds tr td {
-  width: 10px;
-  height: 10px;
-  padding: 0;
-  overflow: hidden;
+#dashboard #job-list-yours li,
+#dashboard #job-list-public li,
+#dashboard #job-list-yours td ~ td,
+#dashboard #job-list-public td ~ td {
+  border-left: 6px solid #BBB;
+  background-color: #DDD;
+  transition: .3s;
+  margin-bottom: 10px;
+}
+#dashboard #job-list-yours .running,
+#dashboard #job-list-public .running {
+  border-left: 6px solid #5eaaad;
+  background-color: #D7F3FF;
+}
+#dashboard #job-list-yours .running:hover,
+#dashboard #job-list-public .running:hover {
+  background-color: #f1fbff;
+}
+#dashboard #job-list-yours .passed,
+#dashboard #job-list-public .passed {
+  border-left: 6px solid #387043;
+  background-color: #a4ceac;
+}
+#dashboard #job-list-yours .passed:hover,
+#dashboard #job-list-public .passed:hover {
+  background-color: #b5d7bb;
+}
+#dashboard #job-list-yours .failed,
+#dashboard #job-list-public .failed {
+  border-left: 6px solid #B21019;
+  background-color: #ed6c63;
+}
+#dashboard #job-list-yours .failed:hover,
+#dashboard #job-list-public .failed:hover {
+  background-color: #e4adb0;
+}
+.dashboard-row,
+#dashboard ul li {
+  padding: 10px;
   border-top: none;
+  position: relative;
+  overflow: hidden;
+}
+.dashboard-row .inline-block,
+#dashboard ul li .inline-block {
+  display: inline-block;
+}
+.dashboard-row .job-id,
+#dashboard ul li .job-id {
+  font-family: monospace;
+}
+.dashboard-row .btn-link,
+#dashboard ul li .btn-link {
+  color: #333;
+}
+.dashboard-row > a,
+#dashboard ul li > a,
+.dashboard-row > span,
+#dashboard ul li > span {
+  display: inline-block;
+  padding: 5px 10px;
+}
+.dashboard-row span.clickable,
+#dashboard ul li span.clickable,
+.dashboard-row a,
+#dashboard ul li a {
+  color: black;
+  cursor: pointer;
+}
+.dashboard-row .github-link,
+#dashboard ul li .github-link {
+  margin-left: 5px;
+}
+.dashboard-row:hover .action-buttons > div,
+#dashboard ul li:hover .action-buttons > div {
+  visibility: visible;
+}
+.dashboard-row .small-text,
+#dashboard ul li .small-text {
+  display: inline-block;
+}
+.dashboard-row .action-buttons,
+#dashboard ul li .action-buttons {
+  width: 100px;
+  text-align: center;
+}
+.dashboard-row .action-buttons .btn-group,
+#dashboard ul li .action-buttons .btn-group {
+  padding-top: 4px;
+}
+.dashboard-row .progress-meter .progress,
+#dashboard ul li .progress-meter .progress {
+  margin-bottom: 0;
+}
+.dashboard-row .committer a,
+#dashboard ul li .committer a {
+  padding: 0;
+}
+.dashboard-row .committer img,
+#dashboard ul li .committer img {
+  width: 35px;
+  height: 35px;
+  max-width: inherit;
+  margin: 10px 10px 10px 0;
+}
+.dashboard-row .project-name a,
+#dashboard ul li .project-name a {
+  font-size: 18px;
+  line-height: 27px;
+  width: 100%;
+}
+.dashboard-row .run-time,
+#dashboard ul li .run-time {
+  text-align: center;
+}
+@media (max-width: 980px) {
+  #dashboard .triggered-by-header,
+  #dashboard .commit-url,
+  #dashboard .committer,
+  #dashboard .job-link a span {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  #dashboard .finished-at {
+    display: none;
+  }
+  #build-page .job-title h3 {
+    margin-bottom: 0.5em;
+  }
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 650px) {
+  #dashboard {
+    overflow: auto;
+  }
+  #dashboard .deploy,
+  #dashboard .deploy-header,
+  #dashboard .refresh,
+  #dashboard .refresh-header,
+  #dashboard .configure,
+  #dashboard .configure-header,
+  #dashboard .committer,
+  #dashboard .committer-header,
+  #dashboard .github-header,
+  #dashboard .github-link {
+    display: none;
+  }
+}
+@media (max-width: 450px) {
+  #dashboard ul li .project-name a {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 25px;
+  }
 }
 #manual-setup .general {
   margin-bottom: 10px;
@@ -9580,188 +9726,8 @@ h3 {
 #build-page .summary-icon {
   display: none;
 }
-.last-builds {
-  border-collapse: separate;
-  border-spacing: 2px;
-  margin: 9px;
-}
-.last-builds .status-passed {
-  background-color: #CFFFD2;
-}
-.last-builds .status-failed {
-  background-color: #FFD2D0;
-}
-.last-builds .status-errored {
-  background-color: #DDD;
-}
 .progress {
   margin-bottom: 0;
-}
-.dashboard-row,
-#dashboard table tr {
-  padding: 10px 0;
-}
-.dashboard-row .action-buttons div,
-#dashboard table tr .action-buttons div {
-  visibility: hidden;
-}
-.dashboard-row td,
-#dashboard table tr td {
-  padding: 10px 0;
-  position: relative;
-  font-size: 16px;
-}
-.dashboard-row td a:hover,
-#dashboard table tr td a:hover {
-  text-decoration: none;
-}
-.dashboard-row td > a,
-#dashboard table tr td > a,
-.dashboard-row td > span,
-#dashboard table tr td > span {
-  display: inline-block;
-  padding: 5px 10px;
-}
-.dashboard-row span.clickable,
-#dashboard table tr span.clickable,
-.dashboard-row a,
-#dashboard table tr a {
-  color: black;
-  cursor: pointer;
-}
-.dashboard-row .github-link,
-#dashboard table tr .github-link {
-  width: 1px;
-}
-.dashboard-row:hover .action-buttons > div,
-#dashboard table tr:hover .action-buttons > div {
-  visibility: visible;
-}
-.dashboard-row .small-text,
-#dashboard table tr .small-text {
-  display: inline-block;
-}
-.dashboard-row .action-buttons,
-#dashboard table tr .action-buttons {
-  width: 100px;
-  text-align: center;
-}
-.dashboard-row .action-buttons .btn-group,
-#dashboard table tr .action-buttons .btn-group {
-  padding-top: 4px;
-}
-.dashboard-row .progress-meter .progress,
-#dashboard table tr .progress-meter .progress {
-  margin-bottom: 0;
-}
-.dashboard-row .committer a,
-#dashboard table tr .committer a {
-  padding: 0;
-}
-.dashboard-row .committer img,
-#dashboard table tr .committer img {
-  width: 35px;
-  height: 35px;
-  max-width: inherit;
-  margin-bottom: -13px;
-  margin-top: -1px;
-}
-.dashboard-row .project-name a,
-#dashboard table tr .project-name a {
-  font-size: 18px;
-  line-height: 27px;
-  width: 100%;
-}
-.dashboard-row .run-time,
-#dashboard table tr .run-time {
-  text-align: center;
-}
-.dashboard-row i,
-#dashboard table tr i {
-  font-size: 150%;
-}
-.dashboard-row .commit-url,
-#dashboard table tr .commit-url {
-  max-width: 300px;
-  overflow: hidden;
-}
-.dashboard-row .clickable i:hover,
-#dashboard table tr .clickable i:hover,
-.dashboard-row a:hover,
-#dashboard table tr a:hover {
-  color: #aaa;
-}
-.dashboard-row .finished-at,
-.dashboard-row .refresh,
-.dashboard-row .commit-url,
-.dashboard-row .committer,
-.dashboard-row .deploy,
-.dashboard-row .configure,
-.dashboard-row .run-time,
-.dashboard-row .job-link {
-  width: 1px;
-  white-space: nowrap;
-}
-@media (max-width: 1304px) {
-  #dashboard .history,
-  #dashboard .job-link a span {
-    display: none;
-  }
-}
-@media (max-width: 980px) {
-  #dashboard .triggered-by-header,
-  #dashboard .commit-url,
-  #dashboard .job-link a span {
-    display: none;
-  }
-}
-@media (min-width: 769px) {
-  #dashboard .finished-at,
-  #dashboard .refresh,
-  #dashboard .commit-url,
-  #dashboard .committer,
-  #dashboard .deploy,
-  #dashboard .configure,
-  #dashboard .run-time,
-  #dashboard .job-link {
-    width: 1px;
-    white-space: nowrap;
-  }
-}
-@media (max-width: 767px) {
-  #dashboard .finished-at {
-    display: none;
-  }
-  #build-page .job-title h3 {
-    margin-bottom: 0.5em;
-  }
-  .navbar-fixed-top {
-    margin-bottom: 0;
-  }
-}
-@media (max-width: 650px) {
-  #dashboard {
-    overflow: auto;
-  }
-  #dashboard .deploy,
-  #dashboard .deploy-header,
-  #dashboard .refresh,
-  #dashboard .refresh-header,
-  #dashboard .configure,
-  #dashboard .configure-header,
-  #dashboard .committer,
-  #dashboard .committer-header,
-  #dashboard .github-header,
-  #dashboard .github-link {
-    display: none;
-  }
-}
-@media (max-width: 450px) {
-  #dashboard table tr .project-name a {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 25px;
-  }
 }
 .configure-action i {
   margin-top: 4px;
@@ -10259,3 +10225,4 @@ span.underline {
   border-radius: 3px;
   border: 1px solid transparent;
 }
+/*# sourceMappingURL=styles.css.map */

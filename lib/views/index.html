@@ -66,26 +66,21 @@
 
             <div ng-show="jobs.yours.length">
               <h3>Your Projects</h3>
-              <table id="job-list-yours" class="table">
-                <tbody>
-                  <tr ng-repeat="job in jobs.yours" data-test="latest-build" class="[[job.status]]">
-                    {% include "partials/_dashboard_row.html" %}
-                  </tr>
-                </tbody>
-              </table>
+              <ul id="job-list-yours" class="project-list">
+                <li ng-repeat="job in jobs.yours" data-test="latest-build" class="[[job.status]]">
+                  {% include "partials/_dashboard_row.html" %}
+                </li>
+              </ul>
             </div>
 
             <div ng-show="jobs.public.length">
               <h3>Public Projects</h3>
-              <table id="job-list-public" class="table">
+              <ul id="job-list-public" class="project-list">
                 {% set config = { "public": true } %}
-                {% include "partials/dashboard-header.html" with config %}
-                <tbody>
-                  <tr ng-repeat="job in jobs.public" class="[[job.status]]">
-                    {% include "partials/_dashboard_row.html" with config %}
-                  </tr>
-                </tbody>
-              </table>
+                <li ng-repeat="job in jobs.public" class="[[job.status]]">
+                  {% include "partials/_dashboard_row.html" with config %}
+                </li>
+              </ul>
             </div>
           </div>
         </div>

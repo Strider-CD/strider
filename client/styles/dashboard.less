@@ -5,6 +5,10 @@
   margin-bottom: 25px;
 }
 
+.project-list {
+  margin: 0;
+}
+
 .finished-at time {
   line-height: 27px;
 }
@@ -38,40 +42,49 @@
   #job-list-yours,
   #job-list-public {
     // We add a border on the left of each row, indicating the state of the last build.
-    tr ~ tr {
+    li, td ~ td {
       border-left: 6px solid #BBB;
       background-color: #DDD;
       transition: .3s;
+      margin-bottom: 10px;
     }
 
-    tr.running{
+    .running {
       border-left: 6px solid #5eaaad;
       background-color: @strider-bg-running;
-    }
-    tr.running:hover {
-      background-color: lighten(@strider-bg-running, 5%);
+
+      &:hover {
+        background-color: lighten(@strider-bg-running, 5%);
+      }
     }
 
-    tr.passed {
+    .passed {
       border-left: 6px solid #387043;
       background-color: #a4ceac;
-    }
-    tr.passed:hover {
-      background-color: lighten(#a4ceac, 5);
+
+      &:hover {
+        background-color: lighten(#a4ceac, 5);
+      }
     }
 
-    tr.failed {
+    .failed {
       border-left: 6px solid #B21019;
       background-color: #ed6c63;
-    }
-    tr.failed:hover {
-      background-color: lighten(#de9a9e, 5%);
+
+      &:hover {
+        background-color: lighten(#de9a9e, 5%);
+      }
     }
   }
 }
 
 .dashboard-row,
-#dashboard table tr {
+#dashboard ul li {
+  padding: 10px;
+  border-top: none;
+  position: relative;
+  overflow: hidden;
+
   .inline-block {
     display: inline-block;
   }
@@ -84,27 +97,22 @@
     color: #333;
   }
 
-  td {
-    padding: 10px;
-    border-top: none;
-    border-bottom: 10px solid #fff;
-    position: relative;
-    overflow: hidden;
-  }
-
-  td > a,
-  td > span {
+  & > a,
+  & > span {
     display: inline-block;
     padding: 5px 10px;
   }
+
   span.clickable,
   a {
     color: black;
     cursor: pointer;
   }
+
   .github-link {
     margin-left: 5px;
   }
+
   &:hover {
     .action-buttons {
       & > div {
@@ -112,9 +120,11 @@
       }
     }
   }
+
   .small-text {
     display: inline-block;
   }
+
   .action-buttons {
     width: 100px;
     text-align: center;
@@ -122,11 +132,13 @@
       padding-top: 4px;
     }
   }
+
   .progress-meter {
     .progress {
       margin-bottom: 0;
     }
   }
+
   .committer {
     a {
       padding: 0;
@@ -138,6 +150,7 @@
       margin: 10px 10px 10px 0;
     }
   }
+
   .project-name {
     a {
       font-size: 18px;
@@ -145,6 +158,7 @@
       width: 100%;
     }
   }
+
   .run-time {
     text-align: center;
   }
@@ -198,7 +212,7 @@
 
 @media (max-width: 450px) {
   #dashboard {
-    table tr .project-name a {
+    ul li .project-name a {
       font-size: 14px;
       font-weight: normal;
       line-height: 25px;
