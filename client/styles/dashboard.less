@@ -43,14 +43,17 @@
   #job-list-public {
     // We add a border on the left of each row, indicating the state of the last build.
     li, td ~ td {
-      border-left: 6px solid #BBB;
-      background-color: #DDD;
+      background-color: #fff;
       transition: .3s;
       margin-bottom: 10px;
+      border-style: solid;
+      border-width: 1px;
+      border-left: 6px solid #BBB;
     }
 
     .running {
-      border-left: 6px solid #5eaaad;
+      border-left-width: 6px;
+      border-color: #5eaaad;
       background-color: @strider-bg-running;
 
       &:hover {
@@ -59,20 +62,20 @@
     }
 
     .passed {
-      border-left: 6px solid #387043;
-      background-color: #a4ceac;
+      border-left-width: 6px;
+      border-color: #7bbf51;
 
       &:hover {
-        background-color: lighten(#a4ceac, 5);
+        background-color: lighten(#7bbf51, 50%);
       }
     }
 
     .failed {
-      border-left: 6px solid #B21019;
-      background-color: #ed6c63;
+      border-left-width: 6px;
+      border-color: #e84135;
 
       &:hover {
-        background-color: lighten(#de9a9e, 5%);
+        background-color: lighten(#e84135, 50%);
       }
     }
   }
@@ -81,7 +84,6 @@
 .dashboard-row,
 #dashboard ul li {
   padding: 10px;
-  border-top: none;
   position: relative;
   overflow: hidden;
 

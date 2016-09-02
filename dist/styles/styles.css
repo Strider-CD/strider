@@ -9222,14 +9222,17 @@ body.job_view footer {
 #dashboard #job-list-public li,
 #dashboard #job-list-yours td ~ td,
 #dashboard #job-list-public td ~ td {
-  border-left: 6px solid #BBB;
-  background-color: #DDD;
+  background-color: #fff;
   transition: .3s;
   margin-bottom: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-left: 6px solid #BBB;
 }
 #dashboard #job-list-yours .running,
 #dashboard #job-list-public .running {
-  border-left: 6px solid #5eaaad;
+  border-left-width: 6px;
+  border-color: #5eaaad;
   background-color: #D7F3FF;
 }
 #dashboard #job-list-yours .running:hover,
@@ -9238,26 +9241,25 @@ body.job_view footer {
 }
 #dashboard #job-list-yours .passed,
 #dashboard #job-list-public .passed {
-  border-left: 6px solid #387043;
-  background-color: #a4ceac;
+  border-left-width: 6px;
+  border-color: #7bbf51;
 }
 #dashboard #job-list-yours .passed:hover,
 #dashboard #job-list-public .passed:hover {
-  background-color: #b5d7bb;
+  background-color: #ffffff;
 }
 #dashboard #job-list-yours .failed,
 #dashboard #job-list-public .failed {
-  border-left: 6px solid #B21019;
-  background-color: #ed6c63;
+  border-left-width: 6px;
+  border-color: #e84135;
 }
 #dashboard #job-list-yours .failed:hover,
 #dashboard #job-list-public .failed:hover {
-  background-color: #e4adb0;
+  background-color: #ffffff;
 }
 .dashboard-row,
 #dashboard ul li {
   padding: 10px;
-  border-top: none;
   position: relative;
   overflow: hidden;
 }
@@ -9903,16 +9905,17 @@ a.repeats {
   margin: 0px;
 }
 .passed {
-  background-color: #CFFFD2;
+  border-color: #CFFFD2;
 }
 .failed {
-  background-color: #FFD2D0;
+  border-color: #FFD2D0;
 }
 .errored {
-  background-color: #DDD;
+  border-color: #DDD;
 }
 .running {
-  background-color: #D7F3FF;
+  background-color: #ffffff;
+  border-color: #D7F3FF;
 }
 .warning {
   background-color: #fffca9;
