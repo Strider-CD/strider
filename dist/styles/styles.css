@@ -9175,6 +9175,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   margin: 0 3px -3px;
   text-align: right;
 }
+.job_view .body-content #build-page #list-of-builds .progress {
+  margin-bottom: 6px;
+}
 .job_view .body-content #build-page .failed:hover {
   background-color: #fad8d5;
 }
