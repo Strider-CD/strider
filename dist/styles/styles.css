@@ -9034,6 +9034,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .job_view .body-content #build-page .footer a {
   color: white;
 }
+.job_view .body-content #build-page #build-metadata {
+  padding: 1em 0.8em;
+}
 .job_view .body-content #build-page #build-metadata .branch,
 .job_view .body-content #build-page #build-metadata .commit-url,
 .job_view .body-content #build-page #build-metadata .run-time time,
@@ -10270,9 +10273,6 @@ footer p {
 }
 .job-notice {
   float: right;
-}
-#build-metadata {
-  padding: 8px;
 }
 #build-detail-buttons {
   border: 1px solid;
