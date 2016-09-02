@@ -9119,7 +9119,10 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   border-width: 0;
 }
 .job_view .body-content #build-page .console-output .phase {
-  margin-bottom: 10px;
+  margin-bottom: 2px;
+}
+.job_view .body-content #build-page .console-output .phase:last-child {
+  margin-bottom: 0;
 }
 .job_view .body-content #build-page .console-output .phase > .title {
   background-color: #333;
@@ -9129,9 +9132,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 .job_view .body-content #build-page .console-output .phase > .title .meta {
   margin-right: 5px;
-}
-.job_view .body-content #build-page .console-output .phase:last-child {
-  margin-bottom: 0;
 }
 .job_view .body-content #build-page .build-list-header {
   width: 90%;
