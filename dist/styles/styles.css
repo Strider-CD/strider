@@ -10220,16 +10220,16 @@ img.manual_setup {
   background: #EE6363;
 }
 .success-text {
-  color: #46a546;
+  color: #7bbf51;
 }
 .failure-text {
-  color: #9d261d;
+  color: #e84135;
 }
 .error-text {
-  color: #999;
+  color: #fbda41;
 }
 .waiting-text {
-  color: #0af;
+  color: #5eaaad;
 }
 footer {
   border-top: 1px solid #ddd;
