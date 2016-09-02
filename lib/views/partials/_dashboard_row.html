@@ -14,12 +14,14 @@
 {% if !public && currentUser %}
 <div class="actions pull-right">
   <div class="configure inline-block">
-    <button href="/[[ job.project.name || project.name ]]/config"
+    <a href="/[[ job.project.name || project.name ]]/config"
             ng-show="job.project.access_level > 1"
             data-toggle="tooltip" data-container="body" title="Configure"
-            class="btn btn-link">
-      <i class="fa fa-wrench"></i>
-    </button>
+            class="button is-link">
+      <span class="icon no-text">
+        <i class="fa fa-wrench"></i>
+      </span>
+    </a>
   </div>
 
   <div class="deploy inline-block">
