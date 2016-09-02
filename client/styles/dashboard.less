@@ -1,4 +1,5 @@
 @import "strider-colors";
+@import "button";
 
 .no-projects {
   margin-top: 20px;
@@ -51,41 +52,41 @@
 
     .running {
       border-left-width: 6px;
-      border-color: #5eaaad;
-      background-color: @strider-bg-running;
+      border-color: @strider-bg-running;
+      background-color: lighten(@strider-bg-running, 25%);
 
       &:hover {
-        background-color: lighten(@strider-bg-running, 5%);
+        background-color: lighten(@strider-bg-running, 35%);
       }
     }
 
     .passed {
       border-left-width: 6px;
-      border-color: #7bbf51;
-      background-color: lighten(#7bbf51, 25%);
+      border-color: @strider-bg-passed;
+      background-color: lighten(@strider-bg-passed, 25%);
 
       &:hover {
-        background-color: lighten(#7bbf51, 35%);
+        background-color: lighten(@strider-bg-passed, 35%);
       }
     }
 
     .failed {
       border-left-width: 6px;
-      border-color: #e84135;
-      background-color: lighten(#e84135, 25%);
+      border-color: @strider-bg-failed;
+      background-color: lighten(@strider-bg-failed, 25%);
 
       &:hover {
-        background-color: lighten(#e84135, 35%);
+        background-color: lighten(@strider-bg-failed, 35%);
       }
     }
 
     .errored {
       border-left-width: 6px;
-      border-color: #fbda41;
-      background-color: lighten(#fbda41, 25%);
+      border-color: @strider-bg-errored;
+      background-color: lighten(@strider-bg-errored, 25%);
 
       &:hover {
-        background-color: lighten(#fbda41, 35%);
+        background-color: lighten(@strider-bg-errored, 35%);
       }
     }
   }
@@ -116,7 +117,7 @@
   }
 
   span.clickable,
-  a {
+  a:not(.button) {
     color: black;
     cursor: pointer;
   }

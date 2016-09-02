@@ -23,33 +23,45 @@
   </div>
 
   <div class="deploy inline-block">
-    <button ng-hide="job.status === 'running' || job.project.access_level < 1"
+    <a ng-hide="job.status === 'running' || job.project.access_level < 1"
             ng-click="startDeploy(job)"
             data-toggle="tooltip" data-container="body" title="Retest &amp; Deploy"
-            class="btn test-and-deploy-action">
-      <i class="fa fa-cloud-upload"></i>
-      Deploy
-    </button>
+            class="button is-dark test-and-deploy-action">
+      <span class="icon">
+        <i class="fa fa-cloud-upload"></i>
+      </span>
+      <span>
+        Deploy
+      </span>
+    </a>
   </div>
 
   <div class="refresh inline-block">
-    <button ng-hide="job.status === 'running' || job.project.access_level < 1"
+    <a ng-hide="job.status === 'running' || job.project.access_level < 1"
             data-toggle="tooltip" data-container="body" title="Run the tests again"
             ng-click="startTest(job)"
-            class="btn test-only-action">
-      <i class="fa fa-refresh"></i>
-      Test
-    </button>
+            class="button is-dark test-only-action">
+      <span class="icon">
+        <i class="fa fa-refresh"></i>
+      </span>
+      <span>
+        Test
+      </span>
+    </a>
   </div>
 
   <div class="cancel inline-block">
-    <button ng-show="job.status === 'running' || job.status === 'submitted'"
+    <a ng-show="job.status === 'running' || job.status === 'submitted'"
             data-toggle="tooltip" data-container="body" title="Cancel running job"
             ng-click="cancelJob(job._id)"
-            class="btn btn-warning">
-      <i class="fa fa-times cancel-job"></i>
-      Cancel
-    </button>
+            class="button is-inverted is-danger">
+      <span class="icon">
+        <i class="fa fa-times cancel-job"></i>
+      </span>
+      <span>
+        Cancel
+      </span>
+    </a>
   </div>
 </div>
 {% endif %}

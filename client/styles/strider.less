@@ -379,16 +379,19 @@ a.repeats {
   margin: 0px;
 }
 .passed {
+  background-color: lighten(@strider-bg-passed, 25%);
   border-color: @strider-bg-passed;
 }
 .failed {
+  background-color: lighten(@strider-bg-failed, 25%);
   border-color: @strider-bg-failed;
 }
 .errored {
+  background-color: lighten(@strider-bg-errored, 25%);
   border-color: @strider-bg-errored;
 }
 .running {
-  background-color: lighten(@strider-bg-running, 15%);
+  background-color: lighten(@strider-bg-running, 25%);
   border-color: @strider-bg-running;
 }
 .warning {
