@@ -1,4 +1,3 @@
-
 .plugin-status {
   margin-bottom: 5px;
   border-radius: 5px;
@@ -14,217 +13,217 @@
   }
 }
 
-#build-metadata {
-  border-radius: 5px;
-  padding: 0 10px;
-  margin-bottom: 5px;
+.job_view {
+  .body-content {
+    min-height: 300px;
+    overflow: visible;
 
-  .progress-meter {
-    min-width: 50px;
-  }
+    #build-page {
+      a, .clickable {
+        color: black;
+        cursor: pointer;
+        &:hover {
+          text-decoration: none;
+          color: #999;
+        }
+      }
 
-  .job-link-id {
-    padding: 0 5px;
-    vertical-align: super;
-  }
+      .footer a {
+        color: white
+      }
 
-  .committer img {
-    max-width: 30px;
-  }
+      // The header above the console output.
+      #build-metadata {
+        border-radius: 5px;
+        padding: 0 10px;
+        margin-bottom: 5px;
 
-  .current-build-menu {
-    .dropdown-menu {
-      top: 28px;
-    }
-  }
-}
+        .progress-meter {
+          min-width: 50px;
+        }
 
-.commit-url {
-  .trigger-icon {
-    font-size: 15px;
-  }
-}
+        .job-link-id {
+          padding: 0 5px;
+          vertical-align: super;
+        }
 
-.loading-icon {
-  margin-top: 20px;
-  margin-left: 20px;
-  color: #333;
-}
+        .committer img {
+          max-width: 30px;
+        }
 
-/** job view styling **/
+        .current-build-menu {
+          .dropdown-menu {
+            top: 28px;
+          }
+        }
+      }
 
-body.job_view .body-content {
-  min-height: 300px;
-  overflow: visible;
-}
+      .job-pre-console {
+        margin: 0;
+      }
 
-.job-pre-console {
-  margin: 0;
-}
+      .console-output {
+        overflow-y: auto;
+        overflow-x: visible;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        -webkit-flex: 1;
+        flex: 1;
 
-.footer {
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding-bottom: 2px;
-  background-color: #444;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
+        .loading-icon {
+          margin-top: 20px;
+          margin-left: 20px;
+          color: #333;
+        }
 
-#build-page {
-  a, .clickable {
-    color: black;
-    cursor: pointer;
-    &:hover {
-      text-decoration: none;
-      color: #999;
-    }
-  }
+        .prompt {
+          color: yellow;
+          margin-left: 5px;
+        }
 
-  .footer a {
-    color: white
-  }
-}
+        .plus {
+          color: #070;
+          font-size: 10px;
+        }
 
-.console-output {
-  overflow-y: auto;
-  overflow-x: visible; 
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  -webkit-flex: 1;
-  flex: 1;
+        .arrow {
+          color: #070;
+        }
 
-  .prompt {
-    color: yellow;
-    margin-left: 5px;
-  }
+        .phase.collapsed {
+          .arrow {
+            margin-left: 2px;
+          }
+        }
 
-  .plus {
-    color: #070;
-    font-size: 10px;
-  }
+        .command {
+          &.comment {
+            .title {
+              .prompt, .command-text {
+                color: #70c;
+              }
+            }
+          }
 
-  .arrow {
-    color: #070;
-  }
+          > .title {
+            cursor: pointer;
+            padding-right: 10px;
 
-  .phase.collapsed {
-    .arrow {
-      margin-left: 2px;
-    }
-  }
+            &:hover {
+              background-color: #222;
+            }
 
-  .command {
-    &.comment {
-      .title {
-        .prompt, .command-text {
-          color: #70c;
+            .meta {
+              color: #999;
+
+              time {
+                width: 41px;
+                display: inline-block;
+                text-align: right;
+              }
+
+              .plugin {
+                color: #09a;
+              }
+            }
+          }
+        }
+
+        &, pre {
+          background-color: black;
+          font-family: monospace;
+          color: white;
+        }
+
+        pre {
+          padding: 0 0 0 5px;
+          margin: 0;
+          border-radius: 0;
+          border-width: 0;
+        }
+
+        .phase {
+          > .title {
+            background-color: #333;
+            padding: 5px 5px 5px 10px;
+            margin-bottom: 5px;
+            cursor: pointer;
+
+            .meta {
+              margin-right: 5px;
+            }
+
+          }
+
+          margin-bottom: 10px;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
         }
       }
     }
-
-    > .title {
-      cursor: pointer;
-      padding-right: 10px;
-
-      &:hover {
-        background-color: #222;
-      }
-      
-      .meta {
-        color: #999;
-
-        time {
-          width: 41px;
-          display: inline-block;
-          text-align: right;
-        }
-
-        .plugin {
-          color: #09a;
-        }
-      }
-    }
   }
 
-  &, pre {
-    background-color: black;
-    font-family: monospace;
+  #spinner {
+    display: inherit;
+  }
+
+  .job-detail-sidebar {
+    right: 0;
+  }
+
+  .job-left-col div {
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+  .job-left-col {
+    left: 0;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+  }
+
+  .wrap {
+    min-height: 0 !important;
+  }
+
+  // The actual page footer, with the Strider info in it.
+  footer {
+    display: none;
+  }
+
+  // An alternative footer displayed at the bottom of the console output.
+  .footer {
     color: white;
+    font-weight: bold;
+    text-align: center;
+    padding-bottom: 2px;
+    background-color: #444;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
-
-  pre {
-    padding: 0 0 0 5px;
-    margin: 0;
-    border-radius: 0;
-    border-width: 0;
-  }
-
-  .phase {
-    > .title {
-      background-color: #333;
-      padding: 5px 5px 5px 10px;
-      margin-bottom: 5px;
-      cursor: pointer;
-
-      .meta {
-        margin-right: 5px;
-      }
-
-    }
-
-    margin-bottom: 10px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
-body.job_view #spinner {
-  display: inherit;
-}
-
-body.job_view .job-detail-sidebar {
-  right: 0;
-}
-
-body.job_view .job-left-col div {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-body.job_view .job-left-col {
-  left: 0;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-}
-
-body.job_view .wrap {
-  min-height: 0 !important;
-}
-
-body.job_view footer {
-  display: none;
 }
 
 @media (max-width: 768px) {
   pre.console-output {
     position: static;
-    max-height: 500px; 
+    max-height: 500px;
   }
-  body.job_view #build-metadata .span3 {
+
+  .job_view #build-metadata .span3 {
     display: inline-block;
   }
-  body.job_view #build-metadata .span9 {
+
+  .job_view #build-metadata .span9 {
     width: 75%;
     float: right;
   }
-  body.job_view #list-of-builds .span6:first-child,
-  body.job_view #build-metadata .span6:first-child {
+
+  .job_view #list-of-builds .span6:first-child,
+  .job_view #build-metadata .span6:first-child {
     float: left;
   }
 }
