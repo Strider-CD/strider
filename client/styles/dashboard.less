@@ -46,8 +46,6 @@
       background-color: #fff;
       transition: .3s;
       margin-bottom: 10px;
-      border-style: solid;
-      border-width: 1px;
       border-left: 6px solid #BBB;
     }
 
@@ -64,27 +62,30 @@
     .passed {
       border-left-width: 6px;
       border-color: #7bbf51;
+      background-color: lighten(#7bbf51, 25%);
 
       &:hover {
-        background-color: lighten(#7bbf51, 20%);
+        background-color: lighten(#7bbf51, 35%);
       }
     }
 
     .failed {
       border-left-width: 6px;
       border-color: #e84135;
+      background-color: lighten(#e84135, 25%);
 
       &:hover {
-        background-color: lighten(#e84135, 20%);
+        background-color: lighten(#e84135, 35%);
       }
     }
 
     .errored {
       border-left-width: 6px;
       border-color: #fbda41;
+      background-color: lighten(#fbda41, 25%);
 
       &:hover {
-        background-color: lighten(#fbda41, 20%);
+        background-color: lighten(#fbda41, 35%);
       }
     }
   }
