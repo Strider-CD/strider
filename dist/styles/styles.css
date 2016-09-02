@@ -9190,7 +9190,6 @@ body.job_view footer {
 }
 .button {
   cursor: pointer;
-  text-decoration: none;
   -moz-appearance: none;
   -webkit-appearance: none;
   -webkit-box-align: center;
@@ -9279,6 +9278,7 @@ body.job_view footer {
 .button:hover,
 .button:focus,
 .button.is-active {
+  text-decoration: none;
   color: #222324;
 }
 .button:active {
