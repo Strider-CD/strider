@@ -9246,7 +9246,7 @@ body.job_view footer {
 }
 #dashboard #job-list-yours .passed:hover,
 #dashboard #job-list-public .passed:hover {
-  background-color: #ffffff;
+  background-color: #b4da9c;
 }
 #dashboard #job-list-yours .failed,
 #dashboard #job-list-public .failed {
@@ -9255,7 +9255,16 @@ body.job_view footer {
 }
 #dashboard #job-list-yours .failed:hover,
 #dashboard #job-list-public .failed:hover {
-  background-color: #ffffff;
+  background-color: #f29791;
+}
+#dashboard #job-list-yours .errored,
+#dashboard #job-list-public .errored {
+  border-left-width: 6px;
+  border-color: #fbda41;
+}
+#dashboard #job-list-yours .errored:hover,
+#dashboard #job-list-public .errored:hover {
+  background-color: #fdeda5;
 }
 .dashboard-row,
 #dashboard ul li {
