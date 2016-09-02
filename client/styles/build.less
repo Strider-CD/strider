@@ -7,8 +7,9 @@
 }
 
 .build-error .alert {
-  margin-bottom: 5px;
-  padding: 0.3em 0.5em;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 0.3em 0.8em;
 
   pre {
     margin-top: 0.2em;
@@ -36,9 +37,6 @@
 
       // The header above the console output.
       #build-metadata {
-        border-radius: 5px;
-        margin-bottom: 5px;
-
         .branch,
         .commit-url,
         .run-time time,
@@ -73,8 +71,6 @@
       .console-output {
         overflow-y: auto;
         overflow-x: visible;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
         -webkit-flex: 1;
         flex: 1;
 
@@ -329,8 +325,6 @@
     text-align: center;
     padding-bottom: 2px;
     background-color: #444;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
   }
 }
 

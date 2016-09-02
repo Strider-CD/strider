@@ -9010,8 +9010,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   padding: 10px 20px;
 }
 .build-error .alert {
-  margin-bottom: 5px;
-  padding: 0.3em 0.5em;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 0.3em 0.8em;
 }
 .build-error .alert pre {
   margin-top: 0.2em;
@@ -9032,10 +9033,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 .job_view .body-content #build-page .footer a {
   color: white;
-}
-.job_view .body-content #build-page #build-metadata {
-  border-radius: 5px;
-  margin-bottom: 5px;
 }
 .job_view .body-content #build-page #build-metadata .branch,
 .job_view .body-content #build-page #build-metadata .commit-url,
@@ -9062,8 +9059,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .job_view .body-content #build-page .console-output {
   overflow-y: auto;
   overflow-x: visible;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   -webkit-flex: 1;
   flex: 1;
 }
@@ -9250,8 +9245,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   text-align: center;
   padding-bottom: 2px;
   background-color: #444;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
 .job_view {
   height: 100%;
