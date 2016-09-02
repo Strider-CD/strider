@@ -1,15 +1,13 @@
 <div class='build-list-header'>
   <h3>Past Builds</h3>
 </div>
-<div id="list-of-builds">
-  <ul>
-    <li ng-repeat="job in jobs | orderBy:'created':true"
-        class="row-fluid build-list-item [[job.status]]"
-        data-id="[[ job._id ]]"
-        ng-click="selectJob(job._id)"
-        ng-class="{active:job._id === $parent.job._id}">
-      {% set ctx = {page: 'history'} %}
-      {% include "partials/_history_row.html" with ctx %}
-    </li>
-  </ul>
-</div>
+<ul id="list-of-builds">
+  <li ng-repeat="job in jobs | orderBy:'created':true"
+      class="build-list-item [[job.status]]"
+      data-id="[[ job._id ]]"
+      ng-click="selectJob(job._id)"
+      ng-class="{active:job._id === $parent.job._id}">
+    {% set ctx = {page: 'history'} %}
+    {% include "partials/_history_row.html" with ctx %}
+  </li>
+</ul>

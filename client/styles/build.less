@@ -171,18 +171,28 @@
         }
       }
 
+      .build-list-header {
+        width: 90%;
+      }
+
       #list-of-builds {
+        margin: 0;
         overflow: auto;
 
-        table {
-          margin-bottom: 0;
-          td {
-            vertical-align: middle;
-          }
+        .build-list-item {
+          width: auto;
+          padding: 5px;
+          border-bottom: 1px solid #CCB;
         }
 
-        td.committer {
+        .job-link {
+          display: inline-block;
+        }
+
+        .committer {
+          display: inline-block;
           padding: 0;
+
           img {
             margin-top: 4px;
             height: 25px;
@@ -193,66 +203,37 @@
             display: none;
           }
         }
-        tr {
-          background-color: transparent;
-          cursor: pointer;
-        }
-        .active.failed {
-          background-color: @strider-bg-failed;
-        }
-        .active.errored {
-          background-color: @strider-bg-errored;
-        }
-        .active.passed {
-          background-color: @strider-bg-passed;
-        }
-        .active.running {
-          background-color: @strider-bg-running;
-        }
-        tr:hover {
-          background-color: #eee;
+
+        .branch {
+          display: block;
         }
 
         // For the commit message, we want to use the available space as well as possible.
         // We attempt to use the best possible width for different screen sizes.
         .commit-url {
           max-width: 416px;
-          .truncate {
-            max-width: 110px;
-            @media (min-width: 1400px) {
-              max-width: 136px;
-            }
-            @media (min-width: 1600px) {
-              max-width: 115px;
-            }
-            @media (min-width: 2048px) {
-              max-width: 276px;
-            }
-          }
         }
 
-        // Hide the "finished at" time on small screens
-        .finished-at {
-          min-width: 100px;
-          text-align: center;
-          @media (max-width: 1600px) {
-            min-width: 16px;
-          }
+        .time-info {
+          margin: 0 3px -3px;
+          text-align: right;
         }
+      }
 
-        // The summary classes allow you to toggle between a short and a long version of a column
-        .summary-icon {
-          display: inline-block;
-          @media (min-width: 1600px) {
-            display: none;
-          }
-        }
-        .summary-text {
-          display: none;
-          @media (min-width: 1600px) {
-            display: inline-block;
-          }
-        }
+      .active.failed {
+        background-color: @strider-bg-failed;
+      }
+      .active.errored {
+        background-color: @strider-bg-errored;
+      }
+      .active.passed {
+        background-color: @strider-bg-passed;
+      }
+      .active.running {
+        background-color: @strider-bg-running;
+      }
+      tr:hover {
+        background-color: #eee;
       }
     }
 
@@ -269,9 +250,7 @@
     .job-link {
       min-width: 80px;
     }
-    .run-time {
-      text-align: center;
-    }
+
     .summary-icon {
       display: none;
     }
