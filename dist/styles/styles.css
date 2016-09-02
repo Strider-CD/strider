@@ -9016,41 +9016,232 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .build-error .alert pre {
   margin-top: 0.2em;
 }
-#build-metadata {
+.job_view .body-content {
+  min-height: 300px;
+  overflow: visible;
+}
+.job_view .body-content #build-page a,
+.job_view .body-content #build-page .clickable {
+  color: black;
+  cursor: pointer;
+}
+.job_view .body-content #build-page a:hover,
+.job_view .body-content #build-page .clickable:hover {
+  text-decoration: none;
+  color: #999;
+}
+.job_view .body-content #build-page .footer a {
+  color: white;
+}
+.job_view .body-content #build-page #build-metadata {
   border-radius: 5px;
-  padding: 0 10px;
   margin-bottom: 5px;
 }
-#build-metadata .progress-meter {
+.job_view .body-content #build-page #build-metadata .branch,
+.job_view .body-content #build-page #build-metadata .commit-url,
+.job_view .body-content #build-page #build-metadata .run-time time,
+.job_view .body-content #build-page #build-metadata .finished-at time {
+  line-height: 30px;
+}
+.job_view .body-content #build-page #build-metadata .progress-meter {
   min-width: 50px;
 }
-#build-metadata .job-link-id {
+.job_view .body-content #build-page #build-metadata .job-link-id {
   padding: 0 5px;
   vertical-align: super;
 }
-#build-metadata .committer img {
+.job_view .body-content #build-page #build-metadata .committer img {
   max-width: 30px;
 }
-#build-metadata .current-build-menu .dropdown-menu {
+.job_view .body-content #build-page #build-metadata .current-build-menu .dropdown-menu {
   top: 28px;
 }
-.commit-url .trigger-icon {
-  font-size: 15px;
+.job_view .body-content #build-page .job-pre-console {
+  margin: 0;
 }
-.loading-icon {
+.job_view .body-content #build-page .console-output {
+  overflow-y: auto;
+  overflow-x: visible;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.job_view .body-content #build-page .console-output .loading-icon {
   margin-top: 20px;
   margin-left: 20px;
   color: #333;
 }
-/** job view styling **/
-body.job_view .body-content {
-  min-height: 300px;
-  overflow: visible;
+.job_view .body-content #build-page .console-output .prompt {
+  color: yellow;
+  margin-left: 5px;
 }
-.job-pre-console {
+.job_view .body-content #build-page .console-output .plus {
+  color: #070;
+  font-size: 10px;
+}
+.job_view .body-content #build-page .console-output .arrow {
+  color: #070;
+}
+.job_view .body-content #build-page .console-output .phase.collapsed .arrow {
+  margin-left: 2px;
+}
+.job_view .body-content #build-page .console-output .command.comment .title .prompt,
+.job_view .body-content #build-page .console-output .command.comment .title .command-text {
+  color: #70c;
+}
+.job_view .body-content #build-page .console-output .command > .title {
+  cursor: pointer;
+  padding-right: 10px;
+}
+.job_view .body-content #build-page .console-output .command > .title:hover {
+  background-color: #222;
+}
+.job_view .body-content #build-page .console-output .command > .title .meta {
+  color: #999;
+}
+.job_view .body-content #build-page .console-output .command > .title .meta time {
+  width: 41px;
+  display: inline-block;
+  text-align: right;
+}
+.job_view .body-content #build-page .console-output .command > .title .meta .plugin {
+  color: #09a;
+}
+.job_view .body-content #build-page .console-output,
+.job_view .body-content #build-page .console-output pre {
+  background-color: black;
+  font-family: monospace;
+  color: white;
+}
+.job_view .body-content #build-page .console-output pre {
+  padding: 0 0 0 5px;
   margin: 0;
+  border-radius: 0;
+  border-width: 0;
 }
-.footer {
+.job_view .body-content #build-page .console-output .phase {
+  margin-bottom: 10px;
+}
+.job_view .body-content #build-page .console-output .phase > .title {
+  background-color: #333;
+  padding: 5px 5px 5px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+.job_view .body-content #build-page .console-output .phase > .title .meta {
+  margin-right: 5px;
+}
+.job_view .body-content #build-page .console-output .phase:last-child {
+  margin-bottom: 0;
+}
+.job_view .body-content #build-page .build-list-header {
+  width: 90%;
+}
+.job_view .body-content #build-page #list-of-builds {
+  margin: 0;
+  overflow: auto;
+}
+.job_view .body-content #build-page #list-of-builds .build-list-item {
+  width: auto;
+  padding: 5px;
+  border-bottom: 1px solid #b5b3b3;
+}
+.job_view .body-content #build-page #list-of-builds .job-link {
+  display: inline-block;
+}
+.job_view .body-content #build-page #list-of-builds .committer {
+  display: inline-block;
+  padding: 0;
+}
+.job_view .body-content #build-page #list-of-builds .committer img {
+  margin-top: 4px;
+  height: 25px;
+  width: 25px;
+  max-width: inherit;
+}
+@media (max-width: 1400px) {
+  .job_view .body-content #build-page #list-of-builds .committer {
+    display: none;
+  }
+}
+.job_view .body-content #build-page #list-of-builds .branch {
+  display: block;
+}
+.job_view .body-content #build-page #list-of-builds .commit-url {
+  max-width: 416px;
+}
+.job_view .body-content #build-page #list-of-builds .time-info {
+  margin: 0 3px -3px;
+  text-align: right;
+}
+.job_view .body-content #build-page .failed:hover {
+  background-color: #fad8d5;
+}
+.job_view .body-content #build-page .failed.active {
+  border-left: 6px solid #e84135;
+  background-color: #f5ada7;
+}
+.job_view .body-content #build-page .errored:hover {
+  background-color: #fef7d7;
+}
+.job_view .body-content #build-page .errored.active {
+  border-left: 6px solid #fbda41;
+  background-color: #fef2be;
+}
+.job_view .body-content #build-page .passed:hover {
+  background-color: #deefd3;
+}
+.job_view .body-content #build-page .passed.active {
+  border-left: 6px solid #7bbf51;
+  background-color: #c2e1ae;
+}
+.job_view .body-content #build-page .running:hover {
+  background-color: #d4e8e9;
+}
+.job_view .body-content #build-page .running.active {
+  border-left: 6px solid #5eaaad;
+  background-color: #b2d7d8;
+}
+.job_view .body-content #build-page tr:hover {
+  background-color: #eee;
+}
+.job_view .body-content .job-title h3 .test-only-action {
+  color: green;
+}
+.job_view .body-content .job-title h3 .test-and-deploy-action {
+  color: #2900ff;
+}
+.job_view .body-content .job-link {
+  min-width: 80px;
+}
+.job_view .body-content .summary-icon {
+  display: none;
+}
+.job_view #spinner {
+  display: inherit;
+}
+.job_view .job-detail-sidebar {
+  right: 0;
+}
+.job_view .job-left-col div {
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.job_view .job-left-col {
+  left: 0;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+.job_view .wrap {
+  min-height: 0 !important;
+}
+.job_view footer {
+  display: none;
+}
+.job_view .footer {
   color: white;
   font-weight: bold;
   text-align: center;
@@ -9059,127 +9250,63 @@ body.job_view .body-content {
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
-#build-page a,
-#build-page .clickable {
-  color: black;
-  cursor: pointer;
+.job_view {
+  height: 100%;
 }
-#build-page a:hover,
-#build-page .clickable:hover {
-  text-decoration: none;
-  color: #999;
+.job_view .wrap {
+  height: 98%;
 }
-#build-page .footer a {
-  color: white;
+.job_view .wrap .content {
+  height: 100%;
 }
-.console-output {
-  overflow-y: auto;
-  overflow-x: visible;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  -webkit-flex: 1;
-  flex: 1;
+.job_view .wrap .content .body-content {
+  height: 100%;
 }
-.console-output .prompt {
-  color: yellow;
-  margin-left: 5px;
+.job_view .wrap .content .body-content > .row-fluid {
+  height: 100%;
 }
-.console-output .plus {
-  color: #070;
-  font-size: 10px;
+.job_view .wrap .content .body-content > .row-fluid .span12 {
+  height: 100%;
 }
-.console-output .arrow {
-  color: #070;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app {
+  height: 100%;
 }
-.console-output .phase.collapsed .arrow {
-  margin-left: 2px;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page {
+  height: 100%;
 }
-.console-output .command.comment .title .prompt,
-.console-output .command.comment .title .command-text {
-  color: #70c;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div {
+  height: 100%;
 }
-.console-output .command > .title {
-  cursor: pointer;
-  padding-right: 10px;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main {
+  height: 95%;
+  padding-bottom: 20px;
 }
-.console-output .command > .title:hover {
-  background-color: #222;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap {
+  height: 100%;
 }
-.console-output .command > .title .meta {
-  color: #999;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-left-col {
+  height: 100%;
 }
-.console-output .command > .title .meta time {
-  width: 41px;
-  display: inline-block;
-  text-align: right;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar {
+  height: 100%;
 }
-.console-output .command > .title .meta .plugin {
-  color: #09a;
-}
-.console-output,
-.console-output pre {
-  background-color: black;
-  font-family: monospace;
-  color: white;
-}
-.console-output pre {
-  padding: 0 0 0 5px;
-  margin: 0;
-  border-radius: 0;
-  border-width: 0;
-}
-.console-output .phase {
-  margin-bottom: 10px;
-}
-.console-output .phase > .title {
-  background-color: #333;
-  padding: 5px 5px 5px 10px;
-  margin-bottom: 5px;
-  cursor: pointer;
-}
-.console-output .phase > .title .meta {
-  margin-right: 5px;
-}
-.console-output .phase:last-child {
-  margin-bottom: 0;
-}
-body.job_view #spinner {
-  display: inherit;
-}
-body.job_view .job-detail-sidebar {
-  right: 0;
-}
-body.job_view .job-left-col div {
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-}
-body.job_view .job-left-col {
-  left: 0;
-  display: -webkit-flex;
-  display: flex;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-}
-body.job_view .wrap {
-  min-height: 0 !important;
-}
-body.job_view footer {
-  display: none;
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar #list-of-builds {
+  height: 96%;
 }
 @media (max-width: 768px) {
   pre.console-output {
     position: static;
     max-height: 500px;
   }
-  body.job_view #build-metadata .span3 {
+  .job_view #build-metadata .span3 {
     display: inline-block;
   }
-  body.job_view #build-metadata .span9 {
+  .job_view #build-metadata .span9 {
     width: 75%;
     float: right;
   }
-  body.job_view #list-of-builds .span6:first-child,
-  body.job_view #build-metadata .span6:first-child {
+  .job_view #list-of-builds .span6:first-child,
+  .job_view #build-metadata .span6:first-child {
     float: left;
   }
 }
@@ -10069,152 +10196,6 @@ h3 {
   font-size: 18px;
   line-height: 26px;
 }
-.job_view {
-  height: 100%;
-}
-.job_view .wrap {
-  height: 98%;
-}
-.job_view .wrap .content {
-  height: 100%;
-}
-.job_view .wrap .content .body-content {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main {
-  height: 95%;
-  padding-bottom: 20px;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-left-col {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar #list-of-builds {
-  height: 96%;
-}
-#build-page .job-title h3 .test-only-action {
-  color: green;
-}
-#build-page .job-title h3 .test-and-deploy-action {
-  color: #2900ff;
-}
-#build-page #list-of-builds {
-  overflow: auto;
-}
-#build-page #list-of-builds table {
-  margin-bottom: 0;
-}
-#build-page #list-of-builds table td {
-  vertical-align: middle;
-}
-#build-page #list-of-builds td.committer {
-  padding: 0;
-}
-#build-page #list-of-builds td.committer img {
-  margin-top: 4px;
-  height: 25px;
-  width: 25px;
-  max-width: inherit;
-}
-@media (max-width: 1400px) {
-  #build-page #list-of-builds td.committer {
-    display: none;
-  }
-}
-#build-page #list-of-builds tr {
-  background-color: transparent;
-  cursor: pointer;
-}
-#build-page #list-of-builds .active.failed {
-  background-color: #e84135;
-}
-#build-page #list-of-builds .active.errored {
-  background-color: #fbda41;
-}
-#build-page #list-of-builds .active.passed {
-  background-color: #7bbf51;
-}
-#build-page #list-of-builds .active.running {
-  background-color: #5eaaad;
-}
-#build-page #list-of-builds tr:hover {
-  background-color: #eee;
-}
-#build-page #list-of-builds .commit-url {
-  max-width: 416px;
-}
-#build-page #list-of-builds .commit-url .truncate {
-  max-width: 110px;
-}
-@media (min-width: 1400px) {
-  #build-page #list-of-builds .commit-url .truncate {
-    max-width: 136px;
-  }
-}
-@media (min-width: 1600px) {
-  #build-page #list-of-builds .commit-url .truncate {
-    max-width: 115px;
-  }
-}
-@media (min-width: 2048px) {
-  #build-page #list-of-builds .commit-url .truncate {
-    max-width: 276px;
-  }
-}
-#build-page #list-of-builds .finished-at {
-  min-width: 100px;
-  text-align: center;
-}
-@media (max-width: 1600px) {
-  #build-page #list-of-builds .finished-at {
-    min-width: 16px;
-  }
-}
-#build-page #list-of-builds .summary-icon {
-  display: inline-block;
-}
-@media (min-width: 1600px) {
-  #build-page #list-of-builds .summary-icon {
-    display: none;
-  }
-}
-#build-page #list-of-builds .summary-text {
-  display: none;
-}
-@media (min-width: 1600px) {
-  #build-page #list-of-builds .summary-text {
-    display: inline-block;
-  }
-}
-#build-page .job-link {
-  min-width: 80px;
-}
-#build-page .run-time {
-  text-align: center;
-}
-#build-page .summary-icon {
-  display: none;
-}
 .progress {
   margin-bottom: 0;
 }
@@ -10301,14 +10282,6 @@ footer p {
   margin-left: 10px;
   padding: 10px;
 }
-.build-list-item {
-  width: auto;
-  padding: 5px;
-  border-bottom: 1px solid #CCB;
-}
-.build-list-header {
-  width: 90%;
-}
 #commit-id,
 .build-item-committer {
   float: right;
@@ -10392,20 +10365,20 @@ a.repeats {
   margin: 0px;
 }
 .passed {
-  background-color: #c2e1ae;
-  border-color: #7bbf51;
+  border-left: 6px solid #7bbf51;
+  background-color: #f5faf1;
 }
 .failed {
-  background-color: #f5ada7;
-  border-color: #e84135;
+  border-left: 6px solid #e84135;
+  background-color: #fefafa;
 }
 .errored {
-  background-color: #fef2be;
-  border-color: #fbda41;
+  border-left: 6px solid #fbda41;
+  background-color: #fffcf0;
 }
 .running {
-  background-color: #b2d7d8;
-  border-color: #5eaaad;
+  border-left: 6px solid #5eaaad;
+  background-color: #e5f1f2;
 }
 .warning {
   background-color: #fffca9;

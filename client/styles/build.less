@@ -182,7 +182,7 @@
         .build-list-item {
           width: auto;
           padding: 5px;
-          border-bottom: 1px solid #CCB;
+          border-bottom: 1px solid #b5b3b3;
         }
 
         .job-link {
@@ -220,18 +220,50 @@
         }
       }
 
-      .active.failed {
-        background-color: @strider-bg-failed;
+      .failed {
+        &:hover {
+          background-color: lighten(@strider-bg-failed, 35%);
+        }
+
+        &.active {
+          border-left: 6px solid @strider-bg-failed;
+          background-color: lighten(@strider-bg-failed, 25%);
+        }
       }
-      .active.errored {
-        background-color: @strider-bg-errored;
+
+      .errored {
+        &:hover {
+          background-color: lighten(@strider-bg-errored, 30%);
+        }
+
+        &.active {
+          border-left: 6px solid @strider-bg-errored;
+          background-color: lighten(@strider-bg-errored, 25%);
+        }
       }
-      .active.passed {
-        background-color: @strider-bg-passed;
+
+      .passed {
+        &:hover {
+          background-color: lighten(@strider-bg-passed, 35%);
+        }
+
+        &.active {
+          border-left: 6px solid @strider-bg-passed;
+          background-color: lighten(@strider-bg-passed, 25%);
+        }
       }
-      .active.running {
-        background-color: @strider-bg-running;
+
+      .running {
+        &:hover {
+          background-color: lighten(@strider-bg-running, 35%);
+        }
+
+        &.active {
+          border-left: 6px solid @strider-bg-running;
+          background-color: lighten(@strider-bg-running, 25%);
+        }
       }
+
       tr:hover {
         background-color: #eee;
       }

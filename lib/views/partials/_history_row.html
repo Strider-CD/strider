@@ -1,9 +1,5 @@
 <div class="job-link">
   <a href="/[[ job.project.name || project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]">
-    <i ng-hide="job.nojobs"
-       data-toggle="tooltip"
-       title="[[ job.status ]]"
-       class="fa [[ statusClasses[job.status] ]]"></i>
     <span ng-show="job.nojobs">No job history</span>
     <span data-test="job-id">[[ job._id.substr(0,8) ]]</span>
   </a>
