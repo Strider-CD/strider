@@ -94,7 +94,8 @@
   [[job.status]]
 
   <span ng-if="job.status === 'running'">for</span>
-  <span ng-if="job.status !== 'running'">after</span>
+  <span ng-if="job.status === 'failed' || job.status === 'passed'">after</span>
+  <span ng-if="job.status === 'submitted'">and waiting to run</span>
 
   <span class="run-time" ng-switch="job.status">
     <time ng-switch-when="running" class="duration" since="[[ job.created ]]" ng-hide="job.nojobs"></time>
