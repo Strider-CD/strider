@@ -187,29 +187,33 @@
           display: inline-block;
         }
 
-        .committer {
-          display: inline-block;
-          padding: 0;
+        .commit-info {
+          .committer {
+            display: inline-block;
+            padding: 0;
 
-          img {
-            margin-top: 4px;
-            height: 25px;
-            width: 25px;
-            max-width: inherit;
+            img {
+              height: 20px;
+              width: 20px;
+              max-width: inherit;
+            }
+            @media (max-width: 1400px) {
+              display: none;
+            }
           }
-          @media (max-width: 1400px) {
-            display: none;
+
+          // For the commit message, we want to use the available space as well as possible.
+          // We attempt to use the best possible width for different screen sizes.
+          .commit-url {
+            display: inline-block;
+            max-width: 416px;
+            vertical-align: middle;
           }
         }
 
         .branch {
           display: block;
-        }
-
-        // For the commit message, we want to use the available space as well as possible.
-        // We attempt to use the best possible width for different screen sizes.
-        .commit-url {
-          max-width: 416px;
+          font-weight: bold;
         }
 
         .time-info {

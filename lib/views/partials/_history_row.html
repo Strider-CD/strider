@@ -9,33 +9,37 @@
   <span>[[ job.ref.branch ]]</span>
 </div>
 
-<div class="committer">
-  <div ng-show="job.trigger.author.image" ng-switch="!!job.trigger.author.url">
-    <img ng-switch-when="false" ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
-    <a ng-switch-default href="[[ job.trigger.author.url ]]" target="_blank">
-      <img ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
-    </a>
+<div class="commit-info">
+  <div class="committer">
+    <div ng-show="job.trigger.author.image" ng-switch="!!job.trigger.author.url">
+      <img ng-switch-when="false" ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
+      <a ng-switch-default href="[[ job.trigger.author.url ]]" target="_blank">
+        <img ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
+      </a>
+    </div>
   </div>
-</div>
 
-<div class="commit-url" ng-switch="!!job.trigger.url">
-  <span ng-switch-when="true">
-    <span class="small-text pull-left" title="[[ job.trigger.message ]]">
+  <div class="commit-url" ng-switch="!!job.trigger.url">
+    <span ng-switch-when="true">
+      <span class="small-text" title="[[ job.trigger.message ]]">
+        <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
+           title="[[ triggers[job.trigger.type].title ]]"></i>
+        [[ job.trigger.message ]]
+      </span>
+
+      <a data-toggle="tooltip" data-container="body"
+         title="Go to commit on project website"
+         href="[[ job.trigger.url ]]" target="_blank">
+        <i class="fa fa-external-link"></i>
+      </a>
+    </span>
+
+    <span class="small-text" ng-switch-default title="[[ job.trigger.message ]]">
       <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
          title="[[ triggers[job.trigger.type].title ]]"></i>
       [[ job.trigger.message ]]
     </span>
-
-    <a href="[[ job.trigger.url ]]" target="_blank">
-      <i class="fa fa-external-link"></i>
-    </a>
-  </span>
-
-  <span class="small-text pull-left" ng-switch-default title="[[ job.trigger.message ]]">
-    <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
-       title="[[ triggers[job.trigger.type].title ]]"></i>
-    [[ job.trigger.message ]]
-  </span>
+  </div>
 </div>
 
 <div class="time-info">
@@ -45,9 +49,10 @@
     <time ng-switch-when="submitted" class="duration" since="[[ job.started ]]" ng-hide="job.nojobs"></time>
     <time ng-switch-default class="duration" duration="[[ job.duration ]]" ng-hide="job.nojobs"></time>
   </span>
-    <span class="finished-at" ng-switch="job.status === 'running'">
+  <span class="finished-at" ng-switch="job.status === 'running'">
     <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
-      <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago summary-text"></time>
+      <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]"
+            class="timeago"></time>
     </span>
     <div ng-switch-when="true" class="progress-meter">
       <div class="progress progress-striped active progress-info">
