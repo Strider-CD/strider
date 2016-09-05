@@ -21,18 +21,16 @@
 
   <div class="commit-url" ng-switch="!!job.trigger.url">
     <span ng-switch-when="true">
+
       <span class="small-text" title="[[ job.trigger.message ]]">
         <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
            title="[[ triggers[job.trigger.type].title ]]"></i>
-        [[ job.trigger.message ]]
+        <a data-toggle="tooltip" data-container="body"
+           title="Go to commit on project website"
+           href="[[ job.trigger.url ]]" target="_blank">
+          [[ job.trigger.message ]]
+        </a>
       </span>
-
-      <a data-toggle="tooltip" data-container="body"
-         title="Go to commit on project website"
-         href="[[ job.trigger.url ]]" target="_blank">
-        <i class="fa fa-external-link"></i>
-      </a>
-    </span>
 
     <span class="small-text" ng-switch-default title="[[ job.trigger.message ]]">
       <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
@@ -42,7 +40,7 @@
   </div>
 </div>
 
-<div class="time-info">
+<div class="time-info muted">
   took
   <span class="run-time" ng-switch="job.status">
     <time ng-switch-when="running" class="duration" since="[[ job.created ]]" ng-hide="job.nojobs"></time>
