@@ -9010,176 +9010,305 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   padding: 10px 20px;
 }
 .build-error .alert {
-  margin-bottom: 5px;
-  padding: 0.3em 0.5em;
+  margin-bottom: 0;
+  border-radius: 0;
+  padding: 0.3em 0.8em;
 }
 .build-error .alert pre {
   margin-top: 0.2em;
 }
-#build-metadata {
-  border-radius: 5px;
-  padding: 0 10px;
-  margin-bottom: 5px;
+.job_view .body-content {
+  min-height: 300px;
+  overflow: visible;
 }
-#build-metadata .progress-meter {
+.job_view .body-content #build-page a,
+.job_view .body-content #build-page .clickable {
+  color: black;
+  cursor: pointer;
+}
+.job_view .body-content #build-page a:hover,
+.job_view .body-content #build-page .clickable:hover {
+  text-decoration: none;
+  color: #999;
+}
+.job_view .body-content #build-page .footer a {
+  color: white;
+}
+.job_view .body-content #build-page #build-metadata {
+  padding: 1em 0.8em;
+}
+.job_view .body-content #build-page #build-metadata .branch,
+.job_view .body-content #build-page #build-metadata .commit-url,
+.job_view .body-content #build-page #build-metadata .run-time time,
+.job_view .body-content #build-page #build-metadata .finished-at time {
+  line-height: 30px;
+}
+.job_view .body-content #build-page #build-metadata .progress-meter {
   min-width: 50px;
 }
-#build-metadata .job-link-id {
+.job_view .body-content #build-page #build-metadata .job-link-id {
   padding: 0 5px;
   vertical-align: super;
 }
-#build-metadata .committer img {
+.job_view .body-content #build-page #build-metadata .committer img {
   max-width: 30px;
 }
-#build-metadata .current-build-menu .dropdown-menu {
+.job_view .body-content #build-page #build-metadata .current-build-menu .dropdown-menu {
   top: 28px;
 }
-.commit-url .trigger-icon {
-  font-size: 15px;
+.job_view .body-content #build-page .job-pre-console {
+  margin: 0;
 }
-.loading-icon {
+.job_view .body-content #build-page .console-output {
+  overflow-y: auto;
+  overflow-x: visible;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.job_view .body-content #build-page .console-output .loading-icon {
   margin-top: 20px;
   margin-left: 20px;
   color: #333;
 }
-/** job view styling **/
-body.job_view .body-content {
-  min-height: 300px;
-  overflow: visible;
-}
-.job-pre-console {
-  margin: 0;
-}
-.footer {
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding-bottom: 2px;
-  background-color: #444;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-}
-#build-page a,
-#build-page .clickable {
-  color: black;
-  cursor: pointer;
-}
-#build-page a:hover,
-#build-page .clickable:hover {
-  text-decoration: none;
-  color: #999;
-}
-#build-page .footer a {
-  color: white;
-}
-.console-output {
-  overflow-y: auto;
-  overflow-x: visible;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  -webkit-flex: 1;
-  flex: 1;
-}
-.console-output .prompt {
+.job_view .body-content #build-page .console-output .prompt {
   color: yellow;
   margin-left: 5px;
 }
-.console-output .plus {
+.job_view .body-content #build-page .console-output .plus {
   color: #070;
   font-size: 10px;
 }
-.console-output .arrow {
+.job_view .body-content #build-page .console-output .arrow {
   color: #070;
 }
-.console-output .phase.collapsed .arrow {
+.job_view .body-content #build-page .console-output .phase.collapsed .arrow {
   margin-left: 2px;
 }
-.console-output .command.comment .title .prompt,
-.console-output .command.comment .title .command-text {
+.job_view .body-content #build-page .console-output .command.comment .title .prompt,
+.job_view .body-content #build-page .console-output .command.comment .title .command-text {
   color: #70c;
 }
-.console-output .command > .title {
+.job_view .body-content #build-page .console-output .command > .title {
   cursor: pointer;
   padding-right: 10px;
 }
-.console-output .command > .title:hover {
+.job_view .body-content #build-page .console-output .command > .title:hover {
   background-color: #222;
 }
-.console-output .command > .title .meta {
+.job_view .body-content #build-page .console-output .command > .title .meta {
   color: #999;
 }
-.console-output .command > .title .meta time {
+.job_view .body-content #build-page .console-output .command > .title .meta time {
   width: 41px;
   display: inline-block;
   text-align: right;
 }
-.console-output .command > .title .meta .plugin {
+.job_view .body-content #build-page .console-output .command > .title .meta .plugin {
   color: #09a;
 }
-.console-output,
-.console-output pre {
+.job_view .body-content #build-page .console-output,
+.job_view .body-content #build-page .console-output pre {
   background-color: black;
   font-family: monospace;
   color: white;
 }
-.console-output pre {
+.job_view .body-content #build-page .console-output pre {
   padding: 0 0 0 5px;
   margin: 0;
   border-radius: 0;
   border-width: 0;
 }
-.console-output .phase {
-  margin-bottom: 10px;
+.job_view .body-content #build-page .console-output .phase {
+  margin-bottom: 2px;
 }
-.console-output .phase > .title {
+.job_view .body-content #build-page .console-output .phase:last-child {
+  margin-bottom: 0;
+}
+.job_view .body-content #build-page .console-output .phase > .title {
   background-color: #333;
   padding: 5px 5px 5px 10px;
   margin-bottom: 5px;
   cursor: pointer;
 }
-.console-output .phase > .title .meta {
+.job_view .body-content #build-page .console-output .phase > .title .meta {
   margin-right: 5px;
 }
-.console-output .phase:last-child {
-  margin-bottom: 0;
+.job_view .body-content #build-page .build-list-header {
+  width: 90%;
 }
-body.job_view #spinner {
+.job_view .body-content #build-page #list-of-builds {
+  margin: 0;
+  overflow: auto;
+}
+.job_view .body-content #build-page #list-of-builds .build-list-item {
+  width: auto;
+  padding: 5px;
+  border-bottom: 1px solid #b5b3b3;
+}
+.job_view .body-content #build-page #list-of-builds .job-link {
+  display: inline-block;
+  font-family: monospace;
+}
+.job_view .body-content #build-page #list-of-builds .commit-info .committer {
+  display: inline-block;
+  padding: 0;
+}
+.job_view .body-content #build-page #list-of-builds .commit-info .committer img {
+  height: 20px;
+  width: 20px;
+  max-width: inherit;
+}
+@media (max-width: 1400px) {
+  .job_view .body-content #build-page #list-of-builds .commit-info .committer {
+    display: none;
+  }
+}
+.job_view .body-content #build-page #list-of-builds .commit-info .commit-url {
+  display: inline-block;
+  max-width: 416px;
+  vertical-align: middle;
+}
+.job_view .body-content #build-page #list-of-builds .branch {
+  display: block;
+  font-weight: bold;
+}
+.job_view .body-content #build-page #list-of-builds .time-info {
+  margin: 0 3px -3px;
+  text-align: right;
+}
+.job_view .body-content #build-page #list-of-builds .progress {
+  margin-bottom: 6px;
+}
+.job_view .body-content #build-page .failed:hover {
+  background-color: #fad8d5;
+}
+.job_view .body-content #build-page .failed.active {
+  border-left: 6px solid #e84135;
+  background-color: #f5ada7;
+}
+.job_view .body-content #build-page .errored:hover {
+  background-color: #fef7d7;
+}
+.job_view .body-content #build-page .errored.active {
+  border-left: 6px solid #fbda41;
+  background-color: #fef2be;
+}
+.job_view .body-content #build-page .passed:hover {
+  background-color: #deefd3;
+}
+.job_view .body-content #build-page .passed.active {
+  border-left: 6px solid #7bbf51;
+  background-color: #c2e1ae;
+}
+.job_view .body-content #build-page .running:hover {
+  background-color: #d4e8e9;
+}
+.job_view .body-content #build-page .running.active {
+  border-left: 6px solid #5eaaad;
+  background-color: #b2d7d8;
+}
+.job_view .body-content #build-page tr:hover {
+  background-color: #eee;
+}
+.job_view .body-content .job-title h3 .test-only-action {
+  color: green;
+}
+.job_view .body-content .job-title h3 .test-and-deploy-action {
+  color: #2900ff;
+}
+.job_view .body-content .job-link {
+  min-width: 80px;
+}
+.job_view .body-content .summary-icon {
+  display: none;
+}
+.job_view #spinner {
   display: inherit;
 }
-body.job_view .job-detail-sidebar {
+.job_view .job-detail-sidebar {
   right: 0;
 }
-body.job_view .job-left-col div {
+.job_view .job-left-col div {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
-body.job_view .job-left-col {
+.job_view .job-left-col {
   left: 0;
   display: -webkit-flex;
   display: flex;
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-body.job_view .wrap {
+.job_view .wrap {
   min-height: 0 !important;
 }
-body.job_view footer {
+.job_view footer {
   display: none;
+}
+.job_view .footer {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 2px;
+  background-color: #444;
+}
+.job_view {
+  height: 100%;
+}
+.job_view .wrap {
+  height: 98%;
+}
+.job_view .wrap .content {
+  height: 100%;
+}
+.job_view .wrap .content .body-content {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main {
+  height: 95%;
+  padding-bottom: 20px;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-left-col {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar {
+  height: 100%;
+}
+.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar #list-of-builds {
+  height: 96%;
 }
 @media (max-width: 768px) {
   pre.console-output {
     position: static;
     max-height: 500px;
   }
-  body.job_view #build-metadata .span3 {
+  .job_view #build-metadata .span3 {
     display: inline-block;
   }
-  body.job_view #build-metadata .span9 {
+  .job_view #build-metadata .span9 {
     width: 75%;
     float: right;
   }
-  body.job_view #list-of-builds .span6:first-child,
-  body.job_view #build-metadata .span6:first-child {
+  .job_view #list-of-builds .span6:first-child,
+  .job_view #build-metadata .span6:first-child {
     float: left;
   }
 }
@@ -9188,9 +9317,486 @@ body.job_view footer {
     position: static;
   }
 }
+.button {
+  cursor: pointer;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #d3d6db;
+  border-radius: 3px;
+  color: #222324;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  font-size: 14px;
+  height: 32px;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  line-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+  position: relative;
+  vertical-align: top;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  text-align: center;
+  white-space: nowrap;
+}
+.button:hover {
+  border-color: #aeb1b5;
+}
+.button:active,
+.button:focus,
+.button.is-active {
+  border-color: #1fc8db;
+  outline: none;
+}
+.button[disabled],
+.button.is-disabled {
+  background-color: #f5f7fa;
+  border-color: #d3d6db;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.button[disabled]::-moz-placeholder,
+.button.is-disabled::-moz-placeholder {
+  color: rgba(34, 35, 36, 0.3);
+}
+.button[disabled]::-webkit-input-placeholder,
+.button.is-disabled::-webkit-input-placeholder {
+  color: rgba(34, 35, 36, 0.3);
+}
+.button[disabled]:-moz-placeholder,
+.button.is-disabled:-moz-placeholder {
+  color: rgba(34, 35, 36, 0.3);
+}
+.button[disabled]:-ms-input-placeholder,
+.button.is-disabled:-ms-input-placeholder {
+  color: rgba(34, 35, 36, 0.3);
+}
+.button strong {
+  color: inherit;
+}
+.button small {
+  display: block;
+  font-size: 11px;
+  line-height: 1;
+  margin-top: 5px;
+}
+.button .icon:first-child,
+.button .tag:first-child {
+  margin-left: -2px;
+  margin-right: 4px;
+}
+.button .icon:last-child,
+.button .tag:last-child {
+  margin-left: 4px;
+  margin-right: -2px;
+}
+.button:hover,
+.button:focus,
+.button.is-active {
+  text-decoration: none;
+  color: #222324;
+}
+.button:active {
+  box-shadow: inset 0 1px 2px rgba(17, 17, 17, 0.2);
+}
+.button.is-white {
+  background-color: #fff;
+  border-color: transparent;
+  color: #111;
+}
+.button.is-white:hover,
+.button.is-white:focus,
+.button.is-white.is-active {
+  background-color: #e6e6e6;
+  border-color: transparent;
+  color: #111;
+}
+.button.is-white:active {
+  border-color: transparent;
+}
+.button.is-white.is-inverted {
+  background-color: #111;
+  color: #fff;
+}
+.button.is-white.is-inverted:hover {
+  background-color: #040404;
+}
+.button.is-white.is-loading:after {
+  border-color: transparent transparent #111 #111 !important;
+}
+.button.is-white.is-outlined {
+  background-color: transparent;
+  border-color: #fff;
+  color: #fff;
+}
+.button.is-white.is-outlined:hover,
+.button.is-white.is-outlined:focus {
+  background-color: #fff;
+  border-color: #fff;
+  color: #111;
+}
+.button.is-black {
+  background-color: #111;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-black:hover,
+.button.is-black:focus,
+.button.is-black.is-active {
+  background-color: black;
+  border-color: transparent;
+  color: #fff;
+}
+.button.is-black:active {
+  border-color: transparent;
+}
+.button.is-black.is-inverted {
+  background-color: #fff;
+  color: #111;
+}
+.button.is-black.is-inverted:hover {
+  background-color: #f2f2f2;
+}
+.button.is-black.is-loading:after {
+  border-color: transparent transparent #fff #fff !important;
+}
+.button.is-black.is-outlined {
+  background-color: transparent;
+  border-color: #111;
+  color: #111;
+}
+.button.is-black.is-outlined:hover,
+.button.is-black.is-outlined:focus {
+  background-color: #111;
+  border-color: #111;
+  color: #fff;
+}
+.button.is-light {
+  background-color: #f5f7fa;
+  border-color: transparent;
+  color: #69707a;
+}
+.button.is-light:hover,
+.button.is-light:focus,
+.button.is-light.is-active {
+  background-color: #d3dce9;
+  border-color: transparent;
+  color: #69707a;
+}
+.button.is-light:active {
+  border-color: transparent;
+}
+.button.is-light.is-inverted {
+  background-color: #69707a;
+  color: #f5f7fa;
+}
+.button.is-light.is-inverted:hover {
+  background-color: #5d636c;
+}
+.button.is-light.is-loading:after {
+  border-color: transparent transparent #69707a #69707a !important;
+}
+.button.is-light.is-outlined {
+  background-color: transparent;
+  border-color: #f5f7fa;
+  color: #f5f7fa;
+}
+.button.is-light.is-outlined:hover,
+.button.is-light.is-outlined:focus {
+  background-color: #f5f7fa;
+  border-color: #f5f7fa;
+  color: #69707a;
+}
+.button.is-dark {
+  background-color: #69707a;
+  border-color: transparent;
+  color: #f5f7fa;
+}
+.button.is-dark:hover,
+.button.is-dark:focus,
+.button.is-dark.is-active {
+  background-color: #51575f;
+  border-color: transparent;
+  color: #f5f7fa;
+}
+.button.is-dark:active {
+  border-color: transparent;
+}
+.button.is-dark.is-inverted {
+  background-color: #f5f7fa;
+  color: #69707a;
+}
+.button.is-dark.is-inverted:hover {
+  background-color: #e4e9f2;
+}
+.button.is-dark.is-loading:after {
+  border-color: transparent transparent #f5f7fa #f5f7fa !important;
+}
+.button.is-dark.is-outlined {
+  background-color: transparent;
+  border-color: #69707a;
+  color: #69707a;
+}
+.button.is-dark.is-outlined:hover,
+.button.is-dark.is-outlined:focus {
+  background-color: #69707a;
+  border-color: #69707a;
+  color: #f5f7fa;
+}
+.button.is-primary {
+  background-color: #1fc8db;
+  border-color: transparent;
+  color: white;
+}
+.button.is-primary:hover,
+.button.is-primary:focus,
+.button.is-primary.is-active {
+  background-color: #199fae;
+  border-color: transparent;
+  color: white;
+}
+.button.is-primary:active {
+  border-color: transparent;
+}
+.button.is-primary.is-inverted {
+  background-color: white;
+  color: #1fc8db;
+}
+.button.is-primary.is-inverted:hover {
+  background-color: #f2f2f2;
+}
+.button.is-primary.is-loading:after {
+  border-color: transparent transparent white white !important;
+}
+.button.is-primary.is-outlined {
+  background-color: transparent;
+  border-color: #1fc8db;
+  color: #1fc8db;
+}
+.button.is-primary.is-outlined:hover,
+.button.is-primary.is-outlined:focus {
+  background-color: #1fc8db;
+  border-color: #1fc8db;
+  color: white;
+}
+.button.is-info {
+  background-color: #42afe3;
+  border-color: transparent;
+  color: white;
+}
+.button.is-info:hover,
+.button.is-info:focus,
+.button.is-info.is-active {
+  background-color: #1f99d3;
+  border-color: transparent;
+  color: white;
+}
+.button.is-info:active {
+  border-color: transparent;
+}
+.button.is-info.is-inverted {
+  background-color: white;
+  color: #42afe3;
+}
+.button.is-info.is-inverted:hover {
+  background-color: #f2f2f2;
+}
+.button.is-info.is-loading:after {
+  border-color: transparent transparent white white !important;
+}
+.button.is-info.is-outlined {
+  background-color: transparent;
+  border-color: #42afe3;
+  color: #42afe3;
+}
+.button.is-info.is-outlined:hover,
+.button.is-info.is-outlined:focus {
+  background-color: #42afe3;
+  border-color: #42afe3;
+  color: white;
+}
+.button.is-success {
+  background-color: #97cd76;
+  border-color: transparent;
+  color: white;
+}
+.button.is-success:hover,
+.button.is-success:focus,
+.button.is-success.is-active {
+  background-color: #7bbf51;
+  border-color: transparent;
+  color: white;
+}
+.button.is-success:active {
+  border-color: transparent;
+}
+.button.is-success.is-inverted {
+  background-color: white;
+  color: #97cd76;
+}
+.button.is-success.is-inverted:hover {
+  background-color: #f2f2f2;
+}
+.button.is-success.is-loading:after {
+  border-color: transparent transparent white white !important;
+}
+.button.is-success.is-outlined {
+  background-color: transparent;
+  border-color: #97cd76;
+  color: #97cd76;
+}
+.button.is-success.is-outlined:hover,
+.button.is-success.is-outlined:focus {
+  background-color: #97cd76;
+  border-color: #97cd76;
+  color: white;
+}
+.button.is-warning {
+  background-color: #fce473;
+  border-color: transparent;
+  color: rgba(17, 17, 17, 0.5);
+}
+.button.is-warning:hover,
+.button.is-warning:focus,
+.button.is-warning.is-active {
+  background-color: #fbda41;
+  border-color: transparent;
+  color: rgba(17, 17, 17, 0.5);
+}
+.button.is-warning:active {
+  border-color: transparent;
+}
+.button.is-warning.is-inverted {
+  background-color: rgba(17, 17, 17, 0.5);
+  color: #fce473;
+}
+.button.is-warning.is-inverted:hover {
+  background-color: rgba(4, 4, 4, 0.5);
+}
+.button.is-warning.is-loading:after {
+  border-color: transparent transparent rgba(17, 17, 17, 0.5) rgba(17, 17, 17, 0.5) !important;
+}
+.button.is-warning.is-outlined {
+  background-color: transparent;
+  border-color: #fce473;
+  color: #fce473;
+}
+.button.is-warning.is-outlined:hover,
+.button.is-warning.is-outlined:focus {
+  background-color: #fce473;
+  border-color: #fce473;
+  color: rgba(17, 17, 17, 0.5);
+}
+.button.is-danger {
+  background-color: #ed6c63;
+  border-color: transparent;
+  color: white;
+}
+.button.is-danger:hover,
+.button.is-danger:focus,
+.button.is-danger.is-active {
+  background-color: #e84135;
+  border-color: transparent;
+  color: white;
+}
+.button.is-danger:active {
+  border-color: transparent;
+}
+.button.is-danger.is-inverted {
+  background-color: white;
+  color: #ed6c63;
+}
+.button.is-danger.is-inverted:hover {
+  background-color: #f2f2f2;
+}
+.button.is-danger.is-loading:after {
+  border-color: transparent transparent white white !important;
+}
+.button.is-danger.is-outlined {
+  background-color: transparent;
+  border-color: #ed6c63;
+  color: #ed6c63;
+}
+.button.is-danger.is-outlined:hover,
+.button.is-danger.is-outlined:focus {
+  background-color: #ed6c63;
+  border-color: #ed6c63;
+  color: white;
+}
+.button.is-link {
+  background-color: transparent;
+  border-color: transparent;
+  color: #69707a;
+  text-decoration: underline;
+}
+.button.is-link:hover,
+.button.is-link:focus {
+  background-color: #d3d6db;
+  color: #222324;
+}
+.button.is-small {
+  border-radius: 2px;
+  font-size: 11px;
+  height: 24px;
+  line-height: 16px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+.button.is-medium {
+  font-size: 18px;
+  height: 40px;
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.button.is-large {
+  font-size: 22px;
+  height: 48px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.button[disabled],
+.button.is-disabled {
+  opacity: 0.5;
+}
+.button.is-fullwidth {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+}
+.button.is-loading {
+  color: transparent !important;
+  pointer-events: none;
+}
+.button.is-loading:after {
+  left: 50%;
+  margin-left: -8px;
+  margin-top: -8px;
+  position: absolute;
+  top: 50%;
+  position: absolute !important;
+}
 .no-projects {
   margin-top: 20px;
   margin-bottom: 25px;
+}
+.project-list {
+  margin: 0;
 }
 .finished-at time {
   line-height: 27px;
@@ -9198,24 +9804,19 @@ body.job_view footer {
 .run-time time {
   line-height: 29px;
 }
+.icon.no-text {
+  margin-left: 0 !important;
+}
 #dashboard .finished-at .cancel-job {
   font-size: 18px;
   line-height: 36px;
 }
-#dashboard table tr .progress-meter {
-  margin-top: 10px;
-}
-#dashboard a,
-#dashboard .clickable {
+#dashboard a.clickable {
   cursor: pointer;
 }
-#dashboard a:hover,
-#dashboard .clickable:hover {
+#dashboard a.clickable:hover {
   text-decoration: none;
   color: #999;
-}
-#dashboard .btn:hover {
-  color: white;
 }
 #dashboard a.add-repo {
   color: #fff;
@@ -9223,12 +9824,175 @@ body.job_view footer {
 #dashboard .history {
   width: 70px;
 }
-#dashboard .last-builds tr td {
-  width: 10px;
-  height: 10px;
-  padding: 0;
+#dashboard #job-list-yours li,
+#dashboard #job-list-public li,
+#dashboard #job-list-yours td ~ td,
+#dashboard #job-list-public td ~ td {
+  background-color: #fff;
+  transition: .3s;
+  margin-bottom: 10px;
+  border-left: 6px solid #BBB;
+}
+#dashboard #job-list-yours .running,
+#dashboard #job-list-public .running {
+  border-left-width: 6px;
+  border-color: #5eaaad;
+  background-color: #b2d7d8;
+}
+#dashboard #job-list-yours .running:hover,
+#dashboard #job-list-public .running:hover {
+  background-color: #d4e8e9;
+}
+#dashboard #job-list-yours .passed,
+#dashboard #job-list-public .passed {
+  border-left-width: 6px;
+  border-color: #7bbf51;
+  background-color: #c2e1ae;
+}
+#dashboard #job-list-yours .passed:hover,
+#dashboard #job-list-public .passed:hover {
+  background-color: #deefd3;
+}
+#dashboard #job-list-yours .failed,
+#dashboard #job-list-public .failed {
+  border-left-width: 6px;
+  border-color: #e84135;
+  background-color: #f5ada7;
+}
+#dashboard #job-list-yours .failed:hover,
+#dashboard #job-list-public .failed:hover {
+  background-color: #fad8d5;
+}
+#dashboard #job-list-yours .errored,
+#dashboard #job-list-public .errored {
+  border-left-width: 6px;
+  border-color: #fbda41;
+  background-color: #fef2be;
+}
+#dashboard #job-list-yours .errored:hover,
+#dashboard #job-list-public .errored:hover {
+  background-color: #fffcf0;
+}
+.dashboard-row,
+#dashboard ul li {
+  padding: 10px;
+  position: relative;
   overflow: hidden;
-  border-top: none;
+}
+.dashboard-row .inline-block,
+#dashboard ul li .inline-block {
+  display: inline-block;
+}
+.dashboard-row .job-id,
+#dashboard ul li .job-id {
+  font-family: monospace;
+}
+.dashboard-row .btn-link,
+#dashboard ul li .btn-link {
+  color: #333;
+}
+.dashboard-row > a,
+#dashboard ul li > a,
+.dashboard-row > span,
+#dashboard ul li > span {
+  display: inline-block;
+  padding: 5px 10px;
+}
+.dashboard-row span.clickable,
+#dashboard ul li span.clickable,
+.dashboard-row a:not(.button),
+#dashboard ul li a:not(.button) {
+  color: black;
+  cursor: pointer;
+}
+.dashboard-row .github-link,
+#dashboard ul li .github-link {
+  margin-left: 5px;
+}
+.dashboard-row:hover .action-buttons > div,
+#dashboard ul li:hover .action-buttons > div {
+  visibility: visible;
+}
+.dashboard-row .small-text,
+#dashboard ul li .small-text {
+  display: inline-block;
+}
+.dashboard-row .action-buttons,
+#dashboard ul li .action-buttons {
+  width: 100px;
+  text-align: center;
+}
+.dashboard-row .action-buttons .btn-group,
+#dashboard ul li .action-buttons .btn-group {
+  padding-top: 4px;
+}
+.dashboard-row .progress-meter .progress,
+#dashboard ul li .progress-meter .progress {
+  margin-bottom: 0;
+}
+.dashboard-row .committer a,
+#dashboard ul li .committer a {
+  padding: 0;
+}
+.dashboard-row .committer img,
+#dashboard ul li .committer img {
+  width: 35px;
+  height: 35px;
+  max-width: inherit;
+  margin: 10px 10px 10px 0;
+}
+.dashboard-row .project-name a,
+#dashboard ul li .project-name a {
+  font-size: 18px;
+  line-height: 27px;
+  width: 100%;
+}
+.dashboard-row .run-time,
+#dashboard ul li .run-time {
+  text-align: center;
+}
+@media (max-width: 980px) {
+  #dashboard .triggered-by-header,
+  #dashboard .commit-url,
+  #dashboard .committer,
+  #dashboard .job-link a span {
+    display: none;
+  }
+}
+@media (max-width: 767px) {
+  #dashboard .finished-at {
+    display: none;
+  }
+  #build-page .job-title h3 {
+    margin-bottom: 0.5em;
+  }
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
+}
+@media (max-width: 650px) {
+  #dashboard {
+    overflow: auto;
+  }
+  #dashboard .deploy,
+  #dashboard .deploy-header,
+  #dashboard .refresh,
+  #dashboard .refresh-header,
+  #dashboard .configure,
+  #dashboard .configure-header,
+  #dashboard .committer,
+  #dashboard .committer-header,
+  #dashboard .github-header,
+  #dashboard .github-link {
+    display: none;
+  }
+}
+@media (max-width: 450px) {
+  #dashboard ul li .project-name a {
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 25px;
+  }
 }
 #manual-setup .general {
   margin-bottom: 10px;
@@ -9434,334 +10198,8 @@ h3 {
   font-size: 18px;
   line-height: 26px;
 }
-.job_view {
-  height: 100%;
-}
-.job_view .wrap {
-  height: 98%;
-}
-.job_view .wrap .content {
-  height: 100%;
-}
-.job_view .wrap .content .body-content {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main {
-  height: 95%;
-  padding-bottom: 20px;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-main .job-wrap .job-left-col {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar {
-  height: 100%;
-}
-.job_view .wrap .content .body-content > .row-fluid .span12 .app #build-page > div .job-detail-sidebar #list-of-builds {
-  height: 96%;
-}
-#build-page .job-title h3 .test-only-action {
-  color: green;
-}
-#build-page .job-title h3 .test-and-deploy-action {
-  color: #2900ff;
-}
-#build-page #list-of-builds {
-  overflow: auto;
-}
-#build-page #list-of-builds table {
-  margin-bottom: 0;
-}
-#build-page #list-of-builds table td {
-  vertical-align: middle;
-}
-#build-page #list-of-builds td.committer {
-  padding: 0;
-}
-#build-page #list-of-builds td.committer img {
-  margin-top: 4px;
-  height: 25px;
-  width: 25px;
-  max-width: inherit;
-}
-@media (max-width: 1400px) {
-  #build-page #list-of-builds td.committer {
-    display: none;
-  }
-}
-#build-page #list-of-builds tr {
-  background-color: transparent;
-  cursor: pointer;
-}
-#build-page #list-of-builds .active.failed {
-  background-color: #FFD2D0;
-}
-#build-page #list-of-builds .active.errored {
-  background-color: #DDD;
-}
-#build-page #list-of-builds .active.passed {
-  background-color: #CFFFD2;
-}
-#build-page #list-of-builds .active.running {
-  background-color: #D7F3FF;
-}
-#build-page #list-of-builds tr:hover {
-  background-color: #eee;
-}
-#build-page #list-of-builds .commit-url {
-  max-width: 416px;
-}
-#build-page #list-of-builds .commit-url .truncate {
-  max-width: 110px;
-}
-@media (min-width: 1400px) {
-  #build-page #list-of-builds .commit-url .truncate {
-    max-width: 136px;
-  }
-}
-@media (min-width: 1600px) {
-  #build-page #list-of-builds .commit-url .truncate {
-    max-width: 115px;
-  }
-}
-@media (min-width: 2048px) {
-  #build-page #list-of-builds .commit-url .truncate {
-    max-width: 276px;
-  }
-}
-#build-page #list-of-builds .finished-at {
-  min-width: 100px;
-  text-align: center;
-}
-@media (max-width: 1600px) {
-  #build-page #list-of-builds .finished-at {
-    min-width: 16px;
-  }
-}
-#build-page #list-of-builds .summary-icon {
-  display: inline-block;
-}
-@media (min-width: 1600px) {
-  #build-page #list-of-builds .summary-icon {
-    display: none;
-  }
-}
-#build-page #list-of-builds .summary-text {
-  display: none;
-}
-@media (min-width: 1600px) {
-  #build-page #list-of-builds .summary-text {
-    display: inline-block;
-  }
-}
-#build-page .job-link {
-  min-width: 80px;
-}
-#build-page .run-time {
-  text-align: center;
-}
-#build-page .summary-icon {
-  display: none;
-}
-.last-builds {
-  border-collapse: separate;
-  border-spacing: 2px;
-  margin: 9px;
-}
-.last-builds .status-passed {
-  background-color: #CFFFD2;
-}
-.last-builds .status-failed {
-  background-color: #FFD2D0;
-}
-.last-builds .status-errored {
-  background-color: #DDD;
-}
 .progress {
   margin-bottom: 0;
-}
-.dashboard-row,
-#dashboard table tr {
-  padding: 10px 0;
-}
-.dashboard-row .action-buttons div,
-#dashboard table tr .action-buttons div {
-  visibility: hidden;
-}
-.dashboard-row td,
-#dashboard table tr td {
-  padding: 10px 0;
-  position: relative;
-  font-size: 16px;
-}
-.dashboard-row td a:hover,
-#dashboard table tr td a:hover {
-  text-decoration: none;
-}
-.dashboard-row td > a,
-#dashboard table tr td > a,
-.dashboard-row td > span,
-#dashboard table tr td > span {
-  display: inline-block;
-  padding: 5px 10px;
-}
-.dashboard-row span.clickable,
-#dashboard table tr span.clickable,
-.dashboard-row a,
-#dashboard table tr a {
-  color: black;
-  cursor: pointer;
-}
-.dashboard-row .github-link,
-#dashboard table tr .github-link {
-  width: 1px;
-}
-.dashboard-row:hover .action-buttons > div,
-#dashboard table tr:hover .action-buttons > div {
-  visibility: visible;
-}
-.dashboard-row .small-text,
-#dashboard table tr .small-text {
-  display: inline-block;
-}
-.dashboard-row .action-buttons,
-#dashboard table tr .action-buttons {
-  width: 100px;
-  text-align: center;
-}
-.dashboard-row .action-buttons .btn-group,
-#dashboard table tr .action-buttons .btn-group {
-  padding-top: 4px;
-}
-.dashboard-row .progress-meter .progress,
-#dashboard table tr .progress-meter .progress {
-  margin-bottom: 0;
-}
-.dashboard-row .committer a,
-#dashboard table tr .committer a {
-  padding: 0;
-}
-.dashboard-row .committer img,
-#dashboard table tr .committer img {
-  width: 35px;
-  height: 35px;
-  max-width: inherit;
-  margin-bottom: -13px;
-  margin-top: -1px;
-}
-.dashboard-row .project-name a,
-#dashboard table tr .project-name a {
-  font-size: 18px;
-  line-height: 27px;
-  width: 100%;
-}
-.dashboard-row .run-time,
-#dashboard table tr .run-time {
-  text-align: center;
-}
-.dashboard-row i,
-#dashboard table tr i {
-  font-size: 150%;
-}
-.dashboard-row .commit-url,
-#dashboard table tr .commit-url {
-  max-width: 300px;
-  overflow: hidden;
-}
-.dashboard-row .clickable i:hover,
-#dashboard table tr .clickable i:hover,
-.dashboard-row a:hover,
-#dashboard table tr a:hover {
-  color: #aaa;
-}
-.dashboard-row .finished-at,
-.dashboard-row .refresh,
-.dashboard-row .commit-url,
-.dashboard-row .committer,
-.dashboard-row .deploy,
-.dashboard-row .configure,
-.dashboard-row .run-time,
-.dashboard-row .job-link {
-  width: 1px;
-  white-space: nowrap;
-}
-@media (max-width: 1304px) {
-  #dashboard .history,
-  #dashboard .job-link a span {
-    display: none;
-  }
-}
-@media (max-width: 980px) {
-  #dashboard .triggered-by-header,
-  #dashboard .commit-url,
-  #dashboard .job-link a span {
-    display: none;
-  }
-}
-@media (min-width: 769px) {
-  #dashboard .finished-at,
-  #dashboard .refresh,
-  #dashboard .commit-url,
-  #dashboard .committer,
-  #dashboard .deploy,
-  #dashboard .configure,
-  #dashboard .run-time,
-  #dashboard .job-link {
-    width: 1px;
-    white-space: nowrap;
-  }
-}
-@media (max-width: 767px) {
-  #dashboard .finished-at {
-    display: none;
-  }
-  #build-page .job-title h3 {
-    margin-bottom: 0.5em;
-  }
-  .navbar-fixed-top {
-    margin-bottom: 0;
-  }
-}
-@media (max-width: 650px) {
-  #dashboard {
-    overflow: auto;
-  }
-  #dashboard .deploy,
-  #dashboard .deploy-header,
-  #dashboard .refresh,
-  #dashboard .refresh-header,
-  #dashboard .configure,
-  #dashboard .configure-header,
-  #dashboard .committer,
-  #dashboard .committer-header,
-  #dashboard .github-header,
-  #dashboard .github-link {
-    display: none;
-  }
-}
-@media (max-width: 450px) {
-  #dashboard table tr .project-name a {
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 25px;
-  }
 }
 .configure-action i {
   margin-top: 4px;
@@ -9784,16 +10222,19 @@ img.manual_setup {
   background: #EE6363;
 }
 .success-text {
-  color: #46a546;
+  color: #7bbf51;
 }
 .failure-text {
-  color: #9d261d;
+  color: #e84135;
 }
 .error-text {
-  color: #999;
+  color: #fbda41;
+}
+.running-text {
+  color: #5eaaad;
 }
 .waiting-text {
-  color: #0af;
+  color: #666;
 }
 footer {
   border-top: 1px solid #ddd;
@@ -9836,23 +10277,11 @@ footer p {
 .job-notice {
   float: right;
 }
-#build-metadata {
-  padding: 8px;
-  border-radius: 3px;
-}
 #build-detail-buttons {
   border: 1px solid;
   border-radius: 3px;
   margin-left: 10px;
   padding: 10px;
-}
-.build-list-item {
-  width: auto;
-  padding: 5px;
-  border-bottom: 1px solid #CCB;
-}
-.build-list-header {
-  width: 90%;
 }
 #commit-id,
 .build-item-committer {
@@ -9937,28 +10366,32 @@ a.repeats {
   margin: 0px;
 }
 .passed {
-  background-color: #CFFFD2;
+  border-left: 6px solid #7bbf51;
+  background-color: #f5faf1;
 }
 .failed {
-  background-color: #FFD2D0;
+  border-left: 6px solid #e84135;
+  background-color: #fefafa;
 }
 .errored {
-  background-color: #DDD;
+  border-left: 6px solid #fbda41;
+  background-color: #fffcf0;
 }
 .running {
-  background-color: #D7F3FF;
+  border-left: 6px solid #5eaaad;
+  background-color: #e5f1f2;
 }
 .warning {
   background-color: #fffca9;
 }
 .submitted {
-  background-color: #D7F3FF;
+  background-color: #5eaaad;
 }
 .repeated.passed {
-  background-color: #CFFFD2;
+  background-color: #7bbf51;
 }
 .repeated.failed {
-  background-color: #FFD2D0;
+  background-color: #e84135;
 }
 td.screenshot img {
   width: 40px;
@@ -10259,3 +10692,4 @@ span.underline {
   border-radius: 3px;
   border: 1px solid transparent;
 }
+/*# sourceMappingURL=styles.css.map */

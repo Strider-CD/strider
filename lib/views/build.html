@@ -48,8 +48,13 @@
                 <i class="fa fa-[[ project.provider.id ]]"></i>
               </a>
               {% if currentUser %}
-                <a href="/[[ project.name ]]/config" ng-hide="job.project.access_level < 2" title="Configure" class="btn btn-default pull-right">
-                  <i class="fa fa-wrench"></i> Configure
+                <a href="/[[ project.name ]]/config" ng-hide="job.project.access_level < 2" title="Configure" class="button is-dark is-outlined pull-right">
+                  <span class="icon">
+                    <i class="fa fa-wrench"></i>
+                  </span>
+                  <span>
+                    Configure
+                  </span>
                 </a>
               {% endif %}
             </h3>
