@@ -183,15 +183,9 @@ To build the documentation run `npm run docs` and the documentation will be acce
 
 ## Support & Help
 
-We are very responsive to Github Issues - please think of them as a message board for the project!
+We are responsive to Github Issues - please don't hesitate submitting your issues here!
 
-### IRC Channel
-
-You can find us on [irc.freenode.net in #strider][irc].
-
-If nobody is responding, don't leave immediately. Someone will eventually respond. If you don't want to wait please create a Github issue! Many Strider contributors don't use IRC at all, but will respond pretty quickly to new Github Issues.
-
-For a view of what's going on with the project, check out our boards by setting up [ZenBoard] and visiting the "Boards" page.
+For live help check out Strider's [Gitter].
 
 [logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
 [build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
@@ -228,8 +222,7 @@ For a view of what's going on with the project, check out our boards by setting 
 [git]: http://git-scm.com/
 [nodejs]: http://nodejs.org/
 [npm]: https://docs.npmjs.com/getting-started/installing-node
-[ZenBoard]: https://www.zenhub.io/
-[irc]: https://www.irccloud.com/#!/ircs://irc.freenode.net:6697/%23strider
+[Gitter]: https://gitter.im/Strider-CD
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
 [gitter-badge]: https://img.shields.io/badge/GITTER-join%20chat-green.svg
