@@ -9147,27 +9147,30 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 }
 .job_view .body-content #build-page #list-of-builds .job-link {
   display: inline-block;
+  font-family: monospace;
 }
-.job_view .body-content #build-page #list-of-builds .committer {
+.job_view .body-content #build-page #list-of-builds .commit-info .committer {
   display: inline-block;
   padding: 0;
 }
-.job_view .body-content #build-page #list-of-builds .committer img {
-  margin-top: 4px;
-  height: 25px;
-  width: 25px;
+.job_view .body-content #build-page #list-of-builds .commit-info .committer img {
+  height: 20px;
+  width: 20px;
   max-width: inherit;
 }
 @media (max-width: 1400px) {
-  .job_view .body-content #build-page #list-of-builds .committer {
+  .job_view .body-content #build-page #list-of-builds .commit-info .committer {
     display: none;
   }
 }
+.job_view .body-content #build-page #list-of-builds .commit-info .commit-url {
+  display: inline-block;
+  max-width: 416px;
+  vertical-align: middle;
+}
 .job_view .body-content #build-page #list-of-builds .branch {
   display: block;
-}
-.job_view .body-content #build-page #list-of-builds .commit-url {
-  max-width: 416px;
+  font-weight: bold;
 }
 .job_view .body-content #build-page #list-of-builds .time-info {
   margin: 0 3px -3px;
