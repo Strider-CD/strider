@@ -67,14 +67,14 @@
   <div class="commit-url span12" ng-switch="!!job.trigger.url">
     <span ng-switch-when="true">
       <a href="[[ job.trigger.url ]]" target="_blank">
-        <span class="small-text pull-left truncate" title="[[ job.trigger.message ]]">
+        <span class="small-text" title="[[ job.trigger.message ]]">
           <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
           [[ job.trigger.message ]]
         </span>
       </a>
     </span>
 
-    <span class="small-text pull-left" ng-switch-default title="[[ job.trigger.message ]]">
+    <span class="small-text" ng-switch-default title="[[ job.trigger.message ]]">
       <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip" title="[[ triggers[job.trigger.type].title ]]"></i>
       [[ job.trigger.message ]]
     </span>
