@@ -1,5 +1,25 @@
 # Changelog / Past releases
 
+## 1.9.0 - 2016-09-07
+
+The biggest change in this release is that Strider expects to be run with Node.js version greater
+or equal to 4.2.
+
+Range: https://github.com/Strider-CD/strider/compare/b211c45...fd0cd66
+
+- Expect Node >= 4.2
+- Update dependencies
+- Fix tests
+- Fix config merge behavior
+- Fix express deprecations
+- Order plugins alphabetically
+- Convert more routes to express router syntax
+- Don't create default config for runner plugins
+- Fix duplicate job listings
+- Jade to Pug deprecation fix
+- Improved logging, use `DEBUG=strider*` env
+- Dashboard & Build Page UI refresh ([#988](https://github.com/Strider-CD/strider/pull/988))
+
 ## 1.8.0 - 2016-07-20
 
 Range: https://github.com/Strider-CD/strider/compare/4ed868a6be4411507c6c1b75b2ae6fd242d08f58...f5051ab79fda22043773b19ac2713d8b10ab0f32
