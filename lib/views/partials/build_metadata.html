@@ -80,9 +80,9 @@
   </div>
 </div>
 
-<div class="row-fluid">
-  <div class="span12" ng-switch="job.status === 'running'">
-    <div ng-switch-when="true" class="progress-meter">
+<div class="row-fluid" ng-if="job.status === 'running'">
+  <div class="span12">
+    <div class="progress-meter">
       <div class="progress progress-striped active progress-info">
         <div class="bar" style="width:[[ (phases.indexOf(job.phase)+1)/phases.length*100 ]]%; max-width: 100%"></div>
       </div>
