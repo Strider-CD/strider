@@ -2,7 +2,10 @@
 
 ## 1.9.1 - 2016-09-09
 
-- Fix collaborator router returning 404
+- [BUGFIX] Fix collaborator router returning 404, see ([#990](https://github.com/Strider-CD/strider/pull/990))
+- [UI] Build Metadata: Move progress bar to the bottom
+- [UI] History Row: Hide took and / in certain states
+- [DEV] Build client scripts on prepublish
 
 ## 1.9.0 - 2016-09-07
 
