@@ -1,5 +1,9 @@
 # Changelog / Past releases
 
+## 1.9.1 - 2016-09-09
+
+- Fix collaborator router returning 404
+
 ## 1.9.0 - 2016-09-07
 
 The biggest change in this release is that Strider expects to be run with Node.js version greater
