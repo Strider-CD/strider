@@ -1,5 +1,9 @@
 # Changelog / Past releases
 
+## 1.9.2 - 2016-09-13
+
+- [BUGFIX] HAve server us it's own version of ansi.js, see ([#991](https://github.com/Strider-CD/strider/pull/991))
+
 ## 1.9.1 - 2016-09-09
 
 - [BUGFIX] Fix collaborator router returning 404, see ([#990](https://github.com/Strider-CD/strider/pull/990))
