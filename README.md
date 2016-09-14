@@ -27,22 +27,6 @@ Strider is extremely customizable through plugins. Plugins can
 - create or modify user interfaces within Strider.
 - so much more! just use your imagination!
 
-## README Contents
-
-- [General requirements](#general-requirements)
-- [Running on Infrastructure](#running-on-infrastructure)
-    - [Configuring](#configuring)
-    - [Adding Users](#adding-initial-admin-user)
-    - [Starting Strider](#starting-strider)
-    - [Heroku](#strider-on-heroku)
-    - [Docker](#strider-in-docker)
-- [Advanced Topics](#advanced-topics)
-- [API Documentation](#api-documentation)
-- [Resources](#resources)
-    - [Strider Tutorial Series][resource-strider-futurestudio-tutorials]
-- [Support & Help](#support--help)
-- [Changelog][changelog]
-
 ## General Requirements
 
 - [nodejs] >= 4.2
