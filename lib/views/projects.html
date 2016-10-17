@@ -29,7 +29,7 @@
         {% for account in currentUser.accounts %}
           <li{% if loop.first %} class="active"{% endif %}>
             <a href="#account-{{ account.provider }}-{{ account.id }}" data-toggle="tab">
-              {% if providers[account.provider].inline_icon %}<i class="fa fa-{{ providers[account.provider].inline_icon }}"></i>{% endif %} 
+              {% if providers[account.provider].inline_icon %}<i class="fa fa-{{ providers[account.provider].inline_icon }}"></i>{% endif %}
               {{ account.title }}
             </a>
           </li>
@@ -72,8 +72,8 @@
 
           <div class="refresh-account">
             <form action="/projects" method="post">
-              <input type="hidden" name="refresh" value=[[ account.provider ]] />
-              <input type="hidden" name="aid" value=[[ account.id ]] />
+              <input type="hidden" name="refresh" value="[[ account.provider ]]" />
+              <input type="hidden" name="aid" value="[[ account.id ]]" />
               <button class="refresh btn btn-warning" ng-click="submit()">
                 Refresh Account <i class="fa fa-refresh"></i>
               </button>
