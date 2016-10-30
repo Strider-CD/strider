@@ -63,6 +63,7 @@
     "bcryptjs": "^2.1.0",
     "bluebird": "^3.4.1",
     "body-parser": "^1.10.0",
+    "chalk": "^1.1.3",
     "co-router": "^1.0.3",
     "compression": "^1.2.2",
     "connect-flash": "^0.1.1",
