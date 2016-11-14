@@ -77,7 +77,19 @@
                   {% else %}
                     {% include "partials/build_metadata.html" %}
                   {% endif %}
+
+                  <div class="build-error" ng-show="job.status === 'errored' && job.error">
+                    <div class="alert alert-error">
+                      <i class="fa fa-exclamation-triangle"></i>
+                      [[ job.error.message.substr(0,10000) ]]
+                      <a href="#" class="pull-right" ng-click="toggleErrorDetails()" ng-if="job.error.stack">
+                        <i class="fa fa-ellipsis-h"></i>
+                      </a>
+                      <pre ng-if="showErrorDetails" ng-show="job.error.stack">[[ job.error.stack ]]</pre>
+                    </div>
+                  </div>
                 </div>
+
                 <div class="row job-pre-console">
                   <div class="span12 job-pre-console-inner">
                     {% pluginblock JobPagePreConsole %}
@@ -105,17 +117,6 @@
                     {{ block.html | raw }}
                   </div>
                 {% endfor %}
-
-                <div class="build-error" ng-show="job.status === 'errored' && job.error">
-                  <div class="alert alert-error">
-                    <i class="fa fa-exclamation-triangle"></i>
-                    [[ job.error.message.substr(0,10000) ]]
-                    <a href="#" class="pull-right" ng-click="toggleErrorDetails()" ng-if="job.error.stack">
-                      <i class="fa fa-ellipsis-h"></i>
-                    </a>
-                    <pre ng-if="showErrorDetails" ng-show="job.error.stack">[[ job.error.stack ]]</pre>
-                  </div>
-                </div>
 
                 <div class="console-output">
                   <i class="fa fa-gear fa-light fa-spin loading-icon" ng-show="loading"></i>
