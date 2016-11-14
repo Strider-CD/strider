@@ -237,12 +237,12 @@ a.repeats {
   border-left: 6px solid @strider-bg-running;
   background-color: lighten(@strider-bg-running, 40%);
 }
-
 .warning {
   background-color: #fffca9;
 }
 .submitted {
-  background-color: @strider-bg-running;
+  background-color: lighten(@strider-bg-submitted, 20%);
+  border-left: 6px solid @strider-bg-submitted;
 }
 .repeated.passed {
   background-color: @strider-bg-passed;

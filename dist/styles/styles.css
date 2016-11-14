@@ -10385,7 +10385,8 @@ a.repeats {
   background-color: #fffca9;
 }
 .submitted {
-  background-color: #5eaaad;
+  background-color: #fffeff;
+  border-left: 6px solid #d4c3cc;
 }
 .repeated.passed {
   background-color: #7bbf51;
