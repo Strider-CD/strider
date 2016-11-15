@@ -103,7 +103,7 @@
     "strider-cli": "^1.4.1",
     "strider-custom": "^0.6.0",
     "strider-ecosystem-client": "^1.2.1",
-    "strider-email-notifier": "^0.4.2",
+    "strider-email-notifier": "^1.0.0",
     "strider-env": "^0.5.1",
     "strider-extension-loader": "^0.4.5",
     "strider-git": "^0.2.0",
