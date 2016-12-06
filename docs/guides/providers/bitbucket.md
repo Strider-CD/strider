@@ -1,23 +1,6 @@
-# Strider — How to Connect with BitBucket and Run Tests Automatically
+# How to Connect with BitBucket and Run Tests Automatically
 
-Intro
-
----
-
-## Strider Series Overview
-1. [Getting Started and Manually Add a Repository](http://futurestud.io/blog/strider-getting-started-and-manually-add-a-repository)
-2. [Configuration Guide and Available Options](http://futurestud.io/blog/strider-configuration-guide-and-available-options)
-3. Add GitHub Repository and Automatically Run Tests
-4. Add GitLab Repository and Automatically Run Tests
-5. Add BitBucket Repository and Automatically Run Tests
-6. Add Gogs Repository and Automatically Run Tests
-7. Configure and Activate Email Notifications
-8. Configure Webhooks
-
----
-
-## Introduction
-You noticed that Strider connects with multiple services to integrate code testing in your build and deployment pipepline. Besides GitHub and GitHab, Strider integrates Bitbucket. This guide shows you how to seamless combine both platforms.
+You noticed that Strider connects with multiple services to integrate code testing in your build and deployment pipeline. Besides GitHub and Gitlab, Strider integrates Bitbucket. This guide shows you how to seamless combine both platforms.
 
 
 ## Install Strider-Bitbucket Plugin
@@ -36,11 +19,11 @@ Creating the application provides the required information about your **Client K
 
 ![Bitbucket Application Information]()
 
-We need both values (client key and secret) to configure the Strider server for correct access to your Bitbucket repositories. 
+We need both values (client key and secret) to configure the Strider server for correct access to your Bitbucket repositories.
 
 
 ## Configure Strider Server
-A previous post about configuring Strider depicts the abilities to set the system configuration via environment variables or a config file. 
+A previous post about configuring Strider depicts the abilities to set the system configuration via environment variables or a config file.
 
 The bad news: [strider-bitbucket](https://github.com/Strider-CD/strider-bitbucket) ignores the configuration defined in `.striderrc` config file and requires you to configure the plugin key and secret via environment variables.
 
@@ -62,7 +45,7 @@ You can review the requested access. Click the **Grant access** button to allow 
 
 
 ## Add Bitbucket Repositories to Strider
-Select the project of your choice and click the **Add** button. Choose the project type and decide if you want to run the first project test right away. 
+Select the project of your choice and click the **Add** button. Choose the project type and decide if you want to run the first project test right away.
 
 ![Strider Add Project]()
 
@@ -72,7 +55,7 @@ Strider offers the options to start the first test or configure the project afte
 ## Run Tests Automatically
 Strider automatically adds the required webhooks for Bitbucket to get notified about any repository changes. These changes just include new pushes to the repository and pull requests.
 
-Make sure the hooks have been successfully created in Bitbucket. To do so, navigate to the Bitbucket project page and open the projects settings. In the settings navigation, select **Hooks**. 
+Make sure the hooks have been successfully created in Bitbucket. To do so, navigate to the Bitbucket project page and open the projects settings. In the settings navigation, select **Hooks**.
 
 ![Bitbucket Project Settings]()
 
@@ -81,5 +64,3 @@ Verify that the overview lists two hooks: **POST** and **Pull Request POST**. If
 
 ## Conclusion
 Strider offers plugins to integrate the platform with multiple services. Bitbucket is one of the platforms and connects seamless with the [strider-bitbucket]() plugin. Register your app on Bitbucket, configure your server with app key and app secret to authorize Strider with Bitbucket and you’re good to go.
-
-We want you have a smooth Strider experience. If you run into problems with the platform and connecting to Bitbucket, please let us know in the comments below or shoot out [@futurestud_io](https://twitter.com/futurestud_io). We’ll get in touch and help you make things work.

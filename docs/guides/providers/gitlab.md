@@ -1,22 +1,6 @@
-# Strider — How to Connect with GitLab and Run Tests Automatically
+# How to Connect with GitLab and Run Tests Automatically
 
-The previous article in this series of Strider posts guided you through the configuration of Strider with GitHub. This week we guide you on how to connect Strider with GitLab. Doesn’t matter if you’re connecting to a self-hosted GitLab instance or official [GitLab](https://gitlab.com) repositories.
-
-Let’s review already published articles in this series.
-
----
-
-## Strider Series Overview
-1. [Getting Started and Manually Add a Repository](http://futurestud.io/blog/strider-getting-started-and-manually-add-a-repository)
-2. [Configuration Guide and Available Options](http://futurestud.io/blog/strider-configuration-guide-and-available-options)
-3. Add GitHub Repository and Automatically Run Tests
-4. Add GitLab Repository and Automatically Run Tests
-5. Add BitBucket Repository and Automatically Run Tests
-6. Add Gogs Repository and Automatically Run Tests
-7. Configure and Activate Email Notifications
-8. Configure Webhooks
-
----
+This week we guide you on how to connect Strider with GitLab. Doesn’t matter if you’re connecting to a self-hosted GitLab instance or official [GitLab](https://gitlab.com) repositories.
 
 ## Introduction
 Strider integrates with multiple services and one of them is GitLab. Since version 6.2, the GitLab API offers functionality to integrate seamless with other services. To connect both platforms, we need to install Striders GitLab plugin, configure your user account with your GitLab API key and then add repositories.
@@ -67,7 +51,7 @@ Adding a GitLab repository to Strider doesn’t automatically create any webhook
 
 	https://my.strider.url/username/project-name
 
-Now open another tab in your browser and navigate to your GitLab server. Go to the project settings of the repository you just added to Strider. Open **Web Hooks** and paste the Strider project url into the `URL` input field. Additionally, add `/api/gitlab/webhook` to the url to request the correct Strider webhook url for the specified project. 
+Now open another tab in your browser and navigate to your GitLab server. Go to the project settings of the repository you just added to Strider. Open **Web Hooks** and paste the Strider project url into the `URL` input field. Additionally, add `/api/gitlab/webhook` to the url to request the correct Strider webhook url for the specified project.
 
 Your final webhook url looks like
 
