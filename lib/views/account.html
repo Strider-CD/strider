@@ -112,11 +112,11 @@
                         <label class="control-label"for="email">Account Email Address</label>
                       </div>
                       <div class="controls">
-                        <input class="xlarge" type="text" name="email" ng-model="user.email" />
+                        <input class="xlarge" type="text" name="email" ng-model="user.email" ng-disabled="user.isAdUser" />
                         <span class="help-inline email"></span>
                       </div>
                       <div class="actions">
-                        <button class="btn" ng-click="changeEmail()">Change Email</button>
+                        <button class="btn" ng-click="changeEmail()" ng-disabled="user.isAdUser">Change Email</button>
                       </div>
                     </fieldset>
                   </div>
@@ -134,7 +134,7 @@
                         <label class="control-label" for="password">New Password</label>
                       </div>
                       <div class="controls">
-                        <input class="xlarge" type="password" ng-minlength="8" name="password" ng-model="password">
+                        <input class="xlarge" type="password" ng-minlength="8" name="password" ng-model="password"  ng-disabled="user.isAdUser">
                         <span class="help-inline password"></span>
                         <span ng-show="passwordForm.password.$dirty && passwordForm.password.$error.minlength">Password must be longer than 8 characters</span>
                       </div>
@@ -142,12 +142,12 @@
                         <label class="control-label" for="password_confirm">Confirm Password</label>
                       </div>
                       <div class="controls">
-                        <input class="xlarge" type="password" name="confirm_password" ng-model="confirm_password">
+                        <input class="xlarge" type="password" name="confirm_password" ng-model="confirm_password"  ng-disabled="user.isAdUser">
                         <span class="help-inline password-confirm"></span>
                         <span ng-show="passwordForm.password.$valid && confirm_password !== password">Passwords must match</span>
                       </div>
                       <div class="actions">
-                        <button class="btn" ng-click="changePassword()" ng-disabled="!passwordForm.$valid || confirm_password !== password">Change Password</button>
+                        <button class="btn" ng-click="changePassword()" ng-disabled="!passwordForm.$valid || confirm_password !== password" ng-disabled="user.isAdUser">Change Password</button>
                       </div>
                     </fieldset>
                   </div>
