@@ -123,7 +123,7 @@ If you want to use idap authorization, you can set the ldap config like:
     "ad_username": username,
     "ad_password": password,
     "ad_adminDN": dnString
-}gi
+ }
 ```
 
 ### Starting Strider
