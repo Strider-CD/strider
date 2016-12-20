@@ -117,12 +117,13 @@ See the [strider-cli] for more details.
 If you want to use idap authorization, you can set the ldap config like:    
 
 ```javascript
-    "ad_url": "ldap://host:port",
+ {
+    "ad_url": ldap://host:port,
     "ad_baseDN": dnString,
     "ad_username": username,
     "ad_password": password,
     "ad_adminDN": dnString
-}
+}}
 ```
 
 ### Starting Strider
