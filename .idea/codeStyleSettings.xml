@@ -7,9 +7,6 @@
         <JSCodeStyleSettings>
           <option name="USE_DOUBLE_QUOTES" value="false" />
         </JSCodeStyleSettings>
-        <MarkdownNavigatorCodeStyleSettings>
-          <option name="RIGHT_MARGIN" value="72" />
-        </MarkdownNavigatorCodeStyleSettings>
         <codeStyleSettings language="JavaScript">
           <indentOptions>
             <option name="INDENT_SIZE" value="2" />
