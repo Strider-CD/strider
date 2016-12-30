@@ -10,3 +10,6 @@
     - [Gitlab](guides/providers/gitlab.md)
     - [Bitbucket](guides/providers/bitbucket.md)
     - [Manual](guides/providers/manual.md)
+  - [Continuous Deployment]
+    - [Heroku](guides/continuous-deployment/heroku.md)
+    - [SSH](guides/continuous-deployment/ssh.md)
