@@ -9,3 +9,4 @@
     - [Github](guides/providers/github.md)
     - [Gitlab](guides/providers/gitlab.md)
     - [Bitbucket](guides/providers/bitbucket.md)
+    - [Manual](guides/providers/manual.md)
