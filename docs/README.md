@@ -19,3 +19,4 @@
     - [HipChat](guides/notifications/hipchat.md)
     - [GitHub Status](guides/notifications/github.md)
   - [Webhooks](guides/webhooks.md)
+  - [Create your own plugin](guides/create-plugin.md)
