@@ -18,3 +18,4 @@
     - [Slack](guides/notifications/slack.md)
     - [HipChat](guides/notifications/hipchat.md)
     - [GitHub Status](guides/notifications/github.md)
+  - [Webhooks](guides/webhooks.md)
