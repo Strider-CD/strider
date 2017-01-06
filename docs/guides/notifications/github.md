@@ -8,7 +8,7 @@ Outline
 - - -
 
 ## Install Strider-GitHub-Status Plugin
-If you read other articles in this series you know that Strider composes of plugins. Of course there is a plugin to report build status  to GitHub, too. The [strider-github-status](strider-github-status) plugin requires the **[strider-github](strider-github)** plugin to be already installed. In case you don’t have [Strider connected with GitHub]() already, you can follow our guide first and resume later.
+If you read other articles in this series you know that Strider composes of plugins. Of course there is a plugin to report build status  to GitHub, too. The [strider-github-status](https://github.com/Strider-CD/strider-github-status) plugin requires the **[strider-github](https://github.com/Strider-CD/strider-github)** plugin to be already installed. In case you don’t have [Strider connected with GitHub]() already, you can follow our guide first and resume later.
 
 Installed strider-github plugin? Awesome, let’s get our hands dirty and install the plugin to send statuses back to commits.
 
