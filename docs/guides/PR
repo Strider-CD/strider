@@ -1,5 +1,0 @@
-Solves the first point here https://github.com/Strider-CD/strider/issues/1007
-
-To discuss:
-- Add the section `series roundup`. IMHO we can remove this because `nav` substitute it.
-- Sections as `Webhooks` or `Create your own plugin` maybe deserve their own directory instead of being in `guides` root.
