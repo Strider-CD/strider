@@ -87,7 +87,7 @@ You might need to follow these instructions if you use any of these, please do s
 - [Gitlab][gitlab-config]  
 - [Heroku][heroku-config]  
 
-### Adding Initial Admin User Or LDAP authorization
+### Adding Initial Admin User
 
 `Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
 other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
@@ -112,18 +112,24 @@ OK? (y/n) [y]:
 22 Oct 21:21:01 - info: User added successfully! Enjoy.
 ```
 
-See the [strider-cli] for more details.
+See the [strider-cli] for more details.  
 
-If you want to use idap authorization, you can set the ldap config like:    
+If you want to connect to your ldap server to authorization  
+you can also add the `ldap.json` config file to project root  
+the config like so:  
 
 ```javascript
  {
-    "ad_url": ldap://host:port,
-    "ad_baseDN": dnString,
-    "ad_username": username,
-    "ad_password": password,
-    "ad_adminDN": dnString
+    "url": ldap://host:port,
+    "baseDN": dnString,
+    "username": username,
+    "password": password,
+    // If you want to set a admin group
+    "adminDN": dnString
  }
+```
+
+
 ```
 
 ### Starting Strider
