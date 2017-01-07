@@ -34,7 +34,23 @@ strider addUser
 ```
 
 This will bring up a prompt that will ask you some basic details about
-your first user. Make sure to makr the user as an admin for the `isAdmin` option.
+your first user. Make sure to makr the user as an admin for the `isAdmin` option.  
+
+If you want to connect to your ldap server to authorization  
+you can also add the `ldap.json` config file to project root  
+the config like so:  
+
+```javascript
+ {
+    "url": ldap://host:port,
+    "baseDN": dnString,
+    "username": username,
+    "password": password,
+    // If you want to set a admin group
+    "adminDN": dnString
+ }
+```
+
 
 ## Starting Strider
 

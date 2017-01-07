@@ -112,7 +112,25 @@ OK? (y/n) [y]:
 22 Oct 21:21:01 - info: User added successfully! Enjoy.
 ```
 
-See the [strider-cli] for more details.
+See the [strider-cli] for more details.  
+
+If you want to connect to your ldap server to authorization  
+you can also add the `ldap.json` config file to project root  
+the config like so:  
+
+```javascript
+ {
+    "url": ldap://host:port,
+    "baseDN": dnString,
+    "username": username,
+    "password": password,
+    // If you want to set a admin group
+    "adminDN": dnString
+ }
+```
+
+
+```
 
 ### Starting Strider
 
