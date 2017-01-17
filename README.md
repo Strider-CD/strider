@@ -129,9 +129,6 @@ the config like so:
  }
 ```
 
-
-```
-
 ### Starting Strider
 
 Once `Strider` has been installed and configured, it can be started with:
