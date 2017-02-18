@@ -1,5 +1,7 @@
 # ![Strider][logo]
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/Strider-CD/strider.svg)](https://greenkeeper.io/)
+
 [![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]  
 [![Gitter][gitter-badge]][gitter-badge-link]
 
