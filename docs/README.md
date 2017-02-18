@@ -20,3 +20,4 @@
     - [GitHub Status](guides/notifications/github.md)
   - [Webhooks](guides/webhooks.md)
   - [Create your own plugin](guides/create-plugin.md)
+  - [Internal API](api.md)
