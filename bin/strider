@@ -35,8 +35,9 @@ var cli = require('strider-cli')({
    * Database connection function
    */
   connect: function (cb) {
-    var mongoose = require('mongoose');
+    var mongoose = require('../lib/mongoose-shim');
     var mongodbUrl = require('../lib/config').db_uri;
+
     console.log('Connecting to MongoDB URL: %s\n', mongodbUrl);
     mongoose.connect(mongodbUrl, cb);
   },
