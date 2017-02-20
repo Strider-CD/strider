@@ -1,6 +1,7 @@
 # IntelliJ IDEA project files
 .idea/*
 !.idea/codeStyleSettings.xml
+.vscode/
 
 # NodeJS dependencies
 node_modules/
