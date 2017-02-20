@@ -1,3 +1,19 @@
+# Change Log
+
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+<a name="1.9.5"></a>
+## [1.9.5](https://github.com/Strider-CD/strider/compare/v1.9.3...v1.9.5) (2017-02-20)
+
+
+### Bug Fixes
+
+* cli use strict and semi ([a76bb0b](https://github.com/Strider-CD/strider/commit/a76bb0b))
+* context server name was undefined ([8e5cb5c](https://github.com/Strider-CD/strider/commit/8e5cb5c))
+* log error if bad mongo connection, resolves [#997](https://github.com/Strider-CD/strider/issues/997) ([04cdefb](https://github.com/Strider-CD/strider/commit/04cdefb))
+
+
+
 # Changelog / Past releases
 
 ## 1.9.2 - 2016-09-13
@@ -216,4 +232,3 @@ Major refactor, almost everything has changed:
 ## 1.3 [milestone](https://github.com/Strider-CD/strider/issues?milestone=2)
 - This seems like ages ago...
 - Records are blurry back here - look at the git log for information.
-

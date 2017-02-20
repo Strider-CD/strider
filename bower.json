@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.6.6",
+  "version": "1.9.5",
   "private": true,
   "dependencies": {
     "bootstrap": "~2.3.2",
@@ -10,7 +10,7 @@
     "codemirror": "3.18.0",
     "jquery-timeago": "1.3.0"
   },
-  "install" : {
+  "install": {
     "base": "vendor",
     "path": {
       "js": "{name}/js",
