@@ -58,6 +58,7 @@
     "docs:publish": "git-update-ghpages -b master Strider-CD/strider-cd.github.com _docpress",
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node debug bin/strider --no-cluster",
+    "release": "standard-version",
     "prepublish": "in-publish && npm run build || not-in-publish"
   },
   "dependencies": {
@@ -151,6 +152,7 @@
     "mocha": "^3.0.0",
     "node-mocks-http": "^1.2.4",
     "sinon": "^1.10.3",
+    "standard-version": "^4.0.0",
     "surge": "^0.18.0",
     "watchify": "^3.4.0",
     "wd": "^0.4.0"
