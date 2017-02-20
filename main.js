@@ -61,7 +61,7 @@ module.exports = function (extdir, c, callback) {
   // Context can also be accessed as a singleton within Strider as
   // common.context.
   var context = {
-    serverName: appConfig.strider_server_name,
+    serverName: appConfig.server_name,
     config: appConfig,
     enablePty: config.enablePty,
     emitter: common.emitter,
