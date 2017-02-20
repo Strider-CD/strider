@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+
 var cli = require('strider-cli')({
   version: require('../package.json').version,
   /*
