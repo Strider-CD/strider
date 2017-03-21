@@ -26,7 +26,7 @@ module.exports = function ($scope) {
     repo.really_remove = 'removing';
     repo.adding = false;
 
-    $.ajax(`/${repo.name}/`, {
+    $.ajax(`/${repo.project.name}/`, {
       type: 'DELETE',
       success: function () {
         repo.project = null;
