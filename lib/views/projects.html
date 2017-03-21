@@ -92,7 +92,7 @@
                 </a>
 
                 <span ng-switch="!!repo.project">
-                  <a class="view-jobs" ng-switch-when="true" href="/[[ repo.name ]]/">[[ repo.display_name ]]</a>
+                  <a class="view-jobs" ng-switch-when="true" href="/[[ repo.project.name ]]/">[[ repo.display_name ]]</a>
                   <span ng-switch-default>[[ repo.display_name ]]</span>
                 </span>
 
