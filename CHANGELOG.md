@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.9.6"></a>
+## [1.9.6](https://github.com/Strider-CD/strider/compare/v1.9.5...v1.9.6) (2017-03-21)
+
+
+### Bug Fixes
+
+* Name of project should link to config page ([7a7e9d9](https://github.com/Strider-CD/strider/commit/7a7e9d9))
+* Use correct name for project deletions. ([dc4ccb2](https://github.com/Strider-CD/strider/commit/dc4ccb2))
+* wording for error message ([0ce4b92](https://github.com/Strider-CD/strider/commit/0ce4b92))
+
+
+
 <a name="1.9.5"></a>
 ## [1.9.5](https://github.com/Strider-CD/strider/compare/v1.9.3...v1.9.5) (2017-02-20)
 
