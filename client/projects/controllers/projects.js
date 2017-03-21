@@ -37,9 +37,9 @@ module.exports = function ($scope) {
       error: function (xhr, ts, e) {
         repo.really_remove = false;
         if (xhr && xhr.responseText) {
-          $scope.error(`Error creating project for repo ${repo.name}: ${xhr.responseText}`, true);
+          $scope.error(`Error removing project for repo ${repo.name}: ${xhr.responseText}`, true);
         } else {
-          $scope.error(`Error creating project for repo ${repo.name}: ${e}`, true);
+          $scope.error(`Error removing project for repo ${repo.name}: ${e}`, true);
         }
       }
     });
