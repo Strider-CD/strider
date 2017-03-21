@@ -1,6 +1,6 @@
 'use strict';
 
-var $ = require('jquery');
+const $ = require('jquery');
 
 module.exports = function ($scope) {
   setTimeout(function () {
@@ -69,7 +69,7 @@ module.exports = function ($scope) {
         $scope.$digest();
       },
       error: function (xhr, ts, e) {
-        var error;
+        let error;
 
         if (xhr && xhr.responseText) {
           error = `Error creating project for repo ${repo.name}: ${xhr.responseText}`;
