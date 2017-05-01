@@ -1,8 +1,9 @@
 # ![Strider][logo]
 
-[![Backers on Open Collective](https://opencollective.com/strider/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/strider/sponsors/badge.svg)](#sponsors)
 [![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]  
 [![Gitter][gitter-badge]][gitter-badge-link]
+[![Backers on Open Collective][backers-badge-img]](#backers)
+[![Sponsors on Open Collective][sponsors-badge-img]](#sponsors)
 
 ---
 
@@ -268,6 +269,8 @@ For live help check out Strider's [Gitter].
 [dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
 [npm-badge-img]: https://badge.fury.io/js/strider.svg
 [npm-badge-link]: http://badge.fury.io/js/strider
+[backers-badge-img]: https://opencollective.com/strider/backers/badge.svg
+[sponsors-badge-img]: https://opencollective.com/strider/sponsors/badge.svg
 [screenshot]: /docs/screenshots/dashboard.jpg
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [mongolab]: https://mongolab.com/plans/pricing/
