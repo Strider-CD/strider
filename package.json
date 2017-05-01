@@ -59,7 +59,8 @@
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node debug bin/strider --no-cluster",
     "release": "standard-version",
-    "prepublish": "in-publish && npm run build || not-in-publish"
+    "prepublish": "in-publish && npm run build || not-in-publish",
+    "postinstall": "opencollective postinstall"
   },
   "dependencies": {
     "activedirectory": "^0.7.2",
@@ -90,6 +91,7 @@
     "mongoose": "^4.7.6",
     "morgan-debug": "^1.0.0",
     "node-rsa": "^0.4.0",
+    "opencollective": "^1.0.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path-to-regexp": "^1.0.2",
@@ -156,5 +158,10 @@
     "surge": "^0.18.0",
     "watchify": "^3.4.0",
     "wd": "^0.4.0"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/strider",
+    "logo": "https://opencollective.com/opencollective/logo.txt"
   }
 }
