@@ -4,7 +4,7 @@ You're probably reading this article, because you want to keep ownership of your
 
 ![Strider Open Source Continuous Integration & Deployment Server](http://futurestud.io/blog/content/images/2015/03/strider-logo.png)
 
-This is the first post in our series of blogposts about **Strider**. We’ll look into various topics around the platform. Starting at how to install and configure Strider, going to service integrations with GitHub, GitLab, Bitbucket, Gogs, Heroku, Slack and HipChat. Additionally, we have you covered with the configuration and activation of email notification for build statuses, GitHub build status repoorts and how to configure Strider webhooks.
+This is the first post in our series of blogposts about **Strider**. We’ll look into various topics around the platform. Starting at how to install and configure Strider, going to service integrations with GitHub, GitLab, Bitbucket, Gogs, Heroku, Slack and HipChat. Additionally, we have you covered with the configuration and activation of email notification for build statuses, GitHub build status reports and how to configure Strider webhooks.
 
 ---
 
