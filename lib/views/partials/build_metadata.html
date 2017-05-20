@@ -39,25 +39,22 @@
       <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]" class="timeago summary-text"></time>
     </span>
 
-    <div class="current-build-menu dropdown pull-right">
-      <div class="dropdown-toggle btn btn-link" data-toggle="dropdown">
-        <i class="fa fa-ellipsis-v"></i>
-      </div>
-
-      <ul class="dropdown-menu">
-        {% if currentUser %}
-          <li ng-show="job.status === 'running' || job.status === 'submitted'">
-            <a ng-click="cancelJob(job._id)">
-              <i class="fa fa-times"></i> Cancel Job
-            </a>
-          </li>
-        {% endif %}
-        <li>
-          <a ng-click="restartJob(job)" disabled="[[ job.status === 'running' || job.status === 'submitted' ? true : false ]]">
-            <i class="fa fa-retweet"></i> Restart Job
-          </a>
-        </li>
-      </ul>
+    <div class="current-build-actions pull-right">
+      {% if currentUser %}
+        <button type='button' class="button is-danger is-inverted is-outlined" ng-click="cancelJob(job._id)" ng-hide="job.status !== 'running' && job.status !== 'submitted'">
+          <span class="icon is-small">
+            <i class="fa fa-times text-muted"></i>
+          </span>
+          <span>Cancel</span>
+        </button>
+      {% endif %}
+      <!--
+      <a class='button' ng-click="restartJob(job)" disabled="[[ job.status === 'running' || job.status === 'submitted' ? true : false ]]">
+        <span class="icon is-small">
+          <i class="fa fa-retweet"></i>
+        </span>
+        <span>Restart Job</span>
+      </a>-->
     </div>
   </div>
 </div>
