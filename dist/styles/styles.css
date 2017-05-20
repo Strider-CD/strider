@@ -9210,6 +9210,9 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .job_view .body-content #build-page tr:hover {
   background-color: #eee;
 }
+.job_view .body-content .job-title h3 {
+  line-height: 34px;
+}
 .job_view .body-content .job-title h3 .test-only-action {
   color: green;
 }
