@@ -31,32 +31,40 @@
             {% pluginblock JobPagePreTitle %}{% endpluginblock %}
             <h3 class="clearfix">
               {% if currentUser %}
-                <span ng-hide="job.running || job.project.access_level < 1"
+                <button ng-hide="job.running || job.project.access_level < 1"
                       ng-click="startDeploy(job)"
-                      title="Retest &amp; Deploy"
-                      class="clickable test-and-deploy-action">
-                  <i class="fa fa-cloud-upload"></i>
-                </span>
-                <span ng-hide="job.running || job.project.access_level < 1"
+                      title="Test &amp; Deploy"
+                      class="button is-outlined test-and-deploy-action">
+                  <span class='icon'>
+                    <i class="fa fa-cloud-upload"></i>
+                  </span>
+                  <span>Test &amp; Deploy</span>
+                </button>
+                <button ng-hide="job.running || job.project.access_level < 1"
                       ng-click="startTest(job)"
-                      title="Retest" class="clickable test-only-action">
-                  <i class="fa fa-refresh"></i>
-                </span>
+                      title="Test" class="button is-outlined test-only-action">
+                  <span class='icon'>
+                    <i class="fa fa-refresh"></i>
+                  </span>
+                  <span>Test</span>
+                </button>
               {% endif %}
               <span class='job-repo'>{{ project.display_name }}</span>
-              <a href="[[ project.display_url ]]" target="_blank">
-                <i class="fa fa-[[ project.provider.id ]]"></i>
-              </a>
-              {% if currentUser %}
-                <a href="/[[ project.name ]]/config" ng-hide="job.project.access_level < 2" title="Configure" class="button is-dark is-outlined pull-right">
-                  <span class="icon">
-                    <i class="fa fa-wrench"></i>
-                  </span>
-                  <span>
-                    Configure
-                  </span>
+              <div class='pull-right'>
+                <a href="[[ project.display_url ]]" class='button'target="_blank">
+                  <i class="fa fa-[[ project.provider.id ]]"></i>
                 </a>
-              {% endif %}
+                {% if currentUser %}
+                  <a href="/[[ project.name ]]/config" ng-hide="job.project.access_level < 2" title="Configure" class="button is-dark is-outlined">
+                    <span class="icon">
+                      <i class="fa fa-wrench"></i>
+                    </span>
+                    <span>
+                      Configure
+                    </span>
+                  </a>
+                {% endif %}
+              </div>
             </h3>
             {% pluginblock JobPagePostTitle %}{% endpluginblock %}
           </div>
