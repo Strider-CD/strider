@@ -9377,12 +9377,11 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .button .icon.is-small,
 .button .icon.is-medium,
 .button .icon.is-large {
-  height: 1.5em;
-  width: 1.5em;
+  height: auto;
+  width: 1em;
 }
 .button .icon:first-child:not(:last-child) {
-  margin-left: calc(-1.375em);
-  margin-right: 0.1875em;
+  margin-right: 0.3875em;
 }
 .button .icon:last-child:not(:first-child) {
   margin-left: 0.1875em;
