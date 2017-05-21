@@ -9383,11 +9383,12 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
 .button .icon.is-small,
 .button .icon.is-medium,
 .button .icon.is-large {
-  height: auto;
-  width: 1em;
+  height: 1.5em;
+  width: 1.5em;
 }
 .button .icon:first-child:not(:last-child) {
-  margin-right: 0.3875em;
+  margin-left: calc(-1.375em);
+  margin-right: 0.1875em;
 }
 .button .icon:last-child:not(:first-child) {
   margin-left: 0.1875em;
@@ -10211,6 +10212,43 @@ input[type="submit"].button {
   line-height: 1;
   padding-bottom: 0.4em;
   padding-top: 0.35em;
+}
+.icon {
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 1.5rem;
+  width: 1.5rem;
+}
+.icon .fa {
+  font-size: 21px;
+}
+.icon.is-small {
+  height: 1rem;
+  width: 1rem;
+}
+.icon.is-small .fa {
+  font-size: 14px;
+}
+.icon.is-medium {
+  height: 2rem;
+  width: 2rem;
+}
+.icon.is-medium .fa {
+  font-size: 28px;
+}
+.icon.is-large {
+  height: 3rem;
+  width: 3rem;
+}
+.icon.is-large .fa {
+  font-size: 42px;
 }
 .no-projects {
   margin-top: 20px;
