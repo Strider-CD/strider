@@ -5,7 +5,7 @@ var _ = require('lodash');
 var md5 = require('md5');
 var bootbox = require('bootbox');
 var post = require('../../utils/post');
-var branches = global.branches || [];
+var environments = global.environments || [];
 var project = global.project || {};
 var plugins = global.plugins || {};
 var runners = global.runners || {};
@@ -22,8 +22,8 @@ function ConfigController($scope) {
   $scope.userConfigs = userConfigs;
   $scope.statusBlocks = statusBlocks;
   $scope.configured = {};
-  $scope.branch = $scope.project.branches[0];
-  $scope.branches = branches;
+  $scope.environment = $scope.project.environments[0];
+  $scope.environments = environments;
   $scope.disabled_plugins = {};
   $scope.configs = {};
   $scope.runnerConfigs = {};
@@ -74,14 +74,14 @@ function ConfigController($scope) {
         }
       },
 
-      routeConfigPage: function (pathParts) {
+      routeConfigPage(pathParts) {
         // Check the SessionStore to see if we should select a branch
-        var branchName = global.sessionStorage.getItem('branchName');
+        var environmentId = global.sessionStorage.getItem('environmentId');
 
-        if (branchName) {
-          switchToBranch(branchName);
+        if (environmentId) {
+          switchToEnvironment(environmentId);
         } else {
-          global.sessionStorage.removeItem('branchName');
+          global.sessionStorage.removeItem('environmentId');
         }
 
         // Check the URL to see if we should go straight to a tab
@@ -91,7 +91,7 @@ function ConfigController($scope) {
         if (pathParts.length === 5 && lastPart.length) {
           // Yes a tab was supplied
           tabName = lastPart;
-          switchToTab(tabName, $scope.branch);
+          switchToTab(tabName, $scope.environment);
         }
       }
     };
@@ -105,24 +105,20 @@ function ConfigController($scope) {
     $scope.selectedTab = tabName;
   }
 
-  function switchToBranch(name) {
-    var branch = _.find($scope.branches, {name: name});
+  function switchToEnvironment(id) {
+    var environment = _.find($scope.environments, { id });
 
-    if (branch) {
-      $scope.branch = branch;
+    if (environment) {
+      $scope.environment = environment;
     }
 
-    global.sessionStorage.setItem('branchName', $scope.branch.name);
-    switchToTab('tab-branch-settings', $scope.branch);
+    global.sessionStorage.setItem('environmentId', $scope.environment.id);
+    switchToTab('tab-environment-settings');
   }
 
-  $scope.switchToBranch = switchToBranch;
+  $scope.switchToEnvironment = switchToEnvironment;
 
-  function switchToTab(tab, branch) {
-    if (!_.isString(tab)) {
-      tab = branch && branch.name === 'master' ? 'tab-project' : 'tab-basic';
-    }
-
+  function switchToTab(tab) {
     $(`#${tab}-tab-handle`).tab('show');
     selectTab(tab);
     $(`a[href='#${tab}']`).tab('show');
@@ -136,26 +132,12 @@ function ConfigController($scope) {
 
   $scope.switchToTab = switchToTab;
 
-  $scope.refreshBranches = function () {
-    // TODO implement
-    throw new Error('Not implemented');
-  };
-
   $scope.setEnabled = function (plugin, enabled) {
     $scope.configs[$scope.branch.name][plugin].enabled = enabled;
     savePluginOrder();
   };
 
   $scope.savePluginOrder = savePluginOrder;
-
-  $scope.switchToMaster = function () {
-    for (var i = 0; i < $scope.project.branches.length; i++) {
-      if ($scope.project.branches[i].name === 'master') {
-        $scope.branch = $scope.project.branches[i];
-        return;
-      }
-    }
-  };
 
   $scope.clearCache = function () {
     $scope.clearingCache = true;
@@ -172,63 +154,30 @@ function ConfigController($scope) {
     });
   };
 
-  $scope.$watch('branch.isCustomizable', function () {
-    switchToTab('tab-branch-settings', $scope.branch);
-  });
-
-  $scope.toggleBranch = function () {
-    if ($scope.branch.mirror_master) {
-      $scope.branch.mirror_master = false;
-      $scope.branch.isCustomizable = true;
-
-      var name = $scope.branch.name;
-      var master;
-
-      for (var i = 0; i < $scope.project.branches.length; i++) {
-        if ($scope.project.branches[i].name === 'master') {
-          master = $scope.project.branches[i];
-          break;
-        }
-      }
-
-      $scope.branch = $.extend(true, $scope.branch, master);
-      $scope.branch.name = name;
-      initBranch($scope.branch);
-    }
-
-    $scope.saveGeneralBranch(true);
-  };
-
-  $scope.mirrorMaster = function () {
-    $scope.branch.mirror_master = true;
-    $scope.branch.isCustomizable = false;
-    delete $scope.branch.really_mirror_master;
-    $scope.saveGeneralBranch(true);
-  };
-
   $scope.setRunner = function (name) {
     var config = $scope.runnerConfigs[name];
 
-    $scope.branch.runner.id = name;
-    $scope.branch.runner.config = config;
+    $scope.environment.runner.id = name;
+    $scope.environment.runner.config = config;
     $scope.saveRunner(name, config);
   };
 
   function updateConfigured() {
-    var plugins = $scope.branch.plugins;
+    var plugins = $scope.environment.plugins;
+    var envId = $scope.environment.id;
 
-    $scope.configured[$scope.branch.name] = {};
+    $scope.configured[envId] = {};
 
     for (var i = 0; i < plugins.length; i++) {
-      $scope.configured[$scope.branch.name][plugins[i].id] = true;
+      $scope.configured[envId][plugins[i].id] = true;
     }
 
     savePluginOrder();
   }
 
   function savePluginOrder() {
-    var plugins = $scope.branch.plugins;
-    var branch = $scope.branch;
+    var plugins = $scope.environment.plugins;
+    var environment = $scope.environment;
     var project = $scope.project;
     var data = [];
 
@@ -240,12 +189,12 @@ function ConfigController($scope) {
       });
     }
 
-    saveProjectConfig({plugin_order: data}, branch, project, function (err) {
+    saveProjectConfig({plugin_order: data}, environment, project, function (err) {
       if (err) {
-        return $scope.error(`Error saving plugin order on branch ${branch.name}: ${err}`, true);
+        return $scope.error(`Error saving plugin order on branch ${environment.name}: ${err}`, true);
       }
 
-      $scope.success(`Plugin order on branch ${branch.name} saved.`, true);
+      $scope.success(`Plugin order on branch ${environment.name} saved.`, true);
     });
   }
 
@@ -346,33 +295,6 @@ function ConfigController($scope) {
       initBranch(branch);
     });
   }
-
-  $scope.saveGeneralBranch = function (plugins) {
-    var branch = $scope.branch;
-    var project = $scope.project;
-    var data = {
-      active: branch.active,
-      privkey: branch.privkey,
-      pubkey: branch.pubkey,
-      envKeys: branch.envKeys,
-      mirror_master: branch.mirror_master,
-      deploy_on_green: branch.deploy_on_green,
-      deploy_on_pull_request: branch.deploy_on_pull_request,
-      runner: branch.runner
-    };
-
-    if (plugins) {
-      data.plugins = branch.plugins;
-    }
-
-    saveProjectConfig(data, branch, project, function (err) {
-      if (err) {
-        return $scope.error(`Error saving general config for branch ${branch.name}: ${err}`, true);
-      }
-
-      $scope.success(`General config for branch ${branch.name} saved.`, true);
-    });
-  };
 
   $scope.generateKeyPair = function () {
     bootbox.confirm('Really generate a new keypair? This could break things if you have plugins that use the current ones.', function (really) {
@@ -556,7 +478,11 @@ function ConfigController($scope) {
   $scope.startTest = function (name) {
     $.ajax({
       url: `/${$scope.project.name}/start`,
-      data: {branch: $scope.branch.name, type: 'TEST_ONLY', page: 'config'},
+      data: {
+        environmentId: $scope.environment.id,
+        type: 'TEST_ONLY',
+        page: 'config'
+      },
       type: 'POST',
       success: function () {
         global.location = `/${$scope.project.name}/`;
@@ -574,7 +500,11 @@ function ConfigController($scope) {
   $scope.startDeploy = function (name) {
     $.ajax({
       url: `/${$scope.project.name}/start`,
-      data: {branch: $scope.branch.name, type: 'TEST_AND_DEPLOY', page: 'config'},
+      data: {
+        environmentId: $scope.environment.id,
+        type: 'TEST_AND_DEPLOY',
+        page: 'config'
+      },
       type: 'POST',
       success: function () {
         global.location = `/${$scope.project.name}/`;
