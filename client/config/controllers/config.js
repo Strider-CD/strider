@@ -298,11 +298,11 @@ function ConfigController($scope) {
         return;
       }
 
-      $.ajax(`/${$scope.project.name}/keygen/?branch=${encodeURIComponent($scope.branch.name)}`, {
+      $.ajax(`/${$scope.project.name}/keygen/?environmentId=${encodeURIComponent($scope.environment.id)}`, {
         type: 'POST',
         success: function (data) {
-          $scope.branch.privkey = data.privkey;
-          $scope.branch.pubkey = data.pubkey;
+          $scope.environment.sshKeys.private = data.privkey;
+          $scope.environment.sshKeys.public = data.pubkey;
           $scope.success('Generated new ssh keypair', true);
         }
       });
@@ -322,7 +322,7 @@ function ConfigController($scope) {
 
   $scope.saveRunner = function (id, config) {
     $.ajax({
-      url: `/${$scope.project.name}/config/branch/runner/id/?branch=${encodeURIComponent($scope.branch.name)}`,
+      url: `/${$scope.project.name}/config/branch/runner/id/?environmentId=${encodeURIComponent($scope.environment.id)}`,
       data: JSON.stringify({id: id, config: config}),
       contentType: 'application/json',
       type: 'PUT',
@@ -332,7 +332,7 @@ function ConfigController($scope) {
       },
       error: function (xhr) {
         if (xhr && xhr.responseText) {
-          $scope.error(`Error setting runner id to ${id}`);
+          $scope.error(`Error setting runner id to '${id}'`);
         }
       }
     });
