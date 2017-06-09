@@ -75,7 +75,7 @@ function ConfigController($scope) {
       },
 
       routeConfigPage(pathParts) {
-        // Check the SessionStore to see if we should select a branch
+        // Check the SessionStore to see if we should select an environment
         var environmentId = global.sessionStorage.getItem('environmentId');
 
         if (environmentId) {
@@ -133,7 +133,7 @@ function ConfigController($scope) {
   $scope.switchToTab = switchToTab;
 
   $scope.setEnabled = function (plugin, enabled) {
-    $scope.configs[$scope.branch.name][plugin].enabled = enabled;
+    $scope.configs[$scope.environment.id][plugin].enabled = enabled;
     savePluginOrder();
   };
 
@@ -191,26 +191,26 @@ function ConfigController($scope) {
 
     saveProjectConfig({plugin_order: data}, environment, project, function (err) {
       if (err) {
-        return $scope.error(`Error saving plugin order on branch ${environment.name}: ${err}`, true);
+        return $scope.error(`Error saving plugin order on environment '${environment.name}': ${err}`, true);
       }
 
-      $scope.success(`Plugin order on branch ${environment.name} saved.`, true);
+      $scope.success(`Plugin order on environment '${environment.name}' saved.`, true);
     });
   }
 
   $scope.reorderPlugins = function (list) {
-    $scope.branch.plugins = list;
+    $scope.environment.plugins = list;
     savePluginOrder();
   };
 
   $scope.enablePlugin = function (target, index, event) {
     removeDragEl(event.target);
     // add to enabled list
-    $scope.branch.plugins.splice(index, 0, target);
+    $scope.environment.plugins.splice(index, 0, target);
     // enable it
-    _.find($scope.branch.plugins, {id: target.id}).enabled = true;
+    _.find($scope.environment.plugins, {id: target.id}).enabled = true;
     // remove from disabled list
-    var disabled = $scope.disabled_plugins[$scope.branch.name];
+    var disabled = $scope.disabled_plugins[$scope.environment.id];
     disabled.splice(_.indexOf(_.map(disabled, 'id'), target.id), 1);
     updateConfigured();
   };
@@ -218,9 +218,9 @@ function ConfigController($scope) {
   $scope.disablePlugin = function (target, index, event) {
     removeDragEl(event.target);
     // add it to the disabled list
-    $scope.disabled_plugins[$scope.branch.name].splice(index, 0, target);
+    $scope.disabled_plugins[$scope.environment.id].splice(index, 0, target);
     // remove it from enabled list
-    var enabled = $scope.branch.plugins;
+    var enabled = $scope.environment.plugins;
     enabled.splice(_.indexOf(_.map(enabled, 'id'), target.id), 1);
     updateConfigured();
   };
@@ -244,55 +244,51 @@ function ConfigController($scope) {
     };
   };
 
-  function initBranch(branch) {
-    var plugins;
+  function initEnvironment(environment) {
+    var envId = environment.id;
 
-    $scope.configured[branch.name] = {};
-    $scope.configs[branch.name] = {};
-    $scope.runnerConfigs[branch.name] = {};
-    $scope.disabled_plugins[branch.name] = [];
+    $scope.configured[environment.name] = {};
+    $scope.configs[envId] = {};
+    $scope.runnerConfigs[envId] = {};
+    $scope.disabled_plugins[envId] = [];
 
-    if (!branch.mirror_master) {
-      plugins = branch.plugins;
+    let plugins = environment.plugins;
 
-      for (var i = 0; i < plugins.length; i++) {
-        $scope.configured[branch.name][plugins[i].id] = true;
-        $scope.configs[branch.name][plugins[i].id] = plugins[i];
-      }
-    }
+    plugins.forEach((plugin) => {
+      $scope.configured[envId][plugin.id] = true;
+      $scope.configs[envId][plugin.id] = plugin;
+    });
 
     for (var plugin in $scope.plugins) {
-      if ($scope.configured[branch.name][plugin]) {
+      if ($scope.configured[envId][plugin]) {
         continue;
       }
 
-      $scope.configs[branch.name][plugin] = {
+      $scope.configs[envId][plugin] = {
         id: plugin,
         enabled: true,
         config: {}
       };
 
-      $scope.disabled_plugins[branch.name].push($scope.configs[branch.name][plugin]);
+      $scope.disabled_plugins[envId].push($scope.configs[envId][plugin]);
     }
 
-    if (!branch.mirror_master) {
-      $scope.runnerConfigs[branch.name][branch.runner.id] = branch.runner.config;
-    }
+    $scope.runnerConfigs[envId][environment.runner.id] = environment.runner.config;
 
     for (var runner in $scope.runners) {
-      if (!branch.mirror_master && runner === branch.runner.id) {
+      if (runner === environment.runner.id) {
         continue;
       }
 
-      $scope.runnerConfigs[branch.name][runner] = {};
+      $scope.runnerConfigs[envId][runner] = {};
     }
   }
 
   function initPlugins() {
-    var branches = $scope.project.branches;
+    var environments = $scope.project.environments;
 
-    branches.forEach(branch => {
-      initBranch(branch);
+    environments.forEach(environment => {
+      initEnvironment(environment);
     });
   }
 
