@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 'use strict';
 
+process.env.CI = 'true'
+process.env.STRIDER = 'true'
+
 var cli = require('strider-cli')({
   version: require('../package.json').version,
   /*
