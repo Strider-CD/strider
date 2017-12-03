@@ -9388,17 +9388,17 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   width: 1.5em;
 }
 .button .icon:first-child:not(:last-child) {
-  margin-left: calc(-1.375em);
   margin-right: 0.1875em;
 }
 .button .icon:last-child:not(:first-child) {
   margin-left: 0.1875em;
   margin-right: calc(-1.375em);
 }
+/*
 .button .icon:first-child:last-child {
-  margin-left: calc(-1.375em);
-  margin-right: calc(-1.375em);
-}
+  margin-left: calc(-0.375em - 1px);
+  margin-right: calc(-0.375em - 1px);
+}*/
 .button:hover,
 .button.is-hovered {
   border-color: #b5b5b5;
@@ -10826,7 +10826,7 @@ h3 {
   font-weight: normal;
 }
 .wrap {
-  min-height: 100% !important;
+  min-height: calc(100vh - 124px);
 }
 [ng\:cloak],
 [ng-cloak],
