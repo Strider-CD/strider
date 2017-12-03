@@ -9,30 +9,36 @@ var cli = require('strider-cli')({
   main: function () {
     return require('../main');
   },
+
   models: function () {
     return require('../lib/models');
   },
+
   common: function () {
     return require('../lib/common');
   },
+
   /*
    * Plugin path determination logic
    */
   getPluginPath: function () {
     return require('../lib/plugin-path');
   },
+
   /*
    * Database schema upgrade logic
    */
   upgrade: function () {
     return require('../lib/models/upgrade');
   },
+
   /*
    * Config normalizer
    */
   config: function () {
     return require('../lib/config');
   },
+
   /*
    * Database connection function
    */
@@ -41,14 +47,19 @@ var cli = require('strider-cli')({
     var mongodbUrl = require('../lib/config').db_uri;
 
     console.log('Connecting to MongoDB URL: %s\n', mongodbUrl);
-    mongoose.connect(mongodbUrl, cb);
+
+    mongoose.connect(mongodbUrl, {
+      useMongoClient: true
+    }, cb);
   },
+  
   /*
    * Path to file to touch to restart strider
    */
   restartFile: function () {
     var path = require('path');
     var dir = path.join(__dirname, '..');
+
     return path.join(dir, '.restart');
   }
 });
