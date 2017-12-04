@@ -2,6 +2,32 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.10.0"></a>
+# [1.10.0](https://github.com/Strider-CD/strider/compare/v1.9.6...v1.10.0) (2017-12-04)
+
+
+### Bug Fixes
+
+* button style fixes ([c9fbca1](https://github.com/Strider-CD/strider/commit/c9fbca1))
+* mongoose open() deprecation, resolves [#1044](https://github.com/Strider-CD/strider/issues/1044) ([5484c31](https://github.com/Strider-CD/strider/commit/5484c31))
+* revert jquery update, bootstrap2 doesn't play well with it ([7f1adea](https://github.com/Strider-CD/strider/commit/7f1adea))
+* update request to prevent vulnerability ([5664403](https://github.com/Strider-CD/strider/commit/5664403))
+* **security:** update jquery to 3.x, probably about time any way ([9d34ad9](https://github.com/Strider-CD/strider/commit/9d34ad9))
+* **security:** update vulnerable packages ([4766749](https://github.com/Strider-CD/strider/commit/4766749))
+* **styles:** add margin to bottom of wrapper ([7aa49ef](https://github.com/Strider-CD/strider/commit/7aa49ef))
+* **styles:** another footer fix ([dac61ca](https://github.com/Strider-CD/strider/commit/dac61ca))
+* **styles:** button icons moving out of buttons ([0001bdf](https://github.com/Strider-CD/strider/commit/0001bdf))
+* **styles:** job-title margin ([eea4f43](https://github.com/Strider-CD/strider/commit/eea4f43))
+* **styles:** wrapper footer being too high up in desktop size ([d9d6874](https://github.com/Strider-CD/strider/commit/d9d6874))
+
+
+### Features
+
+* make build deploy/test header more obvious ([1053557](https://github.com/Strider-CD/strider/commit/1053557))
+* move cancel out of dropdown ([098f8dd](https://github.com/Strider-CD/strider/commit/098f8dd))
+
+
+
 <a name="1.9.6"></a>
 ## [1.9.6](https://github.com/Strider-CD/strider/compare/v1.9.5...v1.9.6) (2017-03-21)
 

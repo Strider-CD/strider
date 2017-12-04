@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.9.6",
+  "version": "1.10.0",
   "private": true,
   "dependencies": {
     "bootstrap": "~2.3.2",
