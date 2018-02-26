@@ -166,10 +166,8 @@
                         <label class="control-label" for="quantity">New quantity</label>
                       </div>
                       <div class="controls">
-                        <input class="xlarge" type="number" min="1" max="200" name="quantity" ng-model="user.jobsQuantityOnPage">
+                        <input class="xlarge" type="number" name="quantity" ng-model="user.jobsQuantityOnPage">
                         <span class="help-inline jobsQuantityOnPage"></span>
-                        <span ng-show="jobsQuantityOnPageForm.quantity.$dirty && jobsQuantityOnPageForm.quantity.$error.min">Quantity must be greater than 1</span>
-                        <span ng-show="jobsQuantityOnPageForm.quantity.$dirty && jobsQuantityOnPageForm.quantity.$error.max">Quantity must be less than 200</span>
                       </div>
                       <div class="actions">
                         <button class="btn" ng-click="changeJobsQuantityOnPage()" ng-disabled="!jobsQuantityOnPageForm.$valid">Change Quantity</button>
