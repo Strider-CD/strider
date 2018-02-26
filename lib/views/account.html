@@ -32,6 +32,7 @@
           <ul class="nav nav-tabs">
             <li class="active"><a href="#email" data-toggle="tab">Email Address</a></li>
             <li><a href="#password" data-toggle="tab">Password</a></li>
+            <li><a href="#jobsQuantityOnPage" data-toggle="tab">Jobs quantity on page</a></li>
             {% for provider in providers %}
             <li>
               <a href="#provider-{{ loop.key }}" data-toggle="tab">{{ provider.title }}</a>
@@ -148,6 +149,28 @@
                       </div>
                       <div class="actions">
                         <button class="btn" ng-click="changePassword()" ng-disabled="!passwordForm.$valid || confirm_password !== password" ng-disabled="user.isAdUser">Change Password</button>
+                      </div>
+                    </fieldset>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div id="jobsQuantityOnPage" class="tab-pane">
+              <div id="change_jobsQuantityOnPage">
+                <form class="jobsQuantityOnPage-message" name="jobsQuantityOnPageForm">
+                  <div class="well">
+                    <fieldset>
+                      <legend>Change jobs quantity on page</legend>
+                      <div class="control-group quantity">
+                        <label class="control-label" for="quantity">New quantity</label>
+                      </div>
+                      <div class="controls">
+                        <input class="xlarge" type="number" name="quantity" ng-model="user.jobsQuantityOnPage">
+                        <span class="help-inline jobsQuantityOnPage"></span>
+                      </div>
+                      <div class="actions">
+                        <button class="btn" ng-click="changeJobsQuantityOnPage()" ng-disabled="!jobsQuantityOnPageForm.$valid">Change Quantity</button>
                       </div>
                     </fieldset>
                   </div>
