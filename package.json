@@ -89,6 +89,7 @@
     "md5": "^2.0.0",
     "method-override": "^2.3.10",
     "mongoose": "^4.7.6",
+    "morgan": "^1.5.0",
     "morgan-debug": "^2.0.0",
     "node-rsa": "^0.4.0",
     "opencollective": "^1.0.0",
