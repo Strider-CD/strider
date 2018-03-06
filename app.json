@@ -48,11 +48,11 @@
     },
     "ACL_ADMIN_PSEUDO": {
       "description": "A custom buildpack to enable support for multiple languages",
-      "value": "strider.herokuapp.com"
+      "value": "administrator@gmail.com"
     },
     "ACL_ADMIN_PASSWD": {
       "description": "A custom buildpack to enable support for multiple languages",
-      "value": "strider.herokuapp.com"
+      "value": "Testing0"
     }
   },
   "addons": [
