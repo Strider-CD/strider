@@ -10,13 +10,17 @@
   },
   "success_url" : "/",
   "env": {
+    "SERVER_NAME": {
+      "description": "A custom buildpack to enable support for multiple languages",
+      "value": "https://strider.herokuapp.com"
+    },
     "DB_URI": {
       "description": "MongoDB endpoint for database use.",
       "value": "mongodb://localhost:27017/strider"
     },
-    "SERVER_NAME": {
-      "description": "A custom buildpack to enable support for multiple languages",
-      "value": "https://strider.herokuapp.com"
+    "DOCKER_HOST": {
+      "description": "Docker endpoint for remote use.",
+      "value": ""
     },
     "PLUGIN_GITHUB_APP_ID": {
       "description": "App ID for Github",
