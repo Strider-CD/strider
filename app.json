@@ -1,15 +1,57 @@
 {
   "name": "Strider CD",
   "description": " Open Source Continuous Integration & Deployment Server",
-  "repository": "https://github.com/strider-cd/strider",
   "keywords": ["strider", "testing", "continuous integration", "deployment"],
+  "buildpacks" : [
+      { "url" : "heroku/nodejs" }
+  ],
+  "scripts" : {
+     "postdeploy" : "bash install.sh"
+  },
+  "success_url" : "/",
   "env": {
-    "BUILDPACK_URL": {
+    "DB_URI": {
+      "description": "MongoDB endpoint for database use.",
+      "value": "mongodb://localhost:27017/strider"
+    },
+    "SERVER_NAME": {
       "description": "A custom buildpack to enable support for multiple languages",
-      "value": "https://github.com/ddollar/heroku-buildpack-multi.git"
+      "value": "https://strider.herokuapp.com"
+    },
+    "PLUGIN_GITHUB_APP_ID": {
+      "description": "App ID for Github",
+      "value": "xxxxxxxx"
+    },
+    "PLUGIN_GITHUB_APP_SECRET": {
+      "description": "App ID for Github",
+      "value": "yyyyyyyy"
+    },
+    "PLUGIN_BITBUCKET_APP_KEY": {
+      "description": "App ID for BitBucket",
+      "value": "xxxxxxxx"
+    },
+    "PLUGIN_BITBUCKET_APP_SECRET": {
+      "description": "App ID for BitBucket",
+      "value": "yyyyyyyy"
+    },
+    "PLUGIN_HEROKU_CLIENT_ID": {
+      "description": "App ID for Heroku",
+      "value": "xxxxxxxx"
+    },
+    "PLUGIN_HEROKU_CLIENT_SECRET": {
+      "description": "App ID for Heroku",
+      "value": "yyyyyyyy"
+    },
+    "ACL_ADMIN_PSEUDO": {
+      "description": "A custom buildpack to enable support for multiple languages",
+      "value": "strider.herokuapp.com"
+    },
+    "ACL_ADMIN_PASSWD": {
+      "description": "A custom buildpack to enable support for multiple languages",
+      "value": "strider.herokuapp.com"
     }
   },
   "addons": [
-    "mongolab"
+    "heroku-postgresql"
   ]
 }
