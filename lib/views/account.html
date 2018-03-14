@@ -32,7 +32,7 @@
           <ul class="nav nav-tabs">
             <li class="active"><a href="#email" data-toggle="tab">Email Address</a></li>
             <li><a href="#password" data-toggle="tab">Password</a></li>
-            {% if jobsQuantityOnPageEnabled %}
+            {% if jobsQuantityOnPage.enabled %}
             <li><a href="#jobsQuantityOnPage" data-toggle="tab">Jobs quantity on page</a></li>
             {% endif %}
             {% for provider in providers %}
@@ -158,18 +158,18 @@
               </div>
             </div>
 
-            {% if jobsQuantityOnPageEnabled %}
+            {% if jobsQuantityOnPage.enabled %}
             <div id="jobsQuantityOnPage" class="tab-pane">
               <div id="change_jobsQuantityOnPage">
                 <form class="jobsQuantityOnPage-message" name="jobsQuantityOnPageForm">
                   <div class="well">
                     <fieldset>
-                      <legend>Change jobs quantity on page</legend>
+                      <legend>Change jobs quantity on page ({{ jobsQuantityOnPage.min }}-{{ jobsQuantityOnPage.max }})</legend>
                       <div class="control-group quantity">
                         <label class="control-label" for="quantity">New quantity</label>
                       </div>
                       <div class="controls">
-                        <input class="xlarge" type="number" name="quantity" ng-model="user.jobsQuantityOnPage">
+                        <input class="xlarge" type="number" name="quantity" min="{{ jobsQuantityOnPage.min }}" max="{{ jobsQuantityOnPage.max }}" ng-model="user.jobsQuantityOnPage">
                         <span class="help-inline jobsQuantityOnPage"></span>
                       </div>
                       <div class="actions">
