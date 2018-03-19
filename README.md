@@ -81,11 +81,10 @@ Internet-accessible deployment the following variables will need to be exported:
 
 - `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
 - `DEBUG` - Set this to `strider*` to enable all debug output. This is very helpful when troubleshooting issues or finding the cause of bugs in Strider. For more information see https://www.npmjs.com/package/debug
-- `jobsQuantityOnPage` (in rc file) - Object which defines configuration for jobs quantity to display on project page. It has the following fields:
-  - `enabled` - Whether users can set quantity in Account Management
-  - `default` - Number of jobs to display when not enabled
-  - `min` - Minimal value
-  - `max` - Maximum value
+- `JOBSQUANTITYONPAGE_ENABLED` - Whether users can set quantity in Account Management
+- `JOBSQUANTITYONPAGE_DEFAULT` - Number of jobs to display when not enabled
+- `JOBSQUANTITYONPAGE_MIN` - Minimal value
+- `JOBSQUANTITYONPAGE_MAX` - Maximum value
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
