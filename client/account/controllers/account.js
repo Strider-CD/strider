@@ -110,6 +110,21 @@ function AccountController($scope, $window) {
       type: 'POST'
     });
   };
+
+  $scope.changeJobsQuantityOnPage = function () {
+    $.ajax('/api/account/jobsQuantityOnPage', {
+      type: 'POST',
+      data: {quantity: $scope.user.jobsQuantityOnPage},
+      dataType: 'json',
+      error: function (xhr) {
+        var resp = $.parseJSON(xhr.responseText);
+        $scope.error(`Failed to change jobs quantity on page: ${resp.errors[0].message}`, true);
+      },
+      success: function () {
+        $scope.success('Jobs quantity on page successfully changed', true);
+      },
+    });
+  };
 }
 
 module.exports = AccountController;
