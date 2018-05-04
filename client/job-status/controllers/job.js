@@ -193,10 +193,12 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
   emits: {
     getUnknown: 'build:job'
   },
-  job: function (id) {
+
+  job(id) {
     return this.jobs[id];
   },
-  addJob: function (job) {
+
+  addJob(job) {
     if ((job.project.name || job.project) !== this.project) return;
     this.jobs[job._id] = job;
     var found = -1;
@@ -241,7 +243,8 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     this.scope.jobs.unshift(job);
     this.scope.job = job;
   },
-  get: function (id, done) {
+  
+  get(id, done) {
     if (this.jobs[id]) {
       done(null, this.jobs[id], true);
       return true;

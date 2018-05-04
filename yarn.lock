@@ -1325,6 +1325,12 @@ browserslist@~1.4.0:
   dependencies:
     caniuse-db "^1.0.30000539"
 
+bson@~0.2.2:
+  version "0.2.22"
+  resolved "https://registry.yarnpkg.com/bson/-/bson-0.2.22.tgz#fcda103f26d0c074d5a52d50927db80fd02b4b39"
+  dependencies:
+    nan "~1.8"
+
 bson@~1.0.4:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/bson/-/bson-1.0.4.tgz#93c10d39eaa5b58415cbc4052f3e53e562b0b72c"
@@ -2320,7 +2326,7 @@ debug@2.6.9, debug@^2.1.1, debug@^2.2.0, debug@^2.6.8, debug@~2.6.4, debug@~2.6.
   dependencies:
     ms "2.0.0"
 
-debug@~0.7.2:
+debug@~0.7.2, debug@~0.7.4:
   version "0.7.4"
   resolved "https://registry.yarnpkg.com/debug/-/debug-0.7.4.tgz#06e1ea8082c2cb14e39806e22e2f6f757f92af39"
 
@@ -3588,6 +3594,12 @@ gitconfiglocal@^1.0.0:
 github-markdown-css@2.4.1:
   version "2.4.1"
   resolved "https://registry.yarnpkg.com/github-markdown-css/-/github-markdown-css-2.4.1.tgz#b4736d84eea8367a03b3248cf546dda3e8dc55e3"
+
+github@~0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/github/-/github-0.2.4.tgz#24fa7f0e13fa11b946af91134c51982a91ce538b"
+  dependencies:
+    mime "^1.2.11"
 
 glob-base@^0.3.0:
   version "0.3.0"
@@ -5585,6 +5597,10 @@ nan@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-1.2.0.tgz#9c4d63ce9e4f8e95de2d574e18f7925554a8a8ef"
 
+nan@~1.8:
+  version "1.8.4"
+  resolved "https://registry.yarnpkg.com/nan/-/nan-1.8.4.tgz#3c76b5382eab33e44b758d2813ca9d92e9342f34"
+
 nash@^2.0.0:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/nash/-/nash-2.0.4.tgz#cb964791cefd376d59cfacd80109274616aa15d2"
@@ -6589,7 +6605,7 @@ querystring-es3@~0.2.0:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/querystring-es3/-/querystring-es3-0.2.1.tgz#9ec61f79049875707d69414596fd907a4d711e73"
 
-querystring@0.2.0:
+querystring@0.2.0, querystring@~0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/querystring/-/querystring-0.2.0.tgz#b209849203bb25df820da756e747005878521620"
 
@@ -7738,6 +7754,13 @@ strider-git@~0.1.0:
     mkdirp "~0.3.5"
     shell-escape "0.0.1"
 
+strider-github-status@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strider-github-status/-/strider-github-status-2.0.0.tgz#e3adc54c98ff2a8e6601c9b9345ac3a9fc46fa2d"
+  dependencies:
+    debug "~0.7.4"
+    github "~0.2.4"
+
 strider-github@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/strider-github/-/strider-github-2.4.0.tgz#b18f427de95f283a9b41b3e47e2c054d9b8c302f"
@@ -7864,6 +7887,15 @@ strider-ssh-deploy@^1.0.0:
     npmd-pack "^1.0.0"
     progress-stream "^0.5.0"
     ssh2 "^0.4.8"
+
+strider-webhooks@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/strider-webhooks/-/strider-webhooks-0.1.1.tgz#6c0b086e1483ddb06093dc13de9a936b33726686"
+  dependencies:
+    bson "~0.2.2"
+    crypto "0.0.3"
+    querystring "~0.2.0"
+    superagent "~0.15.4"
 
 string-length@^1.0.0:
   version "1.0.1"
