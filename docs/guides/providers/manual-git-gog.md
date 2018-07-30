@@ -5,11 +5,6 @@ We already walked you through the processes of connecting Strider with GitHub, G
 Before moving on to add a Gogs or git repository, let me point you to the list of posts within this Strider series.
 
 
-.-.
-Outline
--.- 
-
-
 ## Gogs or Git Repository
 At first we wanted to separate this article into separate posts. The problem: Gogs API functionality is very limited and we cannot connect seamlessly from Strider to access the hosted repositories. That’s the reason why we treat Gogs repositories as normal git repositories.
 
@@ -107,13 +102,6 @@ Check Strider if the build started successfully.
 ![Strider Build Details]()
 
 The snippet above also sets the Strider test `type` to `TEST_AND_DEPLOY`. Since we didn’t configure any deployment process yet, nothing happens. You can remove the `type` value or change it to `TEST_ONLY` to skip the deployment process.
-
-
-## What Comes Next
-
-
-
-— 
 
 #### Additional Ressources
 
