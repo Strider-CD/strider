@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.10.1"></a>
+## [1.10.1](https://github.com/Strider-CD/strider/compare/v1.10.0...v1.10.1) (2018-07-31)
+
+
+### Bug Fixes
+
+* Add missing morgan dependency ([#1056](https://github.com/Strider-CD/strider/issues/1056)) ([63d070e](https://github.com/Strider-CD/strider/commit/63d070e))
+* minor tweaks and adding new plugins by default ([e737d59](https://github.com/Strider-CD/strider/commit/e737d59))
+* **db:** update mongoose to v5 and use new db uri format ([0ee9481](https://github.com/Strider-CD/strider/commit/0ee9481)), closes [#1059](https://github.com/Strider-CD/strider/issues/1059)
+
+
+
 <a name="1.10.0"></a>
 # [1.10.0](https://github.com/Strider-CD/strider/compare/v1.9.6...v1.10.0) (2017-12-04)
 
