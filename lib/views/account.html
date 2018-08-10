@@ -33,17 +33,19 @@
             <li class="active"><a href="#email" data-toggle="tab">Email Address</a></li>
             <li><a href="#password" data-toggle="tab">Password</a></li>
             {% if jobsQuantityOnPage.enabled %}
-            <li><a href="#jobsQuantityOnPage" data-toggle="tab">Jobs quantity on page</a></li>
+              <li><a href="#jobsQuantityOnPage" data-toggle="tab">Job Settings</a></li>
             {% endif %}
+
             {% for provider in providers %}
-            <li>
-              <a href="#provider-{{ loop.key }}" data-toggle="tab">{{ provider.title }}</a>
-            </li>
+              <li>
+                <a href="#provider-{{ loop.key }}" data-toggle="tab">{{ provider.title }}</a>
+              </li>
             {% endfor %}
+
             {% for job in userConfigs.job %}
-            <li>
-              <a href="#job-{{ loop.key }}" data-toggle="tab">{{ job.title }}</a>
-            </li>
+              <li>
+                <a href="#job-{{ loop.key }}" data-toggle="tab">{{ job.title }}</a>
+              </li>
             {% endfor %}
           </ul>
 
@@ -159,29 +161,30 @@
             </div>
 
             {% if jobsQuantityOnPage.enabled %}
-            <div id="jobsQuantityOnPage" class="tab-pane">
-              <div id="change_jobsQuantityOnPage">
-                <form class="jobsQuantityOnPage-message" name="jobsQuantityOnPageForm">
-                  <div class="well">
-                    <fieldset>
-                      <legend>Change jobs quantity on page ({{ jobsQuantityOnPage.min }}-{{ jobsQuantityOnPage.max }})</legend>
-                      <div class="control-group quantity">
-                        <label class="control-label" for="quantity">New quantity</label>
-                      </div>
-                      <div class="controls">
-                        <input class="xlarge" type="number" name="quantity" min="{{ jobsQuantityOnPage.min }}" max="{{ jobsQuantityOnPage.max }}" ng-model="user.jobsQuantityOnPage">
-                        <span class="help-inline jobsQuantityOnPage"></span>
-                      </div>
-                      <div class="actions">
-                        <button class="btn" ng-click="changeJobsQuantityOnPage()" ng-disabled="!jobsQuantityOnPageForm.$valid">Change Quantity</button>
-                      </div>
-                    </fieldset>
-                  </div>
-                </form>
+              <div id="jobsQuantityOnPage" class="tab-pane">
+                <div id="change_jobsQuantityOnPage">
+                  <form class="jobsQuantityOnPage-message" name="jobsQuantityOnPageForm">
+                    <div class="well">
+                      <fieldset>
+                        <legend>Job Settings</legend>
+                        <div class="control-group quantity">
+                          <label class="control-label" for="quantity">
+                            Number of Jobs On Build Page ({{ jobsQuantityOnPage.min }}-{{ jobsQuantityOnPage.max }})
+                          </label>
+                        </div>
+                        <div class="controls">
+                          <input class="xlarge" type="number" name="quantity" min="{{ jobsQuantityOnPage.min }}" max="{{ jobsQuantityOnPage.max }}" ng-model="user.jobsQuantityOnPage">
+                          <span class="help-inline jobsQuantityOnPage"></span>
+                        </div>
+                        <div class="actions">
+                          <button class="btn" ng-click="changeJobsQuantityOnPage()" ng-disabled="!jobsQuantityOnPageForm.$valid">Change Quantity</button>
+                        </div>
+                      </fieldset>
+                    </div>
+                  </form>
+                </div>
               </div>
-            </div>
             {% endif %}
-
           </div>
         </div>
       </div>

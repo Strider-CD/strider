@@ -118,10 +118,10 @@ function AccountController($scope, $window) {
       dataType: 'json',
       error: function (xhr) {
         var resp = $.parseJSON(xhr.responseText);
-        $scope.error(`Failed to change jobs quantity on page: ${resp.errors[0].message}`, true);
+        $scope.error(`Failed to change jobs quantity on build page: ${resp.errors[0].message}`, true);
       },
       success: function () {
-        $scope.success('Jobs quantity on page successfully changed', true);
+        $scope.success('Jobs quantity on build page successfully changed', true);
       },
     });
   };
