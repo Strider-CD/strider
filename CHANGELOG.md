@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.11.0"></a>
+# [1.11.0](https://github.com/Strider-CD/strider/compare/v1.10.1...v1.11.0) (2018-08-10)
+
+
+### Bug Fixes
+
+* **api:** deprecated count method for mongoose ([d5a838b](https://github.com/Strider-CD/strider/commit/d5a838b))
+* **client:** tweak ui for jobs on build page setting ([2de5e32](https://github.com/Strider-CD/strider/commit/2de5e32))
+* **client/layout:** remove build specific footer, fix layout, show fotter on build page ([16c2895](https://github.com/Strider-CD/strider/commit/16c2895))
+* **db:** move mongoose setup to a utility that can be reused ([c3df476](https://github.com/Strider-CD/strider/commit/c3df476))
+
+
+### Features
+
+* Add jobs quantity customization ([#1057](https://github.com/Strider-CD/strider/issues/1057)) ([976992b](https://github.com/Strider-CD/strider/commit/976992b))
+
+
+
 <a name="1.10.1"></a>
 ## [1.10.1](https://github.com/Strider-CD/strider/compare/v1.10.0...v1.10.1) (2018-07-31)
 
