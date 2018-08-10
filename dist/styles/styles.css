@@ -9031,9 +9031,6 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   text-decoration: none;
   color: #999;
 }
-.job_view .body-content #build-page .footer a {
-  color: white;
-}
 .job_view .body-content #build-page #build-metadata {
   padding: 1em 0.8em;
 }
@@ -9248,24 +9245,8 @@ div.CodeMirror span.CodeMirror-nonmatchingbracket {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-.job_view .wrap {
-  min-height: 0 !important;
-}
-.job_view footer {
-  display: none;
-}
-.job_view .footer {
-  color: white;
-  font-weight: bold;
-  text-align: center;
-  padding-bottom: 2px;
-  background-color: #444;
-}
 .job_view {
   height: 100%;
-}
-.job_view .wrap {
-  height: 98%;
 }
 .job_view .wrap .content {
   height: 100%;
@@ -10821,13 +10802,15 @@ body {
 body {
   background-color: #fff;
   font-family: 'Source Sans Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 h3 {
   font-weight: normal;
 }
 .wrap {
-  min-height: calc(100vh - 138px);
-  margin-bottom: 1em;
+  flex: 1;
+  overflow-y: auto;
 }
 [ng\:cloak],
 [ng-cloak],
@@ -10889,11 +10872,11 @@ img.manual_setup {
 footer {
   border-top: 1px solid #ddd;
   background-color: #f0f0f0;
-  padding: 10px;
+  padding: 8px;
 }
 footer p {
   text-align: center;
-  /* center align it with the container */
+  margin-bottom: 0;
 }
 .dashboard-button,
 .repo-action,
@@ -11104,7 +11087,6 @@ hero-vsub-unit label {
 @media (min-width: 980px) {
   body .wrap {
     padding-top: 50px;
-    padding-bottom: 51px;
   }
   .nav-collapse {
     padding-left: 80px;
@@ -11114,7 +11096,6 @@ hero-vsub-unit label {
   body .wrap {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-bottom: 51px;
   }
   footer p {
     text-align: center;
@@ -11158,7 +11139,7 @@ hero-vsub-unit label {
 }
 pre.console-output {
   overflow: auto;
-  background-color: black;
+  background-color: #292929;
   color: white;
   position: absolute;
   top: 65px;
