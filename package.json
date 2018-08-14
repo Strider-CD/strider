@@ -123,7 +123,7 @@
     "strider-node": "^1.0.0",
     "strider-python": "^0.2.1",
     "strider-ruby": "^0.0.2",
-    "strider-simple-runner": "^1.0.0",
+    "strider-simple-runner": "^1.1.0",
     "strider-slack": "^2.0.0",
     "strider-ssh-deploy": "^1.0.0",
     "strider-webhooks": "^0.1.1",
