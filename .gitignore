@@ -27,6 +27,7 @@ public/stylesheets/css/plugin-status-compiled.css
 
 # Dropped when npm encounters errors
 npm-debug.log
+yarn-error.log
 
 # Others/unknown
 .bundle/

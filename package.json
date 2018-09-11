@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "1.10.0",
+  "version": "1.11.0",
   "bin": {
     "strider": "bin/strider"
   },
@@ -88,7 +88,8 @@
     "lodash": "^4.14.0",
     "md5": "^2.0.0",
     "method-override": "^2.3.10",
-    "mongoose": "^4.7.6",
+    "mongoose": "^5.2.6",
+    "morgan": "^1.5.0",
     "morgan-debug": "^2.0.0",
     "node-rsa": "^0.4.0",
     "opencollective": "^1.0.0",
@@ -114,6 +115,7 @@
     "strider-extension-loader": "^0.4.5",
     "strider-git": "^1.0.0",
     "strider-github": "^2.3.0",
+    "strider-github-status": "^2.0.0",
     "strider-gitlab": "^1.2.3",
     "strider-heroku": "^0.1.1",
     "strider-mailer": "^0.2.0",
@@ -121,9 +123,10 @@
     "strider-node": "^1.0.0",
     "strider-python": "^0.2.1",
     "strider-ruby": "^0.0.2",
-    "strider-simple-runner": "^1.0.0",
+    "strider-simple-runner": "^1.1.0",
     "strider-slack": "^2.0.0",
     "strider-ssh-deploy": "^1.0.0",
+    "strider-webhooks": "^0.1.1",
     "swig": "^0.14.0",
     "thirty-two": "^1.0.1",
     "validator": "^7.0.0",

@@ -5,11 +5,6 @@ We already walked you through the processes of connecting Strider with GitHub, G
 Before moving on to add a Gogs or git repository, let me point you to the list of posts within this Strider series.
 
 
-.-.
-Outline
--.- 
-
-
 ## Gogs or Git Repository
 At first we wanted to separate this article into separate posts. The problem: Gogs API functionality is very limited and we cannot connect seamlessly from Strider to access the hosted repositories. That’s the reason why we treat Gogs repositories as normal git repositories.
 
@@ -76,25 +71,25 @@ We need to edit the **update** git hook. Use the editor of your choice and open 
 The content of the `update` file may look like this (this is the default gogs update hook):
 
 	#!/usr/bin/env bash
-	„/home/system/git/gogs/gogs“ update $1 $2 $3
+	"/home/system/git/gogs/gogs" update $1 $2 $3
 
 Copy the following lines and paste them into the `update` file you’re currently editing.
 
 ```
 branch=$(git rev-parse —symbolic —abbrev-ref $1)
-if [ „$branch“ == „master“ ] || [ „$branch“ == „staging“ ]; then
-  echo „Queuing Strider build for ${branch}.“
+if [ "$branch" == "master" ] || [ "$branch" == "staging" ]; then
+  echo "Queuing Strider build for ${branch}."
   curl \
     -k \
-    -H „Content-Type: application/json“ \
-    -d „{\“branch\“:\“$branch\“, \“type\“:\“TEST_AND_DEPLOY\“}“ \
-    -u „YourStriderEmail@Domain.com:YourStriderPassword“ \
+    -H "Content-Type: application/json" \
+    -d "{\"branch\":\"$branch\", \"type\":\"TEST_AND_DEPLOY\"}" \
+    -u "YourStriderEmail@Domain.com:YourStriderPassword" \
     -X POST \
     https://YourStriderHost.com/some/repository/start
 else
-  echo „Skipping Strider build for ${branch}.“
+  echo "Skipping Strider build for ${branch}."
 fi
-``
+```
 
 At first, this snippet parses the branch to which we pushed our code. Second, if the branch matches `master` or `staging`, we perform the Strider notification with the help of **curl**. Please install **curl** on your server.
 
@@ -107,13 +102,6 @@ Check Strider if the build started successfully.
 ![Strider Build Details]()
 
 The snippet above also sets the Strider test `type` to `TEST_AND_DEPLOY`. Since we didn’t configure any deployment process yet, nothing happens. You can remove the `type` value or change it to `TEST_ONLY` to skip the deployment process.
-
-
-## What Comes Next
-
-
-
-— 
 
 #### Additional Ressources
 

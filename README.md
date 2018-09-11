@@ -67,7 +67,7 @@ Internet-accessible deployment the following variables will need to be exported:
   - `PORT` - Port that strider runs on, optional (defaults to 3000).
   - `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
   - `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
-  - `DB_URI` - MongoDB DB URI if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
+  - `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
   - `HTTP_PROXY` - Proxy support, optional (defaults to null)
   - If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
     - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
@@ -81,6 +81,10 @@ Internet-accessible deployment the following variables will need to be exported:
 
 - `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
 - `DEBUG` - Set this to `strider*` to enable all debug output. This is very helpful when troubleshooting issues or finding the cause of bugs in Strider. For more information see https://www.npmjs.com/package/debug
+- `JOBS_QUANTITY_ON_PAGE_ENABLED` - Whether users can set quantity in Account Management
+- `JOBS_QUANTITY_ON_PAGE_DEFAULT` - Number of jobs to display when not enabled
+- `JOBS_QUANTITY_ON_PAGE_MIN` - Minimal value
+- `JOBS_QUANTITY_ON_PAGE_MAX` - Maximum value
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
@@ -110,7 +114,7 @@ Email:    strider@example.com
 Password: ****
 isAdmin:  true
 OK? (y/n) [y]:
-22 Oct 21:21:01 - info: Connecting to MongoDB URL: mongodb://localhost/strider-foss
+22 Oct 21:21:01 - info: Connecting to MongoDB URL: mongodb://localhost:27017/strider-foss
 22 Oct 21:21:01 - info: User added successfully! Enjoy.
 ```
 

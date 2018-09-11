@@ -16,6 +16,8 @@ html, body {
 body {
   background-color: #fff;
   font-family: 'Source Sans Pro', sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 h3 {
@@ -23,8 +25,8 @@ h3 {
 }
 
 .wrap {
-  min-height: ~'calc(100vh - 138px)';
-  margin-bottom: 1em;
+  flex: 1;
+  overflow-y: auto;
 }
 
 [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
@@ -89,16 +91,16 @@ img.manual_setup {
 }
 
 footer {
-  border-top:1px solid #ddd;
+  border-top: 1px solid #ddd;
   background-color:#f0f0f0;
-  padding:10px;
+  padding: 8px;
+
+  p {
+    text-align: center;
+    margin-bottom: 0;
+  }
 }
 
-footer p {
-  text-align: center;
-  /* center align it with the container */
-
-}
 .dashboard-button,
 .repo-action,
 .start-manual-setup {
@@ -312,7 +314,6 @@ hero-vsub-unit label {
 @media (min-width: 980px) {
   body .wrap {
     padding-top: 50px;
-    padding-bottom: 51px;
   }
 
   .nav-collapse {
@@ -324,7 +325,6 @@ hero-vsub-unit label {
   body .wrap {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    padding-bottom: 51px;
   }
 
   footer p {
@@ -370,7 +370,7 @@ hero-vsub-unit label {
 }
 pre.console-output {
   overflow: auto;
-  background-color: black;
+  background-color: #292929;
   color: white;
   position: absolute;
   top: 65px;
