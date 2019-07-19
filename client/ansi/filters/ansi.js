@@ -1,6 +1,8 @@
 'use strict';
 
-var ansi_up = require('ansi_up');
+var AU = require('ansi_up');
+var ansi_up = new AU.default;
+var stripAnsi = require('strip-ansi');
 
 module.exports = function () {
   return function (input, plaintext) {
@@ -15,8 +17,8 @@ module.exports = function () {
       .replace(/^[^\n]*\u001b\[0G/gm, '');
 
     if (startswithcr) input = `\r${input}`;
-    if (plaintext) return ansi_up.ansi_to_text(input);
+    if (plaintext) return stripAnsi(input);
 
-    return ansi_up.ansi_to_html(ansi_up.escape_for_html(input));
+    return ansi_up.ansi_to_html(input);
   };
 };
