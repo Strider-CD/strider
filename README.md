@@ -31,7 +31,7 @@ Strider is extremely customizable through plugins. Plugins can
 
 ## General Requirements
 
-- [nodejs] >= 4.2
+- [nodejs] >= 6
 - [git] >= 2.0
 - [mongodb][mongo-download] (local or remote)
 - [node-gyp]
