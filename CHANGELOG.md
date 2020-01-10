@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="2.0.1"></a>
+## [2.0.1](https://github.com/Strider-CD/strider/compare/v2.0.0...v2.0.1) (2020-01-10)
+
+
+### Bug Fixes
+
+* revert angular update ([f1dd473](https://github.com/Strider-CD/strider/commit/f1dd473))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/Strider-CD/strider/compare/v1.11.0...v2.0.0) (2020-01-10)
 
