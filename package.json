@@ -134,8 +134,8 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
-    "angular": "1.7.8",
-    "angular-route": "1.7.8",
+    "angular": "1.5.7",
+    "angular-route": "1.5.7",
     "apidoc": "^0.17.1",
     "apidoc-markdown": "github:zambonilli/node-apidoc-markdown",
     "babel-preset-es2015": "^6.9.0",
