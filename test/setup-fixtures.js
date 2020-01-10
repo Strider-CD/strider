@@ -42,7 +42,7 @@ var importUsers = function (cb){
           if (u !== testUsers[1]) {
             return done();
           }
-          models.Project.update({}, {$set: {creator: user._id}}, done);
+          models.Project.updateMany({}, {$set: {creator: user._id}}, done);
         });
       });
     }, function (err){

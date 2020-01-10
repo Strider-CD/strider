@@ -130,14 +130,14 @@ module.exports = function (extdir, c, callback) {
           });
           var now = new Date();
 
-          Job.update({_id: {$in: ids}}, {
+          Job.updateOne({_id: {$in: ids}}, {
             $set: {
               finished: now,
               errored: true,
               error: {message: 'Job timeout', stack: ''}
             }
           }, function () {
-            Job.update({_id: {$in: ids}, started: null}, {$set: {started: now}}, function (err) {
+            Job.updateOne({_id: {$in: ids}, started: null}, {$set: {started: now}}, function (err) {
               cb(err, appInstance);
             });
           });
