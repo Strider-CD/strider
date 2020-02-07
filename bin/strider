@@ -6,53 +6,53 @@ var cli = require('strider-cli')({
   /*
    * Main application entrypoint
    */
-  main: function () {
+  main: function() {
     return require('../dist-lib/index');
   },
 
-  models: function () {
+  models: function() {
     return require('../dist-lib/models');
   },
 
-  common: function () {
+  common: function() {
     return require('../dist-lib/common');
   },
 
   /*
    * Plugin path determination logic
    */
-  getPluginPath: function () {
+  getPluginPath: function() {
     return require('../dist-lib/plugin-path');
   },
 
   /*
    * Database schema upgrade logic
    */
-  upgrade: function () {
+  upgrade: function() {
     return require('../dist-lib/models/upgrade');
   },
 
   /*
    * Config normalizer
    */
-  config: function () {
+  config: function() {
     return require('../dist-lib/config');
   },
 
   /*
    * Database connection function
    */
-  connect: function (cb) {
+  connect: function(cb) {
     const setupDb = require('../dist-lib/utils/setup-db');
     let config = require('../dist-lib/config');
 
     setupDb(config, cb);
   },
-  
+
   /*
    * Path to file to touch to restart strider
    */
-  restartFile: function () {
+  restartFile: function() {
     var path = require('path');
     var dir = path.join(__dirname, '..');
 
