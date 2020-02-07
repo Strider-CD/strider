@@ -7,7 +7,9 @@ var localPlugins = require('strider-cli/lib/plugin_manager/local_plugins')(plugi
 var client = require('strider-ecosystem-client');
 module.exports = function getPluginList(cb) {
     var plugins = {};
-    client.fetchPlugins().then(function (remotePlugins) {
+    client
+        .fetchPlugins()
+        .then(function (remotePlugins) {
         Object.keys(remotePlugins).forEach(function (name) {
             var remote = remotePlugins[name];
             plugins[name] = {
@@ -52,6 +54,8 @@ module.exports = function getPluginList(cb) {
             plugins = _.sortBy(plugins, 'name');
             cb(null, plugins);
         });
-    }).error(cb).catch(cb);
+    })
+        .error(cb)
+        .catch(cb);
 };
 //# sourceMappingURL=get_plugin_list.js.map

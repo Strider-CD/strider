@@ -56,7 +56,7 @@ UserSocket.prototype = {
             if (err)
                 console.error('failed to get user - socket', err);
             if (!user) {
-                console.error('user not found for the websocket - there\'s something strange going on w/ websocket auth. User Id: ', self.userid);
+                console.error("user not found for the websocket - there's something strange going on w/ websocket auth. User Id: ", self.userid);
                 self.emit(['auth.failed']);
                 return;
             }
@@ -72,10 +72,14 @@ UserSocket.prototype = {
         },
         'dashboard:unknown': function (id, done) {
             var user = this.user;
-            Job.findById(id).lean().exec(function (err, job) {
+            Job.findById(id)
+                .lean()
+                .exec(function (err, job) {
                 if (err || !job)
                     return console.error('[unknownjob] error getting job', id, err);
-                Project.findOne({ name: job.project.toLowerCase() }).lean().exec(function (err, project) {
+                Project.findOne({ name: job.project.toLowerCase() })
+                    .lean()
+                    .exec(function (err, project) {
                     if (err || !project)
                         return console.error('[unknownjob] error getting project', id, err);
                     var njob = jobs.small(job);
@@ -89,12 +93,16 @@ UserSocket.prototype = {
         },
         'build:job': function (id, done) {
             var user = this.user;
-            Job.findById(id).lean().exec(function (err, job) {
+            Job.findById(id)
+                .lean()
+                .exec(function (err, job) {
                 if (err)
                     return console.error('Error retrieving job', id, err.message, err.stack);
                 if (!job)
                     return console.error('Job not found', id);
-                Project.findOne({ name: job.project.toLowerCase() }).lean().exec(function (err, project) {
+                Project.findOne({ name: job.project.toLowerCase() })
+                    .lean()
+                    .exec(function (err, project) {
                     if (err || !project)
                         return console.error('Error getting project', job.project, err);
                     job.status = jobs.status(job);
@@ -108,21 +116,25 @@ UserSocket.prototype = {
         'build:unknown': function () {
             // TODO: query the responsible runner to get the current output, etc.
         },
-        'test': function (project, branch) {
+        test: function (project, branch) {
             var user = this.user;
             startJob(project, user, branch, 'TEST_ONLY');
         },
-        'deploy': function (project, branch) {
+        deploy: function (project, branch) {
             var user = this.user;
             startJob(project, user, branch, 'TEST_AND_DEPLOY');
         },
-        'cancel': function (id) {
+        cancel: function (id) {
             console.log('Got a request to cancel', id);
             var self = this;
-            Job.findById(id).lean().exec(function (err, job) {
+            Job.findById(id)
+                .lean()
+                .exec(function (err, job) {
                 if (err || !job)
                     return console.error('[canceljob] error getting job', id, err);
-                Project.findOne({ name: job.project.toLowerCase() }).lean().exec(function (err, project) {
+                Project.findOne({ name: job.project.toLowerCase() })
+                    .lean()
+                    .exec(function (err, project) {
                     if (err || !project)
                         return console.error('[canceljob] error getting project', id, err);
                     if (!job)
@@ -133,7 +145,7 @@ UserSocket.prototype = {
                 });
             });
         },
-        'restart': function () {
+        restart: function () {
             console.log('Implementation needed');
         }
     }
@@ -167,7 +179,9 @@ function kickoffJob(user, project, type, branch) {
             email: user.email,
             image: gravatar.url(user.email, {}, true)
         },
-        message: type === 'TEST_AND_DEPLOY' ? 'Manually Redeploying' : 'Manually Retesting',
+        message: type === 'TEST_AND_DEPLOY'
+            ? 'Manually Redeploying'
+            : 'Manually Retesting',
         timestamp: now,
         source: { type: 'UI', page: 'unknown' }
     };
@@ -185,7 +199,9 @@ function kickoffJob(user, project, type, branch) {
     common.emitter.emit('job.prepare', job);
 }
 function startJob(projectName, user, branch, jobType) {
-    Project.findOne({ name: projectName }).lean().exec(function (err, project) {
+    Project.findOne({ name: projectName })
+        .lean()
+        .exec(function (err, project) {
         if (User.projectAccessLevel(user, project) > 0) {
             kickoffJob(user, project.name, jobType, branch);
         }

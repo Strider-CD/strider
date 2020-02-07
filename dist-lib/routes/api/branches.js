@@ -50,7 +50,7 @@ root.post(requireBody(['name']), function (req, res) {
 root.put(requireBody(['branches']), function (req, res) {
     var branches = req.body.branches;
     var query = { _id: req.project._id };
-    var update = { '$set': { branches: branches } };
+    var update = { $set: { branches: branches } };
     Project.updateOne(query, update, function (err) {
         if (err)
             return res.status(500).send(err.message);
@@ -74,7 +74,7 @@ root.put(requireBody(['branches']), function (req, res) {
 root.delete(requireBody(['name']), function (req, res) {
     var name = req.body.name;
     var query = { _id: req.project._id };
-    var update = { '$pull': { branches: { name: name } } };
+    var update = { $pull: { branches: { name: name } } };
     if (name.toLowerCase() === 'master') {
         return res.status(400).send('Cannot remove the master branch');
     }

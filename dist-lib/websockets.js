@@ -95,6 +95,6 @@ function authorize(sessionStore, data, next) {
     }
 }
 module.exports.init = function (server, sessionStore) {
-    return common.ws = new UserSockets(io.listen(server), sessionStore);
+    return (common.ws = new UserSockets(io.listen(server), sessionStore));
 };
 //# sourceMappingURL=websockets.js.map

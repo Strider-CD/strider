@@ -18,10 +18,11 @@ router.use(auth.requireAdminOr401);
  * @apiExample {curl} CURL Example:
  *    curl -X GET http://localhost/admin/users
  */
-router.route('/users')
-    .get(function (req, res) {
+router.route('/users').get(function (req, res) {
     var users = [];
-    User.find({}).sort({ email: 1 }).exec(function (err, results) {
+    User.find({})
+        .sort({ email: 1 })
+        .exec(function (err, results) {
         results.forEach(function (user) {
             users.push({
                 id: user.id,
@@ -43,8 +44,7 @@ router.route('/users')
  * @apiExample {curl} CURL Example:
  *    curl -X GET http://localhost/admin/jobs
  */
-router.route('/jobs')
-    .get(function (req, res) {
+router.route('/jobs').get(function (req, res) {
     res.status(500).send('Not yet implemented');
 });
 /**
@@ -61,8 +61,7 @@ router.route('/jobs')
  * @apiParam (RequestBody) {String} invite_code The invite code/token to use in the invitation
  * @apiParam (RequestBody) {String} email The email address of the new user being invited
  */
-router.route('/invite/new')
-    .post(function (req, res) {
+router.route('/invite/new').post(function (req, res) {
     var inviteCode = requireBody('invite_code', req, res);
     var emailAddr = requireBody('email', req, res);
     if (inviteCode === undefined || emailAddr === undefined) {
@@ -91,8 +90,7 @@ router.route('/invite/new')
  * @apiParam (RequestBody) {String} invite_code The invite code/token of the invite
  * being revoked.
  */
-router.route('/invite/revoke')
-    .post(function (req, res) {
+router.route('/invite/revoke').post(function (req, res) {
     var inviteCode = requireBody('invite_code', req, res);
     InviteCode.remove({ code: inviteCode, consumed_timestamp: { $exists: false } }, function (err) {
         if (err) {

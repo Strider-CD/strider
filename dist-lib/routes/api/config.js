@@ -61,9 +61,11 @@ function cacheConfig(loader, next) {
 }
 function server(name, which) {
     return function (req, res) {
-        res.set('Content-type', `text/${(which === 'css' ? 'css' : 'javascript')}`);
+        res.set('Content-type', `text/${which === 'css' ? 'css' : 'javascript'}`);
         if (!cache['config']) {
-            return res.status(500).send('looks like config was not compiled correctly');
+            return res
+                .status(500)
+                .send('looks like config was not compiled correctly');
         }
         res.send(cache[name][which]);
     };

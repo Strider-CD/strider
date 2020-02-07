@@ -148,9 +148,11 @@ function forgot(req, res) {
             return res.redirect('/forgot');
         }
         if (user) {
-            randomBytes(20).then(function (buffer) {
+            randomBytes(20)
+                .then(function (buffer) {
                 return buffer.toString('hex');
-            }).then(function (token) {
+            })
+                .then(function (token) {
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
                 return new BluebirdPromise(function (resolve, reject) {
@@ -163,11 +165,13 @@ function forgot(req, res) {
                         }
                     });
                 });
-            }).then(function (user) {
+            })
+                .then(function (user) {
                 mailer.sendPasswordReset(user);
                 req.flash('info', 'Please check your email for the password reset url. Thank you!');
                 res.redirect('/');
-            }).catch(function (error) {
+            })
+                .catch(function (error) {
                 console.error('Password reset error: ', error);
             });
         }
@@ -210,12 +214,12 @@ function resetPost(req, res) {
             user.resetPasswordExpires = undefined;
             user.save(function (err) {
                 if (err) {
-                    req.flash('error', 'Couldn\'t save changes with new password.');
+                    req.flash('error', "Couldn't save changes with new password.");
                     return res.redirect('/');
                 }
                 req.login(user, function (err) {
                     if (err) {
-                        req.flash('error', 'You\'r user authentication was not successful.');
+                        req.flash('error', "You'r user authentication was not successful.");
                     }
                     res.redirect('/');
                 });

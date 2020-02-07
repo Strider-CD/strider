@@ -7,7 +7,8 @@ var utils = require('../../utils');
 var api = require('./api');
 var router = new express.Router();
 var User = models.User;
-router.route('/:org/:repo/collaborators/')
+router
+    .route('/:org/:repo/collaborators/')
     .all(auth.requireUserOr401, middleware.project, auth.requireProjectAdmin)
     /**
      * @api {get} /:org/:repo/collaborators Get Collaborators
@@ -65,7 +66,9 @@ router.route('/:org/:repo/collaborators/')
     var email = req.body.email;
     api.add(project, email, accessLevel, req.user, function (err, existed, alreadyInvited) {
         if (err)
-            return res.status(500).send(`Failed to add collaborator: ${err.message}`);
+            return res
+                .status(500)
+                .send(`Failed to add collaborator: ${err.message}`);
         if (existed)
             return res.send({ created: true, message: 'Collaborator added' });
         if (!alreadyInvited)

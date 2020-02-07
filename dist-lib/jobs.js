@@ -81,7 +81,10 @@ function latestJob(project, user, small, done) {
     }
     query.exec(function (err, jobs) {
         if (!jobs || !jobs.length) {
-            return done(err, { nojobs: true, project: jobProject(project, [], user) });
+            return done(err, {
+                nojobs: true,
+                project: jobProject(project, [], user)
+            });
         }
         var job = jobs[0];
         job.project = jobProject(project, jobs.slice(1));

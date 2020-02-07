@@ -22,7 +22,7 @@ module.exports = {
             plugins: ['sauce', 'qunit', 'jelly']
         },
         custom: {
-            description: 'Don\'t auto-enable any plugins.',
+            description: "Don't auto-enable any plugins.",
             plugins: []
         }
     }

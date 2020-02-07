@@ -18,23 +18,27 @@ var UserSchema = new Schema({
     // 0 = normal user, 1 = strider admin
     account_level: Number,
     // defined by provider plugins
-    accounts: [{
+    accounts: [
+        {
             provider: String,
             id: String,
             title: String,
             display_url: String,
             // cache for provided repos
-            cache: [{
+            cache: [
+                {
                     id: String,
                     name: String,
                     display_name: String,
                     config: {},
                     display_url: String,
                     group: String // a string for grouping the repos. In github, this would be the "organization"
-                }],
+                }
+            ],
             last_updated: Date,
             config: {}
-        }],
+        }
+    ],
     // user-level config
     jobplugins: {},
     // array of objects {name: "projectname", access_level: (int), display_name: (string)}
@@ -58,7 +62,7 @@ UserSchema.virtual('password')
 })
     .set(function (password) {
     this._password = password;
-    var salt = this.salt = bcrypt.genSaltSync(10);
+    var salt = (this.salt = bcrypt.genSaltSync(10));
     this.hash = bcrypt.hashSync(password, salt);
 });
 // User.collaborators(project, [accessLevel,] done(err, [user, ...]))
@@ -71,10 +75,10 @@ UserSchema.static('collaborators', function (project, accessLevel, done) {
         accessLevel = 1;
     }
     var query = {
-        'projects': {
-            '$elemMatch': {
-                'name': project.toLowerCase(),
-                'access_level': { $gte: accessLevel }
+        projects: {
+            $elemMatch: {
+                name: project.toLowerCase(),
+                access_level: { $gte: accessLevel }
             }
         }
     };
@@ -82,7 +86,7 @@ UserSchema.static('collaborators', function (project, accessLevel, done) {
 });
 // User.admins(done(err, [user, ...]))
 UserSchema.static('admins', function (done) {
-    var query = { 'account_level': 1 };
+    var query = { account_level: 1 };
     this.find(query, done);
 });
 // User.account(providerconfig)
@@ -172,7 +176,8 @@ UserSchema.static('authenticate', function (email, password, callback) {
                 }
                 if (!user) {
                     var isAdmin = false;
-                    if (config.ldap.adminDN && adUser.dn.indexOf(config.ldap.adminDN) !== -1) {
+                    if (config.ldap.adminDN &&
+                        adUser.dn.indexOf(config.ldap.adminDN) !== -1) {
                         isAdmin = true;
                     }
                     // register and return new user
@@ -238,7 +243,8 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
         }
         var projects = [];
         // For each collaboration in the invite, add permissions to the repo_config
-        if (invite.collaborations !== undefined && invite.collaborations.length > 0) {
+        if (invite.collaborations !== undefined &&
+            invite.collaborations.length > 0) {
             invite.collaborations.forEach(function (item) {
                 projects.push({
                     name: item.project.toLowerCase(),
@@ -260,7 +266,7 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
             InviteCode.updateOne({
                 code: inviteCode
             }, {
-                '$set': {
+                $set: {
                     consumed_timestamp: new Date(),
                     consumed_by_user: user._id
                 }
@@ -300,9 +306,10 @@ UserSchema.static('projectAccessLevel', function (user, project) {
     }
     return -1;
 });
-UserSchema.path('jobsQuantityOnPage')
-    .get(function (quantity) {
-    return config.jobsQuantityOnPage.enabled ? quantity : config.jobsQuantityOnPage.default;
+UserSchema.path('jobsQuantityOnPage').get(function (quantity) {
+    return config.jobsQuantityOnPage.enabled
+        ? quantity
+        : config.jobsQuantityOnPage.default;
 });
 User = module.exports = mongoose.model('user', UserSchema);
 //# sourceMappingURL=user.js.map

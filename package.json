@@ -45,6 +45,7 @@
     "watch-ts": "tsc -w",
     "build-lib": "npm run build-ts && npm run lint-lib && npm run copy-static-assets",
     "lint-lib": "tsc --noEmit && eslint \"lib/**/*.{js,ts}\" --quiet --fix",
+    "watch-lib": "nodemon",
     "copy-static-assets": "ts-node copy-static-assets.ts",
     "dev": "npm run build-debug && bin/strider",
     "pre": "mkdirp dist/scripts dist/styles",

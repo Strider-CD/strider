@@ -41,15 +41,18 @@ exports.humaneDate = function humaneDate(date, compareTo) {
         [Infinity, lang.year, lang.years, 31536000] // Infinity, 1 year
     ];
     var isString = typeof date == 'string';
-    date = isString ?
-        new Date(date.replace(/-/g, '/').replace(/[TZ]/g, ' ')) :
-        date;
-    compareTo = compareTo || new Date;
-    var seconds = (compareTo - date +
+    date = isString
+        ? new Date(date.replace(/-/g, '/').replace(/[TZ]/g, ' '))
+        : date;
+    compareTo = compareTo || new Date();
+    var seconds = (compareTo -
+        date +
         (compareTo.getTimezoneOffset() -
             // if we received a GMT time from a string, doesn't include time zone bias
             // if we got a date object, the time zone is built in, we need to remove it.
-            (isString ? 0 : date.getTimezoneOffset())) * 60000) / 1000;
+            (isString ? 0 : date.getTimezoneOffset())) *
+            60000) /
+        1000;
     var token;
     if (seconds < 0) {
         seconds = Math.abs(seconds);
@@ -88,8 +91,8 @@ exports.humaneDate = function humaneDate(date, compareTo) {
                 // Now
                 return format[1];
             }
-            var val = Math.ceil(normalize(seconds, format[3]) / (format[3]));
-            return `${val} ${(val != 1 ? format[2] : format[1])}${(i > 0 ? token : '')}`;
+            var val = Math.ceil(normalize(seconds, format[3]) / format[3]);
+            return `${val} ${val != 1 ? format[2] : format[1]}${i > 0 ? token : ''}`;
         }
     }
 };

@@ -39,7 +39,7 @@ function findBranch(branches, name) {
             }
         }
         return branch;
-    }(name, foundBranch, branches));
+    })(name, foundBranch, branches);
 }
 // merge plugins from the DB with ones from strider.json. The latter overrides the former
 function mergePlugins(branch, sjson) {
@@ -181,7 +181,10 @@ function timeFromId(id) {
 function sanitizeBranch(branch) {
     var plugins = [];
     for (var i = 0; i < branch.plugins; i++) {
-        plugins.push({ id: branch.plugins[i].id, enabled: branch.plugins[i].enabled });
+        plugins.push({
+            id: branch.plugins[i].id,
+            enabled: branch.plugins[i].enabled
+        });
     }
     return {
         plugins: plugins,

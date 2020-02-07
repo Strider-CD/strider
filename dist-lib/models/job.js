@@ -23,7 +23,8 @@ var PhaseNotSchema = {
     duration: Number,
     finished: Date,
     exitCode: Number,
-    commands: [{
+    commands: [
+        {
             started: Date,
             duration: Number,
             command: String,
@@ -32,7 +33,8 @@ var PhaseNotSchema = {
             out: String,
             err: String,
             merged: String
-        }]
+        }
+    ]
 };
 var JobSchema = new Schema({
     type: { type: String },
@@ -53,12 +55,14 @@ var JobSchema = new Schema({
     },
     // plugins can store any extra data here
     plugin_data: {},
-    warnings: [{
+    warnings: [
+        {
             plugin: String,
             title: String,
             description: String,
             severity: { type: String, default: 'major', enum: ['major', 'minor'] }
-        }],
+        }
+    ],
     std: {
         out: String,
         err: String,

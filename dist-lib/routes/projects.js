@@ -7,7 +7,8 @@ const pjson = require('../../package.json');
 const router = express.Router();
 const Project = models.Project;
 const User = models.User;
-router.route('/')
+router
+    .route('/')
     .get(function (req, res) {
     return renderProjects(false, req, res);
 })
@@ -34,7 +35,9 @@ function renderProjects(refresh, req, res) {
             projects: manualProjects[key]
         };
     });
-    Project.find({ creator: req.user._id }).lean().exec(function (err, projects) {
+    Project.find({ creator: req.user._id })
+        .lean()
+        .exec(function (err, projects) {
         if (err)
             return res.send(500, 'Failed to get projects from the database');
         // tree is { providerid: { accountid: { repoid: project._id, ...}, ...}, ...}
@@ -94,7 +97,7 @@ function renderProjects(refresh, req, res) {
         debug('Fetching projects...');
         async.parallel(tasks, function (err) {
             if (err) {
-                req.flash('account', `Failed to refresh repositories: ${(err.message || err)}`);
+                req.flash('account', `Failed to refresh repositories: ${err.message || err}`);
                 debug(err);
             }
             // cache the fetched repos
@@ -102,7 +105,7 @@ function renderProjects(refresh, req, res) {
                 if (err)
                     debug('error saving repo cache');
                 if (!num)
-                    debug('Didn\'t effect any users');
+                    debug("Didn't effect any users");
                 debug('Saved repo cache');
                 // user is already be available via the "currentUser" template variable
                 return res.format({

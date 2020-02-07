@@ -9,7 +9,8 @@ var router = express.Router();
 var User = models.User;
 var validator = require('validator');
 router.use(auth.requireUserOr401);
-router.route('/:provider/:id')
+router
+    .route('/:provider/:id')
     /**
      * @api {put} /account/:provider/:id Update Provider Account
      * @apiDescription Updates a provider account for the _active_ user (the API user).
@@ -25,8 +26,7 @@ router.route('/:provider/:id')
     var provider = req.params.provider;
     var id = req.params.id;
     for (var i = 0; i < accounts.length; i++) {
-        if (accounts[i].provider === provider &&
-            accounts[i].id === id) {
+        if (accounts[i].provider === provider && accounts[i].id === id) {
             // TODO validate these accounts
             accounts[i] = req.body;
             return User.updateOne({ _id: req.user._id }, { $set: { accounts: accounts } }, function (err) {
@@ -72,7 +72,8 @@ router.route('/:provider/:id')
             var projectNames = projects.map(function (project) {
                 return project.name;
             });
-            return res.status(403)
+            return res
+                .status(403)
                 .send(`Cannot delete provider since projects are using this provider: ${projectNames.join(', ')}`);
         }
         else {
@@ -94,7 +95,8 @@ router.route('/:provider/:id')
         }
     });
 });
-router.route('/password')
+router
+    .route('/password')
     /**
      * @api {post} /account/password Change Password
      * @apiDescription Changes the password for the _active_ user (the API user).
@@ -133,7 +135,8 @@ router.route('/password')
         });
     });
 });
-router.route('/email')
+router
+    .route('/email')
     /**
      * @api {post} /account/email Change Email
      * @apiDescription Changes the email address for the _active_ user (the API user).
@@ -171,7 +174,8 @@ router.route('/email')
         res.json({ status: 'ok', errors: [] });
     });
 });
-router.route('/jobsQuantityOnPage')
+router
+    .route('/jobsQuantityOnPage')
     /**
      * @api {post} /account/jobsQuantityOnPage Change jobs quantity on page
      * @apiDescription Changes the jobs quantity on page for the _active_ user (the API user).
@@ -189,10 +193,15 @@ router.route('/jobsQuantityOnPage')
         });
     }
     var newQuantity = req.body.quantity;
-    if (newQuantity < config.jobsQuantityOnPage.min || newQuantity > config.jobsQuantityOnPage.max) {
+    if (newQuantity < config.jobsQuantityOnPage.min ||
+        newQuantity > config.jobsQuantityOnPage.max) {
         return res.status(400).json({
             status: 'error',
-            errors: [{ message: `quantity must be between ${config.jobsQuantityOnPage.min} and ${config.jobsQuantityOnPage.max}` }]
+            errors: [
+                {
+                    message: `quantity must be between ${config.jobsQuantityOnPage.min} and ${config.jobsQuantityOnPage.max}`
+                }
+            ]
         });
     }
     debug(`jobs quantity on page change from ${req.user.jobsQuantityOnPage} to ${newQuantity}`);

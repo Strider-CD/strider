@@ -207,13 +207,15 @@ exports.config = function (req, res) {
             return 0;
         });
         var provider = common.extensions.provider[req.project.provider.id];
-        var creator_creds = req.project.creator.account(req.project.provider).config;
+        var creator_creds = req.project.creator.account(req.project.provider)
+            .config;
         if (!provider) {
             // TODO: alert the user through the UI
             debug('Provider plugin not installed!', req.project.provider.id);
             return respond(data);
         }
-        if (typeof provider.getBranches === 'function' && (!provider.hosted || creator_creds)) {
+        if (typeof provider.getBranches === 'function' &&
+            (!provider.hosted || creator_creds)) {
             provider.getBranches(creator_creds, req.project.provider.config, req.project, function (err, branches) {
                 data.allBranches = branches;
                 respond(data);

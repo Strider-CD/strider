@@ -59,7 +59,7 @@ function add(project, email, accessLevel, inviter, done) {
             }
             User.updateOne({ email: email }, {
                 $push: {
-                    'projects': {
+                    projects: {
                         name: project.toLowerCase(),
                         display_name: project,
                         access_level: accessLevel
@@ -89,6 +89,6 @@ function add(project, email, accessLevel, inviter, done) {
     });
 }
 function del(project, email, done) {
-    User.updateOne({ email: email, 'projects.name': project.toLowerCase() }, { $pull: { 'projects': { 'name': project.toLowerCase() } } }, done);
+    User.updateOne({ email: email, 'projects.name': project.toLowerCase() }, { $pull: { projects: { name: project.toLowerCase() } } }, done);
 }
 //# sourceMappingURL=api.js.map

@@ -79,7 +79,8 @@ module.exports = function (extdir, c, callback) {
             // kill zombie jobs
             killZombies(function () {
                 var tasks = [];
-                if (!common.extensions.runner || typeof common.extensions.runner !== 'object') {
+                if (!common.extensions.runner ||
+                    typeof common.extensions.runner !== 'object') {
                     console.error('Strider seems to have been misconfigured - there are no available runner plugins. ' +
                         'Please make sure all dependencies are up to date.');
                     process.exit(1);

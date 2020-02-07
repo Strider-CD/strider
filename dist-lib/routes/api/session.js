@@ -2,7 +2,8 @@ var express = require('express');
 var models = require('../../models');
 var router = new express.Router();
 var User = models.User;
-router.route('/')
+router
+    .route('/')
     /**
      * @api {get} /api/session Get Session
      * @apiDescription Gets the current session information

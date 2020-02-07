@@ -59,7 +59,8 @@ function handle(req, res, next) {
     var pathname = req._parsedUrl.pathname;
     var referrer = req.get('referrer');
     if ('undefined' === typeof test) {
-        if (referrer && referrer.indexOf('?test') !== -1 &&
+        if (referrer &&
+            referrer.indexOf('?test') !== -1 &&
             req.accepts('text, json') === 'json') {
             return api(req, res, next);
         }

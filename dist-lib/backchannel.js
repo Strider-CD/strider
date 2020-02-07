@@ -48,7 +48,9 @@ function striderJson(provider, project, ref, done) {
  * definitely move it around when we make strider OO.
  */
 function prepareJob(emitter, job) {
-    Project.findOne({ name: job.project }).populate('creator').exec(function (err, project) {
+    Project.findOne({ name: job.project })
+        .populate('creator')
+        .exec(function (err, project) {
         if (err || !project)
             return debug('job.prepare - failed to get project', job.project, err);
         // ok so the project is real, we can go ahead and save this job
@@ -76,7 +78,7 @@ function prepareJob(emitter, job) {
                         jjob.fromStriderJson = false;
                     }
                     else {
-                        debug('job.prepare - error opening/processing project\'s `strider.json` file: ', err);
+                        debug("job.prepare - error opening/processing project's `strider.json` file: ", err);
                         config = {};
                         jjob.fromStriderJson = false;
                     }
@@ -102,7 +104,8 @@ function prepareJob(emitter, job) {
                 if (!mjob.runner)
                     mjob.runner = {};
                 mjob.runner.id = config.runner.id;
-                mjob.save()
+                mjob
+                    .save()
                     .then(() => debug('job saved'))
                     .catch(e => debug(e));
             });
@@ -131,21 +134,29 @@ BackChannel.prototype = {
     sendJobs: function (project, event, args) {
         if (this.users[project]) {
             this.ws.sendEach(this.users[project], function (user) {
-                return [event, args.map(function (job) {
+                return [
+                    event,
+                    args.map(function (job) {
                         job = _.assign({}, job);
                         job.project = _.assign({}, job.project);
                         job.project.access_level = User.projectAccessLevel(user, job.project);
                         return job;
-                    }), 'yours'];
+                    }),
+                    'yours'
+                ];
             });
         }
         if (this.public[project]) {
-            this.ws.sendPublic(this.users[project], [event, args.map(function (job) {
+            this.ws.sendPublic(this.users[project], [
+                event,
+                args.map(function (job) {
                     job = _.assign({}, job);
                     job.project = _.assign({}, job.project);
                     job.project.access_level = 0;
                     return job;
-                }), 'public']);
+                }),
+                'public'
+            ]);
         }
     },
     newJob: function (job) {
@@ -227,7 +238,9 @@ BackChannel.prototype = {
             job.deploy_exitcode = job.phases.deploy && job.phases.deploy.exitCode;
             job.save();
             job = job.toJSON();
-            Project.findOne({ name: job.project }).lean().exec(function (err, project) {
+            Project.findOne({ name: job.project })
+                .lean()
+                .exec(function (err, project) {
                 if (err)
                     return debug('Error finding project for job', err.message, job.project);
                 if (!project)

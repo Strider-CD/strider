@@ -180,12 +180,15 @@ function anonProject(req, res, next) {
             return res.status(404).send('Project not found');
         }
         if (!project.creator) {
-            return res.status(400).send('Project malformed; project creator user is missing.');
+            return res
+                .status(400)
+                .send('Project malformed; project creator user is missing.');
         }
         req.project = project;
         req.accessLevel = User.projectAccessLevel(req.user, project);
         if (req.user && project.creator) {
-            req.user.isProjectCreator = project.creator._id.toString() === req.user._id.toString();
+            req.user.isProjectCreator =
+                project.creator._id.toString() === req.user._id.toString();
         }
         next();
     });

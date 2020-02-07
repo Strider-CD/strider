@@ -46,7 +46,7 @@ var isProduction = env === 'production';
 var isTest = env === 'test';
 var sessionStore;
 exports.init = function (config) {
-    const mongoose = setupDb(config, (err) => {
+    const mongoose = setupDb(config, err => {
         if (err) {
             process.exit(1);
         }
@@ -84,9 +84,12 @@ exports.init = function (config) {
     app.use(cookieParser());
     app.use(compression());
     app.use(methodOverride());
-    app.use(serveFavicon(path.join(__dirname, '..', 'public', 'favicon.ico'), { maxAge: 2592000000 }));
+    app.use(serveFavicon(path.join(__dirname, '..', 'public', 'favicon.ico'), {
+        maxAge: 2592000000
+    }));
     app.use(expressSession({
-        secret: config.session_secret, store: sessionStore,
+        secret: config.session_secret,
+        store: sessionStore,
         cookie: { maxAge: MONTH_IN_MILLISECONDS },
         resave: false,
         saveUninitialized: true
@@ -97,9 +100,15 @@ exports.init = function (config) {
         next();
     });
     auth.setup(app); // app.use(passport) is included
-    app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), { maxAge: MONTH_IN_MILLISECONDS }));
-    app.use(express.static(path.join(__dirname, '..', 'dist'), { maxAge: MONTH_IN_MILLISECONDS }));
-    app.use(express.static(path.join(__dirname, '..', 'public'), { maxAge: MONTH_IN_MILLISECONDS }));
+    app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
+        maxAge: MONTH_IN_MILLISECONDS
+    }));
+    app.use(express.static(path.join(__dirname, '..', 'dist'), {
+        maxAge: MONTH_IN_MILLISECONDS
+    }));
+    app.use(express.static(path.join(__dirname, '..', 'public'), {
+        maxAge: MONTH_IN_MILLISECONDS
+    }));
     if (!config.smtp) {
         debug('No SMTP creds - forgot password flow will not work');
     }

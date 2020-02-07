@@ -57,8 +57,14 @@ function html(req, res, next) {
     }
     var id = req.params.id;
     var projectName = req.project.name;
-    var jobsQuantity = req.user ? req.user.jobsQuantityOnPage : config.jobsQuantityOnPage.default;
-    Job.find({ project: projectName, archived: null }).sort({ finished: -1 }).limit(jobsQuantity).lean().exec(function (err, jobs) {
+    var jobsQuantity = req.user
+        ? req.user.jobsQuantityOnPage
+        : config.jobsQuantityOnPage.default;
+    Job.find({ project: projectName, archived: null })
+        .sort({ finished: -1 })
+        .limit(jobsQuantity)
+        .lean()
+        .exec(function (err, jobs) {
         if (err) {
             debug('[job] error finding jobs', err.message);
             return res.status(500).send('Failed to find jobs');
@@ -69,7 +75,10 @@ function html(req, res, next) {
             project: projectName,
             archived: null,
             finished: null
-        }).sort({ started: -1 }).lean().exec(function (err, running) {
+        })
+            .sort({ started: -1 })
+            .lean()
+            .exec(function (err, running) {
             if (err) {
                 debug('[job] error finding running jobs', err.message);
                 return res.status(500).send('Failed to find running jobs');
@@ -85,7 +94,7 @@ function html(req, res, next) {
             var sanitized = utils.sanitizeProject(req.project);
             sanitized.access_level = req.accessLevel;
             req.project.branches.forEach(function (branch) {
-                var plugins = showStatus[branch.name] = {};
+                var plugins = (showStatus[branch.name] = {});
                 branch.plugins.forEach(function (plugin) {
                     plugins[plugin.id] = plugin.enabled && plugin.showStatus;
                 });
@@ -141,7 +150,11 @@ function getJob(req, res, next) {
         query = Job.findOne({ project: req.project.name.toLowerCase(), archived: null }, {}, { sort: { finished: -1 } });
     }
     else {
-        query = Job.findOne({ project: req.project.name.toLowerCase(), _id: req.params.job_id, archived: null });
+        query = Job.findOne({
+            project: req.project.name.toLowerCase(),
+            _id: req.params.job_id,
+            archived: null
+        });
     }
     query.exec(function (err, job) {
         if (err || !job)
@@ -167,7 +180,9 @@ function data(req, res) {
 }
 function jobs(req, res) {
     Job.find({ project: req.project.name.toLowerCase(), archived: null })
-        .sort({ finished: -1 }).limit(20).lean()
+        .sort({ finished: -1 })
+        .limit(20)
+        .lean()
         .exec(function (err, jobs) {
         if (err)
             return res.status(500).send('Failed to retrieve jobs');

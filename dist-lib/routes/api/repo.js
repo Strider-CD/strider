@@ -100,7 +100,8 @@ exports.createProject = function (req, res, next) {
     var isPublic = req.body.public === 'true' || req.body.public === '1';
     var prefetch_config = true;
     var project_type = req.body.project_type || 'node.js';
-    if (req.body.prefetch_config === 'false' || req.body.prefetch_config === '0') {
+    if (req.body.prefetch_config === 'false' ||
+        req.body.prefetch_config === '0') {
         prefetch_config = false;
     }
     var provider = req.body.provider;

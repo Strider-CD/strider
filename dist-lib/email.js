@@ -36,14 +36,26 @@ function renderPug(filepath) {
 }
 exports.sendInvite = function (code, email) {
     var subject = 'Strider Invitation';
-    var bodyHtml = html.invite({ code: code, strider_server_name: config.server_name });
-    var bodyText = text.invite({ code: code, strider_server_name: config.server_name });
+    var bodyHtml = html.invite({
+        code: code,
+        strider_server_name: config.server_name
+    });
+    var bodyText = text.invite({
+        code: code,
+        strider_server_name: config.server_name
+    });
     mailer.send(email, subject, bodyText, bodyHtml);
 };
 exports.revokeInvite = function (code, email) {
     var subject = 'Strider Invitation';
-    var bodyHtml = html.revoke_invite({ code: code, strider_server_name: config.server_name });
-    var bodyText = text.revoke_invite({ code: code, strider_server_name: config.server_name });
+    var bodyHtml = html.revoke_invite({
+        code: code,
+        strider_server_name: config.server_name
+    });
+    var bodyText = text.revoke_invite({
+        code: code,
+        strider_server_name: config.server_name
+    });
     mailer.send(email, subject, bodyText, bodyHtml);
 };
 exports.notifyPasswordChange = function (user) {

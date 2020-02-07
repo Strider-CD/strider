@@ -30,7 +30,9 @@ function upgradeJobs(done) {
     });
 }
 function upgradeJob(job, done) {
-    Job.findById(job._id).lean().exec(function (err, mjob) {
+    Job.findById(job._id)
+        .lean()
+        .exec(function (err, mjob) {
         if (err)
             return done(err);
         mjob.user_id = job._owner;
@@ -50,14 +52,26 @@ function upgradeJob(job, done) {
         mjob.finished = job.finished_timestamp;
         mjob.queued = mjob.created;
         mjob.started = mjob.created;
-        mjob.duration = mjob.finished ? mjob.finished.getTime() - mjob.created.getTime() : 0;
+        mjob.duration = mjob.finished
+            ? mjob.finished.getTime() - mjob.created.getTime()
+            : 0;
         mjob.archived = job.archived_timestamp;
         mjob.trigger = makeTrigger(job, job.github_commit_info);
         mjob.plugin_data = {};
         if (job.tasks && job.tasks.length) {
             mjob.plugin_data.sauce = job.tasks;
         }
-        killAttrs(mjob, ['created_timestamp', 'finished_timestamp', 'archived_timestamp', '_owner', 'repo_url', 'stdout', 'stderr', 'stdmerged', 'tasks']);
+        killAttrs(mjob, [
+            'created_timestamp',
+            'finished_timestamp',
+            'archived_timestamp',
+            '_owner',
+            'repo_url',
+            'stdout',
+            'stderr',
+            'stdmerged',
+            'tasks'
+        ]);
         mjob.phases = {
             environment: {
                 commands: []
@@ -69,14 +83,16 @@ function upgradeJob(job, done) {
                 finished: mjob.finished,
                 duration: mjob.duration,
                 exitCode: mjob.test_exitcode,
-                commands: [{
+                commands: [
+                    {
                         started: mjob.started,
                         duration: mjob.duration,
                         command: 'Legacy job output',
                         out: mjob.std.out,
                         err: mjob.std.err,
                         merged: mjob.std.merged
-                    }]
+                    }
+                ]
             },
             deploy: {
                 commands: []
@@ -202,7 +218,9 @@ function makeHerokuAccounts(user) {
     };
 }
 function upgradeUser(user, done) {
-    User.findById(user._id).lean().exec(function (err, mongUser) {
+    User.findById(user._id)
+        .lean()
+        .exec(function (err, mongUser) {
         var heroku = makeHerokuAccounts(user);
         mongUser.accounts = [];
         if (user.github && user.github.id) {
@@ -221,13 +239,23 @@ function upgradeUser(user, done) {
             }
         };
         mongUser.projects = [];
-        killAttrs(mongUser, ['github', 'github_config', 'github_metadata', 'dotcloud_config', 'heroku']);
+        killAttrs(mongUser, [
+            'github',
+            'github_config',
+            'github_metadata',
+            'dotcloud_config',
+            'heroku'
+        ]);
         var projects = [];
         if (user.github_config && user.github_config.length > 0) {
             for (var i = 0; i < user.github_config.length; i++) {
                 var repo_config = user.github_config[i];
                 var name = makeName(repo_config.display_url);
-                mongUser.projects.push({ name: name.toLowerCase(), display_name: name, access_level: 2 });
+                mongUser.projects.push({
+                    name: name.toLowerCase(),
+                    display_name: name,
+                    access_level: 2
+                });
                 projects.push(makeProject(name, repo_config, user, heroku));
             }
         }
@@ -240,7 +268,11 @@ function upgradeUser(user, done) {
     });
 }
 function makeName(url) {
-    return url.split('/').slice(-2).join('/').split('.')[0];
+    return url
+        .split('/')
+        .slice(-2)
+        .join('/')
+        .split('.')[0];
 }
 function makeProvider(name, repo, user) {
     // TODO: how do I know if it's not github?
@@ -318,7 +350,8 @@ var checkPlugins = {
         return repo.custom;
     },
     heroku: function (repo, user, heroku) {
-        if (!repo.prod_deploy_target || repo.prod_deploy_target.provider !== 'heroku')
+        if (!repo.prod_deploy_target ||
+            repo.prod_deploy_target.provider !== 'heroku')
             return;
         var account_id = repo.prod_deploy_target.account_id;
         return { app: heroku.apps[account_id] };
@@ -352,14 +385,16 @@ var checkPlugins = {
     }
 };
 function makePlugins(repo, user, heroku) {
-    var plugins = [{
+    var plugins = [
+        {
             id: 'node',
             enabled: true,
             config: {
                 test: 'npm install',
                 runtime: 'whatever'
             }
-        }];
+        }
+    ];
     Object.keys(checkPlugins).forEach(function (name) {
         var config = checkPlugins[name](repo, user, heroku);
         if (!config)
@@ -400,7 +435,7 @@ function makeProject(name, repo, user, heroku) {
         display_url: repo.display_url,
         creator: user._id,
         branches: [makeBranch(repo, user, heroku)],
-        provider: makeProvider(name, repo, user),
+        provider: makeProvider(name, repo, user)
     };
 }
 function convertGithub(user) {

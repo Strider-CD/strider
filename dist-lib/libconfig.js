@@ -84,10 +84,13 @@ function getConfigByName(filname) {
     }
 }
 function camel(words) {
-    return words[0] + words.slice(1)
-        .map(function (word) {
-        return word[0].toUpperCase() + word.slice(1);
-    }).join('');
+    return (words[0] +
+        words
+            .slice(1)
+            .map(function (word) {
+            return word[0].toUpperCase() + word.slice(1);
+        })
+            .join(''));
 }
 function addPlugins(rc, env) {
     var parts;
@@ -102,7 +105,7 @@ function addPlugins(rc, env) {
                 rc.plugins[parts[1]] = JSON.parse(env[key]);
             }
             catch (e) {
-                console.warn('Ignoring config because it\'s not valid JSON: ', key, env[key]);
+                console.warn("Ignoring config because it's not valid JSON: ", key, env[key]);
             }
             continue;
         }

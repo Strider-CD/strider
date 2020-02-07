@@ -1,6 +1,6 @@
 /* eslint-disable no-control-regex */
 var AU = require('ansi_up');
-var ansi_up = new AU.default;
+var ansi_up = new AU.default();
 var stripAnsi = require('strip-ansi');
 // Copy of client/ansi/filters/ansi.js
 module.exports = function (input, plaintext) {
@@ -10,7 +10,8 @@ module.exports = function (input, plaintext) {
         return input;
     // handle the characters for "delete line" and "move to start of line"
     var startswithcr = /^[^\n]*\r[^\n]/.test(input);
-    input = input.replace(/^[^\n\r]*\u001b\[2K/gm, '')
+    input = input
+        .replace(/^[^\n\r]*\u001b\[2K/gm, '')
         .replace(/\u001b\[K[^\n\r]*/g, '')
         .replace(/[^\n]*\r([^\n])/g, '$1')
         .replace(/^[^\n]*\u001b\[0G/gm, '');

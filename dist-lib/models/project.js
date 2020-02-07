@@ -78,7 +78,8 @@ var ProjectSchema = new Schema({
         id: String,
         account: String,
         repo_id: String,
-        config: { // decided by the provider
+        config: {
+        // decided by the provider
         // url: String
         }
     }

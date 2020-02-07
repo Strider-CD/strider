@@ -24,7 +24,10 @@ function makeInviteCode() {
  * GET /admin/invites - admin interface for invites
  */
 exports.invites = function (req, res) {
-    InviteCode.find({}).populate('consumed_by_user').sort({ '_id': -1 }).exec(function (err, results) {
+    InviteCode.find({})
+        .populate('consumed_by_user')
+        .sort({ _id: -1 })
+        .exec(function (err, results) {
         results.forEach(function (invite) {
             invite.created = humane.humaneDate(invite.created_timestamp);
             invite.consumed = humane.humaneDate(invite.consumed_timestamp);
@@ -40,7 +43,9 @@ exports.invites = function (req, res) {
  * GET /admin/users - admin interface for users
  */
 exports.users = function (req, res) {
-    User.find({}).sort({ '_id': -1 }).exec(function (err, users) {
+    User.find({})
+        .sort({ _id: -1 })
+        .exec(function (err, users) {
         res.render('admin/users.html', {
             flash: req.flash('admin'),
             version: pjson.version,
@@ -115,13 +120,17 @@ exports.job = function (req, res) {
     repoUrl = repoUrl.toLowerCase();
     Step(function runQueries() {
         debug(`Querying for job id: ${jobId}`);
-        Job.findById(jobId).populate('_owner').exec(this.parallel());
+        Job.findById(jobId)
+            .populate('_owner')
+            .exec(this.parallel());
         debug(`Querying for last 20 jobs for ${repoUrl}`);
         Job.find()
-            .sort({ 'finished_timestamp': -1 })
-            .where('finished_timestamp').ne(null)
+            .sort({ finished_timestamp: -1 })
+            .where('finished_timestamp')
+            .ne(null)
             .where('repo_url', repoUrl)
-            .where('type').in(['TEST_ONLY', 'TEST_AND_DEPLOY'])
+            .where('type')
+            .in(['TEST_ONLY', 'TEST_AND_DEPLOY'])
             .limit(20)
             .populate('_owner')
             .exec(this.parallel());
@@ -150,18 +159,21 @@ exports.job = function (req, res) {
             res.render(404, 'invalid job id');
         }
         else {
-            resultsDetail.duration = Math.round((resultsDetail.finished_timestamp - resultsDetail.created_timestamp) / 1000);
+            resultsDetail.duration = Math.round((resultsDetail.finished_timestamp - resultsDetail.created_timestamp) /
+                1000);
             resultsDetail.finished_at = humane.humaneDate(resultsDetail.finished_timestamp);
             var triggeredByCommit = false;
             if (resultsDetail.github_commit_info.id !== undefined) {
                 triggeredByCommit = true;
                 resultsDetail.gravatar_url = utils.gravatar(resultsDetail.github_commit_info.author.email);
                 if (resultsDetail.github_commit_info.author.username !== undefined) {
-                    resultsDetail.committer = resultsDetail.github_commit_info.author.username;
+                    resultsDetail.committer =
+                        resultsDetail.github_commit_info.author.username;
                     resultsDetail.committer_is_username = true;
                 }
                 else {
-                    resultsDetail.committer = resultsDetail.github_commit_info.author.name;
+                    resultsDetail.committer =
+                        resultsDetail.github_commit_info.author.name;
                     resultsDetail.committer_is_username = false;
                 }
             }
