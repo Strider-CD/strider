@@ -57,7 +57,7 @@
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --presets [ es2015 ] --only client] -e client/app.js -o dist/scripts/app.js",
     "test-unit": "mocha --recursive test/unit",
-    "lint": "eslint *.js bin client",
+    "lint": "eslint *.js client",
     "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
     "api-docs": "apidoc -i lib/ -o apidocs/",
     "api-docs:md": "apidoc-markdown -p apidocs -o docs/api.md",
