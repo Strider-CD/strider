@@ -48,7 +48,7 @@
     "watch-lib": "nodemon",
     "build-and-start": "npm run build-ts && npm start",
     "copy-static-assets": "ts-node copy-static-assets.ts",
-    "dev": "npm run build-debug && bin/strider",
+    "dev": "npm run build-debug && npm run watch-lib",
     "pre": "mkdirp dist/scripts dist/styles",
     "vendor": "bower-installer",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
