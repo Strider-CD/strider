@@ -1,12 +1,12 @@
 
-var expect = require('expect.js')
-  , sm = require('mocha-selenium')
-  , b = sm.setup('views:Projects', {
+var expect = require('expect.js'),
+  sm = require('mocha-selenium'),
+  b = sm.setup('views:Projects', {
     appCmd: 'node test/strider.js',
     lastShot: 'failed'
-  })
+  }),
 
-  , client = require('./client');
+  client = require('./client');
 
 describe('projects', function () {
   this.timeout(30 * 1000);

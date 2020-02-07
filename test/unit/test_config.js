@@ -14,9 +14,9 @@ describe('config', function () {
   describe('.addPlugins', function () {
 
     it('should parse JSON', function () {
-      var rc = {}
-        , gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'}
-        , bc = {one: 2, three: 'four'};
+      var rc = {},
+        gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'},
+        bc = {one: 2, three: 'four'};
       lconf.addPlugins(rc, {
         PLUGIN_GITHUB: JSON.stringify(gc),
         PLUGIN_BITBUCKET: JSON.stringify(bc)
@@ -29,8 +29,8 @@ describe('config', function () {
 
     it('should ignore invalid JSON', function () {
       sinon.stub(console, 'warn');
-      var rc = {}
-        , gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'};
+      var rc = {},
+        gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'};
       lconf.addPlugins(rc, {
         PLUGIN_GITHUB: JSON.stringify(gc),
         PLUGIN_BITBUCKET: 'not valid json'
@@ -92,8 +92,8 @@ describe('config', function () {
 
   it('should pick up legacy github variables', function () {
     sinon.stub(console, 'warn');
-    var oe = process.env
-      , config;
+    var oe = process.env,
+      config;
     process.env = _.extend({}, process.env, {
       APP_ID: 'one',
       APP_SECRET: 'two'
@@ -113,8 +113,8 @@ describe('config', function () {
   });
 
   it('should pick up non-prefixed items', function () {
-    var oe = process.env
-      , config;
+    var oe = process.env,
+      config;
     process.env = _.extend({}, process.env, {
       PORT: 5001,
       SERVER_NAME: 'local',

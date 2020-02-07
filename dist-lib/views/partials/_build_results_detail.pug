@@ -1,0 +1,41 @@
+- if (triggered_by_commit)
+  .row-fluid
+    .span1
+      a(href="https://github.com/"+ results_detail.github_commit_info.author.username )
+        img(src=results_detail.gravatar_url + '&s=40').gravatar
+    .span11
+      .row-fluid
+        .span6
+          #repo-branch
+            strong Branch: 
+            a master 
+        .span6
+          #commit-id
+            strong Commit-ID: 
+            a(href="https://github.com/#{org}/#{repo}/commit/" + results_detail.github_commit_info.id) #{results_detail.github_commit_info.id.substr(0,10)}
+       .row-fluid
+          .span12
+            #repo-branch
+              strong 
+                - if (results_detail.committer_is_username)
+                  a(href="https://github.com/"+ results_detail.committer ) #{results_detail.committer}
+                - else 
+                  | #{results_detail.committer}
+              | :&nbsp;#{results_detail.github_commit_info.message}
+- else
+  .row-fluid
+     .span6
+       #repo-branch
+         strong Branch: 
+         a master
+     .span6
+       #commit-id 
+         strong Job: 
+         a(href="/#{org}/#{repo}/job/" + results_detail.id) #{results_detail.id.substr(0,8)}
+.row-fluid.results-detail-times
+  .span6
+    #finished-at
+      h3 #{results_detail.finished_at}
+  .span6
+    #build-duration
+      h3 #{results_detail.duration}s

@@ -1,14 +1,14 @@
 
-var models = require('../lib/models')
-  , mongoose = require('mongoose')
-  , mongodbUrl = process.env.STRIDER_TEST_DB || 'mongodb://localhost/strider-foss'
-  , fs = require('fs')
-  , async = require('async');
+var models = require('../lib/models'),
+  mongoose = require('mongoose'),
+  mongodbUrl = process.env.STRIDER_TEST_DB || 'mongodb://localhost/strider-foss',
+  fs = require('fs'),
+  async = require('async');
 
 mongoose.connect(mongodbUrl);
 
 function upFixture(name, items, done) {
-  var fileName = 'fixtures/' + name + '.json';
+  var fileName = `fixtures/${  name  }.json`;
   fs.readFile(fileName, 'utf8', function (err, text) {
     if (err) return done(err);
     var data = JSON.parse(text);

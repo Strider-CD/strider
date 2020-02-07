@@ -41,6 +41,11 @@
   "scripts": {
     "test": "npm run build && npm run lint && npm run test-unit",
     "start": "bin/strider",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "build-lib": "npm run build-ts && npm run lint-lib && npm run copy-static-assets",
+    "lint-lib": "tsc --noEmit && eslint \"lib/**/*.{js,ts}\" --quiet --fix",
+    "copy-static-assets": "ts-node copy-static-assets.ts",
     "dev": "npm run build-debug && bin/strider",
     "pre": "mkdirp dist/scripts dist/styles",
     "vendor": "bower-installer",
@@ -50,7 +55,7 @@
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --presets [ es2015 ] --only client] -e client/app.js -o dist/scripts/app.js",
     "test-unit": "mocha --recursive test/unit",
-    "lint": "eslint *.js bin lib client",
+    "lint": "eslint *.js bin client",
     "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
     "api-docs": "apidoc -i lib/ -o apidocs/",
     "api-docs:md": "apidoc-markdown -p apidocs -o docs/api.md",
@@ -59,8 +64,8 @@
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node --inspect bin/strider --no-cluster",
     "release": "standard-version",
-    "prepublish": "in-publish && npm run build || not-in-publish",
-    "postinstall": "opencollective postinstall"
+    "prepublish": "in-publish && npm run build && npm run build-lib || not-in-publish",
+    "postinstall": "npm run build-lib && opencollective postinstall"
   },
   "dependencies": {
     "activedirectory": "^0.7.2",
@@ -134,6 +139,7 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "@types/shelljs": "^0.8.6",
     "angular": "1.5.7",
     "angular-route": "1.5.7",
     "apidoc": "^0.17.1",
@@ -161,7 +167,12 @@
     "standard-version": "^4.0.0",
     "surge": "^0.21.3",
     "watchify": "^3.4.0",
-    "wd": "^0.4.0"
+    "wd": "^0.4.0",
+    "concurrently": "^5.1.0",
+    "nodemon": "^2.0.2",
+    "shelljs": "^0.8.3",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
   },
   "collective": {
     "type": "opencollective",

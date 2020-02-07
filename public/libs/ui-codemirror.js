@@ -7,7 +7,7 @@ angular.module('ui.codemirror', [])
   .directive('uiCodemirror', ['uiCodemirrorConfig', '$timeout', function (uiCodemirrorConfig, $timeout) {
     'use strict';
 
-    var events = ["cursorActivity", "viewportChange", "gutterClick", "focus", "blur", "scroll", "update"];
+    var events = ['cursorActivity', 'viewportChange', 'gutterClick', 'focus', 'blur', 'scroll', 'update'];
     return {
       restrict: 'A',
       require: 'ngModel',
@@ -27,7 +27,7 @@ angular.module('ui.codemirror', [])
             if (newValue !== ngModel.$viewValue) {
               ngModel.$setViewValue(newValue);
             }
-            if (typeof aEvent === "function") {
+            if (typeof aEvent === 'function') {
               aEvent(instance, changeObj);
             }
             if (!scope.$$phase) {
@@ -42,7 +42,7 @@ angular.module('ui.codemirror', [])
           // Refresh codemirror externally this way...
           //$('[ui-codemirror]').trigger('refresh')
           elm.on('refresh', function () {
-            codeMirror.refresh()
+            codeMirror.refresh();
           });
 
           if (angular.isDefined(scope[attrs.uiCodemirror])) {
@@ -55,14 +55,14 @@ angular.module('ui.codemirror', [])
             }, true);
           }
 
-          codeMirror.on("change", onChange(opts.onChange));
+          codeMirror.on('change', onChange(opts.onChange));
 
           for (var i = 0, n = events.length, aEvent; i < n; ++i) {
-            aEvent = opts["on" + events[i].charAt(0).toUpperCase() + events[i].slice(1)];
+            aEvent = opts[`on${  events[i].charAt(0).toUpperCase()  }${events[i].slice(1)}`];
             if (aEvent === void 0) {
               continue;
             }
-            if (typeof aEvent !== "function") {
+            if (typeof aEvent !== 'function') {
               continue;
             }
             codeMirror.on(events[i], aEvent);
@@ -73,8 +73,7 @@ angular.module('ui.codemirror', [])
           ngModel.$formatters.push(function (value) {
             if (angular.isUndefined(value) || value === null) {
               return '';
-            }
-            else if (angular.isObject(value) || angular.isArray(value)) {
+            } else if (angular.isObject(value) || angular.isArray(value)) {
               throw new Error('ui-codemirror cannot use an object or an array as a model');
             }
             return value;

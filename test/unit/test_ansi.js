@@ -1,10 +1,10 @@
-var filter = require('../../lib/ansi')
-  , expect = require('chai').expect
-  , fs = require('fs')
-  , path = require('path');
+var filter = require('../../lib/ansi'),
+  expect = require('chai').expect,
+  fs = require('fs'),
+  path = require('path');
 
 function loadFix(name) {
-  return fs.readFileSync(path.join(__dirname, 'fixtures', 'ansi-' + name)).toString('utf8');
+  return fs.readFileSync(path.join(__dirname, 'fixtures', `ansi-${  name}`)).toString('utf8');
 }
 
 describe('ansi filtering', function () {

@@ -7,44 +7,44 @@ var cli = require('strider-cli')({
    * Main application entrypoint
    */
   main: function () {
-    return require('../main');
+    return require('../dist-lib/index');
   },
 
   models: function () {
-    return require('../lib/models');
+    return require('../dist-lib/models');
   },
 
   common: function () {
-    return require('../lib/common');
+    return require('../dist-lib/common');
   },
 
   /*
    * Plugin path determination logic
    */
   getPluginPath: function () {
-    return require('../lib/plugin-path');
+    return require('../dist-lib/plugin-path');
   },
 
   /*
    * Database schema upgrade logic
    */
   upgrade: function () {
-    return require('../lib/models/upgrade');
+    return require('../dist-lib/models/upgrade');
   },
 
   /*
    * Config normalizer
    */
   config: function () {
-    return require('../lib/config');
+    return require('../dist-lib/config');
   },
 
   /*
    * Database connection function
    */
   connect: function (cb) {
-    const setupDb = require('../lib/utils/setup-db');
-    let config = require('../lib/config');
+    const setupDb = require('../dist-lib/utils/setup-db');
+    let config = require('../dist-lib/config');
 
     setupDb(config, cb);
   },

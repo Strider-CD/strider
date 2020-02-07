@@ -1,5 +1,5 @@
-var utils = require('../../lib/utils')
-  , expect = require('chai').expect;
+var utils = require('../../lib/utils'),
+  expect = require('chai').expect;
 
 describe('utils', function () {
 
@@ -103,12 +103,12 @@ describe('utils', function () {
   describe('findBranch()', function () {
 
     var branches =
-      [ { name: 'test' }
-      , { name: 'test*test' }
-      , { name: 'test*' }
-      , { name: '*test' }
-      , { name: '*test*' }
-      , { name: '*' }
+      [ { name: 'test' },
+        { name: 'test*test' },
+        { name: 'test*' },
+        { name: '*test' },
+        { name: '*test*' },
+        { name: '*' }
       ];
 
     it('should find a branch with no wildcards', function () {

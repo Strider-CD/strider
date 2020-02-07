@@ -1,13 +1,13 @@
-var Step = require('step')
-  , request = require('request')
-  , config = require('./test-config')
-  , models = require('../lib/models')
-  , mongoose = require('mongoose')
-  , mongodbUrl = process.env.STRIDER_TEST_DB || 'mongodb://localhost/stridercdtest'
-  , async = require('async')
-  , path = require('path')
-  , fs = require('fs')
-  , testUsers = require('./fixtures/users')(request);
+var Step = require('step'),
+  request = require('request'),
+  config = require('./test-config'),
+  models = require('../lib/models'),
+  mongoose = require('mongoose'),
+  mongodbUrl = process.env.STRIDER_TEST_DB || 'mongodb://localhost/stridercdtest',
+  async = require('async'),
+  path = require('path'),
+  fs = require('fs'),
+  testUsers = require('./fixtures/users')(request);
 
 console.log('Setting up fixtures: %s', mongodbUrl);
 
@@ -53,13 +53,13 @@ var importUsers = function (cb){
 };
 
 function getFileFixture(name, done) {
-  fs.readFile(path.join(__dirname, 'fixtures', name + '.json'), 'utf8', function (err, text) {
+  fs.readFile(path.join(__dirname, 'fixtures', `${name  }.json`), 'utf8', function (err, text) {
     if (err) return done(err);
     var data;
     try {
       data = JSON.parse(text);
     } catch (e) {
-      return done(new Error('failed to import fixture: ' + e.message));
+      return done(new Error(`failed to import fixture: ${  e.message}`));
     }
     done(null, data);
   });
@@ -102,19 +102,19 @@ var dropDB = function (cb){
   var collections = Object.keys(mongoose.connection.collections);
 
   async.map(collections,
-      function dropCollection(collection, done){
-        //console.log('Dropping ', collection)
-        mongoose.connection.collections[collection].drop(function (err){
-          if (err && err.errmsg === 'ns not found') return done(null, collection);
-          done(err, collection);
-        });
-      }
-     , function done(err, res){
-        //console.log(err, 'dropped', res)
-       cb(err);
-     }
+    function dropCollection(collection, done){
+      //console.log('Dropping ', collection)
+      mongoose.connection.collections[collection].drop(function (err){
+        if (err && err.errmsg === 'ns not found') return done(null, collection);
+        done(err, collection);
+      });
+    }
+    , function done(err, res){
+      //console.log(err, 'dropped', res)
+      cb(err);
+    }
   );
- /* mongoose.connection.db.dropDatabase(function(err){
+  /* mongoose.connection.db.dropDatabase(function(err){
     console.log('!>')
     if(err) throw err;
     console.log('DB DROPPED')
@@ -146,16 +146,18 @@ var connect = function (cb) {
 
 module.exports = function (cb){
   async.series([
-    connect
-    , dropDB
-    , importSettings
-    , importProjects
-    , importUsers
-    , importJobs
-    , importConfig
+    connect,
+    dropDB,
+    importSettings,
+    importProjects,
+    importUsers,
+    importJobs,
+    importConfig
   ]
     , function (err, stdout, stderr) {
-    if (err) {throw err;}
+    if (err) {
+      throw err;
+    }
     config.db_uri = mongodbUrl;
     cb(null, config);
   });
