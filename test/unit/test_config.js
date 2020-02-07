@@ -1,22 +1,25 @@
 var _ = require('lodash');
 var expect = require('chai').expect;
-var lconf = require('../../lib/libconfig.js');
+var lconf = require('../../dist-lib/libconfig.js');
 var sinon = require('sinon');
 
-describe('config', function () {
-
-  describe('camel', function () {
-    it('should convert to camelCase', function () {
+describe('config', function() {
+  describe('camel', function() {
+    it('should convert to camelCase', function() {
       expect(lconf.camel(['one', 'two', 'three'])).to.equal('oneTwoThree');
     });
   });
 
-  describe('.addPlugins', function () {
-
-    it('should parse JSON', function () {
+  describe('.addPlugins', function() {
+    it('should parse JSON', function() {
       var rc = {},
-        gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'},
-        bc = {one: 2, three: 'four'};
+        gc = {
+          appId: 'theid',
+          appSecret: 'the Secret',
+          port: 3000,
+          hostname: 'mensch'
+        },
+        bc = { one: 2, three: 'four' };
       lconf.addPlugins(rc, {
         PLUGIN_GITHUB: JSON.stringify(gc),
         PLUGIN_BITBUCKET: JSON.stringify(bc)
@@ -27,10 +30,15 @@ describe('config', function () {
       });
     });
 
-    it('should ignore invalid JSON', function () {
+    it('should ignore invalid JSON', function() {
       sinon.stub(console, 'warn');
       var rc = {},
-        gc = {appId: 'theid', appSecret: 'the Secret', port: 3000, hostname: 'mensch'};
+        gc = {
+          appId: 'theid',
+          appSecret: 'the Secret',
+          port: 3000,
+          hostname: 'mensch'
+        };
       lconf.addPlugins(rc, {
         PLUGIN_GITHUB: JSON.stringify(gc),
         PLUGIN_BITBUCKET: 'not valid json'
@@ -42,7 +50,7 @@ describe('config', function () {
       console.warn.restore();
     });
 
-    it('should get individual variables', function () {
+    it('should get individual variables', function() {
       var rc = {};
       lconf.addPlugins(rc, {
         PLUGIN_GITHUB_APP_ID: 4,
@@ -61,7 +69,7 @@ describe('config', function () {
     });
   });
 
-  it('should arrange the smtp config', function () {
+  it('should arrange the smtp config', function() {
     var oe = process.env;
     var config;
 
@@ -90,7 +98,7 @@ describe('config', function () {
     process.env = oe;
   });
 
-  it('should pick up legacy github variables', function () {
+  it('should pick up legacy github variables', function() {
     sinon.stub(console, 'warn');
     var oe = process.env,
       config;
@@ -112,7 +120,7 @@ describe('config', function () {
     console.warn.restore();
   });
 
-  it('should pick up non-prefixed items', function () {
+  it('should pick up non-prefixed items', function() {
     var oe = process.env,
       config;
     process.env = _.extend({}, process.env, {

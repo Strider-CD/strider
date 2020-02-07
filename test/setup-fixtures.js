@@ -1,9 +1,10 @@
 var Step = require('step'),
   request = require('request'),
   config = require('./test-config'),
-  models = require('../lib/models'),
+  models = require('../dist-lib/models'),
   mongoose = require('mongoose'),
-  mongodbUrl = process.env.STRIDER_TEST_DB || 'mongodb://localhost/stridercdtest',
+  mongodbUrl =
+    process.env.STRIDER_TEST_DB || 'mongodb://localhost/stridercdtest',
   async = require('async'),
   path = require('path'),
   fs = require('fs'),
@@ -11,105 +12,117 @@ var Step = require('step'),
 
 console.log('Setting up fixtures: %s', mongodbUrl);
 
-var importUsers = function (cb){
+var importUsers = function(cb) {
   //console.log('dropping existing users table')
-  models.User.remove({}, function (err){
+  models.User.remove({}, function(err) {
     if (err) throw err;
 
     //console.log('dropped')
 
-    async.eachSeries(testUsers, function (u, done){
-      var user = new models.User();
-      user.email = u.email;
-      user.account_level = u.account_level;
-      user.set('password', u.password);
+    async.eachSeries(
+      testUsers,
+      function(u, done) {
+        var user = new models.User();
+        user.email = u.email;
+        user.account_level = u.account_level;
+        user.set('password', u.password);
 
-      if (u.noProjects) {
-        return user.save(done);
-      }
-      models.Project.find({}, function (err, projects) {
-        if (err) return done(err);
-        user.projects = [];
-        projects.forEach(function (p) {
-          user.projects.push({
-            name: p.name,
-            display_name: p.display_name,
-            access_level: 2
+        if (u.noProjects) {
+          return user.save(done);
+        }
+        models.Project.find({}, function(err, projects) {
+          if (err) return done(err);
+          user.projects = [];
+          projects.forEach(function(p) {
+            user.projects.push({
+              name: p.name,
+              display_name: p.display_name,
+              access_level: 2
+            });
+          });
+          user.save(function(err) {
+            if (err) return done(err);
+            if (u !== testUsers[1]) {
+              return done();
+            }
+            models.Project.updateMany(
+              {},
+              { $set: { creator: user._id } },
+              done
+            );
           });
         });
-        user.save(function (err) {
-          if (err) return done(err);
-          if (u !== testUsers[1]) {
-            return done();
-          }
-          models.Project.updateMany({}, {$set: {creator: user._id}}, done);
-        });
-      });
-    }, function (err){
-      cb(err, null);
-    });
+      },
+      function(err) {
+        cb(err, null);
+      }
+    );
   });
-
 };
 
 function getFileFixture(name, done) {
-  fs.readFile(path.join(__dirname, 'fixtures', `${name  }.json`), 'utf8', function (err, text) {
-    if (err) return done(err);
-    var data;
-    try {
-      data = JSON.parse(text);
-    } catch (e) {
-      return done(new Error(`failed to import fixture: ${  e.message}`));
+  fs.readFile(
+    path.join(__dirname, 'fixtures', `${name}.json`),
+    'utf8',
+    function(err, text) {
+      if (err) return done(err);
+      var data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        return done(new Error(`failed to import fixture: ${e.message}`));
+      }
+      done(null, data);
     }
-    done(null, data);
-  });
+  );
 }
 
-var importJobs = function (cb){
+var importJobs = function(cb) {
   //console.log('dropping existing jobs table')
-  models.Job.remove({}, function (err){
-    getFileFixture('jobs', function (err, jobs) {
+  models.Job.remove({}, function(err) {
+    getFileFixture('jobs', function(err, jobs) {
       models.Job.collection.insert(jobs, cb);
     });
   });
 };
 
-var importProjects = function (cb){
-  models.Project.remove({}, function (err){
-    getFileFixture('projects', function (err, jobs) {
+var importProjects = function(cb) {
+  models.Project.remove({}, function(err) {
+    getFileFixture('projects', function(err, jobs) {
       models.Project.collection.insert(jobs, cb);
     });
   });
 };
 
-var importConfig = function (cb){
-  models.Config.remove({}, function (err){
-    getFileFixture('config', function (err, configs) {
+var importConfig = function(cb) {
+  models.Config.remove({}, function(err) {
+    getFileFixture('config', function(err, configs) {
       models.Config.collection.insert(configs, cb);
     });
   });
 };
 
-var importSettings = function (cb){
-  models.Config.remove({}, function (err){
+var importSettings = function(cb) {
+  models.Config.remove({}, function(err) {
     if (err) throw err;
-    new models.Config({version: 1}).save(cb);
+    new models.Config({ version: 1 }).save(cb);
   });
 };
 
-var dropDB = function (cb){
+var dropDB = function(cb) {
   // Can't simply drop the DB - need to retain the users table
   var collections = Object.keys(mongoose.connection.collections);
 
-  async.map(collections,
-    function dropCollection(collection, done){
+  async.map(
+    collections,
+    function dropCollection(collection, done) {
       //console.log('Dropping ', collection)
-      mongoose.connection.collections[collection].drop(function (err){
+      mongoose.connection.collections[collection].drop(function(err) {
         if (err && err.errmsg === 'ns not found') return done(null, collection);
         done(err, collection);
       });
-    }
-    , function done(err, res){
+    },
+    function done(err, res) {
       //console.log(err, 'dropped', res)
       cb(err);
     }
@@ -123,48 +136,49 @@ var dropDB = function (cb){
   */
 };
 
-var connect = function (cb) {
+var connect = function(cb) {
   //console.log('-->connecting')
   mongoose.connect(mongodbUrl);
 
-  mongoose.connection.on('error',function (err) {
+  mongoose.connection.on('error', function(err) {
     console.log('ERROR: MONGOOSE CONNNECTION: ', err);
     process.exit(1);
   });
 
-  mongoose.connection.on('disconnected', function (err, res) {
+  mongoose.connection.on('disconnected', function(err, res) {
     //console.log('Mongoose default connection disconnected', err, res);
   });
 
-
-  mongoose.connection.on('connected', function (err, res) {
-    if(err) throw err;
+  mongoose.connection.on('connected', function(err, res) {
+    if (err) throw err;
     //console.log('<--- connected')
     cb.apply(this, arguments);
   });
 };
 
-module.exports = function (cb){
-  async.series([
-    connect,
-    dropDB,
-    importSettings,
-    importProjects,
-    importUsers,
-    importJobs,
-    importConfig
-  ]
-    , function (err, stdout, stderr) {
-    if (err) {
-      throw err;
+module.exports = function(cb) {
+  async.series(
+    [
+      connect,
+      dropDB,
+      importSettings,
+      importProjects,
+      importUsers,
+      importJobs,
+      importConfig
+    ],
+    function(err, stdout, stderr) {
+      if (err) {
+        throw err;
+      }
+      config.db_uri = mongodbUrl;
+      cb(null, config);
     }
-    config.db_uri = mongodbUrl;
-    cb(null, config);
-  });
+  );
 };
 
 if (!module.parent) {
-  module.exports(function (){
+  module.exports(function() {
     //console.log('FIXTURES LOADED')
 
     process.exit(0);
