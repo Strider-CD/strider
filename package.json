@@ -3,8 +3,8 @@
   "version": "2.0.2",
   "bin": {
     "strider": "bin/strider"
-  },
-  "main": "main.js",
+  }, 
+  "main": "dist-lib/index.js",
   "description": "Brilliant continuous deployment platform",
   "license": "BSD-3-Clause",
   "keywords": [
@@ -15,7 +15,7 @@
     "deployment"
   ],
   "engines": {
-    "node": ">=10.0",
+    "node": ">=10.13.0 || >=11.10.1",
     "npm": ">=6.13.4"
   },
   "repository": {
@@ -93,7 +93,7 @@
     "lodash": "^4.14.0",
     "md5": "^2.0.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.2.6",
+    "mongoose": "^5.8.11",
     "morgan": "^1.5.0",
     "morgan-debug": "^2.0.0",
     "node-rsa": "^0.4.0",
@@ -139,7 +139,10 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.0",
     "@types/shelljs": "^0.8.6",
+    "@typescript-eslint/eslint-plugin": "^2.3.1",
+    "@typescript-eslint/parser": "^2.3.1",
     "angular": "1.5.7",
     "angular-route": "1.5.7",
     "apidoc": "^0.17.1",
@@ -151,8 +154,9 @@
     "browserify-shim": "^3.8.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "concurrently": "^5.1.0",
     "docpress": "~0.8.0",
-    "eslint": "^4.18.2",
+    "eslint": "^6.8.0",
     "expect.js": "^0.3.1",
     "git-update-ghpages": "^1.3.0",
     "httpcheck": "^0.3.0",
@@ -163,16 +167,15 @@
     "mkdirp": "^0.5.0",
     "mocha": "^6.0.0",
     "node-mocks-http": "^1.2.4",
+    "nodemon": "^2.0.2",
+    "shelljs": "^0.8.3",
     "sinon": "^7.3.2",
     "standard-version": "^4.0.0",
     "surge": "^0.21.3",
-    "watchify": "^3.4.0",
-    "wd": "^0.4.0",
-    "concurrently": "^5.1.0",
-    "nodemon": "^2.0.2",
-    "shelljs": "^0.8.3",
     "ts-node": "^8.6.2",
-    "typescript": "^3.7.5"
+    "typescript": "^3.7.5",
+    "watchify": "^3.4.0",
+    "wd": "^0.4.0"
   },
   "collective": {
     "type": "opencollective",
