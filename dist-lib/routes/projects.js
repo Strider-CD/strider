@@ -1,4 +1,3 @@
-'use strict';
 const async = require('async');
 const common = require('../common');
 const debug = require('debug')('strider:routes:projects');

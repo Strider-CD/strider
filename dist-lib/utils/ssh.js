@@ -1,4 +1,3 @@
-'use strict';
 var debug = require('debug')('strider:ssh');
 var NodeRSA = require('node-rsa');
 var sshpk = require('sshpk');

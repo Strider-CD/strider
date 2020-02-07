@@ -3,7 +3,7 @@
   "version": "2.0.2",
   "bin": {
     "strider": "bin/strider"
-  }, 
+  },
   "main": "dist-lib/index.js",
   "description": "Brilliant continuous deployment platform",
   "license": "BSD-3-Clause",
@@ -141,8 +141,8 @@
   "devDependencies": {
     "@types/mongoose": "^5.7.0",
     "@types/shelljs": "^0.8.6",
-    "@typescript-eslint/eslint-plugin": "^2.3.1",
-    "@typescript-eslint/parser": "^2.3.1",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
     "angular": "1.5.7",
     "angular-route": "1.5.7",
     "apidoc": "^0.17.1",
@@ -157,6 +157,7 @@
     "concurrently": "^5.1.0",
     "docpress": "~0.8.0",
     "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "expect.js": "^0.3.1",
     "git-update-ghpages": "^1.3.0",
     "httpcheck": "^0.3.0",
@@ -168,6 +169,7 @@
     "mocha": "^6.0.0",
     "node-mocks-http": "^1.2.4",
     "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
     "shelljs": "^0.8.3",
     "sinon": "^7.3.2",
     "standard-version": "^4.0.0",

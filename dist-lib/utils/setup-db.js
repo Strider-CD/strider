@@ -1,4 +1,3 @@
-'use strict';
 const mongoose = require('./mongoose-shim');
 module.exports = function (config, cb) {
     let mongodbUrl = config.db_uri;

@@ -1,4 +1,3 @@
-'use strict';
 var gravatar = require('gravatar');
 var models = require('../models');
 var common = require('../common');

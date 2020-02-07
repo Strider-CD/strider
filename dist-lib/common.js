@@ -1,4 +1,3 @@
-'use strict';
 // Object for storing common state between modules.
 module.exports = {
     project_types: {

@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
     latestJobs: latestJobs,
     jobProject: jobProject,

@@ -1,4 +1,3 @@
-'use strict';
 var io = require('socket.io');
 var cookieParser = require('cookie-parser');
 var config = require('./config');

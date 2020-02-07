@@ -1,4 +1,3 @@
-'use strict';
 var _ = require('lodash');
 var crypto = require('crypto');
 var base32 = require('thirty-two');

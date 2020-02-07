@@ -1,4 +1,3 @@
-'use strict';
 var apiConfig = require('../routes/api/config');
 var app = require('../app');
 var async = require('async');

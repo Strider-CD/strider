@@ -1,4 +1,3 @@
-'use strict';
 /*
  * Backchannel server allows workers to stream messages back to the Node server
  * in a line-buffered way. Uses SSL.

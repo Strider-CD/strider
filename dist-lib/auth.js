@@ -1,4 +1,3 @@
-'use strict';
 var crypto = require('crypto');
 var BluebirdPromise = require('bluebird');
 var passport = require('passport');

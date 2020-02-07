@@ -1,4 +1,3 @@
-'use strict';
 // The Strider (web) app.
 var debug = require('debug')('strider');
 var chalk = require('chalk');

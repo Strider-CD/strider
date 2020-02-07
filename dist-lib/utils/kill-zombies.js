@@ -1,4 +1,3 @@
-'use strict';
 var debug = require('debug')('strider:kill-zombies');
 var Job = require('../models/job');
 module.exports = function killZombies(done) {

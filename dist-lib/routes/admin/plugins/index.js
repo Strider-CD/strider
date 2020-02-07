@@ -1,4 +1,3 @@
-'use strict';
 var restart = require('./restart');
 var getPluginList = require('./get_plugin_list');
 var pluginManager = require('./plugin_manager');

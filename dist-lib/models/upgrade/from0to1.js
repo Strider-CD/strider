@@ -1,4 +1,3 @@
-'use strict';
 var models = require('../');
 var Job = models.Job;
 var User = models.User;

@@ -1,4 +1,3 @@
-'use strict';
 var models = require('../');
 var Project = models.Project;
 module.exports = function (done) {

@@ -1,4 +1,4 @@
-'use strict';
+/* eslint-disable no-control-regex */
 var AU = require('ansi_up');
 var ansi_up = new AU.default;
 var stripAnsi = require('strip-ansi');

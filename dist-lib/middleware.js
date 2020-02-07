@@ -1,4 +1,3 @@
-'use strict';
 require('./logging');
 var auth = require('./auth');
 var utils = require('./utils');

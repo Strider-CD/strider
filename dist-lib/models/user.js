@@ -1,4 +1,3 @@
-'use strict';
 var bcrypt = require('bcryptjs');
 var Activedirectory = require('activedirectory');
 var config = require('../config');

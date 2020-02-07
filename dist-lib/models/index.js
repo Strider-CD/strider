@@ -1,4 +1,3 @@
-'use strict';
 var mongoose = require('../utils/mongoose-shim');
 mongoose.models = {};
 module.exports = {

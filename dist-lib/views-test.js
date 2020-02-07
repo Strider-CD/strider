@@ -1,4 +1,3 @@
-'use strict';
 // This file allows us to test views with mocked view data.
 // To test a view, add an entry to the `paths` variable.
 // The `fixture` string will be require()d relative to

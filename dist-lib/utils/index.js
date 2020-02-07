@@ -1,4 +1,3 @@
-'use strict';
 var _ = require('lodash');
 var common = require('../../lib/common');
 var debug = require('debug')('strider:utils');

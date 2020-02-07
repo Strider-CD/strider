@@ -1,4 +1,3 @@
-'use strict';
 // Plugin block is the tag used to specify that the
 // contents can be overridden by extensions.
 function pluginBlock(indent, parser) {

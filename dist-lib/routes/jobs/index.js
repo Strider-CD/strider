@@ -1,4 +1,3 @@
-'use strict';
 /*
  * routes/jobs/index.js
  */

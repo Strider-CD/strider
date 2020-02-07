@@ -1,4 +1,3 @@
-'use strict';
 var _ = require('lodash');
 var common = require('../common');
 var config = require('../config');

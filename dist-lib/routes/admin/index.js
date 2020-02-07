@@ -1,4 +1,3 @@
-'use strict';
 var base32 = require('thirty-two');
 var crypto = require('crypto');
 var debug = require('debug')('strider:routes:admin');

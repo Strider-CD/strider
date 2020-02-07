@@ -1,4 +1,3 @@
-'use strict';
 /*
  * Javascript Humane Dates
  * Copyright (c) 2008 Dean Landolt (deanlandolt.com)

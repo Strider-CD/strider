@@ -1,4 +1,3 @@
-'use strict';
 var utils = require('./utils');
 var models = require('./models');
 var Project = models.Project;

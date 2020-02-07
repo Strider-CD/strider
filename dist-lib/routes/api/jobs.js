@@ -1,4 +1,3 @@
-'use strict';
 var common = require('../../common');
 var debug = require('debug')('strider:routes:api:jobs');
 var jobs = require('../../jobs');

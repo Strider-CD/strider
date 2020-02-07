@@ -1,4 +1,3 @@
-'use strict';
 var express = require('express');
 var Project = require('../../models').Project;
 var middleware = require('../../middleware');

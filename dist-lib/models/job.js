@@ -1,4 +1,3 @@
-'use strict';
 var mongoose = require('../utils/mongoose-shim');
 var Schema = mongoose.Schema;
 var TriggerNotSchema = {

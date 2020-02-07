@@ -1,4 +1,3 @@
-'use strict';
 /*
  * Repo-specific actions - such as deactivation, deletion etc.
  * routes/api/repo.js

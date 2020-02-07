@@ -1,4 +1,3 @@
-'use strict';
 var express = require('express');
 var pjson = require('../../package.json');
 var utils = require('../utils');

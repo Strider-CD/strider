@@ -1,4 +1,3 @@
-'use strict';
 var auth = require('../../auth');
 var config = require('../../config');
 var debug = require('debug')('strider:routes:api:account');

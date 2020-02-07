@@ -1,4 +1,3 @@
-'use strict';
 var _ = require('lodash');
 var mongoose = require('../utils/mongoose-shim');
 var findBranch = require('../utils').findBranch;

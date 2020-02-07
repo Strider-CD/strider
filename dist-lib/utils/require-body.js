@@ -1,4 +1,3 @@
-'use strict';
 /*
  * Require a request parameter is present or return a 400 response.
  */

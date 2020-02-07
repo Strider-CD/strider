@@ -1,4 +1,3 @@
-'use strict';
 var path = require('path');
 var passport = require('passport');
 var async = require('async');

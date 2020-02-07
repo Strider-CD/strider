@@ -1,4 +1,3 @@
-'use strict';
 var async = require('async');
 var models = require('../');
 // done(err)

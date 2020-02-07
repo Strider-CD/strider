@@ -1,4 +1,3 @@
-'use strict';
 var striderMailer = require('strider-mailer');
 var pug = require('pug');
 var fs = require('fs');
