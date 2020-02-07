@@ -1,6 +1,6 @@
 'use strict';
 var _ = require('lodash');
-var mongoose = require('../mongoose-shim');
+var mongoose = require('../utils/mongoose-shim');
 var findBranch = require('../utils').findBranch;
 var Schema = mongoose.Schema;
 var PluginConfig = new Schema({

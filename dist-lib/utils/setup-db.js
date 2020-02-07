@@ -1,5 +1,5 @@
 'use strict';
-const mongoose = require('../mongoose-shim');
+const mongoose = require('./mongoose-shim');
 module.exports = function (config, cb) {
     let mongodbUrl = config.db_uri;
     console.log('Connecting to MongoDB URL: %s\n', mongodbUrl);

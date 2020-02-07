@@ -2,7 +2,7 @@
 var bcrypt = require('bcryptjs');
 var Activedirectory = require('activedirectory');
 var config = require('../config');
-var mongoose = require('../mongoose-shim');
+var mongoose = require('../utils/mongoose-shim');
 var InviteCode = require('./invite');
 var Schema = mongoose.Schema;
 var User;

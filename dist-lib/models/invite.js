@@ -1,5 +1,5 @@
 'use strict';
-var mongoose = require('../mongoose-shim');
+var mongoose = require('../utils/mongoose-shim');
 var Schema = mongoose.Schema;
 var InviteCodeSchema = new Schema({
     code: { type: String, unique: true },

@@ -1,7 +1,7 @@
 'use strict';
 var common = require('../../common');
 var debug = require('debug')('strider:routes:api:config');
-var ssh = require('./../../ssh');
+var ssh = require('../../utils/ssh');
 var cache = {};
 module.exports = {
     keygen: keygen,

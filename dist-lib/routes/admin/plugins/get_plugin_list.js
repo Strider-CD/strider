@@ -3,7 +3,7 @@ var _ = require('lodash');
 var path = require('path');
 var semver = require('semver');
 require('../../../common');
-var pluginPath = require('../../../plugin-path')();
+var pluginPath = require('../../../utils/plugin-path')();
 var localPlugins = require('strider-cli/lib/plugin_manager/local_plugins')(pluginPath);
 var client = require('strider-ecosystem-client');
 module.exports = function getPluginList(cb) {

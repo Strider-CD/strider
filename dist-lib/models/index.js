@@ -1,5 +1,5 @@
 'use strict';
-var mongoose = require('../mongoose-shim');
+var mongoose = require('../utils/mongoose-shim');
 mongoose.models = {};
 module.exports = {
     InviteCode: require('./invite'),

@@ -60,8 +60,8 @@ exports.init = function (config) {
         // allows errors to be thrown and caught by express instead of suppressed by Swig
         allowErrors: true,
         cache: false,
-        filters: require('./swig-filters'),
-        tags: require('./swig-tags').tags,
+        filters: require('./utils/swig-filters'),
+        tags: require('./utils/swig-tags').tags,
         extensions: { plugin: pluginTemplates }
     });
     var app = express();
