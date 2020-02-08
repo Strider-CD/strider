@@ -16,16 +16,16 @@ describe('Strider', function () {
   // TESTS
   var tests = (
     process.env.TEST_SUITE ?
-    [ './integration/'+process.env.TEST_SUITE+'.js' ] :
-    [ './integration/build_page_test.js'
-    , './integration/login_test.js'
-    , './integration/global_admin_test.js'
-    //, './integration/github_test.js'
-    , './integration/branch_management_test.js'
-  ]);
+      [ `./integration/${process.env.TEST_SUITE}.js` ] :
+      [ './integration/build_page_test.js',
+        './integration/login_test.js',
+        './integration/global_admin_test.js',
+        //, './integration/github_test.js'
+        './integration/branch_management_test.js'
+      ]);
 
   wd.addPromiseChainMethod('rel', function (url, cb) {
-    return this.get('http://localhost:4000' + url, cb);
+    return this.get(`http://localhost:4000${  url}`, cb);
   });
 
   var runTests = function (conn, doneBrowser) {
@@ -37,14 +37,14 @@ describe('Strider', function () {
         console.log(info);
       });
       browser.on('command', function (meth, path, data) {
-        if (meth && path && data) commands.push([' command > ' + meth, path, JSON.stringify(data || '')].join(' '));
+        if (meth && path && data) commands.push([` command > ${  meth}`, path, JSON.stringify(data || '')].join(' '));
       });
       browser.on('error', function (info) {
         console.log(info);
       });
       require(suite)(browser.init(conn).get('http://localhost:4000/'), cb);
     }
-    , function (err){
+      , function (err){
       if (err) {
         console.log(commands.join('\n'));
       }
@@ -83,7 +83,7 @@ describe('Strider', function () {
 
         fs.writeFile(png, base64Data, 'base64', function (err) {
           if (err) return done(err);
-          console.log('Failure screenshot saved to '+png);
+          console.log(`Failure screenshot saved to ${png}`);
           var json = path.join(scopeDir, 'currentTest.json');
 
           fs.writeFile(json, JSON.stringify({
@@ -94,7 +94,7 @@ describe('Strider', function () {
             'jsonwire-error': test['jsonwire-error']
           }, null, 4), function (err) {
             if (err) return done(err);
-            console.log('Failure metadata saved to '+json);
+            console.log(`Failure metadata saved to ${json}`);
             done();
           });
         });

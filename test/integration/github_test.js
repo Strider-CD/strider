@@ -11,8 +11,8 @@ module.exports = function (browser, callback) {
     };
 
     before(function (done) {
-      var url = 'http://localhost:4000/' + robot.username + '/' + robot.repo + '/api/github/webhook';
-      var repo = robot.username + '/' + robot.repo;
+      var url = `http://localhost:4000/${  robot.username  }/${  robot.repo  }/api/github/webhook`;
+      var repo = `${robot.username  }/${  robot.repo}`;
       deleteHooks(repo, url, robot.token, done);
     });
 
@@ -53,7 +53,7 @@ module.exports = function (browser, callback) {
         .waitForElementByLinkText('Click to watch it run', 3000)
         .click()
         .waitForElementByCssSelector('.job-repo', 2000)
-        .url().should.eventually.include(robot.username+'/'+robot.repo);
+        .url().should.eventually.include(`${robot.username}/${robot.repo}`);
     });
 
     after(function () {

@@ -1,0 +1,63 @@
+
+{% extends "base.html" %}
+
+{% block fillContent %}
+<script id="spinner-msg" type="text/template" class="template"><img src="/images/spinner.gif" class="spinner"/><%= message %></script>
+<script id="enter_github_url" type="text/template" class="template">
+  <div class="span7 well">
+    <h3> Manual Setup</h3><br/>
+    <p>Please enter the full URL to the github repository. We will analyze the URL and provide you with detailed instructions on how to manually configure the project for use with Strider.</p>
+    <p>For example: <a href="https://github.com/BeyondFog/Poang">https://github.com/BeyondFog/Poang</a></p>
+    <div class="control-group github_url">
+      <label for="github_url" class="control-label"> <strong>Github URL</strong></label>
+      <div class="controls">
+        <input id="github_url" type="text" name="github_url" class="xlarge"/><span class="help-inline github_url"></span>
+      </div>
+      <div class="actions"><a class="btn btn-primary continue">Continue</a></div>
+    </div>
+  </div>
+</script>
+<script id="configuration_instructions" type="text/template" class="template">
+  <div class="span8 well">
+    <h3> Manual Setup Instructions for <%= org %>/<%= project %></h3><br/>
+    <p>In order for Strider to work with <%= org %>/<%= project %>, you will need to add a webhook and a deploy key.</p>
+    <p>&nbsp;</p>
+    <h4>Add the webhook:</h4>
+    <p>
+      1) 
+      <a href='<%= github_url %>/admin/hooks' target="_blank">Click here</a>
+      to navigate to the 'Add Webhook' area on Github for <%= org %>/<%= project %>, then click on 'WebHook URLs'. It should look like this:
+    </p>
+    <p> <img src="images/github_admin_add_webhook.png" border="1" height="80%" width="80%" class="manual_setup"/></p>
+    <p>2) Cut and paste this URL into the URL field:</p>
+    <p>
+       
+      <input class=span6 value ="<%= webhook %>">
+    </p><br/>
+    <h4>Add the deploy key:</h4>
+    <p>
+      1) 
+      <a href='<%= github_url %>/admin/keys' target="_blank">Click here</a> 
+      to navigate to the 'Deploy Keys' section of Github for <%= org %>/<%= project %>. It should look like this:
+    </p>
+    <p> <img src="images/github_admin_add_deploy_key.png" border="1" height="80%" width="80%" class="manual_setup"/></p>
+    <p>2) Click the 'Add Deploy Key' button and then copy and paste this title and key into the Github form:</p><input class="span6" value ="<%= deploy_key_title %>"></input>
+    <span class="clippy"><%= deploy_key_title %></span>
+    <textarea rows="10" id='textarea' class="input-xlarge span6"><%= deploy_public_key %></textarea>
+    <span class="clippy"><%= deploy_public_key %></span>
+    <div class="actions"><a class="btn btn-primary continue">Continue</a></div>
+  </div>
+</script>
+<script id="setup_complete" type="text/template" class="template">
+  <div class="span8 well">
+    <h3> Manual Setup Instructions for BeyondFog/Poang</h3><br/>
+    <p>That's it! Click the button to kick off your first test run.</p>
+    <p></p>
+    <div class="actions"><a class="btn btn-primary continue">Start Test Run</a></div>
+  </div>
+</script>
+<div class="span8">
+  <div id="spinner"></div>
+</div>
+<div id="manual-setup-app"></div>
+{% endblock %}

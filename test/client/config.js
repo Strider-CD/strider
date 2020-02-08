@@ -1,7 +1,7 @@
 
-var expect = require('expect.js')
-  , sm = require('mocha-selenium')
-  , b = sm.setup('views:Config', {
+var expect = require('expect.js'),
+  sm = require('mocha-selenium'),
+  b = sm.setup('views:Config', {
     appCmd: 'node test/strider.js',
     lastShot: 'failed'
   });

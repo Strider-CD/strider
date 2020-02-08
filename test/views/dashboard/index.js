@@ -4,8 +4,8 @@ function choice(items) {
 }
 
 function id() {
-  var hex = 'abcdef1234567890'
-    , ret = '';
+  var hex = 'abcdef1234567890',
+    ret = '';
   for (var i=0; i<16; i++) {
     ret += choice(hex);
   }
@@ -19,8 +19,8 @@ function status(running) {
 }
 
 function prev() {
-  var num = parseInt(Math.random() * 5)
-    , jobs = [];
+  var num = parseInt(Math.random() * 5),
+    jobs = [];
   for (var i=0; i<num; i++) {
     jobs.push({
       _id: id(),
@@ -57,7 +57,7 @@ function githubTrigger() {
       username: 'strider'
     },
     message: 'Making it awesome',
-    timestamp: new Date() + '',
+    timestamp: `${new Date()  }`,
     url: 'http://example.com/hello',
     source: {
       type: 'plugin',
@@ -71,7 +71,7 @@ function manualTrigger() {
     type: 'manual',
     author: {id: id()},
     message: 'Retest',
-    timestamp: new Date() + '',
+    timestamp: `${new Date()  }`,
     url: 'http://example.com',
     source: {
       type: 'UI',
@@ -98,8 +98,8 @@ function job() {
 }
 
 function jobs() {
-  var num = parseInt(Math.random() * 10 + 5)
-    , jobs = [];
+  var num = parseInt(Math.random() * 10 + 5),
+    jobs = [];
   for (var i=0; i<num; i++) {
     jobs.push(job());
   }

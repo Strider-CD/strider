@@ -1,0 +1,28 @@
+<div ng-repeat="phase in phases" class="phase phase-[[ phase ]]"
+     ng-class="{ collapsed: job.phases[phase].collapsed }"
+     ng-show="job.phases[phase].commands.length">
+  <div class="title" ng-click="job.phases[phase].collapsed = !job.phases[phase].collapsed">
+    <i class="fa fa-caret-[[ job.phases[phase].collapsed ? 'right' : 'down' ]] arrow" ></i>
+    <span class="name">[[ phase ]]</span>
+    <span class="pull-right meta">
+      <time class="duration" datetime="[[ job.phases[phase].finished ]]" since="[[ job.phases[phase].started ]]" duration="[[ job.phases[phase].duration ]]"></time>
+      <span class="exit-status" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
+    </span>
+  </div>
+  <div class="commands" ng-hide="job.phases[phase].collapsed">
+    <div
+       ng-repeat="command in job.phases[phase].commands"
+       ng-class="{ comment: command.comment }"
+       class="command plugin-[[ command.plugin ]]">
+      <div class="title" ng-click="command.collapsed = !command.collapsed">
+        <span class="prompt">[[ command.comment ? '#' : '$' ]]</span> <span class="command-text">[[ command.command ]]</span> <i class="fa fa-plus plus" ng-show="command.collapsed"></i>
+        <span class="meta pull-right">
+          <span class="plugin">[[ command.plugin ]]</span>
+          <time datetime="[[ command.started ]]" since="[[ command.started ]]" duration="[[ command.duration ]]"></time>
+          <span class="exit-status" toggle="tooltip" title="exit code" ng-show="job.phases[phase].exitCode">[[ job.phases[phase].exitCode ]]</span>
+        </span>
+      </div>
+      <pre class="job-output" ng-hide="command.collapsed" raw-html="command.merged | ansi"></pre>
+    </div>
+  </div>
+</div>

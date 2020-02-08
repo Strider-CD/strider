@@ -1,0 +1,11 @@
+{% if errors.length %}
+<div class='row-fluid'>
+  <div class='span12'>
+    <ul id="server-errors" class='alert-error alert'>
+      {% for error in errors %}
+        <li class='error'>{{ error }}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
