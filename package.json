@@ -66,7 +66,8 @@
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node --inspect bin/strider --no-cluster",
     "release": "standard-version",
-    "prepublish": "in-publish && npm run build && npm run build-lib || not-in-publish",
+    "release-build": "npm run build && npm run build-lib",
+    "prepublish": "in-publish && npm run release-build || not-in-publish",
     "postinstall": "npm run build-lib && opencollective postinstall"
   },
   "dependencies": {
