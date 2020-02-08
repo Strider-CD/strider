@@ -12,15 +12,13 @@
 ![Strider Screenshot][screenshot]
 [more screenshots][more-screenshots]
 
-
-Overview
-========
+# Overview
 
 `Strider` is an Open Source Continuous Deployment / Continuous Integration
 platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
 store. It is published under the BSD license.
 
-Strider is extremely customizable through plugins. Plugins can 
+Strider is extremely customizable through plugins. Plugins can
 
 - add hooks to perform arbitrary actions during build.
 - modify the database schema to add custom fields.
@@ -31,7 +29,7 @@ Strider is extremely customizable through plugins. Plugins can
 
 ## General Requirements
 
-- [nodejs] >= 10
+- [nodejs] >= 10.13.0 or >= 11.10.1
 - [git] >= 2.0
 - [mongodb][mongo-download] (local or remote)
 - [node-gyp]
@@ -39,7 +37,6 @@ Strider is extremely customizable through plugins. Plugins can
 _Note: Installing on OS X might require XCode to be installed._
 
 - The package `krb5-devel`/`libkrb5-dev` might have to be installed to resolve Kerberos related build issues on some systems.
-
 
 ## Running on Infrastructure
 
@@ -62,20 +59,20 @@ npm install
 values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
-  - `SERVER_NAME` - **Required**; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
-  - `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
-  - `PORT` - Port that strider runs on, optional (defaults to 3000).
-  - `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
-  - `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
-  - `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
-  - `HTTP_PROXY` - Proxy support, optional (defaults to null)
-  - If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
-    - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
-    - `SMTP_PORT` - SMTP server port e.g. 587 (default)
-    - `SMTP_SECURE` - SMTP server TLS or SSL ("true" or "false")
-    - `SMTP_USER` - SMTP auth username e.g. "myuser"
-    - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
-    - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
+- `SERVER_NAME` - **Required**; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
+- `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
+- `PORT` - Port that strider runs on, optional (defaults to 3000).
+- `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
+- `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
+- `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
+- `HTTP_PROXY` - Proxy support, optional (defaults to null)
+- If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
+  - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
+  - `SMTP_PORT` - SMTP server port e.g. 587 (default)
+  - `SMTP_SECURE` - SMTP server TLS or SSL ("true" or "false")
+  - `SMTP_USER` - SMTP auth username e.g. "myuser"
+  - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
+  - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
 
 #### Additional Configurations
 
@@ -88,10 +85,10 @@ Internet-accessible deployment the following variables will need to be exported:
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
-- [Github][github-config]  
-- [Bitbucket][bitbucket-config]  
-- [Gitlab][gitlab-config]  
-- [Heroku][heroku-config]  
+- [Github][github-config]
+- [Bitbucket][bitbucket-config]
+- [Gitlab][gitlab-config]
+- [Heroku][heroku-config]
 
 ### Adding Initial Admin User
 
@@ -118,11 +115,11 @@ OK? (y/n) [y]:
 22 Oct 21:21:01 - info: User added successfully! Enjoy.
 ```
 
-See the [strider-cli] for more details.  
+See the [strider-cli] for more details.
 
 If you want to connect to your ldap server to authorization  
 you can also add the `ldap.json` config file to project root  
-the config like so:  
+the config like so:
 
 ```javascript
  {
@@ -150,7 +147,6 @@ NODE_ENV=production npm start
 To get up and running quickly on Heroku, you can simply use the button above.
 If you run into any issues, see the [wiki entry](https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku).
 
-
 ### Strider in Docker
 
 Many users like to run Strider within a Docker container.
@@ -159,14 +155,12 @@ Although this works well, supporting it is outside the scope of the Strider proj
 We recommend using [docker-strider](https://github.com/Strider-CD/docker-strider) as a base image when designing your Docker-based Strider installation.
 Please post related issues in the [issues section](https://github.com/Strider-CD/docker-strider/issues) for that repository.
 
-
 ## Resources
 
 - [Strider Tutorial Series][resource-strider-futurestudio-tutorials] - Extensive guides about Strider covering platform setup, 3rd party integrations (GitHub, GitLab, etc), continuous deployments (Heroku, SSH), notifications (email, Slack, HipChat), how to create your own Strider plugin and many more.
 - [Strider on DigitalOcean][resource-digitalocean] - Covers setting up an Ubuntu machine with Strider using upstart.
 - [Strider plugin template][resource-plugin-template] - Simple setup for getting started with your own plugin.
 - [Panamax Strider template][resource-panamax-template] - Strider template for use with Panamax.
-
 
 ## Advanced Topics
 
@@ -221,7 +215,6 @@ Support us with a monthly donation and help us continue our activities. [[Become
 <a href="https://opencollective.com/strider/backer/28/website" target="_blank"><img src="https://opencollective.com/strider/backer/28/avatar.svg"></a>
 <a href="https://opencollective.com/strider/backer/29/website" target="_blank"><img src="https://opencollective.com/strider/backer/29/avatar.svg"></a>
 
-
 ## Sponsors
 
 Become a sponsor and get your logo on our README on Github with a link to your site. [[Become a sponsor](https://opencollective.com/strider#sponsor)]
@@ -256,7 +249,6 @@ Become a sponsor and get your logo on our README on Github with a link to your s
 <a href="https://opencollective.com/strider/sponsor/27/website" target="_blank"><img src="https://opencollective.com/strider/sponsor/27/avatar.svg"></a>
 <a href="https://opencollective.com/strider/sponsor/28/website" target="_blank"><img src="https://opencollective.com/strider/sponsor/28/avatar.svg"></a>
 <a href="https://opencollective.com/strider/sponsor/29/website" target="_blank"><img src="https://opencollective.com/strider/sponsor/29/avatar.svg"></a>
-
 
 ## Support & Help
 
@@ -301,12 +293,10 @@ For live help check out Strider's [Gitter].
 [git]: http://git-scm.com/
 [nodejs]: http://nodejs.org/
 [npm]: https://docs.npmjs.com/getting-started/installing-node
-[Gitter]: https://gitter.im/Strider-CD
+[gitter]: https://gitter.im/Strider-CD
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
 [gitter-badge]: https://img.shields.io/badge/GITTER-join%20chat-green.svg
 [gitter-badge-link]: https://gitter.im/Strider-CD
-[apiDoc]: http://apidocjs.com/#getting-started
+[apidoc]: http://apidocjs.com/#getting-started
 [resource-strider-futurestudio-tutorials]: https://futurestud.io/blog/strider-getting-started-platform-overview/
-
-
