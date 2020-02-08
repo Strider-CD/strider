@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.4](https://github.com/Strider-CD/strider/compare/v2.0.3...v2.0.4) (2020-02-08)
+
+
+### Bug Fixes
+
+* ignore lib on npm ([179c4fe](https://github.com/Strider-CD/strider/commit/179c4fe2e14b516a8a802306d625879c4609af1d))
+
 ### [2.0.3](https://github.com/Strider-CD/strider/compare/v2.0.2...v2.0.3) (2020-02-08)
 
 
