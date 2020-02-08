@@ -145,7 +145,7 @@
     "@types/shelljs": "^0.8.6",
     "@typescript-eslint/eslint-plugin": "^2.19.0",
     "@typescript-eslint/parser": "^2.19.0",
-    "angular": "1.5.7",
+    "angular": "1.7.9",
     "angular-route": "1.5.7",
     "apidoc": "^0.17.1",
     "apidoc-markdown": "github:zambonilli/node-apidoc-markdown",
