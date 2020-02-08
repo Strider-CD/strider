@@ -1,6 +1,13 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+### [2.0.3](https://github.com/Strider-CD/strider/compare/v2.0.2...v2.0.3) (2020-02-08)
+
+
+### Bug Fixes
+
+* update some deps ([cab72ea](https://github.com/Strider-CD/strider/commit/cab72eae4b4a9fa361e3c7b0cfcd421cf4df5c45))
 
 <a name="2.0.2"></a>
 ## [2.0.2](https://github.com/Strider-CD/strider/compare/v2.0.1...v2.0.2) (2020-01-11)
