@@ -4,7 +4,7 @@
   "bin": {
     "strider": "bin/strider"
   },
-  "main": "main.js",
+  "main": "dist-lib/index.js",
   "description": "Brilliant continuous deployment platform",
   "license": "BSD-3-Clause",
   "keywords": [
@@ -15,7 +15,7 @@
     "deployment"
   ],
   "engines": {
-    "node": ">=10.0",
+    "node": ">=10.13.0 || >=11.10.1",
     "npm": ">=6.13.4"
   },
   "repository": {
@@ -41,7 +41,14 @@
   "scripts": {
     "test": "npm run build && npm run lint && npm run test-unit",
     "start": "bin/strider",
-    "dev": "npm run build-debug && bin/strider",
+    "build-ts": "tsc",
+    "watch-ts": "tsc -w",
+    "build-lib": "npm run build-ts && npm run lint-lib && npm run copy-static-assets",
+    "lint-lib": "tsc --noEmit && eslint \"lib/**/*.{js,ts}\" --quiet --fix",
+    "watch-lib": "nodemon",
+    "build-and-start": "npm run build-ts && npm start",
+    "copy-static-assets": "ts-node copy-static-assets.ts",
+    "dev": "npm run build-debug && npm run watch-lib",
     "pre": "mkdirp dist/scripts dist/styles",
     "vendor": "bower-installer",
     "styles": "lessc client/styles/strider.less > dist/styles/styles.css",
@@ -50,7 +57,7 @@
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --presets [ es2015 ] --only client] -e client/app.js -o dist/scripts/app.js",
     "test-unit": "mocha --recursive test/unit",
-    "lint": "eslint *.js bin lib client",
+    "lint": "eslint *.js client",
     "unitcov": "istanbul cover ./node_modules/mocha/bin/_mocha --recursive test/unit",
     "api-docs": "apidoc -i lib/ -o apidocs/",
     "api-docs:md": "apidoc-markdown -p apidocs -o docs/api.md",
@@ -59,8 +66,8 @@
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node --inspect bin/strider --no-cluster",
     "release": "standard-version",
-    "prepublish": "in-publish && npm run build || not-in-publish",
-    "postinstall": "opencollective postinstall"
+    "prepublish": "in-publish && npm run build && npm run build-lib || not-in-publish",
+    "postinstall": "npm run build-lib && opencollective postinstall"
   },
   "dependencies": {
     "activedirectory": "^0.7.2",
@@ -88,7 +95,7 @@
     "lodash": "^4.14.0",
     "md5": "^2.0.0",
     "method-override": "^3.0.0",
-    "mongoose": "^5.2.6",
+    "mongoose": "^5.8.11",
     "morgan": "^1.5.0",
     "morgan-debug": "^2.0.0",
     "node-rsa": "^0.4.0",
@@ -134,6 +141,10 @@
     "winston": "^2.2.0"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.0",
+    "@types/shelljs": "^0.8.6",
+    "@typescript-eslint/eslint-plugin": "^2.19.0",
+    "@typescript-eslint/parser": "^2.19.0",
     "angular": "1.5.7",
     "angular-route": "1.5.7",
     "apidoc": "^0.17.1",
@@ -145,8 +156,10 @@
     "browserify-shim": "^3.8.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
+    "concurrently": "^5.1.0",
     "docpress": "~0.8.0",
-    "eslint": "^4.18.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.10.0",
     "expect.js": "^0.3.1",
     "git-update-ghpages": "^1.3.0",
     "httpcheck": "^0.3.0",
@@ -157,9 +170,14 @@
     "mkdirp": "^0.5.0",
     "mocha": "^6.0.0",
     "node-mocks-http": "^1.2.4",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "shelljs": "^0.8.3",
     "sinon": "^7.3.2",
     "standard-version": "^4.0.0",
     "surge": "^0.21.3",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5",
     "watchify": "^3.4.0",
     "wd": "^0.4.0"
   },

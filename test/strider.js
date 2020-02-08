@@ -34,7 +34,7 @@ module.exports = function (done){
 
     // Wait for strider to come up...
     httpcheck({
-      url:'http://localhost:' + process.env.PORT + '/status',
+      url:`http://localhost:${  process.env.PORT  }/status`,
       check: function (res) {
         return res && res.statusCode === 200;
       },

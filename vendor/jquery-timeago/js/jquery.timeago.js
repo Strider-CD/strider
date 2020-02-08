@@ -23,12 +23,12 @@
     factory(jQuery);
   }
 }(function ($) {
-  $.timeago = function(timestamp) {
+  $.timeago = function (timestamp) {
     if (timestamp instanceof Date) {
       return inWords(timestamp);
-    } else if (typeof timestamp === "string") {
+    } else if (typeof timestamp === 'string') {
       return inWords($.timeago.parse(timestamp));
-    } else if (typeof timestamp === "number") {
+    } else if (typeof timestamp === 'number') {
       return inWords(new Date(timestamp));
     } else {
       return inWords($.timeago.datetime(timestamp));
@@ -45,24 +45,24 @@
       strings: {
         prefixAgo: null,
         prefixFromNow: null,
-        suffixAgo: "ago",
-        suffixFromNow: "from now",
-        seconds: "less than a minute",
-        minute: "about a minute",
-        minutes: "%d minutes",
-        hour: "about an hour",
-        hours: "about %d hours",
-        day: "a day",
-        days: "%d days",
-        month: "about a month",
-        months: "%d months",
-        year: "about a year",
-        years: "%d years",
-        wordSeparator: " ",
+        suffixAgo: 'ago',
+        suffixFromNow: 'from now',
+        seconds: 'less than a minute',
+        minute: 'about a minute',
+        minutes: '%d minutes',
+        hour: 'about an hour',
+        hours: 'about %d hours',
+        day: 'a day',
+        days: '%d days',
+        month: 'about a month',
+        months: '%d months',
+        year: 'about a year',
+        years: '%d years',
+        wordSeparator: ' ',
         numbers: []
       }
     },
-    inWords: function(distanceMillis) {
+    inWords: function (distanceMillis) {
       var $l = this.settings.strings;
       var prefix = $l.prefixAgo;
       var suffix = $l.suffixAgo;
@@ -97,25 +97,27 @@
         years < 1.5 && substitute($l.year, 1) ||
         substitute($l.years, Math.round(years));
 
-      var separator = $l.wordSeparator || "";
-      if ($l.wordSeparator === undefined) { separator = " "; }
+      var separator = $l.wordSeparator || '';
+      if ($l.wordSeparator === undefined) {
+        separator = ' '; 
+      }
       return $.trim([prefix, words, suffix].join(separator));
     },
-    parse: function(iso8601) {
+    parse: function (iso8601) {
       var s = $.trim(iso8601);
-      s = s.replace(/\.\d+/,""); // remove milliseconds
-      s = s.replace(/-/,"/").replace(/-/,"/");
-      s = s.replace(/T/," ").replace(/Z/," UTC");
-      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/," $1$2"); // -04:00 -> -0400
+      s = s.replace(/\.\d+/,''); // remove milliseconds
+      s = s.replace(/-/,'/').replace(/-/,'/');
+      s = s.replace(/T/,' ').replace(/Z/,' UTC');
+      s = s.replace(/([\+\-]\d\d)\:?(\d\d)/,' $1$2'); // -04:00 -> -0400
       return new Date(s);
     },
-    datetime: function(elem) {
-      var iso8601 = $t.isTime(elem) ? $(elem).attr("datetime") : $(elem).attr("title");
+    datetime: function (elem) {
+      var iso8601 = $t.isTime(elem) ? $(elem).attr('datetime') : $(elem).attr('title');
       return $t.parse(iso8601);
     },
-    isTime: function(elem) {
+    isTime: function (elem) {
       // jQuery's `is()` doesn't play well with HTML5 in IE
-      return $(elem).get(0).tagName.toLowerCase() === "time"; // $(elem).is("time");
+      return $(elem).get(0).tagName.toLowerCase() === 'time'; // $(elem).is("time");
     }
   });
 
@@ -123,7 +125,7 @@
   // init is default when no action is given
   // functions are called with context of a single element
   var functions = {
-    init: function(){
+    init: function (){
       var refresh_el = $.proxy(refresh, this);
       refresh_el();
       var $s = $t.settings;
@@ -131,23 +133,23 @@
         setInterval(refresh_el, $s.refreshMillis);
       }
     },
-    update: function(time){
+    update: function (time){
       $(this).data('timeago', { datetime: $t.parse(time) });
       refresh.apply(this);
     },
-    updateFromDOM: function(){
-      $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr("datetime") : $(this).attr("title") ) });
+    updateFromDOM: function (){
+      $(this).data('timeago', { datetime: $t.parse( $t.isTime(this) ? $(this).attr('datetime') : $(this).attr('title') ) });
       refresh.apply(this);
     }
   };
 
-  $.fn.timeago = function(action, options) {
+  $.fn.timeago = function (action, options) {
     var fn = action ? functions[action] : functions.init;
     if(!fn){
-      throw new Error("Unknown function name '"+ action +"' for timeago");
+      throw new Error(`Unknown function name '${ action }' for timeago`);
     }
     // each over objects here and call the requested function
-    this.each(function(){
+    this.each(function (){
       fn.call(this, options);
     });
     return this;
@@ -167,16 +169,16 @@
 
   function prepareData(element) {
     element = $(element);
-    if (!element.data("timeago")) {
-      element.data("timeago", { datetime: $t.datetime(element) });
+    if (!element.data('timeago')) {
+      element.data('timeago', { datetime: $t.datetime(element) });
       var text = $.trim(element.text());
       if ($t.settings.localeTitle) {
-        element.attr("title", element.data('timeago').datetime.toLocaleString());
-      } else if (text.length > 0 && !($t.isTime(element) && element.attr("title"))) {
-        element.attr("title", text);
+        element.attr('title', element.data('timeago').datetime.toLocaleString());
+      } else if (text.length > 0 && !($t.isTime(element) && element.attr('title'))) {
+        element.attr('title', text);
       }
     }
-    return element.data("timeago");
+    return element.data('timeago');
   }
 
   function inWords(date) {
@@ -188,6 +190,6 @@
   }
 
   // fix for IE6 suckage
-  document.createElement("abbr");
-  document.createElement("time");
+  document.createElement('abbr');
+  document.createElement('time');
 }));

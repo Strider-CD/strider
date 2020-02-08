@@ -1,0 +1,189 @@
+{% extends "base.html" %}
+
+{% block preTitle %}
+  {{ project.display_name }} (Config) -
+{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="/styles/plugin-config-compiled.css">
+{% endblock %}
+
+{% block bodyContent %}
+  <script>
+    var project = {{ project | scriptjson | raw }};
+    var plugins = {{ plugins | scriptjson | raw }};
+    var runners = {{ runners | scriptjson | raw }};
+    var branches = {{ branches | scriptjson | raw }};
+    var statusBlocks = {{ statusBlocks | scriptjson | raw }};
+    var collaborators = {{ collaborators | scriptjson | raw }};
+    var branches = {{ project.branches | scriptjson | raw }};
+    var allBranches = {{ allBranches | scriptjson | raw }};
+    var userIsCreator = {{ userIsCreator }};
+    var userConfigs = {{ userConfigs | scriptjson | raw }};
+  </script>
+
+  <div id="config-wrapper" class="ng-cloak" ng-app="config" ng-controller="AlertsController">
+    <div ng-controller="Config">
+      <div class="notify-wrapper pull-right">
+        <div id="notify" ng-class="{ visible: message.showing }" class="alert alert-[[ message.type ]]">
+          <a type="button" class="close" ng-click="clearMessage()">&times;</a>
+          <div class="message" ng-bind-html="message.text"></div>
+        </div>
+      </div>
+
+      <h3>
+        Configuration - 
+        <a href="/{{ project.name }}/" class="header-emphasis">{{ project.display_name }}</a>
+        {% if project.provider.display_url %}
+          <a href="{{ project.provider.display_url }}" target="_blank">
+            <i class="fa fa-{{ provider.inline_icon }}"></i>
+          </a>
+        {% endif %}
+      </h3>
+
+      <div class="row-fluid">
+        <div class="span2">
+
+          <h4><i class="fa fa-code-fork"></i> Branch</h4>
+          <span class="branch-picker">
+            <select ng-options="branch as branch.name for branch in branches track by branch.name"
+              ng-change="switchToBranch(branch.name)"
+              ng-model="branch">
+            </select>
+          </span>
+
+          <div class="branch-actions btn-group btn-block">
+            <button type="button"
+              class="btn btn-primary"
+              ng-hide="branch.name.indexOf('*') > -1"
+              data-placement="bottom"
+              data-toggle="tooltip"
+              title="Retest &amp; Deploy Branch"
+              ng-click="startDeploy()">
+              Deploy
+            </button>
+            <button type="button"
+              class="btn btn-success"
+              ng-hide="branch.name.indexOf('*') > -1"
+              data-placement="bottom"
+              data-toggle="tooltip"
+              title="Retest Branch"
+              ng-click="startTest()">
+              Test
+            </button>
+          </div>
+
+          <ul class="nav nav-tabs nav-stacked config-tabs" ng-show="!branch.mirror_master">
+            <li class="active">
+              <a id="branch-settings-tab-handle" href="#tab-branch-settings" data-toggle="tab">
+                <i class="fa fa-cog"></i> Settings
+              </a>
+            </li>
+            <li>
+              <a href="#tab-plugins" data-toggle="tab">
+                <i class="fa fa-sliders"></i> Plugins
+              </a>
+            </li>
+
+            {% for runner in runners %}
+              <li ng-show="!branch.mirror_master && branch.runner.id === '{{ loop.key }}'"
+                class="plugin-nav runner-nav">
+                <a href="#runner-{{ loop.key }}" data-toggle="tab">
+                  <i class="fa fa-bicycle"></i> Runner: {{ runner.title }}
+                </a>
+              </li>
+            {% endfor %}
+
+            <li ng-repeat="plugin in branch.plugins" ng-show="!branch.mirror_master"
+                ng-class="{ disabled: !plugin.enabled }"
+                class="plugin-nav" repeat-end>
+              <a href="#plugin-[[ plugin.id ]]" data-toggle="tab">
+                <i class="fa fa-plug"></i> [[ plugins[plugin.id].title ]]
+              </a>
+            </li>
+          </ul>
+
+          <h4><i class="fa fa-briefcase"></i> Project</h4>
+
+          <ul class="nav nav-tabs nav-stacked config-tabs">
+            <li>
+              <a id="project-tab-handle" href="#tab-project" data-toggle="tab">
+                <i class="fa fa-cog"></i> Settings
+              </a>
+            </li>
+            <li><a id="branches-tab-handle" href="#tab-branches" data-toggle="tab"><i class="fa fa-list"></i> Branches</a></li>
+            <li><a id="provider-tab-handle" href="#tab-provider" data-toggle="tab"><i class="fa fa-at"></i> Provider: {{ provider.title }}</a></li>
+          </ul>
+        </div>
+
+        <div class="span10">
+            <div ng-switch="branch.mirror_master">
+              <div ng-switch-when="true" class="tab-content">
+                <p class="alert alert-warning">
+                  The configuration for this branch is the same as master,
+                  except that "deploy on green" is
+                  false. Click <button class="btn" ng-click="toggleBranch()">Customize Branch</button> to
+                  configure this branch separate from master.
+                </p>
+              </div>
+
+              <div class="tab-content" ng-switch-default>
+                <div id="loading" class="hide">
+                  <img src="/images/spinner.gif" class="spinner"/>
+                  [[ loadingMessage ]]
+                </div>
+
+
+                <div id="tab-branch-settings" class="tab-pane active">
+                  {% include "config/branch-settings.html" %}
+                </div>
+
+                <div id="tab-plugins" class="tab-pane">
+                  {% include "config/plugins.html" %}
+                </div>
+
+                {% for runner in runners %}
+                  <div id="runner-{{loop.key}}" class="tab-pane" ng-controller="{{runner.controller}}">
+                    {% autoescape false %}
+                    {{ runner.html }}
+                    {% endautoescape %}
+                  </div>
+                {% endfor %}
+
+                {% for plugin in plugins %}
+                  <div id="plugin-{{loop.key}}" class="tab-pane plugin-tab" ng-controller="{{plugin.controller}}">
+                    {#<div class="disabled-note"
+                         ng-class="{ disabled: !configs[branch.name]['{{ loop.key }}'].enabled }"
+                         ng-switch="configs[branch.name]['{{ loop.key }}'].enabled">
+                      <span ng-switch-when="false">
+                        This plugin is disabled. <button class="btn" ng-click="setEnabled('{{ loop.key }}', true)">Enable</button>
+                      </span>
+                      <span ng-switch-default><button class="btn" ng-click="setEnabled('{{ loop.key }}', false)">Disable</button></span>
+                    </div>#}
+                    {% autoescape false %}
+                    {{ plugin.html }}
+                    {% endautoescape %}
+                  </div>
+                {% endfor %}
+              </div>
+
+              <div class="tab-content">
+                <div id="tab-project" class="tab-pane">
+                  {% include "config/project.html" %}
+                </div>
+
+                <div id="tab-branches" class="tab-pane">
+                  {% include "config/branches.html" %}
+                </div>
+
+                <div id="tab-provider" class="tab-pane">
+                  {% include "config/provider.html" %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

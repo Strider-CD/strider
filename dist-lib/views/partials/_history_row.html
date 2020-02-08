@@ -1,0 +1,73 @@
+<div class="job-link">
+  <a href="/[[ job.project.name || project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]">
+    <span ng-show="job.nojobs">No job history</span>
+    <span data-test="job-id">[[ job._id.substr(0,8) ]]</span>
+  </a>
+</div>
+
+<div class="branch pull-right inline-block">
+  <span>[[ job.ref.branch ]]</span>
+</div>
+
+<div class="commit-info">
+  <div class="committer">
+    <div ng-show="job.trigger.author.image" ng-switch="!!job.trigger.author.url">
+      <img ng-switch-when="false" ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
+      <a ng-switch-default href="[[ job.trigger.author.url ]]" target="_blank">
+        <img ng-src="[[ job.trigger.author.image ]]" class="img-circle"/>
+      </a>
+    </div>
+  </div>
+
+  <div class="commit-url" ng-switch="!!job.trigger.url">
+    <span ng-switch-when="true">
+
+      <span class="small-text" title="[[ job.trigger.message ]]">
+        <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
+           title="[[ triggers[job.trigger.type].title ]]"></i>
+        <a data-toggle="tooltip" data-container="body"
+           title="Go to commit on project website"
+           href="[[ job.trigger.url ]]" target="_blank">
+          [[ job.trigger.message ]]
+        </a>
+      </span>
+    </span>
+
+    <span class="small-text" ng-switch-default title="[[ job.trigger.message ]]">
+      <i class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]" data-toggle="tooltip"
+         title="[[ triggers[job.trigger.type].title ]]"></i>
+      [[ job.trigger.message ]]
+    </span>
+  </div>
+</div>
+
+<div class="time-info muted">
+  took
+  <span class="run-time" ng-switch="job.status">
+    <time ng-switch-when="running" class="duration" since="[[ job.created ]]" ng-hide="job.nojobs"></time>
+    <time ng-switch-when="submitted" class="duration" since="[[ job.started ]]" ng-hide="job.nojobs"></time>
+    <time ng-switch-default class="duration" duration="[[ !job.duration || isNaN(job.duration) ? '-' : job.duration ]]" ng-hide="job.nojobs"></time>
+  </span>
+  <span class="finished-at" ng-switch="job.status === 'running'">
+    <span ng-switch-when="false" class="small-text" ng-hide="job.nojobs || job.status === 'submitted'">
+      / <time data-toggle="tooltip" data-placement="top" datetime="[[ job.finished ]]"
+            class="timeago"></time>
+    </span>
+    <div ng-switch-when="true" class="progress-meter">
+      <div class="progress progress-striped active progress-info">
+        <div class="bar" style="width:[[ (phases.indexOf(job.phase)+1)/phases.length*100 ]]%; max-width: 100%"></div>
+      </div>
+    </div>
+  </span>
+</div>
+
+{% if !public && currentUser %}
+<div class="configure" ng-hide="page === 'build'">
+  <a href="/[[ job.project.name || project.name ]]/config"
+     ng-show="job.project.access_level > 1"
+     data-toggle="tooltip" data-delay="500" title="Configure">
+    <i class="fa fa-wrench"></i>
+  </a>
+</div>
+{% endif %}
+

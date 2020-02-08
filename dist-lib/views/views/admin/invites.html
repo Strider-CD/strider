@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block preTitle %}
+  Admin: Invites -
+{% endblock %}
+
+{% block bodyContent %}
+<div class="row-fluid">
+  <div class="span12">
+    <h3>Admin: Invites</h3>
+    <form action="/api/admin/invite/new" method="POST" class="well">
+      <div class="clearfix">
+        <label for="code">Invite Code</label>
+        <div class="input">
+          <input type="text" name="invite_code" value="{{invite_code}}" class="xlarge"/>
+        </div>
+      </div>
+      <div class="clearfix">
+        <label for="email">Recipient Email</label>
+        <div class="input">
+          <input type="text" name="email" class="xlarge"/>
+        </div>
+      </div>
+      <div class="actions">
+        <input type="submit" value="Send Invitation" class="btn btn-primary"/>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row-fluid">
+  <div class="span12">
+    <table class="table-bordered table-striped table">
+      <caption>Invite Codes</caption>
+      <thead>
+          <tr>
+            <th>Code</th>
+            <th>Created Date</th>
+            <th>Emailed To</th>
+            <th>Consumed By</th>
+            <th>Consumed Date</th>
+            <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          {% for invite in invite_codes %}
+          <tr>
+              <td>{{invite.code}}</td>
+              <td>{{invite.created}}</td>
+              <td>{{invite.emailed_to}}</td>
+
+              {% if invite.consumed_by_user %}
+              <td>{{invite.consumed_by_user.email}}</td>
+              {% else %}
+              <td>-</td>
+              {% endif %}
+
+              {% if invite.consumed %}
+              <td>{{invite.consumed}}</td>
+              {% else %}
+              <td>-</td>
+              {% endif %}
+
+              {% if invite.consumed %}
+                <td></td>
+              {% else %}
+                <td>
+                  <form action="/api/admin/invite/revoke" method="POST">
+                    <input type="hidden" name="invite_code" value="{{invite.code}}">
+                    <button type="submit" class="btn btn-danger">Revoke</button>
+                  </form>
+                </td>
+              {% endif %}
+
+          </tr>
+          {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

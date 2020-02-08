@@ -1,14 +1,13 @@
 var expect = require('chai').expect;
-var BackChannel = require('../../lib/backchannel');
+var BackChannel = require('../../dist-lib/backchannel');
 var EventEmitter = require('events').EventEmitter;
 var sinon = require('sinon');
-var common = require('../../lib/common');
+var common = require('../../dist-lib/common');
 
 var ObjectId = require('mongoose').Types.ObjectId;
 
-describe('BackChannel', function () {
-
-  describe('#prepareJob()', function () {
+describe('BackChannel', function() {
+  describe('#prepareJob()', function() {
     var bc = null;
     var emitter = null;
     var ws = null;
@@ -16,11 +15,13 @@ describe('BackChannel', function () {
     var Job = null;
     var Runner = require('strider-simple-runner').Runner;
 
-    before(function (done) {
+    before(function(done) {
       var provider = require('../fixtures/issue_477/common.extensions.provider.json');
-      provider.github.getFile = sinon.stub().yields(new Error('no strider.json'), null);
-      common.extensions = {provider: provider, runner: {}};
-      var models = require('../../lib/models');
+      provider.github.getFile = sinon
+        .stub()
+        .yields(new Error('no strider.json'), null);
+      common.extensions = { provider: provider, runner: {} };
+      var models = require('../../dist-lib/models');
       Project = models.Project;
       Job = models.Job;
 
@@ -30,7 +31,7 @@ describe('BackChannel', function () {
 
       project.creator = new User(project.creator);
 
-      project.branch = sinon.stub().returns({runner: {id: 'runner-id'}});
+      project.branch = sinon.stub().returns({ runner: { id: 'runner-id' } });
 
       sinon.stub(Project, 'findOne').returns({
         populate: sinon.stub().returns({
@@ -38,7 +39,9 @@ describe('BackChannel', function () {
         })
       });
 
-      sinon.stub(Job, 'create').yields(null, new Job(require('../fixtures/issue_477/mjob.json')));
+      sinon
+        .stub(Job, 'create')
+        .yields(null, new Job(require('../fixtures/issue_477/mjob.json')));
 
       var job = require('../fixtures/issue_477/realworld_job.json');
 
@@ -49,22 +52,22 @@ describe('BackChannel', function () {
       done();
     });
 
-    after(function () {
+    after(function() {
       Project.findOne.restore();
       Job.create.restore();
       BackChannel.prototype.newJob.restore();
     });
 
-    it('calls #newJob() only once', function () {
+    it('calls #newJob() only once', function() {
       expect(BackChannel.prototype.newJob.callCount).to.eq(1);
     });
 
-    it('sends the correct arguments to #newJob()', function () {
+    it('sends the correct arguments to #newJob()', function() {
       var call = BackChannel.prototype.newJob.getCall(0);
       var job = call.args[0];
       var config = call.args[1];
       expect(Object.keys(job)).to.have.length(13);
-      expect(config).to.deep.eq({runner: {id: 'runner-id'}});
+      expect(config).to.deep.eq({ runner: { id: 'runner-id' } });
     });
   });
 });

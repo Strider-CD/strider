@@ -12,13 +12,20 @@ var outputConsole;
 var runtime = null;
 var job = global.job;
 
-module.exports = function ($scope, $route, $location, $filter) {
+module.exports = function($scope, $route, $location, $filter) {
   var params = $route.current ? $route.current.params : {};
   var project = global.project;
   var jobid = params.id || (global.job && global.job._id);
   var socket = io.connect();
   var lastRoute = $route.current;
-  var jobman = new BuildPage(socket, project.name, $scope.$digest.bind($scope), $scope, global.jobs, global.job);
+  var jobman = new BuildPage(
+    socket,
+    project.name,
+    $scope.$digest.bind($scope),
+    $scope,
+    global.jobs,
+    global.job
+  );
 
   outputConsole = global.document.querySelector('.console-output');
 
@@ -42,19 +49,19 @@ module.exports = function ($scope, $route, $location, $filter) {
     }
   }
 
-  $scope.toggleErrorDetails = function () {
+  $scope.toggleErrorDetails = function() {
     $scope.showErrorDetails = !$scope.showErrorDetails;
   };
 
-  $scope.clearCache = function () {
+  $scope.clearCache = function() {
     $scope.clearingCache = true;
     $.ajax(`/${$scope.project.name}/cache/${$scope.job.ref.branch}`, {
       type: 'DELETE',
-      success: function () {
+      success: function() {
         $scope.clearingCache = false;
         $scope.$digest();
       },
-      error: function () {
+      error: function() {
         $scope.clearingCache = false;
         $scope.$digest();
         bootbox.alert('Failed to clear the cache');
@@ -69,6 +76,7 @@ module.exports = function ($scope, $route, $location, $filter) {
 
   function handleLocationChange(force) {
     if (global.location.pathname.match(/\/config$/)) {
+      // eslint-disable-next-line no-self-assign
       global.location = global.location;
       return;
     }
@@ -78,7 +86,7 @@ module.exports = function ($scope, $route, $location, $filter) {
     $route.current = lastRoute;
     if (jobid !== params.id || force) {
       jobid = params.id;
-      var cached = jobman.get(jobid, function (err, job, cached) {
+      var cached = jobman.get(jobid, function(err, job, cached) {
         if (job.phases.environment) {
           job.phases.environment.collapsed = true;
         }
@@ -129,18 +137,18 @@ module.exports = function ($scope, $route, $location, $filter) {
   // shared templates ; need to know what to show
   $scope.page = 'build';
   // a history item is clicked
-  $scope.selectJob = function (id) {
+  $scope.selectJob = function(id) {
     $location.path(`/job/${id}`).replace();
   };
 
   // set the favicon according to job status
-  $scope.$watch('job.status', function (value) {
+  $scope.$watch('job.status', function(value) {
     updateFavicon(value);
   });
 
   buildSwitcher($scope);
 
-  $scope.$watch('job.std.merged_latest', function (value) {
+  $scope.$watch('job.std.merged_latest', function(value) {
     /* Tracking isn't quite working right
      if ($scope.job.status === 'running') {
      height = outputConsole.getBoundingClientRect().height;
@@ -150,14 +158,16 @@ module.exports = function ($scope, $route, $location, $filter) {
      }
      */
     var ansiFilter = $filter('ansi');
-    $('.job-output').last().append(ansiFilter(value));
+    $('.job-output')
+      .last()
+      .append(ansiFilter(value));
     outputConsole.scrollTop = outputConsole.scrollHeight;
-    setTimeout(function () {
+    setTimeout(function() {
       outputConsole.scrollTop = outputConsole.scrollHeight;
     }, 10);
   });
   // button handlers
-  $scope.startDeploy = function (job) {
+  $scope.startDeploy = function(job) {
     $('.tooltip').hide();
     socket.emit('deploy', project.name, job && job.ref.branch);
     $scope.job = {
@@ -165,7 +175,7 @@ module.exports = function ($scope, $route, $location, $filter) {
       status: 'submitted'
     };
   };
-  $scope.startTest = function (job) {
+  $scope.startTest = function(job) {
     $('.tooltip').hide();
     socket.emit('test', project.name, job && job.ref.branch);
     $scope.job = {
@@ -173,10 +183,10 @@ module.exports = function ($scope, $route, $location, $filter) {
       status: 'submitted'
     };
   };
-  $scope.restartJob = function (job) {
+  $scope.restartJob = function(job) {
     socket.emit('restart', job);
   };
-  $scope.cancelJob = function (id) {
+  $scope.cancelJob = function(id) {
     socket.emit('cancel', id);
   };
 };
@@ -243,14 +253,14 @@ _.extend(BuildPage.prototype, JobDataMonitor.prototype, {
     this.scope.jobs.unshift(job);
     this.scope.job = job;
   },
-  
+
   get(id, done) {
     if (this.jobs[id]) {
       done(null, this.jobs[id], true);
       return true;
     }
     var self = this;
-    this.sock.emit('build:job', id, function (job) {
+    this.sock.emit('build:job', id, function(job) {
       self.jobs[id] = job;
       done(null, job);
     });
@@ -266,7 +276,7 @@ function animateFav() {
   var alt = false;
 
   function switchit() {
-    setFavicon(`running${(alt ? '-alt' : '')}`);
+    setFavicon(`running${alt ? '-alt' : ''}`);
     alt = !alt;
   }
 
@@ -289,7 +299,7 @@ function updateFavicon(value) {
 
 function buildSwitcher($scope) {
   function switchBuilds(evt) {
-    var dy = {40: 1, 38: -1}[evt.keyCode];
+    var dy = { 40: 1, 38: -1 }[evt.keyCode];
     var id = $scope.job._id;
     var idx;
     if (!dy) return;
@@ -301,7 +311,8 @@ function buildSwitcher($scope) {
     }
     if (idx === -1) {
       console.log('Failed to find job.');
-      return global.location = global.location;
+      // eslint-disable-next-line no-self-assign
+      return (global.location = global.location);
     }
     idx += dy;
     if (idx < 0 || idx >= $scope.jobs.length) {
