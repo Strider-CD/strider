@@ -40,7 +40,7 @@ module.exports = function (extdir, c, callback) {
     if (typeof Loader !== 'function') {
         throw new Error('Your version of strider-extension-loader is out of date');
     }
-    var loader = new Loader([path.join(__dirname, 'client/styles')], true);
+    var loader = new Loader([path.join(__dirname, '../client/styles')], true);
     appInstance.loader = loader;
     common.loader = loader;
     //
