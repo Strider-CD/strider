@@ -122,7 +122,7 @@
     "strider-env": "^0.5.1",
     "strider-extension-loader": "^0.4.5",
     "strider-git": "^1.0.0",
-    "strider-github": "^2.4.1",
+    "strider-github": "^3.0.0",
     "strider-github-status": "^2.0.0",
     "strider-gitlab": "^1.2.3",
     "strider-heroku": "^0.1.1",

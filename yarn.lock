@@ -10089,10 +10089,10 @@ strider-github-status@^2.0.0:
     debug "~0.7.4"
     github "~0.2.4"
 
-strider-github@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/strider-github/-/strider-github-2.4.1.tgz#6230644803c091a73365d0f9a6bde8836aa71cf1"
-  integrity sha512-CGK98PY7kdQGUF+yfMBh66ejogYbqptw8ctK3PQmMXUYqB8opLd4lpb/dkc5oKa/ytc/BUe3yq6lEwI/EzN6BA==
+strider-github@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/strider-github/-/strider-github-3.0.0.tgz#eec7615052074e080f8fbeb7bf9714bc7614786e"
+  integrity sha512-ijIkNkfvy7qP2rWbI25i8qEdxB8Hej/yNe5fL4g2uUE0UShfL+dYeCyW8myxqem78x9eBhtW8k0FnpnI+Ptn7Q==
   dependencies:
     async "^3.1.1"
     debug "^4.1.1"
