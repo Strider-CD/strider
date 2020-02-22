@@ -71,7 +71,10 @@ exports.init = function (config) {
         // awesome view testingness
         require('./views-test')(app);
     }
-    app.set('views', [path.join(__dirname, 'views')]);
+    app.set('views', [
+        path.join(__dirname, 'views'),
+        path.join(__dirname, '..', 'client-ember')
+    ]);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
         app.use(cors(config.cors));
@@ -108,6 +111,10 @@ exports.init = function (config) {
     }));
     app.use(express.static(path.join(__dirname, '..', 'public'), {
         maxAge: MONTH_IN_MILLISECONDS
+    }));
+    app.use(express.static(path.join(__dirname, '..', 'client-ember', 'dist'), {
+        maxAge: MONTH_IN_MILLISECONDS,
+        index: false
     }));
     if (!config.smtp) {
         debug('No SMTP creds - forgot password flow will not work');

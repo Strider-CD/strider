@@ -21,6 +21,11 @@ exports.index = function (req, res) {
         req.session.return_to = null;
         return res.redirect(return_to);
     }
+    if (req.query.ember) {
+        // TODO: only set if dev
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        return res.render('dist/index.html');
+    }
     var code = '';
     if (req.query.code !== undefined) {
         code = req.query.code;
