@@ -3,6 +3,7 @@
 module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'strider',
+    podModulePrefix: 'strider/pods',
     environment,
     rootURL: '/',
     locationType: 'auto',

@@ -33,6 +33,7 @@ var pjson = require('../package.json');
 var routesAdmin = require('./routes/admin');
 var routesJobs = require('./routes/jobs');
 var api = require('./routes/api');
+var apiV2 = require('./routes/v2');
 var collaboratorsRouter = require('./routes/collaborators');
 var apiBranches = require('./routes/api/branches');
 var apiJobs = require('./routes/api/jobs');
@@ -120,7 +121,8 @@ exports.init = function (config) {
         debug('No SMTP creds - forgot password flow will not work');
     }
     // Routes
-    app.get('/', routes.index);
+    apiV2.default(app);
+    app.get('/*', routes.index);
     app.get('/about', function (req, res) {
         res.render('about');
     });

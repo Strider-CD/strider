@@ -22,9 +22,14 @@ exports.index = function (req, res) {
         return res.redirect(return_to);
     }
     if (req.query.ember) {
-        // TODO: only set if dev
-        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-        return res.render('dist/index.html');
+        return jobs.latestJobs(req.user, true, function (err, jobs) {
+            var availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
+                return common.userConfigs.provider[k];
+            });
+            // TODO: only set if dev
+            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+            res.render('dist/index.html', { jobs, availableProviders });
+        });
     }
     var code = '';
     if (req.query.code !== undefined) {
