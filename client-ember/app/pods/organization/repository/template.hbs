@@ -7,14 +7,37 @@
   <div class='col-span-2 bg-gray-100'>
     <ul class='grid grid-cols-1 gap-2 p-2'>
       {{#each-in @model.job.phases as |key|}}
-        <li class='rounded bg-indigo-500 text-white flex text-center p-2'>
-          {{key}}
+        <li>
+          <button
+            type='button'
+            class="
+
+
+              {{if
+                (eq this.selectedPhase key)
+                'bg-blue-900 text-white'
+                'bg-blue-300'
+              }}
+
+
+               rounded flex text-center p-2 w-full
+              "
+            {{on 'click' (fn (mut this.selectedPhase) key)}}
+          >
+            {{key}}
+          </button>
         </li>
       {{/each-in}}
     </ul>
   </div>
 
-  <div class='col-span-10 bg-gray-200'>
-    console
+  <div class='col-span-10 bg-gray-200 p-2'>
+    {{#let (get @model.job.phases this.selectedPhase) as |phase|}}
+      {{#each phase.commands as |command|}}
+        {{{command.merged}}}
+      {{else}}
+        No output to display
+      {{/each}}
+    {{/let}}
   </div>
 </section>

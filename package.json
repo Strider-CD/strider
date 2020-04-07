@@ -174,7 +174,7 @@
     "ndb": "^1.1.5",
     "node-mocks-http": "^1.2.4",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.4",
     "shelljs": "^0.8.3",
     "sinon": "^7.3.2",
     "standard-version": "^7.1.0",
