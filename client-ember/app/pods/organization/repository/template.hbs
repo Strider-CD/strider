@@ -1,1 +1,20 @@
-{{log this.model}}
+<h2 class='text-xl'>
+  {{@model.project.name}}
+</h2>
+{{log @model}}
+
+<section class='grid grid-cols-12'>
+  <div class='col-span-2 bg-gray-100'>
+    <ul class='grid grid-cols-1 gap-2 p-2'>
+      {{#each-in @model.job.phases as |key|}}
+        <li class='rounded bg-indigo-500 text-white flex text-center p-2'>
+          {{key}}
+        </li>
+      {{/each-in}}
+    </ul>
+  </div>
+
+  <div class='col-span-10 bg-gray-200'>
+    console
+  </div>
+</section>
