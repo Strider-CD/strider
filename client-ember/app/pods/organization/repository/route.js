@@ -5,9 +5,9 @@ export default class RepositoryRoute extends Route {
   async model({ repo }) {
     let { org } = this.paramsFor('organization');
     let response = await fetch(`/api/v2/jobs/${org}/${repo}`, {
-      headers: { Accept: 'application/json' }
+      headers: { Accept: 'application/json' },
     });
-    let result = await response.json();
-    return result;
+    let results = await response.json();
+    return results;
   }
 }

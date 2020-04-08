@@ -1,8 +1,12 @@
+import Controls from './controls';
+---hbs---
+
 <h2 class='text-xl'>
   {{@model.project.name}}
 </h2>
-{{log @model}}
+{{log @model.repo}}
 
+<Controls @repo={{@model}} />
 <section class='grid grid-cols-12'>
   <div class='col-span-2 bg-gray-100'>
     <ul class='grid grid-cols-1 gap-2 p-2'>
@@ -34,9 +38,11 @@
   <div class='col-span-10 bg-gray-200 p-2'>
     {{#let (get @model.job.phases this.selectedPhase) as |phase|}}
       {{#each phase.commands as |command|}}
-        <pre class='bg-gray-800 text-white rounded p-2'>
-          {{{command.merged}}}
-        </pre>
+        {{#if command}}
+          <pre class='bg-gray-800 text-white rounded p-2 mb-2'>
+            {{{command.merged}}}
+          </pre>
+        {{/if}}
       {{else}}
         No output to display
       {{/each}}
