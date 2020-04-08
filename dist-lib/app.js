@@ -122,7 +122,7 @@ exports.init = function (config) {
     }
     // Routes
     apiV2.default(app);
-    app.get('/*', routes.index);
+    app.get('/', routes.index);
     app.get('/about', function (req, res) {
         res.render('about');
     });
@@ -166,7 +166,7 @@ exports.init = function (config) {
     app.use('/account', auth.requireUser, require('./routes/account'));
     app.use('/projects', auth.requireUser, require('./routes/projects'));
     // Requires at least read-only access to the repository in the path
-    app.get('/:org/:repo/', middleware.project, routesJobs.html);
+    // app.get('/:org/:repo/', middleware.project, routesJobs.html);
     app.put('/:org/:repo/', auth.requireUser, apiRepo.createProject);
     app.get('/:org/:repo/job/:job_id?', middleware.project, routesJobs.multijob);
     app.get('/:org/:repo/jobs/', middleware.project, routesJobs.jobs);
@@ -201,6 +201,7 @@ exports.init = function (config) {
     app.use('/api', api);
     app.get('/api/jobs', auth.requireUserOr401, apiJobs.jobs);
     // app.get('/api/jobs/:org/:repo', middleware.project, apiJobs.repoJobs);
+    app.get('/*', routes.emberIndex);
     app.use(function (req, res, next) {
         var userCreatedTimestamp = 0;
         if (req.user !== undefined) {

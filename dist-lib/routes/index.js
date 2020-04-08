@@ -21,16 +21,6 @@ exports.index = function (req, res) {
         req.session.return_to = null;
         return res.redirect(return_to);
     }
-    if (req.query.ember) {
-        return jobs.latestJobs(req.user, true, function (err, jobs) {
-            var availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
-                return common.userConfigs.provider[k];
-            });
-            // TODO: only set if dev
-            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-            res.render('dist/index.html', { jobs, availableProviders });
-        });
-    }
     var code = '';
     if (req.query.code !== undefined) {
         code = req.query.code;
@@ -50,6 +40,27 @@ exports.index = function (req, res) {
             version: pjson.version
         });
     });
+};
+exports.emberIndex = function (req, res) {
+    // Work-around for Safari/Express etags bug on cookie logout.
+    // Without it, Safari will cache the logged-in version despite logout!
+    // See https://github.com/Strider-CD/strider/issues/284
+    req.headers['if-none-match'] = 'no-match-for-this';
+    if (req.session.return_to) {
+        var return_to = req.session.return_to;
+        req.session.return_to = null;
+        return res.redirect(return_to);
+    }
+    if (req.query.ember) {
+        return jobs.latestJobs(req.user, true, function (err, jobs) {
+            var availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
+                return common.userConfigs.provider[k];
+            });
+            // TODO: only set if dev
+            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+            res.render('dist/index.html', { jobs, availableProviders });
+        });
+    }
 };
 exports.setConfig = function (req, res) {
     var attrs = ['public'];
