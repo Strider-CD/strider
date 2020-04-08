@@ -34,7 +34,9 @@
   <div class='col-span-10 bg-gray-200 p-2'>
     {{#let (get @model.job.phases this.selectedPhase) as |phase|}}
       {{#each phase.commands as |command|}}
-        {{{command.merged}}}
+        <pre class='bg-gray-800 text-white rounded p-2'>
+          {{{command.merged}}}
+        </pre>
       {{else}}
         No output to display
       {{/each}}
