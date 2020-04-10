@@ -1,31 +1,30 @@
 import Controls from './controls';
 ---hbs---
 
-<h2 class='text-xl'>
-  {{@model.project.name}}
+<h2 class='flex justify-between items-center text-xl'>
+  {{@model.project}}
+  <Controls @repo={{@model}} />
 </h2>
-{{log @model.repo}}
 
-<Controls @repo={{@model}} />
-<section class='grid grid-cols-12'>
-  <div class='col-span-2 bg-gray-100'>
-    <ul class='grid grid-cols-1 gap-2 p-2'>
-      {{#each-in @model.job.phases as |key|}}
+<section class='flex flex-col'>
+  <div class='bg-gray-100 p-4 mb-2 rounded-lg shadow-lg'>
+    <div class="flex items-center mb-2">
+      <img src={{@model.trigger.author.image}} class="rounded-full w-10 mr-2" alt="Author avatar">
+      {{@model.ref.branch}}
+    </div>
+
+    <ul class='flex'>
+      {{#each-in @model.phases as |key|}}
         <li>
           <button
             type='button'
             class="
-
-
               {{if
                 (eq this.selectedPhase key)
-                'bg-blue-900 text-white'
-                'bg-blue-300'
+                'bg-blue-800 border-blue-800 text-white'
               }}
-
-
-               rounded flex text-center p-2 w-full
-              "
+              border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+            "
             {{on 'click' (fn (mut this.selectedPhase) key)}}
           >
             {{key}}
@@ -35,12 +34,26 @@ import Controls from './controls';
     </ul>
   </div>
 
-  <div class='col-span-10 bg-gray-200 p-2'>
-    {{#let (get @model.job.phases this.selectedPhase) as |phase|}}
+  <div>
+    {{#let (get @model.phases this.selectedPhase) as |phase|}}
       {{#each phase.commands as |command|}}
-        {{#if command}}
-          <pre class='bg-gray-800 text-white rounded p-2 mb-2'>
-            {{{command.merged}}}
+        {{#if command.merged}}
+          <code
+            class='bg-gray-700 text-white rounded rounded-b-none p-2 text-xs block'
+          >
+            <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
+              {{command.plugin}}
+            </span>
+
+            <span>
+              {{if command.comment '#' '$'}} {{command.command}}
+            </span>
+          </code>
+          <pre
+            class='bg-gray-800 text-white rounded rounded-t-none p-2 mb-2 text-xs'
+          >
+            {{! template-lint-disable no-triple-curlies}}
+            {{{ansi command.merged}}}
           </pre>
         {{/if}}
       {{else}}

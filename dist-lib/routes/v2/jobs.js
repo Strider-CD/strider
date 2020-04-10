@@ -25,6 +25,20 @@ router.get('/:org/:repo', middleware.project, function (req, res, next) {
         res.json(result);
     });
 });
+router.get('/:org/:repo/latest', middleware.project, function (req, res) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let projectName = req.project.name;
+        let [job] = yield Job.find({ project: projectName, archived: null }).limit(1);
+        if (job) {
+            let sanitized = utils.sanitizeProject(req.project);
+            sanitized.access_level = req.accessLevel;
+            job = filterJob(job);
+            job.project = sanitized;
+            job.status = ljobs.status(job);
+        }
+        res.json(job);
+    });
+});
 module.exports = router;
 /*
  * GET /org/repo/[job/:job_id] - view latest build for repo
@@ -71,7 +85,7 @@ function projectJobs(req, res, next) {
                 let running = yield Job.find({
                     project: projectName,
                     archived: null,
-                    finished: null
+                    finished: null,
                 })
                     .sort({ started: -1 })
                     .lean();
@@ -106,7 +120,7 @@ function projectJobs(req, res, next) {
                 var isGlobalAdmin = req.user && req.user.account_level > 0;
                 var canAdminProject = sanitized.access_level > 0 || isGlobalAdmin;
                 // Make sure jobs are only listed once.
-                jobs = _.uniqBy(jobs, job => job._id.toString());
+                jobs = _.uniqBy(jobs, (job) => job._id.toString());
                 debug('Build page requested. Logging jobs to investigate duplicate job listings.', jobs);
                 return {
                     project: sanitized,
@@ -117,7 +131,7 @@ function projectJobs(req, res, next) {
                     statusBlocks: common.statusBlocks,
                     showStatus: showStatus,
                     page_base: `${req.params.org}/${req.params.repo}`,
-                    version: pjson.version
+                    version: pjson.version,
                 };
             }
             catch (err) {
