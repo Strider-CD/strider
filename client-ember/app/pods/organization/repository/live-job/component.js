@@ -17,6 +17,7 @@ export default class LiveJob extends Component {
 
     socket.on('job.new', this.handleNewJob);
     socket.on('job.status.started', this.handleJobStarted);
+    socket.on('job.status.command.start', this.handleCommandStart);
     socket.on('job.status.phase.done', this.handleJobPhaseDone);
     socket.on('job.status.stdout', this.handleStdOut);
     socket.on('job.done', this.handleJobDone);
@@ -58,6 +59,20 @@ export default class LiveJob extends Component {
     job.started = time;
     job.phase = 'environment';
     job.status = 'running';
+    this.latestJob = job;
+  }
+
+  @action
+  handleCommandStart([jobId, data]) {
+    if (!this.latestJob._id === jobId) {
+      return;
+    }
+    let job = cloneDeep(this.latestJob);
+    var phase = job.phases[job.phase];
+    var command = Object.assign({}, SKELS.command, data);
+    command.started = data.time;
+    phase.commands.push(command);
+
     this.latestJob = job;
   }
 
