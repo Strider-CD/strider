@@ -7,7 +7,7 @@ import { cloneDeep } from 'lodash-es';
 import PHASES from 'strider/utils/legacy/phases';
 import SKELS from 'strider/utils/legacy/skels';
 
-export default class LatestJob extends Component {
+export default class LiveJob extends Component {
   @tracked latestJob = this.args.job;
 
   constructor() {
@@ -17,6 +17,7 @@ export default class LatestJob extends Component {
 
     socket.on('job.new', this.handleNewJob);
     socket.on('job.status.phase.done', this.handleJobPhaseDone);
+    socket.on('job.status.stdout', this.handleStdOut);
   }
 
   @action
@@ -46,11 +47,11 @@ export default class LatestJob extends Component {
   }
 
   @action
-  handleJobPhaseDone([jobId, data], _whos) {
+  handleJobPhaseDone([jobId, data]) {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = { ...this.latestJob };
+    let job = cloneDeep(this.latestJob);
     job.phases[data.phase].finished = data.time;
     job.phases[data.phase].duration = data.elapsed;
     job.phases[data.phase].exitCode = data.code;
@@ -61,7 +62,38 @@ export default class LatestJob extends Component {
     if (data.phase === 'deploy') job.deploy_status = data.code;
     if (!data.next || !job.phases[data.next]) return;
     job.phase = data.next;
-    debugger;
+
     this.latestJob = job;
   }
+
+  @action
+  handleStdOut([jobId, text]) {
+    if (!this.latestJob._id === jobId) {
+      return;
+    }
+    let job = cloneDeep(this.latestJob);
+
+    let currentPhase = job.phase;
+    let phase = job.phases[currentPhase];
+    let command = ensureCommand(phase);
+    // command.out += text;
+    command.merged += text;
+
+    job.phases[currentPhase] = phase;
+
+    // this.std.out += text;
+    // this.std.merged += text;
+    // this.std.merged_latest = text;
+    // this.livePhase = newPhase;
+    this.latestJob = job;
+  }
+}
+
+function ensureCommand(phase) {
+  var command = phase.commands[phase.commands.length - 1];
+  if (!command || typeof command.finished !== 'undefined') {
+    command = Object.assign({}, SKELS.command);
+    phase.commands.push(command);
+  }
+  return command;
 }

@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
+    "@ember/render-modifiers": "^1.0.2",
     "@fullhuman/postcss-purgecss": "^2.0.6",
     "@glimmer/component": "^1.0.0",
     "babel-eslint": "^10.0.3",
@@ -50,7 +51,8 @@
     "loader.js": "^4.7.0",
     "postcss-import": "^12.0.1",
     "qunit-dom": "^0.9.2",
-    "tailwindcss": "^1.2.0"
+    "tailwindcss": "^1.2.0",
+    "tracked-built-ins": "^1.0.1"
   },
   "engines": {
     "node": "8.* || >= 10.*"
