@@ -16,8 +16,10 @@ export default class LiveJob extends Component {
     this.socket = socket;
 
     socket.on('job.new', this.handleNewJob);
+    socket.on('job.status.started', this.handleJobStarted);
     socket.on('job.status.phase.done', this.handleJobPhaseDone);
     socket.on('job.status.stdout', this.handleStdOut);
+    socket.on('job.done', this.handleJobDone);
   }
 
   @action
@@ -43,6 +45,19 @@ export default class LiveJob extends Component {
     //       self.jobs[id] = job;
     //       done(null, job);
     //     });
+    this.latestJob = job;
+  }
+
+  @action
+  handleJobStarted([jobId, time]) {
+    if (!this.latestJob._id === jobId) {
+      return;
+    }
+    let job = cloneDeep(this.latestJob);
+
+    job.started = time;
+    job.phase = 'environment';
+    job.status = 'running';
     this.latestJob = job;
   }
 
@@ -85,6 +100,11 @@ export default class LiveJob extends Component {
     // this.std.merged += text;
     // this.std.merged_latest = text;
     // this.livePhase = newPhase;
+    this.latestJob = job;
+  }
+
+  @action
+  handleJobDone([job]) {
     this.latestJob = job;
   }
 }
