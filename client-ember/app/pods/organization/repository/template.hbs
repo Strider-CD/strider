@@ -1,64 +1,67 @@
 import Controls from './controls';
+import LatestJob from './latest-job';
 ---hbs---
 
-<h2 class='flex justify-between items-center text-xl'>
+<h2 class='flex justify-between items-center text-xl mb-3'>
   {{@model.project}}
   <Controls @repo={{@model}} />
 </h2>
 
 <section class='flex flex-col'>
-  <div class='bg-gray-100 p-4 mb-2 rounded-lg shadow-lg'>
-    <div class="flex items-center mb-2">
-      <img src={{@model.trigger.author.image}} class="rounded-full w-10 mr-2" alt="Author avatar">
-      {{@model.ref.branch}}
+  <LatestJob @job={{@model}} as |job|>
+    <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
+      <div class="flex items-center mb-4">
+        <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
+        {{job.ref.branch}}
+      </div>
+
+      <ul class='flex'>
+        {{#each-in job.phases as |key|}}
+          <li>
+            <button
+              type='button'
+              class="
+                {{if
+                  (eq this.selectedPhase key)
+                  'bg-blue-800 border-blue-800 text-white'
+                }}
+                {{if (eq job.phase key) 'border-pink-400'}}
+                border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+              "
+              {{on 'click' (fn (mut this.selectedPhase) key)}}
+            >
+              {{key}}
+            </button>
+          </li>
+        {{/each-in}}
+      </ul>
     </div>
+    <div>
+      {{#let (get job.phases this.selectedPhase) as |phase|}}
+        {{#each phase.commands as |command|}}
+          {{#if command.merged}}
+            <code
+              class='bg-gray-700 text-white rounded rounded-b-none p-2 text-xs block'
+            >
+              <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
+                {{command.plugin}}
+              </span>
 
-    <ul class='flex'>
-      {{#each-in @model.phases as |key|}}
-        <li>
-          <button
-            type='button'
-            class="
-              {{if
-                (eq this.selectedPhase key)
-                'bg-blue-800 border-blue-800 text-white'
-              }}
-              border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
-            "
-            {{on 'click' (fn (mut this.selectedPhase) key)}}
-          >
-            {{key}}
-          </button>
-        </li>
-      {{/each-in}}
-    </ul>
-  </div>
-
-  <div>
-    {{#let (get @model.phases this.selectedPhase) as |phase|}}
-      {{#each phase.commands as |command|}}
-        {{#if command.merged}}
-          <code
-            class='bg-gray-700 text-white rounded rounded-b-none p-2 text-xs block'
-          >
-            <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
-              {{command.plugin}}
-            </span>
-
-            <span>
-              {{if command.comment '#' '$'}} {{command.command}}
-            </span>
-          </code>
-          <pre
-            class='bg-gray-800 text-white rounded rounded-t-none p-2 mb-2 text-xs'
-          >
-            {{! template-lint-disable no-triple-curlies}}
-            {{{ansi command.merged}}}
-          </pre>
-        {{/if}}
-      {{else}}
-        No output to display
-      {{/each}}
-    {{/let}}
-  </div>
+              <span>
+                {{if command.comment '#' '$'}} {{command.command}}
+              </span>
+            </code>
+            <pre
+              class='bg-gray-800 text-white rounded rounded-t-none p-2 mb-2 text-xs'
+            >
+              {{! template-lint-disable no-triple-curlies}}
+              {{{ansi command.merged}}}
+            </pre>
+          {{/if}}
+        {{else}}
+          No output to display
+        {{/each}}
+      {{/let}}
+    </div>
+  </LatestJob>
 </section>
