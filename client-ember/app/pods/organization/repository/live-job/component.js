@@ -18,9 +18,14 @@ export default class LiveJob extends Component {
     socket.on('job.new', this.handleNewJob);
     socket.on('job.status.started', this.handleJobStarted);
     socket.on('job.status.command.start', this.handleCommandStart);
+    socket.on('job.status.command.comment', this.handleCommandComment);
     socket.on('job.status.phase.done', this.handleJobPhaseDone);
     socket.on('job.status.stdout', this.handleStdOut);
     socket.on('job.status.command.done', this.handleCommandDone);
+    socket.on('job.status.errored', this.handleJobErrored);
+    socket.on('job.status.canceled', this.handleJobErrored);
+    socket.on('job.status.warning', this.handleJobWarning);
+
     socket.on('job.done', this.handleJobDone);
   }
 
@@ -60,6 +65,7 @@ export default class LiveJob extends Component {
     job.started = time;
     job.phase = 'environment';
     job.status = 'running';
+
     this.latestJob = job;
   }
 
@@ -69,9 +75,28 @@ export default class LiveJob extends Component {
       return;
     }
     let job = cloneDeep(this.latestJob);
-    var phase = job.phases[job.phase];
-    var command = Object.assign({}, SKELS.command, data);
+    let phase = job.phases[job.phase];
+    let command = Object.assign({}, SKELS.command, data);
+
     command.started = data.time;
+    phase.commands.push(command);
+
+    this.latestJob = job;
+  }
+
+  @action
+  handleCommandComment([jobId, data]) {
+    if (!this.latestJob._id === jobId) {
+      return;
+    }
+    let job = cloneDeep(this.latestJob);
+    let phase = job.phases[job.phase];
+    let command = Object.assign({}, SKELS.command);
+
+    command.command = data.comment;
+    command.comment = true;
+    command.plugin = data.plugin;
+    command.finished = data.time;
     phase.commands.push(command);
 
     this.latestJob = job;
@@ -83,15 +108,15 @@ export default class LiveJob extends Component {
       return;
     }
     let job = cloneDeep(this.latestJob);
+
     job.phases[data.phase].finished = data.time;
     job.phases[data.phase].duration = data.elapsed;
     job.phases[data.phase].exitCode = data.code;
-    // if (['prepare', 'environment', 'cleanup'].indexOf(data.phase) !== -1) {
-    //   job.phases[data.phase].collapsed = true;
-    // }
+
     if (data.phase === 'test') job.test_status = data.code;
     if (data.phase === 'deploy') job.deploy_status = data.code;
     if (!data.next || !job.phases[data.next]) return;
+
     job.phase = data.next;
 
     this.latestJob = job;
@@ -103,19 +128,13 @@ export default class LiveJob extends Component {
       return;
     }
     let job = cloneDeep(this.latestJob);
-
     let currentPhase = job.phase;
     let phase = job.phases[currentPhase];
     let command = ensureCommand(phase);
-    // command.out += text;
-    command.merged += text;
 
+    command.merged += text;
     job.phases[currentPhase] = phase;
 
-    // this.std.out += text;
-    // this.std.merged += text;
-    // this.std.merged_latest = text;
-    // this.livePhase = newPhase;
     this.latestJob = job;
   }
 
@@ -127,10 +146,39 @@ export default class LiveJob extends Component {
     let job = cloneDeep(this.latestJob);
     let phase = job.phases[job.phase];
     let command = phase.commands[phase.commands.length - 1];
+
     command.finished = data.time;
     command.duration = data.elapsed;
     command.exitCode = data.exitCode;
     command.merged = command._merged;
+
+    this.latestJob = job;
+  }
+
+  @action
+  handleJobWarning([jobId, warning]) {
+    if (!this.latestJob._id === jobId) {
+      return;
+    }
+    let job = cloneDeep(this.latestJob);
+
+    if (!job.warnings) {
+      job.warnings = [];
+    }
+    job.warnings.push(warning);
+
+    this.latestJob = job;
+  }
+
+  @action
+  handleJobErrored([jobId, error]) {
+    if (!this.latestJob._id === jobId) {
+      return;
+    }
+    let job = cloneDeep(this.latestJob);
+
+    job.error = error;
+    job.status = 'errored';
 
     this.latestJob = job;
   }
@@ -142,7 +190,7 @@ export default class LiveJob extends Component {
 }
 
 function ensureCommand(phase) {
-  var command = phase.commands[phase.commands.length - 1];
+  let command = phase.commands[phase.commands.length - 1];
   if (!command || typeof command.finished !== 'undefined') {
     command = Object.assign({}, SKELS.command);
     phase.commands.push(command);
