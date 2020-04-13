@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.5-alpha.0](https://github.com/Strider-CD/strider/compare/v2.0.4...v2.0.5-alpha.0) (2020-04-13)
+
+
+### Bug Fixes
+
+* connect v2 api ([ecd2926](https://github.com/Strider-CD/strider/commit/ecd2926095ca344a3d4eec70afe7f8c2817fc931))
+* lint error ([2c086d6](https://github.com/Strider-CD/strider/commit/2c086d605582bc9dc2ac3e8cffdbc18b583d2561))
+* plugins not loading ([ee2dc8e](https://github.com/Strider-CD/strider/commit/ee2dc8e89be2b0db03109193126409a08d3f29e4))
+* unified topology ([94cfa05](https://github.com/Strider-CD/strider/commit/94cfa05a01da69347f6a9efabee1a5677d5067cd))
+
 ### [2.0.4](https://github.com/Strider-CD/strider/compare/v2.0.3...v2.0.4) (2020-02-08)
 
 
