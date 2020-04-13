@@ -11,7 +11,6 @@ export default class ApplicationRoute extends Route {
         headers: { Accept: 'application/json' },
       });
       let account = await response.json();
-      debugger;
       this.currentUser.setProperties(account);
       return account;
     } catch (e) {
