@@ -4,9 +4,13 @@ import { cloneDeep } from 'lodash-es';
 import PHASES from 'strider/utils/legacy/phases';
 import SKELS from 'strider/utils/legacy/skels';
 
+interface Params {
+  repo: string;
+}
+
 export default class RepositoryRoute extends Route {
-  async model({ repo }) {
-    let { org } = this.paramsFor('organization');
+  async model({ repo }: Params) {
+    let { org } = this.paramsFor('organization') as any;
     let response = await fetch(`/api/v2/jobs/${org}/${repo}/latest`, {
       headers: { Accept: 'application/json' },
     });

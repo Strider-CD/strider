@@ -1,9 +1,10 @@
 import Route from '@ember/routing/route';
 import { inject as service } from '@ember/service';
 import fetch from 'fetch';
+import CurrentUserService from '../../services/current-user';
 
 export default class ApplicationRoute extends Route {
-  @service currentUser;
+  @service currentUser!: CurrentUserService;
 
   async model() {
     try {
