@@ -8,6 +8,7 @@ var User;
 // active directory schema
 var AdSchema = config.ldap ? new Activedirectory(config.ldap) : null;
 var UserSchema = new Schema({
+    name: { type: String, required: true, default: 'Unknown Name' },
     email: { type: String, required: true, index: true, unique: true },
     salt: { type: String, required: true },
     hash: { type: String, required: true },
@@ -32,12 +33,12 @@ var UserSchema = new Schema({
                     display_name: String,
                     config: {},
                     display_url: String,
-                    group: String // a string for grouping the repos. In github, this would be the "organization"
-                }
+                    group: String,
+                },
             ],
             last_updated: Date,
-            config: {}
-        }
+            config: {},
+        },
     ],
     // user-level config
     jobplugins: {},
@@ -46,15 +47,15 @@ var UserSchema = new Schema({
         {
             name: { type: String, index: true },
             display_name: String,
-            access_level: Number // 0 - view jobs, 1 - start jobs, 2 - configure/admin
-        }
+            access_level: Number,
+        },
     ],
     jobs: [{ type: Schema.ObjectId, ref: 'Job' }],
     jobsQuantityOnPage: {
         type: Number,
-        default: 20
+        default: 20,
     },
-    created: Date
+    created: Date,
 });
 UserSchema.virtual('password')
     .get(function () {
@@ -78,9 +79,9 @@ UserSchema.static('collaborators', function (project, accessLevel, done) {
         projects: {
             $elemMatch: {
                 name: project.toLowerCase(),
-                access_level: { $gte: accessLevel }
-            }
-        }
+                access_level: { $gte: accessLevel },
+            },
+        },
     };
     this.find(query, done);
 });
@@ -184,7 +185,7 @@ UserSchema.static('authenticate', function (email, password, callback) {
                     return this.register({
                         isAdUser: true,
                         isAdmin: isAdmin,
-                        email: adUser.mail
+                        email: adUser.mail,
                     }, callback);
                 }
                 return callback(null, user);
@@ -236,7 +237,7 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
     InviteCode.findOne({
         code: inviteCode,
         emailed_to: email,
-        consumed_timestamp: null
+        consumed_timestamp: null,
     }, function (err, invite) {
         if (err || !invite) {
             return cb('Invalid Invite');
@@ -249,7 +250,7 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
                 projects.push({
                     name: item.project.toLowerCase(),
                     access_level: item.access_level,
-                    display_name: item.project.toLowerCase()
+                    display_name: item.project.toLowerCase(),
                 });
             });
         }
@@ -257,19 +258,19 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
             isAdUser: false,
             email: email,
             password: password,
-            projects: projects
+            projects: projects,
         }, function (err, user) {
             if (err) {
                 return cb(err);
             }
             // Mark Invite Code as used.
             InviteCode.updateOne({
-                code: inviteCode
+                code: inviteCode,
             }, {
                 $set: {
                     consumed_timestamp: new Date(),
-                    consumed_by_user: user._id
-                }
+                    consumed_by_user: user._id,
+                },
             }, {}, function (err) {
                 if (err) {
                     return cb(`Error updating invite code, user was created: ${err}`);

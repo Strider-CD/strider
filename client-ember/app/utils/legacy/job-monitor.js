@@ -15,6 +15,7 @@ function JobMonitor(socket, changed) {
 
 JobMonitor.prototype = {
   emits: {
+    // build:job on build page
     getUnknown: 'dashboard:unknown',
   },
   events: {

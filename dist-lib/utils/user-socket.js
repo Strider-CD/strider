@@ -147,8 +147,8 @@ UserSocket.prototype = {
         },
         restart: function () {
             console.log('Implementation needed');
-        }
-    }
+        },
+    },
 };
 function waiter(socket, event) {
     var wait = {
@@ -156,7 +156,7 @@ function waiter(socket, event) {
         calls: [],
         handler: function () {
             wait.calls.push(arguments);
-        }
+        },
     };
     return wait;
 }
@@ -177,13 +177,14 @@ function kickoffJob(user, project, type, branch) {
         author: {
             id: user._id,
             email: user.email,
-            image: gravatar.url(user.email, {}, true)
+            image: gravatar.url(user.email, {}, true),
+            name: user.name,
         },
         message: type === 'TEST_AND_DEPLOY'
             ? 'Manually Redeploying'
             : 'Manually Retesting',
         timestamp: now,
-        source: { type: 'UI', page: 'unknown' }
+        source: { type: 'UI', page: 'unknown' },
     };
     if (branch !== 'master') {
         trigger.message += ` ${branch}`;
@@ -194,7 +195,7 @@ function kickoffJob(user, project, type, branch) {
         project: project,
         ref: { branch: branch },
         trigger: trigger,
-        created: now
+        created: now,
     };
     common.emitter.emit('job.prepare', job);
 }
