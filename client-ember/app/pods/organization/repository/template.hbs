@@ -56,11 +56,15 @@ import LiveJob from './live-job';
                   'bg-blue-800 border-blue-800 text-white'
                 }}
                 {{if (eq job.phase key) 'border-pink-400'}}
-                border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+                flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
                 mb-2 md:mb-0
               "
               {{on 'click' (fn (mut this.selectedPhase) key)}}
             >
+              {{#if (eq job.phase key)}}
+                <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+              {{/if}}
+
               {{key}}
             </button>
           </li>
