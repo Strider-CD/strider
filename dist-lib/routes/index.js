@@ -26,7 +26,7 @@ exports.index = function (req, res) {
         code = req.query.code;
         return res.render('register.html', {
             invite_code: code,
-            version: pjson.version
+            version: pjson.version,
         });
     }
     jobs.latestJobs(req.user, true, function (err, jobs) {
@@ -37,7 +37,7 @@ exports.index = function (req, res) {
             jobs: jobs,
             availableProviders: availableProviders,
             flash: req.flash(),
-            version: pjson.version
+            version: pjson.version,
         });
     });
 };
@@ -84,7 +84,7 @@ exports.setRunnerConfig = function (req, res) {
     req.project.save(function (err, project) {
         if (err) {
             return res.status(500).send({
-                error: 'Failed to save runner config'
+                error: 'Failed to save runner config',
             });
         }
         res.send(project.branch(req.query.branch).runner.config);
@@ -97,7 +97,7 @@ exports.setRunnerId = function (req, res) {
     req.project.save(function (err, project) {
         if (err) {
             return res.status(500).send({
-                error: 'Failed to save runner config'
+                error: 'Failed to save runner config',
             });
         }
         res.send(project.branch(req.query.branch).runner.id);
@@ -114,7 +114,7 @@ exports.setPluginConfig = function (req, res) {
     req.pluginConfig(req.body, function (err, config) {
         if (err) {
             return res.status(500).send({
-                error: 'Failed to save plugin config'
+                error: 'Failed to save plugin config',
             });
         }
         res.send(config);
@@ -139,7 +139,7 @@ exports.configureBranch = function (req, res) {
         'deploy_on_green',
         'deploy_on_pull_request',
         'runner',
-        'plugins'
+        'plugins',
     ];
     applyAttrs(branch, attrs, req.body);
     req.project.save(function (err) {
@@ -199,7 +199,7 @@ exports.config = function (req, res) {
             serverName: config.server_name,
             project: req.project.toJSON(),
             statusBlocks: common.statusBlocks,
-            userIsCreator: req.user.isProjectCreator
+            userIsCreator: req.user.isProjectCreator,
         };
         if (req.user.isProjectCreator) {
             data.userConfigs = req.user.jobplugins;
@@ -214,7 +214,7 @@ exports.config = function (req, res) {
                 access: p.access_level,
                 gravatar: utils.gravatar(user.email),
                 owner: user._id.toString() === req.project.creator._id.toString(),
-                yourself: req.user._id.toString() === user._id.toString()
+                yourself: req.user._id.toString() === user._id.toString(),
             });
         });
         data.provider = common.pluginConfigs.provider[req.project.provider.id];
@@ -253,7 +253,7 @@ exports.config = function (req, res) {
             },
             json: function () {
                 res.send(data);
-            }
+            },
         });
     }
 };
@@ -272,7 +272,7 @@ exports.status = function (req, res) {
             status: 'error',
             version: `StriderCD (http://stridercd.com) ${pjson.version}`,
             results: [],
-            errors: [{ message: message }]
+            errors: [{ message: message }],
         };
         return res.jsonp(resp);
     }
@@ -282,7 +282,7 @@ exports.status = function (req, res) {
             status: 'ok',
             version: `StriderCD (http://stridercd.com) ${pjson.version}`,
             results: [{ message: 'system operational' }],
-            errors: []
+            errors: [],
         };
         return res.jsonp(resp);
     }

@@ -16,7 +16,7 @@ module.exports = {
     require_auth: auth.requireUserOr401,
     require_auth_browser: auth.requireUser,
     require_admin: auth.requireAdminOr401,
-    require_project_admin: auth.requireProjectAdmin
+    require_project_admin: auth.requireProjectAdmin,
 };
 // Custom middleware to save unparsed request body to req.content
 function bodySetter(req, res, next) {
@@ -51,7 +51,7 @@ function requireBody(paramsList) {
         else {
             return res.status(400).json({
                 errors: errors,
-                status: status
+                status: status,
             });
         }
     };
@@ -173,7 +173,7 @@ function anonProject(req, res, next) {
         if (err) {
             return res.status(500).send({
                 error: 'Failed to find project',
-                info: err
+                info: err,
             });
         }
         if (!project) {

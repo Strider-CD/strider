@@ -3,8 +3,14 @@ import Controls from './controls';
 import LiveJob from './live-job';
 ---hbs---
 
-<h2 class='flex justify-between items-center text-xl mb-3'>
-  {{@model.project}}
+<h2 class='flex justify-between items-center text-2xl mb-3'>
+  <div class="flex items-center">
+    {{@model.project}}
+
+    <a href='/{{@model.project}}/config' class='ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow'>
+      <Icon @icon='cog' @prefix='fas'/>
+    </a>
+  </div>
   <Controls @repo={{@model}} />
 </h2>
 
