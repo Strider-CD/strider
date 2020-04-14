@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.0.5-alpha.4](https://github.com/Strider-CD/strider/compare/v2.0.5-alpha.3...v2.0.5-alpha.4) (2020-04-14)
+
 ### [2.0.5-alpha.3](https://github.com/Strider-CD/strider/compare/v2.0.5-alpha.2...v2.0.5-alpha.3) (2020-04-14)
 
 ### [2.0.5-alpha.2](https://github.com/Strider-CD/strider/compare/v2.0.5-alpha.1...v2.0.5-alpha.2) (2020-04-14)
