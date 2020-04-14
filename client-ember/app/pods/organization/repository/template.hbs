@@ -13,7 +13,7 @@ import LiveJob from './live-job';
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
       <div class='flex flex-col justify-center mb-4'>
         <div class='flex'>
-          <div class='text-3xl mr-2'>
+          <div class='flex text-3xl mr-2'>
             {{#if (eq job.status 'running')}}
               <Icon class='text-blue-500' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
             {{else if (eq job.status 'submitted')}}
