@@ -11,14 +11,21 @@ import LiveJob from './live-job';
   <LiveJob @job={{@model}} as |job|>
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
       <div class="flex flex-col justify-center mb-4">
-        <div class="flex flex-col">
-          {{job.trigger.message}}
-          <div class="text-gray-800 text-sm">
-            {{job.ref.branch}}
-            {{job.ref.id}}
+        <div class="flex">
+          <div class="mr-2">
+            {{job.status}}
+          </div>
+
+          <div class="flex flex-col">
+            {{job.trigger.message}}
+
+            <div class="text-gray-800 text-sm">
+              {{job.ref.branch}}
+              {{truncate job.ref.id}}
+            </div>
           </div>
         </div>
-        {{job.status}}
+
         <div class="flex items-center mt-2">
           <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
           {{job.trigger.author.name}}
