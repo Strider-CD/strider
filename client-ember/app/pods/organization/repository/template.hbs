@@ -21,7 +21,7 @@ import LiveJob from './live-job';
             {{else if (eq job.status 'passed')}}
               <Icon @icon='check-circle' @prefix='fas'/>
             {{else if (eq job.status 'failed')}}
-              <Icon @icon='times-square' @prefix='fas'/>
+              <Icon class='text-red-500' @icon='times-circle' @prefix='fas'/>
             {{else if (eq job.status 'errored')}}
               <Icon @icon='exclamation-triangle' @prefix='fas'/>
             {{else}}
