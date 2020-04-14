@@ -47,13 +47,13 @@ var isProduction = env === 'production';
 var isTest = env === 'test';
 var sessionStore;
 exports.init = function (config) {
-    const mongoose = setupDb(config, err => {
+    const mongoose = setupDb(config, (err) => {
         if (err) {
             process.exit(1);
         }
     });
     sessionStore = new mongoStore({
-        mongooseConnection: mongoose.connection
+        mongooseConnection: mongoose.connection,
     });
     swig.init({
         root: config.viewpath,
@@ -62,7 +62,7 @@ exports.init = function (config) {
         cache: false,
         filters: require('./utils/swig-filters'),
         tags: require('./utils/swig-tags').tags,
-        extensions: { plugin: pluginTemplates }
+        extensions: { plugin: pluginTemplates },
     });
     var app = express();
     if (isDevelopment) {
@@ -74,7 +74,7 @@ exports.init = function (config) {
     }
     app.set('views', [
         path.join(__dirname, 'views'),
-        path.join(__dirname, '..', 'client-ember')
+        path.join(__dirname, '..', 'client-ember'),
     ]);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
@@ -89,14 +89,14 @@ exports.init = function (config) {
     app.use(compression());
     app.use(methodOverride());
     app.use(serveFavicon(path.join(__dirname, '..', 'public', 'favicon.ico'), {
-        maxAge: 2592000000
+        maxAge: 2592000000,
     }));
     app.use(expressSession({
         secret: config.session_secret,
         store: sessionStore,
         cookie: { maxAge: MONTH_IN_MILLISECONDS },
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
     }));
     app.use(connectFlash());
     app.use(function (req, res, next) {
@@ -105,17 +105,17 @@ exports.init = function (config) {
     });
     auth.setup(app); // app.use(passport) is included
     app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
-        maxAge: MONTH_IN_MILLISECONDS
+        maxAge: MONTH_IN_MILLISECONDS,
     }));
     app.use(express.static(path.join(__dirname, '..', 'dist'), {
-        maxAge: MONTH_IN_MILLISECONDS
+        maxAge: MONTH_IN_MILLISECONDS,
     }));
     app.use(express.static(path.join(__dirname, '..', 'public'), {
-        maxAge: MONTH_IN_MILLISECONDS
+        maxAge: MONTH_IN_MILLISECONDS,
     }));
     app.use(express.static(path.join(__dirname, '..', 'client-ember', 'dist'), {
         maxAge: MONTH_IN_MILLISECONDS,
-        index: false
+        index: false,
     }));
     if (!config.smtp) {
         debug('No SMTP creds - forgot password flow will not work');
@@ -137,7 +137,7 @@ exports.init = function (config) {
     app.get('/forgot', function (req, res) {
         res.render('forgot.html', {
             user: req.user,
-            messages: req.flash('error')
+            messages: req.flash('error'),
         });
     });
     app.post('/forgot', auth.forgot);
@@ -154,7 +154,7 @@ exports.init = function (config) {
     app.get('/admin/users', auth.requireAdminOr401, routesAdmin.users);
     app.get('/admin/jobs', auth.requireAdminOr401, function (req, res) {
         res.render('admin/jobs.html', {
-            version: pjson.version
+            version: pjson.version,
         });
     });
     app.get('/admin/make_admin', auth.requireAdminOr401, routesAdmin.makeAdmin);
@@ -183,9 +183,11 @@ exports.init = function (config) {
     app.post('/:org/:repo/keygen/', auth.requireUser, middleware.project, auth.requireProjectAdmin, apiConfig.keygen);
     /* Requires admin access to the repository in the path */
     if ('development' === app.get('env')) {
+        console.log('dev config');
         app.get('/:org/:repo/config(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.reloadConfig, routes.config);
     }
     else {
+        console.log('prod config');
         app.get('/:org/:repo/config(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.config);
     }
     app.put('/:org/:repo/config', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.setConfig);
