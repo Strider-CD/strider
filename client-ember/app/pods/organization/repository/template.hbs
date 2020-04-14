@@ -10,14 +10,22 @@ import LiveJob from './live-job';
 <section class='flex flex-col'>
   <LiveJob @job={{@model}} as |job|>
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
-      <div class="flex items-center mb-4">
-        <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
-        {{job.trigger.author.name}}
-        {{job.ref.branch}}
+      <div class="flex flex-col justify-center mb-4">
+        <div class="flex flex-col">
+          {{job.trigger.message}}
+          <div class="text-gray-800 text-sm">
+            {{job.ref.branch}}
+            {{job.ref.id}}
+          </div>
+        </div>
         {{job.status}}
+        <div class="flex items-center mt-2">
+          <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
+          {{job.trigger.author.name}}
+        </div>
       </div>
 
-      <ul class='flex'>
+      <ul class='flex flex-wrap'>
         {{#each-in job.phases as |key|}}
           <li>
             <button
@@ -29,6 +37,7 @@ import LiveJob from './live-job';
                 }}
                 {{if (eq job.phase key) 'border-pink-400'}}
                 border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+                mb-2 md:mb-0
               "
               {{on 'click' (fn (mut this.selectedPhase) key)}}
             >
@@ -46,7 +55,7 @@ import LiveJob from './live-job';
           {{#each phase.commands as |command|}}
             <section class="mb-2">
               <header
-                class='flex justify-between bg-gray-700 text-white rounded rounded-b-none p-2 text-xs block'
+                class='flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block'
               >
                 <div>
                   <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
@@ -66,7 +75,7 @@ import LiveJob from './live-job';
               </header>
 
               {{#if command.merged}}
-                <code>
+                <code class="text-xs">
                   <pre
                     class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs'
                   >
