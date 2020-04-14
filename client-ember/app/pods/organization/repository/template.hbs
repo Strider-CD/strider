@@ -42,26 +42,40 @@ import LiveJob from './live-job';
     {{#if this.selectedPhase}}
       <div>
         {{#let (get job.phases this.selectedPhase) as |phase|}}
+          {{log phase}}
           {{#each phase.commands as |command|}}
-            {{#if command.merged}}
-              <code
-                class='bg-gray-700 text-white rounded rounded-b-none p-2 text-xs block'
+            <section class="mb-2">
+              <header
+                class='flex justify-between bg-gray-700 text-white rounded rounded-b-none p-2 text-xs block'
               >
-                <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
-                  {{command.plugin}}
-                </span>
+                <div>
+                  <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
+                    {{command.plugin}}
+                  </span>
 
-                <span>
-                  {{if command.comment '#' '$'}} {{command.command}}
-                </span>
-              </code>
-              <pre
-                class='bg-gray-800 text-white rounded rounded-t-none p-2 mb-2 text-xs'
-              >
-                {{! template-lint-disable no-triple-curlies}}
-                {{{ansi command.merged}}}
-              </pre>
-            {{/if}}
+                  <span>
+                    {{if command.comment '#' '$'}} {{command.command}}
+                  </span>
+                </div>
+
+                {{#if (gte command.duration 0)}}
+                  <div class="rounded p-1 bg-gray-600">
+                    {{duration command.duration}}s
+                  </div>
+                {{/if}}
+              </header>
+
+              {{#if command.merged}}
+                <code>
+                  <pre
+                    class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs'
+                  >
+                    {{! template-lint-disable no-triple-curlies}}
+                    {{{ansi command.merged}}}
+                  </pre>
+                </code>
+              {{/if}}
+            </section>
           {{else}}
             No output to display
           {{/each}}
