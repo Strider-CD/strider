@@ -1,3 +1,4 @@
+import Icon from 'fa-icon';
 import Controls from './controls';
 import LiveJob from './live-job';
 ---hbs---
@@ -10,23 +11,33 @@ import LiveJob from './live-job';
 <section class='flex flex-col'>
   <LiveJob @job={{@model}} as |job|>
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
-      <div class="flex flex-col justify-center mb-4">
-        <div class="flex">
-          <div class="mr-2">
-            {{job.status}}
+      <div class='flex flex-col justify-center mb-4'>
+        <div class='flex'>
+          <div class='mr-2'>
+            {{#if (eq job.status 'running')}}
+              <Icon @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+            {{else if (eq job.status 'submitted')}}
+              <Icon @icon='satellite-dish' @prefix='fas'/>
+            {{else if (eq job.status 'passed')}}
+              <Icon @icon='check-circle' @prefix='fas'/>
+            {{else if (eq job.status 'failed')}}
+              <Icon @icon='times-square' @prefix='fas'/>
+            {{else if (eq job.status 'errored')}}
+              <Icon @icon='exclamation-triangle' @prefix='fas'/>
+            {{/if}}
           </div>
 
-          <div class="flex flex-col">
+          <div class='flex flex-col'>
             {{job.trigger.message}}
 
-            <div class="text-gray-800 text-sm">
+            <div class='text-gray-800 text-sm'>
               {{job.ref.branch}}
               {{truncate job.ref.id}}
             </div>
           </div>
         </div>
 
-        <div class="flex items-center mt-2">
+        <div class='flex items-center mt-2'>
           <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
           {{job.trigger.author.name}}
         </div>

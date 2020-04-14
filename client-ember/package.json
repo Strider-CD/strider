@@ -20,6 +20,9 @@
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
     "@ember/render-modifiers": "^1.0.2",
+    "@fortawesome/ember-fontawesome": "^0.2.1",
+    "@fortawesome/free-regular-svg-icons": "^5.13.0",
+    "@fortawesome/free-solid-svg-icons": "^5.13.0",
     "@fullhuman/postcss-purgecss": "^2.0.6",
     "@glimmer/component": "^1.0.0",
     "@types/ember": "^3.1.2",
