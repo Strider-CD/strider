@@ -13,17 +13,17 @@ import LiveJob from './live-job';
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
       <div class='flex flex-col justify-center mb-4'>
         <div class='flex'>
-          <div class='mr-2'>
+          <div class='text-3xl mr-2'>
             {{#if (eq job.status 'running')}}
-              <Icon @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+              <Icon class='text-blue-500' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
             {{else if (eq job.status 'submitted')}}
-              <Icon @icon='satellite-dish' @prefix='fas'/>
+              <Icon class='text-purple-500' @icon='satellite-dish' @prefix='fas'/>
             {{else if (eq job.status 'passed')}}
-              <Icon @icon='check-circle' @prefix='fas'/>
+              <Icon class='text-green-500' @icon='check-circle' @prefix='fas'/>
             {{else if (eq job.status 'failed')}}
               <Icon class='text-red-500' @icon='times-circle' @prefix='fas'/>
             {{else if (eq job.status 'errored')}}
-              <Icon @icon='exclamation-triangle' @prefix='fas'/>
+              <Icon class='text-orange-500' @icon='exclamation-triangle' @prefix='fas'/>
             {{else}}
               {{job.status}}
             {{/if}}
