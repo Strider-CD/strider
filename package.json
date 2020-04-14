@@ -65,7 +65,7 @@
     "docs:publish": "git-update-ghpages -b master Strider-CD/strider-cd.github.com _docpress",
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node --inspect bin/strider --no-cluster",
-    "release": "standard-version",
+    "release": "git add dist/ && standard-version -a",
     "release-build": "npm run build && npm run build-lib",
     "prepublish": "in-publish && npm run release-build || not-in-publish",
     "postinstall": "npm run build-lib && opencollective postinstall"
