@@ -55,6 +55,7 @@
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
+    "build:ember": "cd client-ember/ && ember build -prod && cd ..",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --presets [ es2015 ] --only client] -e client/app.js -o dist/scripts/app.js",
     "test-unit": "mocha --recursive test/unit",
     "lint": "eslint *.js client",
@@ -65,7 +66,7 @@
     "docs:publish": "git-update-ghpages -b master Strider-CD/strider-cd.github.com _docpress",
     "deploy:docs": "npm run api-docs:md && npm run docs:build && npm run docs:publish",
     "debug": "node --inspect bin/strider --no-cluster",
-    "release-build": "npm run build && npm run build-lib",
+    "release-build": "npm run build && npm run build:ember && npm run build-lib",
     "prerelease": "npm run release-build",
     "release": "git add dist/ && standard-version -a",
     "postinstall": "npm run build-lib && opencollective postinstall"
