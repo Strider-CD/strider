@@ -32,8 +32,8 @@
       </div>
 
       <h3>
-        Configuration - 
-        <a href="/{{ project.name }}/" class="header-emphasis">{{ project.display_name }}</a>
+        Configuration -
+        <a href="/{{ project.name }}/?ember=true" class="header-emphasis">{{ project.display_name }}</a>
         {% if project.provider.display_url %}
           <a href="{{ project.provider.display_url }}" target="_blank">
             <i class="fa fa-{{ provider.inline_icon }}"></i>
