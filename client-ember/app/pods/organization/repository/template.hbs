@@ -1,4 +1,5 @@
 import Icon from 'fa-icon';
+import Status from './status';
 import Controls from './controls';
 import LiveJob from './live-job';
 ---hbs---
@@ -20,19 +21,7 @@ import LiveJob from './live-job';
       <div class='flex flex-col justify-center mb-4'>
         <div class='flex'>
           <div class='flex text-3xl mr-2'>
-            {{#if (eq job.status 'running')}}
-              <Icon class='text-blue-500' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
-            {{else if (eq job.status 'submitted')}}
-              <Icon class='text-purple-500' @icon='satellite-dish' @prefix='fas'/>
-            {{else if (eq job.status 'passed')}}
-              <Icon class='text-green-500' @icon='check-circle' @prefix='fas'/>
-            {{else if (eq job.status 'failed')}}
-              <Icon class='text-red-500' @icon='times-circle' @prefix='fas'/>
-            {{else if (eq job.status 'errored')}}
-              <Icon class='text-orange-500' @icon='exclamation-triangle' @prefix='fas'/>
-            {{else}}
-              {{job.status}}
-            {{/if}}
+            <Status @status={{job.status}}/>
           </div>
 
           <div class='flex flex-col'>
