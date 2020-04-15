@@ -1,5 +1,6 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
+import { tracked as trackedB } from 'tracked-built-ins';
 import { action } from '@ember/object';
 import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
@@ -27,6 +28,7 @@ export default class LiveJob extends Component {
     socket.on('job.status.warning', this.handleJobWarning);
 
     socket.on('job.done', this.handleJobDone);
+    this.jobs = trackedB(cloneDeep(this.args.jobs));
   }
 
   @action
@@ -53,6 +55,9 @@ export default class LiveJob extends Component {
     //       done(null, job);
     //     });
     this.latestJob = job;
+    if (!this.jobs.find((job) => job._id === job._id)) {
+      this.jobs.unshift(job);
+    }
   }
 
   @action

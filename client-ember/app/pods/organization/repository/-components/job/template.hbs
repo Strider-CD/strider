@@ -1,102 +1,143 @@
+import Icon from 'fa-icon';
 import Status from './status';
 import LiveJob from './live-job';
 ---hbs---
 
 
-<section class='flex flex-col'>
-  <LiveJob @job={{@job}} as |job|>
-    <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
-      <div class='flex flex-col justify-center mb-4'>
-        <div class='flex'>
-          <div class='flex text-3xl mr-2'>
-            <Status @status={{job.status}}/>
-          </div>
+<LiveJob @job={{@job}} @jobs={{@jobs}} as |job jobs|>
+  <div class="flex">
+    <section class='flex flex-1 flex-col'>
+      <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
+        <div class='flex flex-col justify-center mb-4'>
+          <div class='flex'>
+            <div class='flex text-3xl mr-2'>
+              <Status @status={{job.status}}/>
+            </div>
 
-          <div class='flex flex-col'>
-            {{job.trigger.message}}
+            <div class='flex flex-col'>
+              {{job.trigger.message}}
 
-            <div class='text-gray-800 text-sm'>
-              {{job.ref.branch}}
-              {{truncate job.ref.id}}
+              <div class='text-gray-800 text-sm'>
+                {{job.ref.branch}}
+                {{truncate job.ref.id}}
+              </div>
             </div>
           </div>
+
+          <div class='flex items-center mt-2'>
+            <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
+            {{job.trigger.author.name}}
+          </div>
         </div>
 
-        <div class='flex items-center mt-2'>
-          <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
-          {{job.trigger.author.name}}
-        </div>
+        <ul class='flex flex-wrap'>
+          {{#each-in job.phases as |key|}}
+            <li>
+              <button
+                type='button'
+                class="
+                  {{if
+                    (eq this.selectedPhase key)
+                    'bg-blue-800 border-blue-800 text-white'
+                  }}
+                  {{if (eq job.phase key) 'border-pink-400'}}
+                  flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+                  mb-2 md:mb-0
+                "
+                {{on 'click' (fn (mut this.selectedPhase) key)}}
+              >
+                {{#if (eq job.phase key)}}
+                  <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+                {{/if}}
+
+                {{key}}
+              </button>
+            </li>
+          {{/each-in}}
+        </ul>
       </div>
 
-      <ul class='flex flex-wrap'>
-        {{#each-in job.phases as |key|}}
-          <li>
-            <button
-              type='button'
-              class="
-                {{if
-                  (eq this.selectedPhase key)
-                  'bg-blue-800 border-blue-800 text-white'
-                }}
-                {{if (eq job.phase key) 'border-pink-400'}}
-                flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
-                mb-2 md:mb-0
-              "
-              {{on 'click' (fn (mut this.selectedPhase) key)}}
-            >
-              {{#if (eq job.phase key)}}
-                <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
-              {{/if}}
+      {{#if this.selectedPhase}}
+        <div>
+          {{#let (get job.phases this.selectedPhase) as |phase|}}
+            {{log phase}}
+            {{#each phase.commands as |command|}}
+              <section class="mb-2">
+                <header
+                  class='flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block'
+                >
+                  <div>
+                    <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
+                      {{command.plugin}}
+                    </span>
 
-              {{key}}
-            </button>
-          </li>
-        {{/each-in}}
-      </ul>
-    </div>
+                    <span>
+                      {{if command.comment '#' '$'}} {{command.command}}
+                    </span>
+                  </div>
 
-    {{#if this.selectedPhase}}
-      <div>
-        {{#let (get job.phases this.selectedPhase) as |phase|}}
-          {{log phase}}
-          {{#each phase.commands as |command|}}
-            <section class="mb-2">
-              <header
-                class='flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block'
-              >
-                <div>
-                  <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
-                    {{command.plugin}}
-                  </span>
+                  {{#if (gte command.duration 0)}}
+                    <div class="rounded p-1 bg-gray-600">
+                      {{duration command.duration}}s
+                    </div>
+                  {{/if}}
+                </header>
 
-                  <span>
-                    {{if command.comment '#' '$'}} {{command.command}}
-                  </span>
+                {{#if command.merged}}
+                  <code class="text-xs">
+                    <pre
+                      class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs'
+                    >
+                      {{! template-lint-disable no-triple-curlies}}
+                      {{{ansi command.merged}}}
+                    </pre>
+                  </code>
+                {{/if}}
+              </section>
+            {{else}}
+              No output to display
+            {{/each}}
+          {{/let}}
+        </div>
+      {{/if}}
+    </section>
+
+    <section class="ml-4 h-full overflow-y-auto">
+      <h3 class='text-lg mb-2'>Past Builds</h3>
+      <ul>
+        {{#each jobs as |jobItem|}}
+          <li class="mb-3">
+            <LinkTo @route='organization.repository.job' @model={{jobItem._id}} class='flex flex-col bg-white p-2 rounded-lg shadow'>
+              <div class="flex items-center mb-2">
+                <Status @status={{jobItem.status}} class="mr-2"/>
+                {{jobItem.trigger.message}}
+              </div>
+
+              <div class="flex justify-between items-end">
+                <div class="flex flex-col">
+                  <div class='flex items-center mt-2'>
+                    <img src={{jobItem.trigger.author.image}} class="rounded-full w-6 mr-2" alt="Author avatar">
+                    {{jobItem.trigger.author.name}}
+                  </div>
+
+                  <div class="mt-1 text-gray-800 text-sm">
+                    {{format-date jobItem.created}}
+                  </div>
                 </div>
 
-                {{#if (gte command.duration 0)}}
-                  <div class="rounded p-1 bg-gray-600">
-                    {{duration command.duration}}s
-                  </div>
-                {{/if}}
-              </header>
-
-              {{#if command.merged}}
-                <code class="text-xs">
-                  <pre
-                    class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs'
-                  >
-                    {{! template-lint-disable no-triple-curlies}}
-                    {{{ansi command.merged}}}
-                  </pre>
-                </code>
-              {{/if}}
-            </section>
-          {{else}}
-            No output to display
-          {{/each}}
-        {{/let}}
-      </div>
-    {{/if}}
-  </LiveJob>
-</section>
+                 <div class='flex flex-col text-gray-800 text-sm'>
+                  {{jobItem.ref.branch}}
+                  {{#if jobItem.ref.id}}
+                    <div class='mt-1'>
+                      {{truncate jobItem.ref.id}}
+                    </div>
+                  {{/if}}
+                </div>
+              </div>
+            </LinkTo>
+          </li>
+        {{/each}}
+      </ul>
+    </section>
+  </div>
+</LiveJob>

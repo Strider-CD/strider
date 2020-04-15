@@ -7,14 +7,23 @@ import SKELS from 'strider/utils/legacy/skels';
 interface Params {
   repo: string;
 }
+interface OrgParams {
+  org: string;
+}
 
 export default class RepositoryRoute extends Route {
   async model({ repo }: Params) {
-    let { org } = this.paramsFor('organization') as any;
-    let response = await fetch(`/api/v2/jobs/${org}/${repo}/latest`, {
+    let { org } = this.paramsFor('organization') as OrgParams;
+    let jobResponse = await fetch(`/api/v2/jobs/${org}/${repo}/latest`, {
       headers: { Accept: 'application/json' },
     });
-    let job = await response.json();
+    let jobsResponse = await fetch(`/api/v2/jobs/${org}/${repo}`, {
+      headers: { Accept: 'application/json' },
+    });
+    let [job, jobs] = await Promise.all([
+      jobResponse.json(),
+      jobsResponse.json(),
+    ]);
 
     if (!job.phases) {
       job.phases = {};
@@ -23,6 +32,6 @@ export default class RepositoryRoute extends Route {
       });
     }
 
-    return job;
+    return { job, jobs };
   }
 }

@@ -5154,7 +5154,7 @@ ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.12.0, ember-cli-babel@^6.16.0,
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.10.0:
+ember-cli-babel@^7.0.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.10.0, ember-cli-babel@^7.17.2, ember-cli-babel@^7.18.0:
   version "7.19.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.19.0.tgz#e6eddea18a867231fcf90a80689e92b98be9a63b"
   integrity sha512-HiWKuoyy35vGEr+iCw6gUnQ3pS5qslyTlKEDW8cVoMbvZNGYBgRxHed5nklVUh+BS74AwR9lsp25BTAagYAP9Q==
@@ -5436,7 +5436,7 @@ ember-cli-typescript@^2.0.2:
     stagehand "^1.0.0"
     walk-sync "^1.0.0"
 
-ember-cli-typescript@^3.1.3:
+ember-cli-typescript@^3.0.0, ember-cli-typescript@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/ember-cli-typescript/-/ember-cli-typescript-3.1.3.tgz#a2c7ec6a8a5e57c38eb52d83e36d8e18c7071e60"
   integrity sha512-bFi15H60L9TLYfn9XUzi+RAP1gTWHFtVdSy9IHvxXHlCvTlFZ+2rfuugr/f8reQLz9gvJccKc5TyRD7v+uhx0Q==
@@ -11207,6 +11207,23 @@ tr46@^1.0.1:
   integrity sha1-qLE/1r/SSJUZZ0zN5VujaTtwbQk=
   dependencies:
     punycode "^2.1.0"
+
+tracked-built-ins@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/tracked-built-ins/-/tracked-built-ins-1.0.1.tgz#7656da621ab3f9a4ee1518700fe2a276cf405b3d"
+  integrity sha512-50Hv3dJPW2SQqV3SMPMhhFJwHewuC1fc+qieXmRbI/HyI+/Vaa+e6Pl8FBAWtpaB8emD+OXeo8cC25cpS8vSgg==
+  dependencies:
+    ember-cli-babel "^7.18.0"
+    ember-cli-typescript "^3.0.0"
+    tracked-maps-and-sets "^2.0.0"
+
+tracked-maps-and-sets@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/tracked-maps-and-sets/-/tracked-maps-and-sets-2.0.0.tgz#50495a1e15c2b231c084ea4111928a8227bbd05c"
+  integrity sha512-xrK6n/dUWu1cCsKfqm8WFgNBsIiJzHCNokLylh8+l7IHOJ+jCL9XtYDM9dRHJWrNqmlfP7FlZKI9t8IRwvRkOA==
+  dependencies:
+    ember-cli-babel "^7.17.2"
+    ember-cli-typescript "^3.1.3"
 
 traverse@^0.6.6:
   version "0.6.6"

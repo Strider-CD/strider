@@ -77,6 +77,7 @@
     "ansi_up": "^4.0.4",
     "lodash-es": "^4.17.15",
     "socket.io-client": "^2.3.0",
-    "strip-ansi": "^6.0.0"
+    "strip-ansi": "^6.0.0",
+    "tracked-built-ins": "^1.0.1"
   }
 }

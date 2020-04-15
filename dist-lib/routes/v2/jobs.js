@@ -7,26 +7,33 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-var _ = require('lodash');
+const _ = require('lodash');
 const Router = require('co-router');
-var middleware = require('../../middleware');
-var common = require('../../common');
-var config = require('../../config');
-var debug = require('debug')('strider:routes:jobs');
-var ljobs = require('../../jobs');
-var models = require('../../models');
-var pjson = require('../../../package.json');
-var utils = require('../../utils');
-var Job = models.Job;
+const middleware = require('../../middleware');
+const common = require('../../common');
+const config = require('../../config');
+const debug = require('debug')('strider:routes:jobs');
+const ljobs = require('../../jobs');
+const models = require('../../models');
+const utils = require('../../utils');
+const Job = models.Job;
 const router = new Router();
+/*
+ * GET /org/repo/[job/:job_id] - view latest build for repo
+ *
+ * middleware.project set "project" and "accessLevel" on the req object.
+ */
 router.get('/:org/:repo', middleware.project, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        let result = yield projectJobs(req, res, next);
-        res.json(result);
+        let jobs = yield projectJobs(req, res, next);
+        res.json(jobs);
     });
 });
-router.get('/:org/:repo/latest', middleware.project, function (req, res) {
+router.get('/:org/:repo/latest', middleware.project, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        if (req.params.org === 'auth') {
+            return next();
+        }
         let projectName = req.project.name;
         let [job] = yield Job.find({ project: projectName, archived: null }).limit(1);
         if (job) {
@@ -40,11 +47,6 @@ router.get('/:org/:repo/latest', middleware.project, function (req, res) {
     });
 });
 module.exports = router;
-/*
- * GET /org/repo/[job/:job_id] - view latest build for repo
- *
- * middleware.project set "project" and "accessLevel" on the req object.
- */
 function filterJob(job) {
     if (job.trigger.message === 'Retest') {
         job.trigger.message = 'Manually Retested';
@@ -69,9 +71,8 @@ function projectJobs(req, res, next) {
         if (req.params.org === 'auth') {
             return next();
         }
-        var id = req.params.id;
-        var projectName = req.project.name;
-        var jobsQuantity = req.user
+        const projectName = req.project.name;
+        const jobsQuantity = req.user
             ? req.user.jobsQuantityOnPage
             : config.jobsQuantityOnPage.default;
         try {
@@ -89,50 +90,21 @@ function projectJobs(req, res, next) {
                 })
                     .sort({ started: -1 })
                     .lean();
-                var i;
-                for (i = 0; i < running.length; i++) {
-                    _.extend(running[i], findJob(running[i]));
-                    delete running[i].data;
-                    delete running[i].id;
-                }
-                jobs = running.concat(jobs);
-                var showStatus = {};
-                var sanitized = utils.sanitizeProject(req.project);
-                sanitized.access_level = req.accessLevel;
-                req.project.branches.forEach(function (branch) {
-                    var plugins = (showStatus[branch.name] = {});
-                    branch.plugins.forEach(function (plugin) {
-                        plugins[plugin.id] = plugin.enabled && plugin.showStatus;
-                    });
+                running = running.map((job) => {
+                    _.extend(job, findJob(job));
+                    delete job.data;
+                    delete job.id;
+                    return job;
                 });
-                var job = id ? null : jobs[0];
-                for (i = 0; i < jobs.length; i++) {
-                    if (!job && jobs[i]._id === id)
-                        job = jobs[i];
-                    jobs[i] = ljobs.small(jobs[i]);
-                    jobs[i] = filterJob(jobs[i]);
-                    jobs[i].project = sanitized;
-                }
-                if (job) {
-                    job.status = ljobs.status(job);
-                    job.project = sanitized;
-                }
-                var isGlobalAdmin = req.user && req.user.account_level > 0;
-                var canAdminProject = sanitized.access_level > 0 || isGlobalAdmin;
+                jobs = running.concat(jobs).map((job) => {
+                    job = ljobs.small(job);
+                    job = filterJob(job);
+                    return job;
+                });
                 // Make sure jobs are only listed once.
                 jobs = _.uniqBy(jobs, (job) => job._id.toString());
-                debug('Build page requested. Logging jobs to investigate duplicate job listings.', jobs);
-                return {
-                    project: sanitized,
-                    accessLevel: req.accessLevel,
-                    canAdminProject: canAdminProject,
-                    jobs: jobs,
-                    job: job,
-                    statusBlocks: common.statusBlocks,
-                    showStatus: showStatus,
-                    page_base: `${req.params.org}/${req.params.repo}`,
-                    version: pjson.version,
-                };
+                debug('Build page jobs', jobs);
+                return jobs;
             }
             catch (err) {
                 debug('[job] error finding running jobs', err.message);
