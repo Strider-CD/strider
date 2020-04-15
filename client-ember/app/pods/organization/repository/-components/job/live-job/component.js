@@ -10,6 +10,7 @@ import SKELS from 'strider/utils/legacy/skels';
 
 export default class LiveJob extends Component {
   @tracked latestJob = this.args.job;
+  jobs = trackedB(this.args.jobs.map((job) => cloneDeep(job)));
 
   constructor() {
     super(...arguments);
@@ -28,7 +29,6 @@ export default class LiveJob extends Component {
     socket.on('job.status.warning', this.handleJobWarning);
 
     socket.on('job.done', this.handleJobDone);
-    this.jobs = trackedB(cloneDeep(this.args.jobs));
   }
 
   @action
