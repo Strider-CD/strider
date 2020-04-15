@@ -55,7 +55,7 @@ export default class LiveJob extends Component {
     //       done(null, job);
     //     });
     this.latestJob = job;
-    if (!this.jobs.find((job) => job._id === job._id)) {
+    if (!this.jobs.find((item) => item._id === job._id)) {
       this.jobs.unshift(job);
     }
   }
@@ -72,6 +72,12 @@ export default class LiveJob extends Component {
     job.status = 'running';
 
     this.latestJob = job;
+
+    let item = this.jobs.find((item) => item._id === job._id);
+    if (item) {
+      item = Object.assign(item, job);
+      this.jobs.splice(this.jobs.indexOf(item), 1, item);
+    }
   }
 
   @action
