@@ -14,6 +14,7 @@ import utils from '../../utils';
 const debug = setupDebug('strider:routes:jobs');
 const Job = models.Job;
 const router = new Router();
+
 type StriderRequest = Request & {
   user: any;
   project: any;

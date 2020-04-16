@@ -41,7 +41,10 @@ router.get('/:org/:repo/latest', middleware_1.default.project, function (req, re
             return next();
         }
         let projectName = req.project.name;
-        let [job] = yield Job.find({ project: projectName, archived: null }).limit(1);
+        let [job] = yield Job.find({
+            project: projectName,
+            archived: null,
+        }).limit(1);
         if (job) {
             let sanitized = utils_1.default.sanitizeProject(req.project);
             sanitized.access_level = req.accessLevel;
@@ -68,7 +71,7 @@ function findJob(job) {
     // fixes https://github.com/Strider-CD/strider/issues/273
     if (!job.runner)
         return;
-    var runner = common_1.default.extensions.runner[job.runner.id];
+    let runner = common_1.default.extensions.runner[job.runner.id];
     if (runner)
         return runner.getJobData(job._id) || {};
 }

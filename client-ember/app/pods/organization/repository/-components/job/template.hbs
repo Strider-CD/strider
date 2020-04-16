@@ -1,6 +1,6 @@
 import Icon from 'fa-icon';
-import Status from './status';
-import LiveJob from './live-job';
+import Status from '../status';
+import LiveJob from '../live-job';
 ---hbs---
 
 
@@ -100,44 +100,6 @@ import LiveJob from './live-job';
           {{/let}}
         </div>
       {{/if}}
-    </section>
-
-    <section class="ml-4 h-screen pr-2 overflow-y-auto">
-      <h3 class='text-lg mb-2 bg-white px-2 py-1 rounded-full'>Past Builds</h3>
-      <ul>
-        {{#each jobs as |jobItem|}}
-          <li class="mb-3">
-            <LinkTo @route='organization.repository.job' @model={{jobItem._id}} class='flex flex-col bg-white p-2 rounded-lg shadow'>
-              <div class="flex items-center mb-2">
-                <Status @status={{jobItem.status}} class="mr-2"/>
-                {{jobItem.trigger.message}}
-              </div>
-
-              <div class="flex justify-between items-end">
-                <div class="flex flex-col">
-                  <div class='flex items-center mt-2'>
-                    <img src={{jobItem.trigger.author.image}} class="rounded-full w-6 mr-2" alt="Author avatar">
-                    {{jobItem.trigger.author.name}}
-                  </div>
-
-                  <div class="mt-1 text-gray-800 text-sm">
-                    {{format-date jobItem.created}}
-                  </div>
-                </div>
-
-                 <div class='flex flex-col text-gray-800 text-sm'>
-                  {{jobItem.ref.branch}}
-                  {{#if jobItem.ref.id}}
-                    <div class='mt-1'>
-                      {{truncate jobItem.ref.id}}
-                    </div>
-                  {{/if}}
-                </div>
-              </div>
-            </LinkTo>
-          </li>
-        {{/each}}
-      </ul>
     </section>
   </div>
 </LiveJob>
