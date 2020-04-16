@@ -10,7 +10,7 @@ import SKELS from 'strider/utils/legacy/skels';
 
 export default class LiveJob extends Component {
   @tracked latestJob = this.args.job;
-  jobs = trackedB(this.args.jobs.map((job) => cloneDeep(job)));
+  @tracked jobs = cloneDeep(this.args.jobs);
 
   constructor() {
     super(...arguments);
@@ -57,6 +57,7 @@ export default class LiveJob extends Component {
     this.latestJob = job;
     if (!this.jobs.find((item) => item._id === job._id)) {
       this.jobs.unshift(job);
+      this.jobs = [...this.jobs];
     }
   }
 
@@ -72,12 +73,7 @@ export default class LiveJob extends Component {
     job.status = 'running';
 
     this.latestJob = job;
-
-    let item = this.jobs.find((item) => item._id === job._id);
-    if (item) {
-      item = Object.assign(item, job);
-      this.jobs.splice(this.jobs.indexOf(item), 1, item);
-    }
+    this.updateJobInList(job);
   }
 
   @action
@@ -192,11 +188,24 @@ export default class LiveJob extends Component {
     job.status = 'errored';
 
     this.latestJob = job;
+    this.updateJobInList(job);
   }
 
   @action
   handleJobDone([job]) {
     this.latestJob = job;
+    this.updateJobInList(job);
+  }
+
+  updateJobInList(job) {
+    let item = this.jobs.find((item) => item._id === job._id);
+    if (item) {
+      let original = item;
+      item = Object.assign(cloneDeep(item), job);
+      this.jobs.splice(this.jobs.indexOf(original), 1, item);
+
+      this.jobs = [...this.jobs];
+    }
   }
 }
 
