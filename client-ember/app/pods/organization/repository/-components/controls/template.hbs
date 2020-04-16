@@ -1,4 +1,7 @@
-<div class='flex mb-2'>
+import Icon from 'fa-icon';
+---hbs---
+
+<div class='flex items-center mb-2'>
   <button
     type='button'
     class='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2'
@@ -14,4 +17,8 @@
   >
     Test
   </button>
+
+  <a href='/{{@model.job.project}}/config/' class='ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow'>
+    <Icon @icon='cog' @prefix='fas'/>
+  </a>
 </div>
