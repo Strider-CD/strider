@@ -55,6 +55,27 @@ router.get('/:org/:repo/latest', middleware_1.default.project, function (req, re
         res.json(job);
     });
 });
+router.get('/:org/:repo/job/:jobId', middleware_1.default.project, function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (req.params.org === 'auth') {
+            return next();
+        }
+        let projectName = req.project.name;
+        let job = yield Job.findOne({
+            _id: req.params.jobId,
+            project: projectName,
+            archived: null,
+        });
+        if (job) {
+            let sanitized = utils_1.default.sanitizeProject(req.project);
+            sanitized.access_level = req.accessLevel;
+            job = filterJob(job);
+            job.project = sanitized;
+            job.status = jobs_1.default.status(job);
+        }
+        res.json(job);
+    });
+});
 exports.default = router;
 function filterJob(job) {
     if (job.trigger.message === 'Retest') {

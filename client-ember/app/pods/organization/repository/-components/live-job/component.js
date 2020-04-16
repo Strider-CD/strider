@@ -1,6 +1,5 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
-import { tracked as trackedB } from 'tracked-built-ins';
 import { action } from '@ember/object';
 import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
@@ -32,6 +31,21 @@ export default class LiveJob extends Component {
   }
 
   @action
+  getJob(jobId) {
+    return cloneDeep(
+      this.latestJob._id === jobId
+        ? this.latestJob
+        : this.jobs.find((job) => job._id === jobId)
+    );
+  }
+
+  @action
+  updateLatest() {
+    debugger;
+    this.latestJob = this.args.job;
+  }
+
+  @action
   handleNewJob([job]) {
     if (!job.phase) {
       job.phase = 'environment';
@@ -54,7 +68,7 @@ export default class LiveJob extends Component {
     //       self.jobs[id] = job;
     //       done(null, job);
     //     });
-    this.latestJob = job;
+    this.updateJob(job);
     if (!this.jobs.find((item) => item._id === job._id)) {
       this.jobs.unshift(job);
       this.jobs = [...this.jobs];
@@ -66,13 +80,13 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
 
     job.started = time;
     job.phase = 'environment';
     job.status = 'running';
 
-    this.latestJob = job;
+    this.updateJob(job);
     this.updateJobInList(job);
   }
 
@@ -81,14 +95,14 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
     let phase = job.phases[job.phase];
     let command = Object.assign({}, SKELS.command, data);
 
     command.started = data.time;
     phase.commands.push(command);
 
-    this.latestJob = job;
+    this.updateJob(job);
   }
 
   @action
@@ -96,7 +110,7 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
     let phase = job.phases[job.phase];
     let command = Object.assign({}, SKELS.command);
 
@@ -106,7 +120,7 @@ export default class LiveJob extends Component {
     command.finished = data.time;
     phase.commands.push(command);
 
-    this.latestJob = job;
+    this.updateJob(job);
   }
 
   @action
@@ -114,7 +128,7 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
 
     job.phases[data.phase].finished = data.time;
     job.phases[data.phase].duration = data.elapsed;
@@ -126,7 +140,7 @@ export default class LiveJob extends Component {
 
     job.phase = data.next;
 
-    this.latestJob = job;
+    this.updateJob(job);
   }
 
   @action
@@ -134,7 +148,7 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
     let currentPhase = job.phase;
     let phase = job.phases[currentPhase];
     let command = ensureCommand(phase);
@@ -142,7 +156,7 @@ export default class LiveJob extends Component {
     command.merged += text;
     job.phases[currentPhase] = phase;
 
-    this.latestJob = job;
+    this.updateJob(job);
   }
 
   @action
@@ -150,7 +164,7 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
     let phase = job.phases[job.phase];
     let command = phase.commands[phase.commands.length - 1];
 
@@ -159,7 +173,7 @@ export default class LiveJob extends Component {
     command.exitCode = data.exitCode;
     command.merged = command._merged;
 
-    this.latestJob = job;
+    this.updateJob(job);
   }
 
   @action
@@ -167,14 +181,14 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
 
     if (!job.warnings) {
       job.warnings = [];
     }
     job.warnings.push(warning);
 
-    this.latestJob = job;
+    this.updateJob(job);
   }
 
   @action
@@ -182,19 +196,26 @@ export default class LiveJob extends Component {
     if (!this.latestJob._id === jobId) {
       return;
     }
-    let job = cloneDeep(this.latestJob);
+    let job = this.getJob(jobId);
 
     job.error = error;
     job.status = 'errored';
 
-    this.latestJob = job;
+    this.updateJob(job);
     this.updateJobInList(job);
   }
 
   @action
   handleJobDone([job]) {
-    this.latestJob = job;
+    this.updateJob(job);
     this.updateJobInList(job);
+  }
+
+  updateJob(job) {
+    if (this.args.skipUpdateJob) {
+      return;
+    }
+    this.latestJob = job;
   }
 
   updateJobInList(job) {

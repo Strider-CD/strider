@@ -21,7 +21,12 @@ import LiveJob from './-components/live-job';
         <ul>
           {{#each jobs as |jobItem|}}
             <li class="mb-3">
-              <LinkTo @route='organization.repository.job' @model={{jobItem._id}} class='flex flex-col bg-white p-2 rounded-lg shadow'>
+              <LinkTo
+                @route='organization.repository.job'
+                @model={{jobItem._id}}
+                @queryParams={{hash ember=true}}
+                class='flex flex-col bg-white p-2 rounded-lg shadow {{if (is-active "organization.repository.job" jobItem._id) "border border-pink-400"}}'
+              >
                 <div class="flex items-center mb-2">
                   <Status @status={{jobItem.status}} class="mr-2"/>
                   {{jobItem.trigger.message}}

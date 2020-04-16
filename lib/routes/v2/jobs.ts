@@ -62,6 +62,34 @@ router.get('/:org/:repo/latest', middleware.project, async function (
   res.json(job);
 });
 
+router.get('/:org/:repo/job/:jobId', middleware.project, async function (
+  req: StriderRequest,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.params.org === 'auth') {
+    return next();
+  }
+
+  let projectName = req.project.name;
+  let job: any = await Job.findOne({
+    _id: req.params.jobId,
+    project: projectName,
+    archived: null,
+  });
+
+  if (job) {
+    let sanitized = utils.sanitizeProject(req.project) as any;
+
+    sanitized.access_level = req.accessLevel;
+    job = filterJob(job);
+    job.project = sanitized;
+    job.status = ljobs.status(job);
+  }
+
+  res.json(job);
+});
+
 export default router;
 
 function filterJob(job: any) {

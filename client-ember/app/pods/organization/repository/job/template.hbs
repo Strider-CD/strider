@@ -1,0 +1,7 @@
+import { Job, LiveJob } from '../-components';
+---hbs---
+{{log @model.job}}
+<LiveJob @job={{@model.job}} @jobs={{@model.jobs}} as |job jobs|>
+  {{log job}}
+  <Job @job={{job}} @jobs={{jobs}}/>
+</LiveJob>
