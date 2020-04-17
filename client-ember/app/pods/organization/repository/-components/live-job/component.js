@@ -1,15 +1,16 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
+// import { tracked } from '@glimmer/tracking';
+import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
+// import { localCopy } from 'tracked-toolbox';
 // import JobMonitor from 'strider/utils/legacy/job-monitor';
 import PHASES from 'strider/utils/legacy/phases';
 import SKELS from 'strider/utils/legacy/skels';
 
 export default class LiveJob extends Component {
-  @tracked latestJob = this.args.job;
-  @tracked jobs = cloneDeep(this.args.jobs);
+  @service live;
 
   constructor() {
     super(...arguments);
@@ -32,17 +33,19 @@ export default class LiveJob extends Component {
 
   @action
   getJob(jobId) {
-    return cloneDeep(
-      this.latestJob._id === jobId
-        ? this.latestJob
-        : this.jobs.find((job) => job._id === jobId)
-    );
-  }
+    let job = cloneDeep(this.live.jobs.find((item) => item._id === jobId));
 
-  @action
-  updateLatest() {
-    debugger;
-    this.latestJob = this.args.job;
+    if (!job.phase) {
+      job.phase = 'environment';
+    }
+    if (!job.phases) {
+      job.phases = {};
+      PHASES.forEach((phase) => {
+        job.phases[phase] = cloneDeep(SKELS.phase);
+      });
+      job.phases[job.phase].started = new Date();
+    }
+    return job;
   }
 
   @action
@@ -69,33 +72,30 @@ export default class LiveJob extends Component {
     //       done(null, job);
     //     });
     this.updateJob(job);
-    if (!this.jobs.find((item) => item._id === job._id)) {
-      this.jobs.unshift(job);
-      this.jobs = [...this.jobs];
-    }
   }
 
   @action
   handleJobStarted([jobId, time]) {
-    if (!this.latestJob._id === jobId) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
-    let job = this.getJob(jobId);
 
     job.started = time;
     job.phase = 'environment';
     job.status = 'running';
 
     this.updateJob(job);
-    this.updateJobInList(job);
   }
 
   @action
   handleCommandStart([jobId, data]) {
-    if (!this.latestJob._id === jobId) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
-    let job = this.getJob(jobId);
     let phase = job.phases[job.phase];
     let command = Object.assign({}, SKELS.command, data);
 
@@ -107,10 +107,11 @@ export default class LiveJob extends Component {
 
   @action
   handleCommandComment([jobId, data]) {
-    if (!this.latestJob._id === jobId) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
-    let job = this.getJob(jobId);
     let phase = job.phases[job.phase];
     let command = Object.assign({}, SKELS.command);
 
@@ -124,11 +125,30 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleJobPhaseDone([jobId, data]) {
-    if (!this.latestJob._id === jobId) {
+  handleCommandDone([jobId, data]) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
+    let phase = job.phases[job.phase];
+    let command = phase.commands[phase.commands.length - 1];
+
+    command.finished = data.time;
+    command.duration = data.elapsed;
+    command.exitCode = data.exitCode;
+    command.merged = command._merged;
+
+    this.updateJob(job);
+  }
+
+  @action
+  handleJobPhaseDone([jobId, data]) {
     let job = this.getJob(jobId);
+
+    if (!job) {
+      return;
+    }
 
     job.phases[data.phase].finished = data.time;
     job.phases[data.phase].duration = data.elapsed;
@@ -145,10 +165,11 @@ export default class LiveJob extends Component {
 
   @action
   handleStdOut([jobId, text]) {
-    if (!this.latestJob._id === jobId) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
-    let job = this.getJob(jobId);
     let currentPhase = job.phase;
     let phase = job.phases[currentPhase];
     let command = ensureCommand(phase);
@@ -160,28 +181,12 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleCommandDone([jobId, data]) {
-    if (!this.latestJob._id === jobId) {
-      return;
-    }
-    let job = this.getJob(jobId);
-    let phase = job.phases[job.phase];
-    let command = phase.commands[phase.commands.length - 1];
-
-    command.finished = data.time;
-    command.duration = data.elapsed;
-    command.exitCode = data.exitCode;
-    command.merged = command._merged;
-
-    this.updateJob(job);
-  }
-
-  @action
   handleJobWarning([jobId, warning]) {
-    if (!this.latestJob._id === jobId) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
-    let job = this.getJob(jobId);
 
     if (!job.warnings) {
       job.warnings = [];
@@ -193,40 +198,25 @@ export default class LiveJob extends Component {
 
   @action
   handleJobErrored([jobId, error]) {
-    if (!this.latestJob._id === jobId) {
+    let job = this.getJob(jobId);
+
+    if (!job) {
       return;
     }
-    let job = this.getJob(jobId);
 
     job.error = error;
     job.status = 'errored';
 
     this.updateJob(job);
-    this.updateJobInList(job);
   }
 
   @action
   handleJobDone([job]) {
     this.updateJob(job);
-    this.updateJobInList(job);
   }
 
   updateJob(job) {
-    if (this.args.skipUpdateJob) {
-      return;
-    }
-    this.latestJob = job;
-  }
-
-  updateJobInList(job) {
-    let item = this.jobs.find((item) => item._id === job._id);
-    if (item) {
-      let original = item;
-      item = Object.assign(cloneDeep(item), job);
-      this.jobs.splice(this.jobs.indexOf(original), 1, item);
-
-      this.jobs = [...this.jobs];
-    }
+    this.live.updateJob(job);
   }
 }
 

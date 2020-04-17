@@ -1,8 +1,10 @@
 import Route from '@ember/routing/route';
+import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import { cloneDeep } from 'lodash-es';
 import PHASES from 'strider/utils/legacy/phases';
 import SKELS from 'strider/utils/legacy/skels';
+import Live from 'strider/services/live';
 
 interface Params {
   repo: string;
@@ -12,6 +14,8 @@ interface OrgParams {
 }
 
 export default class RepositoryRoute extends Route {
+  @service live!: Live;
+
   async model({ repo }: Params) {
     let { org } = this.paramsFor('organization') as OrgParams;
     let jobResponse = await fetch(`/api/v2/jobs/${org}/${repo}/latest`, {
@@ -31,6 +35,8 @@ export default class RepositoryRoute extends Route {
         job.phases[phase] = cloneDeep(SKELS.phase);
       });
     }
+
+    this.live.jobs = jobs;
 
     return { job, jobs };
   }

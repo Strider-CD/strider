@@ -14,8 +14,8 @@ import LiveJob from './-components/live-job';
 <div class="relative">
   {{outlet}}
 
-  {{#if this.showRecentBuilds}}
-    <LiveJob @job={{@model.job}} @jobs={{@model.jobs}} as |job jobs|>
+  <LiveJob as |jobs|>
+    {{#if this.showRecentBuilds}}
       <section class="h-screen p-3 overflow-y-auto origin-top-right absolute right-0 top-0 w-64 bg-gray-200 rounded-lg shadow-lg">
         <h3 class='mb-4 bg-white text-gray-600 px-2 py-1 rounded-full'>Recent Builds</h3>
         <ul>
@@ -58,6 +58,6 @@ import LiveJob from './-components/live-job';
           {{/each}}
         </ul>
       </section>
-    </LiveJob>
-  {{/if}}
+    {{/if}}
+  </LiveJob>
 </div>
