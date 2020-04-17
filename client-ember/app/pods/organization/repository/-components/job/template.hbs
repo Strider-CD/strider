@@ -7,9 +7,7 @@ import Status from '../status';
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
       <div class='flex flex-col justify-center mb-4'>
         <div class='flex'>
-          <div class='flex text-3xl mr-2'>
-            <Status @status={{@job.status}}/>
-          </div>
+          <Status class='flex text-3xl mr-2' @status={{@job.status}}/>
 
           <div class='flex flex-col'>
             {{@job.trigger.message}}
