@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/Strider-CD/strider/compare/v2.0.4...v2.1.0) (2020-04-17)
+
+
+### Features
+
+* Replace build and jobs pages with Ember app ([#1084](https://github.com/Strider-CD/strider/issues/1084)) ([7362dbf](https://github.com/Strider-CD/strider/commit/7362dbfe90a18246fa161e1be8d84e84e04ff66c))
+
+
+### Bug Fixes
+
+* plugins not loading ([ee2dc8e](https://github.com/Strider-CD/strider/commit/ee2dc8e89be2b0db03109193126409a08d3f29e4))
+* remove IE from targets ([36417da](https://github.com/Strider-CD/strider/commit/36417da75c9ee056a2ee0e32338d6144ecbef631))
+* remove tracked-built-ins ([932ad36](https://github.com/Strider-CD/strider/commit/932ad36b1aa28cfc028cbaeecd9839f77f1ba4a0))
+* unified topology ([94cfa05](https://github.com/Strider-CD/strider/commit/94cfa05a01da69347f6a9efabee1a5677d5067cd))
+
 ### [2.0.5-alpha.4](https://github.com/Strider-CD/strider/compare/v2.0.5-alpha.3...v2.0.5-alpha.4) (2020-04-14)
 
 ### [2.0.5-alpha.3](https://github.com/Strider-CD/strider/compare/v2.0.5-alpha.2...v2.0.5-alpha.3) (2020-04-14)
