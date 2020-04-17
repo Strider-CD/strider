@@ -108,8 +108,7 @@ function projectJobs(req, res, next) {
         try {
             let jobs = yield Job.find({ project: projectName, archived: null })
                 .sort({ finished: -1 })
-                .limit(jobsQuantity)
-                .lean();
+                .limit(jobsQuantity);
             // Use our custom sort function
             jobs.sort(jobs_1.default.sort);
             try {
@@ -117,9 +116,7 @@ function projectJobs(req, res, next) {
                     project: projectName,
                     archived: null,
                     finished: null,
-                })
-                    .sort({ started: -1 })
-                    .lean();
+                }).sort({ started: -1 });
                 running = running.map((job) => {
                     lodash_1.default.extend(job, findJob(job));
                     delete job.data;
@@ -127,8 +124,9 @@ function projectJobs(req, res, next) {
                     return job;
                 });
                 jobs = running.concat(jobs).map((job) => {
-                    job = jobs_1.default.small(job);
+                    // job = ljobs.small(job);
                     job = filterJob(job);
+                    job.status = jobs_1.default.status(job);
                     return job;
                 });
                 // Make sure jobs are only listed once.

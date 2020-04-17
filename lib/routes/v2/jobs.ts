@@ -129,8 +129,7 @@ async function projectJobs(
   try {
     let jobs = await Job.find({ project: projectName, archived: null })
       .sort({ finished: -1 })
-      .limit(jobsQuantity)
-      .lean();
+      .limit(jobsQuantity);
 
     // Use our custom sort function
     jobs.sort(ljobs.sort);
@@ -140,9 +139,7 @@ async function projectJobs(
         project: projectName,
         archived: null,
         finished: null,
-      })
-        .sort({ started: -1 })
-        .lean();
+      }).sort({ started: -1 });
 
       running = running.map((job: any) => {
         _.extend(job, findJob(job));
@@ -151,8 +148,9 @@ async function projectJobs(
         return job;
       });
       jobs = running.concat(jobs).map((job: any) => {
-        job = ljobs.small(job);
+        // job = ljobs.small(job);
         job = filterJob(job);
+        job.status = ljobs.status(job);
         return job;
       });
 
