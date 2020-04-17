@@ -8,12 +8,19 @@ import { cloneDeep } from 'lodash-es';
 // import JobMonitor from 'strider/utils/legacy/job-monitor';
 import PHASES from 'strider/utils/legacy/phases';
 import SKELS from 'strider/utils/legacy/skels';
+import Live from 'strider/services/live';
 
-export default class LiveJob extends Component {
-  @service live;
+interface Args {}
 
-  constructor() {
-    super(...arguments);
+export default class LiveJob extends Component<Args> {
+  @service live!: Live;
+
+  socket: {
+    on: (event: string, handler: () => {}) => {};
+  };
+
+  constructor(owner: unknown, args: Args) {
+    super(owner, args);
     let socket = io.connect();
     this.socket = socket;
 
@@ -21,19 +28,18 @@ export default class LiveJob extends Component {
     socket.on('job.status.started', this.handleJobStarted);
     socket.on('job.status.command.start', this.handleCommandStart);
     socket.on('job.status.command.comment', this.handleCommandComment);
-    socket.on('job.status.phase.done', this.handleJobPhaseDone);
-    socket.on('job.status.stdout', this.handleStdOut);
     socket.on('job.status.command.done', this.handleCommandDone);
+    socket.on('job.status.stdout', this.handleStdOut);
+    socket.on('job.status.phase.done', this.handleJobPhaseDone);
+    socket.on('job.status.warning', this.handleJobWarning);
     socket.on('job.status.errored', this.handleJobErrored);
     socket.on('job.status.canceled', this.handleJobErrored);
-    socket.on('job.status.warning', this.handleJobWarning);
-
     socket.on('job.done', this.handleJobDone);
   }
 
   @action
-  getJob(jobId) {
-    let job = cloneDeep(this.live.jobs.find((item) => item._id === jobId));
+  getJob(jobId: string) {
+    let job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
 
     if (!job.phase) {
       job.phase = 'environment';
@@ -49,7 +55,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleNewJob([job]) {
+  handleNewJob([job]: [any]) {
     if (!job.phase) {
       job.phase = 'environment';
     }
@@ -75,7 +81,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleJobStarted([jobId, time]) {
+  handleJobStarted([jobId, time]: [string, string]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -90,7 +96,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleCommandStart([jobId, data]) {
+  handleCommandStart([jobId, data]: [string, any]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -106,14 +112,14 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleCommandComment([jobId, data]) {
+  handleCommandComment([jobId, data]: [string, any]) {
     let job = this.getJob(jobId);
 
     if (!job) {
       return;
     }
     let phase = job.phases[job.phase];
-    let command = Object.assign({}, SKELS.command);
+    let command = Object.assign({}, SKELS.command) as any;
 
     command.command = data.comment;
     command.comment = true;
@@ -125,7 +131,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleCommandDone([jobId, data]) {
+  handleCommandDone([jobId, data]: [string, any]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -143,7 +149,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleJobPhaseDone([jobId, data]) {
+  handleJobPhaseDone([jobId, data]: [string, any]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -164,7 +170,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleStdOut([jobId, text]) {
+  handleStdOut([jobId, text]: [string, string]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -181,7 +187,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleJobWarning([jobId, warning]) {
+  handleJobWarning([jobId, warning]: [string, string]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -197,7 +203,7 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleJobErrored([jobId, error]) {
+  handleJobErrored([jobId, error]: [string, any]) {
     let job = this.getJob(jobId);
 
     if (!job) {
@@ -211,16 +217,16 @@ export default class LiveJob extends Component {
   }
 
   @action
-  handleJobDone([job]) {
+  handleJobDone([job]: [any]) {
     this.updateJob(job);
   }
 
-  updateJob(job) {
+  updateJob(job: any) {
     this.live.updateJob(job);
   }
 }
 
-function ensureCommand(phase) {
+function ensureCommand(phase: any) {
   let command = phase.commands[phase.commands.length - 1];
   if (!command || typeof command.finished !== 'undefined') {
     command = Object.assign({}, SKELS.command);
