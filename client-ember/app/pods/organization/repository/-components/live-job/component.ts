@@ -1,11 +1,8 @@
 import Component from '@glimmer/component';
-// import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
-// import { localCopy } from 'tracked-toolbox';
-// import JobMonitor from 'strider/utils/legacy/job-monitor';
 import PHASES from 'strider/utils/legacy/phases';
 import SKELS from 'strider/utils/legacy/skels';
 import Live from 'strider/services/live';
@@ -15,9 +12,7 @@ interface Args {}
 export default class LiveJob extends Component<Args> {
   @service live!: Live;
 
-  socket: {
-    on: (event: string, handler: () => {}) => {};
-  };
+  socket: SocketIOClient.Socket;
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);
@@ -73,10 +68,7 @@ export default class LiveJob extends Component<Args> {
       });
       job.phases[job.phase].started = new Date();
     }
-    // this.sock.emit('build:job', id, function (job) {
-    //       self.jobs[id] = job;
-    //       done(null, job);
-    //     });
+
     this.updateJob(job);
   }
 
