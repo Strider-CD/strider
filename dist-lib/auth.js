@@ -10,7 +10,7 @@ var User = require('./models').User;
 var randomBytes = BluebirdPromise.promisify(crypto.randomBytes);
 function setupPasswordAuth() {
     passport.use(new LocalStrategy({
-        usernameField: 'email'
+        usernameField: 'email',
     }, function (username, password, done) {
         console.log('username: %s', username);
         User.authenticate(username, password, function (err, user) {
@@ -44,7 +44,7 @@ function registerRoutes(app) {
                     errors: [err],
                     invite_code: req.body.invite_code,
                     email: req.body.email,
-                    password: req.body.password
+                    password: req.body.password,
                 });
             }
             // Registered success:
@@ -63,7 +63,7 @@ function registerRoutes(app) {
             errors.push('Authentication failed, please supply a valid email/password.');
         }
         return res.render('login.html', {
-            errors: errors
+            errors: errors,
         });
     });
 }
@@ -134,7 +134,7 @@ function basicAuth(req, res, next) {
 }
 var _authenticate = passport.authenticate('local', {
     successRedirect: '/',
-    failureRedirect: '/login?failed=true'
+    failureRedirect: '/login?failed=true',
 });
 function logout(req, res) {
     req.logout();
@@ -185,7 +185,7 @@ function reset(req, res) {
     var token = req.params.token;
     User.findOne({
         resetPasswordToken: token,
-        resetPasswordExpires: { $gt: Date.now() }
+        resetPasswordExpires: { $gt: Date.now() },
     }, function (err, user) {
         if (!user) {
             req.flash('error', 'Password reset token is invalid or has expired.');
@@ -193,7 +193,7 @@ function reset(req, res) {
         }
         res.render('reset.html', {
             token: token,
-            user: user
+            user: user,
         });
     });
 }
@@ -203,7 +203,7 @@ function resetPost(req, res) {
     if (password === confirmation) {
         User.findOne({
             resetPasswordToken: req.params.token,
-            resetPasswordExpires: { $gt: Date.now() }
+            resetPasswordExpires: { $gt: Date.now() },
         }, function (err, user) {
             if (!user) {
                 req.flash('error', 'Password reset token is invalid or has expired.');
@@ -282,6 +282,6 @@ module.exports = {
     requireUser: requireUser,
     requireUserOr401: requireUserOr401,
     requireAdminOr401: requireAdminOr401,
-    requireProjectAdmin: requireProjectAdmin
+    requireProjectAdmin: requireProjectAdmin,
 };
 //# sourceMappingURL=auth.js.map

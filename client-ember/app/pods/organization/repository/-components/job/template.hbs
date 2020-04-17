@@ -1,0 +1,102 @@
+import Icon from 'fa-icon';
+import Status from '../status';
+---hbs---
+
+<div class="flex">
+  <section class='flex flex-1 flex-col w-8/12'>
+    <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
+      <div class='flex flex-col justify-center mb-4'>
+        <div class='flex'>
+          <Status class='flex text-3xl mr-2' @status={{@job.status}}/>
+
+          <div class='flex flex-col'>
+            {{@job.trigger.message}}
+
+            <div class='text-gray-800 text-sm'>
+              {{@job.ref.branch}}
+              {{truncate @job.ref.id}}
+            </div>
+
+            <div class="mt-1 text-gray-800 text-sm">
+              {{format-date @job.created}}
+            </div>
+          </div>
+        </div>
+
+        <div class='flex items-center mt-2'>
+          <img src={{@job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
+          {{@job.trigger.author.name}}
+        </div>
+      </div>
+
+      <ul class='flex flex-wrap'>
+        {{#each-in @job.phases as |key|}}
+          <li>
+            <button
+              type='button'
+              class="
+                {{if
+                  (eq this.selectedPhase key)
+                  'bg-blue-800 border-blue-800 text-white'
+                }}
+                {{if (eq @job.phase key) 'border-pink-400'}}
+                flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+                mb-2 md:mb-0
+              "
+              {{on 'click' (fn (mut this.selectedPhase) key)}}
+            >
+              {{#if (eq @job.phase key)}}
+                <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+              {{/if}}
+
+              {{key}}
+            </button>
+          </li>
+        {{/each-in}}
+      </ul>
+    </div>
+
+    {{#if this.selectedPhase}}
+      <div>
+        {{#let (get @job.phases this.selectedPhase) as |phase|}}
+          {{#each phase.commands as |command|}}
+            <section class="mb-2">
+              <header
+                class='flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block'
+              >
+                <div>
+                  <span class='inline-flex p-1 rounded bg-gray-500 mr-2'>
+                    {{command.plugin}}
+                  </span>
+
+                  <span>
+                    {{if command.comment '#' '$'}} {{command.command}}
+                  </span>
+                </div>
+
+                {{#if (gte command.duration 0)}}
+                  <div class="rounded p-1 bg-gray-600">
+                    {{duration command.duration}}s
+                  </div>
+                {{/if}}
+              </header>
+
+              {{#if command.merged}}
+                <code class="text-xs">
+                  <pre
+                    class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs overflow-x-auto'
+                  >
+                    {{! template-lint-disable no-triple-curlies}}
+                    {{{ansi command.merged}}}
+                  </pre>
+                </code>
+              {{/if}}
+            </section>
+          {{else}}
+            No output to display
+          {{/each}}
+        {{/let}}
+      </div>
+    {{/if}}
+  </section>
+</div>

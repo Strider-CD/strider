@@ -33,6 +33,7 @@ var pjson = require('../package.json');
 var routesAdmin = require('./routes/admin');
 var routesJobs = require('./routes/jobs');
 var api = require('./routes/api');
+var apiV2 = require('./routes/v2');
 var collaboratorsRouter = require('./routes/collaborators');
 var apiBranches = require('./routes/api/branches');
 var apiJobs = require('./routes/api/jobs');
@@ -46,13 +47,13 @@ var isProduction = env === 'production';
 var isTest = env === 'test';
 var sessionStore;
 exports.init = function (config) {
-    const mongoose = setupDb(config, err => {
+    const mongoose = setupDb(config, (err) => {
         if (err) {
             process.exit(1);
         }
     });
     sessionStore = new mongoStore({
-        mongooseConnection: mongoose.connection
+        mongooseConnection: mongoose.connection,
     });
     swig.init({
         root: config.viewpath,
@@ -61,7 +62,7 @@ exports.init = function (config) {
         cache: false,
         filters: require('./utils/swig-filters'),
         tags: require('./utils/swig-tags').tags,
-        extensions: { plugin: pluginTemplates }
+        extensions: { plugin: pluginTemplates },
     });
     var app = express();
     if (isDevelopment) {
@@ -71,7 +72,10 @@ exports.init = function (config) {
         // awesome view testingness
         require('./views-test')(app);
     }
-    app.set('views', [path.join(__dirname, 'views')]);
+    app.set('views', [
+        path.join(__dirname, 'views'),
+        path.join(__dirname, '..', 'client-ember'),
+    ]);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
         app.use(cors(config.cors));
@@ -85,14 +89,14 @@ exports.init = function (config) {
     app.use(compression());
     app.use(methodOverride());
     app.use(serveFavicon(path.join(__dirname, '..', 'public', 'favicon.ico'), {
-        maxAge: 2592000000
+        maxAge: 2592000000,
     }));
     app.use(expressSession({
         secret: config.session_secret,
         store: sessionStore,
         cookie: { maxAge: MONTH_IN_MILLISECONDS },
         resave: false,
-        saveUninitialized: true
+        saveUninitialized: true,
     }));
     app.use(connectFlash());
     app.use(function (req, res, next) {
@@ -101,18 +105,23 @@ exports.init = function (config) {
     });
     auth.setup(app); // app.use(passport) is included
     app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
-        maxAge: MONTH_IN_MILLISECONDS
+        maxAge: MONTH_IN_MILLISECONDS,
     }));
     app.use(express.static(path.join(__dirname, '..', 'dist'), {
-        maxAge: MONTH_IN_MILLISECONDS
+        maxAge: MONTH_IN_MILLISECONDS,
     }));
     app.use(express.static(path.join(__dirname, '..', 'public'), {
-        maxAge: MONTH_IN_MILLISECONDS
+        maxAge: MONTH_IN_MILLISECONDS,
+    }));
+    app.use(express.static(path.join(__dirname, '..', 'client-ember', 'dist'), {
+        maxAge: MONTH_IN_MILLISECONDS,
+        index: false,
     }));
     if (!config.smtp) {
         debug('No SMTP creds - forgot password flow will not work');
     }
     // Routes
+    apiV2.default(app);
     app.get('/', routes.index);
     app.get('/about', function (req, res) {
         res.render('about');
@@ -128,7 +137,7 @@ exports.init = function (config) {
     app.get('/forgot', function (req, res) {
         res.render('forgot.html', {
             user: req.user,
-            messages: req.flash('error')
+            messages: req.flash('error'),
         });
     });
     app.post('/forgot', auth.forgot);
@@ -145,7 +154,7 @@ exports.init = function (config) {
     app.get('/admin/users', auth.requireAdminOr401, routesAdmin.users);
     app.get('/admin/jobs', auth.requireAdminOr401, function (req, res) {
         res.render('admin/jobs.html', {
-            version: pjson.version
+            version: pjson.version,
         });
     });
     app.get('/admin/make_admin', auth.requireAdminOr401, routesAdmin.makeAdmin);
@@ -157,9 +166,9 @@ exports.init = function (config) {
     app.use('/account', auth.requireUser, require('./routes/account'));
     app.use('/projects', auth.requireUser, require('./routes/projects'));
     // Requires at least read-only access to the repository in the path
-    app.get('/:org/:repo/', middleware.project, routesJobs.html);
+    // app.get('/:org/:repo/', middleware.project, routesJobs.html);
     app.put('/:org/:repo/', auth.requireUser, apiRepo.createProject);
-    app.get('/:org/:repo/job/:job_id?', middleware.project, routesJobs.multijob);
+    // app.get('/:org/:repo/job/:job_id?', middleware.project, routesJobs.multijob);
     app.get('/:org/:repo/jobs/', middleware.project, routesJobs.jobs);
     app.post('/:org/:repo/start', auth.requireUser, middleware.project, auth.requireProjectAdmin, apiJobs.jobsStart);
     app.delete('/:org/:repo/cache', auth.requireUser, middleware.project, auth.requireProjectAdmin, apiRepo.clearCache);
@@ -174,9 +183,11 @@ exports.init = function (config) {
     app.post('/:org/:repo/keygen/', auth.requireUser, middleware.project, auth.requireProjectAdmin, apiConfig.keygen);
     /* Requires admin access to the repository in the path */
     if ('development' === app.get('env')) {
+        console.log('dev config');
         app.get('/:org/:repo/config(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.reloadConfig, routes.config);
     }
     else {
+        console.log('prod config');
         app.get('/:org/:repo/config(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.config);
     }
     app.put('/:org/:repo/config', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.setConfig);
@@ -192,6 +203,7 @@ exports.init = function (config) {
     app.use('/api', api);
     app.get('/api/jobs', auth.requireUserOr401, apiJobs.jobs);
     // app.get('/api/jobs/:org/:repo', middleware.project, apiJobs.repoJobs);
+    app.get('/*', routes.emberIndex);
     app.use(function (req, res, next) {
         var userCreatedTimestamp = 0;
         if (req.user !== undefined) {
