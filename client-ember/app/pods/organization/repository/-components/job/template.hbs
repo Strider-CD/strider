@@ -61,7 +61,6 @@ import Status from '../status';
     {{#if this.selectedPhase}}
       <div>
         {{#let (get @job.phases this.selectedPhase) as |phase|}}
-          {{log phase}}
           {{#each phase.commands as |command|}}
             <section class="mb-2">
               <header
@@ -87,7 +86,7 @@ import Status from '../status';
               {{#if command.merged}}
                 <code class="text-xs">
                   <pre
-                    class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs'
+                    class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs overflow-x-auto'
                   >
                     {{! template-lint-disable no-triple-curlies}}
                     {{{ansi command.merged}}}
