@@ -30,7 +30,7 @@ import Status from '../status';
       </div>
 
       <ul class='flex flex-wrap'>
-        {{#each-in @job.phases as |key|}}
+        {{#each-in @job.phases as |key phase|}}
           <li>
             <button
               type='button'
@@ -45,8 +45,16 @@ import Status from '../status';
               "
               {{on 'click' (fn (mut this.selectedPhase) key)}}
             >
-              {{#if (eq @job.phase key)}}
+              {{#if (eq phase.exitCode key)}}
                 <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+              {{else if (gt phase.exitCode 0)}}
+                <Icon class='text-red-500 mr-2' @icon='times-circle' @prefix='fas'/>
+              {{else if (eq phase.exitCode 0)}}
+                <Icon class='text-green-500 mr-2' @icon='check-circle' @prefix='fas'/>
+              {{else if (eq phase.exitCode -1)}}
+                <Icon class='text-gray-300 mr-2' @icon='lock' @prefix='fas'/>
+              {{else}}
+                <Icon class='text-orange-500 mr-2' @icon='exclamation-triangle' @prefix='fas'/>
               {{/if}}
 
               {{key}}
