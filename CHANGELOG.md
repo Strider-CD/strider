@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/Strider-CD/strider/compare/v2.1.0...v2.2.0) (2020-04-22)
+
+
+### Features
+
+* show status on phases ([d332856](https://github.com/Strider-CD/strider/commit/d33285690e679f3c27868a1e2f129b2574b49e62))
+* show status on phases ([#1086](https://github.com/Strider-CD/strider/issues/1086)) ([d7e94e7](https://github.com/Strider-CD/strider/commit/d7e94e73bb81ae5d129094435545f65d997c9872))
+
+
+### Bug Fixes
+
+* don't use get, since each-in also sends the item ([085873d](https://github.com/Strider-CD/strider/commit/085873dadd151e9143ee1721ed82cee0e6ce9f5d))
+
 ## [2.1.0](https://github.com/Strider-CD/strider/compare/v2.0.4...v2.1.0) (2020-04-17)
 
 
