@@ -216,6 +216,25 @@ export default class LiveJob extends Component<Args> {
   updateJob(job: any) {
     this.live.updateJob(job);
   }
+
+  willDestroy() {
+    super.willDestroy();
+    const socket = this.socket;
+
+    socket.off('job.new', this.handleNewJob);
+    socket.off('job.status.started', this.handleJobStarted);
+    socket.off('job.status.command.start', this.handleCommandStart);
+    socket.off('job.status.command.comment', this.handleCommandComment);
+    socket.off('job.status.command.done', this.handleCommandDone);
+    socket.off('job.status.stdout', this.handleStdOut);
+    socket.off('job.status.phase.done', this.handleJobPhaseDone);
+    socket.off('job.status.warning', this.handleJobWarning);
+    socket.off('job.status.errored', this.handleJobErrored);
+    socket.off('job.status.canceled', this.handleJobErrored);
+    socket.off('job.done', this.handleJobDone);
+
+    socket.close();
+  }
 }
 
 function ensureCommand(phase: any) {
