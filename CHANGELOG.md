@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/Strider-CD/strider/compare/v2.2.0...v2.2.1) (2020-04-28)
+
+
+### Bug Fixes
+
+* cleanup socket ([#1087](https://github.com/Strider-CD/strider/issues/1087)) ([e3be2f5](https://github.com/Strider-CD/strider/commit/e3be2f578c969ff7a33a6c63a17aeebe4e7d917d))
+
 ## [2.2.0](https://github.com/Strider-CD/strider/compare/v2.1.0...v2.2.0) (2020-04-22)
 
 
