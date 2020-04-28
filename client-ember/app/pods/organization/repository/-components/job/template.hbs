@@ -6,21 +6,33 @@ import Status from '../status';
   <section class='flex flex-1 flex-col w-8/12'>
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
       <div class='flex flex-col justify-center mb-4'>
-        <div class='flex'>
-          <Status class='flex text-3xl mr-2' @status={{@job.status}}/>
+        <div class='flex justify-between items-start'>
+          <div class='flex'>
+            <Status class='flex text-3xl mr-2' @status={{@job.status}}/>
 
-          <div class='flex flex-col'>
-            {{@job.trigger.message}}
+            <div class='flex flex-col'>
+              {{@job.trigger.message}}
 
-            <div class='text-gray-800 text-sm'>
-              {{@job.ref.branch}}
-              {{truncate @job.ref.id}}
-            </div>
+              <div class='text-gray-800 text-sm'>
+                {{@job.ref.branch}}
+                {{truncate @job.ref.id}}
+              </div>
 
-            <div class="mt-1 text-gray-800 text-sm">
-              {{format-date @job.created}}
+              <div class="mt-1 text-gray-800 text-sm">
+                {{format-date @job.created}}
+              </div>
             </div>
           </div>
+
+          {{#if (eq @job.status 'running')}}
+            <button
+              type='button'
+              class='bg-transparent hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow'
+              {{on 'click' (fn this.cancel @job._id)}}
+            >
+              Cancel
+            </button>
+          {{/if}}
         </div>
 
         <div class='flex items-center mt-2'>
@@ -45,7 +57,7 @@ import Status from '../status';
               "
               {{on 'click' (fn (mut this.selectedPhase) key)}}
             >
-              {{#if (eq phase.exitCode key)}}
+              {{#if (eq @job.phase key)}}
                 <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
               {{else if (gt phase.exitCode 0)}}
                 <Icon class='text-red-500 mr-2' @icon='times-circle' @prefix='fas'/>
@@ -53,7 +65,7 @@ import Status from '../status';
                 <Icon class='text-green-500 mr-2' @icon='check-circle' @prefix='fas'/>
               {{else if (eq phase.exitCode -1)}}
                 <Icon class='text-gray-300 mr-2' @icon='lock' @prefix='fas'/>
-              {{else}}
+              {{else if (and (not phase.exitCode) phase.finished phase.commands.length)}}
                 <Icon class='text-orange-500 mr-2' @icon='exclamation-triangle' @prefix='fas'/>
               {{/if}}
 
