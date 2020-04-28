@@ -204,12 +204,14 @@ export default class LiveJob extends Component<Args> {
 
     job.error = error;
     job.status = 'errored';
+    job.phase = null;
 
     this.updateJob(job);
   }
 
   @action
   handleJobDone([job]: [any]) {
+    debugger;
     this.updateJob(job);
   }
 
