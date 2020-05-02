@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.2](https://github.com/Strider-CD/strider/compare/v2.4.1...v2.4.2) (2020-05-02)
+
+
+### Bug Fixes
+
+* **ember:** dont ignore dist ([a3cc528](https://github.com/Strider-CD/strider/commit/a3cc528f69ce6bd6c5ebb7083c7809280204d846))
+* types for express-session ([1aedbeb](https://github.com/Strider-CD/strider/commit/1aedbebcdcbe7e7274967e4ba4afe5465369bff5))
+
 ### [2.4.1](https://github.com/Strider-CD/strider/compare/v2.4.0...v2.4.1) (2020-05-02)
 
 
