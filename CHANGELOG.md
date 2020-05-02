@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.4.0](https://github.com/Strider-CD/strider/compare/v2.3.0...v2.4.0) (2020-05-02)
+
+
+### Features
+
+* update gitlab plugin to include membership option ([c2d4289](https://github.com/Strider-CD/strider/commit/c2d428981a22c77169360afbccb6641cf2aae4dd))
+
 ## [2.3.0](https://github.com/Strider-CD/strider/compare/v2.2.1...v2.3.0) (2020-04-28)
 
 
