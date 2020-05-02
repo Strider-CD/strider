@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.1](https://github.com/Strider-CD/strider/compare/v2.4.0...v2.4.1) (2020-05-02)
+
+
+### Bug Fixes
+
+* gitlab now uses v4 API ([d905efd](https://github.com/Strider-CD/strider/commit/d905efd1deb95bf075a8827db1f2c031287b183b))
+
 ## [2.4.0](https://github.com/Strider-CD/strider/compare/v2.3.0...v2.4.0) (2020-05-02)
 
 
