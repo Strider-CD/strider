@@ -10288,10 +10288,10 @@ strider-github@^3.0.0:
     strider-git "^1.0.0"
     superagent "^5.2.1"
 
-strider-gitlab@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/strider-gitlab/-/strider-gitlab-1.4.0.tgz#60d055a73d0514597b8f7fdfe5a6875da58f2cd3"
-  integrity sha512-xYVSSo3fpVFXQLlLboFiKLGNd/mcwVA4e+F9CqM7ZwIpEI9uR4fl4wwbZOuRJVk9ThPcFuUHVhcp3bKANgV/OQ==
+strider-gitlab@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strider-gitlab/-/strider-gitlab-2.0.0.tgz#d8d41621691073d068a7f91d3a47a7f148a49737"
+  integrity sha512-la/DYcBtN6TghowJu/FfMXDVAKjE2qbo0p841FaR/00qtRUs8lGxkAGjLFPGkJv/N5VDMDomOKGveaDt5wS/3w==
   dependencies:
     async "~2.6.0"
     debug "~2.6.0"
