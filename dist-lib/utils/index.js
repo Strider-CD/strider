@@ -1,7 +1,7 @@
-var _ = require('lodash');
-var common = require('../../lib/common');
-var debug = require('debug')('strider:utils');
-var gravatar = require('gravatar');
+const _ = require('lodash');
+const common = require('../../lib/common');
+const debug = require('debug')('strider:utils');
+const gravatar = require('gravatar');
 module.exports = {
     gravatar: gravatarDefault,
     sanitizeProject: sanitizeProject,
@@ -12,13 +12,13 @@ module.exports = {
     validateAgainstSchema: validateAgainstSchema,
     mergePlugins: mergePlugins,
     mergeConfigs: mergeConfigs,
-    findBranch: findBranch
+    findBranch: findBranch,
 };
 function findBranch(branches, name) {
-    var foundBranch = false;
+    let foundBranch = false;
     branches.some(function (branch) {
         if (branch.name) {
-            var regEx = new RegExp(`^${branch.name.replace(/\*/g, '.*')}$`);
+            const regEx = new RegExp(`^${branch.name.replace(/\*/g, '.*')}$`);
             if (regEx.test(name)) {
                 foundBranch = branch;
                 return true;
@@ -29,7 +29,7 @@ function findBranch(branches, name) {
         //console.log('findBranch('+name+') wants to return '+branch.name);
         if (branch.name !== name) {
             //console.warn('Possibly returning unintended branch (expected '+name+' but got '+branch.name+'). attempting to locate discretely named branch '+name+' if it exists.');
-            var discreteBranch = _.find(branches, { name: name });
+            const discreteBranch = _.find(branches, { name: name });
             if (discreteBranch) {
                 branch = discreteBranch;
                 //console.info("Located discrete branch, instead returning "+branch.name)
@@ -48,13 +48,13 @@ function mergePlugins(branch, sjson) {
     if (!sjson)
         return branch;
     // if strict_plugins is not turned on, we merge each plugin config instead of overwriting.
-    var plugins = [];
-    var pluginMap = {};
-    for (var pluginIndex = 0; pluginIndex < sjson.length; pluginIndex++) {
+    const plugins = [];
+    const pluginMap = {};
+    for (let pluginIndex = 0; pluginIndex < sjson.length; pluginIndex++) {
         plugins.push(sjson[pluginIndex]);
         pluginMap[sjson[pluginIndex].id] = true;
     }
-    for (var branchIndex = 0; branchIndex < branch.length; branchIndex++) {
+    for (let branchIndex = 0; branchIndex < branch.length; branchIndex++) {
         if (!pluginMap[branch[branchIndex].id])
             plugins.push(branch[branchIndex]);
     }
@@ -87,7 +87,7 @@ function mergeConfigs(branch, striderJson) {
     // For every plugin, merge the default configuration into a new object and then assign the user configuration
     // over it.
     if (config.plugins && config.plugins.length) {
-        config.plugins.forEach(plugin => {
+        config.plugins.forEach((plugin) => {
             if (!allSchemas[plugin.id])
                 return plugin.config;
             plugin.config = _.assign({}, allSchemas[plugin.id], plugin.config);
@@ -113,10 +113,10 @@ function validateVal(val, schema) {
     if (schema === Boolean)
         return !!val;
     if (Array.isArray(schema)) {
-        var ret = [];
+        const ret = [];
         if (!Array.isArray(val))
             return [];
-        for (var i = 0; i < val.length; i++) {
+        for (let i = 0; i < val.length; i++) {
             ret.push(validateVal(val[i], schema[0]));
         }
         return ret;
@@ -160,15 +160,15 @@ function defaultVal(val) {
     return null;
 }
 function defaultSchema(schema) {
-    var data = {};
-    for (var key in schema) {
+    const data = {};
+    for (const key in schema) {
         data[key] = defaultVal(schema[key]);
     }
     return data;
 }
 function validateAgainstSchema(obj, schema) {
-    var data = {};
-    for (var key in obj) {
+    const data = {};
+    for (const key in obj) {
         if (!schema[key])
             continue;
         data[key] = validateVal(obj[key], schema[key]);
@@ -179,11 +179,11 @@ function timeFromId(id) {
     return new Date(parseInt(id.toString().substring(0, 8), 16) * 1000);
 }
 function sanitizeBranch(branch) {
-    var plugins = [];
-    for (var i = 0; i < branch.plugins; i++) {
+    const plugins = [];
+    for (let i = 0; i < branch.plugins; i++) {
         plugins.push({
             id: branch.plugins[i].id,
-            enabled: branch.plugins[i].enabled
+            enabled: branch.plugins[i].enabled,
         });
     }
     return {
@@ -193,12 +193,12 @@ function sanitizeBranch(branch) {
         deploy_on_green: branch.deploy_on_green,
         deploy_on_pull_request: branch.deploy_on_pull_request,
         runner: {
-            id: branch.runner && branch.runner.id
-        }
+            id: branch.runner && branch.runner.id,
+        },
     };
 }
 function sanitizeUser(user) {
-    for (var i = 0; i < user.accounts.length; i++) {
+    for (let i = 0; i < user.accounts.length; i++) {
         delete user.accounts[i].cache;
     }
     return user;
@@ -212,13 +212,13 @@ function sanitizeProject(project) {
         display_url: project.display_url,
         display_name: project.display_name,
         provider: {
-            id: project.provider.id
-        }
+            id: project.provider.id,
+        },
     };
 }
 function gravatarDefault(email) {
     return gravatar.url(email, {
-        d: 'identicon'
+        d: 'identicon',
     }, true);
 }
 //# sourceMappingURL=index.js.map

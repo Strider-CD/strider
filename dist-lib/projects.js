@@ -1,7 +1,7 @@
-var utils = require('./utils');
-var models = require('./models');
-var Project = models.Project;
-var User = models.User;
+const utils = require('./utils');
+const models = require('./models');
+const Project = models.Project;
+const User = models.User;
 module.exports = {
     allProjects: allProjects
 };
@@ -19,7 +19,7 @@ function allProjects(done) {
                 project = utils.sanitizeProject(project);
                 project.created_date = utils.timeFromId(project._id);
                 project.users = [];
-                for (var i = 0; i < users.length; i++) {
+                for (let i = 0; i < users.length; i++) {
                     if ('undefined' !== typeof users[i].projects[project.name]) {
                         project.users.push({
                             email: users[i].email,

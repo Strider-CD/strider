@@ -1,33 +1,33 @@
-var _ = require('lodash');
-var mongoose = require('../utils/mongoose-shim');
-var findBranch = require('../utils').findBranch;
-var Schema = mongoose.Schema;
-var PluginConfig = new Schema({
+const _ = require('lodash');
+const mongoose = require('../utils/mongoose-shim');
+const findBranch = require('../utils').findBranch;
+const Schema = mongoose.Schema;
+const PluginConfig = new Schema({
     id: String,
     config: {},
     showStatus: {
         type: Boolean,
-        default: true
+        default: true,
     },
-    enabled: Boolean
+    enabled: Boolean,
 });
-var BranchConfig = new Schema({
+const BranchConfig = new Schema({
     active: {
         type: Boolean,
-        default: true
+        default: true,
     },
     name: { type: String },
     mirror_master: {
         type: Boolean,
-        default: true
+        default: true,
     },
     deploy_on_green: {
         type: Boolean,
-        default: true
+        default: true,
     },
     deploy_on_pull_request: {
         type: Boolean,
-        default: false
+        default: false,
     },
     // ssh keypair
     pubkey: String,
@@ -38,23 +38,23 @@ var BranchConfig = new Schema({
     plugins: [PluginConfig],
     runner: {
         id: String,
-        config: {}
+        config: {},
     },
     // for persistance, not configuration
-    plugin_data: {}
+    plugin_data: {},
 });
-var ProjectSchema = new Schema({
+const ProjectSchema = new Schema({
     // name is always lower case!
     name: {
         type: String,
         unique: true,
-        index: true
+        index: true,
     },
     display_name: { type: String },
     public: {
         type: Boolean,
         default: false,
-        index: true
+        index: true,
     },
     display_url: String,
     // grab the `.strider.json` in advance - could be expensive for some
@@ -62,13 +62,13 @@ var ProjectSchema = new Schema({
     // .strider.json file.
     prefetch_config: {
         type: Boolean,
-        default: true
+        default: true,
     },
     // used for user-level provider & plugin config.
     creator: {
         type: Schema.ObjectId,
         ref: 'user',
-        index: true
+        index: true,
     },
     // looks like:
     // { master: BranchConfig, otherbranch: 'master' || BranchConfig, ... }
@@ -81,19 +81,19 @@ var ProjectSchema = new Schema({
         config: {
         // decided by the provider
         // url: String
-        }
-    }
+        },
+    },
 });
 // name: the name of the new branch
 // done(err)
 ProjectSchema.method('addBranch', function (name, done) {
-    var branch = {
+    const branch = {
         name: name,
-        mirror_master: true
+        mirror_master: true,
     };
     this.branches.push(branch);
     this.collection.updateOne({ _id: this._id }, {
-        $push: { branches: branch }
+        $push: { branches: branch },
     }, function (err, changed) {
         if (err) {
             return done(err);
@@ -105,7 +105,7 @@ ProjectSchema.method('addBranch', function (name, done) {
     });
 });
 ProjectSchema.method('cloneBranch', function (name, cloneName, done) {
-    var clone;
+    let clone;
     this.branches.forEach(function (branch) {
         if (branch.name === name) {
             clone = _.merge({}, branch);
@@ -117,7 +117,7 @@ ProjectSchema.method('cloneBranch', function (name, cloneName, done) {
     clone.name = cloneName;
     this.branches.push(clone);
     this.collection.updateOne({ _id: this._id }, {
-        $push: { branches: clone }
+        $push: { branches: clone },
     }, function (err, changed) {
         if (err) {
             return done(err);
@@ -133,20 +133,20 @@ ProjectSchema.method('branch', function (name) {
 });
 ProjectSchema.static('forUser', function (user, done) {
     // Default to all projects
-    var query = {};
+    let query = {};
     // If we are not an admin i.e account level is not set or < 1, show only user projects
     if (!user.account_level || user.account_level < 1) {
         if (!user.projects) {
             return done(null, []);
         }
-        var names = user.projects.map(function (p) {
+        const names = user.projects.map(function (p) {
             return p.name.toLowerCase();
         });
         if (!names.length) {
             return done(null, []);
         }
         query = {
-            name: { $in: names }
+            name: { $in: names },
         };
     }
     this.find(query, done);

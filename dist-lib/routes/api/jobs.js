@@ -1,9 +1,9 @@
-var common = require('../../common');
-var debug = require('debug')('strider:routes:api:jobs');
-var jobs = require('../../jobs');
-var utils = require('../../utils');
-var TEST_ONLY = 'TEST_ONLY';
-var TEST_AND_DEPLOY = 'TEST_AND_DEPLOY';
+const common = require('../../common');
+const debug = require('debug')('strider:routes:api:jobs');
+const jobs = require('../../jobs');
+const utils = require('../../utils');
+const TEST_ONLY = 'TEST_ONLY';
+const TEST_AND_DEPLOY = 'TEST_AND_DEPLOY';
 /**
  * @api {post} /:org/:repo/start Start Job
  * @apiUse ProjectReference
@@ -24,13 +24,13 @@ var TEST_AND_DEPLOY = 'TEST_AND_DEPLOY';
  * optional message to include as the title of the execution.
  */
 exports.jobsStart = function (req, res) {
-    var type = req.body.type || TEST_ONLY;
-    var branch = req.body.branch || 'master';
-    var message = req.body.message;
-    var now = new Date();
-    var trigger;
-    var job;
-    var Project = common.context.models.Project;
+    const type = req.body.type || TEST_ONLY;
+    const branch = req.body.branch || 'master';
+    const message = req.body.message;
+    const now = new Date();
+    let trigger;
+    let job;
+    const Project = common.context.models.Project;
     Project.findOne({ name: req.project.name }, function (err, project) {
         if (err || !project) {
             return res.json(404);
@@ -40,10 +40,10 @@ exports.jobsStart = function (req, res) {
             author: {
                 id: req.user._id,
                 email: req.user.email,
-                image: utils.gravatar(req.user.email)
+                image: utils.gravatar(req.user.email),
             },
             timestamp: now,
-            source: { type: 'UI', page: req.body.page || 'unknown' }
+            source: { type: 'UI', page: req.body.page || 'unknown' },
         };
         if (message) {
             trigger.message = message;
@@ -60,7 +60,7 @@ exports.jobsStart = function (req, res) {
             project: req.project.name,
             ref: { branch: branch },
             trigger: trigger,
-            created: now
+            created: now,
         };
         common.emitter.emit('job.prepare', job);
         res.json(job);

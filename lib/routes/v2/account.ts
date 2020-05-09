@@ -10,7 +10,7 @@ const router = new Router();
  * GET /account
  */
 router.get('/', function (req: Request & { user: any }, res: Response) {
-  let user = sanitizeUser(req.user.toJSON());
+  const user = sanitizeUser(req.user.toJSON());
   user.gravatar = gravatar(user.email);
   delete user.hash;
   delete user.salt;

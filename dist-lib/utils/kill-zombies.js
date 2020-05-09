@@ -1,17 +1,17 @@
-var debug = require('debug')('strider:kill-zombies');
-var Job = require('../models/job');
+const debug = require('debug')('strider:kill-zombies');
+const Job = require('../models/job');
 module.exports = function killZombies(done) {
     debug('Marking zombie jobs as finished...');
     Job.updateMany({
         archived: null,
-        finished: null
+        finished: null,
     }, {
         $set: {
             finished: new Date(),
-            errored: true
-        }
+            errored: true,
+        },
     }, {
-        multi: true
+        multi: true,
     }, function (err, count) {
         if (err)
             throw err;

@@ -1,16 +1,16 @@
-var _ = require('lodash');
-var crypto = require('crypto');
-var base32 = require('thirty-two');
-var mail = require('../../email');
-var models = require('../../models');
-var User = models.User;
-var InviteCode = models.InviteCode;
+const _ = require('lodash');
+const crypto = require('crypto');
+const base32 = require('thirty-two');
+const mail = require('../../email');
+const models = require('../../models');
+const User = models.User;
+const InviteCode = models.InviteCode;
 module.exports = {
     add: add,
-    del: del
+    del: del,
 };
 function updateInvite(invite, collaboration, done) {
-    var found = _.find(invite.collaborations, function (c) {
+    const found = _.find(invite.collaborations, function (c) {
         return c.project === collaboration.project;
     });
     // There is already an outstanding invite to this user, just push these additional perms onto the collaborations
@@ -28,13 +28,13 @@ function updateInvite(invite, collaboration, done) {
     }
 }
 function sendInvite(inviter, email, collaboration, done) {
-    var random = crypto.randomBytes(5).toString('hex');
-    var invite_code = base32.encode(random);
-    var invite = new InviteCode({
+    const random = crypto.randomBytes(5).toString('hex');
+    const invite_code = base32.encode(random);
+    const invite = new InviteCode({
         code: invite_code,
         emailed_to: email,
         created_timestamp: new Date(),
-        collaborations: [collaboration]
+        collaborations: [collaboration],
     });
     invite.save(function (err) {
         if (err)
@@ -51,7 +51,7 @@ function add(project, email, accessLevel, inviter, done) {
             return done(err);
         }
         if (user) {
-            var p = _.find(user.projects, function (p) {
+            const p = _.find(user.projects, function (p) {
                 return p.name === project.toLowerCase();
             });
             if (p) {
@@ -62,9 +62,9 @@ function add(project, email, accessLevel, inviter, done) {
                     projects: {
                         name: project.toLowerCase(),
                         display_name: project,
-                        access_level: accessLevel
-                    }
-                }
+                        access_level: accessLevel,
+                    },
+                },
             }, function (err) {
                 if (err)
                     return done(err, true);
@@ -72,10 +72,10 @@ function add(project, email, accessLevel, inviter, done) {
             });
         }
         else {
-            var collaboration = {
+            const collaboration = {
                 project: project,
                 invited_by: inviter._id,
-                access_level: accessLevel
+                access_level: accessLevel,
             };
             InviteCode.findOne({ emailed_to: email, consumed_timestamp: null }, function (err, invite) {
                 if (err)

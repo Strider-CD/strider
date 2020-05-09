@@ -1,14 +1,14 @@
-var common = require('../../common');
-var debug = require('debug')('strider:routes:api:config');
-var ssh = require('../../utils/ssh');
-var cache = {};
+const common = require('../../common');
+const debug = require('debug')('strider:routes:api:config');
+const ssh = require('../../utils/ssh');
+const cache = {};
 module.exports = {
     keygen: keygen,
     cacheConfig: cacheConfig,
-    server: server
+    server: server,
 };
 function keygen(req, res) {
-    var branch = req.project.branch(req.query.branch);
+    const branch = req.project.branch(req.query.branch);
     if (!branch)
         return res.status(404).send('Branch not found');
     ssh.generateKeyPair(`${req.project.name} - stridercd`, function (err, priv, pub) {
@@ -21,7 +21,7 @@ function keygen(req, res) {
                 return res.status(500).send('Failed to save project');
             res.send({
                 privkey: priv,
-                pubkey: pub
+                pubkey: pub,
             });
         });
     });
@@ -32,7 +32,7 @@ function cacheConfig(loader, next) {
             return next(err);
         cache['config'] = {
             js: jstext,
-            css: csstext
+            css: csstext,
         };
         debug('loaded config pages');
         common.pluginConfigs = configs;
@@ -41,7 +41,7 @@ function cacheConfig(loader, next) {
                 return next(err);
             cache['account'] = {
                 js: jstext,
-                css: csstext
+                css: csstext,
             };
             debug('loaded account config pages');
             common.userConfigs = configs;
@@ -50,7 +50,7 @@ function cacheConfig(loader, next) {
                     return next(err);
                 cache['status'] = {
                     js: jstext,
-                    css: csstext
+                    css: csstext,
                 };
                 debug('loaded plugin status blocks');
                 common.statusBlocks = blocks;

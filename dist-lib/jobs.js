@@ -5,12 +5,12 @@ module.exports = {
     status: status,
     small: small
 };
-var async = require('async');
-var Job = require('./models').Job;
-var User = require('./models').User;
-var Project = require('./models').Project;
-var utils = require('./utils');
-var TEST_ONLY = 'TEST_ONLY';
+const async = require('async');
+const Job = require('./models').Job;
+const User = require('./models').User;
+const Project = require('./models').Project;
+const utils = require('./utils');
+const TEST_ONLY = 'TEST_ONLY';
 /**
  * user: user object
  * small: if true, "phases" and "std" will not be fetched for the jobs
@@ -27,7 +27,7 @@ function latestJobs(user, small, done) {
         done = small;
         small = false;
     }
-    var tasks = { public: latestPublicJobs.bind(null, user, small) };
+    const tasks = { public: latestPublicJobs.bind(null, user, small) };
     if (user) {
         tasks.yours = latestUsersJobs.bind(null, user, small);
     }
@@ -48,11 +48,11 @@ function status(job) {
     return 'passed';
 }
 function small(job) {
-    var big = ['phases', 'plugin_data', 'std', 'stderr', 'stdout', 'stdmerged'];
-    var njob = {};
+    const big = ['phases', 'plugin_data', 'std', 'stderr', 'stdout', 'stdmerged'];
+    const njob = {};
     if (job.toJSON)
         job = job.toJSON();
-    for (var name in job) {
+    for (const name in job) {
         if (big.indexOf(name) !== -1)
             continue;
         njob[name] = job[name];
@@ -72,7 +72,7 @@ function jobProject(project, prev, user) {
     return project;
 }
 function latestJob(project, user, small, done) {
-    var query = Job.find({ project: project.name.toLowerCase(), archived: null })
+    let query = Job.find({ project: project.name.toLowerCase(), archived: null })
         .sort({ finished: -1 })
         .limit(6)
         .lean();
@@ -86,7 +86,7 @@ function latestJob(project, user, small, done) {
                 project: jobProject(project, [], user)
             });
         }
-        var job = jobs[0];
+        const job = jobs[0];
         job.project = jobProject(project, jobs.slice(1));
         job.project.access_level = User.projectAccessLevel(user, project);
         job.status = status(job);
@@ -98,7 +98,7 @@ function projectJobs(projects, user, small, done) {
         done = small;
         small = false;
     }
-    var tasks = [];
+    const tasks = [];
     projects.forEach(function (project) {
         tasks.push(latestJob.bind(null, project, user, small));
     });
@@ -117,9 +117,9 @@ function latestPublicJobs(user, small, done) {
         done = small;
         small = false;
     }
-    var query = Project.find({ public: true }).lean();
+    let query = Project.find({ public: true }).lean();
     if (user) {
-        var userProjects = user.projects.map(function (p) {
+        const userProjects = user.projects.map(function (p) {
             return p.name.toLowerCase();
         });
         query = query.where('name', { $not: { $in: userProjects || [] } });

@@ -2,22 +2,22 @@
  * Backchannel server allows workers to stream messages back to the Node server
  * in a line-buffered way. Uses SSL.
  */
-var _ = require('lodash');
-var async = require('async');
-var common = require('./common');
+const _ = require('lodash');
+const async = require('async');
+const common = require('./common');
 require('./config');
-var debug = require('debug')('strider:backchannel');
-var jobs = require('./jobs');
-var models = require('./models');
-var utils = require('./utils');
-var Job = models.Job;
-var User = models.User;
-var Project = models.Project;
+const debug = require('debug')('strider:backchannel');
+const jobs = require('./jobs');
+const models = require('./models');
+const utils = require('./utils');
+const Job = models.Job;
+const User = models.User;
+const Project = models.Project;
 function striderJson(provider, project, ref, done) {
     function finished(err, contents) {
         if (err || !contents)
             return done(err);
-        var data = {};
+        let data = {};
         try {
             data = JSON.parse(contents);
         }
@@ -30,7 +30,7 @@ function striderJson(provider, project, ref, done) {
     if (!provider.hosted) {
         return provider.getFile('strider.json', ref, project.provider.config, project, finished);
     }
-    var account = project.creator.account(project.provider.id, project.provider.account);
+    const account = project.creator.account(project.provider.id, project.provider.account);
     provider.getFile('strider.json', ref, account.config, project.provider.config, project, finished);
 }
 /**
@@ -54,14 +54,14 @@ function prepareJob(emitter, job) {
         if (err || !project)
             return debug('job.prepare - failed to get project', job.project, err);
         // ok so the project is real, we can go ahead and save this job
-        var provider = common.extensions.provider[project.provider.id];
+        const provider = common.extensions.provider[project.provider.id];
         if (!provider) {
             return debug('job.prepare - provider not found for project', job.project, project.provider.id);
         }
         Job.create(job, function (err, mjob) {
             if (err)
                 return debug('job.prepare - failed to save job', job, err);
-            var jjob = mjob.toJSON();
+            const jjob = mjob.toJSON();
             jjob.project = project;
             jjob.providerConfig = project.provider.config;
             jjob.fromStriderJson = true;
@@ -86,7 +86,7 @@ function prepareJob(emitter, job) {
                 else {
                     debug('Using configuration from "strider.json".');
                 }
-                var branch = project.branch(job.ref.branch || 'master');
+                let branch = project.branch(job.ref.branch || 'master');
                 if (!branch) {
                     return debug('job.prepare - branch not found', job.ref.branch || 'master', project.name);
                 }
@@ -161,8 +161,8 @@ BackChannel.prototype = {
     },
     newJob: function (job) {
         debug('new job was created');
-        var self = this;
-        var name = job.project.name;
+        const self = this;
+        const name = job.project.name;
         this.waiting[name] = [];
         this.public[name] = job.project.public;
         async.parallel({
@@ -189,10 +189,10 @@ BackChannel.prototype = {
             });
             // Admins maybe collaborators, so unique the array
             self.users[name] = _.uniq(self.users[name]);
-            var njob = jobs.small(job);
+            const njob = jobs.small(job);
             njob.project = utils.sanitizeProject(job.project);
             self.sendJobs(name, 'job.new', [njob]);
-            var waiting = self.waiting[name];
+            const waiting = self.waiting[name];
             if (Array.isArray(waiting)) {
                 waiting.forEach(function (item) {
                     self.send.apply(self, [name].concat(item));
@@ -219,7 +219,7 @@ BackChannel.prototype = {
         }
     },
     jobDone: function (emitter, data) {
-        var self = this;
+        const self = this;
         Job.findById(data.id, function (err, job) {
             if (err)
                 return debug('Error finding job', err.message);

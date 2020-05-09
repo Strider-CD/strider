@@ -1,12 +1,12 @@
-var models = require('../');
-var Project = models.Project;
+const models = require('../');
+const Project = models.Project;
 module.exports = function (done) {
-    var newBranch = {
+    const newBranch = {
         name: '*',
-        mirror_master: true
+        mirror_master: true,
     };
-    var update = { $push: { branches: newBranch } };
-    var options = { multi: true };
+    const update = { $push: { branches: newBranch } };
+    const options = { multi: true };
     Project.updateMany({}, update, options, done);
 };
 //# sourceMappingURL=from1to2.js.map

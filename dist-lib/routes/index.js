@@ -1,13 +1,13 @@
-var _ = require('lodash');
-var common = require('../common');
-var config = require('../config');
-var debug = require('debug')('strider:routes');
-var jobs = require('../jobs');
-var models = require('../models');
-var path = require('path');
-var pjson = require('../../package.json');
-var User = models.User;
-var utils = require('../utils');
+const _ = require('lodash');
+const common = require('../common');
+const config = require('../config');
+const debug = require('debug')('strider:routes');
+const jobs = require('../jobs');
+const models = require('../models');
+const path = require('path');
+const pjson = require('../../package.json');
+const User = models.User;
+const utils = require('../utils');
 /*
  * GET home page dashboard
  */
@@ -17,11 +17,11 @@ exports.index = function (req, res) {
     // See https://github.com/Strider-CD/strider/issues/284
     req.headers['if-none-match'] = 'no-match-for-this';
     if (req.session.return_to) {
-        var return_to = req.session.return_to;
+        const return_to = req.session.return_to;
         req.session.return_to = null;
         return res.redirect(return_to);
     }
-    var code = '';
+    let code = '';
     if (req.query.code !== undefined) {
         code = req.query.code;
         return res.render('register.html', {
@@ -30,7 +30,7 @@ exports.index = function (req, res) {
         });
     }
     jobs.latestJobs(req.user, true, function (err, jobs) {
-        var availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
+        const availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
             return common.userConfigs.provider[k];
         });
         res.render('index.html', {
@@ -47,13 +47,13 @@ exports.emberIndex = function (req, res) {
     // See https://github.com/Strider-CD/strider/issues/284
     req.headers['if-none-match'] = 'no-match-for-this';
     if (req.session.return_to) {
-        var return_to = req.session.return_to;
+        const return_to = req.session.return_to;
         req.session.return_to = null;
         return res.redirect(return_to);
     }
     if (req.query.ember) {
         return jobs.latestJobs(req.user, true, function (err, jobs) {
-            var availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
+            const availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
                 return common.userConfigs.provider[k];
             });
             // TODO: only set if dev
@@ -63,7 +63,7 @@ exports.emberIndex = function (req, res) {
     }
 };
 exports.setConfig = function (req, res) {
-    var attrs = ['public'];
+    const attrs = ['public'];
     applyAttrs(req.project, attrs, req.body);
     req.project.save(function (err) {
         if (err)
@@ -72,14 +72,14 @@ exports.setConfig = function (req, res) {
     });
 };
 exports.getRunnerConfig = function (req, res) {
-    var branch = req.project.branch(req.query.branch);
+    const branch = req.project.branch(req.query.branch);
     if (!branch) {
         return res.status(400).send('Invalid branch');
     }
     res.send(branch.runner);
 };
 exports.setRunnerConfig = function (req, res) {
-    var branch = req.project.branch(req.query.branch);
+    const branch = req.project.branch(req.query.branch);
     branch.runner.config = req.body;
     req.project.save(function (err, project) {
         if (err) {
@@ -91,7 +91,7 @@ exports.setRunnerConfig = function (req, res) {
     });
 };
 exports.setRunnerId = function (req, res) {
-    var branch = req.project.branch(req.query.branch);
+    const branch = req.project.branch(req.query.branch);
     branch.runner.id = req.body.id;
     branch.runner.config = req.body.config;
     req.project.save(function (err, project) {
@@ -122,7 +122,7 @@ exports.setPluginConfig = function (req, res) {
     });
 };
 exports.configureBranch = function (req, res) {
-    var branch = req.project.branch(req.query.branch);
+    const branch = req.project.branch(req.query.branch);
     if (!branch) {
         return res.status(400).send('Invalid branch');
     }
@@ -130,7 +130,7 @@ exports.configureBranch = function (req, res) {
         return setPluginOrder(req, res, branch);
     }
     // TODO: move this somewhere else?
-    var attrs = [
+    const attrs = [
         'active',
         'privkey',
         'pubkey',
@@ -150,9 +150,9 @@ exports.configureBranch = function (req, res) {
     });
 };
 function setPluginOrder(req, res, branch) {
-    var plugins = req.body.plugin_order;
-    var oldPlugins = branch.plugins || [];
-    var map = {};
+    const plugins = req.body.plugin_order;
+    const oldPlugins = branch.plugins || [];
+    const map = {};
     oldPlugins.forEach(function (plugin) {
         map[plugin.id] = plugin;
     });
@@ -193,7 +193,7 @@ exports.config = function (req, res) {
         if (err) {
             throw err;
         }
-        var data = {
+        const data = {
             version: pjson.version,
             collaborators: [],
             serverName: config.server_name,
@@ -206,7 +206,7 @@ exports.config = function (req, res) {
         }
         delete data.project.creator;
         users.forEach(function (user) {
-            var p = _.find(user.projects, function (p) {
+            const p = _.find(user.projects, function (p) {
                 return p.name === req.project.name;
             });
             data.collaborators.push({
@@ -227,8 +227,8 @@ exports.config = function (req, res) {
                 return 1;
             return 0;
         });
-        var provider = common.extensions.provider[req.project.provider.id];
-        var creator_creds = req.project.creator.account(req.project.provider)
+        const provider = common.extensions.provider[req.project.provider.id];
+        const creator_creds = req.project.creator.account(req.project.provider)
             .config;
         if (!provider) {
             // TODO: alert the user through the UI
@@ -268,7 +268,7 @@ exports.config = function (req, res) {
 exports.status = function (req, res) {
     function error(message) {
         res.statusCode = 500;
-        var resp = {
+        const resp = {
             status: 'error',
             version: `StriderCD (http://stridercd.com) ${pjson.version}`,
             results: [],
@@ -278,7 +278,7 @@ exports.status = function (req, res) {
     }
     function ok() {
         res.statusCode = 200;
-        var resp = {
+        const resp = {
             status: 'ok',
             version: `StriderCD (http://stridercd.com) ${pjson.version}`,
             results: [{ message: 'system operational' }],

@@ -1,12 +1,12 @@
-var _ = require('lodash');
-var express = require('express');
-var middleware = require('../../middleware');
-var auth = require('../../auth');
-var models = require('../../models');
-var utils = require('../../utils');
-var api = require('./api');
-var router = new express.Router();
-var User = models.User;
+const _ = require('lodash');
+const express = require('express');
+const middleware = require('../../middleware');
+const auth = require('../../auth');
+const models = require('../../models');
+const utils = require('../../utils');
+const api = require('./api');
+const router = new express.Router();
+const User = models.User;
 router
     .route('/:org/:repo/collaborators/')
     .all(auth.requireUserOr401, middleware.project, auth.requireProjectAdmin)
@@ -22,13 +22,13 @@ router
      *    curl -X GET http://localhost/api/strider-cd/strider/collaborators
      */
     .get(function getCollab(req, res) {
-    var project = `${req.params.org}/${req.params.repo}`;
+    const project = `${req.params.org}/${req.params.repo}`;
     User.collaborators(project, 0, function (err, users) {
         if (err)
             return res.status(500).send(`Failed to get users: ${err.message}`);
-        var results = [];
-        for (var i = 0; i < users.length; i++) {
-            var p = _.find(users[i].projects, function (p) {
+        const results = [];
+        for (let i = 0; i < users.length; i++) {
+            const p = _.find(users[i].projects, function (p) {
                 return p.name === project.toLowerCase();
             });
             results.push({
@@ -36,7 +36,7 @@ router
                 id: users[i]._id,
                 email: users[i].email,
                 access_level: p.access_level,
-                gravatar: utils.gravatar(users[i].email)
+                gravatar: utils.gravatar(users[i].email),
             });
         }
         res.send(results);
@@ -61,9 +61,9 @@ router
      *  new collaborator. This can be `0`, for read only access, or `2` for admin access.
      */
     .post(middleware.requireBody(['email']), function addCollab(req, res) {
-    var project = `${req.params.org}/${req.params.repo}`;
-    var accessLevel = req.body.access || 0;
-    var email = req.body.email;
+    const project = `${req.params.org}/${req.params.repo}`;
+    const accessLevel = req.body.access || 0;
+    const email = req.body.email;
     api.add(project, email, accessLevel, req.user, function (err, existed, alreadyInvited) {
         if (err)
             return res
@@ -74,11 +74,11 @@ router
         if (!alreadyInvited)
             return res.send({
                 created: false,
-                message: `An invite was sent to ${email}. They will become a collaborator when they create an account.`
+                message: `An invite was sent to ${email}. They will become a collaborator when they create an account.`,
             });
         res.send({
             created: false,
-            message: `An invitation email has already been sent to ${email}. They will become a collaborator when they create an account.`
+            message: `An invitation email has already been sent to ${email}. They will become a collaborator when they create an account.`,
         });
     });
 })
@@ -97,8 +97,8 @@ router
      * @apiParam (RequestBody) {String} email Email address to remove from the repo/project.
      */
     .delete(middleware.requireBody(['email']), function delCollab(req, res) {
-    var project = `${req.params.org}/${req.params.repo}`;
-    var email = req.body.email;
+    const project = `${req.params.org}/${req.params.repo}`;
+    const email = req.body.email;
     if (req.project.creator.email.toLowerCase() === email.toLowerCase()) {
         return res.status(400).send('Cannot remove the project creator');
     }

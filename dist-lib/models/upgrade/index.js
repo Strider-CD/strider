@@ -1,17 +1,45 @@
-var async = require('async');
-var models = require('../');
-// done(err)
-module.exports = {
-    ensure: ensure,
-    isNeeded: isNeeded,
-    upgrade: upgrade,
-    isFreshDb: isFreshDb,
-    needConfigObj: needConfigObj
-};
-var upgrades = {
+const async = require('async');
+const models = require('../');
+const upgrades = {
     0: require('./from0to1'),
-    1: require('./from1to2')
+    1: require('./from1to2'),
 };
+function isNeeded(version, done) {
+    models.User.find({}, function (err, users) {
+        models.Config.find({}, function (err, configs) {
+            if (err)
+                return done(err);
+            if (configs && configs.length > 1) {
+                return done(new Error('Multiple `Config`s found in the database. Only one is allowed'));
+            }
+            let config;
+            if (!configs || configs.length === 0) {
+                config = new models.Config({ version: 0 });
+                if (!users || !users.length)
+                    config.version = version;
+                return config.save(function () {
+                    done(null, false);
+                });
+            }
+            else {
+                config = configs[0];
+            }
+            if (config.version >= version) {
+                return done(null, false);
+            }
+            const oldversion = config.version;
+            config.version = version;
+            done(err, true, oldversion, version, config);
+        });
+    });
+}
+function upgrade(oldv, newv, done) {
+    const tasks = [];
+    for (let i = oldv; i < newv; i++) {
+        tasks.push(upgrades[i]);
+    }
+    async.series(tasks, done);
+}
 function ensure(version, done) {
     isNeeded(version, function (err, needed, oldv, newv, config) {
         if (err)
@@ -38,41 +66,6 @@ function ensure(version, done) {
         }
     });
 }
-function upgrade(oldv, newv, done) {
-    var tasks = [];
-    for (var i = oldv; i < newv; i++) {
-        tasks.push(upgrades[i]);
-    }
-    async.series(tasks, done);
-}
-function isNeeded(version, done) {
-    models.User.find({}, function (err, users) {
-        models.Config.find({}, function (err, configs) {
-            if (err)
-                return done(err);
-            if (configs && configs.length > 1) {
-                return done(new Error('Multiple `Config`s found in the database. Only one is allowed'));
-            }
-            if (!configs || configs.length === 0) {
-                var config = new models.Config({ version: 0 });
-                if (!users || !users.length)
-                    config.version = version;
-                return config.save(function () {
-                    done(null, false);
-                });
-            }
-            else {
-                config = configs[0];
-            }
-            if (config.version >= version) {
-                return done(null, false);
-            }
-            var oldversion = config.version;
-            config.version = version;
-            done(err, true, oldversion, version, config);
-        });
-    });
-}
 function isFreshDb(cb) {
     models.User.countDocuments(function (err, res) {
         if (err)
@@ -93,4 +86,11 @@ function needConfigObj(cb) {
         return cb(`there are ${res} configs.`, false);
     });
 }
+module.exports = {
+    ensure,
+    isNeeded,
+    upgrade,
+    isFreshDb,
+    needConfigObj,
+};
 //# sourceMappingURL=index.js.map

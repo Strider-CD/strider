@@ -1,13 +1,13 @@
-var crypto = require('crypto');
-var BluebirdPromise = require('bluebird');
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-var utils = require('./utils');
-var mailer = require('./email');
+const crypto = require('crypto');
+const BluebirdPromise = require('bluebird');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const utils = require('./utils');
+const mailer = require('./email');
 require('./config');
 require('./logging');
-var User = require('./models').User;
-var randomBytes = BluebirdPromise.promisify(crypto.randomBytes);
+const User = require('./models').User;
+const randomBytes = BluebirdPromise.promisify(crypto.randomBytes);
 function setupPasswordAuth() {
     passport.use(new LocalStrategy({
         usernameField: 'email',
@@ -28,7 +28,7 @@ function registerRoutes(app) {
     });
     app.post('/register', function (req, res) {
         // Quick and dirty validation
-        var errors = [];
+        const errors = [];
         if (!req.body.invite_code)
             errors.push('No invite code specified');
         if (!req.body.email)
@@ -57,8 +57,8 @@ function registerRoutes(app) {
         if (req.user) {
             return res.redirect('/');
         }
-        var failed = Boolean(req.query.failed);
-        var errors = [];
+        const failed = Boolean(req.query.failed);
+        const errors = [];
         if (failed) {
             errors.push('Authentication failed, please supply a valid email/password.');
         }
@@ -73,7 +73,7 @@ function setup(app) {
     };
     app.authenticate = function () {
         console.log('AUTHENTICATE', arguments);
-        var res = passport.authenticate.apply(passport, arguments);
+        const res = passport.authenticate.apply(passport, arguments);
         console.log('!!!', res);
         return function (req) {
             console.log('>>>> AUTHENTICATE', req._passport, req._passport.instance._strategies.github);
@@ -105,13 +105,13 @@ function setup(app) {
     registerRoutes(app);
 }
 function basicAuth(req, res, next) {
-    var auth = req.get('authorization');
+    const auth = req.get('authorization');
     if (!auth)
         return next();
-    var parts = auth.split(' ');
+    const parts = auth.split(' ');
     if (parts.length !== 2 || parts[0].toLowerCase() !== 'basic')
         return next();
-    var plain;
+    let plain;
     try {
         plain = new Buffer(parts[1], 'base64').toString().split(':');
     }
@@ -132,7 +132,7 @@ function basicAuth(req, res, next) {
         return next();
     });
 }
-var _authenticate = passport.authenticate('local', {
+const _authenticate = passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/login?failed=true',
 });
@@ -141,7 +141,7 @@ function logout(req, res) {
     res.redirect('/');
 }
 function forgot(req, res) {
-    var email = req.body.email.toLowerCase();
+    const email = req.body.email.toLowerCase();
     User.findOne({ email: { $regex: new RegExp(email, 'i') } }, function (error, user) {
         if (error) {
             req.flash('error', 'An error occured while attempting to reset your password.');
@@ -182,7 +182,7 @@ function forgot(req, res) {
     });
 }
 function reset(req, res) {
-    var token = req.params.token;
+    const token = req.params.token;
     User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
@@ -198,8 +198,8 @@ function reset(req, res) {
     });
 }
 function resetPost(req, res) {
-    var password = req.body.password;
-    var confirmation = req.body.passwordConfirmation;
+    const password = req.body.password;
+    const confirmation = req.body.passwordConfirmation;
     if (password === confirmation) {
         User.findOne({
             resetPasswordToken: req.params.token,
@@ -265,8 +265,8 @@ function requireProjectAdmin(req, res, next) {
         return res.status(404).send('Project not loaded');
     if (!req.user)
         return res.status(401).send('No user');
-    var isAdmin = req.user.account_level && req.user.account_level > 0;
-    var notAuthed = (!req.accessLevel || req.accessLevel < 2) && !isAdmin;
+    const isAdmin = req.user.account_level && req.user.account_level > 0;
+    const notAuthed = (!req.accessLevel || req.accessLevel < 2) && !isAdmin;
     if (notAuthed)
         return res.status(401).send('Not authorized for configuring this project');
     next();

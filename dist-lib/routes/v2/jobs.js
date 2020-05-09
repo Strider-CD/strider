@@ -24,59 +24,6 @@ const utils_1 = __importDefault(require("../../utils"));
 const debug = debug_1.default('strider:routes:jobs');
 const Job = models_1.default.Job;
 const router = new co_router_1.default();
-/*
- * GET /org/repo/[job/:job_id] - view latest build for repo
- *
- * middleware.project set "project" and "accessLevel" on the req object.
- */
-router.get('/:org/:repo', middleware_1.default.project, function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let jobs = yield projectJobs(req, res, next);
-        res.json(jobs);
-    });
-});
-router.get('/:org/:repo/latest', middleware_1.default.project, function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (req.params.org === 'auth') {
-            return next();
-        }
-        let projectName = req.project.name;
-        let [job] = yield Job.find({
-            project: projectName,
-            archived: null,
-        }).limit(1);
-        if (job) {
-            let sanitized = utils_1.default.sanitizeProject(req.project);
-            sanitized.access_level = req.accessLevel;
-            job = filterJob(job);
-            job.project = sanitized;
-            job.status = jobs_1.default.status(job);
-        }
-        res.json(job);
-    });
-});
-router.get('/:org/:repo/job/:jobId', middleware_1.default.project, function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        if (req.params.org === 'auth') {
-            return next();
-        }
-        let projectName = req.project.name;
-        let job = yield Job.findOne({
-            _id: req.params.jobId,
-            project: projectName,
-            archived: null,
-        });
-        if (job) {
-            let sanitized = utils_1.default.sanitizeProject(req.project);
-            sanitized.access_level = req.accessLevel;
-            job = filterJob(job);
-            job.project = sanitized;
-            job.status = jobs_1.default.status(job);
-        }
-        res.json(job);
-    });
-});
-exports.default = router;
 function filterJob(job) {
     if (job.trigger.message === 'Retest') {
         job.trigger.message = 'Manually Retested';
@@ -92,7 +39,7 @@ function findJob(job) {
     // fixes https://github.com/Strider-CD/strider/issues/273
     if (!job.runner)
         return;
-    let runner = common_1.default.extensions.runner[job.runner.id];
+    const runner = common_1.default.extensions.runner[job.runner.id];
     if (runner)
         return runner.getJobData(job._id) || {};
 }
@@ -145,4 +92,57 @@ function projectJobs(req, res, next) {
         }
     });
 }
+/*
+ * GET /org/repo/[job/:job_id] - view latest build for repo
+ *
+ * middleware.project set "project" and "accessLevel" on the req object.
+ */
+router.get('/:org/:repo', middleware_1.default.project, function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const jobs = yield projectJobs(req, res, next);
+        res.json(jobs);
+    });
+});
+router.get('/:org/:repo/latest', middleware_1.default.project, function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (req.params.org === 'auth') {
+            return next();
+        }
+        const projectName = req.project.name;
+        let [job] = yield Job.find({
+            project: projectName,
+            archived: null,
+        }).limit(1);
+        if (job) {
+            const sanitized = utils_1.default.sanitizeProject(req.project);
+            sanitized.access_level = req.accessLevel;
+            job = filterJob(job);
+            job.project = sanitized;
+            job.status = jobs_1.default.status(job);
+        }
+        res.json(job);
+    });
+});
+router.get('/:org/:repo/job/:jobId', middleware_1.default.project, function (req, res, next) {
+    return __awaiter(this, void 0, void 0, function* () {
+        if (req.params.org === 'auth') {
+            return next();
+        }
+        const projectName = req.project.name;
+        let job = yield Job.findOne({
+            _id: req.params.jobId,
+            project: projectName,
+            archived: null,
+        });
+        if (job) {
+            const sanitized = utils_1.default.sanitizeProject(req.project);
+            sanitized.access_level = req.accessLevel;
+            job = filterJob(job);
+            job.project = sanitized;
+            job.status = jobs_1.default.status(job);
+        }
+        res.json(job);
+    });
+});
+exports.default = router;
 //# sourceMappingURL=jobs.js.map

@@ -1,8 +1,8 @@
-var util = require('util');
-var winston = require('winston');
-var config = require('./config');
-var transports = [];
-var logger;
+const util = require('util');
+const winston = require('winston');
+const config = require('./config');
+const transports = [];
+let logger;
 if (config.logging.console_enabled) {
     transports.push(new winston.transports.Console(config.logging.console));
 }

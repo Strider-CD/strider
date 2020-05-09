@@ -1,6 +1,6 @@
-var restart = require('./restart');
-var getPluginList = require('./get_plugin_list');
-var pluginManager = require('./plugin_manager');
+const restart = require('./restart');
+const getPluginList = require('./get_plugin_list');
+const pluginManager = require('./plugin_manager');
 module.exports = {
     /**
      * Render a plugin management web interface
@@ -11,7 +11,7 @@ module.exports = {
             if (err)
                 return next(err);
             res.render('admin/plugins.html', {
-                plugins: list
+                plugins: list,
             });
         });
     },
@@ -26,6 +26,6 @@ module.exports = {
             res.json({ ok: 'restarting strider' });
             restart();
         });
-    }
+    },
 };
 //# sourceMappingURL=index.js.map

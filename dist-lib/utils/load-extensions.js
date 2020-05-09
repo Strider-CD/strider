@@ -1,10 +1,10 @@
-var apiConfig = require('../routes/api/config');
-var app = require('../app');
-var async = require('async');
-var common = require('../common');
-var debug = require('debug')('strider:load-extensions');
-var pluginTemplates = require('../plugin-templates');
-var slashes = require('connect-slashes');
+const apiConfig = require('../routes/api/config');
+const app = require('../app');
+const async = require('async');
+const common = require('../common');
+const debug = require('debug')('strider:load-extensions');
+const pluginTemplates = require('../plugin-templates');
+const slashes = require('connect-slashes');
 function loadExtensions(loader, extdir, context, appInstance, cb) {
     loader.collectExtensions(extdir, function (err) {
         if (err)
@@ -16,9 +16,9 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
                         return next(err);
                     common.extensions = webapps;
                     debug('initalized webapps');
-                    for (var type in webapps) {
+                    for (const type in webapps) {
                         debug(`Found ${type} plugins:`);
-                        for (var id in webapps[type]) {
+                        for (const id in webapps[type]) {
                             debug(`  - ${id}`);
                         }
                     }
@@ -29,7 +29,7 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
                 loader.initTemplates(function (err, templates) {
                     if (err)
                         return next(err);
-                    for (var name in templates) {
+                    for (const name in templates) {
                         pluginTemplates.registerTemplate(name, templates[name]);
                     }
                     debug('loaded templates');
@@ -44,7 +44,7 @@ function loadExtensions(loader, extdir, context, appInstance, cb) {
             },
             function (next) {
                 apiConfig.cacheConfig(loader, next);
-            }
+            },
         ], function (err) {
             if (err) {
                 debug(err);

@@ -1,8 +1,8 @@
 // Plugin block is the tag used to specify that the
 // contents can be overridden by extensions.
 function pluginBlock(indent, parser) {
-    var template = this.args[0];
-    var output = '';
+    const template = this.args[0];
+    let output = '';
     // Register that the template is needed, for 1st pass;
     output += `_context._striderRegister.push('${template}');\n`;
     // Generate code to see if pluginTemplates has block
@@ -17,7 +17,7 @@ function pluginBlock(indent, parser) {
 pluginBlock.ends = true;
 module.exports = {
     tags: {
-        pluginblock: pluginBlock
-    }
+        pluginblock: pluginBlock,
+    },
 };
 //# sourceMappingURL=swig-tags.js.map

@@ -1,13 +1,16 @@
-var bcrypt = require('bcryptjs');
-var Activedirectory = require('activedirectory');
-var config = require('../config');
-var mongoose = require('../utils/mongoose-shim');
-var InviteCode = require('./invite');
-var Schema = mongoose.Schema;
-var User;
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const activedirectory_1 = __importDefault(require("activedirectory"));
+const mongoose_1 = require("mongoose");
+const config_1 = __importDefault(require("../config"));
+const invite_1 = __importDefault(require("./invite"));
 // active directory schema
-var AdSchema = config.ldap ? new Activedirectory(config.ldap) : null;
-var UserSchema = new Schema({
+const AdSchema = config_1.default.ldap ? new activedirectory_1.default(config_1.default.ldap) : null;
+const UserSchema = new mongoose_1.Schema({
     name: { type: String, required: true, default: 'Unknown Name' },
     email: { type: String, required: true, index: true, unique: true },
     salt: { type: String, required: true },
@@ -50,21 +53,22 @@ var UserSchema = new Schema({
             access_level: Number,
         },
     ],
-    jobs: [{ type: Schema.ObjectId, ref: 'Job' }],
+    jobs: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Job' }],
     jobsQuantityOnPage: {
         type: Number,
         default: 20,
     },
     created: Date,
 });
+const UserModel = mongoose_1.model('user', UserSchema);
 UserSchema.virtual('password')
     .get(function () {
     return this._password;
 })
     .set(function (password) {
     this._password = password;
-    var salt = (this.salt = bcrypt.genSaltSync(10));
-    this.hash = bcrypt.hashSync(password, salt);
+    const salt = (this.salt = bcryptjs_1.default.genSaltSync(10));
+    this.hash = bcryptjs_1.default.hashSync(password, salt);
 });
 // User.collaborators(project, [accessLevel,] done(err, [user, ...]))
 //
@@ -75,7 +79,7 @@ UserSchema.static('collaborators', function (project, accessLevel, done) {
         done = accessLevel;
         accessLevel = 1;
     }
-    var query = {
+    const query = {
         projects: {
             $elemMatch: {
                 name: project.toLowerCase(),
@@ -87,7 +91,7 @@ UserSchema.static('collaborators', function (project, accessLevel, done) {
 });
 // User.admins(done(err, [user, ...]))
 UserSchema.static('admins', function (done) {
-    var query = { account_level: 1 };
+    const query = { account_level: 1 };
     this.find(query, done);
 });
 // User.account(providerconfig)
@@ -99,7 +103,7 @@ UserSchema.method('account', function (provider, account) {
         account = provider.account;
         provider = provider.id;
     }
-    for (var i = 0; i < this.accounts.length; i++) {
+    for (let i = 0; i < this.accounts.length; i++) {
         if (this.accounts[i].provider == provider &&
             this.accounts[i].id == account) {
             return this.accounts[i];
@@ -108,7 +112,7 @@ UserSchema.method('account', function (provider, account) {
     return false;
 });
 UserSchema.method('verifyPassword', function (password, callback) {
-    bcrypt.compare(password, this.get('hash'), callback);
+    bcryptjs_1.default.compare(password, this.get('hash'), callback);
 });
 UserSchema.method('jobPluginData', function (name, config, done) {
     if (!this.jobplugins) {
@@ -134,7 +138,7 @@ UserSchema.static('getUserInfoFromActiveDirectory', function (email, callback) {
 });
 // Login by active directory
 UserSchema.static('loginByActiveDirectory', function (email, password, callback) {
-    AdSchema.authenticate(email, password, function (err, auth) {
+    AdSchema.authenticate(email, password, (err, auth) => {
         if (err) {
             return callback(err, true);
         }
@@ -142,22 +146,22 @@ UserSchema.static('loginByActiveDirectory', function (email, password, callback)
             return callback('No User', false);
         }
         return this.getUserInfoFromActiveDirectory(email, callback);
-    }.bind(this));
+    });
 });
 UserSchema.static('authenticate', function (email, password, callback) {
     // Has ad config
-    if (config.ldap) {
-        this.loginByActiveDirectory(email, password, function (err, adUser) {
+    if (config_1.default.ldap) {
+        this.loginByActiveDirectory(email, password, (err, adUser) => {
             console.log(`Active directory login msg: ${err},  User info`, adUser);
             if (err && !adUser) {
-                this.findOne({ email: email, isAdUser: false }, function (err, user) {
+                this.findOne({ email: email, isAdUser: false }, (err, user) => {
                     if (err) {
                         return callback(err);
                     }
                     if (!user) {
                         return callback('No User', false);
                     }
-                    user.verifyPassword(password, function (err, passwordCorrect) {
+                    user.verifyPassword(password, (err, passwordCorrect) => {
                         if (err) {
                             return callback(err);
                         }
@@ -171,14 +175,14 @@ UserSchema.static('authenticate', function (email, password, callback) {
             else if (err) {
                 return callback(err);
             }
-            this.findOne({ email: email, isAdUser: true }, function (err, user) {
+            this.findOne({ email: email, isAdUser: true }, (err, user) => {
                 if (err) {
                     return callback(err);
                 }
                 if (!user) {
-                    var isAdmin = false;
-                    if (config.ldap.adminDN &&
-                        adUser.dn.indexOf(config.ldap.adminDN) !== -1) {
+                    let isAdmin = false;
+                    if (config_1.default.ldap.adminDN &&
+                        adUser.dn.indexOf(config_1.default.ldap.adminDN) !== -1) {
                         isAdmin = true;
                     }
                     // register and return new user
@@ -189,19 +193,19 @@ UserSchema.static('authenticate', function (email, password, callback) {
                     }, callback);
                 }
                 return callback(null, user);
-            }.bind(this));
-        }.bind(this));
+            });
+        });
     }
     else {
         // Normal login
-        this.findOne({ email: email }, function (err, user) {
+        this.findOne({ email: email }, (err, user) => {
             if (err) {
                 return callback(err);
             }
             if (!user) {
                 return callback('No User', false);
             }
-            user.verifyPassword(password, function (err, passwordCorrect) {
+            user.verifyPassword(password, (err, passwordCorrect) => {
                 if (err) {
                     return callback(err);
                 }
@@ -218,7 +222,7 @@ UserSchema.static('findByEmail', function (email, cb) {
 });
 UserSchema.static('register', function (u, callback) {
     // Create User
-    var user = new User();
+    const user = new UserModel();
     user.isAdUser = !!u.isAdUser;
     user.account_level = u.isAdmin ? 1 : 0;
     user.email = u.email.toLowerCase();
@@ -234,7 +238,7 @@ UserSchema.static('register', function (u, callback) {
 });
 UserSchema.static('registerWithInvite', function (inviteCode, email, password, cb) {
     // Check Invite Code
-    InviteCode.findOne({
+    invite_1.default.findOne({
         code: inviteCode,
         emailed_to: email,
         consumed_timestamp: null,
@@ -242,7 +246,7 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
         if (err || !invite) {
             return cb('Invalid Invite');
         }
-        var projects = [];
+        const projects = [];
         // For each collaboration in the invite, add permissions to the repo_config
         if (invite.collaborations !== undefined &&
             invite.collaborations.length > 0) {
@@ -259,19 +263,19 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
             email: email,
             password: password,
             projects: projects,
-        }, function (err, user) {
+        }, (err, user) => {
             if (err) {
                 return cb(err);
             }
             // Mark Invite Code as used.
-            InviteCode.updateOne({
+            invite_1.default.updateOne({
                 code: inviteCode,
             }, {
                 $set: {
                     consumed_timestamp: new Date(),
                     consumed_by_user: user._id,
                 },
-            }, {}, function (err) {
+            }, {}, (err) => {
                 if (err) {
                     return cb(`Error updating invite code, user was created: ${err}`);
                 }
@@ -280,14 +284,14 @@ UserSchema.static('registerWithInvite', function (inviteCode, email, password, c
                 }
             });
         });
-    }.bind(this));
+    });
 });
 UserSchema.method('projectAccessLevel', function (project) {
     if (this.account_level > 0) {
         return 2;
     }
     if (this.projects) {
-        for (var i = 0; i < this.projects.length; i++) {
+        for (let i = 0; i < this.projects.length; i++) {
             if (this.projects[i].name === project.name) {
                 return this.projects[i].access_level;
             }
@@ -308,9 +312,9 @@ UserSchema.static('projectAccessLevel', function (user, project) {
     return -1;
 });
 UserSchema.path('jobsQuantityOnPage').get(function (quantity) {
-    return config.jobsQuantityOnPage.enabled
+    return config_1.default.jobsQuantityOnPage.enabled
         ? quantity
-        : config.jobsQuantityOnPage.default;
+        : config_1.default.jobsQuantityOnPage.default;
 });
-User = module.exports = mongoose.model('user', UserSchema);
+exports.default = UserModel;
 //# sourceMappingURL=user.js.map

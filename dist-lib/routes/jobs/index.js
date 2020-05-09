@@ -1,20 +1,20 @@
 /*
  * routes/jobs/index.js
  */
-var _ = require('lodash');
-var common = require('../../common');
-var config = require('../../config');
-var debug = require('debug')('strider:routes:jobs');
-var ljobs = require('../../jobs');
-var models = require('../../models');
-var pjson = require('../../../package.json');
-var filter = require('../../utils/ansi');
-var utils = require('../../utils');
-var Job = models.Job;
+const _ = require('lodash');
+const common = require('../../common');
+const config = require('../../config');
+const debug = require('debug')('strider:routes:jobs');
+const ljobs = require('../../jobs');
+const models = require('../../models');
+const pjson = require('../../../package.json');
+const filter = require('../../utils/ansi');
+const utils = require('../../utils');
+const Job = models.Job;
 module.exports = {
     html: html,
     multijob: multijob,
-    jobs: jobs
+    jobs: jobs,
 };
 /*
  * GET /org/repo/[job/:job_id] - view latest build for repo
@@ -22,7 +22,7 @@ module.exports = {
  * middleware.project set "project" and "accessLevel" on the req object.
  */
 function multijob(req, res) {
-    var type = req.accepts('html', 'json', 'plain');
+    const type = req.accepts('html', 'json', 'plain');
     switch (type) {
         case 'json':
             return data(req, res);
@@ -47,7 +47,7 @@ function findJob(job) {
     // fixes https://github.com/Strider-CD/strider/issues/273
     if (!job.runner)
         return;
-    var runner = common.extensions.runner[job.runner.id];
+    const runner = common.extensions.runner[job.runner.id];
     if (runner)
         return runner.getJobData(job._id) || {};
 }
@@ -55,9 +55,9 @@ function html(req, res, next) {
     if (req.params.org === 'auth') {
         return next();
     }
-    var id = req.params.id;
-    var projectName = req.project.name;
-    var jobsQuantity = req.user
+    const id = req.params.id;
+    const projectName = req.project.name;
+    const jobsQuantity = req.user
         ? req.user.jobsQuantityOnPage
         : config.jobsQuantityOnPage.default;
     Job.find({ project: projectName, archived: null })
@@ -74,7 +74,7 @@ function html(req, res, next) {
         Job.find({
             project: projectName,
             archived: null,
-            finished: null
+            finished: null,
         })
             .sort({ started: -1 })
             .lean()
@@ -83,23 +83,23 @@ function html(req, res, next) {
                 debug('[job] error finding running jobs', err.message);
                 return res.status(500).send('Failed to find running jobs');
             }
-            var i;
+            let i;
             for (i = 0; i < running.length; i++) {
                 _.extend(running[i], findJob(running[i]));
                 delete running[i].data;
                 delete running[i].id;
             }
             jobs = running.concat(jobs);
-            var showStatus = {};
-            var sanitized = utils.sanitizeProject(req.project);
+            const showStatus = {};
+            const sanitized = utils.sanitizeProject(req.project);
             sanitized.access_level = req.accessLevel;
             req.project.branches.forEach(function (branch) {
-                var plugins = (showStatus[branch.name] = {});
+                const plugins = (showStatus[branch.name] = {});
                 branch.plugins.forEach(function (plugin) {
                     plugins[plugin.id] = plugin.enabled && plugin.showStatus;
                 });
             });
-            var job = id ? null : jobs[0];
+            let job = id ? null : jobs[0];
             for (i = 0; i < jobs.length; i++) {
                 if (!job && jobs[i]._id === id)
                     job = jobs[i];
@@ -111,10 +111,10 @@ function html(req, res, next) {
                 job.status = ljobs.status(job);
                 job.project = sanitized;
             }
-            var isGlobalAdmin = req.user && req.user.account_level > 0;
-            var canAdminProject = sanitized.access_level > 0 || isGlobalAdmin;
+            const isGlobalAdmin = req.user && req.user.account_level > 0;
+            const canAdminProject = sanitized.access_level > 0 || isGlobalAdmin;
             // Make sure jobs are only listed once.
-            jobs = _.uniqBy(jobs, job => job._id.toString());
+            jobs = _.uniqBy(jobs, (job) => job._id.toString());
             res.format({
                 html: function () {
                     debug('Build page requested. Logging jobs to investigate duplicate job listings.');
@@ -128,7 +128,7 @@ function html(req, res, next) {
                         statusBlocks: common.statusBlocks,
                         showStatus: showStatus,
                         page_base: `${req.params.org}/${req.params.repo}`,
-                        version: pjson.version
+                        version: pjson.version,
                     });
                 },
                 json: function () {
@@ -137,15 +137,15 @@ function html(req, res, next) {
                         accessLevel: req.accessLevel,
                         canAdminProject: canAdminProject,
                         jobs: jobs,
-                        job: job
+                        job: job,
                     });
-                }
+                },
             });
         });
     });
 }
 function getJob(req, res, next) {
-    var query;
+    let query;
     if (!req.params.job_id) {
         query = Job.findOne({ project: req.project.name.toLowerCase(), archived: null }, {}, { sort: { finished: -1 } });
     }
@@ -153,7 +153,7 @@ function getJob(req, res, next) {
         query = Job.findOne({
             project: req.project.name.toLowerCase(),
             _id: req.params.job_id,
-            archived: null
+            archived: null,
         });
     }
     query.exec(function (err, job) {

@@ -14,4 +14,7 @@ module.exports = {
     node: true,
     es6: true,
   },
+  rules: {
+    '@typescript-eslint/camelcase': 'off',
+  },
 };

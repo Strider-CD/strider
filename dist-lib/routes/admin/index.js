@@ -1,23 +1,23 @@
-var base32 = require('thirty-two');
-var crypto = require('crypto');
-var debug = require('debug')('strider:routes:admin');
-var humane = require('../../utils/humane');
-var InviteCode = require('../../models').InviteCode;
-var Job = require('../../models').Job;
-var pjson = require('../../../package.json');
-var Project = require('../../models').Project;
-var projects = require('../../projects');
-var Step = require('step');
-var User = require('../../models').User;
-var users = require('../../users');
-var utils = require('../../utils');
+const base32 = require('thirty-two');
+const crypto = require('crypto');
+const debug = require('debug')('strider:routes:admin');
+const humane = require('../../utils/humane');
+const InviteCode = require('../../models').InviteCode;
+const Job = require('../../models').Job;
+const pjson = require('../../../package.json');
+const Project = require('../../models').Project;
+const projects = require('../../projects');
+const Step = require('step');
+const User = require('../../models').User;
+const users = require('../../users');
+const utils = require('../../utils');
 /*
  * makeInviteCode()
  *
  * Generate a sweet BASE32 invite code
  */
 function makeInviteCode() {
-    var random = crypto.randomBytes(5).toString('hex');
+    const random = crypto.randomBytes(5).toString('hex');
     return base32.encode(random);
 }
 /*
@@ -35,7 +35,7 @@ exports.invites = function (req, res) {
         res.render('admin/invites.html', {
             invite_code: makeInviteCode(),
             invite_codes: results,
-            version: pjson.version
+            version: pjson.version,
         });
     });
 };
@@ -52,7 +52,7 @@ exports.users = function (req, res) {
             users: users.map(function (user) {
                 user.created_date = humane.humaneDate(utils.timeFromId(user.id));
                 return user;
-            })
+            }),
         });
     });
 };
@@ -75,7 +75,7 @@ exports.removeUser = function (req, res) {
             return res.redirect('/admin/users');
         }
         Project.collection.remove({
-            creator: user._id
+            creator: user._id,
         }, function (err, number) {
             if (err)
                 req.flash('admin', 'Failed to remove projects');
@@ -97,7 +97,7 @@ exports.projects = function (req, res) {
             return res.send(500, 'Error retrieving projects');
         res.render('admin/projects.html', {
             projects: projects,
-            version: pjson.version
+            version: pjson.version,
         });
     });
 };
@@ -113,16 +113,14 @@ exports.plugins = require('./plugins');
  */
 exports.job = function (req, res) {
     res.statusCode = 200;
-    var org = req.params.org;
-    var repo = req.params.repo;
-    var jobId = req.params.job_id;
-    var repoUrl = `https://github.com/${org}/${repo}`;
+    const org = req.params.org;
+    const repo = req.params.repo;
+    const jobId = req.params.job_id;
+    let repoUrl = `https://github.com/${org}/${repo}`;
     repoUrl = repoUrl.toLowerCase();
     Step(function runQueries() {
         debug(`Querying for job id: ${jobId}`);
-        Job.findById(jobId)
-            .populate('_owner')
-            .exec(this.parallel());
+        Job.findById(jobId).populate('_owner').exec(this.parallel());
         debug(`Querying for last 20 jobs for ${repoUrl}`);
         Job.find()
             .sort({ finished_timestamp: -1 })
@@ -162,7 +160,7 @@ exports.job = function (req, res) {
             resultsDetail.duration = Math.round((resultsDetail.finished_timestamp - resultsDetail.created_timestamp) /
                 1000);
             resultsDetail.finished_at = humane.humaneDate(resultsDetail.finished_timestamp);
-            var triggeredByCommit = false;
+            let triggeredByCommit = false;
             if (resultsDetail.github_commit_info.id !== undefined) {
                 triggeredByCommit = true;
                 resultsDetail.gravatar_url = utils.gravatar(resultsDetail.github_commit_info.author.email);
@@ -178,8 +176,8 @@ exports.job = function (req, res) {
                 }
             }
             resultsDetail.output = resultsDetail.stdmerged.replace(/\[(\d)?\d*m/gi, '');
-            var hasProdDeployTarget = false;
-            var adminView = true;
+            const hasProdDeployTarget = false;
+            const adminView = true;
             res.render('job.html', {
                 admin_view: adminView,
                 jobs: results,
@@ -190,7 +188,7 @@ exports.job = function (req, res) {
                 repo: repo,
                 repo_url: repoUrl,
                 has_prod_deploy_target: hasProdDeployTarget,
-                version: pjson.version
+                version: pjson.version,
             });
         }
     });

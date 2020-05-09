@@ -2,26 +2,26 @@
  * Repo-specific actions - such as deactivation, deletion etc.
  * routes/api/repo.js
  */
-var async = require('async');
-var common = require('../../common');
-var debug = require('debug')('strider:routes:api:repo');
-var Job = require('../../models').Job;
-var Project = require('../../models').Project;
-var ssh = require('../../utils/ssh');
-var User = require('../../models').User;
-var utils = require('../../utils');
+const async = require('async');
+const common = require('../../common');
+const debug = require('debug')('strider:routes:api:repo');
+const Job = require('../../models').Job;
+const Project = require('../../models').Project;
+const ssh = require('../../utils/ssh');
+const User = require('../../models').User;
+const utils = require('../../utils');
 function makePlugins(plugins) {
-    var configs = [];
-    var plugin;
-    for (var i = 0; i < plugins.length; i++) {
+    const configs = [];
+    let plugin;
+    for (let i = 0; i < plugins.length; i++) {
         plugin = common.extensions.job[plugins[i]];
         if (!plugin)
             return false;
-        var config = utils.defaultSchema(plugin);
+        const config = utils.defaultSchema(plugin);
         configs.push({
             id: plugins[i],
             enabled: true,
-            config: config
+            config: config,
         });
     }
     return configs;
@@ -52,17 +52,17 @@ exports.clearCache = function (req, res) {
     });
 };
 function clearProjectCache(project, cb) {
-    var runners = [];
-    var tasks = [];
+    const runners = [];
+    const tasks = [];
     project.branches.forEach(function (branch) {
-        var nonMasterMirrored = branch.name !== 'master' && branch.mirror_master;
+        const nonMasterMirrored = branch.name !== 'master' && branch.mirror_master;
         if (nonMasterMirrored || runners.indexOf(branch.runner.id) !== -1) {
             return;
         }
         runners.push(branch.runner.id);
     });
     runners.forEach(function (rid) {
-        var runner = common.extensions.runner[rid];
+        const runner = common.extensions.runner[rid];
         debug(rid, common.extensions.runner, project);
         if (!runner || !runner.clearCache)
             return;
@@ -93,23 +93,23 @@ exports.createProject = function (req, res, next) {
     if (req.params.org === 'auth') {
         return next();
     }
-    var name = `${req.params.org}/${req.params.repo}`;
+    let name = `${req.params.org}/${req.params.repo}`;
     debug(`Setting up new project "${name}"...`);
-    var display_name = req.body.display_name;
-    var display_url = req.body.display_url;
-    var isPublic = req.body.public === 'true' || req.body.public === '1';
-    var prefetch_config = true;
-    var project_type = req.body.project_type || 'node.js';
+    const display_name = req.body.display_name;
+    const display_url = req.body.display_url;
+    const isPublic = req.body.public === 'true' || req.body.public === '1';
+    let prefetch_config = true;
+    const project_type = req.body.project_type || 'node.js';
     if (req.body.prefetch_config === 'false' ||
         req.body.prefetch_config === '0') {
         prefetch_config = false;
     }
-    var provider = req.body.provider;
+    const provider = req.body.provider;
     function error(code, str) {
         return res.status(code).json({
             results: [],
             status: 'error',
-            errors: [{ code: code, reason: str }]
+            errors: [{ code: code, reason: str }],
         });
     }
     if (!display_name) {
@@ -132,7 +132,7 @@ exports.createProject = function (req, res, next) {
     if (!common.project_types[project_type]) {
         return error(400, 'Invalid project type specified');
     }
-    var plugins = makePlugins(common.project_types[project_type].plugins);
+    const plugins = makePlugins(common.project_types[project_type].plugins);
     if (!plugins) {
         return error(400, 'Project type specified is not available; one or more required plugins is not installed');
     }
@@ -146,7 +146,7 @@ exports.createProject = function (req, res, next) {
     function createProjectWithKey(err, privkey, pubkey) {
         if (err)
             return error(500, 'Failed to generate ssh keypair');
-        var project = {
+        const project = {
             name: name,
             display_name: display_name,
             display_url: display_url,
@@ -166,16 +166,16 @@ exports.createProject = function (req, res, next) {
                     plugins: plugins,
                     runner: {
                         id: 'simple-runner',
-                        config: { pty: false }
-                    }
+                        config: { pty: false },
+                    },
                 },
                 {
                     name: '*',
-                    mirror_master: true
-                }
-            ]
+                    mirror_master: true,
+                },
+            ],
         };
-        var plugin = common.extensions.provider[provider.id];
+        const plugin = common.extensions.provider[provider.id];
         if (!plugin.hosted || !plugin.setupRepo) {
             return Project.create(project, projectCreated);
         }
@@ -201,9 +201,9 @@ exports.createProject = function (req, res, next) {
                 projects: {
                     name: name,
                     display_name: p.display_name,
-                    access_level: 2
-                }
-            }
+                    access_level: 2,
+                },
+            },
         }, function (err, num) {
             if (err || !num)
                 debug('Failed to give the creator repo access...');
@@ -211,11 +211,11 @@ exports.createProject = function (req, res, next) {
                 project: {
                     _id: p._id,
                     name: p.name,
-                    display_name: p.display_name
+                    display_name: p.display_name,
                 },
                 results: [{ code: 200, message: 'project created' }],
                 status: 'ok',
-                errors: []
+                errors: [],
             });
         });
     }
@@ -237,8 +237,8 @@ exports.createProject = function (req, res, next) {
 exports.deleteProject = function (req, res) {
     async.parallel([
         function (next) {
-            var provider = req.project.provider;
-            var plugin = common.extensions.provider[provider.id];
+            const provider = req.project.provider;
+            const plugin = common.extensions.provider[provider.id];
             if (!plugin.hosted || !plugin.teardownRepo)
                 return next();
             plugin.teardownRepo(req.project.creator.account(provider).config, provider.config, req.project, function (err) {
@@ -254,18 +254,18 @@ exports.deleteProject = function (req, res) {
             });
         },
         function (next) {
-            var now = new Date();
+            const now = new Date();
             Job.updateOne({ project: req.project.name }, { $set: { archived: now } }, { multi: true }, next);
-        }
+        },
     ], function (err) {
         if (err) {
             debug('repo.delete_index() - Error deleting repo config for url %s by user %s: %s', req.project.name, req.user.email, err);
             return res.status(500).send(`Failed to delete project: ${err.message}`);
         }
-        var r = {
+        const r = {
             errors: [],
             status: 'ok',
-            results: []
+            results: [],
         };
         res.send(JSON.stringify(r, null, '\t'));
     });

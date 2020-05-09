@@ -5,23 +5,23 @@
 //
 // The test fixture will be triggered when the appointed path is
 // requested with the querystring `?test`.
-var path = require('path');
-var pathRegexp = require('path-to-regexp');
+const path = require('path');
+const pathRegexp = require('path-to-regexp');
 function matcher(path) {
-    var params = [];
-    var rx = pathRegexp(path, params);
+    const params = [];
+    const rx = pathRegexp(path, params);
     return function (pathname) {
-        var match = rx.exec(pathname);
-        var data = {};
+        const match = rx.exec(pathname);
+        const data = {};
         if (!match)
             return false;
-        for (var i = 0; i < params.length; i++) {
+        for (let i = 0; i < params.length; i++) {
             data[params[i].name] = match[i + 1];
         }
         return data;
     };
 }
-var paths = [
+const paths = [
     {
         path: matcher('/:org/:repo/'),
         template: 'build.html',
@@ -55,9 +55,9 @@ function api(req, res, next) {
     next();
 }
 function handle(req, res, next) {
-    var test = req.query.test;
-    var pathname = req._parsedUrl.pathname;
-    var referrer = req.get('referrer');
+    const test = req.query.test;
+    const pathname = req._parsedUrl.pathname;
+    const referrer = req.get('referrer');
     if ('undefined' === typeof test) {
         if (referrer &&
             referrer.indexOf('?test') !== -1 &&
@@ -66,8 +66,8 @@ function handle(req, res, next) {
         }
         return next();
     }
-    var config;
-    for (var i = 0; i < paths.length; i++) {
+    let config;
+    for (let i = 0; i < paths.length; i++) {
         var params = paths[i].path(pathname);
         if (params) {
             config = paths[i];
@@ -78,10 +78,10 @@ function handle(req, res, next) {
         console.warn(`Looks like you're trying to test a route, but there's no config for '${req._parsedUrl.pathname}'.`);
         return next();
     }
-    var filename = path.join(__dirname, `../test/views/${config.fixture}`);
+    const filename = path.join(__dirname, `../test/views/${config.fixture}`);
     if (require.cache[filename])
         delete require.cache[filename];
-    var data;
+    let data;
     try {
         data = require(filename);
     }

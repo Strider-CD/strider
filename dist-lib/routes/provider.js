@@ -1,12 +1,12 @@
-var _ = require('lodash');
-var express = require('express');
-var debug = require('debug')('strider:routes:provider');
-var auth = require('../auth');
-var middleware = require('../middleware');
-var common = require('../common');
-var utils = require('../utils');
-var router = new express.Router();
-var rootRoute = router.route('/:org/:repo/provider');
+const _ = require('lodash');
+const express = require('express');
+const debug = require('debug')('strider:routes:provider');
+const auth = require('../auth');
+const middleware = require('../middleware');
+const common = require('../common');
+const utils = require('../utils');
+const router = new express.Router();
+const rootRoute = router.route('/:org/:repo/provider');
 rootRoute.all(auth.requireUserOr401, middleware.project, auth.requireProjectAdmin);
 /**
  * @api {get} /:org/:repo/provider Get Project Provider
@@ -34,10 +34,10 @@ rootRoute.get(function (req, res) {
  *    curl -X POST http://localhost:3000/strider-cd/strider/provider
  */
 rootRoute.post(function (req, res) {
-    var providerId = req.project.provider.id;
+    const providerId = req.project.provider.id;
     debug(`Provider Id: ${providerId}`);
-    var providerConfig = common.extensions.provider[providerId].config;
-    var config = utils.validateAgainstSchema(req.body, providerConfig);
+    const providerConfig = common.extensions.provider[providerId].config;
+    const config = utils.validateAgainstSchema(req.body, providerConfig);
     // Update project's provider config
     _.extend(req.project.provider.config, config);
     debug(`New provider config: ${JSON.stringify(req.project.provider.config)}`);
@@ -46,7 +46,7 @@ rootRoute.post(function (req, res) {
         if (err) {
             debug(`Save error: ${err.message}`);
             return res.status(500).send({
-                error: 'Failed to save provider config'
+                error: 'Failed to save provider config',
             });
         }
         res.send(project.provider.config);

@@ -1,9 +1,9 @@
-var fs = require('fs');
-var path = require('path');
-var swig = require('swig');
-var async = require('async');
+const fs = require('fs');
+const path = require('path');
+const swig = require('swig');
+const async = require('async');
 // TODO - better name - this is block:func plugin map
-var cache = {};
+const cache = {};
 // Generate func for string template names
 function registerTemplate(name, template, dir) {
     cache[name] = function (context, cb) {
@@ -56,18 +56,18 @@ engine.render = function (str, options, fn) {
         // Compile
         options._striderRegister = []; // register of templates needed
         options._striderBlocks = {}; // output of pluginblocks
-        var tmpl = swig.compile(str, options);
+        const tmpl = swig.compile(str, options);
         // Which plugins were needed?
         // Render 1st pass
         tmpl(options);
-        var exts = options._striderRegister.map(function (name) {
+        const exts = options._striderRegister.map(function (name) {
             return getPluginTemplate(name, this);
         }, options);
         // Call each block of plugin
         async.parallel(exts, function (err, blocks) {
             if (err)
                 return fn(err);
-            for (var i = 0; i < blocks.length; i++) {
+            for (let i = 0; i < blocks.length; i++) {
                 if (blocks[i]) {
                     options._striderBlocks[blocks[i][0]] = blocks[i][1];
                 }

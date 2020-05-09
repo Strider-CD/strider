@@ -1,6 +1,6 @@
-var mongoose = require('../utils/mongoose-shim');
-var Schema = mongoose.Schema;
-var InviteCodeSchema = new Schema({
+const mongoose = require('../utils/mongoose-shim');
+const Schema = mongoose.Schema;
+const InviteCodeSchema = new Schema({
     code: { type: String, unique: true },
     created_timestamp: Date,
     consumed_timestamp: Date,
@@ -10,9 +10,9 @@ var InviteCodeSchema = new Schema({
         {
             project: String,
             access_level: Number,
-            invited_by: { type: Schema.ObjectId, ref: 'user' }
-        }
-    ]
+            invited_by: { type: Schema.ObjectId, ref: 'user' },
+        },
+    ],
 });
 module.exports = mongoose.model('InviteCode', InviteCodeSchema);
 //# sourceMappingURL=invite.js.map

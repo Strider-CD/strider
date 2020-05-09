@@ -14,7 +14,7 @@ exports.humaneDate = function humaneDate(date, compareTo) {
     if (!date) {
         return;
     }
-    var lang = {
+    const lang = {
         ago: 'Ago',
         from: '',
         now: 'Just Now',
@@ -29,23 +29,23 @@ exports.humaneDate = function humaneDate(date, compareTo) {
         month: 'Month',
         months: 'Months',
         year: 'Year',
-        years: 'Years'
+        years: 'Years',
     };
-    var formats = [
+    const formats = [
         [60, lang.now],
         [3600, lang.minute, lang.minutes, 60],
         [86400, lang.hour, lang.hours, 3600],
         [604800, lang.day, lang.days, 86400],
         [2628000, lang.week, lang.weeks, 604800],
         [31536000, lang.month, lang.months, 2628000],
-        [Infinity, lang.year, lang.years, 31536000] // Infinity, 1 year
+        [Infinity, lang.year, lang.years, 31536000],
     ];
-    var isString = typeof date == 'string';
+    const isString = typeof date == 'string';
     date = isString
         ? new Date(date.replace(/-/g, '/').replace(/[TZ]/g, ' '))
         : date;
     compareTo = compareTo || new Date();
-    var seconds = (compareTo -
+    let seconds = (compareTo -
         date +
         (compareTo.getTimezoneOffset() -
             // if we received a GMT time from a string, doesn't include time zone bias
@@ -53,7 +53,7 @@ exports.humaneDate = function humaneDate(date, compareTo) {
             (isString ? 0 : date.getTimezoneOffset())) *
             60000) /
         1000;
-    var token;
+    let token;
     if (seconds < 0) {
         seconds = Math.abs(seconds);
         token = lang.from ? ` ${lang.from}` : '';
@@ -79,19 +79,19 @@ exports.humaneDate = function humaneDate(date, compareTo) {
      * Single units are +10%. 1 Year shows first at 1 Year + 10%
      */
     function normalize(val, single) {
-        var margin = 0.1;
+        const margin = 0.1;
         if (val >= single && val <= single * (1 + margin)) {
             return single;
         }
         return val;
     }
-    for (var i = 0, format = formats[0]; formats[i]; format = formats[++i]) {
+    for (let i = 0, format = formats[0]; formats[i]; format = formats[++i]) {
         if (seconds < format[0]) {
             if (i === 0) {
                 // Now
                 return format[1];
             }
-            var val = Math.ceil(normalize(seconds, format[3]) / format[3]);
+            const val = Math.ceil(normalize(seconds, format[3]) / format[3]);
             return `${val} ${val != 1 ? format[2] : format[1]}${i > 0 ? token : ''}`;
         }
     }

@@ -1,51 +1,51 @@
 // The Strider (web) app.
-var debug = require('debug')('strider');
-var chalk = require('chalk');
-var express = require('express');
-var EventEmitter = require('events').EventEmitter;
+const debug = require('debug')('strider');
+const chalk = require('chalk');
+const express = require('express');
+const EventEmitter = require('events').EventEmitter;
 require('everypaas');
-var cors = require('cors');
-var path = require('path');
-var swig = require('swig');
+const cors = require('cors');
+const path = require('path');
+const swig = require('swig');
 // middleware
-var morganDebug = require('morgan-debug');
-var bodyParser = require('body-parser');
-var cookieParser = require('cookie-parser');
-var compression = require('compression');
-var expressSession = require('express-session');
-var serveFavicon = require('serve-favicon');
-var errorHandler = require('errorhandler');
-var methodOverride = require('method-override');
-var connectFlash = require('connect-flash');
-var connectMongo = require('connect-mongo');
+const morganDebug = require('morgan-debug');
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+const compression = require('compression');
+const expressSession = require('express-session');
+const serveFavicon = require('serve-favicon');
+const errorHandler = require('errorhandler');
+const methodOverride = require('method-override');
+const connectFlash = require('connect-flash');
+const connectMongo = require('connect-mongo');
 const setupDb = require('./utils/setup-db');
-var Backchannel = require('./backchannel');
-var common = require('./common');
+const Backchannel = require('./backchannel');
+const common = require('./common');
 require('./logging');
-var middleware = require('./middleware');
-var routes = require('./routes');
-var providerRouter = require('./routes/provider');
-var websockets = require('./websockets');
-var models = require('./models');
-var auth = require('./auth');
-var pluginTemplates = require('./plugin-templates');
-var pjson = require('../package.json');
-var routesAdmin = require('./routes/admin');
-var routesJobs = require('./routes/jobs');
-var api = require('./routes/api');
-var apiV2 = require('./routes/v2');
-var collaboratorsRouter = require('./routes/collaborators');
-var apiBranches = require('./routes/api/branches');
-var apiJobs = require('./routes/api/jobs');
-var apiRepo = require('./routes/api/repo');
-var apiConfig = require('./routes/api/config');
-var mongoStore = connectMongo(expressSession);
-var MONTH_IN_MILLISECONDS = 2629743000;
-var env = process.env.NODE_ENV || 'development';
-var isDevelopment = env === 'development';
-var isProduction = env === 'production';
-var isTest = env === 'test';
-var sessionStore;
+const middleware = require('./middleware');
+const routes = require('./routes');
+const providerRouter = require('./routes/provider');
+const websockets = require('./websockets');
+const models = require('./models');
+const auth = require('./auth');
+const pluginTemplates = require('./plugin-templates');
+const pjson = require('../package.json');
+const routesAdmin = require('./routes/admin');
+const routesJobs = require('./routes/jobs');
+const api = require('./routes/api');
+const apiV2 = require('./routes/v2');
+const collaboratorsRouter = require('./routes/collaborators');
+const apiBranches = require('./routes/api/branches');
+const apiJobs = require('./routes/api/jobs');
+const apiRepo = require('./routes/api/repo');
+const apiConfig = require('./routes/api/config');
+const mongoStore = connectMongo(expressSession);
+const MONTH_IN_MILLISECONDS = 2629743000;
+const env = process.env.NODE_ENV || 'development';
+const isDevelopment = env === 'development';
+const isProduction = env === 'production';
+const isTest = env === 'test';
+let sessionStore;
 exports.init = function (config) {
     const mongoose = setupDb(config, (err) => {
         if (err) {
@@ -64,7 +64,7 @@ exports.init = function (config) {
         tags: require('./utils/swig-tags').tags,
         extensions: { plugin: pluginTemplates },
     });
-    var app = express();
+    const app = express();
     if (isDevelopment) {
         app.use(morganDebug('strider:http', 'dev'));
     }
@@ -205,7 +205,7 @@ exports.init = function (config) {
     // app.get('/api/jobs/:org/:repo', middleware.project, apiJobs.repoJobs);
     app.get('/*', routes.emberIndex);
     app.use(function (req, res, next) {
-        var userCreatedTimestamp = 0;
+        let userCreatedTimestamp = 0;
         if (req.user !== undefined) {
             userCreatedTimestamp = parseInt(req.user.id.substr(0, 8), 16);
         }
@@ -225,7 +225,7 @@ exports.init = function (config) {
     return app;
 };
 exports.run = function (app) {
-    var config = require('./config');
+    const config = require('./config');
     if (isDevelopment) {
         app.use(errorHandler({ dumpExceptions: true, showStack: true }));
     }
@@ -236,8 +236,8 @@ exports.run = function (app) {
     // Run after extensions, which might load static middlewares.
     app.use(middleware.custom404);
     // Initialize socket.io
-    var server = app.listen(config.port, config.host);
-    var sockets = websockets.init(server, sessionStore);
+    const server = app.listen(config.port, config.host);
+    const sockets = websockets.init(server, sessionStore);
     new Backchannel(common.emitter, sockets);
     console.log(chalk.green('Express server listening on port %s in %s mode'), config.port, app.settings.env);
 };

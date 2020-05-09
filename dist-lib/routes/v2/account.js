@@ -11,7 +11,7 @@ const router = new co_router_1.default();
  * GET /account
  */
 router.get('/', function (req, res) {
-    let user = utils_1.sanitizeUser(req.user.toJSON());
+    const user = utils_1.sanitizeUser(req.user.toJSON());
     user.gravatar = utils_1.gravatar(user.email);
     delete user.hash;
     delete user.salt;

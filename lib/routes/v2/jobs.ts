@@ -21,78 +21,7 @@ type StriderRequest = Request & {
   accessLevel: string;
 };
 
-/*
- * GET /org/repo/[job/:job_id] - view latest build for repo
- *
- * middleware.project set "project" and "accessLevel" on the req object.
- */
-router.get('/:org/:repo', middleware.project, async function (
-  req: StriderRequest,
-  res: Response,
-  next: NextFunction
-) {
-  let jobs = await projectJobs(req, res, next);
-  res.json(jobs);
-});
-
-router.get('/:org/:repo/latest', middleware.project, async function (
-  req: StriderRequest,
-  res: Response,
-  next: NextFunction
-) {
-  if (req.params.org === 'auth') {
-    return next();
-  }
-
-  let projectName = req.project.name;
-  let [job]: any = await Job.find({
-    project: projectName,
-    archived: null,
-  }).limit(1);
-
-  if (job) {
-    let sanitized = utils.sanitizeProject(req.project) as any;
-
-    sanitized.access_level = req.accessLevel;
-    job = filterJob(job);
-    job.project = sanitized;
-    job.status = ljobs.status(job);
-  }
-
-  res.json(job);
-});
-
-router.get('/:org/:repo/job/:jobId', middleware.project, async function (
-  req: StriderRequest,
-  res: Response,
-  next: NextFunction
-) {
-  if (req.params.org === 'auth') {
-    return next();
-  }
-
-  let projectName = req.project.name;
-  let job: any = await Job.findOne({
-    _id: req.params.jobId,
-    project: projectName,
-    archived: null,
-  });
-
-  if (job) {
-    let sanitized = utils.sanitizeProject(req.project) as any;
-
-    sanitized.access_level = req.accessLevel;
-    job = filterJob(job);
-    job.project = sanitized;
-    job.status = ljobs.status(job);
-  }
-
-  res.json(job);
-});
-
-export default router;
-
-function filterJob(job: any) {
+function filterJob(job: any): any {
   if (job.trigger.message === 'Retest') {
     job.trigger.message = 'Manually Retested';
   }
@@ -102,13 +31,13 @@ function filterJob(job: any) {
   return job;
 }
 
-function findJob(job: any) {
+function findJob(job: any): any {
   // job.runner can be undefined if it hasn't been fully prepared yet.
   // this is a sort of race between job.prepare and job.new events.
   // fixes https://github.com/Strider-CD/strider/issues/273
   if (!job.runner) return;
 
-  let runner = (common as any).extensions.runner[job.runner.id];
+  const runner = (common as any).extensions.runner[job.runner.id];
   if (runner) return runner.getJobData(job._id) || {};
 }
 
@@ -116,7 +45,7 @@ async function projectJobs(
   req: StriderRequest,
   res: Response,
   next: NextFunction
-) {
+): Promise<any> {
   if (req.params.org === 'auth') {
     return next();
   }
@@ -168,3 +97,74 @@ async function projectJobs(
     throw new Error('Failed to find jobs');
   }
 }
+
+/*
+ * GET /org/repo/[job/:job_id] - view latest build for repo
+ *
+ * middleware.project set "project" and "accessLevel" on the req object.
+ */
+router.get('/:org/:repo', middleware.project, async function (
+  req: StriderRequest,
+  res: Response,
+  next: NextFunction
+) {
+  const jobs = await projectJobs(req, res, next);
+  res.json(jobs);
+});
+
+router.get('/:org/:repo/latest', middleware.project, async function (
+  req: StriderRequest,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.params.org === 'auth') {
+    return next();
+  }
+
+  const projectName = req.project.name;
+  let [job]: any = await Job.find({
+    project: projectName,
+    archived: null,
+  }).limit(1);
+
+  if (job) {
+    const sanitized = utils.sanitizeProject(req.project) as any;
+
+    sanitized.access_level = req.accessLevel;
+    job = filterJob(job);
+    job.project = sanitized;
+    job.status = ljobs.status(job);
+  }
+
+  res.json(job);
+});
+
+router.get('/:org/:repo/job/:jobId', middleware.project, async function (
+  req: StriderRequest,
+  res: Response,
+  next: NextFunction
+) {
+  if (req.params.org === 'auth') {
+    return next();
+  }
+
+  const projectName = req.project.name;
+  let job: any = await Job.findOne({
+    _id: req.params.jobId,
+    project: projectName,
+    archived: null,
+  });
+
+  if (job) {
+    const sanitized = utils.sanitizeProject(req.project) as any;
+
+    sanitized.access_level = req.accessLevel;
+    job = filterJob(job);
+    job.project = sanitized;
+    job.status = ljobs.status(job);
+  }
+
+  res.json(job);
+});
+
+export default router;

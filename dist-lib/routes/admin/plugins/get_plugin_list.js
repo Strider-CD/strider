@@ -1,17 +1,17 @@
-var _ = require('lodash');
-var path = require('path');
-var semver = require('semver');
+const _ = require('lodash');
+const path = require('path');
+const semver = require('semver');
 require('../../../common');
-var pluginPath = require('../../../utils/plugin-path')();
-var localPlugins = require('strider-cli/lib/plugin_manager/local_plugins')(pluginPath);
-var client = require('strider-ecosystem-client');
+const pluginPath = require('../../../utils/plugin-path')();
+const localPlugins = require('strider-cli/lib/plugin_manager/local_plugins')(pluginPath);
+const client = require('strider-ecosystem-client');
 module.exports = function getPluginList(cb) {
-    var plugins = {};
+    let plugins = {};
     client
         .fetchPlugins()
         .then(function (remotePlugins) {
         Object.keys(remotePlugins).forEach(function (name) {
-            var remote = remotePlugins[name];
+            const remote = remotePlugins[name];
             plugins[name] = {
                 id: name,
                 name: remote.name || name,
@@ -21,24 +21,24 @@ module.exports = function getPluginList(cb) {
                 latestVersion: remote.tag,
                 installedVersion: 'no',
                 installedPath: null,
-                installed: false
+                installed: false,
             };
         });
         localPlugins.listAll(function (err, localPlugins) {
             localPlugins.forEach(function (plugin) {
-                var known = false;
+                let known = false;
                 if (plugins[plugin.name]) {
                     known = true;
                 }
                 else {
                     known = false;
-                    var pkg = require(path.join(plugin.path, 'package.json'));
+                    const pkg = require(path.join(plugin.path, 'package.json'));
                     plugins[plugin.name] = {
                         id: plugin.name,
                         name: plugin.title || plugin.name,
                         description: pkg.description,
                         type: pkg.strider.type,
-                        latestVersion: 'unknown'
+                        latestVersion: 'unknown',
                     };
                 }
                 plugins[plugin.name].installedVersion = plugin.version;

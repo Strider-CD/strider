@@ -1,13 +1,13 @@
-var auth = require('../../auth');
-var config = require('../../config');
-var debug = require('debug')('strider:routes:api:account');
-var email = require('../../email');
-var express = require('express');
-var models = require('../../models');
-var Project = models.Project;
-var router = express.Router();
-var User = models.User;
-var validator = require('validator');
+const auth = require('../../auth');
+const config = require('../../config');
+const debug = require('debug')('strider:routes:api:account');
+const email = require('../../email');
+const express = require('express');
+const models = require('../../models');
+const Project = models.Project;
+const router = express.Router();
+const User = models.User;
+const validator = require('validator');
 router.use(auth.requireUserOr401);
 router
     .route('/:provider/:id')
@@ -22,10 +22,10 @@ router
      * @apiParam {Number} id Unique provider identification
      */
     .put(function (req, res) {
-    var accounts = req.user.accounts;
-    var provider = req.params.provider;
-    var id = req.params.id;
-    for (var i = 0; i < accounts.length; i++) {
+    const accounts = req.user.accounts;
+    const provider = req.params.provider;
+    const id = req.params.id;
+    for (let i = 0; i < accounts.length; i++) {
         if (accounts[i].provider === provider && accounts[i].id === id) {
             // TODO validate these accounts
             accounts[i] = req.body;
@@ -58,10 +58,10 @@ router
      * @apiParam {Number} id Unique provider identification
      */
     .delete(function (req, res) {
-    var accounts = req.user.accounts;
-    var provider = req.params.provider;
-    var id = req.params.id;
-    var accountRemoved = false;
+    const accounts = req.user.accounts;
+    const provider = req.params.provider;
+    const id = req.params.id;
+    let accountRemoved = false;
     Project.find({ 'provider.id': provider })
         .lean()
         .exec(function (err, projects) {
@@ -69,7 +69,7 @@ router
             return res.status(400).send('Failed do to bad data');
         }
         if (projects.length) {
-            var projectNames = projects.map(function (project) {
+            const projectNames = projects.map(function (project) {
                 return project.name;
             });
             return res
@@ -113,14 +113,14 @@ router
     if (req.user.isAdUser) {
         return res.status(400).json({
             status: 'error',
-            errors: [{ message: 'The ldap user can not change password.' }]
+            errors: [{ message: 'The ldap user can not change password.' }],
         });
     }
-    var password = req.body.password;
+    const password = req.body.password;
     if (password.length < 6) {
         return res.status(400).json({
             status: 'error',
-            errors: [{ message: 'password must be at least 6 characters long' }]
+            errors: [{ message: 'password must be at least 6 characters long' }],
         });
     }
     req.user.password = password;
@@ -131,7 +131,7 @@ router
         email.notifyPasswordChange(req.user);
         res.json({
             status: 'ok',
-            errors: []
+            errors: [],
         });
     });
 });
@@ -147,27 +147,27 @@ router
      * @apiParam (RequestBody) {String} email The new email address. This must be a VALID email address.
      */
     .post(function (req, res) {
-    var newEmail = req.body.email;
+    const newEmail = req.body.email;
     if (!validator.isEmail(newEmail)) {
         return res.status(400).json({
             status: 'error',
-            errors: [{ message: 'email is invalid' }]
+            errors: [{ message: 'email is invalid' }],
         });
     }
     debug(`email change from ${req.user.email} to ${newEmail}`);
     if (req.user.isAdUser) {
         return res.status(400).json({
             status: 'error',
-            errors: [{ message: 'The ldap user can not change email.' }]
+            errors: [{ message: 'The ldap user can not change email.' }],
         });
     }
-    var oldEmail = req.user.email;
+    const oldEmail = req.user.email;
     req.user.email = newEmail;
     req.user.save(function (err) {
         if (err) {
             return res.status(400).json({
                 status: 'error',
-                errors: [{ message: 'email already in use' }]
+                errors: [{ message: 'email already in use' }],
             });
         }
         email.notifyEmailChange(req.user, oldEmail);
@@ -189,19 +189,19 @@ router
     if (!config.jobsQuantityOnPage.enabled) {
         return res.status(400).json({
             status: 'error',
-            errors: [{ message: 'quantity customization is disabled' }]
+            errors: [{ message: 'quantity customization is disabled' }],
         });
     }
-    var newQuantity = req.body.quantity;
+    const newQuantity = req.body.quantity;
     if (newQuantity < config.jobsQuantityOnPage.min ||
         newQuantity > config.jobsQuantityOnPage.max) {
         return res.status(400).json({
             status: 'error',
             errors: [
                 {
-                    message: `quantity must be between ${config.jobsQuantityOnPage.min} and ${config.jobsQuantityOnPage.max}`
-                }
-            ]
+                    message: `quantity must be between ${config.jobsQuantityOnPage.min} and ${config.jobsQuantityOnPage.max}`,
+                },
+            ],
         });
     }
     debug(`jobs quantity on page change from ${req.user.jobsQuantityOnPage} to ${newQuantity}`);

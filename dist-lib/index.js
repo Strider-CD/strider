@@ -1,21 +1,21 @@
-var path = require('path');
-var passport = require('passport');
-var async = require('async');
-var Loader = require('strider-extension-loader');
-var globalTunnel = require('global-tunnel');
-var app = require('./app');
-var common = require('./common');
-var config = require('./config');
-var middleware = require('./middleware');
-var auth = require('./auth');
-var models = require('./models');
-var pluginTemplates = require('./plugin-templates');
-var upgrade = require('./models/upgrade').ensure;
-var loadExtensions = require('./utils/load-extensions');
-var killZombies = require('./utils/kill-zombies');
-var registerPanel = require('./utils/register-panel');
-var Job = models.Job;
-var Config = models.Config;
+const path = require('path');
+const passport = require('passport');
+const async = require('async');
+const Loader = require('strider-extension-loader');
+const globalTunnel = require('global-tunnel');
+const app = require('./app');
+const common = require('./common');
+const config = require('./config');
+const middleware = require('./middleware');
+const auth = require('./auth');
+const models = require('./models');
+const pluginTemplates = require('./plugin-templates');
+const upgrade = require('./models/upgrade').ensure;
+const loadExtensions = require('./utils/load-extensions');
+const killZombies = require('./utils/kill-zombies');
+const registerPanel = require('./utils/register-panel');
+const Job = models.Job;
+const Config = models.Config;
 common.extensions = {};
 //
 // Use globa-tunnel to provide proxy support.
@@ -23,15 +23,15 @@ common.extensions = {};
 //
 globalTunnel.initialize();
 module.exports = function (extdir, c, callback) {
-    var appConfig = config;
-    var k;
+    const appConfig = config;
+    let k;
     // override with c
     for (k in c) {
         appConfig[k] = c[k];
     }
     // Initialize the (web) app
-    var appInstance = app.init(appConfig);
-    var cb = callback || defaultCallback;
+    const appInstance = app.init(appConfig);
+    const cb = callback || defaultCallback;
     function defaultCallback(err) {
         if (err) {
             throw err;
@@ -40,7 +40,7 @@ module.exports = function (extdir, c, callback) {
     if (typeof Loader !== 'function') {
         throw new Error('Your version of strider-extension-loader is out of date');
     }
-    var loader = new Loader([path.join(__dirname, '../client/styles')], true);
+    const loader = new Loader([path.join(__dirname, '../client/styles')], true);
     appInstance.loader = loader;
     common.loader = loader;
     //
@@ -50,7 +50,7 @@ module.exports = function (extdir, c, callback) {
     // settings, as well as handles to enable functions to register things.
     // Context can also be accessed as a singleton within Strider as
     // common.context.
-    var context = {
+    const context = {
         serverName: appConfig.server_name,
         config: appConfig,
         enablePty: config.enablePty,
@@ -70,7 +70,7 @@ module.exports = function (extdir, c, callback) {
     };
     // Make extension context available throughout application.
     common.context = context;
-    var SCHEMA_VERSION = Config.SCHEMA_VERSION;
+    const SCHEMA_VERSION = Config.SCHEMA_VERSION;
     upgrade(SCHEMA_VERSION, function (err) {
         if (err) {
             return cb(err);
@@ -78,7 +78,7 @@ module.exports = function (extdir, c, callback) {
         loadExtensions(loader, extdir, context, appInstance, function () {
             // kill zombie jobs
             killZombies(function () {
-                var tasks = [];
+                const tasks = [];
                 if (!common.extensions.runner ||
                     typeof common.extensions.runner !== 'object') {
                     console.error('Strider seems to have been misconfigured - there are no available runner plugins. ' +
@@ -86,7 +86,7 @@ module.exports = function (extdir, c, callback) {
                     process.exit(1);
                 }
                 Object.keys(common.extensions.runner).forEach(function (name) {
-                    var runner = common.extensions.runner[name];
+                    const runner = common.extensions.runner[name];
                     if (!runner) {
                         console.log('no runner', name);
                         return;
@@ -106,10 +106,10 @@ module.exports = function (extdir, c, callback) {
                 async.parallel(tasks, function (err, zombies) {
                     if (err)
                         return cb(err);
-                    var ids = [].concat.apply([], zombies).map(function (job) {
+                    const ids = [].concat.apply([], zombies).map(function (job) {
                         return job._id;
                     });
-                    var now = new Date();
+                    const now = new Date();
                     Job.updateOne({ _id: { $in: ids } }, {
                         $set: {
                             finished: now,

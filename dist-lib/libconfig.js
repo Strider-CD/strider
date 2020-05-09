@@ -1,11 +1,11 @@
-var fs = require('fs');
-var path = require('path');
-var everypaas = require('everypaas');
-var _ = require('lodash');
-var debug = require('debug')('strider:config');
-var pjson = require('../package.json');
-var hasGithub = pjson && pjson.dependencies['strider-github'];
-var envDefaults = {
+const fs = require('fs');
+const path = require('path');
+const everypaas = require('everypaas');
+const _ = require('lodash');
+const debug = require('debug')('strider:config');
+const pjson = require('../package.json');
+const hasGithub = pjson && pjson.dependencies['strider-github'];
+const envDefaults = {
     host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 3000,
     server_name: 'http://localhost',
@@ -32,7 +32,7 @@ var envDefaults = {
     }
 };
 envDefaults.server_name = `${envDefaults.server_name}:${envDefaults.port}`;
-var defaults = _.extend({
+const defaults = _.extend({
     // Logging configuration
     logging: {
         exitOnError: true,
@@ -59,7 +59,7 @@ module.exports = {
 // main function. Get the config, using rc
 function getConfig() {
     process.env = filterEnv(deprecated(process.env), envDefaults);
-    var rc = require('rc')('strider', defaults);
+    const rc = require('rc')('strider', defaults);
     if (!rc.smtp)
         rc.smtp = smtp(rc);
     if (!rc.smtp)
@@ -75,7 +75,7 @@ function getConfig() {
     return rc;
 }
 function getConfigByName(filname) {
-    var configPath = path.join(__dirname, '..', `${filname}.json`);
+    const configPath = path.join(__dirname, '..', `${filname}.json`);
     if (fs.existsSync(configPath)) {
         return require(configPath);
     }
@@ -93,10 +93,10 @@ function camel(words) {
             .join(''));
 }
 function addPlugins(rc, env) {
-    var parts;
+    let parts;
     if (!rc.plugins)
         rc.plugins = {};
-    for (var key in env) {
+    for (const key in env) {
         if (!key.match(/^plugin_/i))
             continue;
         parts = key.toLowerCase().split('_');
@@ -116,8 +116,8 @@ function addPlugins(rc, env) {
 }
 // Filter process.env.FOO to process.env.strider_foo for rc's benefit
 function filterEnv(env, defaults) {
-    var res = {};
-    for (var k in env) {
+    const res = {};
+    for (const k in env) {
         if (defaults[k.toLowerCase()] !== undefined) {
             res[`strider_${k.toLowerCase()}`] = env[k];
         }
@@ -128,7 +128,7 @@ function filterEnv(env, defaults) {
     return res;
 }
 function deprecated(env) {
-    var nenv = _.extend({}, env);
+    const nenv = _.extend({}, env);
     if (env.APP_ID) {
         console.warn('WARNING: You are using APP_ID to configure Github OAuth application id.');
         console.warn('This name has been deprecated. Please use PLUGIN_GITHUB_APP_ID instead.\n');
@@ -160,7 +160,7 @@ function smtp(rc) {
     if (!rc.smtp_host) {
         return;
     }
-    var options = {
+    const options = {
         host: rc.smtp_host,
         port: rc.smtp_port,
         from: rc.smtp_from,

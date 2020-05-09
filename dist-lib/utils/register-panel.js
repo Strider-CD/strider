@@ -1,4 +1,4 @@
-var debug = require('debug')('strider:register-panel');
+const debug = require('debug')('strider:register-panel');
 // ### Register panel
 //
 // A panel is simply a snippet of HTML associated with a given key.

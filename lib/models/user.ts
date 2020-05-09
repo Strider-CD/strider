@@ -1,11 +1,51 @@
-const bcrypt = require('bcryptjs');
-const Activedirectory = require('activedirectory');
-const config = require('../config');
-const mongoose = require('../utils/mongoose-shim');
-const InviteCode = require('./invite');
+import bcrypt from 'bcryptjs';
+import Activedirectory from 'activedirectory';
+import { Schema, model, Document } from 'mongoose';
+import config from '../config';
+import InviteCode from './invite';
 
-const Schema = mongoose.Schema;
-let User;
+export interface User extends Document {
+  name: string;
+  email: string;
+  salt: string;
+  hash: string;
+  resetPasswordToken?: string;
+  resetPasswordExpires?: Date;
+  isAdUser: boolean;
+  account_level: number;
+  accounts: Account[];
+  jobplugins: any;
+  projects: Project[];
+  jobs: any[];
+  jobsQuantityOnPage: number;
+  created: Date;
+
+  projectAccessLevel: (project: any) => number;
+  verifyPassword: (password: string, callback: Function) => void;
+}
+
+export interface Project {
+  name: string;
+  display_name: string;
+  access_level: number;
+}
+
+export interface Account {
+  id: string;
+  provider: string;
+  title: string;
+  display_url: string;
+  cache: {
+    id: string;
+    name: string;
+    group: string;
+    display_name: string;
+    display_url: string;
+    config: any;
+  }[];
+  config: any;
+  last_updated: Date;
+}
 
 // active directory schema
 const AdSchema = config.ldap ? new Activedirectory(config.ldap) : null;
@@ -53,7 +93,7 @@ const UserSchema = new Schema({
       access_level: Number, // 0 - view jobs, 1 - start jobs, 2 - configure/admin
     },
   ],
-  jobs: [{ type: Schema.ObjectId, ref: 'Job' }],
+  jobs: [{ type: Schema.Types.ObjectId, ref: 'Job' }],
   jobsQuantityOnPage: {
     type: Number,
     default: 20,
@@ -61,11 +101,13 @@ const UserSchema = new Schema({
   created: Date,
 });
 
+const UserModel = model<User>('user', UserSchema);
+
 UserSchema.virtual('password')
   .get(function () {
     return this._password;
   })
-  .set(function (password) {
+  .set(function (password: string) {
     this._password = password;
     const salt = (this.salt = bcrypt.genSaltSync(10));
     this.hash = bcrypt.hashSync(password, salt);
@@ -75,9 +117,13 @@ UserSchema.virtual('password')
 //
 // project: String name of the project
 // accessLevel: int minimum access level. Defaults to 1
-UserSchema.static('collaborators', function (project, accessLevel, done) {
+UserSchema.static('collaborators', function (
+  project: string,
+  accessLevel: number | Function,
+  done: Function | undefined
+) {
   if (arguments.length === 2) {
-    done = accessLevel;
+    done = accessLevel as Function;
     accessLevel = 1;
   }
 
@@ -94,7 +140,7 @@ UserSchema.static('collaborators', function (project, accessLevel, done) {
 });
 
 // User.admins(done(err, [user, ...]))
-UserSchema.static('admins', function (done) {
+UserSchema.static('admins', function (done: Function) {
   const query = { account_level: 1 };
 
   this.find(query, done);
@@ -104,7 +150,7 @@ UserSchema.static('admins', function (done) {
 // User.account(providerid, accountid)
 // --> the account config that matches
 // Throws an error if the account cannot be found.
-UserSchema.method('account', function (provider, account) {
+UserSchema.method('account', function (provider: any, account?: any) {
   if (arguments.length === 1) {
     account = provider.account;
     provider = provider.id;
@@ -122,11 +168,18 @@ UserSchema.method('account', function (provider, account) {
   return false;
 });
 
-UserSchema.method('verifyPassword', function (password, callback) {
+UserSchema.method('verifyPassword', function (
+  password: string,
+  callback: (err: Error, success: boolean) => void
+) {
   bcrypt.compare(password, this.get('hash'), callback);
 });
 
-UserSchema.method('jobPluginData', function (name, config, done) {
+UserSchema.method('jobPluginData', function (
+  name: string,
+  config: any,
+  done: Function
+) {
   if (!this.jobplugins) {
     this.jobplugins = {};
   }
@@ -140,8 +193,11 @@ UserSchema.method('jobPluginData', function (name, config, done) {
   this.save(done);
 });
 
-UserSchema.static('getUserInfoFromActiveDirectory', function (email, callback) {
-  AdSchema.findUser(email, function (err, user) {
+UserSchema.static('getUserInfoFromActiveDirectory', function (
+  email: string,
+  callback: Function
+) {
+  AdSchema.findUser(email, function (err: Error, user?: any) {
     if (err) {
       return callback(err, true);
     }
@@ -156,37 +212,36 @@ UserSchema.static('getUserInfoFromActiveDirectory', function (email, callback) {
 
 // Login by active directory
 UserSchema.static('loginByActiveDirectory', function (
-  email,
-  password,
-  callback
+  email: string,
+  password: string,
+  callback: Function
 ) {
-  AdSchema.authenticate(
-    email,
-    password,
-    function (err, auth) {
-      if (err) {
-        return callback(err, true);
-      }
+  AdSchema.authenticate(email, password, (err: Error, auth?: any) => {
+    if (err) {
+      return callback(err, true);
+    }
 
-      if (!auth) {
-        return callback('No User', false);
-      }
+    if (!auth) {
+      return callback('No User', false);
+    }
 
-      return this.getUserInfoFromActiveDirectory(email, callback);
-    }.bind(this)
-  );
+    return this.getUserInfoFromActiveDirectory(email, callback);
+  });
 });
 
-UserSchema.static('authenticate', function (email, password, callback) {
+UserSchema.static('authenticate', function (
+  email: string,
+  password: string,
+  callback: Function
+) {
   // Has ad config
   if (config.ldap) {
-    this.loginByActiveDirectory(
-      email,
-      password,
-      function (err, adUser) {
-        console.log(`Active directory login msg: ${err},  User info`, adUser);
-        if (err && !adUser) {
-          this.findOne({ email: email, isAdUser: false }, function (err, user) {
+    this.loginByActiveDirectory(email, password, (err: Error, adUser?: any) => {
+      console.log(`Active directory login msg: ${err},  User info`, adUser);
+      if (err && !adUser) {
+        this.findOne(
+          { email: email, isAdUser: false },
+          (err: Error, user?: User) => {
             if (err) {
               return callback(err);
             }
@@ -195,56 +250,59 @@ UserSchema.static('authenticate', function (email, password, callback) {
               return callback('No User', false);
             }
 
-            user.verifyPassword(password, function (err, passwordCorrect) {
-              if (err) {
-                return callback(err);
+            user.verifyPassword(
+              password,
+              (err: Error, passwordCorrect: boolean) => {
+                if (err) {
+                  return callback(err);
+                }
+
+                if (!passwordCorrect) {
+                  return callback('Incorrect Password', false);
+                }
+
+                return callback(null, user);
               }
-
-              if (!passwordCorrect) {
-                return callback('Incorrect Password', false);
-              }
-
-              return callback(null, user);
-            });
-          });
-        } else if (err) {
-          return callback(err);
-        }
-
-        this.findOne(
-          { email: email, isAdUser: true },
-          function (err, user) {
-            if (err) {
-              return callback(err);
-            }
-
-            if (!user) {
-              let isAdmin = false;
-              if (
-                config.ldap.adminDN &&
-                adUser.dn.indexOf(config.ldap.adminDN) !== -1
-              ) {
-                isAdmin = true;
-              }
-              // register and return new user
-              return this.register(
-                {
-                  isAdUser: true,
-                  isAdmin: isAdmin,
-                  email: adUser.mail,
-                },
-                callback
-              );
-            }
-
-            return callback(null, user);
-          }.bind(this)
+            );
+          }
         );
-      }.bind(this)
-    );
+      } else if (err) {
+        return callback(err);
+      }
+
+      this.findOne(
+        { email: email, isAdUser: true },
+        (err: Error, user?: User) => {
+          if (err) {
+            return callback(err);
+          }
+
+          if (!user) {
+            let isAdmin = false;
+            if (
+              config.ldap.adminDN &&
+              adUser.dn.indexOf(config.ldap.adminDN) !== -1
+            ) {
+              isAdmin = true;
+            }
+            // register and return new user
+            return this.register(
+              {
+                isAdUser: true,
+                isAdmin: isAdmin,
+                email: adUser.mail,
+              },
+              callback
+            );
+          }
+
+          return callback(null, user);
+        }
+      );
+    });
   } else {
     // Normal login
-    this.findOne({ email: email }, function (err, user) {
+    this.findOne({ email: email }, (err: Error, user?: User) => {
       if (err) {
         return callback(err);
       }
@@ -253,7 +311,7 @@ UserSchema.static('authenticate', function (email, password, callback) {
         return callback('No User', false);
       }
 
-      user.verifyPassword(password, function (err, passwordCorrect) {
+      user.verifyPassword(password, (err: Error, passwordCorrect: boolean) => {
         if (err) {
           return callback(err);
         }
@@ -268,13 +326,13 @@ UserSchema.static('authenticate', function (email, password, callback) {
   }
 });
 
-UserSchema.static('findByEmail', function (email, cb) {
+UserSchema.static('findByEmail', function (email: string, cb: Function) {
   this.find({ email: { $regex: new RegExp(email, 'i') } }, cb);
 });
 
-UserSchema.static('register', function (u, callback) {
+UserSchema.static('register', function (u: any, callback: Function) {
   // Create User
-  const user = new User();
+  const user = new UserModel();
   user.isAdUser = !!u.isAdUser;
   user.account_level = u.isAdmin ? 1 : 0;
   user.email = u.email.toLowerCase();
@@ -291,10 +349,10 @@ UserSchema.static('register', function (u, callback) {
 });
 
 UserSchema.static('registerWithInvite', function (
-  inviteCode,
-  email,
-  password,
-  cb
+  inviteCode: string,
+  email: string,
+  password: string,
+  cb: Function
 ) {
   // Check Invite Code
   InviteCode.findOne(
@@ -303,18 +361,18 @@ UserSchema.static('registerWithInvite', function (
       emailed_to: email,
       consumed_timestamp: null,
     },
-    function (err, invite) {
+    function (err: Error, invite?: any) {
       if (err || !invite) {
         return cb('Invalid Invite');
       }
 
-      const projects = [];
+      const projects: Project[] = [];
       // For each collaboration in the invite, add permissions to the repo_config
       if (
         invite.collaborations !== undefined &&
         invite.collaborations.length > 0
       ) {
-        invite.collaborations.forEach(function (item) {
+        invite.collaborations.forEach(function (item: any) {
           projects.push({
             name: item.project.toLowerCase(),
             access_level: item.access_level,
@@ -330,7 +388,7 @@ UserSchema.static('registerWithInvite', function (
           password: password,
           projects: projects,
         },
-        function (err, user) {
+        (err?: Error, user?: User) => {
           if (err) {
             return cb(err);
           }
@@ -346,7 +404,7 @@ UserSchema.static('registerWithInvite', function (
               },
             },
             {},
-            function (err) {
+            (err?: Error) => {
               if (err) {
                 return cb(
                   `Error updating invite code, user was created: ${err}`
@@ -358,11 +416,11 @@ UserSchema.static('registerWithInvite', function (
           );
         }
       );
-    }.bind(this)
+    }
   );
 });
 
-UserSchema.method('projectAccessLevel', function (project) {
+UserSchema.method('projectAccessLevel', function (this: User, project: any) {
   if (this.account_level > 0) {
     return 2;
   }
@@ -382,7 +440,7 @@ UserSchema.method('projectAccessLevel', function (project) {
   return -1;
 });
 
-UserSchema.static('projectAccessLevel', function (user, project) {
+UserSchema.static('projectAccessLevel', function (user: User, project: any) {
   if (user) {
     return user.projectAccessLevel(project);
   }
@@ -394,10 +452,10 @@ UserSchema.static('projectAccessLevel', function (user, project) {
   return -1;
 });
 
-UserSchema.path('jobsQuantityOnPage').get(function (quantity) {
+UserSchema.path('jobsQuantityOnPage').get(function (quantity: number) {
   return config.jobsQuantityOnPage.enabled
     ? quantity
     : config.jobsQuantityOnPage.default;
 });
 
-User = module.exports = mongoose.model('user', UserSchema);
+export default UserModel;

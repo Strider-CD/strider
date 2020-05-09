@@ -32,7 +32,7 @@ function renderProjects(refresh, req, res) {
         manualProjects[key] = [];
         manual[key] = {
             provider: config,
-            projects: manualProjects[key]
+            projects: manualProjects[key],
         };
     });
     Project.find({ creator: req.user._id })
@@ -49,7 +49,7 @@ function renderProjects(refresh, req, res) {
                 if (!manual[provider.id]) {
                     manual[provider.id] = {
                         provider: common.pluginConfigs.provider[provider.id],
-                        projects: []
+                        projects: [],
                     };
                 }
                 manual[provider.id].projects.push(projects[i]);
@@ -57,7 +57,7 @@ function renderProjects(refresh, req, res) {
             }
             deepObj(tree, provider.id, provider.account)[provider.repo_id] = {
                 _id: projects[i]._id,
-                name: projects[i].name
+                name: projects[i].name,
             };
         }
         req.user.accounts.forEach(function (account) {
@@ -89,7 +89,7 @@ function renderProjects(refresh, req, res) {
                 }
             });
         });
-        for (let id in providers) {
+        for (const id in providers) {
             if (configured[id] || !providers[id].setupLink)
                 continue;
             unconfigured.push(providers[id]);
@@ -118,7 +118,7 @@ function renderProjects(refresh, req, res) {
                             repos: repomap,
                             flash: req.flash(),
                             project_types: availableProjectTypes(),
-                            version: pjson.version
+                            version: pjson.version,
                         });
                     },
                     json: function () {
@@ -128,9 +128,9 @@ function renderProjects(refresh, req, res) {
                             manual: manual,
                             manualProjects: manualProjects,
                             repos: repomap,
-                            project_types: availableProjectTypes()
+                            project_types: availableProjectTypes(),
                         });
-                    }
+                    },
                 });
             });
         });
@@ -138,7 +138,7 @@ function renderProjects(refresh, req, res) {
 }
 function availableProjectTypes() {
     const available = {};
-    for (let id in common.project_types) {
+    for (const id in common.project_types) {
         let good = true;
         const plugins = common.project_types[id].plugins;
         for (let i = 0; i < plugins.length; i++) {
@@ -160,7 +160,7 @@ function groupRepos(account, repomap, tree, repos) {
         if (!groups[repos[i].group]) {
             groups[repos[i].group] = {
                 configured: 0,
-                repos: []
+                repos: [],
             };
         }
         repos[i].project = projectmap[repos[i].id];

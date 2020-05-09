@@ -1,6 +1,6 @@
-var mongoose = require('../utils/mongoose-shim');
-var Schema = mongoose.Schema;
-var TriggerNotSchema = {
+const mongoose = require('../utils/mongoose-shim');
+const Schema = mongoose.Schema;
+const TriggerNotSchema = {
     type: { type: String },
     author: {
         id: { type: Schema.ObjectId, ref: 'user' },
@@ -15,7 +15,7 @@ var TriggerNotSchema = {
     url: String,
     source: {},
 };
-var PhaseNotSchema = {
+const PhaseNotSchema = {
     duration: Number,
     finished: Date,
     exitCode: Number,
@@ -32,7 +32,7 @@ var PhaseNotSchema = {
         },
     ],
 };
-var JobSchema = new Schema({
+const JobSchema = new Schema({
     type: { type: String },
     user_id: { type: Schema.ObjectId, ref: 'user' },
     project: { type: String, index: true },
