@@ -86,7 +86,7 @@ const ProjectSchema = new Schema({
 });
 // name: the name of the new branch
 // done(err)
-ProjectSchema.method('addBranch', function (name, done) {
+ProjectSchema.methods.addBranch = function (name, done) {
     const branch = {
         name: name,
         mirror_master: true,
@@ -103,8 +103,8 @@ ProjectSchema.method('addBranch', function (name, done) {
         }
         done(null, branch);
     });
-});
-ProjectSchema.method('cloneBranch', function (name, cloneName, done) {
+};
+ProjectSchema.methods.cloneBranch = function (name, cloneName, done) {
     let clone;
     this.branches.forEach(function (branch) {
         if (branch.name === name) {
@@ -127,11 +127,11 @@ ProjectSchema.method('cloneBranch', function (name, cloneName, done) {
         }
         done(null, clone);
     });
-});
-ProjectSchema.method('branch', function (name) {
+};
+ProjectSchema.methods.branch = function (name) {
     return findBranch(this.branches, name);
-});
-ProjectSchema.static('forUser', function (user, done) {
+};
+ProjectSchema.statics.forUser = function (user, done) {
     // Default to all projects
     let query = {};
     // If we are not an admin i.e account level is not set or < 1, show only user projects
@@ -150,6 +150,6 @@ ProjectSchema.static('forUser', function (user, done) {
         };
     }
     this.find(query, done);
-});
+};
 module.exports = mongoose.model('Project', ProjectSchema);
 //# sourceMappingURL=project.js.map
