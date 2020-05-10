@@ -135,7 +135,7 @@
     "strider-simple-runner": "^1.1.0",
     "strider-slack": "^2.0.0",
     "strider-ssh-deploy": "^1.0.0",
-    "strider-webhooks": "^0.1.1",
+    "@strider/webhooks": "^0.1.7",
     "strip-ansi": "^5.2.0",
     "swig": "^0.14.0",
     "thirty-two": "^1.0.1",

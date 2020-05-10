@@ -30,7 +30,6 @@ function striderJson(provider, project, ref, done) {
     if (!provider.hosted) {
         return provider.getFile('strider.json', ref, project.provider.config, project, finished);
     }
-    debugger;
     const account = project.creator.account(project.provider.id, project.provider.account);
     provider.getFile('strider.json', ref, account.config, project.provider.config, project, finished);
 }

@@ -47,6 +47,16 @@
   resolved "https://registry.yarnpkg.com/@sinonjs/text-encoding/-/text-encoding-0.7.1.tgz#8da5c6530915653f3a1f38fd5f101d8c3f8079c5"
   integrity sha512-+iTbntw2IZPb/anVDbypzfQa+ay64MW0Zo8aJ8gZPWMMK6/OubMVb6lUPMagqjOPnmtauXnFCACVl3O7ogjeqQ==
 
+"@strider/webhooks@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@strider/webhooks/-/webhooks-0.1.7.tgz#a20efbd68f6ac64df58b36a5943e53f225472567"
+  integrity sha512-3GpA5dpI6LuGVLiVwa8JQn4HkmdmQftZUhKJH05UHwR0KPEWgvXyGuuEqtE6JQiLNLJ5ubDKKA3xFLWWv0khiw==
+  dependencies:
+    bson "^3.0.2"
+    crypto "0.0.3"
+    querystring "~0.2.0"
+    superagent "~0.15.4"
+
 "@types/babel-types@*", "@types/babel-types@^7.0.0":
   version "7.0.7"
   resolved "https://registry.yarnpkg.com/@types/babel-types/-/babel-types-7.0.7.tgz#667eb1640e8039436028055737d2b9986ee336e3"
@@ -1826,11 +1836,10 @@ bson@^1.1.1, bson@~1.1.1:
   resolved "https://registry.yarnpkg.com/bson/-/bson-1.1.1.tgz#4330f5e99104c4e751e7351859e2d408279f2f13"
   integrity sha512-jCGVYLoYMHDkOsbwJZBCqwMHyH4c+wzgI9hG7Z6SZJRXWr+x58pdIbm2i9a/jFGCkRJqRUr8eoI7lDWa0hTkxg==
 
-bson@~0.2.2:
-  version "0.2.22"
-  resolved "https://registry.yarnpkg.com/bson/-/bson-0.2.22.tgz#fcda103f26d0c074d5a52d50927db80fd02b4b39"
-  dependencies:
-    nan "~1.8"
+bson@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/bson/-/bson-3.0.2.tgz#2467a76507a98c63ce34072f9965f4024e753dfc"
+  integrity sha512-HrDzr7y/ZkgyEVancPVDmfbaD8j81GzSNr6h6yUd/yZfavkrlrqI8aUZMCHrhyMoCW2/I+vEJDat1xDWRwVR6A==
 
 buffer-alloc-unsafe@^1.1.0:
   version "1.1.0"
@@ -7474,10 +7483,6 @@ nan@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/nan/-/nan-1.2.0.tgz#9c4d63ce9e4f8e95de2d574e18f7925554a8a8ef"
 
-nan@~1.8:
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/nan/-/nan-1.8.4.tgz#3c76b5382eab33e44b758d2813ca9d92e9342f34"
-
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://registry.yarnpkg.com/nanomatch/-/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -10463,15 +10468,6 @@ strider-ssh-deploy@^1.0.0:
     npmd-pack "^1.0.0"
     progress-stream "^0.5.0"
     ssh2 "^0.4.8"
-
-strider-webhooks@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/strider-webhooks/-/strider-webhooks-0.1.1.tgz#6c0b086e1483ddb06093dc13de9a936b33726686"
-  dependencies:
-    bson "~0.2.2"
-    crypto "0.0.3"
-    querystring "~0.2.0"
-    superagent "~0.15.4"
 
 string-length@^1.0.0:
   version "1.0.1"
