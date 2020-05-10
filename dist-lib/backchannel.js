@@ -30,6 +30,7 @@ function striderJson(provider, project, ref, done) {
     if (!provider.hosted) {
         return provider.getFile('strider.json', ref, project.provider.config, project, finished);
     }
+    debugger;
     const account = project.creator.account(project.provider.id, project.provider.account);
     provider.getFile('strider.json', ref, account.config, project.provider.config, project, finished);
 }
@@ -107,7 +108,7 @@ function prepareJob(emitter, job) {
                 mjob
                     .save()
                     .then(() => debug('job saved'))
-                    .catch(e => debug(e));
+                    .catch((e) => debug(e));
             });
         });
     });
@@ -142,7 +143,7 @@ BackChannel.prototype = {
                         job.project.access_level = User.projectAccessLevel(user, job.project);
                         return job;
                     }),
-                    'yours'
+                    'yours',
                 ];
             });
         }
@@ -155,7 +156,7 @@ BackChannel.prototype = {
                     job.project.access_level = 0;
                     return job;
                 }),
-                'public'
+                'public',
             ]);
         }
     },
@@ -173,7 +174,7 @@ BackChannel.prototype = {
             },
             admins: function (paraCallback) {
                 User.admins(paraCallback);
-            }
+            },
         }, function (err, users) {
             if (err)
                 return debug('new job: Failed to query for users');
@@ -251,7 +252,7 @@ BackChannel.prototype = {
                 emitter.emit('job.doneAndSaved', job);
             });
         });
-    }
+    },
 };
 module.exports = BackChannel;
 //# sourceMappingURL=backchannel.js.map

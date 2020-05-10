@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import Activedirectory from 'activedirectory';
-import { Schema, model, Document } from 'mongoose';
+import { Schema, model, Document, Model } from 'mongoose';
 import config from '../config';
 import InviteCode from './invite';
 
@@ -46,6 +46,9 @@ export interface Account {
   config: any;
   last_updated: Date;
 }
+
+// eslint-disable-next-line prefer-const
+let UserModel: Model<User>;
 
 // active directory schema
 const AdSchema = config.ldap ? new Activedirectory(config.ldap) : null;
@@ -101,8 +104,6 @@ const UserSchema = new Schema({
   created: Date,
 });
 
-const UserModel = model<User>('user', UserSchema);
-
 UserSchema.virtual('password')
   .get(function () {
     return this._password;
@@ -117,11 +118,11 @@ UserSchema.virtual('password')
 //
 // project: String name of the project
 // accessLevel: int minimum access level. Defaults to 1
-UserSchema.static('collaborators', function (
+UserSchema.statics.collaborators = function (
   project: string,
   accessLevel: number | Function,
   done: Function | undefined
-) {
+): void {
   if (arguments.length === 2) {
     done = accessLevel as Function;
     accessLevel = 1;
@@ -137,20 +138,23 @@ UserSchema.static('collaborators', function (
   };
 
   this.find(query, done);
-});
+};
 
 // User.admins(done(err, [user, ...]))
-UserSchema.static('admins', function (done: Function) {
+UserSchema.statics.admins = function (done: Function): void {
   const query = { account_level: 1 };
 
   this.find(query, done);
-});
+};
 
 // User.account(providerconfig)
 // User.account(providerid, accountid)
 // --> the account config that matches
 // Throws an error if the account cannot be found.
-UserSchema.method('account', function (provider: any, account?: any) {
+UserSchema.methods.account = function (
+  provider: any,
+  account?: any
+): boolean | Account {
   if (arguments.length === 1) {
     account = provider.account;
     provider = provider.id;
@@ -166,20 +170,20 @@ UserSchema.method('account', function (provider: any, account?: any) {
   }
 
   return false;
-});
+};
 
-UserSchema.method('verifyPassword', function (
+UserSchema.methods.verifyPassword = function (
   password: string,
   callback: (err: Error, success: boolean) => void
-) {
+): void {
   bcrypt.compare(password, this.get('hash'), callback);
-});
+};
 
-UserSchema.method('jobPluginData', function (
+UserSchema.methods.jobPluginData = function (
   name: string,
   config: any,
   done: Function
-) {
+): any | void {
   if (!this.jobplugins) {
     this.jobplugins = {};
   }
@@ -191,12 +195,12 @@ UserSchema.method('jobPluginData', function (
   this.jobplugins[name] = config;
   this.markModified('jobplugins');
   this.save(done);
-});
+};
 
-UserSchema.static('getUserInfoFromActiveDirectory', function (
+UserSchema.statics.getUserInfoFromActiveDirectory = function (
   email: string,
   callback: Function
-) {
+): void {
   AdSchema.findUser(email, function (err: Error, user?: any) {
     if (err) {
       return callback(err, true);
@@ -208,14 +212,14 @@ UserSchema.static('getUserInfoFromActiveDirectory', function (
 
     return callback(null, user);
   });
-});
+};
 
 // Login by active directory
-UserSchema.static('loginByActiveDirectory', function (
+UserSchema.statics.loginByActiveDirectory = function (
   email: string,
   password: string,
   callback: Function
-) {
+): void {
   AdSchema.authenticate(email, password, (err: Error, auth?: any) => {
     if (err) {
       return callback(err, true);
@@ -227,13 +231,13 @@ UserSchema.static('loginByActiveDirectory', function (
 
     return this.getUserInfoFromActiveDirectory(email, callback);
   });
-});
+};
 
-UserSchema.static('authenticate', function (
+UserSchema.statics.authenticate = function (
   email: string,
   password: string,
   callback: Function
-) {
+): void {
   // Has ad config
   if (config.ldap) {
     this.loginByActiveDirectory(email, password, (err: Error, adUser?: any) => {
@@ -324,13 +328,13 @@ UserSchema.static('authenticate', function (
       });
     });
   }
-});
+};
 
-UserSchema.static('findByEmail', function (email: string, cb: Function) {
+UserSchema.statics.findByEmail = function (email: string, cb: Function): void {
   this.find({ email: { $regex: new RegExp(email, 'i') } }, cb);
-});
+};
 
-UserSchema.static('register', function (u: any, callback: Function) {
+UserSchema.statics.register = function (u: any, callback: Function): void {
   // Create User
   const user = new UserModel();
   user.isAdUser = !!u.isAdUser;
@@ -340,20 +344,20 @@ UserSchema.static('register', function (u: any, callback: Function) {
   user.set('password', u.isAdUser ? '' : u.password);
   user.projects = u.projects || [];
 
-  user.save(function (error, user) {
+  user.save(function (error?: Error, user?: User) {
     if (error) {
       return callback(`Error Creating User:${error}`);
     }
     callback(null, user);
   });
-});
+};
 
-UserSchema.static('registerWithInvite', function (
+UserSchema.statics.registerWithInvite = function (
   inviteCode: string,
   email: string,
   password: string,
   cb: Function
-) {
+): void {
   // Check Invite Code
   InviteCode.findOne(
     {
@@ -418,9 +422,12 @@ UserSchema.static('registerWithInvite', function (
       );
     }
   );
-});
+};
 
-UserSchema.method('projectAccessLevel', function (this: User, project: any) {
+UserSchema.methods.projectAccessLevel = function (
+  this: User,
+  project: any
+): number {
   if (this.account_level > 0) {
     return 2;
   }
@@ -438,9 +445,12 @@ UserSchema.method('projectAccessLevel', function (this: User, project: any) {
   }
 
   return -1;
-});
+};
 
-UserSchema.static('projectAccessLevel', function (user: User, project: any) {
+UserSchema.statics.projectAccessLevel = function (
+  user: User,
+  project: any
+): number {
   if (user) {
     return user.projectAccessLevel(project);
   }
@@ -450,12 +460,14 @@ UserSchema.static('projectAccessLevel', function (user: User, project: any) {
   }
 
   return -1;
-});
+};
 
 UserSchema.path('jobsQuantityOnPage').get(function (quantity: number) {
   return config.jobsQuantityOnPage.enabled
     ? quantity
     : config.jobsQuantityOnPage.default;
 });
+
+UserModel = model<User>('user', UserSchema);
 
 export default UserModel;
