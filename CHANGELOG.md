@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.3](https://github.com/Strider-CD/strider/compare/v2.4.2...v2.4.3) (2020-05-10)
+
+
+### Bug Fixes
+
+* **models:** methods and statics on project ([bcf200c](https://github.com/Strider-CD/strider/commit/bcf200c2a8bd66452067e1c55100b0ea575f0482))
+* **models:** use starics and methods for user ([04177b6](https://github.com/Strider-CD/strider/commit/04177b62027237035e86ac5a757dbe87fb847099))
+* update Node plugin ([49b86bd](https://github.com/Strider-CD/strider/commit/49b86bdcf98084ba313bbb33325660d8d9d5a2f6))
+
 ### [2.4.2](https://github.com/Strider-CD/strider/compare/v2.4.1...v2.4.2) (2020-05-02)
 
 
