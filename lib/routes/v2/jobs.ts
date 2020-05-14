@@ -10,6 +10,7 @@ import setupDebug from 'debug';
 import ljobs from '../../jobs';
 import models from '../../models';
 import utils from '../../utils';
+import { Job as JobType } from '../../models/job';
 
 const debug = setupDebug('strider:routes:jobs');
 const Job = models.Job;
@@ -21,7 +22,7 @@ type StriderRequest = Request & {
   accessLevel: string;
 };
 
-function filterJob(job: any): any {
+function filterJob(job: JobType): JobType {
   if (job.trigger.message === 'Retest') {
     job.trigger.message = 'Manually Retested';
   }
@@ -31,7 +32,7 @@ function filterJob(job: any): any {
   return job;
 }
 
-function findJob(job: any): any {
+function findJob(job: JobType): any {
   // job.runner can be undefined if it hasn't been fully prepared yet.
   // this is a sort of race between job.prepare and job.new events.
   // fixes https://github.com/Strider-CD/strider/issues/273
@@ -41,11 +42,16 @@ function findJob(job: any): any {
   if (runner) return runner.getJobData(job._id) || {};
 }
 
-async function projectJobs(
+/*
+ * GET /org/repo/[job/:job_id] - view latest build for repo
+ *
+ * middleware.project set "project" and "accessLevel" on the req object.
+ */
+router.get('/:org/:repo', middleware.project, async function (
   req: StriderRequest,
   res: Response,
   next: NextFunction
-): Promise<any> {
+) {
   if (req.params.org === 'auth') {
     return next();
   }
@@ -70,13 +76,13 @@ async function projectJobs(
         finished: null,
       }).sort({ started: -1 });
 
-      running = running.map((job: any) => {
+      running = running.map((job: JobType & { data: any }) => {
         _.extend(job, findJob(job));
         delete job.data;
         delete job.id;
         return job;
       });
-      jobs = running.concat(jobs).map((job: any) => {
+      jobs = running.concat(jobs).map((job: JobType) => {
         // job = ljobs.small(job);
         job = filterJob(job);
         job.status = ljobs.status(job);
@@ -84,10 +90,11 @@ async function projectJobs(
       });
 
       // Make sure jobs are only listed once.
-      jobs = _.uniqBy(jobs, (job: any) => job._id.toString());
+      jobs = _.uniqBy(jobs, (job: JobType) => job._id.toString());
 
       debug('Build page jobs', jobs);
-      return jobs;
+
+      res.json(jobs);
     } catch (err) {
       debug('[job] error finding running jobs', err.message);
       throw new Error('Failed to find running jobs');
@@ -96,20 +103,6 @@ async function projectJobs(
     debug('[job] error finding jobs', err.message);
     throw new Error('Failed to find jobs');
   }
-}
-
-/*
- * GET /org/repo/[job/:job_id] - view latest build for repo
- *
- * middleware.project set "project" and "accessLevel" on the req object.
- */
-router.get('/:org/:repo', middleware.project, async function (
-  req: StriderRequest,
-  res: Response,
-  next: NextFunction
-) {
-  const jobs = await projectJobs(req, res, next);
-  res.json(jobs);
 });
 
 router.get('/:org/:repo/latest', middleware.project, async function (
@@ -122,7 +115,7 @@ router.get('/:org/:repo/latest', middleware.project, async function (
   }
 
   const projectName = req.project.name;
-  let [job]: any = await Job.find({
+  let [job] = await Job.find({
     project: projectName,
     archived: null,
   }).limit(1);
@@ -149,7 +142,7 @@ router.get('/:org/:repo/job/:jobId', middleware.project, async function (
   }
 
   const projectName = req.project.name;
-  let job: any = await Job.findOne({
+  let job = await Job.findOne({
     _id: req.params.jobId,
     project: projectName,
     archived: null,

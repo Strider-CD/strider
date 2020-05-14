@@ -1,10 +1,37 @@
-const mongoose = require('../utils/mongoose-shim');
-const Schema = mongoose.Schema;
+import { Schema, model, Model, Document } from 'mongoose';
+import { User } from './user';
+
+export interface Trigger {
+  type: string;
+  author: User['_id'];
+  message: string;
+  timestamp: Date;
+  url: string;
+  source: any;
+}
+
+export interface Phase {
+  duration: number;
+  finished: Date;
+  exitCode: number;
+  commands: [
+    {
+      started: Date;
+      duration: number;
+      command: string;
+      comment: boolean;
+      plugin: string;
+      out: string;
+      err: string;
+      merged: string;
+    }
+  ];
+}
 
 const TriggerNotSchema = {
   type: { type: String },
   author: {
-    id: { type: Schema.ObjectId, ref: 'user' },
+    id: { type: Schema.Types.ObjectId, ref: 'user' },
     url: String,
     name: String,
     email: String,
@@ -39,9 +66,56 @@ const PhaseNotSchema = {
   ],
 };
 
+export interface Job extends Document {
+  type: string;
+  user_id: User['_id'];
+  project: string;
+  ref: any;
+  trigger: Trigger;
+  phases: {
+    environment: Phase;
+    prepare: Phase;
+    test: Phase;
+    deploy: Phase;
+    cleanup: Phase;
+  };
+  plugin_data: any;
+  warnings: [
+    {
+      plugin: string;
+      title: string;
+      description: string;
+      severity: string;
+    }
+  ];
+  std: {
+    out: string;
+    err: string;
+    merged: string;
+  };
+  duration: number;
+  created: Date;
+  queued: Date;
+  started: Date;
+  finished: Date;
+  archived: Date;
+  test_exitcode: number;
+  deploy_exitcode: number;
+  status: string;
+  errored: boolean;
+  error: {
+    message: string;
+    stack: string;
+  };
+  runner: {
+    id: string;
+    data: any;
+  };
+}
+
 const JobSchema = new Schema({
   type: { type: String },
-  user_id: { type: Schema.ObjectId, ref: 'user' },
+  user_id: { type: Schema.Types.ObjectId, ref: 'user' },
   project: { type: String, index: true }, // should always be lower case
   ref: {
     // not every job is on a branch, and want arbitrary stuff here.
@@ -93,4 +167,4 @@ const JobSchema = new Schema({
 
 JobSchema.index({ archived: 1, project: 1, finished: -1 });
 
-module.exports = mongoose.model('Job', JobSchema);
+module.exports = model<Job>('Job', JobSchema);

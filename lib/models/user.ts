@@ -3,6 +3,7 @@ import Activedirectory from 'activedirectory';
 import { Schema, model, Document, Model } from 'mongoose';
 import config from '../config';
 import InviteCode from './invite';
+import { Job } from './job';
 
 export interface User extends Document {
   name: string;
@@ -16,7 +17,7 @@ export interface User extends Document {
   accounts: Account[];
   jobplugins: any;
   projects: Project[];
-  jobs: any[];
+  jobs: Job['_id'][];
   jobsQuantityOnPage: number;
   created: Date;
 
