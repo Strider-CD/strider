@@ -1,6 +1,8 @@
+const _ = require('lodash');
+const Table = require('cli-table3');
+const debug = require('debug')('strider:cli');
+
 module.exports = function (pluginsPath) {
-  const _ = require('lodash');
-  const Table = require('cli-table3');
   const table = new Table({
     chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' },
     head: ['name', 'description', 'stable', 'installed'],
@@ -17,7 +19,7 @@ module.exports = function (pluginsPath) {
         Object.keys(remotePlugins).forEach(function (name) {
           const remote = remotePlugins[name];
           const local = localPlugins[name];
-          console.log(remote);
+          debug(remote);
           table.push([
             name,
             remote.description,
