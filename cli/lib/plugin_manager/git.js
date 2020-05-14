@@ -1,4 +1,4 @@
-const spawn = require('spawn-cmd').spawn;
+const spawn = require('cross-spawn');
 
 module.exports = {
   clone: function (repo, tag, path, cb) {

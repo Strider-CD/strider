@@ -12,7 +12,7 @@ module.exports = function (pluginsPath) {
   };
 
   function zip(plugins) {
-    const ids = _.pluck(plugins, 'name');
+    const ids = _.map(plugins, 'name');
     return _.zipObject(ids, plugins);
   }
 

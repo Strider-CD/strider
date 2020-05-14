@@ -8,6 +8,7 @@ module.exports = function (pluginsPath) {
   var pluginsPath = localPlugins.path();
   prompt.message = 'plugin';
   prompt.start();
+
   const schema = {
     properties: {
       name: {
@@ -21,6 +22,7 @@ module.exports = function (pluginsPath) {
       author: {},
     },
   };
+
   prompt.get(schema, function (err, res) {
     if (err) {
       console.error(err.message);
