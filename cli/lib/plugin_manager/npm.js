@@ -1,12 +1,16 @@
-const spawn = require('spawn-cmd').spawn;
+const spawn = require('cross-spawn');
 
 module.exports = function (cwd) {
   return {
     install: function (cb) {
-      const proc = spawn('npm', ['install', '--production', '--ignore-scripts'], {
-        stdio: 'inherit',
-        cwd: cwd,
-      });
+      const proc = spawn(
+        'npm',
+        ['install', '--production', '--ignore-scripts'],
+        {
+          stdio: 'inherit',
+          cwd: cwd,
+        }
+      );
 
       proc.on('error', function (err) {
         return cb(err);

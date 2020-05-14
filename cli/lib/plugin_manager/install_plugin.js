@@ -1,12 +1,13 @@
-const _ = require('lodash'),
-  fs = require('fs'),
-  path = require('path'),
-  git = require('./git'),
-  npm = require('./npm'),
-  client = require('strider-ecosystem-client');
+const _ = require('lodash');
+const fs = require('fs');
+const path = require('path');
+const git = require('./git');
+const npm = require('./npm');
+const client = require('strider-ecosystem-client');
+const localPlugins = require('./local_plugins');
 
 module.exports = function (pluginsPath) {
-  const local = require('./local_plugins')(pluginsPath);
+  const local = localPlugins(pluginsPath);
   const home = pluginsPath[0];
 
   /*

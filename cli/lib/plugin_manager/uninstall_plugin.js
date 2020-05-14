@@ -1,13 +1,11 @@
-const _ = require('lodash'),
-  fs = require('fs'),
-  path = require('path'),
-  rimraf = require('rimraf');
+const rimraf = require('rimraf');
+const localPlugins = require('./local_plugins');
 
 // these are plugins you can't uninstall
 const crucialPlugins = ['git', 'simple-runner'];
 
 module.exports = function (pluginsPath) {
-  const local = require('./local_plugins')(pluginsPath);
+  const local = localPlugins(pluginsPath);
 
   /*
    * Callback signature:

@@ -1,9 +1,9 @@
-module.exports = function (pluginsPath) {
-  const Loader = require('strider-extension-loader');
-  const loader = new Loader();
+const path = require('path');
+const _ = require('lodash');
+const Loader = require('strider-extension-loader');
 
-  const path = require('path');
-  const _ = require('lodash');
+module.exports = function (pluginsPath) {
+  const loader = new Loader();
 
   return {
     path: fullPath,

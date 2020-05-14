@@ -1,6 +1,8 @@
 const _ = require('lodash');
 const Table = require('cli-table3');
 const debug = require('debug')('strider:cli');
+const client = require('strider-ecosystem-client');
+const localPlugins = require('./local_plugins');
 
 module.exports = function (pluginsPath) {
   const table = new Table({
@@ -8,9 +10,7 @@ module.exports = function (pluginsPath) {
     head: ['name', 'description', 'stable', 'installed'],
   });
 
-  const local = require('./local_plugins')(pluginsPath);
-
-  const client = require('strider-ecosystem-client');
+  const local = localPlugins(pluginsPath);
 
   client
     .fetchPlugins()
