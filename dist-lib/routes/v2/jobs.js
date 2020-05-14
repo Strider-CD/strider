@@ -43,7 +43,12 @@ function findJob(job) {
     if (runner)
         return runner.getJobData(job._id) || {};
 }
-function projectJobs(req, res, next) {
+/*
+ * GET /org/repo/[job/:job_id] - view latest build for repo
+ *
+ * middleware.project set "project" and "accessLevel" on the req object.
+ */
+router.get('/:org/:repo', middleware_1.default.project, function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (req.params.org === 'auth') {
             return next();
@@ -79,7 +84,7 @@ function projectJobs(req, res, next) {
                 // Make sure jobs are only listed once.
                 jobs = lodash_1.default.uniqBy(jobs, (job) => job._id.toString());
                 debug('Build page jobs', jobs);
-                return jobs;
+                res.json(jobs);
             }
             catch (err) {
                 debug('[job] error finding running jobs', err.message);
@@ -90,17 +95,6 @@ function projectJobs(req, res, next) {
             debug('[job] error finding jobs', err.message);
             throw new Error('Failed to find jobs');
         }
-    });
-}
-/*
- * GET /org/repo/[job/:job_id] - view latest build for repo
- *
- * middleware.project set "project" and "accessLevel" on the req object.
- */
-router.get('/:org/:repo', middleware_1.default.project, function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const jobs = yield projectJobs(req, res, next);
-        res.json(jobs);
     });
 });
 router.get('/:org/:repo/latest', middleware_1.default.project, function (req, res, next) {

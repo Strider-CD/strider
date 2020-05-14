@@ -116,7 +116,6 @@
     "step": "^1.0.0",
     "strider-bitbucket": "^1.2.0",
     "strider-build-badge": "^0",
-    "strider-cli": "^2.0.0",
     "strider-custom": "^0.6.0",
     "strider-ecosystem-client": "^1.2.1",
     "strider-email-notifier": "^1.0.0",
@@ -140,7 +139,19 @@
     "swig": "^0.14.0",
     "thirty-two": "^1.0.1",
     "validator": "^7.0.0",
-    "winston": "^2.2.0"
+    "winston": "^2.2.0",
+    "chokidar": "^0.9.0",
+    "cli-table": "^0.3.0",
+    "colors": "^1.1.2",
+    "glob": "^4.0.6",
+    "nomnom": "^1.8.0",
+    "prompt": "^0.2.14",
+    "pw": "0.0.4",
+    "rimraf": "^2.2.8",
+    "spawn-cmd": "0.0.2",
+    "step": "0.0.5",
+    "superagent": "^0.20.0",
+    "touch": "0.0.3"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",

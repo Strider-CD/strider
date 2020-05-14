@@ -117,7 +117,7 @@ OK? (y/n) [y]:
 22 Oct 21:21:01 - info: User added successfully! Enjoy.
 ```
 
-See the [strider-cli] for more details.
+See the [cli readme] for more details.
 
 If you want to connect to your ldap server to authorization  
 you can also add the `ldap.json` config file to project root  
@@ -281,7 +281,7 @@ For live help check out Strider's [Gitter].
 [resource-panamax-template]: https://github.com/CenturyLinkLabs/panamax-contest-templates/blob/master/stridercd_mrsmith.pmx
 [extending]: https://github.com/Strider-CD/strider-extension-loader
 [maintainer]: http://frozenridge.co
-[strider-cli]: https://github.com/Strider-CD/strider-cli
+[cli readme]: https://github.com/Strider-CD/strider/cli/README.md
 [github-config]: https://github.com/Strider-CD/strider-github#required-configuration
 [bitbucket-config]: https://github.com/Strider-CD/strider-bitbucket#configuration
 [gitlab-config]: https://github.com/Strider-CD/strider-gitlab#setup

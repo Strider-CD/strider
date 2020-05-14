@@ -1,9 +1,10 @@
-const mongoose = require('../utils/mongoose-shim');
-const Schema = mongoose.Schema;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
 const TriggerNotSchema = {
     type: { type: String },
     author: {
-        id: { type: Schema.ObjectId, ref: 'user' },
+        id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'user' },
         url: String,
         name: String,
         email: String,
@@ -32,9 +33,9 @@ const PhaseNotSchema = {
         },
     ],
 };
-const JobSchema = new Schema({
+const JobSchema = new mongoose_1.Schema({
     type: { type: String },
-    user_id: { type: Schema.ObjectId, ref: 'user' },
+    user_id: { type: mongoose_1.Schema.Types.ObjectId, ref: 'user' },
     project: { type: String, index: true },
     ref: {
     // not every job is on a branch, and want arbitrary stuff here.
@@ -84,5 +85,5 @@ const JobSchema = new Schema({
     },
 });
 JobSchema.index({ archived: 1, project: 1, finished: -1 });
-module.exports = mongoose.model('Job', JobSchema);
+module.exports = mongoose_1.model('Job', JobSchema);
 //# sourceMappingURL=job.js.map
