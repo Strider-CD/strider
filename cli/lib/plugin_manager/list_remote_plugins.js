@@ -1,6 +1,6 @@
 module.exports = function (pluginsPath) {
   const _ = require('lodash');
-  const Table = require('cli-table');
+  const Table = require('cli-table3');
   const table = new Table({
     chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' },
     head: ['name', 'description', 'stable', 'installed'],

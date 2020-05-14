@@ -1,5 +1,5 @@
 module.exports = function (pluginsPath) {
-  const Table = require('cli-table');
+  const Table = require('cli-table3');
   const localPlugins = require('./local_plugins')(pluginsPath);
   const table = new Table({
     chars: { mid: '', 'left-mid': '', 'mid-mid': '', 'right-mid': '' },
