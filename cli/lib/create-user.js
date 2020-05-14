@@ -7,7 +7,7 @@ module.exports = function (deps) {
     User.findByEmail(email, function (err, users) {
       if (err) {
         console.error(
-          'Failed to lookup users, please let us know at https://github.com/Strider-CD/strider-cli/issues: ',
+          'Failed to lookup users, please let us know at https://github.com/Strider-CD/strider/issues: ',
           err
         );
         process.exit(1);

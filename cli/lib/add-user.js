@@ -1,13 +1,11 @@
 'use strict';
 
 const Step = require('step');
-const fs = require('fs');
 const readline = require('readline');
 const pw = require('pw');
 
 module.exports = function (deps) {
   const saveUser = require('./save-user')(deps);
-  const User = deps.models().User;
 
   function addUser(email, password, admin, force) {
     let level = admin ? 1 : 0;
