@@ -1,5 +1,5 @@
 const debug = require('debug')('strider:kill-zombies');
-const Job = require('../models/job');
+const Job = require('../models/job').default;
 module.exports = function killZombies(done) {
     debug('Marking zombie jobs as finished...');
     Job.updateMany({

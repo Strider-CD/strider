@@ -85,5 +85,5 @@ const JobSchema = new mongoose_1.Schema({
     },
 });
 JobSchema.index({ archived: 1, project: 1, finished: -1 });
-module.exports = mongoose_1.model('Job', JobSchema);
+exports.default = mongoose_1.model('Job', JobSchema);
 //# sourceMappingURL=job.js.map

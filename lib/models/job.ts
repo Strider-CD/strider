@@ -167,4 +167,4 @@ const JobSchema = new Schema({
 
 JobSchema.index({ archived: 1, project: 1, finished: -1 });
 
-module.exports = model<Job>('Job', JobSchema);
+export default model<Job>('Job', JobSchema);

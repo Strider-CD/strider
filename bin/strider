@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 'use strict';
 
-var cli = require('../cli')({
+var cli = require('../dist-lib/cli')({
   version: require('../package.json').version,
   /*
    * Main application entrypoint

@@ -184,11 +184,11 @@ exports.init = function (config) {
     /* Requires admin access to the repository in the path */
     if ('development' === app.get('env')) {
         console.log('dev config');
-        app.get('/:org/:repo/config(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.reloadConfig, routes.config);
+        app.get(['/:org/:repo/config', '/:org/:repo/config/'], auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.reloadConfig, routes.config);
     }
     else {
         console.log('prod config');
-        app.get('/:org/:repo/config(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.config);
+        app.get(['/:org/:repo/config', '/:org/:repo/config/'], auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.config);
     }
     app.put('/:org/:repo/config', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.setConfig);
     app.all('/:org/:repo/config/branch/runner(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin);

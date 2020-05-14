@@ -66,7 +66,7 @@ module.exports = function (extdir, c, callback) {
         passport: passport,
         registerPanel: registerPanel(common),
         registerBlock: pluginTemplates.registerBlock,
-        app: appInstance
+        app: appInstance,
     };
     // Make extension context available throughout application.
     common.context = context;
@@ -94,7 +94,7 @@ module.exports = function (extdir, c, callback) {
                     tasks.push(function (next) {
                         Job.find({
                             'runner.id': name,
-                            finished: null
+                            finished: null,
                         }, function (error, jobs) {
                             if (error) {
                                 return next(error);
@@ -114,8 +114,8 @@ module.exports = function (extdir, c, callback) {
                         $set: {
                             finished: now,
                             errored: true,
-                            error: { message: 'Job timeout', stack: '' }
-                        }
+                            error: { message: 'Job timeout', stack: '' },
+                        },
                     }, function () {
                         Job.updateOne({ _id: { $in: ids }, started: null }, { $set: { started: now } }, function (err) {
                             cb(err, appInstance);
