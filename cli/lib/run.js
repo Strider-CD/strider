@@ -1,16 +1,16 @@
 'use strict';
 
-var request = require('superagent');
-var debug = require('debug')('strider:cli');
+const request = require('superagent');
+const debug = require('debug')('strider:cli');
 
 function run(opts) {
-  var agent = request.agent();
-  var serverName = opts.server_name;
-  var project = opts.project;
-  var branch = opts.branch;
-  var message = opts.message;
-  var deploy = opts.deploy;
-  var url = serverName + '/api/session';
+  const agent = request.agent();
+  const serverName = opts.server_name;
+  const project = opts.project;
+  const branch = opts.branch;
+  const message = opts.message;
+  const deploy = opts.deploy;
+  let url = serverName + '/api/session';
 
   debug('opts: %j', opts);
 
@@ -25,8 +25,8 @@ function run(opts) {
         agent.saveCookies(res);
         url = serverName + '/' + project + '/start';
 
-        var req = request.post(url);
-        var postData = { branch: branch || 'master' };
+        const req = request.post(url);
+        const postData = { branch: branch || 'master' };
 
         agent.attachCookies(req);
 

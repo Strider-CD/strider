@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = function (deps) {
-  var resilient = require('./resilient')(deps);
+  const resilient = require('./resilient')(deps);
 
   return function (extpath, opts) {
-    var path = require('path');
-    var extdir = deps.getPluginPath()(extpath);
+    const path = require('path');
+    const extdir = deps.getPluginPath()(extpath);
     // Save extension dir
     deps.common().extdir = extdir;
 

@@ -1,16 +1,16 @@
 'use strict';
 
-var Step = require('step');
-var fs = require('fs');
-var readline = require('readline');
-var pw = require('pw');
+const Step = require('step');
+const fs = require('fs');
+const readline = require('readline');
+const pw = require('pw');
 
 module.exports = function (deps) {
-  var saveUser = require('./save-user')(deps);
-  var User = deps.models().User;
+  const saveUser = require('./save-user')(deps);
+  const User = deps.models().User;
 
   function addUser(email, password, admin, force) {
-    var level = admin ? 1 : 0;
+    let level = admin ? 1 : 0;
 
     if (!email || !password) {
       var rl = readline.createInterface({
@@ -20,7 +20,7 @@ module.exports = function (deps) {
 
       Step(
         function getEmail() {
-          var next = this;
+          const next = this;
 
           if (email) {
             next();
@@ -33,7 +33,7 @@ module.exports = function (deps) {
         },
 
         function getPwd() {
-          var next = this;
+          const next = this;
 
           if (password) {
             next();
@@ -55,7 +55,7 @@ module.exports = function (deps) {
         },
 
         function getAdmin() {
-          var next = this;
+          const next = this;
 
           if (level) {
             next();
@@ -68,7 +68,7 @@ module.exports = function (deps) {
         },
 
         function confirm() {
-          var next = this;
+          const next = this;
 
           process.stdout.write('\nEmail:\t\t' + email + '\n');
           process.stdout.write(

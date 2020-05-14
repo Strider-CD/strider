@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (deps, parser) {
-  var addUser = require('../lib/add-user')(deps);
+  const addUser = require('../lib/add-user')(deps);
 
   parser
     .command('addUser')

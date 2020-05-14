@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (deps, parser) {
-  var runTest = require('../lib/run-test')(deps);
+  const runTest = require('../lib/run-test')(deps);
 
   parser
     .command('runTest')

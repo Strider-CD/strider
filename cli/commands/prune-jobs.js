@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (deps, parser) {
-  var pruneJobs = require('../lib/prune-jobs')(deps);
+  const pruneJobs = require('../lib/prune-jobs')(deps);
 
   parser
     .command('pruneJobs')

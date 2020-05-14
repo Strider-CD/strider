@@ -1,8 +1,8 @@
-var spawn = require('spawn-cmd').spawn;
+const spawn = require('spawn-cmd').spawn;
 
 module.exports = {
   clone: function (repo, tag, path, cb) {
-    var proc = spawn('git', [
+    const proc = spawn('git', [
       'clone',
       '--branch',
       tag,
@@ -12,7 +12,7 @@ module.exports = {
       path,
     ]);
 
-    var errors = [];
+    const errors = [];
 
     proc.stderr.on('data', function (chk) {
       errors.push(chk.toString());

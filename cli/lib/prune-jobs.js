@@ -1,12 +1,12 @@
 'use strict';
 
-var Bluebird = require('bluebird');
-var colors = require('colors');
+const Bluebird = require('bluebird');
+const colors = require('colors');
 
 module.exports = function (deps) {
-  var models = deps.models();
-  var Project = models.Project;
-  var Job = models.Job;
+  const models = deps.models();
+  const Project = models.Project;
+  const Job = models.Job;
 
   return function pruneJobs(keepNumJobs, projectName, dryRun) {
     if (dryRun) {
@@ -37,7 +37,7 @@ module.exports = function (deps) {
  * @returns {Promise} resolves to an array of projects
  */
 function findProjects(name, Project) {
-  var query;
+  let query;
 
   if (name) {
     query = Project.findOne({ name: name }).exec();
@@ -65,7 +65,7 @@ function removeJobsAfterLatest(keepJobs, projectName, dryRun, Job) {
     .sort('-created')
     .exec()
     .then(function (jobs) {
-      var toRemove = jobs.slice(keepJobs);
+      const toRemove = jobs.slice(keepJobs);
 
       logStats(projectName, jobs, toRemove, dryRun);
 
@@ -94,7 +94,7 @@ function logStats(projectName, allJobs, toRemove) {
     return console.log(colors.green('No jobs to remove'));
   }
 
-  var log = [
+  const log = [
     colors.green(colors.bold('Removing jobs for "' + projectName + '":')),
     '    Keeping Latest ' + (allJobs.length - toRemove.length) + ' jobs.',
     '    Total Jobs: ' + allJobs.length,

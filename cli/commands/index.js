@@ -1,6 +1,6 @@
 'use strict';
 
-var order = [
+const order = [
   require('./add-user'),
   require('./restart'),
   require('./list'),

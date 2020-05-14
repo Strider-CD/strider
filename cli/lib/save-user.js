@@ -1,16 +1,16 @@
 'use strict';
 
 module.exports = function (deps) {
-  var createUser = require('./create-user')(deps);
-  var Upgrade = deps.upgrade();
-  var Config = deps.models().Config;
+  const createUser = require('./create-user')(deps);
+  const Upgrade = deps.upgrade();
+  const Config = deps.models().Config;
 
   function saveUser(email, password, admin, rl, force) {
     Upgrade.isFreshDb(function (err, isFresh) {
       if (isFresh) {
         Upgrade.needConfigObj(function (err, needsConfig) {
           if (needsConfig) {
-            var c = new Config();
+            const c = new Config();
 
             c.version = Config.SCHEMA_VERSION;
 

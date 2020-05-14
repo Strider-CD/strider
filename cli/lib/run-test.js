@@ -1,25 +1,25 @@
 'use strict';
 
-var Step = require('step');
-var readline = require('readline');
-var run = require('./run');
-var debug = require('debug')('strider:cli');
+const Step = require('step');
+const readline = require('readline');
+const run = require('./run');
+const debug = require('debug')('strider:cli');
 
 module.exports = function (deps) {
-  var runOpts = {
+  const runOpts = {
     server_name: deps.config().server_name,
   };
 
   function runTest(email, password, project, branch, message, deploy) {
     if (!email || !password || !project) {
-      var rl = readline.createInterface({
+      const rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout,
       });
 
       Step(
         function getEmail() {
-          var next = this;
+          const next = this;
 
           if (email) {
             next();
@@ -32,7 +32,7 @@ module.exports = function (deps) {
         },
 
         function getPwd() {
-          var next = this;
+          const next = this;
 
           if (password) {
             next();
@@ -45,7 +45,7 @@ module.exports = function (deps) {
         },
 
         function getProject() {
-          var next = this;
+          const next = this;
 
           if (project) {
             next();
@@ -58,7 +58,7 @@ module.exports = function (deps) {
         },
 
         function getMessage() {
-          var next = this;
+          const next = this;
           if (message) {
             next();
           } else {
@@ -70,7 +70,7 @@ module.exports = function (deps) {
         },
 
         function getBranch() {
-          var next = this;
+          const next = this;
           if (branch) {
             next();
           } else {
@@ -82,7 +82,7 @@ module.exports = function (deps) {
         },
 
         function getDeploy() {
-          var next = this;
+          const next = this;
           if (deploy) {
             next();
           } else {

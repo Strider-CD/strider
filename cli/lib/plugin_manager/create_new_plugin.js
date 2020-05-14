@@ -1,14 +1,14 @@
-var prompt = require('prompt');
-var path = require('path');
-var git = require('./git');
-var fs = require('fs');
+const prompt = require('prompt');
+const path = require('path');
+const git = require('./git');
+const fs = require('fs');
 
 module.exports = function (pluginsPath) {
-  var localPlugins = require('./local_plugins')(pluginsPath);
+  const localPlugins = require('./local_plugins')(pluginsPath);
   var pluginsPath = localPlugins.path();
   prompt.message = 'plugin';
   prompt.start();
-  var schema = {
+  const schema = {
     properties: {
       name: {
         pattern: /^[a-z\_\-]+$/,
@@ -26,7 +26,7 @@ module.exports = function (pluginsPath) {
       console.error(err.message);
       return;
     }
-    var pluginPath = path.join(pluginsPath, res.name);
+    const pluginPath = path.join(pluginsPath, res.name);
     if (fs.existsSync(pluginPath)) {
       console.error(res.name + ' already exists: ' + pluginPath);
     } else {
@@ -36,10 +36,10 @@ module.exports = function (pluginsPath) {
         pluginPath,
         function (err) {
           if (err) throw err;
-          var pkgPath = path.join(pluginPath, 'package.json');
+          const pkgPath = path.join(pluginPath, 'package.json');
           fs.readFile(pkgPath, function (err, jsonFile) {
             if (err) throw err;
-            var pkg = JSON.parse(jsonFile);
+            const pkg = JSON.parse(jsonFile);
             Object.keys(schema.properties).forEach(function (key) {
               pkg[key] = res[key];
             });

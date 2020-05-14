@@ -1,9 +1,9 @@
 'use strict';
 
-var parser = require('nomnom');
+const parser = require('nomnom');
 
 module.exports = function (deps) {
-  var start = require('./lib/start')(deps);
+  const start = require('./lib/start')(deps);
 
   parser
     .option('version', {
@@ -19,7 +19,7 @@ module.exports = function (deps) {
       help: 'Specify path to plugins (defaults to node_modules)',
     });
 
-  var commands = require('./commands');
+  const commands = require('./commands');
 
   commands.setup(deps, parser);
 

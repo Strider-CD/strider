@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (deps) {
-  var User = deps.models().User;
+  const User = deps.models().User;
 
   function createUser(email, password, admin, rl, force) {
     User.findByEmail(email, function (err, users) {
@@ -38,7 +38,7 @@ module.exports = function (deps) {
           }
         });
       } else {
-        var u = new User();
+        const u = new User();
 
         u.email = email;
         u.created = new Date();

@@ -1,11 +1,11 @@
-var _ = require('lodash'),
+const _ = require('lodash'),
   fs = require('fs'),
   path = require('path'),
   rimraf = require('rimraf'),
   install = require('./install_plugin');
 
 module.exports = function (pluginsPath) {
-  var local = require('./local_plugins')(pluginsPath);
+  const local = require('./local_plugins')(pluginsPath);
 
   /*
    * Callback signature:
@@ -13,7 +13,7 @@ module.exports = function (pluginsPath) {
    */
   return function (name, cb) {
     local.listAllZipped(function (err, plugins) {
-      var plugin = plugins[name];
+      const plugin = plugins[name];
       if (plugin) {
         rimraf(plugin.path, function (err) {
           console.log('removed ' + plugin.path);

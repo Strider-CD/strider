@@ -1,13 +1,13 @@
-var _ = require('lodash'),
+const _ = require('lodash'),
   fs = require('fs'),
   path = require('path'),
   rimraf = require('rimraf');
 
 // these are plugins you can't uninstall
-var crucialPlugins = ['git', 'simple-runner'];
+const crucialPlugins = ['git', 'simple-runner'];
 
 module.exports = function (pluginsPath) {
-  var local = require('./local_plugins')(pluginsPath);
+  const local = require('./local_plugins')(pluginsPath);
 
   /*
    * Callback signature:
@@ -18,7 +18,7 @@ module.exports = function (pluginsPath) {
       return cb(new Error('This plugin cannot be uninstalled'));
     }
     local.listAllZipped(function (err, plugins) {
-      var plugin = plugins[name];
+      const plugin = plugins[name];
       if (plugin) {
         rimraf(plugin.path, function (err) {
           cb(err, true);

@@ -1,11 +1,11 @@
 'use strict';
 
-var cluster = require('cluster');
-var chokidar = require('chokidar');
-var touch = require('touch');
+const cluster = require('cluster');
+const chokidar = require('chokidar');
+const touch = require('touch');
 
 module.exports = function (deps) {
-  var flag = deps.restartFile();
+  const flag = deps.restartFile();
 
   return {
     restart: function () {
@@ -15,7 +15,7 @@ module.exports = function (deps) {
     spawn: function (work, noCluster) {
       if (noCluster) return work();
       if (cluster.isMaster) {
-        var watcher = chokidar.watch(flag);
+        const watcher = chokidar.watch(flag);
 
         cluster.on('online', function (worker) {
           console.log(worker.process.pid + ' forked');

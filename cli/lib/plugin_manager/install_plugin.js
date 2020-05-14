@@ -1,4 +1,4 @@
-var _ = require('lodash'),
+const _ = require('lodash'),
   fs = require('fs'),
   path = require('path'),
   git = require('./git'),
@@ -6,8 +6,8 @@ var _ = require('lodash'),
   client = require('strider-ecosystem-client');
 
 module.exports = function (pluginsPath) {
-  var local = require('./local_plugins')(pluginsPath);
-  var home = pluginsPath[0];
+  const local = require('./local_plugins')(pluginsPath);
+  const home = pluginsPath[0];
 
   /*
    * Callback signature:
@@ -19,14 +19,14 @@ module.exports = function (pluginsPath) {
       client
         .fetchPlugins()
         .then(function (remotePlugins) {
-          var local = localPlugins[name];
-          var remote = remotePlugins[name];
+          const local = localPlugins[name];
+          const remote = remotePlugins[name];
           if (!remote) {
             console.error(name + ' is not a valid plugin');
             return cb();
           }
 
-          var pluginPath = path.join(home, remote.module_name);
+          const pluginPath = path.join(home, remote.module_name);
 
           if (local || fs.existsSync(pluginPath)) {
             afterCloned(pluginPath, cb);

@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function (deps, parser) {
-  var pluginManager = require('../lib/plugin_manager')(deps.getPluginPath()());
+  const pluginManager = require('../lib/plugin_manager')(deps.getPluginPath()());
 
   parser
     .command('list')

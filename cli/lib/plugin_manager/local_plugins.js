@@ -1,9 +1,9 @@
 module.exports = function (pluginsPath) {
-  var Loader = require('strider-extension-loader');
-  var loader = new Loader();
+  const Loader = require('strider-extension-loader');
+  const loader = new Loader();
 
-  var path = require('path');
-  var _ = require('lodash');
+  const path = require('path');
+  const _ = require('lodash');
 
   return {
     path: fullPath,
@@ -12,7 +12,7 @@ module.exports = function (pluginsPath) {
   };
 
   function zip(plugins) {
-    var ids = _.pluck(plugins, 'name');
+    const ids = _.pluck(plugins, 'name');
     return _.zipObject(ids, plugins);
   }
 
@@ -26,12 +26,12 @@ module.exports = function (pluginsPath) {
 
   function listAll(cb) {
     loader.collectExtensions(pluginsPath, function (err) {
-      var plugins = [];
-      var extensions = loader.extensions;
-      for (var groupName in extensions) {
-        var group = extensions[groupName];
-        for (var pluginName in group) {
-          var plugin = group[pluginName];
+      const plugins = [];
+      const extensions = loader.extensions;
+      for (const groupName in extensions) {
+        const group = extensions[groupName];
+        for (const pluginName in group) {
+          const plugin = group[pluginName];
           plugins.push({
             group: groupName,
             name: pluginName,
