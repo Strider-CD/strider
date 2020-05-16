@@ -191,7 +191,7 @@ exports.init = function (config) {
         app.get(['/:org/:repo/config', '/:org/:repo/config/'], auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.config);
     }
     app.put('/:org/:repo/config', auth.requireUser, middleware.project, auth.requireProjectAdmin, routes.setConfig);
-    app.all('/:org/:repo/config/branch/runner(/*)', auth.requireUser, middleware.project, auth.requireProjectAdmin);
+    app.all('/:org/:repo/config/branch/runner', auth.requireUser, middleware.project, auth.requireProjectAdmin);
     app.get('/:org/:repo/config/branch/runner', routes.getRunnerConfig);
     app.put('/:org/:repo/config/branch/runner', routes.setRunnerConfig);
     app.put('/:org/:repo/config/branch/runner/id', routes.setRunnerId);
@@ -203,7 +203,6 @@ exports.init = function (config) {
     app.use('/api', api);
     app.get('/api/jobs', auth.requireUserOr401, apiJobs.jobs);
     // app.get('/api/jobs/:org/:repo', middleware.project, apiJobs.repoJobs);
-    app.get('/*', routes.emberIndex);
     app.use(function (req, res, next) {
         let userCreatedTimestamp = 0;
         if (req.user !== undefined) {
@@ -226,6 +225,7 @@ exports.init = function (config) {
 };
 exports.run = function (app) {
     const config = require('./config');
+    app.get('/*', routes.emberIndex);
     if (isDevelopment) {
         app.use(errorHandler({ dumpExceptions: true, showStack: true }));
     }

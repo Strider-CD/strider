@@ -28,8 +28,8 @@ const envDefaults = {
         enabled: process.env.JOBS_QUANTITY_ON_PAGE_ENABLED || true,
         default: process.env.JOBS_QUANTITY_ON_PAGE_DEFAULT || 20,
         min: process.env.JOBS_QUANTITY_ON_PAGE_MIN || 1,
-        max: process.env.JOBS_QUANTITY_ON_PAGE_MAX || 100
-    }
+        max: process.env.JOBS_QUANTITY_ON_PAGE_MAX || 100,
+    },
 };
 envDefaults.server_name = `${envDefaults.server_name}:${envDefaults.port}`;
 const defaults = _.extend({
@@ -41,11 +41,11 @@ const defaults = _.extend({
             // Log everything
             level: 0,
             colorize: true,
-            timestamp: true
+            timestamp: true,
         },
-        console_enabled: true
+        console_enabled: true,
     },
-    viewpath: path.join(__dirname, 'views')
+    viewpath: path.join(__dirname, 'views'),
 }, envDefaults);
 module.exports = {
     defaults: defaults,
@@ -54,7 +54,7 @@ module.exports = {
     filterEnv: filterEnv,
     addPlugins: addPlugins,
     camel: camel,
-    getConfig: getConfig
+    getConfig: getConfig,
 };
 // main function. Get the config, using rc
 function getConfig() {
@@ -164,12 +164,12 @@ function smtp(rc) {
         host: rc.smtp_host,
         port: rc.smtp_port,
         from: rc.smtp_from,
-        secure: rc.smtp_secure
+        secure: rc.smtp_secure,
     };
     if (rc.smtp_user) {
         options.auth = {
             user: rc.smtp_user,
-            pass: rc.smtp_pass
+            pass: rc.smtp_pass,
         };
     }
     return options;
