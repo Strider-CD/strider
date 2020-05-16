@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.4](https://github.com/Strider-CD/strider/compare/v2.4.3...v2.4.4) (2020-05-16)
+
+
+### Bug Fixes
+
+* **api:** run ember route after extension routes ([8d9f0ff](https://github.com/Strider-CD/strider/commit/8d9f0ffed4ffb735e4ddcf2fcb2b4c2d67369e1d))
+* move cli under lib, since we use parts of it, fix config path ([10fad67](https://github.com/Strider-CD/strider/commit/10fad6710195ee3e2538d1552b55571f63c604c3))
+* update references to cli ([2c628e1](https://github.com/Strider-CD/strider/commit/2c628e139c1596b0885b38633c2d815f6cd2ef1a))
+* **cli:** cross-spawn updated and move/remove some requires ([406b18f](https://github.com/Strider-CD/strider/commit/406b18fa9e53b7e5c069f99686da8f5e59821e0c))
+* **cli:** deps and invalid lodash method ([7eb81b7](https://github.com/Strider-CD/strider/commit/7eb81b7e3328cd827ae70b9fd4f4112b3ae3d301))
+* **cli:** put list console log behind debug ([9cba050](https://github.com/Strider-CD/strider/commit/9cba050130486fddb040893aa2e42d6080a73910))
+* **cli:** use cli-table3 ([dfd1c9c](https://github.com/Strider-CD/strider/commit/dfd1c9c42fc61bbc6b5cfcbea6505ff472a13b6b))
+* remove duplicate dep and update lockfile ([eca2d41](https://github.com/Strider-CD/strider/commit/eca2d4166988fa878e2a195b7478d9acae316b68))
+* **deps:** update webhooks dep ([82c2c9e](https://github.com/Strider-CD/strider/commit/82c2c9e54dcd62dbd16d4347fbe5ed6de8f95d0f))
+
 ### [2.4.3](https://github.com/Strider-CD/strider/compare/v2.4.2...v2.4.3) (2020-05-10)
 
 
