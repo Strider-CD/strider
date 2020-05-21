@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.5](https://github.com/Strider-CD/strider/compare/v2.4.4...v2.4.5) (2020-05-21)
+
+
+### Bug Fixes
+
+* **heroku:** update dependency to make heroku work again ([bc91105](https://github.com/Strider-CD/strider/commit/bc91105cef2f398ff5657acc857e23f5d4e12f56))
+
 ### [2.4.4](https://github.com/Strider-CD/strider/compare/v2.4.3...v2.4.4) (2020-05-16)
 
 
