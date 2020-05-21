@@ -3045,7 +3045,7 @@ cross-spawn@^6.0.0, cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.2:
+cross-spawn@^7.0.0, cross-spawn@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.2.tgz#d0d7dcfa74e89115c7619f4f721a94e1fdb716d6"
   integrity sha512-PD6G8QG3S4FK/XCGFbEQrDqO2AnMMsy0meR7lerlIOHAAbkuavGU/pOqprrlvfTNjvowivTeBsjebAL0NSoMxw==
@@ -4054,6 +4054,21 @@ execa@^1.0.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+execa@^4.0.1:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/execa/-/execa-4.0.1.tgz#988488781f1f0238cd156f7aaede11c3e853b4c1"
+  integrity sha512-SCjM/zlBdOK8Q5TIjOn6iEHZaPHFsMoTxXQ2nvUvtPnuohz3H2dIozSg+etNR98dGoYUp2ENSKLL/XaMmbxVgw==
+  dependencies:
+    cross-spawn "^7.0.0"
+    get-stream "^5.0.0"
+    human-signals "^1.1.1"
+    is-stream "^2.0.0"
+    merge-stream "^2.0.0"
+    npm-run-path "^4.0.0"
+    onetime "^5.1.0"
+    signal-exit "^3.0.2"
+    strip-final-newline "^2.0.0"
+
 expand-brackets@^2.1.4:
   version "2.1.4"
   resolved "https://registry.yarnpkg.com/expand-brackets/-/expand-brackets-2.1.4.tgz#b77735e315ce30f6b6eff0f83b04151a22449622"
@@ -4772,6 +4787,13 @@ get-stream@^4.0.0:
   dependencies:
     pump "^3.0.0"
 
+get-stream@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/get-stream/-/get-stream-5.1.0.tgz#01203cdc92597f9b909067c3e656cc1f4d3c4dc9"
+  integrity sha512-EXr1FOzrzTfGeL0gQdeFEvOMm2mzMOglyiOXSTpPC+iAjAKftbr3jpCMWynogwYnM+eSj9sHGc6wjIcDvYiygw==
+  dependencies:
+    pump "^3.0.0"
+
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
@@ -5438,6 +5460,11 @@ https-proxy-agent@^2.2.1:
     agent-base "^4.3.0"
     debug "^3.1.0"
 
+human-signals@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/human-signals/-/human-signals-1.1.1.tgz#c5b1cd14f50aeae09ab6c59fe63ba3395fe4dfa3"
+  integrity sha512-SEQu7vl8KjNL2eoGBLF3+wAjpsNfA9XMlXAYj/3EdaNfAlxKthD1xjEQfGOUhllCGGJVNY34bRr6lPINhNjyZw==
+
 i@0.3.x:
   version "0.3.6"
   resolved "https://registry.yarnpkg.com/i/-/i-0.3.6.tgz#d96c92732076f072711b6b10fd7d4f65ad8ee23d"
@@ -5939,6 +5966,11 @@ is-retry-allowed@^1.0.0:
 is-stream@^1.0.0, is-stream@^1.0.1, is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
+
+is-stream@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-2.0.0.tgz#bde9c32680d6fae04129d6ac9d921ce7815f78e3"
+  integrity sha512-XCoy+WlUr7d1+Z8GgSuXmpuUFC9fOhRXglJMx+dwLKTkL44Cjd4W1Z5P+BQZpr+cR93aGP4S/s7Ftw6Nd/kiEw==
 
 is-symbol@^1.0.2:
   version "1.0.2"
@@ -6959,6 +6991,11 @@ merge-descriptors@1.0.1, merge-descriptors@^1.0.1, merge-descriptors@~1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-descriptors/-/merge-descriptors-1.0.1.tgz#b00aaa556dd8b44568150ec9d1b953f3f90cbb61"
 
+merge-stream@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
+  integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
+
 metalsmith-start@rstacruz/metalsmith-start#e88a7cd:
   version "2.0.1"
   resolved "https://codeload.github.com/rstacruz/metalsmith-start/tar.gz/e88a7cdbb20aac1db176c121b429008073d8e9eb"
@@ -7766,6 +7803,13 @@ npm-run-path@^2.0.0:
   dependencies:
     path-key "^2.0.0"
 
+npm-run-path@^4.0.0:
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/npm-run-path/-/npm-run-path-4.0.1.tgz#b7ecd1e5ed53da8e37a55e1c2269e0b97ed748ea"
+  integrity sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==
+  dependencies:
+    path-key "^3.0.0"
+
 npmd-pack@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/npmd-pack/-/npmd-pack-1.0.0.tgz#c82c6de02be82c5435563bcd380a9de3809d18ca"
@@ -8222,12 +8266,12 @@ passport-github@^1.1.0:
   dependencies:
     passport-oauth2 "1.x.x"
 
-passport-heroku@0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/passport-heroku/-/passport-heroku-0.0.2.tgz#9289dd9aad1176c6af62cbf2f438e5b44f327d11"
+passport-heroku@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/passport-heroku/-/passport-heroku-1.0.0.tgz#ff135b231fe64e37c28ca8535203ca5d7b6b3375"
+  integrity sha1-/xNbIx/mTjfCjKhTUgPKXXtrM3U=
   dependencies:
-    passport-oauth "0.1.x"
-    pkginfo "0.2.x"
+    passport-oauth2 "1.x.x"
 
 passport-local@^1.0.0:
   version "1.0.0"
@@ -8252,14 +8296,6 @@ passport-oauth2@1.x.x:
     uid2 "0.0.x"
     utils-merge "1.x.x"
 
-passport-oauth@0.1.x:
-  version "0.1.15"
-  resolved "https://registry.yarnpkg.com/passport-oauth/-/passport-oauth-0.1.15.tgz#fb74e0afe84614bfa256c5fc716cc56bbfc8cec0"
-  dependencies:
-    oauth "0.9.x"
-    passport "~0.1.1"
-    pkginfo "0.2.x"
-
 passport-strategy@1.x.x:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/passport-strategy/-/passport-strategy-1.0.0.tgz#b5539aa8fc225a3d1ad179476ddf236b440f52e4"
@@ -8271,13 +8307,6 @@ passport@^0.4.0:
   dependencies:
     passport-strategy "1.x.x"
     pause "0.0.1"
-
-passport@~0.1.1:
-  version "0.1.18"
-  resolved "https://registry.yarnpkg.com/passport/-/passport-0.1.18.tgz#c8264479dcb6414cadbb66752d12b37e0b6525a1"
-  dependencies:
-    pause "0.0.1"
-    pkginfo "0.2.x"
 
 patch-text@~1.0.2:
   version "1.0.2"
@@ -8327,7 +8356,7 @@ path-key@^2.0.0, path-key@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-2.0.1.tgz#411cadb574c5a140d3a4b1910d40d80cc9f40b40"
 
-path-key@^3.1.0:
+path-key@^3.0.0, path-key@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-3.1.1.tgz#581f6ade658cbba65a0d3380de7753295054f375"
   integrity sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
@@ -8438,10 +8467,6 @@ pjax@0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/pjax/-/pjax-0.2.4.tgz#0ae5885cfe663eb6a786156ed9c3de5bcb627513"
   integrity sha1-CuWIXP5mPranhhVu2cPeW8tidRM=
-
-pkginfo@0.2.x:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/pkginfo/-/pkginfo-0.2.3.tgz#7239c42a5ef6c30b8f328439d9b9ff71042490f8"
 
 pkginfo@0.3.x:
   version "0.3.1"
@@ -9455,7 +9480,7 @@ rimraf@2.6.3, rimraf@^2.2.8, rimraf@^2.6.1:
   dependencies:
     glob "^7.1.3"
 
-rimraf@^3.0.2:
+rimraf@^3.0.0, rimraf@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-3.0.2.tgz#f1a5402ba6220ad52cc1282bac1ae3aa49fd061a"
   integrity sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==
@@ -10083,13 +10108,6 @@ ssh-keypair@^2.0.0:
     crypto "0.0.3"
     step "0.0.5"
 
-ssh-keypair@~1.0.0:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/ssh-keypair/-/ssh-keypair-1.0.1.tgz#132d2315446924235b5f0e7c32db4af0c048ea5c"
-  dependencies:
-    crypto "0.0.3"
-    step "0.0.5"
-
 ssh2-streams@~0.0.22:
   version "0.0.23"
   resolved "https://registry.yarnpkg.com/ssh2-streams/-/ssh2-streams-0.0.23.tgz#aeef30831bb5fc4af6aa3f6d0a261a413531612b"
@@ -10303,7 +10321,7 @@ strider-git@^0.2.4:
     shell-escape "0.0.1"
     strider-docker-gitane-camo "~0.0.1"
 
-strider-git@^1.0.0:
+strider-git@^1.0.0, strider-git@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/strider-git/-/strider-git-1.0.3.tgz#c9bf8390076c45f91b9074a9dfb488acafca1922"
   dependencies:
@@ -10312,14 +10330,6 @@ strider-git@^1.0.0:
     gitane "~0.3.1"
     shell-escape "0.0.1"
     strider-docker-gitane-camo "~0.0.1"
-
-strider-git@~0.1.0:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/strider-git/-/strider-git-0.1.1.tgz#d8e7045bb6662aaf07afc2c46a81905bf99c17c9"
-  dependencies:
-    gitane "~0.3.1"
-    mkdirp "~0.3.5"
-    shell-escape "0.0.1"
 
 strider-github-status@^2.0.0:
   version "2.0.0"
@@ -10358,15 +10368,18 @@ strider-gitlab@^2.0.0:
     strider-git "^1.0.0"
     superagent "~3.6.0"
 
-strider-heroku@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/strider-heroku/-/strider-heroku-0.1.1.tgz#14444a8f64a58322e19c720858055de4952b3e48"
+strider-heroku@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/strider-heroku/-/strider-heroku-0.2.0.tgz#33defdbf5e419afc19e5a4638da5485b6245bc03"
+  integrity sha512-9y9C1tojiHKPQpq/WsMLfWo8c4r1TjNFvErzltTuxTgY32ncc2HPb1+xL7Wu/YrDAqOPM2tzOy7mrxWdjSkaIw==
   dependencies:
-    passport-heroku "0.0.2"
-    ssh-keypair "~1.0.0"
-    step "0.0.5"
-    strider-git "~0.1.0"
-    superagent "~0.15.5"
+    execa "^4.0.1"
+    passport-heroku "1.0.0"
+    ssh-keypair "^2.0.0"
+    step "^1.0.0"
+    strider-git "^1.0.3"
+    superagent "^5.2.2"
+    tmp-promise "^3.0.2"
 
 strider-hg@^0.2.3:
   version "0.2.3"
@@ -10589,6 +10602,11 @@ strip-eof@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/strip-eof/-/strip-eof-1.0.0.tgz#bb43ff5598a6eb05d89b59fcd129c983313606bf"
 
+strip-final-newline@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
+  integrity sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA==
+
 strip-indent@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/strip-indent/-/strip-indent-1.0.1.tgz#0c7962a6adefa7bbd4ac366460a638552ae1a0a2"
@@ -10663,7 +10681,7 @@ superagent@^5.2.2:
     readable-stream "^3.4.0"
     semver "^6.3.0"
 
-superagent@~0.15.4, superagent@~0.15.5:
+superagent@~0.15.4:
   version "0.15.7"
   resolved "https://registry.yarnpkg.com/superagent/-/superagent-0.15.7.tgz#095c70b8afffbc072f1458f39684d4854d6333a3"
   dependencies:
@@ -10981,6 +10999,13 @@ tiny-lr@^1.1.1:
     object-assign "^4.1.0"
     qs "^6.4.0"
 
+tmp-promise@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/tmp-promise/-/tmp-promise-3.0.2.tgz#6e933782abff8b00c3119d63589ca1fb9caaa62a"
+  integrity sha512-OyCLAKU1HzBjL6Ev3gxUeraJNlbNingmi8IrHHEsYH8LTmEuhvYfqvhn2F/je+mjf4N58UmZ96OMEy1JanSCpA==
+  dependencies:
+    tmp "^0.2.0"
+
 tmp@0.0.28:
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.0.28.tgz#172735b7f614ea7af39664fa84cf0de4e515d120"
@@ -10993,6 +11018,13 @@ tmp@^0.0.33:
   integrity sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==
   dependencies:
     os-tmpdir "~1.0.2"
+
+tmp@^0.2.0:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/tmp/-/tmp-0.2.1.tgz#8457fc3037dcf4719c251367a1af6500ee1ccf14"
+  integrity sha512-76SUhtfqR2Ijn+xllcI5P1oyannHNHByD80W1q447gU3mp9G9PSpGdWmjUOHRDPiHYacIk66W7ubDTuPF3BEtQ==
+  dependencies:
+    rimraf "^3.0.0"
 
 to-array@0.1.4:
   version "0.1.4"

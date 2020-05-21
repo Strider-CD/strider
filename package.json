@@ -135,7 +135,7 @@
     "strider-github": "^3.0.0",
     "strider-github-status": "^2.0.0",
     "strider-gitlab": "^2.0.0",
-    "strider-heroku": "^0.1.1",
+    "strider-heroku": "^0.2.0",
     "strider-mailer": "^0.2.0",
     "strider-metadata": "^0.0.3",
     "strider-node": "^2.0.0",
