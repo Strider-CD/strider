@@ -6,11 +6,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const co_router_1 = __importDefault(require("co-router"));
 const utils_1 = require("../../utils");
 const common_1 = __importDefault(require("../../common"));
+const auth_1 = require("../../auth");
 const router = new co_router_1.default();
 /*
  * GET /account
  */
-router.get('/', function (req, res) {
+router.get('/', auth_1.requireUser, function (req, res) {
     const user = utils_1.sanitizeUser(req.user.toJSON());
     user.gravatar = utils_1.gravatar(user.email);
     delete user.hash;

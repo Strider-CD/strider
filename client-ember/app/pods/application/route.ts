@@ -15,6 +15,7 @@ export default class ApplicationRoute extends Route {
       this.currentUser.setProperties(account);
       return account;
     } catch (e) {
+      this.transitionTo('login');
       // noop
     }
   }

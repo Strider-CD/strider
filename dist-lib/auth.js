@@ -53,9 +53,16 @@ function registerRoutes(app) {
             });
         });
     });
-    app.get('/login', function (req, res) {
+    app.get('/login', function (req, res, next) {
         if (req.user) {
             return res.redirect('/');
+        }
+        // Pass to Ember if not an error from old login
+        if (!req.query.failed && !req.query.ember) {
+            return res.redirect('/login?ember=true');
+        }
+        else if (!req.query.failed && req.query.ember) {
+            return next();
         }
         const failed = Boolean(req.query.failed);
         const errors = [];
@@ -138,7 +145,7 @@ const _authenticate = passport.authenticate('local', {
 });
 function logout(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/login?ember=true');
 }
 function forgot(req, res) {
     const email = req.body.email.toLowerCase();
@@ -237,7 +244,7 @@ function requireUser(req, res, next) {
     }
     else {
         req.session.return_to = req.url;
-        res.redirect('/login');
+        res.redirect('/login?ember=true');
     }
 }
 function requireUserOr401(req, res, next) {

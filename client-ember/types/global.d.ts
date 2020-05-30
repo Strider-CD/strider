@@ -4,3 +4,5 @@ declare module 'strider/templates/*' {
   const tmpl: TemplateFactory;
   export default tmpl;
 }
+
+declare module 'ember-concurrency';
