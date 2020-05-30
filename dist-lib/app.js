@@ -113,10 +113,6 @@ exports.init = function (config) {
     app.use(express.static(path.join(__dirname, '..', 'public'), {
         maxAge: MONTH_IN_MILLISECONDS,
     }));
-    app.use(express.static(path.join(__dirname, '..', 'client-ember', 'dist'), {
-        maxAge: MONTH_IN_MILLISECONDS,
-        index: false,
-    }));
     if (!config.smtp) {
         debug('No SMTP creds - forgot password flow will not work');
     }

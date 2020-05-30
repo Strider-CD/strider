@@ -3,4 +3,3 @@ test/
 docs/
 lib/
 client-ember/
-!client-ember/dist/*

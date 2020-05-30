@@ -58,7 +58,7 @@ exports.emberIndex = function (req, res) {
             });
             // TODO: only set if dev
             res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-            res.render('dist/index.html', { jobs, availableProviders });
+            res.render('ember/index.html', { jobs, availableProviders });
         });
     }
 };
