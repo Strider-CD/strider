@@ -130,11 +130,6 @@ The schema looks like:
 
 Static files located in a plugins `/static/` directory are available via url path `/ex/:pluginid`.
 
-
-## What Comes Next
-In our next post we’ll guide you through the installation process of Strider. Further, we’ll show you how to install plugins to extend the platforms feature set.
-
-In the next weeks, we’re going to walk through major capabilities and integrations of Strider.
 ---
 
 #### Additional Resources

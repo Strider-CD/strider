@@ -62,28 +62,7 @@ values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
 - `SERVER_NAME` - **Required**; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
-- `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
-- `PORT` - Port that strider runs on, optional (defaults to 3000).
-- `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
-- `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
 - `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
-- `HTTP_PROXY` - Proxy support, optional (defaults to null)
-- If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
-  - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
-  - `SMTP_PORT` - SMTP server port e.g. 587 (default)
-  - `SMTP_SECURE` - SMTP server TLS or SSL ("true" or "false")
-  - `SMTP_USER` - SMTP auth username e.g. "myuser"
-  - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
-  - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
-
-#### Additional Configurations
-
-- `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
-- `DEBUG` - Set this to `strider*` to enable all debug output. This is very helpful when troubleshooting issues or finding the cause of bugs in Strider. For more information see https://www.npmjs.com/package/debug
-- `JOBS_QUANTITY_ON_PAGE_ENABLED` - Whether users can set quantity in Account Management
-- `JOBS_QUANTITY_ON_PAGE_DEFAULT` - Number of jobs to display when not enabled
-- `JOBS_QUANTITY_ON_PAGE_MIN` - Minimal value
-- `JOBS_QUANTITY_ON_PAGE_MAX` - Maximum value
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
@@ -91,6 +70,8 @@ You might need to follow these instructions if you use any of these, please do s
 - [Bitbucket][bitbucket-config]
 - [Gitlab][gitlab-config]
 - [Heroku][heroku-config]
+
+See [additional configuration](#user-content-additional-configurations) for all options.
 
 ### Adding Initial Admin User
 
@@ -118,21 +99,6 @@ OK? (y/n) [y]:
 ```
 
 See the [cli readme] for more details.
-
-If you want to connect to your ldap server to authorization  
-you can also add the `ldap.json` config file to project root  
-the config like so:
-
-```javascript
- {
-    "url": ldap://host:port,
-    "baseDN": dnString,
-    "username": username,
-    "password": password,
-    // If you want to set a admin group
-    "adminDN": dnString
- }
-```
 
 ### Starting Strider
 
@@ -172,6 +138,46 @@ subset of what's covered:
 - [Advanced Configuration](https://github.com/Strider-CD/strider/wiki/Advanced-Configuration)
 - [Requiring Strider](https://github.com/Strider-CD/strider/wiki/Requiring-Strider)
 - [Managing Plugins](https://github.com/Strider-CD/strider/wiki/Managing-Plugins)
+
+### LDAP
+
+If you want to connect to your ldap server to authorization  
+you can also add the `ldap.json` config file to project root  
+the config like so:
+
+```javascript
+ {
+    "url": ldap://host:port,
+    "baseDN": dnString,
+    "username": username,
+    "password": password,
+    // If you want to set a admin group
+    "adminDN": dnString
+ }
+```
+
+> Remove // comments from the config to use it
+
+### Additional Configurations
+
+- `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).  
+- `PORT` - Port that strider runs on, optional (defaults to 3000).  
+- `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
+- `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
+- `HTTP_PROXY` - Proxy support, optional (defaults to null)
+- If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
+  - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
+  - `SMTP_PORT` - SMTP server port e.g. 587 (default)
+  - `SMTP_SECURE` - SMTP server TLS or SSL ("true" or "false")
+  - `SMTP_USER` - SMTP auth username e.g. "myuser"
+  - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
+  - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
+- `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
+- `DEBUG` - Set this to `strider*` to enable all debug output. This is very helpful when troubleshooting issues or finding the cause of bugs in Strider. For more information see https://www.npmjs.com/package/debug
+- `JOBS_QUANTITY_ON_PAGE_ENABLED` - Whether users can set quantity in Account Management
+- `JOBS_QUANTITY_ON_PAGE_DEFAULT` - Number of jobs to display when not enabled
+- `JOBS_QUANTITY_ON_PAGE_MIN` - Minimal value
+- `JOBS_QUANTITY_ON_PAGE_MAX` - Maximum value
 
 ## API Documentation
 
