@@ -55,7 +55,7 @@
     "styles-debug": "lessc --source-map client/styles/strider.less dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o dist/scripts/app.js",
     "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -p [minifyify --output dist/scripts/bundle.map] -e client/app.js -o dist/scripts/app.js",
-    "build:ember": "cd client-ember/ && ember build -prod && cd ..",
+    "build:ember": "cd client-ember/ && ember build -prod --output-path=../dist/ember && cd ..",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --presets [ es2015 ] --only client] -e client/app.js -o dist/scripts/app.js",
     "test-unit": "mocha --recursive test/unit",
     "lint": "eslint lib/**/*.ts",
