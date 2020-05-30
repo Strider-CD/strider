@@ -74,7 +74,7 @@ exports.init = function (config) {
     }
     app.set('views', [
         path.join(__dirname, 'views'),
-        path.join(__dirname, '..', 'client-ember'),
+        path.join(__dirname, '..', 'dist'),
     ]);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
@@ -109,6 +109,10 @@ exports.init = function (config) {
     }));
     app.use(express.static(path.join(__dirname, '..', 'dist'), {
         maxAge: MONTH_IN_MILLISECONDS,
+    }));
+    app.use(express.static(path.join(__dirname, '..', 'dist', 'ember'), {
+        maxAge: MONTH_IN_MILLISECONDS,
+        index: false,
     }));
     app.use(express.static(path.join(__dirname, '..', 'public'), {
         maxAge: MONTH_IN_MILLISECONDS,
