@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.6](https://github.com/Strider-CD/strider/compare/v2.4.5...v2.4.6) (2020-05-30)
+
+
+### Bug Fixes
+
+* build ember into strider/dist during release ([200dcd1](https://github.com/Strider-CD/strider/commit/200dcd10649e872da1fd0798e704da6c581cde0b))
+* update ember dist ([2d0ef77](https://github.com/Strider-CD/strider/commit/2d0ef77dadefc27bf0191c3eb2404cb2ece79c13))
+* views for ember and bring back static files ([42722f4](https://github.com/Strider-CD/strider/commit/42722f47a27e7278cc255a6cce1d126716090d74))
+
 ### [2.4.5](https://github.com/Strider-CD/strider/compare/v2.4.4...v2.4.5) (2020-05-21)
 
 
