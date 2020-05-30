@@ -145,7 +145,7 @@ If you want to connect to your ldap server to authorization
 you can also add the `ldap.json` config file to project root  
 the config like so:
 
-```json
+```javascript
  {
     "url": ldap://host:port,
     "baseDN": dnString,
