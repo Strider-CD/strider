@@ -7,7 +7,7 @@ interface Args {}
 
 export default class LoginForm extends Component<Args> {
   @tracked email?: string;
-  password?: string;
+  @tracked password?: string;
 
   login = task(function* (this: LoginForm) {
     let response = yield fetch('/login', {

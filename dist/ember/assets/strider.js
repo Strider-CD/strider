@@ -964,7 +964,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _descriptor2, _temp;
+  var _dec, _class, _descriptor, _descriptor2, _descriptor3, _temp;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -999,9 +999,9 @@
 
       _initializerDefineProperty(this, "email", _descriptor, this);
 
-      _defineProperty(this, "password", void 0);
+      _initializerDefineProperty(this, "password", _descriptor2, this);
 
-      _initializerDefineProperty(this, "login", _descriptor2, this);
+      _initializerDefineProperty(this, "login", _descriptor3, this);
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "email", [Ember._tracked], {
@@ -1009,7 +1009,12 @@
     enumerable: true,
     writable: true,
     initializer: null
-  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "login", [_dec], {
+  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "password", [Ember._tracked], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "login", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
