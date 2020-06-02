@@ -36,3 +36,6 @@ config.sh
 *.swp
 test/last-shot
 /failures
+
+# ignore config
+.striderrc
