@@ -2,22 +2,20 @@
 
 We already walked you through the processes of connecting Strider with GitHub, GitLab and Bitbucket to access your repositories for testing. In case you don’t host your git repositories on either of the mentioned services, don’t become panicky. This guide is exactly for you!
 
-Before moving on to add a Gogs or git repository, let me point you to the list of posts within this Strider series.
-
-
 ## Gogs or Git Repository
+
 At first we wanted to separate this article into separate posts. The problem: Gogs API functionality is very limited and we cannot connect seamlessly from Strider to access the hosted repositories. That’s the reason why we treat Gogs repositories as normal git repositories.
 
-
 ## Install Strider-Git Plugin
+
 First things first: install the required [strider-git]() plugin to manually add git repositories to Strider. Visit the plugin section in admin panel and search for “Git”.
 
 ![Strider Plugin Overview]()
 
 Click the **Install** button if the plugin isn’t already installed.
 
-
 ## Add Git Repository to Strider
+
 Strider offers the ability to manually add git repositories besides integrations with git hosting services. Go to the Project overview and click the **Manual Add** tab on the right.
 
 ![Projects Overview]()
@@ -38,8 +36,8 @@ Fifth, select the authentication type which Strider should use to access the rep
 
 Finally, click **Create New** to add the repository to Strider.
 
-
 ## Run Your First Test
+
 Make sure Strider can access your repository. Go to Strider’s dashboard and click the **Retest** button. Afterwards, check the test details.
 
 Awesome! Just go ahead to the next section (Run Tests Automatically).
@@ -54,24 +52,24 @@ Strider’s SSH keys are accessable in the project settings.
 
 ![Strider Project Settings]()
 
-
 ## Run Tests Automatically
+
 At this point, you added your repository to Strider and manually tested your repository. The next step is to find a method for automatically run code integrations with every push to the repository.
 
 We use git hooks to notify Strider and start test runs via webhook url. This Strider url requires authentication and the branch you want to test.
 
 Let’s get our hands dirty. SSH into your server hosting the git repository you recently added to Strider. `cd` into the repositories folder and further into the specific projects `.git` folder.
 
-	cd /path/to/git-or-gogs-repositories/namespace/repo.git/
+    cd /path/to/git-or-gogs-repositories/namespace/repo.git/
 
 We need to edit the **update** git hook. Use the editor of your choice and open the `update` file in git’s hook folder. We use `nano` for editing.
 
-	nano hooks/update
+    nano hooks/update
 
 The content of the `update` file may look like this (this is the default gogs update hook):
 
-	#!/usr/bin/env bash
-	"/home/system/git/gogs/gogs" update $1 $2 $3
+    #!/usr/bin/env bash
+    "/home/system/git/gogs/gogs" update $1 $2 $3
 
 Copy the following lines and paste them into the `update` file you’re currently editing.
 

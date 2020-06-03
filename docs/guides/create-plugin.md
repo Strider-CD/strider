@@ -227,16 +227,6 @@ We glitched through the important details of Strider plugins. Remember that ever
 
 This post is kind of dry and creating new Strider plugins require some research within existing ones. Use the Strider organization on GitHub and dig into various plugins. Have a look at their files to get an impression how they structure files and use configuration options and methods.
 
-## What Comes Next
-
-This article guides you through the details of plugins and shows you how to create your own plugin from either Strider’s command line tool or template repository. Additionally, we show you injection points to add your plugin functionality.
-
-While starting the Strider server, it detects and hooks your plugin into the system and offers the functionality to the any project.
-
-The next post will round up our extensive series on Strider. We’ll recap the previously released articles in this series.
-
-Please leave any questions in the comments below, shoot us a tweet [@futurestud_io](https://twitter.com/futurestud_io) or get in touch via email. We love to help you writing your own plugin and enrich Strider’s ecosystem.
-
 ---
 
 #### Additional Ressources
