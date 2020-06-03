@@ -60,7 +60,7 @@ The process specific values are directly stated before Strider’s start command
 
 ### Configuration from File
 
-Strider offers an additional option to define and load the platform configuration: via config file. The configuration file `.striderrc` has to be located in Strider’s base directory.
+Strider offers an additional option to define and load the platform configuration: via config file. The configuration file `.striderrc` can be located in Strider’s base directory or one of these [other locations](https://github.com/dominictarr/rc#standards).
 
 The config files content is stated as JSON. The same options are allowed as stated above. The example snippet below illustrates how the file looks like.
 
