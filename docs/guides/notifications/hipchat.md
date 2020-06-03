@@ -49,15 +49,21 @@ Another thing you can specify are the highlight colors for test and deployment s
 
 **Start**
 
-    ${name} has started a <a href="${job}">${type}</a> run
+```
+${name} has started a <a href="${job}">${type}</a> run
+```
 
 **Success**
-  
- ${name} has finished a <a href="${job}">\${type}</a> run
-  
+
+```
+${name} has finished a <a href="${job}">\${type}</a> run
+```
+
 **Failure**
 
-    ${name} has <a href="${job}">failed</a>
+```
+${name} has <a href="${job}">failed</a>
+```
 
 Save. Provided all values? Great! Then let’s go on an test notifications.
 
