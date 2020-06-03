@@ -26,13 +26,13 @@ We use the [strider-email-notifier](https://github.com/Strider-CD/strider-email-
 
 First, you need to install the **Email Notifier** plugin in the Strider admin panel. Head over to `Admin -> Plugins` and hit the install button if not already installed.
 
-![Strider Plugins Administration]()
+![Strider Plugins Administration](./notifications-email/email-1.png)
 
 Afterwards, go to the project settings of the project you want to have email notifications enabled.
 
 The Email Notifier plugin is now available in the Available Plugins box. Drag and drop the Email Notifier plugin from **Available Plugins** to **Active Plugins**.
 
-![Activate Email Notifier for your project]()
+![Activate Email Notifier for your project](./notifications-email/email-2.png)
 
 That's it. You've activated email notifications for your project.
 
@@ -40,10 +40,10 @@ That's it. You've activated email notifications for your project.
 
 By default, notifications are only send if the build status changes. In case your last build succeeded and you're building again, there won't be any notification. Change the plugin configuration to inform you on every build about the result.
 
-![Email Notifier Settings]()
+![Email Notifier Settings](./notifications-email/email-3.png)
 
 This way, you can verify successful email notification configuration. If everything is fine, just uncheck the setting to send emails for every build.
 
-![Strider Email Notification — Successful Build]()
+![Strider Email Notification — Successful Build](./notifications-email/email-4.png)
 
 Relax and test your code! Now you'll know if something broke.
