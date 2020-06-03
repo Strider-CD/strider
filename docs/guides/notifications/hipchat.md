@@ -2,14 +2,6 @@
 
 HipChat is used by many development teams due to its integration with other Atlassian products. If you still want to use Strider to run your builds and deployments, you can notify rooms about the statuses.
 
-Let’s look at the other posts in this extensive series about Strider.
-
----
-
-Outline
-
----
-
 ## Install Strider-HipChat Plugin
 
 The Strider ecosystem provides plugins to integrate with many services and also for HipChat. Sending notifications about build and deployment statuses requires you to install the [strider-hipchat](https://github.com/jfromaniello/strider-hipchat) plugin first.
@@ -29,7 +21,7 @@ Third-party integrations to hipchat require an authentication token to access a 
 
 Select the token type **Admin** and provide a label for identification. Even though we want to send Notifications to HipChat, the plugin requires an Admin token.
 
-![HipChat — Create Authentication Token]()
+![HipChat — Create Authentication Token](./notifications-hipchat/hipchat-1.png)
 
 **Hint:** Lately, HipChat released a new version of their API (v2). We still use **version 1** to send notifications.
 
@@ -37,11 +29,11 @@ Select the token type **Admin** and provide a label for identification. Even tho
 
 Go back to Strider and navigate to the settings of the project you want to enable HipChat notifications for. Head over to the **Plugins** view. Drag and drop the now available _Hipchat_ plugin from **Available Plugins** to **Active Plugins**. This will add a new link in the left sidebar.
 
-![Strider Project Plugin Settings]()
+![Strider Project Plugin Settings](./notifications-hipchat/hipchat-2.png)
 
 Now click the **Hipchat** link in the left sidebar to open the plugin settings. We need the previously created authentication token and the room id.
 
-![Strider-HipChat Plugin Settings]()
+![Strider-HipChat Plugin Settings](./notifications-hipchat/hipchat-3.png)
 
 First, fill the field for your server url. Afterwards, provide the auth token and room id values. The **Send From** field schon be only a single name! No spaces, no dashes, just a single name. We weren’t be able to send notifications when typing „Future-Studio-Strider“ and any variant without dashes, but spaces etc. So make sure this value is in correct format: just a single word …
 
@@ -71,15 +63,15 @@ Save. Provided all values? Great! Then let’s go on an test notifications.
 
 The configuration part is done. We can jump right into the testing and manually start a build for the project we configured a second ago. You can use either the **Deploy** or **Test** buttons in the project settings or visit the project overview and start the build from there.
 
-![Strider Project Overview — Start Retest and Deploy]()
+![Strider Project Overview — Start Retest and Deploy](./notifications-hipchat/hipchat-4.png)
 
 If everything works fine, you should see the notifications for started tests (and deployments) in your HipChat room.
 
-![HipChat Notifications from Strider]()
+![HipChat Notifications from Strider](./notifications-hipchat/hipchat-5.png)
 
 That’s it. If everything is correctly configured you’ll see the notification messages in your HipChat room.
 
-**Hint:** there won’t be any message in the build process that the notification was sent to HipChat. The plugins needs some enhancements to integrate properly into the build process. If you don’t receive any notifications, have a look at your Strider logs or add manually debug messages to the plugin.
+**Hint:** there won’t be any message in the build process that the notification was sent to HipChat.
 
 ---
 
