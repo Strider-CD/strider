@@ -72,10 +72,14 @@ exports.init = function (config) {
         // awesome view testingness
         require('./views-test')(app);
     }
-    app.set('views', [
-        path.join(__dirname, 'views'),
-        path.join(__dirname, '..', 'dist'),
-    ]);
+    // During development we build to an ignored file, only during release we do normal build
+    const distDir = config.developing ? '.dev-dist' : 'dist';
+    path.join(__dirname, '..', 'dist'),
+        app.set('views', [
+            path.join(__dirname, 'views'),
+            path.join(__dirname, '..', 'dist'),
+            config.developing && path.join(__dirname, '..', distDir),
+        ]);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
         app.use(cors(config.cors));
@@ -110,7 +114,7 @@ exports.init = function (config) {
     app.use(express.static(path.join(__dirname, '..', 'dist'), {
         maxAge: MONTH_IN_MILLISECONDS,
     }));
-    app.use(express.static(path.join(__dirname, '..', 'dist', 'ember'), {
+    app.use(express.static(path.join(__dirname, '..', distDir, 'ember'), {
         maxAge: MONTH_IN_MILLISECONDS,
         index: false,
     }));
