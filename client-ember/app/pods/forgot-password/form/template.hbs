@@ -3,8 +3,12 @@
   {{on 'submit' (prevent-default (perform this.requestReset))}}
   ...attributes
 >
+  <h2>Request Password Reset</h2>
+  <p class="text-sm mt-2 mb-4 max-w-lg">
+    If an account with the specified email exists, we'll send you an email with details on how to reset your password.
+  </p>
   <div class='mb-4'>
-    <label class='block text-gray-700 text-sm font-bold mb-2' for='email'>
+    <label class='block text-gray-700 text-sm font-medium mb-2' for='email'>
       Email
     </label>
     <Input
@@ -16,13 +20,6 @@
   </div>
 
   <div class='flex items-center justify-between'>
-    <button
-      type='submit'
-      class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4'
-    >
-      Submit
-    </button>
-
     <div class='flex flex-col'>
       <LinkTo
         class='block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
@@ -31,5 +28,12 @@
         Login
       </LinkTo>
     </div>
+
+    <button
+      type='submit'
+      class='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-4'
+    >
+      Submit
+    </button>
   </div>
 </form>
