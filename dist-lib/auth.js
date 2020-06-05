@@ -150,8 +150,9 @@ function forgot(req, res) {
     const email = req.body.email.toLowerCase();
     User.findOne({ email: { $regex: new RegExp(email, 'i') } }, function (error, user) {
         if (error) {
-            req.flash('error', 'An error occured while attempting to reset your password.');
-            return res.redirect('/forgot');
+            return res.status(400).json({
+                errors: ['An error occured while attempting to reset your password.'],
+            });
         }
         if (user) {
             randomBytes(20)
@@ -174,16 +175,19 @@ function forgot(req, res) {
             })
                 .then(function (user) {
                 mailer.sendPasswordReset(user);
-                req.flash('info', 'Please check your email for the password reset url. Thank you!');
-                res.redirect('/');
+                res.json({
+                    ok: true,
+                    message: 'Please check your email for the password reset url. Thank you!',
+                });
             })
                 .catch(function (error) {
-                console.error('Password reset error: ', error);
+                res.status(500).json({ errors: ['Password reset error: ' + error] });
             });
         }
         else {
-            req.flash('error', 'We could not find a user with that email.');
-            return res.redirect('/forgot');
+            res
+                .status(404)
+                .json({ errors: ['We could not find a user with that email.'] });
         }
     });
 }

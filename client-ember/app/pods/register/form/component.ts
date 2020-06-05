@@ -27,21 +27,22 @@ export default class RegisterForm extends Component<Args> {
         password: this.password,
       }),
     });
+
     if (response.status === 200) {
       // TODO: navigate in ember once the main page is finished
       return (window.location.href = '/');
-    } else {
-      try {
-        let result = yield response.json();
+    }
 
-        if (result?.errors) {
-          this.notifications.add(result.errors.join('\n'), {
-            appearance: 'error',
-          });
-        }
-      } catch (e) {
-        throw new Error('Not ok');
+    try {
+      let result = yield response.json();
+
+      if (result?.errors) {
+        this.notifications.add(result.errors.join('\n'), {
+          appearance: 'error',
+        });
       }
+    } catch (e) {
+      throw new Error('Not ok');
     }
   });
 }
