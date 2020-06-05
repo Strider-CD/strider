@@ -138,12 +138,6 @@ exports.init = function (config) {
         res.redirect('/');
     }, auth.authenticate);
     app.get('/logout', auth.logout);
-    app.get('/forgot', function (req, res) {
-        res.render('forgot.html', {
-            user: req.user,
-            messages: req.flash('error'),
-        });
-    });
     app.post('/forgot', auth.forgot);
     app.get('/reset/:token', auth.reset);
     app.post('/reset/:token', auth.resetPost);

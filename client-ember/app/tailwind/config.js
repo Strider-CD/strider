@@ -10,5 +10,8 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [require('@tailwindcss/ui')],
+  plugins: [
+    require('@tailwindcss/ui'),
+    require('@frontile/notifications/tailwind'),
+  ],
 };

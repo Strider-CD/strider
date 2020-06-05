@@ -1,10 +1,22 @@
 <form
   class='bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4'
-  {{on 'submit' (prevent-default (perform this.login))}}
+  {{on 'submit' (prevent-default (perform this.register))}}
   ...attributes
 >
-  <h2>Log In</h2>
+  <h2>Register</h2>
   <div class='my-4'>
+    <label class='block text-gray-700 text-sm font-medium mb-2' for='invite-code'>
+      Invite Code
+    </label>
+    <Input
+      class='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+      id='invite-code'
+      placeholder='abc123'
+      @required={{true}}
+      @value={{this.inviteCode}}
+    />
+  </div>
+  <div class='mb-4'>
     <label class='block text-gray-700 text-sm font-medium mb-2' for='email'>
       Email
     </label>
@@ -26,7 +38,6 @@
       id='password'
       placeholder='******************'
       @type='password'
-      @required={{true}}
       @value={{this.password}}
     />
     {{! <p class='text-red-500 text-xs italic'>
@@ -37,15 +48,9 @@
      <div class='flex flex-col'>
       <LinkTo
         class='block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
-        @route='register'
+        @route='login'
       >
-        I have an invite code.
-      </LinkTo>
-      <LinkTo
-        class='block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800'
-        @route='forgot-password'
-      >
-        Forgot Password?
+        Login
       </LinkTo>
     </div>
 

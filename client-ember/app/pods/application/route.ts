@@ -3,10 +3,12 @@ import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import CurrentUserService from '../../services/current-user';
 
+const publicRoutes = ['login', 'register', 'forgot-password'];
+
 export default class ApplicationRoute extends Route {
   @service currentUser!: CurrentUserService;
 
-  async model() {
+  async beforeModel(transition: any) {
     try {
       let response = await fetch('/api/v2/account', {
         headers: { Accept: 'application/json' },
@@ -15,8 +17,12 @@ export default class ApplicationRoute extends Route {
       this.currentUser.setProperties(account);
       return account;
     } catch (e) {
-      this.transitionTo('login');
-      // noop
+      if (
+        !transition.targetName ||
+        !publicRoutes.includes(transition.targetName)
+      ) {
+        this.transitionTo('login');
+      }
     }
   }
 }

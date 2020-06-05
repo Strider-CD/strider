@@ -23,28 +23,27 @@ function setupPasswordAuth() {
     }));
 }
 function registerRoutes(app) {
-    app.get('/register', function (req, res) {
-        return res.render('register.html', {});
+    app.get('/register', function (req, res, next) {
+        if (req.query.ember) {
+            return next();
+        }
+        return res.redirect('/register?ember=true');
     });
     app.post('/register', function (req, res) {
-        // Quick and dirty validation
         const errors = [];
-        if (!req.body.invite_code)
+        if (!req.body.inviteCode)
             errors.push('No invite code specified');
         if (!req.body.email)
             errors.push('Missing email');
         if (!req.body.password)
             errors.push('Missing password');
         if (errors.length) {
-            return res.render('register.html', { errors: errors });
+            return res.status(400).json({ errors: errors });
         }
         User.registerWithInvite(req.body.invite_code, req.body.email, req.body.password, function (err, user) {
             if (err) {
-                return res.render('register.html', {
+                return res.status(400).json({
                     errors: [err],
-                    invite_code: req.body.invite_code,
-                    email: req.body.email,
-                    password: req.body.password,
                 });
             }
             // Registered success:
