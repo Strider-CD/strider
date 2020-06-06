@@ -1,18 +1,14 @@
 # ![Strider][logo]
 
+![Strider Screenshot][screenshot]
+[more screenshots][more-screenshots]
+
+---
+
 [![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]  
 [![Gitter][gitter-badge]][gitter-badge-link]
 [![Backers on Open Collective][backers-badge-img]](#backers)
 [![Sponsors on Open Collective][sponsors-badge-img]](#sponsors)
-
----
-
-### Brilliant Continuous Deployment
-
-![Strider Screenshot][screenshot]
-[more screenshots][more-screenshots]
-
-> Currently v2 is experiencing some bugs, please use v1.11.0 instead.
 
 # Overview
 
