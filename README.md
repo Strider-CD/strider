@@ -13,7 +13,7 @@
 # Overview
 
 `Strider` is an Open Source Continuous Deployment / Continuous Integration
-platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
+platform. It is written in Node.js and Ember.js and uses MongoDB as a backing
 store. It is published under the BSD license.
 
 Strider is extremely customizable through plugins. Plugins can
@@ -32,9 +32,13 @@ Strider is extremely customizable through plugins. Plugins can
 - [mongodb][mongo-download] (local or remote)
 - [node-gyp]
 
+<details>
+<summary>Other possible requirements</summary>
+
 _Note: Installing on OS X might require XCode to be installed._
 
 - The package `krb5-devel`/`libkrb5-dev` might have to be installed to resolve Kerberos related build issues on some systems.
+</details>
 
 ## Running on Infrastructure
 
