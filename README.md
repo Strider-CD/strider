@@ -12,8 +12,6 @@
 ![Strider Screenshot][screenshot]
 [more screenshots][more-screenshots]
 
-> Currently v2 is experiencing some bugs, please use v1.11.0 instead.
-
 # Overview
 
 `Strider` is an Open Source Continuous Deployment / Continuous Integration
