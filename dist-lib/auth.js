@@ -191,15 +191,19 @@ function forgot(req, res) {
         }
     });
 }
-function reset(req, res) {
+function reset(req, res, next) {
+    if (req.query.ember) {
+        return next();
+    }
     const token = req.params.token;
     User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
     }, function (err, user) {
         if (!user) {
-            req.flash('error', 'Password reset token is invalid or has expired.');
-            return res.redirect('/forgot-password?ember=true');
+            return res.status(400).json({
+                errors: ['Password reset token is invalid or has expired.'],
+            });
         }
         res.render('reset.html', {
             token: token,

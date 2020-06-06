@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import fetch from 'fetch';
 import CurrentUserService from '../../services/current-user';
 
-const publicRoutes = ['login', 'register', 'forgot-password'];
+const publicRoutes = ['login', 'register', 'forgot-password', 'reset'];
 
 export default class ApplicationRoute extends Route {
   @service currentUser!: CurrentUserService;
