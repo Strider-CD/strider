@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "2.4.6",
+  "version": "2.4.7",
   "bin": {
     "strider": "bin/strider"
   },
@@ -68,7 +68,7 @@
     "debug": "node --inspect bin/strider --no-cluster",
     "release-build": "npm run build && npm run build:ember && npm run build-lib",
     "prerelease": "npm run release-build",
-    "release": "git add dist/ && standard-version -a",
+    "release": "git add dist/ dist-lib/ && standard-version -a",
     "postinstall": "npm run build-lib && opencollective postinstall"
   },
   "dependencies": {

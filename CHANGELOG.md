@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.7](https://github.com/Strider-CD/strider/compare/v2.4.6...v2.4.7) (2020-06-10)
+
+
+### Bug Fixes
+
+* Ember login/forgot/register/reset ([#1092](https://github.com/Strider-CD/strider/issues/1092)) ([06d6612](https://github.com/Strider-CD/strider/commit/06d66121d9d1495957702111602aa74ce647d303))
+
 ### [2.4.6](https://github.com/Strider-CD/strider/compare/v2.4.5...v2.4.6) (2020-05-30)
 
 
