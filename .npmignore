@@ -3,3 +3,4 @@ test/
 docs/
 lib/
 client-ember/
+ .dev-dist/
