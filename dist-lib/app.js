@@ -133,7 +133,23 @@ exports.init = function (config) {
     app.get('/status', routes.status);
     app.post('/login', function (req, res, next) {
         if (!req.user) {
-            return next();
+            auth.authenticate(function (err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    return res
+                        .status(401)
+                        .json({ errors: ['Password incorrect or user does not exist'] });
+                }
+                req.login(user, function (err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    return res.redirect('/');
+                });
+            })(req, res, next);
+            return;
         }
         res.redirect('/');
     }, auth.authenticate);

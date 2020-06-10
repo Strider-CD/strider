@@ -138,10 +138,7 @@ function basicAuth(req, res, next) {
         return next();
     });
 }
-const _authenticate = passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login?failed=true',
-});
+const _authenticate = (cb) => passport.authenticate('local', cb);
 function logout(req, res) {
     req.logout();
     res.redirect('/login?ember=true');

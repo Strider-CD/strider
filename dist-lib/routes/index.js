@@ -29,6 +29,9 @@ exports.index = function (req, res) {
             version: pjson.version,
         });
     }
+    if (!req.user) {
+        return res.redirect('/login?ember=true');
+    }
     jobs.latestJobs(req.user, true, function (err, jobs) {
         const availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
             return common.userConfigs.provider[k];
