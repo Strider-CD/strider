@@ -72,10 +72,14 @@ exports.init = function (config) {
         // awesome view testingness
         require('./views-test')(app);
     }
-    app.set('views', [
-        path.join(__dirname, 'views'),
-        path.join(__dirname, '..', 'dist'),
-    ]);
+    // During development we build to an ignored file, only during release we do normal build
+    const distDir = config.developing ? '.dev-dist' : 'dist';
+    path.join(__dirname, '..', 'dist'),
+        app.set('views', [
+            path.join(__dirname, 'views'),
+            config.developing && path.join(__dirname, '..', distDir),
+            path.join(__dirname, '..', 'dist'),
+        ]);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
         app.use(cors(config.cors));
@@ -110,7 +114,7 @@ exports.init = function (config) {
     app.use(express.static(path.join(__dirname, '..', 'dist'), {
         maxAge: MONTH_IN_MILLISECONDS,
     }));
-    app.use(express.static(path.join(__dirname, '..', 'dist', 'ember'), {
+    app.use(express.static(path.join(__dirname, '..', distDir, 'ember'), {
         maxAge: MONTH_IN_MILLISECONDS,
         index: false,
     }));
@@ -129,17 +133,27 @@ exports.init = function (config) {
     app.get('/status', routes.status);
     app.post('/login', function (req, res, next) {
         if (!req.user) {
-            return next();
+            auth.authenticate(function (err, user) {
+                if (err) {
+                    return next(err);
+                }
+                if (!user) {
+                    return res
+                        .status(401)
+                        .json({ errors: ['Password incorrect or user does not exist'] });
+                }
+                req.login(user, function (err) {
+                    if (err) {
+                        return next(err);
+                    }
+                    return res.redirect('/');
+                });
+            })(req, res, next);
+            return;
         }
         res.redirect('/');
     }, auth.authenticate);
     app.get('/logout', auth.logout);
-    app.get('/forgot', function (req, res) {
-        res.render('forgot.html', {
-            user: req.user,
-            messages: req.flash('error'),
-        });
-    });
     app.post('/forgot', auth.forgot);
     app.get('/reset/:token', auth.reset);
     app.post('/reset/:token', auth.resetPost);

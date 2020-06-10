@@ -23,28 +23,27 @@ function setupPasswordAuth() {
     }));
 }
 function registerRoutes(app) {
-    app.get('/register', function (req, res) {
-        return res.render('register.html', {});
+    app.get('/register', function (req, res, next) {
+        if (req.query.ember) {
+            return next();
+        }
+        return res.redirect('/register?ember=true');
     });
     app.post('/register', function (req, res) {
-        // Quick and dirty validation
         const errors = [];
-        if (!req.body.invite_code)
+        if (!req.body.inviteCode)
             errors.push('No invite code specified');
         if (!req.body.email)
             errors.push('Missing email');
         if (!req.body.password)
             errors.push('Missing password');
         if (errors.length) {
-            return res.render('register.html', { errors: errors });
+            return res.status(400).json({ errors: errors });
         }
         User.registerWithInvite(req.body.invite_code, req.body.email, req.body.password, function (err, user) {
             if (err) {
-                return res.render('register.html', {
+                return res.status(400).json({
                     errors: [err],
-                    invite_code: req.body.invite_code,
-                    email: req.body.email,
-                    password: req.body.password,
                 });
             }
             // Registered success:
@@ -53,9 +52,16 @@ function registerRoutes(app) {
             });
         });
     });
-    app.get('/login', function (req, res) {
+    app.get('/login', function (req, res, next) {
         if (req.user) {
             return res.redirect('/');
+        }
+        // Pass to Ember if not an error from old login
+        if (!req.query.failed && !req.query.ember) {
+            return res.redirect('/login?ember=true');
+        }
+        else if (!req.query.failed && req.query.ember) {
+            return next();
         }
         const failed = Boolean(req.query.failed);
         const errors = [];
@@ -132,20 +138,18 @@ function basicAuth(req, res, next) {
         return next();
     });
 }
-const _authenticate = passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/login?failed=true',
-});
+const _authenticate = (cb) => passport.authenticate('local', cb);
 function logout(req, res) {
     req.logout();
-    res.redirect('/');
+    res.redirect('/login?ember=true');
 }
 function forgot(req, res) {
     const email = req.body.email.toLowerCase();
     User.findOne({ email: { $regex: new RegExp(email, 'i') } }, function (error, user) {
         if (error) {
-            req.flash('error', 'An error occured while attempting to reset your password.');
-            return res.redirect('/forgot');
+            return res.status(400).json({
+                errors: ['An error occured while attempting to reset your password.'],
+            });
         }
         if (user) {
             randomBytes(20)
@@ -168,28 +172,35 @@ function forgot(req, res) {
             })
                 .then(function (user) {
                 mailer.sendPasswordReset(user);
-                req.flash('info', 'Please check your email for the password reset url. Thank you!');
-                res.redirect('/');
+                res.json({
+                    ok: true,
+                    message: 'Please check your email for the password reset url. Thank you!',
+                });
             })
                 .catch(function (error) {
-                console.error('Password reset error: ', error);
+                res.status(500).json({ errors: ['Password reset error: ' + error] });
             });
         }
         else {
-            req.flash('error', 'We could not find a user with that email.');
-            return res.redirect('/forgot');
+            res
+                .status(404)
+                .json({ errors: ['We could not find a user with that email.'] });
         }
     });
 }
-function reset(req, res) {
+function reset(req, res, next) {
+    if (req.query.ember) {
+        return next();
+    }
     const token = req.params.token;
     User.findOne({
         resetPasswordToken: token,
         resetPasswordExpires: { $gt: Date.now() },
     }, function (err, user) {
         if (!user) {
-            req.flash('error', 'Password reset token is invalid or has expired.');
-            return res.redirect('/forgot');
+            return res.status(400).json({
+                errors: ['Password reset token is invalid or has expired.'],
+            });
         }
         res.render('reset.html', {
             token: token,
@@ -237,7 +248,7 @@ function requireUser(req, res, next) {
     }
     else {
         req.session.return_to = req.url;
-        res.redirect('/login');
+        res.redirect('/login?ember=true');
     }
 }
 function requireUserOr401(req, res, next) {

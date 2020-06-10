@@ -1,21 +1,19 @@
 # ![Strider][logo]
 
+![Strider Screenshot][screenshot]
+[more screenshots][more-screenshots]
+
+---
+
 [![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]  
 [![Gitter][gitter-badge]][gitter-badge-link]
 [![Backers on Open Collective][backers-badge-img]](#backers)
 [![Sponsors on Open Collective][sponsors-badge-img]](#sponsors)
 
----
-
-### Brilliant Continuous Deployment
-
-![Strider Screenshot][screenshot]
-[more screenshots][more-screenshots]
-
 # Overview
 
 `Strider` is an Open Source Continuous Deployment / Continuous Integration
-platform. It is written in Node.JS / JavaScript and uses MongoDB as a backing
+platform. It is written in Node.js and Ember.js and uses MongoDB as a backing
 store. It is published under the BSD license.
 
 Strider is extremely customizable through plugins. Plugins can
@@ -34,9 +32,13 @@ Strider is extremely customizable through plugins. Plugins can
 - [mongodb][mongo-download] (local or remote)
 - [node-gyp]
 
+<details>
+<summary>Other possible requirements</summary>
+
 _Note: Installing on OS X might require XCode to be installed._
 
 - The package `krb5-devel`/`libkrb5-dev` might have to be installed to resolve Kerberos related build issues on some systems.
+</details>
 
 ## Running on Infrastructure
 
@@ -158,8 +160,8 @@ the config like so:
 
 ### Additional Configurations
 
-- `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).  
-- `PORT` - Port that strider runs on, optional (defaults to 3000).  
+- `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
+- `PORT` - Port that strider runs on, optional (defaults to 3000).
 - `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
 - `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
 - `HTTP_PROXY` - Proxy support, optional (defaults to null)
@@ -273,7 +275,7 @@ For live help check out Strider's [Gitter].
 [npm-badge-link]: http://badge.fury.io/js/strider
 [backers-badge-img]: https://opencollective.com/strider/backers/badge.svg
 [sponsors-badge-img]: https://opencollective.com/strider/sponsors/badge.svg
-[screenshot]: /docs/screenshots/dashboard.jpg
+[screenshot]: /docs/screenshots/job.png
 [more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [mongolab]: https://mongolab.com/plans/pricing/
 [mailgun]: http://www.mailgun.com/pricing

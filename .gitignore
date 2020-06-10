@@ -37,5 +37,8 @@ config.sh
 test/last-shot
 /failures
 
-# ignore config
+# ignore local config
 .striderrc
+
+# ignore dev build files
+.dev-dist/
