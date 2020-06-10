@@ -305,6 +305,6 @@ For live help check out Strider's [Gitter].
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
 [gitter-badge]: https://img.shields.io/badge/GITTER-join%20chat-green.svg
-[gitter-badge-link]: https://gitter.im/Strider-CD
+[gitter-badge-link]: https://gitter.im/Strider-CD/strider
 [apidoc]: http://apidocjs.com/#getting-started
 [resource-strider-futurestudio-tutorials]: https://futurestud.io/blog/strider-getting-started-platform-overview/
