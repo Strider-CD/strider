@@ -62,7 +62,7 @@ values should work fine for running on localhost, however for an
 Internet-accessible deployment the following variables will need to be exported:
 
 - `SERVER_NAME` - **Required**; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
-- `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can safely use [MongoLab free plan][mongolab] - works great)
+- `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can safely use [MongoLab free plan][mongolab] or [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
 
 You might need to follow these instructions if you use any of these, please do so before filing issues.
 
