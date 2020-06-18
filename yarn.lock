@@ -459,10 +459,10 @@ angular-route@1.5.7:
   resolved "https://registry.yarnpkg.com/angular-route/-/angular-route-1.5.7.tgz#d43fb72fb6e3ce3e2ac300c196db4dd8d36894c8"
   integrity sha1-1D+3L7bjzj4qwwDBlttN2NNolMg=
 
-angular@1.5.7:
-  version "1.5.7"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.7.tgz#4ecefd0c7134b72757ba3b41bba3a1e4d5eff5ac"
-  integrity sha1-Ts79DHE0tydXujtBu6Oh5NXv9aw=
+angular@1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.8.0.tgz#b1ec179887869215cab6dfd0df2e42caa65b1b51"
+  integrity sha512-VdaMx+Qk0Skla7B5gw77a8hzlcOakwF8mjlW13DpIWIDlfqwAbSSLfd8N/qZnzEmQF4jC4iofInd3gE7vL8ZZg==
 
 ansi-align@^2.0.0:
   version "2.0.0"
