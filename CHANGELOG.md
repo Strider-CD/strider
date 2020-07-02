@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.9](https://github.com/Strider-CD/strider/compare/v2.4.8...v2.4.9) (2020-07-02)
+
+
+### Bug Fixes
+
+* projects refresh for github ([05acb00](https://github.com/Strider-CD/strider/commit/05acb00b8c1a37339feb20d3c73b5737d6ccfa69))
+* **api:** update mongoose and fix ensureIndex deprecation ([59a4e55](https://github.com/Strider-CD/strider/commit/59a4e5548972d92085e306e802bd7dd67e266bcd))
+* **deps:** update github to allow manual reauth ([e1104f1](https://github.com/Strider-CD/strider/commit/e1104f1b926fec9d678020272dcb65fe3f7cd657))
+
 ### [2.4.8](https://github.com/Strider-CD/strider/compare/v2.4.7...v2.4.8) (2020-06-10)
 
 ### [2.4.7](https://github.com/Strider-CD/strider/compare/v2.4.6...v2.4.7) (2020-06-10)
