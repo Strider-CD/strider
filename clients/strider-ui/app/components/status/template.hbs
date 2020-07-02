@@ -1,0 +1,18 @@
+import Icon from 'fa-icon';
+---hbs---
+
+<div ...attributes>
+  {{#if (eq @status 'running')}}
+    <Icon class='text-blue-500' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+  {{else if (eq @status 'submitted')}}
+    <Icon class='text-purple-500' @icon='satellite-dish' @prefix='fas'/>
+  {{else if (eq @status 'passed')}}
+    <Icon class='text-green-500' @icon='check-circle' @prefix='fas'/>
+  {{else if (eq @status 'failed')}}
+    <Icon class='text-red-500' @icon='times-circle' @prefix='fas'/>
+  {{else if (eq @status 'errored')}}
+    <Icon class='text-orange-500' @icon='exclamation-triangle' @prefix='fas'/>
+  {{else}}
+    {{@status}}
+  {{/if}}
+</div>

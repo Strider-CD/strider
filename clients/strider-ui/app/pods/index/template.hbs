@@ -1,0 +1,38 @@
+import Status from 'components/status';
+---hbs---
+
+{{log @model.jobs}}
+<h2 class='flex justify-between items-center text-2xl mb-3'>
+  <div class="flex items-center">
+    Your Projects
+  </div>
+</h2>
+
+<ul>
+  {{#if @model.jobs.yours.length}}
+    {{#each @model.jobs.yours as |job|}}
+      <li class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
+        <LinkTo
+          @route='organization.repository.job'
+          @model={{array job.project.ownerName job.project.repoName job._id}}
+          @queryParams={{hash ember=true}}>
+          {{job.project.name}}
+          <Status @status={{job.status}} />
+          {{job.trigger.message}}
+        </LinkTo>
+      </li>
+    {{/each}}
+  {{else}}
+    <li>
+      You have no projects yet.
+    </li>
+  {{/if}}
+</ul>
+
+{{#if @model.jobs.public.length}}
+  <h2 class='flex justify-between items-center text-2xl mb-3'>
+    <div class="flex items-center">
+      Public Projects
+    </div>
+  </h2>
+{{/if}}

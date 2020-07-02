@@ -124,6 +124,10 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   "use strict";
 
   QUnit.module('TemplateLint');
+  QUnit.test('strider-ui/components/status/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/components/status/template.hbs should pass TemplateLint.\n\n');
+  });
   QUnit.test('strider-ui/pods/application/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/application/template.hbs should pass TemplateLint.\n\n');
@@ -135,6 +139,10 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   QUnit.test('strider-ui/pods/forgot-password/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/forgot-password/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/index/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(false, 'strider-ui/pods/index/template.hbs should pass TemplateLint.\n\nstrider-ui/pods/index/template.hbs\n  4:0  error  Unexpected {{log}} usage.  no-log\n');
   });
   QUnit.test('strider-ui/pods/login/form/template.hbs', function (assert) {
     assert.expect(1);
@@ -237,6 +245,17 @@ define("strider-ui/tests/unit/pods/application/controller-test", ["qunit", "embe
     (0, _qunit.test)('it exists', function (assert) {
       let controller = this.owner.lookup('controller:application');
       assert.ok(controller);
+    });
+  });
+});
+define("strider-ui/tests/unit/pods/index/route-test", ["qunit", "ember-qunit"], function (_qunit, _emberQunit) {
+  "use strict";
+
+  (0, _qunit.module)('Unit | Route | index', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks);
+    (0, _qunit.test)('it exists', function (assert) {
+      let route = this.owner.lookup('route:index');
+      assert.ok(route);
     });
   });
 });

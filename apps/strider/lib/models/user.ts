@@ -115,6 +115,15 @@ UserSchema.virtual('password')
     this.hash = bcrypt.hashSync(password, salt);
   });
 
+UserSchema.virtual('ownerName').get(function (this: User) {
+  const split = this.name.split('/');
+  return split?.[0];
+});
+
+UserSchema.virtual('repoName').get(function (this: User) {
+  const split = this.name.split('/');
+  return split?.[1];
+});
 // User.collaborators(project, [accessLevel,] done(err, [user, ...]))
 //
 // project: String name of the project
