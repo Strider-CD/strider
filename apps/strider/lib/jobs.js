@@ -3,7 +3,7 @@ module.exports = {
   jobProject: jobProject,
   sort: jobSort,
   status: status,
-  small: small
+  small: small,
 };
 
 const async = require('async');
@@ -60,7 +60,7 @@ function small(job) {
 }
 
 function jobProject(project, prev, user) {
-  prev.forEach(function(job) {
+  prev.forEach(function (job) {
     job.status = status(job);
   });
 
@@ -84,11 +84,11 @@ function latestJob(project, user, small, done) {
     query = query.select('-phases -std');
   }
 
-  query.exec(function(err, jobs) {
+  query.exec(function (err, jobs) {
     if (!jobs || !jobs.length) {
       return done(err, {
         nojobs: true,
-        project: jobProject(project, [], user)
+        project: jobProject(project, [], user),
       });
     }
     const job = jobs[0];
@@ -105,10 +105,10 @@ function projectJobs(projects, user, small, done) {
     small = false;
   }
   const tasks = [];
-  projects.forEach(function(project) {
+  projects.forEach(function (project) {
     tasks.push(latestJob.bind(null, project, user, small));
   });
-  async.parallel(tasks, function(err, jobs) {
+  async.parallel(tasks, function (err, jobs) {
     if (err) return done(err);
     jobs.sort(jobSort);
     done(null, jobs);
@@ -124,18 +124,18 @@ function latestPublicJobs(user, small, done) {
   }
   let query = Project.find({ public: true }).lean();
   if (user) {
-    const userProjects = user.projects.map(function(p) {
+    const userProjects = user.projects.map(function (p) {
       return p.name.toLowerCase();
     });
     query = query.where('name', { $not: { $in: userProjects || [] } });
   }
-  query.exec(function(err, projects) {
+  query.exec(function (err, projects) {
     if (err) return done(err);
-    projectJobs(projects, user, small, function(err, jobs) {
+    projectJobs(projects, user, small, function (err, jobs) {
       if (err) return done(err);
       done(
         null,
-        jobs.map(function(job) {
+        jobs.map(function (job) {
           job.project.access_level = 0;
           return job;
         })
@@ -149,7 +149,7 @@ function latestUsersJobs(user, small, done) {
     done = small;
     small = false;
   }
-  Project.forUser(user, function(err, projects) {
+  Project.forUser(user, function (err, projects) {
     if (err) return done(err);
     projectJobs(projects, user, small, done);
   });

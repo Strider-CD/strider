@@ -211,6 +211,8 @@ function sanitizeProject(project) {
         public: project.public,
         display_url: project.display_url,
         display_name: project.display_name,
+        ownerName: project.ownerName,
+        repoName: project.repoName,
         provider: {
             id: project.provider.id,
         },

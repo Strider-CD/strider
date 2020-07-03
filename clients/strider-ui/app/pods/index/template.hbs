@@ -14,9 +14,9 @@ import Status from 'components/status';
       <li class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
         <LinkTo
           @route='organization.repository.job'
-          @model={{array job.project.ownerName job.project.repoName job._id}}
+          @models={{array job.project.ownerName job.project.repoName job._id}}
           @queryParams={{hash ember=true}}>
-          {{job.project.name}}
+          {{job.project.display_name}}
           <Status @status={{job.status}} />
           {{job.trigger.message}}
         </LinkTo>

@@ -3,7 +3,7 @@ module.exports = {
     jobProject: jobProject,
     sort: jobSort,
     status: status,
-    small: small
+    small: small,
 };
 const async = require('async');
 const Job = require('./models').Job;
@@ -83,7 +83,7 @@ function latestJob(project, user, small, done) {
         if (!jobs || !jobs.length) {
             return done(err, {
                 nojobs: true,
-                project: jobProject(project, [], user)
+                project: jobProject(project, [], user),
             });
         }
         const job = jobs[0];

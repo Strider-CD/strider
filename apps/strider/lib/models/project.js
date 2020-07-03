@@ -88,6 +88,16 @@ const ProjectSchema = new Schema({
   },
 });
 
+ProjectSchema.virtual('ownerName').get(function () {
+  const split = this.name.split('/');
+  return split?.[0];
+});
+
+ProjectSchema.virtual('repoName').get(function () {
+  const split = this.name.split('/');
+  return split?.[1];
+});
+
 // name: the name of the new branch
 // done(err)
 ProjectSchema.methods.addBranch = function (name, done) {

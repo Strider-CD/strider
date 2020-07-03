@@ -71,14 +71,6 @@ UserSchema.virtual('password')
     const salt = (this.salt = bcryptjs_1.default.genSaltSync(10));
     this.hash = bcryptjs_1.default.hashSync(password, salt);
 });
-UserSchema.virtual('ownerName').get(function () {
-    const split = this.name.split('/');
-    return split === null || split === void 0 ? void 0 : split[0];
-});
-UserSchema.virtual('repoName').get(function () {
-    const split = this.name.split('/');
-    return split === null || split === void 0 ? void 0 : split[1];
-});
 // User.collaborators(project, [accessLevel,] done(err, [user, ...]))
 //
 // project: String name of the project
