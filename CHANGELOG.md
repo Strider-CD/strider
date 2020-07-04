@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.10](https://github.com/Strider-CD/strider/compare/v2.4.9...v2.4.10) (2020-07-04)
+
+
+### Bug Fixes
+
+* handle job.errored state, saving the error on the job ([4b6554d](https://github.com/Strider-CD/strider/commit/4b6554da0ff832acc535a0d7ac8e43a81fdf4d68))
+* update simple-runner, and git. Support job errored event ([72a8617](https://github.com/Strider-CD/strider/commit/72a86178fe7e03ac4e6930f14ae97c3ec7d05250))
+* **client-ember:** show errored state and message on job ([136f89e](https://github.com/Strider-CD/strider/commit/136f89e9b213d283470842f30c9ed27cd630d16f))
+
 ### [2.4.9](https://github.com/Strider-CD/strider/compare/v2.4.8...v2.4.9) (2020-07-02)
 
 
