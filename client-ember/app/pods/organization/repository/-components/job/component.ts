@@ -1,4 +1,5 @@
 import Component from '@glimmer/component';
+import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import io from 'socket.io-client';
 
@@ -8,6 +9,8 @@ interface Args {
 
 export default class Job extends Component<Args> {
   socket: SocketIOClient.Socket;
+
+  @tracked isErrorStackVisible: boolean = false;
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);

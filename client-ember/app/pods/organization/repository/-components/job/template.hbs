@@ -76,6 +76,20 @@ import Status from '../status';
       </ul>
     </div>
 
+    {{#if @job.error}}
+      <div class='bg-white p-4 mb-4 rounded-lg shadow'>
+        <button type='button' {{on 'click' (set this.isErrorStackVisible (not this.isErrorStackVisible))}}>
+          {{@job.error.message}}
+        </button>
+
+        {{#if this.isErrorStackVisible}}
+          <pre class='text-sm whitespace-normal mt-2 text-gray-600'>
+            {{@job.error.stack}}
+          </pre>
+        {{/if}}
+      </div>
+    {{/if}}
+
     {{#if this.selectedPhase}}
       <div>
         {{#let (get @job.phases this.selectedPhase) as |phase|}}
