@@ -1006,7 +1006,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3, _temp;
+  var _dec, _dec2, _class, _descriptor, _descriptor2, _temp;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1016,41 +1016,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ForgotPasswordForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = (0, _emberConcurrency.task)(function* () {
-    let response = yield (0, _fetch.default)('/forgot', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.email
-      })
-    });
-
-    if (response.status === 200) {
-      // TODO: navigate in ember once the main page is finished
-      let result = yield response.json();
-
-      if (result === null || result === void 0 ? void 0 : result.ok) {
-        this.notifications.add(result.message);
-      }
-
-      return;
-    }
-
-    try {
-      let result = yield response.json();
-
-      if (result === null || result === void 0 ? void 0 : result.errors) {
-        this.notifications.add(result.errors.join('\n'), {
-          appearance: 'error'
-        });
-      }
-    } catch (e) {
-      throw new Error('Not ok');
-    }
-  }), (_class = (_temp = class ForgotPasswordForm extends _component.default {
+  let ForgotPasswordForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, (_class = (_temp = class ForgotPasswordForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1058,7 +1024,41 @@
 
       _initializerDefineProperty(this, "email", _descriptor2, this);
 
-      _initializerDefineProperty(this, "requestReset", _descriptor3, this);
+      _defineProperty(this, "requestReset", (0, _emberConcurrency.task)(function* () {
+        let response = yield (0, _fetch.default)('/forgot', {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: this.email
+          })
+        });
+
+        if (response.status === 200) {
+          // TODO: navigate in ember once the main page is finished
+          let result = yield response.json();
+
+          if (result === null || result === void 0 ? void 0 : result.ok) {
+            this.notifications.add(result.message);
+          }
+
+          return;
+        }
+
+        try {
+          let result = yield response.json();
+
+          if (result === null || result === void 0 ? void 0 : result.errors) {
+            this.notifications.add(result.errors.join('\n'), {
+              appearance: 'error'
+            });
+          }
+        } catch (e) {
+          throw new Error('Not ok');
+        }
+      }));
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -1067,11 +1067,6 @@
     writable: true,
     initializer: null
   }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "email", [_dec2], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "requestReset", [_dec3], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1123,7 +1118,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3, _temp;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1133,38 +1128,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let LoginForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = (0, _emberConcurrency.task)(function* () {
-    let response = yield (0, _fetch.default)('/login', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        email: this.email,
-        password: this.password
-      })
-    });
-
-    if (response.status === 200) {
-      // TODO: navigate in ember once the main page is finished
-      return window.location.href = '/';
-    }
-
-    try {
-      let result = yield response.json();
-
-      if (result === null || result === void 0 ? void 0 : result.errors) {
-        this.notifications.add(result.errors.join('\n'), {
-          appearance: 'error'
-        });
-      }
-
-      return;
-    } catch (e) {
-      throw new Error('Not ok');
-    }
-  }), (_class = (_temp = class LoginForm extends _component.default {
+  let LoginForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, (_class = (_temp = class LoginForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1174,7 +1138,38 @@
 
       _initializerDefineProperty(this, "password", _descriptor3, this);
 
-      _initializerDefineProperty(this, "login", _descriptor4, this);
+      _defineProperty(this, "login", (0, _emberConcurrency.task)(function* () {
+        let response = yield (0, _fetch.default)('/login', {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: this.email,
+            password: this.password
+          })
+        });
+
+        if (response.status === 200) {
+          // TODO: navigate in ember once the main page is finished
+          return window.location.href = '/';
+        }
+
+        try {
+          let result = yield response.json();
+
+          if (result === null || result === void 0 ? void 0 : result.errors) {
+            this.notifications.add(result.errors.join('\n'), {
+              appearance: 'error'
+            });
+          }
+
+          return;
+        } catch (e) {
+          throw new Error('Not ok');
+        }
+      }));
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -1188,11 +1183,6 @@
     writable: true,
     initializer: null
   }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "password", [_dec3], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "login", [_dec4], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1862,7 +1852,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _dec5, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _temp;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1872,37 +1862,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, _dec5 = (0, _emberConcurrency.task)(function* () {
-    let response = yield (0, _fetch.default)('/register', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        inviteCode: this.inviteCode,
-        email: this.email,
-        password: this.password
-      })
-    });
-
-    if (response.status === 200) {
-      // TODO: navigate in ember once the main page is finished
-      return window.location.href = '/';
-    }
-
-    try {
-      let result = yield response.json();
-
-      if (result === null || result === void 0 ? void 0 : result.errors) {
-        this.notifications.add(result.errors.join('\n'), {
-          appearance: 'error'
-        });
-      }
-    } catch (e) {
-      throw new Error('Not ok');
-    }
-  }), (_class = (_temp = class RegisterForm extends _component.default {
+  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = (_temp = class RegisterForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1914,7 +1874,37 @@
 
       _initializerDefineProperty(this, "inviteCode", _descriptor4, this);
 
-      _initializerDefineProperty(this, "register", _descriptor5, this);
+      _defineProperty(this, "register", (0, _emberConcurrency.task)(function* () {
+        let response = yield (0, _fetch.default)('/register', {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            inviteCode: this.inviteCode,
+            email: this.email,
+            password: this.password
+          })
+        });
+
+        if (response.status === 200) {
+          // TODO: navigate in ember once the main page is finished
+          return window.location.href = '/';
+        }
+
+        try {
+          let result = yield response.json();
+
+          if (result === null || result === void 0 ? void 0 : result.errors) {
+            this.notifications.add(result.errors.join('\n'), {
+              appearance: 'error'
+            });
+          }
+        } catch (e) {
+          throw new Error('Not ok');
+        }
+      }));
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -1933,11 +1923,6 @@
     writable: true,
     initializer: null
   }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "inviteCode", [_dec4], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "register", [_dec5], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2007,7 +1992,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _dec5, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _descriptor5, _temp;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2017,39 +2002,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, _dec5 = (0, _emberConcurrency.task)(function* () {
-    let response = yield (0, _fetch.default)('/register', {
-      method: 'post',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        inviteCode: this.inviteCode,
-        email: this.email,
-        password: this.password
-      })
-    });
-
-    if (response.status === 200) {
-      // TODO: navigate in ember once the main page is finished
-      return window.location.href = '/';
-    }
-
-    try {
-      let result = yield response.json();
-
-      if (result === null || result === void 0 ? void 0 : result.errors) {
-        this.notifications.add(result.errors.join('\n'), {
-          appearance: 'error'
-        });
-      }
-
-      return;
-    } catch (e) {
-      throw new Error('Not ok');
-    }
-  }), (_class = (_temp = class RegisterForm extends _component.default {
+  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = (_temp = class RegisterForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -2061,7 +2014,39 @@
 
       _initializerDefineProperty(this, "inviteCode", _descriptor4, this);
 
-      _initializerDefineProperty(this, "register", _descriptor5, this);
+      _defineProperty(this, "register", (0, _emberConcurrency.task)(function* () {
+        let response = yield (0, _fetch.default)('/register', {
+          method: 'post',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            inviteCode: this.inviteCode,
+            email: this.email,
+            password: this.password
+          })
+        });
+
+        if (response.status === 200) {
+          // TODO: navigate in ember once the main page is finished
+          return window.location.href = '/';
+        }
+
+        try {
+          let result = yield response.json();
+
+          if (result === null || result === void 0 ? void 0 : result.errors) {
+            this.notifications.add(result.errors.join('\n'), {
+              appearance: 'error'
+            });
+          }
+
+          return;
+        } catch (e) {
+          throw new Error('Not ok');
+        }
+      }));
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -2080,11 +2065,6 @@
     writable: true,
     initializer: null
   }), _descriptor4 = _applyDecoratedDescriptor(_class.prototype, "inviteCode", [_dec4], {
-    configurable: true,
-    enumerable: true,
-    writable: true,
-    initializer: null
-  }), _descriptor5 = _applyDecoratedDescriptor(_class.prototype, "register", [_dec5], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2528,7 +2508,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+cc907915"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+e7c7ac64"});
           }
         
 //# sourceMappingURL=strider-ui.map

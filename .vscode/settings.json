@@ -4,5 +4,11 @@
   "[handlebars]": { "editor.formatOnSave": true },
   "[html]": {
     "editor.formatOnSave": false
+  },
+  "files.watcherExclude": {
+    "common/temp/**": true
+  },
+  "search.exclude": {
+    "common/temp": true
   }
 }
