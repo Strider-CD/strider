@@ -1,7 +1,5 @@
 # Strider
 
----
-
 [![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]
 
 ## General Requirements
