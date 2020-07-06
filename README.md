@@ -30,6 +30,21 @@ Strider is extremely customizable through plugins. Plugins can
 Check out the [guides](http://strider-cd.github.io/) or see the [strider app README](apps/strider/README.md) for additional instructions.  
 For live help check out Strider's [Gitter].
 
+### Strider on Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+To get up and running quickly on Heroku, you can simply use the button above.
+If you run into any issues, see the [wiki entry](https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku).
+
+### Strider in Docker
+
+Many users like to run Strider within a Docker container.
+Although this works well, supporting it is outside the scope of the Strider project.
+
+We recommend using [docker-strider](https://github.com/Strider-CD/docker-strider) as a base image when designing your Docker-based Strider installation.
+Please post related issues in the [issues section](https://github.com/Strider-CD/docker-strider/issues) for that repository.
+
 ## Backers
 
 Support us with a monthly donation and help us continue our activities. [[Become a backer](https://opencollective.com/strider#backer)]

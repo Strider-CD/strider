@@ -85,21 +85,6 @@ Once `Strider` has been installed and configured, it can be started with:
 NODE_ENV=production npm start
 ```
 
-### Strider on Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
-
-To get up and running quickly on Heroku, you can simply use the button above.
-If you run into any issues, see the [wiki entry](https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku).
-
-### Strider in Docker
-
-Many users like to run Strider within a Docker container.
-Although this works well, supporting it is outside the scope of the Strider project.
-
-We recommend using [docker-strider](https://github.com/Strider-CD/docker-strider) as a base image when designing your Docker-based Strider installation.
-Please post related issues in the [issues section](https://github.com/Strider-CD/docker-strider/issues) for that repository.
-
 ## Resources
 
 - [Strider Tutorial Series][resource-strider-futurestudio-tutorials] - Extensive guides about Strider covering platform setup, 3rd party integrations (GitHub, GitLab, etc), continuous deployments (Heroku, SSH), notifications (email, Slack, HipChat), how to create your own Strider plugin and many more.
