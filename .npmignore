@@ -1,7 +1,0 @@
-test/
-.idea/
-docs/
-lib/
-client-ember/
- .dev-dist/
- _docpress/

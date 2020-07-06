@@ -1,0 +1,1 @@
+{"version":3,"file":"mongoose-shim.js","sourceRoot":"","sources":["../../../lib/utils/mongoose-shim.js"],"names":[],"mappings":"AAAA,MAAM,OAAO,GAAG,OAAO,CAAC,UAAU,CAAC,CAAC;AACpC,MAAM,QAAQ,GAAG,OAAO,CAAC,UAAU,CAAC,CAAC;AAErC,QAAQ,CAAC,OAAO,GAAG,OAAO,CAAC;AAE3B,MAAM,CAAC,OAAO,GAAG,QAAQ,CAAC"}

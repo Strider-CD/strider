@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+<div id="admin-jobs-status">
+  <div class="row">
+    <div id="user-form" class="span4 offset6 form-inline">
+      <select id="user-list"></select>
+      <button id="filter" class="btn">Filter</button>
+    </div>
+  </div>
+  <div id="job-status" class="row">
+    <div id="job-list" class="span10"></div>
+  </div>
+</div>
+<script id="job-item-template" type="text/template" class="template">
+  <div class="row-fluid job-list-item">
+    <div class="span2"><img src="<%= owner_gravatar_url %>"></div>
+    <div class="span10">
+      <div class="row-fluid">
+        <div class="span6">
+          <h3><%= project_name %></h3>
+        </div>
+        <div class="span6"> 
+          <div id="commit-id"> 
+            <h3><%= owner %></h3>
+          </div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span6">
+          <div id="repo-branch"> <strong>Branch: </strong><a>master</a></div>
+        </div>
+        <div class="span6"> 
+          <div id="commit-id"> <strong>Job: </strong><a href=<%= job_url %> ><%= job_id.substr(0,8) %></a></div>
+        </div>
+      </div>
+      <div class="row-fluid">
+        <div class="span6">
+          <div id="finished-at"><strong>Finished: </strong><%= finished_at %></div>
+        </div>
+        <div class="span6">
+          <div id="build-duration"><strong>Running Time: </strong><%= duration  %>s</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</script>
+<script id="user-item-template" type="text/template" class="template"><option value="<%= id %>"><%= email %></option></script>
+{% endblock %}

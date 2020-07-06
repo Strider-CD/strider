@@ -1,0 +1,12 @@
+{
+  "github": "Strider-CD/strider",
+  "css": [
+    "docs/styles/rsc.css",
+    "docs/styles/main.css"
+  ],
+  "markdown": {
+    "plugins": {
+      "decorate": {}
+    }
+  }
+}

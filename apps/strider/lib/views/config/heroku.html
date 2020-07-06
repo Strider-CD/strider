@@ -1,0 +1,90 @@
+<div ng-switch="status">
+  <fieldset ng-switch-default>
+    <legend>Heroku Deploy Configuration</legend>
+    <div class="control-group">
+      <label for="api-key" class="control-label">Heroku API Key</label>
+      <div class="controls">
+        <input id="api-key" ng-model="$parent.apikey" type="password" class="input-xlarge"/>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button ng-click="checkApi()" ng-disabled="loading" class="btn btn-primary heroku-prompt">Ok</button>
+    </div>
+  </fieldset>
+  <fieldset ng-switch-when="have-api">
+    <legend>Heroku Deploy Configuration</legend>
+    <div class="control-group">
+      <label for="app" class="control-label">Heroku App</label>
+      <div class="controls">
+        <select id="app" ng-model="$parent.which_app">
+          <option value="@@new@@"><em>New App</em></option>
+          <option value="[[app.name]]" ng-repeat="app in heroku_apps">[[app.name]]</option>
+        </select>
+        <p class="help-block">Deploy to existing Heroku app or create a new one for this repository</p>
+        <div class="appname" ng-show="$parent.which_app === '@@new@@'">
+          <label for="new-app-name" class="control-label">New app name</label>
+          <input id="new-app-name" ng-model="$parent.new_app_name" type="text" placeholder="my-new-app" class="input-xlarge"/>
+          <p class="help-block">Name of app to create</p>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button ng-click="herokuSelect()" ng-disabled="loading"
+              class="btn btn-primary heroku-select">
+        Ok
+      </button>
+      <button class="btn btn-back" ng-disabled="loading" ng-click="goBack()">
+        &lt;&lt; Go back
+      </button>
+    </div>
+  </fieldset>
+  <div class="row-fluid" ng-switch-when="configured">
+    <div class="span10">
+      <legend>Heroku Settings</legend>
+    </div>
+    <div class="row-fluid">
+      <div class="span10">
+        <div class="well">
+          <h3>
+            <strong>App Name: </strong>
+            <a href="https://[[ heroku.app ]].herokuapp.com" target="_blank">
+              [[ heroku.app ]]
+            </a>
+          </h3><br/>
+          <div class="controlgroup">
+            <div class="controls">
+              <label class="checkbox">
+                Deploy on Green
+                <button class="btn" ng-switch="$parent.deploy_on_green"
+                        ng-disabled="loading" ng-click="toggleDeploy()">
+                  <span ng-switch-when="true">Disable</span>
+                  <span ng-switch-when="false">Enable</span>
+                </button>
+              </label>
+              <p>
+                When tests pass, automatically deploy to Heroku. If
+                this is unchecked, deployments must be triggered
+                manually.
+              </p>
+            </div>
+            <hr/>
+            <div class="controlgroup">
+              <h3>Reset Heroku Config</h3>
+              <p>
+                If you would like to stop deploying this repo to
+                Heroku, click the button below.
+              </p>
+              <div class="controls">
+                <a id="remove-heroku-config"
+                   ng-disabled="loading"
+                   ng-click="removeHeroku()" class="btn btn-danger">
+                  Remove Heroku Configuration
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="project-config">
+  <div class="well" id="visibility-config">
+    <legend>Project Visibility</legend>
+
+    <p class="help-text">Projects are private by default. Job history, status and console output of public projects are visible to anyone who knows the URL.
+      <p>
+        Public URL: <a href="{{ serverName }}/{{ project.name }}/"><strong>{{ serverName }}/{{ project.name }}/</strong></a>
+      </p>
+      <label class="checkbox">
+        <input data-test="public" type="checkbox" ng-model="project.public" ng-change="saveProject()"> Make this project public
+      </label>
+    </p>
+  </div>
+
+  {% include "config/collaborators.html" %}
+
+  <div class="row-fluid">
+    <div class="span6">
+      <h3>Delete Project</h3>
+      <p>
+        Permanently remove {{ project.name }} from Strider
+      </p>
+      <button ng-click="deleting = 'really_delete'" class="btn btn-danger">Delete Project</button>
+      <button ng-click="deleteProject()" ng-show="deleting === 'really_delete'" class="btn btn-danger">Really Delete</button>
+      <button ng-show="deleting === 'really_delete'" ng-click="deleting = false" class="btn btn-success">Just Kidding</button>
+    </div>
+    <div class="span6">
+      <h3>Project Cache</h3>
+      <p>
+        Each project has an associated cache where plugins and providers
+        can store data to save time on running jobs. In case something
+        unexpected happens and you want to blow away the cache, do that
+        here.
+      </p>
+      <button class="btn btn-warning" ng-disabled="clearingCache" ng-click="clearCache()">
+        Clear Cache
+        <i class="fa fa-refresh fa-spin" ng-show="clearingCache"></i>
+      </button>
+    </div>
+  </div>
+</div>

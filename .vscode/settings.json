@@ -1,0 +1,8 @@
+{
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "[handlebars]": { "editor.formatOnSave": true },
+  "[html]": {
+    "editor.formatOnSave": false
+  }
+}

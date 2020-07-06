@@ -1,0 +1,28 @@
+<div class="row-fluid">
+  <div class="span8">
+    <div class="well">
+      <h3>Brilliant Continuous Deployment.</h3>
+      {% include "partials/_strider_copy.html" %}
+
+      <div class="row-fluid">
+        <div class = "span12">
+          <form role="form-inline" action='/register' method='POST'>
+            <div class="form-group">
+              <label for="invite_code"><strong>Invite Code:</strong></label>
+              <input type="text" class="form-control span11" id="invite_code" name='invite_code' value="{{ invite_code }}" placeholder='ABC123'>
+            </div>
+            <div class="form-group">
+              <label for="email"><strong>Email Address:</strong></label>
+              <input type="email" class="form-control span11" id="email" name='email' value="{{ email }}" placeholder='test@example.com' >
+            </div>
+            <div class="form-group">
+              <label for="password"><strong>New Password:</strong></label>
+              <input type="password" class="form-control span11" id="password" name="password" value="{{ password }}" placeholder="seck3t">
+            </div>
+            <button type="submit" class="btn btn-danger">Register</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

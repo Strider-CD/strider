@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+  {% for messages in flash %}
+    {% for message in messages %}
+      <div class="alert alert-info">{{ message|raw }}</div>
+    {% endfor %}
+  {% endfor %}
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="well">
+        <h3>Reset Password</h3>
+        <form class="form-inline" action="/reset/{{token}}" method="POST">             
+          <input class="xlarge" type="password" name="password"  placeholder="Password" required="true" autofocus="true"/>
+          <input class="xlarge" type="password" name="passwordConfirmation" placeholder="Password Confirmation" required="true"/>
+          <input class="btn primary" type="submit" value="Change Password" />
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
