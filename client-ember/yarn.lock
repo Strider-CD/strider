@@ -2872,11 +2872,6 @@ babel-plugin-transform-async-to-generator@^6.22.0:
     babel-plugin-syntax-async-functions "^6.8.0"
     babel-runtime "^6.22.0"
 
-babel-plugin-transform-class-property-assignment-to-decorator@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/babel-plugin-transform-class-property-assignment-to-decorator/-/babel-plugin-transform-class-property-assignment-to-decorator-0.1.1.tgz#b49d96c354e06639362ec3f777a2558714d3b02b"
-  integrity sha512-W3V83KH49O/RkZy1eYW/5AAD/HhXyi4zOPWKgSBtUzeNFzJNDiBNaiMT816g7xzTJnmJMBmnRKwhWnxl7q7yUw==
-
 babel-plugin-transform-es2015-arrow-functions@^6.22.0:
   version "6.22.0"
   resolved "https://registry.yarnpkg.com/babel-plugin-transform-es2015-arrow-functions/-/babel-plugin-transform-es2015-arrow-functions-6.22.0.tgz#452692cb711d5f79dc7f85e440ce41b9f244d221"
@@ -5861,20 +5856,10 @@ ember-compatibility-helpers@^1.1.1, ember-compatibility-helpers@^1.1.2, ember-co
     ember-cli-version-checker "^2.1.1"
     semver "^5.4.1"
 
-ember-concurrency-typescript@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/ember-concurrency-typescript/-/ember-concurrency-typescript-0.1.0.tgz#47fea15d617f634081dff3b9656a508e122e7f00"
-  integrity sha512-QnFn8WhObBm+LQ/sYvaJqVxrCmEhijk4jCEc21Adr/jHjVYeo0XIdfTLW9vOZp4243dSxa781eJswwLW6K93PA==
-  dependencies:
-    babel-plugin-transform-class-property-assignment-to-decorator "^0.1.1"
-    ember-cli-babel "^7.7.3"
-    ember-cli-babel-plugin-helpers "^1.1.0"
-    ember-cli-version-checker "^3.1.3"
-
-ember-concurrency@^1.1.7:
-  version "1.1.7"
-  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-1.1.7.tgz#b3f0c0478db1096503499d39e1b263c575cd52ef"
-  integrity sha512-PtEJvB4wG8e5CEHRC9ILl2BxF6U/xlMOhfCji/x7FxNFB9M230Du86LAy+4/yOozZHyoARVuazABPUj02P+DmQ==
+ember-concurrency@^1.2.0:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/ember-concurrency/-/ember-concurrency-1.2.1.tgz#54fb234579638c5c43d4153a4e14567fe2b2e325"
+  integrity sha512-6zlK3BndPPZlSVWq6xBohwobpDKrI58nMMDfD8OqjoeBwnaznuyVHJqDZ46NRJrvSqYX6R96XBBVpDGCCcbK+w==
   dependencies:
     ember-cli-babel "^7.7.3"
     ember-compatibility-helpers "^1.2.0"
