@@ -32,7 +32,7 @@ For live help check out Strider's [Gitter].
 
 ### Strider on Heroku
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Strider-CD/strider/tree/master/apps/strider)
 
 To get up and running quickly on Heroku, you can simply use the button above.
 If you run into any issues, see the [wiki entry](https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku).
