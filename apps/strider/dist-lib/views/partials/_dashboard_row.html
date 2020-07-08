@@ -1,0 +1,210 @@
+<div class="project-name inline-block">
+  <a href="/[[ job.project.name || project.name ]]/?ember=true">
+    [[ job.project.display_name ]]
+  </a>
+</div>
+
+<div class="github-link inline-block">
+  <a
+    href="[[ job.project.display_url || project.display_url ]]"
+    target="_blank"
+    data-toggle="tooltip"
+    data-container="body"
+    title="Go to project website"
+  >
+    <i
+      class="fa fa-[[ providers[job.project.provider.id].inline_icon || 'globe' ]]"
+    ></i>
+  </a>
+</div>
+
+{% if !public && currentUser %}
+<div class="actions pull-right">
+  <div class="configure inline-block">
+    <a
+      href="/[[ job.project.name || project.name ]]/config"
+      ng-show="job.project.access_level > 1"
+      data-toggle="tooltip"
+      data-container="body"
+      title="Configure"
+      class="button is-link"
+    >
+      <span class="icon no-text">
+        <i class="fa fa-wrench"></i>
+      </span>
+    </a>
+  </div>
+
+  <div class="deploy inline-block">
+    <a
+      ng-hide="job.status === 'running' || job.project.access_level < 1"
+      ng-click="startDeploy(job)"
+      data-toggle="tooltip"
+      data-container="body"
+      title="Retest &amp; Deploy"
+      class="button is-dark test-and-deploy-action"
+    >
+      <span class="icon">
+        <i class="fa fa-cloud-upload"></i>
+      </span>
+      <span>
+        Deploy
+      </span>
+    </a>
+  </div>
+
+  <div class="refresh inline-block">
+    <a
+      ng-hide="job.status === 'running' || job.project.access_level < 1"
+      data-toggle="tooltip"
+      data-container="body"
+      title="Run the tests again"
+      ng-click="startTest(job)"
+      class="button is-dark test-only-action"
+    >
+      <span class="icon">
+        <i class="fa fa-refresh"></i>
+      </span>
+      <span>
+        Test
+      </span>
+    </a>
+  </div>
+
+  <div class="cancel inline-block">
+    <a
+      ng-show="job.status === 'running' || job.status === 'submitted'"
+      data-toggle="tooltip"
+      data-container="body"
+      title="Cancel running job"
+      ng-click="cancelJob(job._id)"
+      class="button is-inverted is-danger"
+    >
+      <span class="icon">
+        <i class="fa fa-times cancel-job"></i>
+      </span>
+      <span>
+        Cancel
+      </span>
+    </a>
+  </div>
+</div>
+{% endif %}
+
+<div class="clearfix"></div>
+
+<div class="committer pull-left">
+  <div ng-show="job.trigger.author.image" ng-switch="!!job.trigger.author.url">
+    <img
+      ng-switch-when="false"
+      ng-src="[[ job.trigger.author.image ]]"
+      class="img-circle"
+      data-toggle="tooltip"
+      data-container="body"
+      title="[[job.trigger.author.name]]"
+    />
+    <a ng-switch-default href="[[ job.trigger.author.url ]]" target="_blank">
+      <img ng-src="[[ job.trigger.author.image ]]" class="img-circle" />
+    </a>
+  </div>
+</div>
+
+<div class="job-link">
+  Job
+
+  <a
+    href="/[[ job.project.name || project.name ]]/[[ job.nojobs ? '' : 'job/' + job._id ]]"
+  >
+    <span data-test="job-id" class="job-id">[[ job._id.substr(0,8) ]]</span>
+    <span ng-show="job.nojobs">No job history</span>
+  </a>
+
+  on
+
+  <span>[[ job.ref.branch ]]</span>
+  [[job.status]]
+
+  <span ng-if="job.status === 'running'">for</span>
+  <span ng-if="job.status === 'failed' || job.status === 'passed'">after</span>
+  <span ng-if="job.status === 'submitted'">and waiting to run</span>
+
+  <span class="run-time" ng-switch="job.status">
+    <time
+      ng-switch-when="running"
+      class="duration"
+      since="[[ job.created ]]"
+      ng-hide="job.nojobs"
+    ></time>
+    <time
+      ng-switch-when="submitted"
+      class="duration"
+      since="[[ job.started ]]"
+      ng-hide="job.nojobs"
+    ></time>
+    <time
+      ng-switch-default
+      class="duration"
+      duration="[[ job.duration ]]"
+      ng-hide="job.nojobs"
+    ></time>
+  </span>
+
+  <span class="finished-at" ng-switch="job.status === 'running'">
+    <span
+      ng-switch-when="false"
+      class="small-text"
+      ng-hide="job.nojobs || job.status === 'submitted'"
+    >
+      <time
+        data-toggle="tooltip"
+        data-container="body"
+        data-placement="top"
+        datetime="[[ job.finished ]]"
+        class="timeago"
+      ></time>
+    </span>
+    <div ng-switch-when="true" class="progress-meter">
+      <div class="progress progress-striped active progress-info">
+        <div
+          class="bar"
+          style="width:[[ (phases.indexOf(job.phase)+1)/phases.length*100 ]]%; max-width: 100%"
+        ></div>
+      </div>
+    </div>
+  </span>
+</div>
+
+<div class="commit-url" ng-switch="!!job.trigger.url">
+  <span ng-switch-when="true">
+    <a href="[[ job.trigger.url ]]" target="_blank">
+      <span
+        class="small-text pull-left"
+        data-toggle="tooltip"
+        data-container="body"
+        title="Go to commit on project website"
+      >
+        <i
+          class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]"
+          data-toggle="tooltip"
+          data-container="body"
+          title="[[ triggers[job.trigger.type].title ]]"
+        ></i>
+        [[ job.trigger.message ]]
+      </span>
+    </a>
+  </span>
+
+  <span
+    class="small-text pull-left"
+    ng-switch-default
+    title="[[ job.trigger.message ]]"
+  >
+    <i
+      class="trigger-icon fa fa-[[ triggers[job.trigger.type].icon ]]"
+      data-toggle="tooltip"
+      data-container="body"
+      title="[[ triggers[job.trigger.type].title ]]"
+    ></i>
+    [[ job.trigger.message ]]
+  </span>
+</div>

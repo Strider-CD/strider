@@ -1,0 +1,66 @@
+{
+  "name": "test/project",
+  "secret": "this-is-a-secret?",
+  "provider": {
+    "id": "github",
+    "display_url": "http://example.com/my",
+    "config": {
+      "url": "example.com/my.git",
+      "auth": {
+        "type": "https"
+      }
+    }
+  },
+  "branches": {
+    "master": {
+      "plugins": [
+        {
+          "id": "webhooks",
+          "enabled": true,
+          "config": [{
+            "url": "google.com",
+            "format": null,
+            "secret": "dontlook"
+          }]
+        }
+      ],
+      "pubkey": "my public key",
+      "privkey": "my private key",
+      "public": true,
+      "active": true,
+      "deploy_on_green": true,
+      "runner": {
+        "id": "simple-runner",
+        "config": {
+          "pty": false
+        }
+      }
+    },
+    "otherbranch": "master",
+    "custombranch": {
+      "plugins": [
+        {
+          "id": "webhooks",
+          "enabled": true,
+          "config": [{
+            "url": "differenturl.com"
+          }]
+        },
+        {
+          "id": "go",
+          "enabled": false,
+          "config": {
+            "runtime": "0.10"
+          }
+        }
+      ],
+      "runner": {
+        "id": "docker",
+        "config": {
+          "pty": false,
+          "container": "ubuntu"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+.span11
+  .row-fluid
+    .span6
+      a(href=job.url) #{job.id.substr(0,8)}
+    .span6
+      .build-item-committer
+        - if (job.triggered_by_commit && job.committer_is_username)
+          a(href="https://github.com/"+ job.committer ) #{job.committer} 
+        - else if (job.triggered_by_commit)
+          | #{job.committer}
+        - else
+          | N/A
+
+  .row-fluid
+    .span6
+      | #{job.finished_at}
+    .span6
+      .build-item-duration
+        strong #{job.duration}s

@@ -1,0 +1,238 @@
+@import "strider-colors";
+@import "button";
+
+.no-projects {
+  margin-top: 20px;
+  margin-bottom: 25px;
+}
+
+.project-list {
+  margin: 0;
+}
+
+.finished-at time {
+  line-height: 27px;
+}
+
+.run-time time {
+  line-height: 29px;
+}
+
+.icon.no-text {
+  margin-left: 0 !important;
+}
+
+#dashboard .finished-at .cancel-job {
+  font-size: 18px;
+  line-height: 36px;
+}
+
+#dashboard {
+  a.clickable {
+    cursor: pointer;
+    &:hover {
+      text-decoration: none;
+      color: #999;
+    }
+  }
+
+  a.add-repo {
+    color: #fff;
+  }
+
+  .history {
+    width: 70px;
+  }
+
+  #job-list-yours,
+  #job-list-public {
+    // We add a border on the left of each row, indicating the state of the last build.
+    li, td ~ td {
+      background-color: #fff;
+      transition: .3s;
+      margin-bottom: 10px;
+      border-left: 6px solid #BBB;
+    }
+
+    .running {
+      border-left-width: 6px;
+      border-color: @strider-bg-running;
+      background-color: lighten(@strider-bg-running, 25%);
+
+      &:hover {
+        background-color: lighten(@strider-bg-running, 35%);
+      }
+    }
+
+    .passed {
+      border-left-width: 6px;
+      border-color: @strider-bg-passed;
+      background-color: lighten(@strider-bg-passed, 25%);
+
+      &:hover {
+        background-color: lighten(@strider-bg-passed, 35%);
+      }
+    }
+
+    .failed {
+      border-left-width: 6px;
+      border-color: @strider-bg-failed;
+      background-color: lighten(@strider-bg-failed, 25%);
+
+      &:hover {
+        background-color: lighten(@strider-bg-failed, 35%);
+      }
+    }
+
+    .errored {
+      border-left-width: 6px;
+      border-color: @strider-bg-errored;
+      background-color: lighten(@strider-bg-errored, 25%);
+
+      &:hover {
+        background-color: lighten(@strider-bg-errored, 35%);
+      }
+    }
+  }
+}
+
+.dashboard-row,
+#dashboard ul li {
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+
+  .inline-block {
+    display: inline-block;
+  }
+
+  .job-id {
+    font-family: monospace;
+  }
+
+  .btn-link {
+    color: #333;
+  }
+
+  & > a,
+  & > span {
+    display: inline-block;
+    padding: 5px 10px;
+  }
+
+  span.clickable,
+  a:not(.button) {
+    color: black;
+    cursor: pointer;
+  }
+
+  .github-link {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    .action-buttons {
+      & > div {
+        visibility: visible;
+      }
+    }
+  }
+
+  .small-text {
+    display: inline-block;
+  }
+
+  .action-buttons {
+    width: 100px;
+    text-align: center;
+    .btn-group {
+      padding-top: 4px;
+    }
+  }
+
+  .progress-meter {
+    .progress {
+      margin-bottom: 0;
+    }
+  }
+
+  .committer {
+    a {
+      padding: 0;
+    }
+    img {
+      width: 35px;
+      height: 35px;
+      max-width: inherit;
+      margin: 10px 10px 10px 0;
+    }
+  }
+
+  .project-name {
+    a {
+      font-size: 18px;
+      line-height: 27px;
+      width: 100%;
+    }
+  }
+
+  .run-time {
+    text-align: center;
+  }
+}
+
+@media (max-width: 980px) {
+  #dashboard {
+    .triggered-by-header,
+    .commit-url,
+    .committer,
+    .job-link a span {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  #dashboard {
+    .finished-at {
+      display: none;
+    }
+  }
+
+  #build-page .job-title h3 {
+    margin-bottom: 0.5em;
+  }
+
+  .navbar-fixed-top {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 650px) {
+  #dashboard {
+    overflow: auto;
+
+    .deploy,
+    .deploy-header,
+    .refresh,
+    .refresh-header,
+    .configure,
+    .configure-header,
+    .committer,
+    .committer-header,
+    .github-header,
+    .github-link {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  #dashboard {
+    ul li .project-name a {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 25px;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block bodyclass %}job_view{% endblock %}
+
+{% block bodyContent %}
+<div class="row-fluid job-page-intro">
+  <div class="span7 job-title">
+    {% pluginblock JobPagePreTitle %}{% endpluginblock %}
+    <h3>Builds for <span class='job-repo'>{{ project.name }}</span></h3>
+    {% pluginblock JobPagePostTitle %}{% endpluginblock %}
+  </div>
+</div>
+<div class='job-main'>
+  {% include "partials/_build.html" %}
+</div>
+{% pluginblock AfterJobPage %}{% endpluginblock %}
+{% endblock %}

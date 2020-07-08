@@ -1,0 +1,38 @@
+/* helpers */
+.full-width {
+  width: 100%;
+}
+
+h2 {
+  padding-top: 1.2em;
+  clear: left;
+}
+
+hr {
+  height: 1px !important;
+  clear: left;
+}
+
+/* remove search icon */
+.toc-menu:before {
+  content: "";
+}
+
+/* prevent spinner from blocking nav */
+.header-nav {
+  position: fixed;
+  left: auto;
+  width: 100px;
+}
+
+/* hide nav toggle on small screens */
+@media (max-width: 959px) {
+  .menu-toggle {
+    display: none;
+  }
+}
+
+/* move github icon to right in desktop view */
+.-menu-visible .doc-layout .header-nav {
+  left: auto;
+}

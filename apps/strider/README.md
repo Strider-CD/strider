@@ -1,0 +1,198 @@
+# Strider
+
+[![NPM][npm-badge-img]][npm-badge-link] [![Code Climate][cc-badge]][cc-badge-link] [![Dependency Status][david-badge]][david-badge-link] [![Build Status][travis-badge]][travis-badge-link]
+
+## General Requirements
+
+- [nodejs] >= 10.13.0 or >= 11.10.1
+- [git] >= 2.0
+- [mongodb][mongo-download] (local or remote)
+- [node-gyp]
+
+<details>
+<summary>Other possible requirements</summary>
+
+_Note: Installing on OS X might require XCode to be installed._
+
+- The package `krb5-devel`/`libkrb5-dev` might have to be installed to resolve Kerberos related build issues on some systems.
+</details>
+
+## Running on Infrastructure
+
+Make sure you have MongoDB installed on your system. You can get the latest version at [mongodb.org][mongo-download].
+
+Next you will need Node.JS. You can get binary packages for most platforms at [nodejs.org][nodejs].
+
+Once you have Node.JS on your system, you can fetch & install all the dependencies for your Strider clone
+by executing the following command in the project root:
+
+```no-highlight
+npm install
+```
+
+> Note: Sometimes there are issues with permissions and installing global modules, in those cases run `npm config set prefix ~/npm` to set your global modules directory to '~/npm'. You will also have to add `~/npm/bin` to your `PATH` environment variable.
+
+### Configuring
+
+`Strider` configuration comes from environment variables. Most of the default
+values should work fine for running on localhost, however for an
+Internet-accessible deployment the following variables will need to be exported:
+
+- `SERVER_NAME` - **Required**; Address at which server will be accessible on the Internet. E.g. `https://strider.example.com` (note: no trailing slash, and included protocol)
+- `DB_URI` - MongoDB DB URI (with port number if local, e.g. localhost:27017) if not localhost (you can also use [MongoDB Atlas](https://www.mongodb.com/cloud/atlas))
+
+You might need to follow these instructions if you use any of these, please do so before filing issues.
+
+- [Github][github-config]
+- [Bitbucket][bitbucket-config]
+- [Gitlab][gitlab-config]
+- [Heroku][heroku-config]
+
+See [additional configuration](#user-content-additional-configurations) for all options.
+
+### Adding Initial Admin User
+
+`Strider` isn't much use without an account to login with. Once you create an administrative user, you can invite as many
+other people as you like to your instance. There is a simple CLI subcommand to help you create the initial user:
+
+```no-highlight
+node bin/strider addUser
+```
+
+Example run:
+
+```no-highlight
+$ node bin/strider addUser
+Enter email []: strider@example.com
+Is admin? (y/n) [n]: y
+Enter password []: *******
+
+Email:    strider@example.com
+Password: ****
+isAdmin:  true
+OK? (y/n) [y]:
+22 Oct 21:21:01 - info: Connecting to MongoDB URL: mongodb://localhost:27017/strider-foss
+22 Oct 21:21:01 - info: User added successfully! Enjoy.
+```
+
+See the [cli readme] for more details.
+
+### Starting Strider
+
+Once `Strider` has been installed and configured, it can be started with:
+
+```no-highlight
+NODE_ENV=production npm start
+```
+
+## Resources
+
+- [Strider Tutorial Series][resource-strider-futurestudio-tutorials] - Extensive guides about Strider covering platform setup, 3rd party integrations (GitHub, GitLab, etc), continuous deployments (Heroku, SSH), notifications (email, Slack, HipChat), how to create your own Strider plugin and many more.
+- [Strider on DigitalOcean][resource-digitalocean] - Covers setting up an Ubuntu machine with Strider using upstart.
+- [Strider plugin template][resource-plugin-template] - Simple setup for getting started with your own plugin.
+- [Panamax Strider template][resource-panamax-template] - Strider template for use with Panamax.
+
+## Advanced Topics
+
+Advanced topics are located in the [Wiki](https://github.com/Strider-CD/strider/wiki), here's a small
+subset of what's covered:
+
+- [Advanced Configuration](https://github.com/Strider-CD/strider/wiki/Advanced-Configuration)
+- [Requiring Strider](https://github.com/Strider-CD/strider/wiki/Requiring-Strider)
+- [Managing Plugins](https://github.com/Strider-CD/strider/wiki/Managing-Plugins)
+
+### LDAP
+
+If you want to connect to your ldap server to authorization  
+you can also add the `ldap.json` config file to project root  
+the config like so:
+
+```javascript
+ {
+    "url": ldap://host:port,
+    "baseDN": dnString,
+    "username": username,
+    "password": password,
+    // If you want to set a admin group
+    "adminDN": dnString
+ }
+```
+
+> Remove // comments from the config to use it
+
+### Additional Configurations
+
+- `HOST` - Host where strider listens, optional (defaults to 0.0.0.0).
+- `PORT` - Port that strider runs on, optional (defaults to 3000).
+- `CONCURRENT_JOBS` - How many jobs to run concurrently (defaults to 1). Concurrency only works across different project and branch combinations. So if two jobs come in for the same project and branch, concurrency will always be 1.
+- `STRIDER_CLONE_DEST` - Where the repositories are cloned to (defaults to ~/.strider)
+- `HTTP_PROXY` - Proxy support, optional (defaults to null)
+- If you want email notifications, configure an SMTP server (we recommend [Mailgun] for SMTP if you need a server - free account gives 200 emails / day):
+  - `SMTP_HOST` - SMTP server hostname e.g. smtp.example.com
+  - `SMTP_PORT` - SMTP server port e.g. 587 (default)
+  - `SMTP_SECURE` - SMTP server TLS or SSL ("true" or "false")
+  - `SMTP_USER` - SMTP auth username e.g. "myuser"
+  - `SMTP_PASS` - SMTP auth password e.g. "supersecret"
+  - `SMTP_FROM` - Default FROM address e.g. "Strider <noreply@stridercd.com>" (default)
+- `BODY_PARSER_LIMIT` - Increase the maximum payload size that our [body parser][body-parser] will attempt to parse. Useful for github web hooks.
+- `DEBUG` - Set this to `strider*` to enable all debug output. This is very helpful when troubleshooting issues or finding the cause of bugs in Strider. For more information see https://www.npmjs.com/package/debug
+- `JOBS_QUANTITY_ON_PAGE_ENABLED` - Whether users can set quantity in Account Management
+- `JOBS_QUANTITY_ON_PAGE_DEFAULT` - Number of jobs to display when not enabled
+- `JOBS_QUANTITY_ON_PAGE_MIN` - Minimal value
+- `JOBS_QUANTITY_ON_PAGE_MAX` - Maximum value
+
+## API Documentation
+
+An effort has been started to document the existing REST API, and to have versioned documentation going forward.
+We use [apiDoc] for the documentation.
+
+To build the documentation run `npm run docs` and the documentation will be accessable from `apidocs/index.html`.
+
+**[View Strider API Docs](http://strider-api-docs.surge.sh/)**
+
+## Support & Help
+
+We are responsive to Github Issues - please don't hesitate submitting your issues here!
+
+For live help check out Strider's [Gitter].
+
+[logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
+[build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
+[build-link]: https://public-ci.stridercd.com/Strider-CD/strider
+[dep-img]: https://david-dm.org/Strider-CD/strider.svg
+[dep-link]: https://david-dm.org/Strider-CD/strider
+[dev-dep-img]: https://david-dm.org/Strider-CD/strider/dev-status.svg
+[dev-dep-link]: https://david-dm.org/Strider-CD/strider#info=devDependencies
+[npm-badge-img]: https://badge.fury.io/js/strider.svg
+[npm-badge-link]: http://badge.fury.io/js/strider
+[mongolab]: https://mongolab.com/plans/pricing/
+[mailgun]: http://www.mailgun.com/pricing
+[book-intro]: http://strider.readthedocs.org/en/latest/intro.html
+[changelog]: https://github.com/Strider-CD/strider/blob/master/CHANGELOG.md
+[mongo-download]: http://www.mongodb.org/downloads
+[resource-digitalocean]: http://fosterelli.co/creating-a-private-ci-with-strider.html
+[resource-plugin-template]: https://github.com/bitwit/strider-template
+[resource-panamax-template]: https://github.com/CenturyLinkLabs/panamax-contest-templates/blob/master/stridercd_mrsmith.pmx
+[extending]: https://github.com/Strider-CD/strider-extension-loader
+[maintainer]: http://frozenridge.co
+[cli readme]: https://github.com/Strider-CD/strider/cli/README.md
+[github-config]: https://github.com/Strider-CD/strider-github#required-configuration
+[bitbucket-config]: https://github.com/Strider-CD/strider-bitbucket#configuration
+[gitlab-config]: https://github.com/Strider-CD/strider-gitlab#setup
+[heroku-config]: https://github.com/Strider-CD/strider-heroku#important-config
+[cc-badge]: https://codeclimate.com/github/Strider-CD/strider/badges/gpa.svg
+[cc-badge-link]: https://codeclimate.com/github/Strider-CD/strider
+[david-badge]: https://david-dm.org/Strider-CD/strider.svg
+[david-badge-link]: https://david-dm.org/Strider-CD/strider
+[body-parser]: https://github.com/expressjs/body-parser
+[node-gyp]: https://github.com/TooTallNate/node-gyp#installation
+[git]: http://git-scm.com/
+[nodejs]: http://nodejs.org/
+[npm]: https://docs.npmjs.com/getting-started/installing-node
+[gitter]: https://gitter.im/Strider-CD
+[travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
+[travis-badge-link]: https://travis-ci.org/Strider-CD/strider
+[gitter-badge]: https://img.shields.io/badge/GITTER-join%20chat-green.svg
+[gitter-badge-link]: https://gitter.im/Strider-CD/strider
+[apidoc]: http://apidocjs.com/#getting-started
+[resource-strider-futurestudio-tutorials]: https://futurestud.io/blog/strider-getting-started-platform-overview/

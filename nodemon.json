@@ -1,6 +1,0 @@
-{
-  "watch": ["lib"],
-  "restartable": "rs",
-  "ext": "ts,js,json",
-  "exec": "npm run build-and-start"
-}

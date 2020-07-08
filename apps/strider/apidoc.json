@@ -1,0 +1,8 @@
+{
+  "name": "strider",
+  "version": "1.0.0",
+  "description": "Strider API",
+  "apidoc": {
+    "title": "Strider CI/CD REST API"
+  }
+}

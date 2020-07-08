@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "target": "es6",
+    "noImplicitAny": true,
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "dist-lib",
+    "baseUrl": ".",
+    "skipLibCheck": true,
+    "paths": {
+      "*": ["node_modules/*", "lib/types/*"]
+    }
+  },
+  "include": ["lib/**/*"]
+}

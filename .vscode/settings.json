@@ -1,0 +1,15 @@
+{
+  "editor.formatOnSave": true,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.associations": { "*.json": "jsonc" },
+  "[handlebars]": { "editor.formatOnSave": true },
+  "[html]": {
+    "editor.formatOnSave": false
+  },
+  "files.watcherExclude": {
+    "common/temp/**": true
+  },
+  "search.exclude": {
+    "common/temp": true
+  }
+}

@@ -1,0 +1,16 @@
+<thead>
+  <th class="job-header">Job</th>
+  {% if !public %}
+    <th class="deploy-header"></th>
+    <th class="refresh-header"></th>
+  {% endif %}
+  <th>Project</th>
+  <th class="history"></th>
+  <th class="committer-header"></th>
+  <th class="branch-header">Branch</th>
+  <th class="triggered-by-header">Triggered By</th>
+  <th class="github-header"></th>
+  <th colspan="2">Duration</th>
+  <th></th>
+  {% if !public %}<th class="configure-header"></th>{% endif %}
+</thead>

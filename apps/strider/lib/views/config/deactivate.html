@@ -1,0 +1,19 @@
+<h3>Deactivate / Activate Project</h3>
+<p>
+  Temporarily turn off continuous integration and deployment. Tests
+  and deployments will not be triggered by commits when a project is
+  deactivated.
+</p>
+<!-- XXX replace with a toggle slider -->
+<button ng-click="toggleActive()" ng-switch="active" ng-disabled="loading"
+        class="btn btn-danger btn-deactivate">
+  <span ng-switch-when="true">Deactivate</span>
+  <span ng-switch-default>Activate</span>
+</button>
+<hr/>
+<h3>Delete Project</h3>
+<p>
+  Permanently remove [[repo.display_name]] from Strider
+</p>
+<a ng-click="confirmDeleteProject()" class="btn btn-danger">Delete Project</a>
+<hr/>

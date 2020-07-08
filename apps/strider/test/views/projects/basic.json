@@ -1,0 +1,109 @@
+{
+  "project_types": {
+    "python": {
+      "description": "virtualenv, pip install, ./setup.py test or py.test"
+    },
+    "go": {
+      "description": "go get, go test"
+    },
+    "node.js": {
+      "description": "nave, npm install, npm test"
+    },
+    "web": {
+      "description": "sauce, qunit, and jelly to test your javascript in a browser."
+    },
+    "custom": {
+      "description": "Don't auto-enable any plugins."
+    }
+  },
+  "currentUser": {
+    "email": "jared@jaredforsyth.com",
+    "account_level": 1,
+    "accounts": [{
+      "id": "1111",
+      "provider": "github",
+      "title": "jaredly",
+      "display_url": "http://example.com",
+      "config": {
+        "accessToken": "123abc",
+        "login": "jaredly"
+      },
+      "cache": [{
+        "id": "123abc",
+        "name": "jaredly/main",
+        "group": "jaredly",
+        "display_url": "http://example.com"
+      }, {
+        "id": "123abcd",
+        "name": "jaredly/other",
+        "group": "jaredly",
+        "display_url": "http://example.com/other"
+      }]
+    }]
+  },
+  "repos": {
+    "github": {
+      "1111": {
+        "jaredly": {
+          "repos": [{
+            "id": "123abc",
+            "name": "jaredly/main",
+            "display_name": "jaredly/main",
+            "group": "jaredly",
+            "display_url": "http://example.com"
+          }],
+          "configured": 0
+        },
+        "strider-cd": {
+          "repos": [{
+            "id": "asd",
+            "name": "strider-cd/strider",
+            "display_name": "Strider-CD/Strider",
+            "group": "strider-cd",
+            "display_url": "http://example.com"
+          }, {
+            "id": "bsd",
+            "name": "strider-cd/strider-git",
+            "display_name": "Strider-CD/strider-git",
+            "group": "strider-cd",
+            "display_url": "http://example.com/strider-git",
+            "project": {
+              "_id": "asdwasd123",
+              "name": "strider-cd/strider-git",
+              "display_name": "Strider-CD/strider-git"
+            }
+          }],
+          "configured": 1
+        }
+      }
+    }
+  },
+  "unconfigured": [{
+    "id": "bitbucket",
+    "title": "bitbucket",
+    "inline_icon": "bitbucket",
+    "setupLink": "/ext/bitbucket/oauth"
+  }, {
+    "id": "codeplex",
+    "title": "codeplex",
+    "inline_icon": "windows",
+    "setupLink": "/ext/codeplex/oauth"
+  }],
+  "providers": {
+    "bitbucket": {
+      "title": "bitbucket",
+      "inline_icon": "bitbucket",
+      "setupLink": "/ext/bitbucket/oauth"
+    },
+    "codeplex": {
+      "title": "codeplex",
+      "inline_icon": "windows",
+      "setupLink": "/ext/codeplex/oauth"
+    },
+    "github": {
+      "title": "github",
+      "inline_icon": "github",
+      "setupLink": "/ext/github/oauth"
+    }
+  }
+}

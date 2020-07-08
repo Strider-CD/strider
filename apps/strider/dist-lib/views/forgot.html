@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block bodyContent %}
+  {% if messages.length %}
+    <div class="row-fluid">
+      <div class="span12">
+        {% for message in messages %}
+          <div class="alert alert-warning">{{ message|raw }}</div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="row-fluid">
+    <div class="span12">
+      <div class="well">
+        <h3>Forgot you password?</h3>
+
+        <form class="form-inline" action="/forgot" method="POST">
+          <input class="xlarge" type="text" name="email" placeholder="Email" autofocus="true" required="true"/>
+          <input class="btn primary" type="submit" value="Submit"/>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}

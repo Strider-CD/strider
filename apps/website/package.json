@@ -1,0 +1,20 @@
+{
+  "name": "strider-website",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "docpress b",
+    "docs:publish": "git-update-ghpages -b master Strider-CD/strider-cd.github.com _docpress",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ilya Radchenko",
+  "license": "ISC",
+  "devDependencies": {
+    "docpress": "~0.8.0"
+  }
+}

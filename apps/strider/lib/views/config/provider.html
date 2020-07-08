@@ -1,0 +1,7 @@
+<div id="provider-config" ng-controller="{{ provider.controller }}">
+  <h3>Provider: {{ provider.title }}</h3>
+
+  {% autoescape false %}
+  {{ provider.html }}
+  {% endautoescape %}
+</div>

@@ -1,0 +1,23 @@
+# Documentation
+
+- [Strider](introduction.md)
+- [Guides]
+  - [Overview](guides/platform-overview.md)
+  - [Installation](guides/how-to-install.md)
+  - [Configuration](guides/configuration.md)
+  - [Providers]
+    - [Github](guides/providers/github.md)
+    - [Gitlab](guides/providers/gitlab.md)
+    - [Bitbucket](guides/providers/bitbucket.md)
+    - [Manual](guides/providers/manual.md)
+  - [Continuous Deployment]
+    - [Heroku](guides/continuous-deployment/heroku.md)
+    - [SSH](guides/continuous-deployment/ssh.md)
+  - [Notifications]
+    - [Email](guides/notifications/email.md)
+    - [Slack](guides/notifications/slack.md)
+    - [HipChat](guides/notifications/hipchat.md)
+    - [GitHub Status](guides/notifications/github.md)
+  - [Webhooks](guides/webhooks.md)
+  - [Create your own plugin](guides/create-plugin.md)
+  - [Internal API](api.md)
