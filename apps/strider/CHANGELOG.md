@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.4.11](https://github.com/Strider-CD/strider/compare/v2.4.10...v2.4.11) (2020-07-07)
+
+
+### Bug Fixes
+
+* concurrency now has it's own types ([51731ac](https://github.com/Strider-CD/strider/commit/51731acf9a210f90597450ffcbd35da1cd5dfeac))
+* lint spread instead of apply ([5751946](https://github.com/Strider-CD/strider/commit/5751946c1669aa285af0a11586c514a57abd5dc2))
+* self in backchannel ([826a06c](https://github.com/Strider-CD/strider/commit/826a06c26d1379213c69f9cefb5cbaa7256c7656))
+
 ### [2.4.10](https://github.com/Strider-CD/strider/compare/v2.4.9...v2.4.10) (2020-07-04)
 
 
