@@ -8,6 +8,7 @@ dependencies:
   '@glimmer/component': 1.0.0
   '@glimmer/tracking': 1.0.0
   '@rush-temp/strider': 'file:projects/strider.tgz'
+  '@rush-temp/strider-classic-ui': 'file:projects/strider-classic-ui.tgz'
   '@rush-temp/strider-ui': 'file:projects/strider-ui.tgz_eslint@6.8.0'
   '@rush-temp/strider-website': 'file:projects/strider-website.tgz'
   '@strider/webhooks': 0.1.7
@@ -20112,6 +20113,34 @@ packages:
       node: '>= 0.8.0'
     resolution:
       integrity: sha1-Mty8UG0Nq00hNyYlvX66rDwv/1Y=
+  'file:projects/strider-classic-ui.tgz':
+    dependencies:
+      angular: 1.5.7
+      angular-route: 1.5.7
+      ansi_up: 4.0.4
+      babel-preset-es2015: 6.24.1
+      babelify: 7.3.0
+      bower-installer: 1.3.6
+      browserify: 16.5.1
+      browserify-shim: 3.8.14_browserify@16.5.1
+      eslint: 6.8.0
+      eslint-config-prettier: 6.11.0_eslint@6.8.0
+      jquery: 3.5.1
+      less: 3.11.3
+      lodash: 4.17.15
+      md5: 2.2.1
+      minifyify: 7.3.5_browserify@16.5.1
+      mkdirp: 0.5.5
+      prettier: 2.0.5
+      socket.io-client: 2.3.0
+      strip-ansi: 5.2.0
+      watchify: 3.11.1
+    dev: false
+    name: '@rush-temp/strider-classic-ui'
+    resolution:
+      integrity: sha512-Mv1mJigievHDshhSIsj5wYrTwzeHnRIQk5F4oOoA+6K5PaC32NQ32gjnsMdiABrtKH5AFbilZJkI10tG+R0JaA==
+      tarball: 'file:projects/strider-classic-ui.tgz'
+    version: 0.0.0
   'file:projects/strider-ui.tgz_eslint@6.8.0':
     dependencies:
       '@ember/optional-features': 1.3.0
@@ -20347,6 +20376,7 @@ packages:
       node: 10.* || >= 12
     name: '@fortawesome/ember-fontawesome'
     resolution:
+      registry: 'https://registry.npmjs.org/'
       tarball: 'https://codeload.github.com/knownasilya/ember-fontawesome/tar.gz/c2fac605f34958f36aab5849884d8c57d0fb17ab'
     version: 0.2.1
   github.com/rstacruz/metalsmith-start/e88a7cdbb20aac1db176c121b429008073d8e9eb:
@@ -20399,6 +20429,7 @@ specifiers:
   '@glimmer/component': ^1.0.0
   '@glimmer/tracking': ^1.0.0
   '@rush-temp/strider': 'file:./projects/strider.tgz'
+  '@rush-temp/strider-classic-ui': 'file:./projects/strider-classic-ui.tgz'
   '@rush-temp/strider-ui': 'file:./projects/strider-ui.tgz'
   '@rush-temp/strider-website': 'file:./projects/strider-website.tgz'
   '@strider/webhooks': ^0.1.7

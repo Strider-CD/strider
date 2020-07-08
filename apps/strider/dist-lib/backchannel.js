@@ -162,44 +162,43 @@ BackChannel.prototype = {
     },
     newJob: function (job) {
         debug('new job was created');
-        const self = this;
         const name = job.project.name;
         this.waiting[name] = [];
         this.public[name] = job.project.public;
         async.parallel({
-            collaborators: function (paraCallback) {
+            collaborators(paraCallback) {
                 User.collaborators(name, 0, function (err, users) {
                     paraCallback(err, users);
                 });
             },
-            admins: function (paraCallback) {
+            admins(paraCallback) {
                 User.admins(paraCallback);
             },
-        }, function (err, users) {
+        }, (err, users) => {
             if (err)
                 return debug('new job: Failed to query for users');
             if (!users.collaborators)
                 return debug('new job: no users found');
-            self.users[name] = [];
-            users.collaborators.forEach(function (user) {
-                self.users[name].push(user._id.toString());
+            this.users[name] = [];
+            users.collaborators.forEach((user) => {
+                this.users[name].push(user._id.toString());
             });
             // also send to system admins
-            users.admins.forEach(function (user) {
-                self.users[name].push(user._id.toString());
+            users.admins.forEach((user) => {
+                this.users[name].push(user._id.toString());
             });
             // Admins maybe collaborators, so unique the array
-            self.users[name] = _.uniq(self.users[name]);
+            this.users[name] = _.uniq(this.users[name]);
             const njob = jobs.small(job);
             njob.project = utils.sanitizeProject(job.project);
-            self.sendJobs(name, 'job.new', [njob]);
-            const waiting = self.waiting[name];
+            this.sendJobs(name, 'job.new', [njob]);
+            const waiting = this.waiting[name];
             if (Array.isArray(waiting)) {
-                waiting.forEach(function (item) {
-                    self.send.apply(self, [name].concat(item));
+                waiting.forEach((item) => {
+                    this.send(...[name].concat(item));
                 });
             }
-            delete self.waiting[name];
+            delete this.waiting[name];
         });
     },
     // [project name, event name, [list of arguments]]
@@ -240,7 +239,7 @@ BackChannel.prototype = {
             job = job.toJSON();
             Project.findOne({ name: job.project })
                 .lean()
-                .exec(function (err, project) {
+                .exec((err, project) => {
                 if (err)
                     return debug('Error finding project for job', err.message, job.project);
                 if (!project)
@@ -273,7 +272,7 @@ BackChannel.prototype = {
             job = job.toJSON();
             Project.findOne({ name: job.project })
                 .lean()
-                .exec(function (err, project) {
+                .exec((err, project) => {
                 if (err)
                     return debug('Error finding project for job', err.message, job.project);
                 if (!project)
