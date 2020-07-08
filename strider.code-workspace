@@ -1,0 +1,24 @@
+{
+  "folders": [
+	{
+		"name": "server",
+		"path": "apps/strider"
+	},
+	{
+		"name": "ember-ui",
+		"path": "clients/strider-ui"
+	},
+	{
+		"name": "website"
+		"path": "apps/website"
+	}
+],
+  "settings": {
+    "typescript.tsdk": "apps/strider/node_modules/typescript/lib",
+"[handlebars]": { "editor.formatOnSave": false },
+  "[html]": {
+    "editor.formatOnSave": false
+	},
+	"files.associations": { "*.json": "jsonc" }
+  }
+}
