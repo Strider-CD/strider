@@ -405,7 +405,8 @@
     {
       "packageName": "strider",
       "projectFolder": "apps/strider",
-      "reviewCategory": "production"
+      "reviewCategory": "production",
+      "shouldPublish": true
     },
 
     {
@@ -429,7 +430,8 @@
     {
       "packageName": "strider-runner-core",
       "projectFolder": "modules/strider-runner-core",
-      "reviewCategory": "production"
+      "reviewCategory": "production",
+      "shouldPublish": true
     }
   ]
 }
