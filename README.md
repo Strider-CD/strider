@@ -121,6 +121,10 @@ We are responsive to Github Issues - please don't hesitate submitting your issue
 
 For live help check out Strider's [Gitter].
 
+## Contributing
+
+See the [Contributing guide](./CONTRIBUTING.md).
+
 [logo]: https://raw.github.com/Strider-CD/strider/master/apps/strider/public/images/top_github.png
 [build-img]: http://public-ci.stridercd.com/Strider-CD/strider/badge
 [build-link]: https://public-ci.stridercd.com/Strider-CD/strider
