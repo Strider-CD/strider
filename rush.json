@@ -424,6 +424,12 @@
       "packageName": "strider-classic-ui",
       "projectFolder": "clients/classic-ui",
       "reviewCategory": "production"
+    },
+
+    {
+      "packageName": "strider-runner-core",
+      "projectFolder": "modules/strider-runner-core",
+      "reviewCategory": "production"
     }
   ]
 }

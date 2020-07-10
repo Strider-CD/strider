@@ -1,0 +1,22 @@
+# IntelliJ IDEA project files
+.idea/*
+!.idea/codeStyleSettings.xml
+
+node_modules/
+
+coverage
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.swp
+*.gz
+
+pids
+logs
+results
+
+npm-debug.log
