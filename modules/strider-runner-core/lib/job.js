@@ -6,8 +6,10 @@ var colorize = require('./colorize');
 var debug = require('debug')('strider-runner-core:job');
 var shellQuote = require('shell-quote').quote;
 var spawnNormal = require('./spawn-normal');
-var text = require('../locales/en.json');
 var utils = require('./utils');
+
+const errorPleaseReport =
+  'An unexpected error occurred while executing this job. Please report at https://github.com/Strider-CD/strider/issues';
 
 // TODO: should these go in a strider-phases repo? centralize the constants
 var PHASES = ['environment', 'prepare', 'test', 'deploy', 'cleanup'];
@@ -504,7 +506,7 @@ Job.prototype = {
     if (!serverOnly) {
       this.status(
         'stderr',
-        `${text.errorPleaseReport}\n\n${error.message}\n\n${error.stack}`
+        `${errorPleaseReport}\n\n${error.message}\n\n${error.stack}`
       );
     }
   },
