@@ -1,0 +1,19 @@
+{
+  "name": "strider",
+  "entries": [
+    {
+      "version": "2.4.12",
+      "tag": "strider_v2.4.12",
+      "date": "Sat, 11 Jul 2020 13:39:06 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove serve time data from ember index route and bump node plugin",
+            "author": "Ilya Radchenko <knownasilya@gmail.com>",
+            "commit": "8ce8c0eb5711569b02138a689a425a734fd44774"
+          }
+        ]
+      }
+    }
+  ]
+}
