@@ -155,7 +155,7 @@ dependencies:
   strider-heroku: 0.2.0
   strider-mailer: 0.2.2
   strider-metadata: 0.0.3
-  strider-node: 2.0.0
+  strider-node: 2.0.1
   strider-python: 0.2.1
   strider-ruby: 0.0.2
   strider-simple-runner: 2.0.0
@@ -17906,7 +17906,7 @@ packages:
     dev: false
     resolution:
       integrity: sha1-Ej54Vjic47bcjKpwSdAbdgufLGM=
-  /strider-node/2.0.0:
+  /strider-node/2.0.1:
     dependencies:
       async: 3.2.0
       fs-extra: 9.0.1
@@ -17914,7 +17914,7 @@ packages:
     dev: false
     requiresBuild: true
     resolution:
-      integrity: sha512-JHKf5WDbOV6rSnXMOQAzSLj7LG1a2ao0VVxv+JTQvqz4451oTpQFexl2cs3EzvyWOwVm2haWrfOs1njtj7Wgaw==
+      integrity: sha512-3JyJ/xMCPYO34f6qw34JL0nHYyOpwiQbDFu2AaD4ytdZXxKTWj3L+RTQFLaxTPQ77OBAK6alZyCgKq6bIUUapA==
   /strider-python/0.2.1:
     dependencies:
       strider-detection-rules: 0.0.1
@@ -20621,7 +20621,7 @@ packages:
       strider-heroku: 0.2.0
       strider-mailer: 0.2.2
       strider-metadata: 0.0.3
-      strider-node: 2.0.0
+      strider-node: 2.0.1
       strider-python: 0.2.1
       strider-ruby: 0.0.2
       strider-simple-runner: 2.0.0
@@ -20642,7 +20642,7 @@ packages:
     dev: false
     name: '@rush-temp/strider'
     resolution:
-      integrity: sha512-m0eT2nTrCQut0eaW8BwMp0v1NyGJuuUU0oUyvCd7X/3n3phwttYG34JgQlqNk3ScFuh2U7xgpRspCWMVgveqcw==
+      integrity: sha512-qAKUE7S2qnar6yA4a5NoJxLPn6IPyyJQb0ANSM9rBW5DwBGmdnOPgNhDa0Xh9Zb/FMJB56Z+bfL8A9HzuHVn0A==
       tarball: 'file:projects/strider.tgz'
     version: 0.0.0
   github.com/knownasilya/ember-fontawesome/c2fac605f34958f36aab5849884d8c57d0fb17ab:
@@ -20866,7 +20866,7 @@ specifiers:
   strider-heroku: ^0.2.0
   strider-mailer: ^0.2.0
   strider-metadata: ^0.0.3
-  strider-node: ^2.0.0
+  strider-node: ^2.0.1
   strider-python: ^0.2.1
   strider-ruby: ^0.0.2
   strider-simple-runner: ^2.0.0

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -18,9 +18,6 @@
   <body>
     {{content-for "body"}}
 
-    <script>
-      window.jobs = {{ jobs | scriptjson | raw }};
-    </script>
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/strider-ui.js"></script>
 

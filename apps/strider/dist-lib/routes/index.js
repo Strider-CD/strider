@@ -55,14 +55,9 @@ exports.emberIndex = function (req, res) {
         return res.redirect(return_to);
     }
     if (req.query.ember) {
-        return jobs.latestJobs(req.user, true, function (err, jobs) {
-            const availableProviders = Object.keys(common.userConfigs.provider).map(function (k) {
-                return common.userConfigs.provider[k];
-            });
-            // TODO: only set if dev
-            res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
-            res.render('ember/index.html', { jobs, availableProviders });
-        });
+        // TODO: only set if dev
+        res.header('Cache-Control', 'private, no-cache, no-store, must-revalidate');
+        res.render('ember/index.html');
     }
 };
 exports.setConfig = function (req, res) {
