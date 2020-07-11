@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "strider",
+      "comment": "Remove serve time data from ember index route and bump node plugin",
+      "type": "patch"
+    }
+  ],
+  "packageName": "strider",
+  "email": "knownasilya@gmail.com"
+}
