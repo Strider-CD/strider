@@ -1,0 +1,19 @@
+{
+  "name": "strider-runner-core",
+  "entries": [
+    {
+      "version": "2.0.3",
+      "tag": "strider-runner-core_v2.0.3",
+      "date": "Sat, 11 Jul 2020 04:22:44 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove locales folder simplifying the only error it contained",
+            "author": "Ilya Radchenko <knownasilya@gmail.com>",
+            "commit": "fbdee1505a4070b1afa91291836224fbee44d2d9"
+          }
+        ]
+      }
+    }
+  ]
+}
