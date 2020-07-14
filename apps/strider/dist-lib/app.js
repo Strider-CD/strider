@@ -39,6 +39,7 @@ const apiBranches = require('./routes/api/branches');
 const apiJobs = require('./routes/api/jobs');
 const apiRepo = require('./routes/api/repo');
 const apiConfig = require('./routes/api/config');
+const needsSetup = require('./middleware/needs-setup');
 const mongoStore = connectMongo(expressSession);
 const MONTH_IN_MILLISECONDS = 2629743000;
 const env = process.env.NODE_ENV || 'development';
@@ -107,6 +108,11 @@ exports.init = function (config) {
         res.locals.models = models;
         next();
     });
+    /**
+     * Cached check if an admin user exists
+     * Redirect to setup if none found.
+     */
+    app.use(needsSetup.default);
     auth.setup(app); // app.use(passport) is included
     app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
         maxAge: MONTH_IN_MILLISECONDS,

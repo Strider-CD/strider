@@ -17,4 +17,5 @@ Router.map(function () {
       this.route('job', { path: '/job/:jobId' });
     });
   });
+  this.route('setup');
 });
