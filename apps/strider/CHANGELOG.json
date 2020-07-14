@@ -2,6 +2,20 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.13",
+      "tag": "strider_v2.4.13",
+      "date": "Tue, 14 Jul 2020 23:05:45 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Build assets",
+            "author": "Ilya Radchenko <knownasilya@gmail.com>",
+            "commit": "f958b47890aa75e08891a07d5bc8903f9a2ed1a3"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.12",
       "tag": "strider_v2.4.12",
       "date": "Sat, 11 Jul 2020 13:39:06 GMT",
