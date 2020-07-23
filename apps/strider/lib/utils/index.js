@@ -1,5 +1,5 @@
 const _ = require('lodash');
-const common = require('../../lib/common');
+const common = require('../common');
 const debug = require('debug')('strider:utils');
 const gravatar = require('gravatar');
 
