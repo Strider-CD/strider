@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "strider",
+      "comment": "Fix build-lib script",
+      "type": "patch"
+    }
+  ],
+  "packageName": "strider",
+  "email": "knownasilya@gmail.com"
+}
