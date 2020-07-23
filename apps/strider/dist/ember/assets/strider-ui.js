@@ -2508,7 +2508,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+74f538e3"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+41b25146"});
           }
         
 //# sourceMappingURL=strider-ui.map
