@@ -1,6 +1,13 @@
 # Change Log - strider
 
-This log was last generated on Thu, 23 Jul 2020 19:54:59 GMT and should not be manually modified.
+This log was last generated on Thu, 23 Jul 2020 20:11:30 GMT and should not be manually modified.
+
+## 2.4.15
+Thu, 23 Jul 2020 20:11:30 GMT
+
+### Patches
+
+- Remove postinstall build script
 
 ## 2.4.14
 Thu, 23 Jul 2020 19:54:59 GMT

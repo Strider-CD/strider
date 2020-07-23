@@ -2,6 +2,18 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.15",
+      "tag": "strider_v2.4.15",
+      "date": "Thu, 23 Jul 2020 20:11:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove postinstall build script"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.14",
       "tag": "strider_v2.4.14",
       "date": "Thu, 23 Jul 2020 19:54:59 GMT",
