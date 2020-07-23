@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "strider",
+      "comment": "Remove postinstall build script",
+      "type": "patch"
+    }
+  ],
+  "packageName": "strider",
+  "email": "knownasilya@gmail.com"
+}
