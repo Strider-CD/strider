@@ -2,6 +2,18 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.16",
+      "tag": "strider_v2.4.16",
+      "date": "Thu, 23 Jul 2020 21:42:44 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix bad import of common and build"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.15",
       "tag": "strider_v2.4.15",
       "date": "Thu, 23 Jul 2020 20:11:30 GMT",

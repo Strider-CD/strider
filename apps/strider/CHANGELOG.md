@@ -1,6 +1,13 @@
 # Change Log - strider
 
-This log was last generated on Thu, 23 Jul 2020 20:11:30 GMT and should not be manually modified.
+This log was last generated on Thu, 23 Jul 2020 21:42:44 GMT and should not be manually modified.
+
+## 2.4.16
+Thu, 23 Jul 2020 21:42:44 GMT
+
+### Patches
+
+- Fix bad import of common and build
 
 ## 2.4.15
 Thu, 23 Jul 2020 20:11:30 GMT
