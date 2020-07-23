@@ -4,6 +4,11 @@
       "packageName": "strider",
       "comment": "Fix build-lib script",
       "type": "patch"
+    },
+    {
+      "packageName": "strider",
+      "comment": "Update docs and logo",
+      "type": "patch"
     }
   ],
   "packageName": "strider",
