@@ -2,6 +2,21 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.14",
+      "tag": "strider_v2.4.14",
+      "date": "Thu, 23 Jul 2020 19:54:59 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix build-lib script"
+          },
+          {
+            "comment": "Update docs and logo"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.13",
       "tag": "strider_v2.4.13",
       "date": "Wed, 15 Jul 2020 03:52:11 GMT",
