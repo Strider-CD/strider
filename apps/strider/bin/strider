@@ -22,7 +22,7 @@ var cli = require('../dist-lib/cli')({
    * Plugin path determination logic
    */
   getPluginPath: function () {
-    return require('../dist-lib/plugin-path');
+    return require('../dist-lib/utils/plugin-path');
   },
 
   /*
