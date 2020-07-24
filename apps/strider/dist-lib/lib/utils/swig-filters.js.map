@@ -1,1 +1,0 @@
-{"version":3,"file":"swig-filters.js","sourceRoot":"","sources":["../../../lib/utils/swig-filters.js"],"names":[],"mappings":"AAAA,MAAM,CAAC,OAAO,GAAG;IACf,UAAU,EAAE,UAAU,KAAK;QACzB,OAAO,IAAI,CAAC,SAAS,CAAC,KAAK,CAAC,CAAC,OAAO,CAAC,MAAM,EAAE,MAAM,CAAC,CAAC;IACvD,CAAC;CACF,CAAC"}

@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "strider",
+      "comment": "Rebuild strider",
+      "type": "patch"
+    }
+  ],
+  "packageName": "strider",
+  "email": "knownasilya@gmail.com"
+}
