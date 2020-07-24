@@ -73,13 +73,13 @@ exports.init = function (config) {
         require('./views-test')(app);
     }
     // During development we build to an ignored file, only during release we do normal build
-    const distDir = config.developing ? '.dev-dist' : 'dist';
-    path.join(__dirname, '..', 'dist'),
-        app.set('views', [
-            path.join(__dirname, 'views'),
-            config.developing && path.join(__dirname, '..', distDir),
-            path.join(__dirname, '..', 'dist'),
-        ]);
+    const viewDirs = [path.join(__dirname, 'views')];
+    if (config.developing) {
+        viewDirs.push(path.join(__dirname, '..', '.dev-dist'));
+    }
+    viewDirs.push(path.join(__dirname, '..', 'dist'));
+    debug('view dirs', viewDirs);
+    app.set('views', viewDirs);
     app.engine('html', pluginTemplates.engine);
     if (config.cors) {
         app.use(cors(config.cors));
@@ -111,12 +111,20 @@ exports.init = function (config) {
     app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
         maxAge: MONTH_IN_MILLISECONDS,
     }));
+    if (config.developing) {
+        app.use(express.static(path.join(__dirname, '..', '.dev-dist', 'ember'), {
+            maxAge: MONTH_IN_MILLISECONDS,
+            index: false,
+        }));
+    }
+    else {
+        app.use(express.static(path.join(__dirname, '..', 'dist', 'ember'), {
+            maxAge: MONTH_IN_MILLISECONDS,
+            index: false,
+        }));
+    }
     app.use(express.static(path.join(__dirname, '..', 'dist'), {
         maxAge: MONTH_IN_MILLISECONDS,
-    }));
-    app.use(express.static(path.join(__dirname, '..', distDir, 'ember'), {
-        maxAge: MONTH_IN_MILLISECONDS,
-        index: false,
     }));
     app.use(express.static(path.join(__dirname, '..', 'public'), {
         maxAge: MONTH_IN_MILLISECONDS,
