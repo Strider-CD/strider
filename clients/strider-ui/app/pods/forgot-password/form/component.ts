@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
+import { task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 import { NotificationsService } from '@frontile/notifications';
 
@@ -12,8 +12,8 @@ export default class ForgotPasswordForm extends Component<Args> {
 
   @tracked email?: string;
 
-  requestReset = task(function* (this: ForgotPasswordForm) {
-    let response = yield fetch('/forgot', {
+  @task async requestReset() {
+    let response = await fetch('/forgot', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -26,7 +26,7 @@ export default class ForgotPasswordForm extends Component<Args> {
 
     if (response.status === 200) {
       // TODO: navigate in ember once the main page is finished
-      let result = yield response.json();
+      let result = await response.json();
 
       if (result?.ok) {
         this.notifications.add(result.message);
@@ -35,7 +35,7 @@ export default class ForgotPasswordForm extends Component<Args> {
     }
 
     try {
-      let result = yield response.json();
+      let result = await response.json();
 
       if (result?.errors) {
         this.notifications.add(result.errors.join('\n'), {
@@ -45,5 +45,5 @@ export default class ForgotPasswordForm extends Component<Args> {
     } catch (e) {
       throw new Error('Not ok');
     }
-  });
+  }
 }
