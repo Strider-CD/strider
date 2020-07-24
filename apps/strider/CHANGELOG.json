@@ -2,6 +2,18 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.18",
+      "tag": "strider_v2.4.18",
+      "date": "Fri, 24 Jul 2020 11:01:55 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix plugin-path require from bin cli setup"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.17",
       "tag": "strider_v2.4.17",
       "date": "Fri, 24 Jul 2020 03:15:58 GMT",

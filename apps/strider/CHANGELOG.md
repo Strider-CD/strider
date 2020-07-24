@@ -1,6 +1,13 @@
 # Change Log - strider
 
-This log was last generated on Fri, 24 Jul 2020 03:15:58 GMT and should not be manually modified.
+This log was last generated on Fri, 24 Jul 2020 11:01:55 GMT and should not be manually modified.
+
+## 2.4.18
+Fri, 24 Jul 2020 11:01:55 GMT
+
+### Patches
+
+- Fix plugin-path require from bin cli setup
 
 ## 2.4.17
 Fri, 24 Jul 2020 03:15:58 GMT
