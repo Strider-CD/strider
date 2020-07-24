@@ -2,6 +2,18 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.19",
+      "tag": "strider_v2.4.19",
+      "date": "Fri, 24 Jul 2020 13:57:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix path error, resolves #103"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.18",
       "tag": "strider_v2.4.18",
       "date": "Fri, 24 Jul 2020 11:01:55 GMT",
