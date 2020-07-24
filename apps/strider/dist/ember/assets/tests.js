@@ -1,5 +1,8 @@
 'use strict';
 
+define("strider-ui/tests/in-run-loop.d", [], function () {
+  "use strict";
+});
 define("strider-ui/tests/integration/helpers/ansi-test", ["qunit", "ember-qunit", "@ember/test-helpers"], function (_qunit, _emberQunit, _testHelpers) {
   "use strict";
 
@@ -13,8 +16,8 @@ define("strider-ui/tests/integration/helpers/ansi-test", ["qunit", "ember-qunit"
         {{ansi inputValue}}
       */
       {
-        id: "0adhUW3K",
-        block: "{\"symbols\":[],\"statements\":[[1,[28,\"ansi\",[[24,[\"inputValue\"]]],null],false]],\"hasEval\":false}",
+        id: "y0Np3N9N",
+        block: "{\"symbols\":[],\"statements\":[[1,[30,[36,1],[[35,0]],null]]],\"hasEval\":false,\"upvars\":[\"inputValue\",\"ansi\"]}",
         meta: {}
       }));
       assert.equal(this.element.textContent.trim(), '1234');
@@ -34,8 +37,8 @@ define("strider-ui/tests/integration/helpers/duration-test", ["qunit", "ember-qu
         {{duration this.inputValue}}
       */
       {
-        id: "kXDHW8sM",
-        block: "{\"symbols\":[],\"statements\":[[1,[28,\"duration\",[[23,0,[\"inputValue\"]]],null],false]],\"hasEval\":false}",
+        id: "ImQwVZe+",
+        block: "{\"symbols\":[],\"statements\":[[1,[30,[36,0],[[32,0,[\"inputValue\"]]],null]]],\"hasEval\":false,\"upvars\":[\"duration\"]}",
         meta: {}
       }));
       assert.equal(this.element.textContent.trim(), '1234');
@@ -55,8 +58,8 @@ define("strider-ui/tests/integration/helpers/format-date-test", ["qunit", "ember
         {{format-date this.inputValue}}
       */
       {
-        id: "g9YuDgXa",
-        block: "{\"symbols\":[],\"statements\":[[1,[28,\"format-date\",[[23,0,[\"inputValue\"]]],null],false]],\"hasEval\":false}",
+        id: "nz6qRizu",
+        block: "{\"symbols\":[],\"statements\":[[1,[30,[36,0],[[32,0,[\"inputValue\"]]],null]]],\"hasEval\":false,\"upvars\":[\"format-date\"]}",
         meta: {}
       }));
       assert.equal(this.element.textContent.trim(), '1234');
@@ -76,8 +79,8 @@ define("strider-ui/tests/integration/helpers/truncate-test", ["qunit", "ember-qu
         {{truncate this.inputValue}}
       */
       {
-        id: "P7VqAoH5",
-        block: "{\"symbols\":[],\"statements\":[[1,[28,\"truncate\",[[23,0,[\"inputValue\"]]],null],false]],\"hasEval\":false}",
+        id: "0DeXBGVX",
+        block: "{\"symbols\":[],\"statements\":[[1,[30,[36,0],[[32,0,[\"inputValue\"]]],null]]],\"hasEval\":false,\"upvars\":[\"truncate\"]}",
         meta: {}
       }));
       assert.equal(this.element.textContent.trim(), '1234');
