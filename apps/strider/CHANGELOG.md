@@ -1,6 +1,13 @@
 # Change Log - strider
 
-This log was last generated on Thu, 23 Jul 2020 21:42:44 GMT and should not be manually modified.
+This log was last generated on Fri, 24 Jul 2020 03:15:58 GMT and should not be manually modified.
+
+## 2.4.17
+Fri, 24 Jul 2020 03:15:58 GMT
+
+### Patches
+
+- Rebuild strider
 
 ## 2.4.16
 Thu, 23 Jul 2020 21:42:44 GMT

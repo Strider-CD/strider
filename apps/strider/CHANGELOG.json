@@ -2,6 +2,18 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.17",
+      "tag": "strider_v2.4.17",
+      "date": "Fri, 24 Jul 2020 03:15:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rebuild strider"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.16",
       "tag": "strider_v2.4.16",
       "date": "Thu, 23 Jul 2020 21:42:44 GMT",
