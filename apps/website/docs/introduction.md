@@ -17,5 +17,5 @@ Strider is extremely customizable through plugins. Plugins can do the following:
 - Create or modify user interfaces within Strider.
 - And so much more! Just use your imagination!
 
-[logo]: https://raw.github.com/Strider-CD/strider/master/public/images/top_github.png
+[logo]: https://raw.github.com/Strider-CD/strider/master/apps/strider/public/images/top_github.png
 [screenshot]: /docs/screenshots/dashboard.jpg

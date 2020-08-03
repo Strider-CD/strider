@@ -1,6 +1,6 @@
 {
   "name": "strider",
-  "version": "2.4.13",
+  "version": "2.4.19",
   "bin": {
     "strider": "bin/strider"
   },
@@ -44,7 +44,7 @@
     "debug": "node --inspect bin/strider --no-cluster",
     "prerelease": "npm run build:lib",
     "release": "git add dist/ dist-lib/ && standard-version -a",
-    "postinstall": "npm run build-lib && opencollective postinstall"
+    "postinstall": "opencollective postinstall"
   },
   "dependencies": {
     "@strider/webhooks": "^0.1.7",

@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency';
+import { task } from 'ember-concurrency-decorators';
 import fetch from 'fetch';
 import { NotificationsService } from '@frontile/notifications';
 
@@ -13,8 +13,8 @@ export default class LoginForm extends Component<Args> {
   @tracked email?: string;
   @tracked password?: string;
 
-  login = task(function* (this: LoginForm) {
-    let response = yield fetch('/login', {
+  @task async login() {
+    let response = await fetch('/login', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -31,7 +31,7 @@ export default class LoginForm extends Component<Args> {
     }
 
     try {
-      let result = yield response.json();
+      let result = await response.json();
 
       if (result?.errors) {
         this.notifications.add(result.errors.join('\n'), {
@@ -42,5 +42,5 @@ export default class LoginForm extends Component<Args> {
     } catch (e) {
       throw new Error('Not ok');
     }
-  });
+  }
 }

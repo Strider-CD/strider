@@ -2,6 +2,81 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.19",
+      "tag": "strider_v2.4.19",
+      "date": "Fri, 24 Jul 2020 13:57:26 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix path error, resolves #103"
+          }
+        ]
+      }
+    },
+    {
+      "version": "2.4.18",
+      "tag": "strider_v2.4.18",
+      "date": "Fri, 24 Jul 2020 11:01:55 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix plugin-path require from bin cli setup"
+          }
+        ]
+      }
+    },
+    {
+      "version": "2.4.17",
+      "tag": "strider_v2.4.17",
+      "date": "Fri, 24 Jul 2020 03:15:58 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Rebuild strider"
+          }
+        ]
+      }
+    },
+    {
+      "version": "2.4.16",
+      "tag": "strider_v2.4.16",
+      "date": "Thu, 23 Jul 2020 21:42:44 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix bad import of common and build"
+          }
+        ]
+      }
+    },
+    {
+      "version": "2.4.15",
+      "tag": "strider_v2.4.15",
+      "date": "Thu, 23 Jul 2020 20:11:30 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Remove postinstall build script"
+          }
+        ]
+      }
+    },
+    {
+      "version": "2.4.14",
+      "tag": "strider_v2.4.14",
+      "date": "Thu, 23 Jul 2020 19:54:59 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix build-lib script"
+          },
+          {
+            "comment": "Update docs and logo"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.13",
       "tag": "strider_v2.4.13",
       "date": "Wed, 15 Jul 2020 03:52:11 GMT",

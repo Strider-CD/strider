@@ -8,7 +8,7 @@
  *            Portions Copyright 2008-2011 Apple Inc. All rights reserved.
  * @license   Licensed under MIT license
  *            See https://raw.github.com/emberjs/ember.js/master/LICENSE
- * @version   3.15.0
+ * @version   3.18.1
  */
 /*globals process */
 var define, require, Ember; // Used in @ember/-internals/environment/lib/global.js
@@ -288,7 +288,7 @@ define("@ember/debug/index", ["exports", "@ember/-internals/browser-environment"
     */
     setDebugFunction('assert', function assert(desc, test) {
       if (!test) {
-        throw new _error.default("Assertion Failed: " + desc);
+        throw new _error.default(`Assertion Failed: ${desc}`);
       }
     });
     /**
@@ -310,9 +310,9 @@ define("@ember/debug/index", ["exports", "@ember/-internals/browser-environment"
     setDebugFunction('debug', function debug(message) {
       /* eslint-disable no-console */
       if (console.debug) {
-        console.debug("DEBUG: " + message);
+        console.debug(`DEBUG: ${message}`);
       } else {
-        console.log("DEBUG: " + message);
+        console.log(`DEBUG: ${message}`);
       }
       /* eslint-ensable no-console */
 
@@ -437,7 +437,7 @@ define("@ember/debug/index", ["exports", "@ember/-internals/browser-environment"
             downloadURL = 'https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/';
           }
 
-          debug("For more advanced debugging, install the Ember Inspector from " + downloadURL);
+          debug(`For more advanced debugging, install the Ember Inspector from ${downloadURL}`);
         }
       }, false);
     }
@@ -469,8 +469,10 @@ define("@ember/debug/lib/capture-render-tree", ["exports", "@glimmer/util"], fun
     @since 3.14.0
   */
   function captureRenderTree(app) {
-    var env = (0, _util.expect)(app.lookup('service:-glimmer-environment'), 'BUG: owner is missing service:-glimmer-environment');
-    return env.debugRenderTree.capture();
+    var env = (0, _util.expect)(app.lookup('-environment:main'), 'BUG: owner is missing -environment:main');
+    var rendererType = env.isInteractive ? 'renderer:-dom' : 'renderer:-inert';
+    var renderer = (0, _util.expect)(app.lookup(rendererType), `BUG: owner is missing ${rendererType}`);
+    return renderer.debugRenderTree.capture();
   }
 });
 define("@ember/debug/lib/deprecate", ["exports", "@ember/-internals/environment", "@ember/debug/index", "@ember/debug/lib/handlers"], function (_exports, _environment, _index, _handlers) {
@@ -547,11 +549,11 @@ define("@ember/debug/lib/deprecate", ["exports", "@ember/-internals/environment"
       var message = _message;
 
       if (options && options.id) {
-        message = message + (" [deprecation id: " + options.id + "]");
+        message = message + ` [deprecation id: ${options.id}]`;
       }
 
       if (options && options.url) {
-        message += " See " + options.url + " for more details.";
+        message += ` See ${options.url} for more details.`;
       }
 
       return message;
@@ -559,7 +561,7 @@ define("@ember/debug/lib/deprecate", ["exports", "@ember/-internals/environment"
 
     registerHandler(function logDeprecationToConsole(message, options) {
       var updatedMessage = formatMessage(message, options);
-      console.warn("DEPRECATION: " + updatedMessage); // eslint-disable-line no-console
+      console.warn(`DEPRECATION: ${updatedMessage}`); // eslint-disable-line no-console
     });
     var captureErrorForStack;
 
@@ -591,11 +593,11 @@ define("@ember/debug/lib/deprecate", ["exports", "@ember/-internals/environment"
             stack = error.stack.replace(/(?:\n@:0)?\s+$/m, '').replace(/^\(/gm, '{anonymous}(').split('\n');
           }
 
-          stackStr = "\n    " + stack.slice(2).join('\n    ');
+          stackStr = `\n    ${stack.slice(2).join('\n    ')}`;
         }
 
         var updatedMessage = formatMessage(message, options);
-        console.warn("DEPRECATION: " + updatedMessage + stackStr); // eslint-disable-line no-console
+        console.warn(`DEPRECATION: ${updatedMessage}${stackStr}`); // eslint-disable-line no-console
       } else {
         next(message, options);
       }
@@ -768,7 +770,7 @@ define("@ember/debug/lib/warn", ["exports", "@ember/debug/index", "@ember/debug/
 
     registerHandler(function logWarning(message) {
       /* eslint-disable no-console */
-      console.warn("WARNING: " + message);
+      console.warn(`WARNING: ${message}`);
       /* eslint-enable no-console */
     });
     _exports.missingOptionsDeprecation = missingOptionsDeprecation = 'When calling `warn` you ' + 'must provide an `options` hash as the third parameter.  ' + '`options` should include an `id` property.';
@@ -2439,7 +2441,7 @@ define("ember-testing/lib/test/promise", ["exports", "@ember/-internals/runtime"
   _exports.default = TestPromise;
 
   function promise(resolver, label) {
-    var fullLabel = "Ember.Test.promise: " + (label || '<Unknown Promise>');
+    var fullLabel = `Ember.Test.promise: ${label || '<Unknown Promise>'}`;
     return new TestPromise(resolver, fullLabel);
   }
   /**
@@ -13514,13 +13516,13 @@ define("@ember/test-helpers/setup-rendering-context", ["exports", "@ember/test-h
   const RENDERING_CLEANUP = Object.create(null);
   _exports.RENDERING_CLEANUP = RENDERING_CLEANUP;
   const OUTLET_TEMPLATE = Ember.HTMLBars.template({
-    "id": "JzTwhLU2",
-    "block": "{\"symbols\":[],\"statements\":[[1,[22,\"outlet\"],false]],\"hasEval\":false}",
+    "id": "Lvsp1nVR",
+    "block": "{\"symbols\":[],\"statements\":[[1,[30,[36,1],[[30,[36,0],null,null]],null]]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
     "meta": {}
   });
   const EMPTY_TEMPLATE = Ember.HTMLBars.template({
-    "id": "xOcW61lH",
-    "block": "{\"symbols\":[],\"statements\":[],\"hasEval\":false}",
+    "id": "cgf6XJaX",
+    "block": "{\"symbols\":[],\"statements\":[],\"hasEval\":false,\"upvars\":[]}",
     "meta": {}
   }); // eslint-disable-next-line require-jsdoc
 
@@ -14151,6 +14153,38 @@ define('ember-cli-test-loader/test-support/index', ['exports'], function (export
     }
   }exports.default = TestLoader;
   ;
+});
+define("ember-concurrency-decorators/test-support/in-run-loop", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = inRunloop;
+  _exports.next = next;
+
+  /**
+   * Ensures that each test is executed within a RunLoop
+   *
+   * @param {object} hooks QUnit Hooks
+   */
+  function inRunloop(hooks) {
+    hooks.beforeEach(function () {
+      Ember.run.begin();
+    });
+    hooks.afterEach(function () {
+      Ember.run.end();
+    });
+  }
+  /**
+   * Ends the current RunLoop and starts a new one
+   */
+
+
+  function next() {
+    Ember.run.end();
+    Ember.run.begin();
+  }
 });
 define("ember-qunit/adapter", ["exports", "qunit", "@ember/test-helpers/has-ember-version"], function (_exports, _qunit, _hasEmberVersion) {
   "use strict";
@@ -16269,36 +16303,36 @@ var __ember_auto_import__ =
 /************************************************************************/
 /******/ ({
 
-/***/ "../../../../../../private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js":
+/***/ "../../../../../../private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js":
 /*!**************************************************************************************************************************!*\
-  !*** /private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js ***!
+  !*** /private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js ***!
   \**************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\nwindow._eai_r = require;\nwindow._eai_d = define;\n\n\n//# sourceURL=webpack://__ember_auto_import__//private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js?");
+eval("\nwindow._eai_r = require;\nwindow._eai_d = define;\n\n\n//# sourceURL=webpack://__ember_auto_import__//private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js?");
 
 /***/ }),
 
-/***/ "../../../../../../private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js":
+/***/ "../../../../../../private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js":
 /*!******************************************************************************************************************************!*\
-  !*** /private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js ***!
+  !*** /private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js ***!
   \******************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("\nif (typeof document !== 'undefined') {\n  __webpack_require__.p = (function(){\n    var scripts = document.querySelectorAll('script');\n    return scripts[scripts.length - 1].src.replace(/\\/[^/]*$/, '/');\n  })();\n}\n\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  window.emberAutoImportDynamic = function(specifier) {\n    return r('_eai_dyn_' + specifier);\n  };\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__//private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js?");
+eval("\nif (typeof document !== 'undefined') {\n  __webpack_require__.p = (function(){\n    var scripts = document.querySelectorAll('script');\n    return scripts[scripts.length - 1].src.replace(/\\/[^/]*$/, '/');\n  })();\n}\n\nmodule.exports = (function(){\n  var d = _eai_d;\n  var r = _eai_r;\n  window.emberAutoImportDynamic = function(specifier) {\n    return r('_eai_dyn_' + specifier);\n  };\n})();\n\n\n//# sourceURL=webpack://__ember_auto_import__//private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js?");
 
 /***/ }),
 
 /***/ 2:
 /*!*******************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi /private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js /private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js ***!
+  !*** multi /private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js /private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js ***!
   \*******************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("__webpack_require__(/*! /private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js */\"../../../../../../private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js\");\nmodule.exports = __webpack_require__(/*! /private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js */\"../../../../../../private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js\");\n\n\n//# sourceURL=webpack://__ember_auto_import__/multi_/private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/l.js_/private/var/folders/hq/m0d3mb8s5gd1wdbn_gsk55000000gn/T/broccoli-48384JyT7titv4vCb/cache-323-bundler/staging/tests.js?");
+eval("__webpack_require__(/*! /private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js */\"../../../../../../private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js\");\nmodule.exports = __webpack_require__(/*! /private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js */\"../../../../../../private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js\");\n\n\n//# sourceURL=webpack://__ember_auto_import__/multi_/private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/l.js_/private/var/folders/g5/dvq_p0010s5b2ys8bwd7czdr0000gp/T/broccoli-936735nfcJByLqDDO/cache-349-bundler/staging/tests.js?");
 
 /***/ })
 

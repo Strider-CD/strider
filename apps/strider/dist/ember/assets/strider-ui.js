@@ -989,8 +989,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "MvvOM7GN",
-    "block": "{\"symbols\":[\"NotificationsContainer\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"notifications-container\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",true],[8],[0,\"\\n  \"],[7,\"nav\",true],[10,\"class\",\"bg-gray-800\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\"],[8],[0,\"\\n      \"],[7,\"div\",true],[10,\"class\",\"flex items-center justify-between h-16\"],[8],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"flex items-center\"],[8],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"flex-shrink-0\"],[8],[0,\"\\n            \"],[7,\"img\",true],[10,\"class\",\"h-8 w-8\"],[10,\"src\",\"/assets/images/logo-250x250-transp.png\"],[10,\"alt\",\"Strider\"],[8],[9],[0,\"\\n          \"],[9],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"hidden md:block\"],[8],[0,\"\\n\"],[4,\"if\",[[23,0,[\"currentUser\",\"user\"]]],null,{\"statements\":[[0,\"              \"],[7,\"div\",true],[10,\"class\",\"ml-4 flex items-baseline\"],[8],[0,\"\\n                \"],[7,\"a\",true],[10,\"href\",\"/\"],[10,\"class\",\"ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[8],[0,\"\\n                  Dashboard\\n                \"],[9],[0,\"\\n\\n                \"],[7,\"a\",true],[10,\"href\",\"/projects\"],[10,\"class\",\"ml-2 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[8],[0,\"\\n                  Projects\\n                \"],[9],[0,\"\\n\\n                \"],[7,\"div\",true],[10,\"class\",\"ml-2 relative\"],[8],[0,\"\\n                  \"],[7,\"div\",true],[8],[0,\"\\n                    \"],[7,\"button\",false],[12,\"class\",\"max-w-xs px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[28,\"fn\",[[28,\"mut\",[[23,0,[\"openAdmin\"]]],null],[28,\"not\",[[23,0,[\"openAdmin\"]]],null]],null]]],[8],[0,\"\\n                      Admin\\n                    \"],[9],[0,\"\\n                  \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[23,0,[\"openAdmin\"]]],null,{\"statements\":[[0,\"                    \"],[7,\"div\",true],[10,\"class\",\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[8],[0,\"\\n                      \"],[7,\"div\",true],[10,\"class\",\"py-1 rounded-md bg-white shadow-xs\"],[8],[0,\"\\n                        \"],[7,\"a\",true],[10,\"href\",\"/admin/invites\"],[10,\"class\",\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[8],[0,\"\\n                          Invites\\n                        \"],[9],[0,\"\\n                        \"],[7,\"a\",true],[10,\"href\",\"/admin/users\"],[10,\"class\",\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[8],[0,\"\\n                          Users\\n                        \"],[9],[0,\"\\n                        \"],[7,\"a\",true],[10,\"href\",\"/admin/projects\"],[10,\"class\",\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[8],[0,\"\\n                          Projects\\n                        \"],[9],[0,\"\\n                        \"],[7,\"a\",true],[10,\"href\",\"/admin/plugins\"],[10,\"class\",\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[8],[0,\"\\n                          Plugins\\n                        \"],[9],[0,\"\\n                      \"],[9],[0,\"\\n                    \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"                \"],[9],[0,\"\\n              \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"hidden md:block\"],[8],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"ml-4 flex items-center md:ml-6\"],[8],[0,\"\\n\"],[4,\"if\",[[23,0,[\"currentUser\",\"user\"]]],null,{\"statements\":[[0,\"              \"],[7,\"div\",true],[10,\"class\",\"ml-3 relative\"],[8],[0,\"\\n                \"],[7,\"div\",true],[8],[0,\"\\n                  \"],[7,\"button\",false],[12,\"class\",\"max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[28,\"fn\",[[28,\"mut\",[[23,0,[\"open\"]]],null],[28,\"not\",[[23,0,[\"open\"]]],null]],null]]],[8],[0,\"\\n                    \"],[7,\"img\",true],[10,\"class\",\"h-8 w-8 rounded-full\"],[11,\"src\",[23,0,[\"currentUser\",\"user\",\"gravatar\"]]],[10,\"alt\",\"avatar\"],[8],[9],[0,\"\\n                  \"],[9],[0,\"\\n                \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[23,0,[\"open\"]]],null,{\"statements\":[[0,\"                  \"],[7,\"div\",true],[10,\"class\",\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[8],[0,\"\\n                    \"],[7,\"div\",true],[10,\"class\",\"py-1 rounded-md bg-white shadow-xs\"],[8],[0,\"\\n                      \"],[7,\"a\",true],[10,\"href\",\"/account\"],[10,\"class\",\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[8],[0,\"\\n                        Account\\n                      \"],[9],[0,\"\\n                      \"],[7,\"a\",true],[10,\"href\",\"/logout\"],[10,\"class\",\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[8],[0,\"\\n                        Sign out\\n                      \"],[9],[0,\"\\n                    \"],[9],[0,\"\\n                  \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"              \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"-mr-2 flex md:hidden\"],[8],[0,\"\\n          \"],[7,\"button\",false],[12,\"class\",\"inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[28,\"fn\",[[28,\"mut\",[[23,0,[\"open\"]]],null],[28,\"not\",[[23,0,[\"open\"]]],null]],null]]],[8],[0,\"\\n            \"],[7,\"svg\",true],[10,\"class\",\"h-6 w-6\"],[10,\"stroke\",\"currentColor\"],[10,\"fill\",\"none\"],[10,\"viewBox\",\"0 0 24 24\"],[8],[0,\"\\n              \"],[7,\"path\",true],[11,\"class\",[28,\"if\",[[23,0,[\"open\"]],\"hidden\",\"inline-flex\"],null]],[10,\"stroke-linecap\",\"round\"],[10,\"stroke-linejoin\",\"round\"],[10,\"stroke-width\",\"2\"],[10,\"d\",\"M4 6h16M4 12h16M4 18h16\"],[8],[9],[0,\"\\n              \"],[7,\"path\",true],[11,\"class\",[28,\"if\",[[23,0,[\"open\"]],\"inline-flex\",\"hidden\"],null]],[10,\"stroke-linecap\",\"round\"],[10,\"stroke-linejoin\",\"round\"],[10,\"stroke-width\",\"2\"],[10,\"d\",\"M6 18L18 6M6 6l12 12\"],[8],[9],[0,\"\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n      \"],[9],[0,\"\\n    \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[23,0,[\"currentUser\",\"user\"]]],null,{\"statements\":[[0,\"      \"],[7,\"div\",true],[11,\"class\",[29,[\"hidden md:hidden \",[28,\"if\",[[23,0,[\"open\"]],\"block\",\"hidden\"],null]]]],[8],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"px-2 pt-2 pb-3 sm:px-3\"],[8],[0,\"\\n          \"],[7,\"a\",true],[10,\"href\",\"/\"],[10,\"class\",\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[8],[0,\"\\n            Dashboard\\n          \"],[9],[0,\"\\n\\n          \"],[7,\"a\",true],[10,\"href\",\"/projects\"],[10,\"class\",\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[8],[0,\"\\n            Projects\\n          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"pt-4 pb-3 border-t border-gray-700\"],[8],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"flex items-center px-5\"],[8],[0,\"\\n            \"],[7,\"div\",true],[10,\"class\",\"flex-shrink-0\"],[8],[0,\"\\n              \"],[7,\"img\",true],[10,\"class\",\"h-10 w-10 rounded-full\"],[11,\"src\",[23,0,[\"currentUser\",\"user\",\"gravatar\"]]],[10,\"alt\",\"User avatar\"],[8],[9],[0,\"\\n            \"],[9],[0,\"\\n            \"],[7,\"div\",true],[10,\"class\",\"ml-3\"],[8],[0,\"\\n              \"],[7,\"div\",true],[10,\"class\",\"text-base font-medium leading-none text-white\"],[8],[0,\"\\n                \"],[1,[23,0,[\"currentUser\",\"user\",\"name\"]],false],[0,\"\\n              \"],[9],[0,\"\\n              \"],[7,\"div\",true],[10,\"class\",\"mt-1 text-sm font-medium leading-none text-gray-400\"],[8],[0,\"\\n                \"],[1,[23,0,[\"currentUser\",\"user\",\"email\"]],false],[0,\"\\n              \"],[9],[0,\"\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"mt-3 px-2\"],[8],[0,\"\\n            \"],[7,\"a\",true],[10,\"href\",\"/account\"],[10,\"class\",\"block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[8],[0,\"\\n              Account\\n            \"],[9],[0,\"\\n            \"],[7,\"a\",true],[10,\"href\",\"/logout\"],[10,\"class\",\"mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[8],[0,\"\\n              Sign out\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n        \"],[9],[0,\"\\n      \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[9],[0,\"\\n\"],[0,\"  \"],[7,\"main\",true],[10,\"class\",\"bg-gray-100 main\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"max-w-7xl mx-auto py-6 sm:px-6 lg:px-8\"],[8],[0,\"\\n      \"],[1,[22,\"outlet\"],false],[0,\"\\n\"],[0,\"    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"],[9],[0,\"\\n\\n\"],[6,[23,1,[]],[],[[\"@placement\"],[\"bottom-right\"]]],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "rhgH/wVn",
+    "block": "{\"symbols\":[\"NotificationsContainer\"],\"statements\":[[6,[37,7],[[30,[36,6],[\"notifications-container\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[10,\"div\"],[12],[2,\"\\n  \"],[10,\"nav\"],[14,0,\"bg-gray-800\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\"],[12],[2,\"\\n      \"],[10,\"div\"],[14,0,\"flex items-center justify-between h-16\"],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex-shrink-0\"],[12],[2,\"\\n            \"],[10,\"img\"],[14,0,\"h-8 w-8\"],[14,\"src\",\"/assets/images/logo-250x250-transp.png\"],[14,\"alt\",\"Strider\"],[12],[13],[2,\"\\n          \"],[13],[2,\"\\n          \"],[10,\"div\"],[14,0,\"hidden md:block\"],[12],[2,\"\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"              \"],[10,\"div\"],[14,0,\"ml-4 flex items-baseline\"],[12],[2,\"\\n                \"],[10,\"a\"],[14,6,\"/\"],[14,0,\"ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n                  Dashboard\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"a\"],[14,6,\"/projects\"],[14,0,\"ml-2 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n                  Projects\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"div\"],[14,0,\"ml-2 relative\"],[12],[2,\"\\n                  \"],[10,\"div\"],[12],[2,\"\\n                    \"],[11,\"button\"],[24,0,\"max-w-xs px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,3],[[30,[36,2],[[32,0,[\"openAdmin\"]]],null],[30,[36,1],[[32,0,[\"openAdmin\"]]],null]],null]],null],[12],[2,\"\\n                      Admin\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"openAdmin\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                    \"],[10,\"div\"],[14,0,\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[12],[2,\"\\n                      \"],[10,\"div\"],[14,0,\"py-1 rounded-md bg-white shadow-xs\"],[12],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/invites\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Invites\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/users\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Users\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/projects\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Projects\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/plugins\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Plugins\\n                        \"],[13],[2,\"\\n                      \"],[13],[2,\"\\n                    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"                \"],[13],[2,\"\\n              \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"hidden md:block\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"ml-4 flex items-center md:ml-6\"],[12],[2,\"\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"              \"],[10,\"div\"],[14,0,\"ml-3 relative\"],[12],[2,\"\\n                \"],[10,\"div\"],[12],[2,\"\\n                  \"],[11,\"button\"],[24,0,\"max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,3],[[30,[36,2],[[32,0,[\"open\"]]],null],[30,[36,1],[[32,0,[\"open\"]]],null]],null]],null],[12],[2,\"\\n                    \"],[10,\"img\"],[14,0,\"h-8 w-8 rounded-full\"],[15,\"src\",[32,0,[\"currentUser\",\"user\",\"gravatar\"]]],[14,\"alt\",\"avatar\"],[12],[13],[2,\"\\n                  \"],[13],[2,\"\\n                \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"open\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                  \"],[10,\"div\"],[14,0,\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[12],[2,\"\\n                    \"],[10,\"div\"],[14,0,\"py-1 rounded-md bg-white shadow-xs\"],[12],[2,\"\\n                      \"],[10,\"a\"],[14,6,\"/account\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                        Account\\n                      \"],[13],[2,\"\\n                      \"],[10,\"a\"],[14,6,\"/logout\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                        Sign out\\n                      \"],[13],[2,\"\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"              \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"-mr-2 flex md:hidden\"],[12],[2,\"\\n          \"],[11,\"button\"],[24,0,\"inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,3],[[30,[36,2],[[32,0,[\"open\"]]],null],[30,[36,1],[[32,0,[\"open\"]]],null]],null]],null],[12],[2,\"\\n            \"],[10,\"svg\"],[14,0,\"h-6 w-6\"],[14,\"stroke\",\"currentColor\"],[14,\"fill\",\"none\"],[14,\"viewBox\",\"0 0 24 24\"],[12],[2,\"\\n              \"],[10,\"path\"],[15,0,[30,[36,0],[[32,0,[\"open\"]],\"hidden\",\"inline-flex\"],null]],[14,\"stroke-linecap\",\"round\"],[14,\"stroke-linejoin\",\"round\"],[14,\"stroke-width\",\"2\"],[14,\"d\",\"M4 6h16M4 12h16M4 18h16\"],[12],[13],[2,\"\\n              \"],[10,\"path\"],[15,0,[30,[36,0],[[32,0,[\"open\"]],\"inline-flex\",\"hidden\"],null]],[14,\"stroke-linecap\",\"round\"],[14,\"stroke-linejoin\",\"round\"],[14,\"stroke-width\",\"2\"],[14,\"d\",\"M6 18L18 6M6 6l12 12\"],[12],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n    \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"div\"],[15,0,[31,[\"hidden md:hidden \",[30,[36,0],[[32,0,[\"open\"]],\"block\",\"hidden\"],null]]]],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"px-2 pt-2 pb-3 sm:px-3\"],[12],[2,\"\\n          \"],[10,\"a\"],[14,6,\"/\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n            Dashboard\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"a\"],[14,6,\"/projects\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n            Projects\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"pt-4 pb-3 border-t border-gray-700\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex items-center px-5\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"flex-shrink-0\"],[12],[2,\"\\n              \"],[10,\"img\"],[14,0,\"h-10 w-10 rounded-full\"],[15,\"src\",[32,0,[\"currentUser\",\"user\",\"gravatar\"]]],[14,\"alt\",\"User avatar\"],[12],[13],[2,\"\\n            \"],[13],[2,\"\\n            \"],[10,\"div\"],[14,0,\"ml-3\"],[12],[2,\"\\n              \"],[10,\"div\"],[14,0,\"text-base font-medium leading-none text-white\"],[12],[2,\"\\n                \"],[1,[32,0,[\"currentUser\",\"user\",\"name\"]]],[2,\"\\n              \"],[13],[2,\"\\n              \"],[10,\"div\"],[14,0,\"mt-1 text-sm font-medium leading-none text-gray-400\"],[12],[2,\"\\n                \"],[1,[32,0,[\"currentUser\",\"user\",\"email\"]]],[2,\"\\n              \"],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n          \"],[10,\"div\"],[14,0,\"mt-3 px-2\"],[12],[2,\"\\n            \"],[10,\"a\"],[14,6,\"/account\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n              Account\\n            \"],[13],[2,\"\\n            \"],[10,\"a\"],[14,6,\"/logout\"],[14,0,\"mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n              Sign out\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"  \"],[13],[2,\"\\n\"],[2,\"  \"],[10,\"main\"],[14,0,\"bg-gray-100 main\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"max-w-7xl mx-auto py-6 sm:px-6 lg:px-8\"],[12],[2,\"\\n      \"],[1,[30,[36,6],[[30,[36,5],null,null]],null]],[2,\"\\n\"],[2,\"    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[8,[32,1],[],[[\"@placement\"],[\"bottom-right\"]],null],[2,\"\\n\"]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"if\",\"not\",\"mut\",\"fn\",\"on\",\"-outlet\",\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/application/template.hbs"
     }
@@ -998,7 +998,7 @@
 
   _exports.default = _default;
 });
-;define("strider-ui/pods/forgot-password/form/component", ["exports", "@glimmer/component", "ember-concurrency", "fetch"], function (_exports, _component, _emberConcurrency, _fetch) {
+;define("strider-ui/pods/forgot-password/form/component", ["exports", "@glimmer/component", "ember-concurrency-decorators", "fetch"], function (_exports, _component, _emberConcurrencyDecorators, _fetch) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -1023,42 +1023,42 @@
       _initializerDefineProperty(this, "notifications", _descriptor, this);
 
       _initializerDefineProperty(this, "email", _descriptor2, this);
+    }
 
-      _defineProperty(this, "requestReset", (0, _emberConcurrency.task)(function* () {
-        let response = yield (0, _fetch.default)('/forgot', {
-          method: 'post',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: this.email
-          })
-        });
+    *requestReset() {
+      let response = yield (0, _fetch.default)('/forgot', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: this.email
+        })
+      });
 
-        if (response.status === 200) {
-          // TODO: navigate in ember once the main page is finished
-          let result = yield response.json();
+      if (response.status === 200) {
+        // TODO: navigate in ember once the main page is finished
+        let result = yield response.json();
 
-          if (result === null || result === void 0 ? void 0 : result.ok) {
-            this.notifications.add(result.message);
-          }
-
-          return;
+        if (result === null || result === void 0 ? void 0 : result.ok) {
+          this.notifications.add(result.message);
         }
 
-        try {
-          let result = yield response.json();
+        return;
+      }
 
-          if (result === null || result === void 0 ? void 0 : result.errors) {
-            this.notifications.add(result.errors.join('\n'), {
-              appearance: 'error'
-            });
-          }
-        } catch (e) {
-          throw new Error('Not ok');
+      try {
+        let result = yield response.json();
+
+        if (result === null || result === void 0 ? void 0 : result.errors) {
+          this.notifications.add(result.errors.join('\n'), {
+            appearance: 'error'
+          });
         }
-      }));
+      } catch (e) {
+        throw new Error('Not ok');
+      }
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -1071,7 +1071,7 @@
     enumerable: true,
     writable: true,
     initializer: null
-  })), _class));
+  }), _applyDecoratedDescriptor(_class.prototype, "requestReset", [_emberConcurrencyDecorators.task], Object.getOwnPropertyDescriptor(_class.prototype, "requestReset"), _class.prototype)), _class));
   _exports.default = ForgotPasswordForm;
 });
 ;define("strider-ui/pods/forgot-password/form/template", ["exports"], function (_exports) {
@@ -1083,8 +1083,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "L5ijiG72",
-    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[7,\"form\",false],[12,\"class\",\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[13,1],[3,\"on\",[\"submit\",[28,\"prevent-default\",[[28,\"perform\",[[23,0,[\"requestReset\"]]],null]],null]]],[8],[0,\"\\n  \"],[7,\"h2\",true],[8],[0,\"Request Password Reset\"],[9],[0,\"\\n  \"],[7,\"p\",true],[10,\"class\",\"text-sm mt-2 mb-4 max-w-lg\"],[8],[0,\"\\n    If an account with the specified email exists, we'll send you an email with details on how to reset your password.\\n  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"mb-4\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"email\"],[8],[0,\"\\n      Email\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"email\"],[12,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[23,0,[\"email\"]]]]],[0,\"\\n  \"],[9],[0,\"\\n\\n  \"],[7,\"div\",true],[10,\"class\",\"flex items-center justify-between\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"flex flex-col\"],[8],[0,\"\\n      \"],[5,\"link-to\",[[12,\"class\",\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"login\"]],{\"statements\":[[0,\"\\n        Login\\n      \"]],\"parameters\":[]}],[0,\"\\n    \"],[9],[0,\"\\n\\n    \"],[7,\"button\",true],[10,\"class\",\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[10,\"type\",\"submit\"],[8],[0,\"\\n      Submit\\n    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
+    "id": "6Czyp32x",
+    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[11,\"form\"],[24,0,\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[17,1],[4,[38,2],[\"submit\",[30,[36,1],[[30,[36,0],[[32,0,[\"requestReset\"]]],null]],null]],null],[12],[2,\"\\n  \"],[10,\"h2\"],[12],[2,\"Request Password Reset\"],[13],[2,\"\\n  \"],[10,\"p\"],[14,0,\"text-sm mt-2 mb-4 max-w-lg\"],[12],[2,\"\\n    If an account with the specified email exists, we'll send you an email with details on how to reset your password.\\n  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"mb-4\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"email\"],[12],[2,\"\\n      Email\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"email\"],[24,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[32,0,[\"email\"]]]],null],[2,\"\\n  \"],[13],[2,\"\\n\\n  \"],[10,\"div\"],[14,0,\"flex items-center justify-between\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"flex flex-col\"],[12],[2,\"\\n      \"],[8,\"link-to\",[[24,0,\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"login\"]],[[\"default\"],[{\"statements\":[[2,\"\\n        Login\\n      \"]],\"parameters\":[]}]]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"button\"],[14,0,\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[14,4,\"submit\"],[12],[2,\"\\n      Submit\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13]],\"hasEval\":false,\"upvars\":[\"perform\",\"prevent-default\",\"on\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/forgot-password/form/template.hbs"
     }
@@ -1101,8 +1101,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "4emPy/lU",
-    "block": "{\"symbols\":[\"Form\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"forgot-password/form\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",true],[10,\"class\",\"flex justify-center w-full\"],[8],[0,\"\\n  \"],[6,[23,1,[]],[],[[],[]]],[0,\"\\n\"],[9]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "z1FYs2dm",
+    "block": "{\"symbols\":[\"Form\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"forgot-password/form\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"flex justify-center w-full\"],[12],[2,\"\\n  \"],[8,[32,1],[],[[],[]],null],[2,\"\\n\"],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/forgot-password/template.hbs"
     }
@@ -1110,7 +1110,7 @@
 
   _exports.default = _default;
 });
-;define("strider-ui/pods/login/form/component", ["exports", "@glimmer/component", "ember-concurrency", "fetch"], function (_exports, _component, _emberConcurrency, _fetch) {
+;define("strider-ui/pods/login/form/component", ["exports", "@glimmer/component", "ember-concurrency-decorators", "fetch"], function (_exports, _component, _emberConcurrencyDecorators, _fetch) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -1137,39 +1137,39 @@
       _initializerDefineProperty(this, "email", _descriptor2, this);
 
       _initializerDefineProperty(this, "password", _descriptor3, this);
+    }
 
-      _defineProperty(this, "login", (0, _emberConcurrency.task)(function* () {
-        let response = yield (0, _fetch.default)('/login', {
-          method: 'post',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: this.email,
-            password: this.password
-          })
-        });
+    *login() {
+      let response = yield (0, _fetch.default)('/login', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: this.email,
+          password: this.password
+        })
+      });
 
-        if (response.status === 200) {
-          // TODO: navigate in ember once the main page is finished
-          return window.location.href = '/';
+      if (response.status === 200) {
+        // TODO: navigate in ember once the main page is finished
+        return window.location.href = '/';
+      }
+
+      try {
+        let result = yield response.json();
+
+        if (result === null || result === void 0 ? void 0 : result.errors) {
+          this.notifications.add(result.errors.join('\n'), {
+            appearance: 'error'
+          });
         }
 
-        try {
-          let result = yield response.json();
-
-          if (result === null || result === void 0 ? void 0 : result.errors) {
-            this.notifications.add(result.errors.join('\n'), {
-              appearance: 'error'
-            });
-          }
-
-          return;
-        } catch (e) {
-          throw new Error('Not ok');
-        }
-      }));
+        return;
+      } catch (e) {
+        throw new Error('Not ok');
+      }
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -1187,7 +1187,7 @@
     enumerable: true,
     writable: true,
     initializer: null
-  })), _class));
+  }), _applyDecoratedDescriptor(_class.prototype, "login", [_emberConcurrencyDecorators.task], Object.getOwnPropertyDescriptor(_class.prototype, "login"), _class.prototype)), _class));
   _exports.default = LoginForm;
 });
 ;define("strider-ui/pods/login/form/template", ["exports"], function (_exports) {
@@ -1199,8 +1199,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "cWq3WDIF",
-    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[7,\"form\",false],[12,\"class\",\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[13,1],[3,\"on\",[\"submit\",[28,\"prevent-default\",[[28,\"perform\",[[23,0,[\"login\"]]],null]],null]]],[8],[0,\"\\n  \"],[7,\"h2\",true],[8],[0,\"Log In\"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"my-4\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"email\"],[8],[0,\"\\n      Email\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"email\"],[12,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[23,0,[\"email\"]]]]],[0,\"\\n  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"mb-6\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"password\"],[8],[0,\"\\n      Password\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"password\"],[12,\"placeholder\",\"******************\"]],[[\"@type\",\"@required\",\"@value\"],[\"password\",true,[23,0,[\"password\"]]]]],[0,\"\\n\"],[0,\"  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"flex items-center justify-between\"],[8],[0,\"\\n     \"],[7,\"div\",true],[10,\"class\",\"flex flex-col\"],[8],[0,\"\\n      \"],[5,\"link-to\",[[12,\"class\",\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"register\"]],{\"statements\":[[0,\"\\n        I have an invite code.\\n      \"]],\"parameters\":[]}],[0,\"\\n      \"],[5,\"link-to\",[[12,\"class\",\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"forgot-password\"]],{\"statements\":[[0,\"\\n        Forgot Password?\\n      \"]],\"parameters\":[]}],[0,\"\\n    \"],[9],[0,\"\\n\\n    \"],[7,\"button\",true],[10,\"class\",\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[10,\"type\",\"submit\"],[8],[0,\"\\n      Submit\\n    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
+    "id": "w7yhhELC",
+    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[11,\"form\"],[24,0,\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[17,1],[4,[38,2],[\"submit\",[30,[36,1],[[30,[36,0],[[32,0,[\"login\"]]],null]],null]],null],[12],[2,\"\\n  \"],[10,\"h2\"],[12],[2,\"Log In\"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"my-4\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"email\"],[12],[2,\"\\n      Email\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"email\"],[24,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[32,0,[\"email\"]]]],null],[2,\"\\n  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"mb-6\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"password\"],[12],[2,\"\\n      Password\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"password\"],[24,\"placeholder\",\"******************\"]],[[\"@type\",\"@required\",\"@value\"],[\"password\",true,[32,0,[\"password\"]]]],null],[2,\"\\n\"],[2,\"  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center justify-between\"],[12],[2,\"\\n     \"],[10,\"div\"],[14,0,\"flex flex-col\"],[12],[2,\"\\n      \"],[8,\"link-to\",[[24,0,\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"register\"]],[[\"default\"],[{\"statements\":[[2,\"\\n        I have an invite code.\\n      \"]],\"parameters\":[]}]]],[2,\"\\n      \"],[8,\"link-to\",[[24,0,\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"forgot-password\"]],[[\"default\"],[{\"statements\":[[2,\"\\n        Forgot Password?\\n      \"]],\"parameters\":[]}]]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"button\"],[14,0,\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[14,4,\"submit\"],[12],[2,\"\\n      Submit\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13]],\"hasEval\":false,\"upvars\":[\"perform\",\"prevent-default\",\"on\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/login/form/template.hbs"
     }
@@ -1229,8 +1229,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "7j7lq2gx",
-    "block": "{\"symbols\":[\"LoginForm\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"login/form\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",true],[10,\"class\",\"flex justify-center w-full\"],[8],[0,\"\\n  \"],[6,[23,1,[]],[],[[],[]]],[0,\"\\n\"],[9]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "I/LsVoko",
+    "block": "{\"symbols\":[\"LoginForm\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"login/form\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"flex justify-center w-full\"],[12],[2,\"\\n  \"],[8,[32,1],[],[[],[]],null],[2,\"\\n\"],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/login/template.hbs"
     }
@@ -1285,8 +1285,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "GXOsT/et",
-    "block": "{\"symbols\":[\"Icon\",\"@repo\",\"@onToggleRecentBuilds\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"fa-icon\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",true],[10,\"class\",\"flex items-center mb-2\"],[8],[0,\"\\n  \"],[7,\"button\",false],[12,\"class\",\"bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[23,0,[\"deploy\"]]]],[8],[0,\"\\n    Deploy\\n  \"],[9],[0,\"\\n\\n  \"],[7,\"button\",false],[12,\"class\",\"bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[23,0,[\"test\"]]]],[8],[0,\"\\n    Test\\n  \"],[9],[0,\"\\n\\n  \"],[7,\"a\",true],[11,\"href\",[29,[\"/\",[23,2,[\"project\"]],\"/config/\"]]],[10,\"class\",\"ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow\"],[8],[0,\"\\n    \"],[6,[23,1,[]],[],[[\"@icon\",\"@prefix\"],[\"cog\",\"fas\"]]],[0,\"\\n  \"],[9],[0,\"\\n\\n  \"],[7,\"button\",false],[12,\"class\",\"ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[23,3,[]]]],[8],[0,\"\\n    \"],[6,[23,1,[]],[[12,\"class\",\"mr-2\"]],[[\"@icon\",\"@prefix\"],[\"tasks\",\"fas\"]]],[0,\"\\n    Recent Builds\\n  \"],[9],[0,\"\\n\"],[9]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "ngff0ETX",
+    "block": "{\"symbols\":[\"Icon\",\"@repo\",\"@onToggleRecentBuilds\"],\"statements\":[[6,[37,2],[[30,[36,1],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"flex items-center mb-2\"],[12],[2,\"\\n  \"],[11,\"button\"],[24,0,\"bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2\"],[24,4,\"button\"],[4,[38,0],[\"click\",[32,0,[\"deploy\"]]],null],[12],[2,\"\\n    Deploy\\n  \"],[13],[2,\"\\n\\n  \"],[11,\"button\"],[24,0,\"bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow\"],[24,4,\"button\"],[4,[38,0],[\"click\",[32,0,[\"test\"]]],null],[12],[2,\"\\n    Test\\n  \"],[13],[2,\"\\n\\n  \"],[10,\"a\"],[15,6,[31,[\"/\",[32,2,[\"project\"]],\"/config/\"]]],[14,0,\"ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow\"],[12],[2,\"\\n    \"],[8,[32,1],[],[[\"@icon\",\"@prefix\"],[\"cog\",\"fas\"]],null],[2,\"\\n  \"],[13],[2,\"\\n\\n  \"],[11,\"button\"],[24,0,\"ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow\"],[24,4,\"button\"],[4,[38,0],[\"click\",[32,3]],null],[12],[2,\"\\n    \"],[8,[32,1],[[24,0,\"mr-2\"]],[[\"@icon\",\"@prefix\"],[\"tasks\",\"fas\"]],null],[2,\"\\n    Recent Builds\\n  \"],[13],[2,\"\\n\"],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"on\",\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/-components/controls/template.hbs"
     }
@@ -1348,8 +1348,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "+y90hS29",
-    "block": "{\"symbols\":[\"Icon\",\"Status\",\"phase\",\"command\",\"phase\",\"key\",\"@job\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"fa-icon\"],null]],null,{\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/status\"],null]],null,{\"statements\":[[0,\"\\n\\n\\n\\n\"],[7,\"div\",true],[10,\"class\",\"flex\"],[8],[0,\"\\n  \"],[7,\"section\",true],[10,\"class\",\"flex flex-1 flex-col w-8/12\"],[8],[0,\"\\n    \"],[7,\"div\",true],[10,\"class\",\"bg-white p-4 mb-4 rounded-lg shadow-lg\"],[8],[0,\"\\n      \"],[7,\"div\",true],[10,\"class\",\"flex flex-col justify-center mb-4\"],[8],[0,\"\\n        \"],[7,\"div\",true],[10,\"class\",\"flex justify-between items-start\"],[8],[0,\"\\n          \"],[7,\"div\",true],[10,\"class\",\"flex\"],[8],[0,\"\\n            \"],[6,[23,2,[]],[[12,\"class\",\"flex text-3xl mr-2\"]],[[\"@status\"],[[23,7,[\"status\"]]]]],[0,\"\\n\\n            \"],[7,\"div\",true],[10,\"class\",\"flex flex-col\"],[8],[0,\"\\n              \"],[1,[23,7,[\"trigger\",\"message\"]],false],[0,\"\\n\\n              \"],[7,\"div\",true],[10,\"class\",\"text-gray-800 text-sm\"],[8],[0,\"\\n                \"],[1,[23,7,[\"ref\",\"branch\"]],false],[0,\"\\n                \"],[1,[28,\"truncate\",[[23,7,[\"ref\",\"id\"]]],null],false],[0,\"\\n              \"],[9],[0,\"\\n\\n              \"],[7,\"div\",true],[10,\"class\",\"mt-1 text-gray-800 text-sm\"],[8],[0,\"\\n                \"],[1,[28,\"format-date\",[[23,7,[\"created\"]]],null],false],[0,\"\\n              \"],[9],[0,\"\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[28,\"eq\",[[23,7,[\"status\"]],\"running\"],null]],null,{\"statements\":[[0,\"            \"],[7,\"button\",false],[12,\"class\",\"bg-transparent hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow\"],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[28,\"fn\",[[23,0,[\"cancel\"]],[23,7,[\"_id\"]]],null]]],[8],[0,\"\\n              Cancel\\n            \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"        \"],[9],[0,\"\\n\\n        \"],[7,\"div\",true],[10,\"class\",\"flex items-center mt-2\"],[8],[0,\"\\n          \"],[7,\"img\",true],[11,\"src\",[23,7,[\"trigger\",\"author\",\"image\"]]],[10,\"class\",\"rounded-full w-8 mr-2\"],[10,\"alt\",\"Author avatar\"],[8],[9],[0,\"\\n          \"],[1,[23,7,[\"trigger\",\"author\",\"name\"]],false],[0,\"\\n        \"],[9],[0,\"\\n      \"],[9],[0,\"\\n\\n      \"],[7,\"ul\",true],[10,\"class\",\"flex flex-wrap\"],[8],[0,\"\\n\"],[4,\"each\",[[28,\"-each-in\",[[23,7,[\"phases\"]]],null]],null,{\"statements\":[[0,\"          \"],[7,\"li\",true],[8],[0,\"\\n            \"],[7,\"button\",false],[12,\"class\",[29,[\"\\n                \",[28,\"if\",[[28,\"eq\",[[23,0,[\"selectedPhase\"]],[23,6,[]]],null],\"bg-blue-800 border-blue-800 text-white\"],null],\"\\n                \",[28,\"if\",[[28,\"eq\",[[23,7,[\"phase\"]],[23,6,[]]],null],\"border-pink-400\"],null],\"\\n                flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2\\n                mb-2 md:mb-0\\n              \"]]],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[28,\"fn\",[[28,\"mut\",[[23,0,[\"selectedPhase\"]]],null],[23,6,[]]],null]]],[8],[0,\"\\n\"],[4,\"if\",[[28,\"eq\",[[23,7,[\"phase\"]],[23,6,[]]],null]],null,{\"statements\":[[0,\"                \"],[6,[23,1,[]],[[12,\"class\",\"text-gray-400 mr-2\"]],[[\"@icon\",\"@spin\",\"@prefix\"],[\"circle-notch\",true,\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"gt\",[[23,5,[\"exitCode\"]],0],null]],null,{\"statements\":[[0,\"                \"],[6,[23,1,[]],[[12,\"class\",\"text-red-500 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"times-circle\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"eq\",[[23,5,[\"exitCode\"]],0],null]],null,{\"statements\":[[0,\"                \"],[6,[23,1,[]],[[12,\"class\",\"text-green-500 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"check-circle\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"eq\",[[23,5,[\"exitCode\"]],-1],null]],null,{\"statements\":[[0,\"                \"],[6,[23,1,[]],[[12,\"class\",\"text-gray-300 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"lock\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"and\",[[28,\"not\",[[23,5,[\"exitCode\"]]],null],[23,5,[\"finished\"]],[23,5,[\"commands\",\"length\"]]],null]],null,{\"statements\":[[0,\"                \"],[6,[23,1,[]],[[12,\"class\",\"text-orange-500 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"exclamation-triangle\",\"fas\"]]],[0,\"\\n              \"]],\"parameters\":[]},null]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}],[0,\"\\n              \"],[1,[23,6,[]],false],[0,\"\\n            \"],[9],[0,\"\\n          \"],[9],[0,\"\\n\"]],\"parameters\":[5,6]},null],[0,\"      \"],[9],[0,\"\\n    \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[23,7,[\"error\"]]],null,{\"statements\":[[0,\"      \"],[7,\"div\",true],[10,\"class\",\"bg-white p-4 mb-4 rounded-lg shadow\"],[8],[0,\"\\n        \"],[7,\"button\",false],[12,\"type\",\"button\"],[3,\"on\",[\"click\",[28,\"set\",[[23,0,[]],\"isErrorStackVisible\",[28,\"not\",[[23,0,[\"isErrorStackVisible\"]]],null]],null]]],[8],[0,\"\\n          \"],[1,[23,7,[\"error\",\"message\"]],false],[0,\"\\n        \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[23,0,[\"isErrorStackVisible\"]]],null,{\"statements\":[[0,\"          \"],[7,\"pre\",true],[10,\"class\",\"text-sm whitespace-normal mt-2 text-gray-600\"],[8],[0,\"            \"],[1,[23,7,[\"error\",\"stack\"]],false],[0,\"          \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"      \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"\\n\"],[4,\"if\",[[23,0,[\"selectedPhase\"]]],null,{\"statements\":[[0,\"      \"],[7,\"div\",true],[8],[0,\"\\n\"],[4,\"let\",[[28,\"get\",[[23,7,[\"phases\"]],[23,0,[\"selectedPhase\"]]],null]],null,{\"statements\":[[4,\"each\",[[23,3,[\"commands\"]]],null,{\"statements\":[[0,\"            \"],[7,\"section\",true],[10,\"class\",\"mb-2\"],[8],[0,\"\\n              \"],[7,\"header\",true],[10,\"class\",\"flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block\"],[8],[0,\"\\n                \"],[7,\"div\",true],[8],[0,\"\\n                  \"],[7,\"span\",true],[10,\"class\",\"inline-flex p-1 rounded bg-gray-500 mr-2\"],[8],[0,\"\\n                    \"],[1,[23,4,[\"plugin\"]],false],[0,\"\\n                  \"],[9],[0,\"\\n\\n                  \"],[7,\"span\",true],[8],[0,\"\\n                    \"],[1,[28,\"if\",[[23,4,[\"comment\"]],\"#\",\"$\"],null],false],[0,\" \"],[1,[23,4,[\"command\"]],false],[0,\"\\n                  \"],[9],[0,\"\\n                \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[28,\"gte\",[[23,4,[\"duration\"]],0],null]],null,{\"statements\":[[0,\"                  \"],[7,\"div\",true],[10,\"class\",\"rounded p-1 bg-gray-600\"],[8],[0,\"\\n                    \"],[1,[28,\"duration\",[[23,4,[\"duration\"]]],null],false],[0,\"s\\n                  \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"              \"],[9],[0,\"\\n\\n\"],[4,\"if\",[[23,4,[\"merged\"]]],null,{\"statements\":[[0,\"                \"],[7,\"code\",true],[10,\"class\",\"text-xs\"],[8],[0,\"\\n                  \"],[7,\"pre\",true],[10,\"class\",\"bg-gray-800 text-white rounded rounded-t-none p-2 text-xs overflow-x-auto whitespace-normal\"],[8],[0,\"\"],[0,\"                    \"],[1,[28,\"ansi\",[[23,4,[\"merged\"]]],null],true],[0,\"                  \"],[9],[0,\"\\n                \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"            \"],[9],[0,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[0,\"            No output to display\\n\"]],\"parameters\":[]}]],\"parameters\":[3]},null],[0,\"      \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"],[9],[0,\"\\n\"],[9]],\"parameters\":[2]},null]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "lGRcj6Aj",
+    "block": "{\"symbols\":[\"Icon\",\"Status\",\"phase\",\"command\",\"phase\",\"key\",\"@job\"],\"statements\":[[6,[37,7],[[30,[36,19],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,7],[[30,[36,19],[\"organization/repository/-components/status\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\\n\\n\"],[10,\"div\"],[14,0,\"flex\"],[12],[2,\"\\n  \"],[10,\"section\"],[14,0,\"flex flex-1 flex-col w-8/12\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"bg-white p-4 mb-4 rounded-lg shadow-lg\"],[12],[2,\"\\n      \"],[10,\"div\"],[14,0,\"flex flex-col justify-center mb-4\"],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"flex justify-between items-start\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex\"],[12],[2,\"\\n            \"],[8,[32,2],[[24,0,\"flex text-3xl mr-2\"]],[[\"@status\"],[[32,7,[\"status\"]]]],null],[2,\"\\n\\n            \"],[10,\"div\"],[14,0,\"flex flex-col\"],[12],[2,\"\\n              \"],[1,[32,7,[\"trigger\",\"message\"]]],[2,\"\\n\\n              \"],[10,\"div\"],[14,0,\"text-gray-800 text-sm\"],[12],[2,\"\\n                \"],[1,[32,7,[\"ref\",\"branch\"]]],[2,\"\\n                \"],[1,[30,[36,16],[[32,7,[\"ref\",\"id\"]]],null]],[2,\"\\n              \"],[13],[2,\"\\n\\n              \"],[10,\"div\"],[14,0,\"mt-1 text-gray-800 text-sm\"],[12],[2,\"\\n                \"],[1,[30,[36,17],[[32,7,[\"created\"]]],null]],[2,\"\\n              \"],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n\\n\"],[6,[37,2],[[30,[36,12],[[32,7,[\"status\"]],\"running\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"            \"],[11,\"button\"],[24,0,\"bg-transparent hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow\"],[24,4,\"button\"],[4,[38,10],[\"click\",[30,[36,15],[[32,0,[\"cancel\"]],[32,7,[\"_id\"]]],null]],null],[12],[2,\"\\n              Cancel\\n            \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"        \"],[13],[2,\"\\n\\n        \"],[10,\"div\"],[14,0,\"flex items-center mt-2\"],[12],[2,\"\\n          \"],[10,\"img\"],[15,\"src\",[32,7,[\"trigger\",\"author\",\"image\"]]],[14,0,\"rounded-full w-8 mr-2\"],[14,\"alt\",\"Author avatar\"],[12],[13],[2,\"\\n          \"],[1,[32,7,[\"trigger\",\"author\",\"name\"]]],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n\\n      \"],[10,\"ul\"],[14,0,\"flex flex-wrap\"],[12],[2,\"\\n\"],[6,[37,5],[[30,[36,18],[[32,7,[\"phases\"]]],null]],null,[[\"default\"],[{\"statements\":[[2,\"          \"],[10,\"li\"],[12],[2,\"\\n            \"],[11,\"button\"],[16,0,[31,[\"\\n                \",[30,[36,2],[[30,[36,12],[[32,0,[\"selectedPhase\"]],[32,6]],null],\"bg-blue-800 border-blue-800 text-white\"],null],\"\\n                \",[30,[36,2],[[30,[36,12],[[32,7,[\"phase\"]],[32,6]],null],\"border-pink-400\"],null],\"\\n                flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2\\n                mb-2 md:mb-0\\n              \"]]],[24,4,\"button\"],[4,[38,10],[\"click\",[30,[36,15],[[30,[36,14],[[32,0,[\"selectedPhase\"]]],null],[32,6]],null]],null],[12],[2,\"\\n\"],[6,[37,2],[[30,[36,12],[[32,7,[\"phase\"]],[32,6]],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"                \"],[8,[32,1],[[24,0,\"text-gray-400 mr-2\"]],[[\"@icon\",\"@spin\",\"@prefix\"],[\"circle-notch\",true,\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,2],[[30,[36,13],[[32,5,[\"exitCode\"]],0],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"                \"],[8,[32,1],[[24,0,\"text-red-500 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"times-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,2],[[30,[36,12],[[32,5,[\"exitCode\"]],0],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"                \"],[8,[32,1],[[24,0,\"text-green-500 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"check-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,2],[[30,[36,12],[[32,5,[\"exitCode\"]],-1],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"                \"],[8,[32,1],[[24,0,\"text-gray-300 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"lock\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,2],[[30,[36,11],[[30,[36,8],[[32,5,[\"exitCode\"]]],null],[32,5,[\"finished\"]],[32,5,[\"commands\",\"length\"]]],null]],null,[[\"default\"],[{\"statements\":[[2,\"                \"],[8,[32,1],[[24,0,\"text-orange-500 mr-2\"]],[[\"@icon\",\"@prefix\"],[\"exclamation-triangle\",\"fas\"]],null],[2,\"\\n              \"]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]],[2,\"\\n              \"],[1,[32,6]],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n\"]],\"parameters\":[5,6]}]]],[2,\"      \"],[13],[2,\"\\n    \"],[13],[2,\"\\n\\n\"],[6,[37,2],[[32,7,[\"error\"]]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"div\"],[14,0,\"bg-white p-4 mb-4 rounded-lg shadow\"],[12],[2,\"\\n        \"],[11,\"button\"],[24,4,\"button\"],[4,[38,10],[\"click\",[30,[36,9],[[32,0],\"isErrorStackVisible\",[30,[36,8],[[32,0,[\"isErrorStackVisible\"]]],null]],null]],null],[12],[2,\"\\n          \"],[1,[32,7,[\"error\",\"message\"]]],[2,\"\\n        \"],[13],[2,\"\\n\\n\"],[6,[37,2],[[32,0,[\"isErrorStackVisible\"]]],null,[[\"default\"],[{\"statements\":[[2,\"          \"],[10,\"pre\"],[14,0,\"text-sm whitespace-normal mt-2 text-gray-600\"],[12],[2,\"            \"],[1,[32,7,[\"error\",\"stack\"]]],[2,\"          \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"\\n\"],[6,[37,2],[[32,0,[\"selectedPhase\"]]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"div\"],[12],[2,\"\\n\"],[6,[37,7],[[30,[36,6],[[32,7,[\"phases\"]],[32,0,[\"selectedPhase\"]]],null]],null,[[\"default\"],[{\"statements\":[[6,[37,5],[[30,[36,4],[[30,[36,4],[[32,3,[\"commands\"]]],null]],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"            \"],[10,\"section\"],[14,0,\"mb-2\"],[12],[2,\"\\n              \"],[10,\"header\"],[14,0,\"flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block\"],[12],[2,\"\\n                \"],[10,\"div\"],[12],[2,\"\\n                  \"],[10,\"span\"],[14,0,\"inline-flex p-1 rounded bg-gray-500 mr-2\"],[12],[2,\"\\n                    \"],[1,[32,4,[\"plugin\"]]],[2,\"\\n                  \"],[13],[2,\"\\n\\n                  \"],[10,\"span\"],[12],[2,\"\\n                    \"],[1,[30,[36,2],[[32,4,[\"comment\"]],\"#\",\"$\"],null]],[2,\" \"],[1,[32,4,[\"command\"]]],[2,\"\\n                  \"],[13],[2,\"\\n                \"],[13],[2,\"\\n\\n\"],[6,[37,2],[[30,[36,3],[[32,4,[\"duration\"]],0],null]],null,[[\"default\"],[{\"statements\":[[2,\"                  \"],[10,\"div\"],[14,0,\"rounded p-1 bg-gray-600\"],[12],[2,\"\\n                    \"],[1,[30,[36,1],[[32,4,[\"duration\"]]],null]],[2,\"s\\n                  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"              \"],[13],[2,\"\\n\\n\"],[6,[37,2],[[32,4,[\"merged\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                \"],[10,\"code\"],[14,0,\"text-xs\"],[12],[2,\"\\n                  \"],[10,\"pre\"],[14,0,\"bg-gray-800 text-white rounded rounded-t-none p-2 text-xs overflow-x-auto whitespace-normal\"],[12],[2,\"\"],[2,\"                    \"],[2,[30,[36,0],[[32,4,[\"merged\"]]],null]],[2,\"                  \"],[13],[2,\"\\n                \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"            \"],[13],[2,\"\\n\"]],\"parameters\":[4]},{\"statements\":[[2,\"            No output to display\\n\"]],\"parameters\":[]}]]]],\"parameters\":[3]}]]],[2,\"      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"  \"],[13],[2,\"\\n\"],[13]],\"parameters\":[2]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"ansi\",\"duration\",\"if\",\"gte\",\"-track-array\",\"each\",\"get\",\"let\",\"not\",\"set\",\"on\",\"and\",\"eq\",\"gt\",\"mut\",\"fn\",\"truncate\",\"format-date\",\"-each-in\",\"component\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/-components/job/template.hbs"
     }
@@ -1619,8 +1619,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "mJqUwnFp",
-    "block": "{\"symbols\":[\"&default\"],\"statements\":[[14,1,[[23,0,[\"live\",\"jobs\"]]]]],\"hasEval\":false}",
+    "id": "MzTG0Sjs",
+    "block": "{\"symbols\":[\"&default\"],\"statements\":[[18,1,[[32,0,[\"live\",\"jobs\"]]]]],\"hasEval\":false,\"upvars\":[]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/-components/live-job/template.hbs"
     }
@@ -1637,8 +1637,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "2+HgDjTH",
-    "block": "{\"symbols\":[\"Icon\",\"@status\",\"&attrs\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"fa-icon\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",false],[13,3],[8],[0,\"\\n\"],[4,\"if\",[[28,\"eq\",[[23,2,[]],\"running\"],null]],null,{\"statements\":[[0,\"    \"],[6,[23,1,[]],[[12,\"class\",\"text-blue-500\"]],[[\"@icon\",\"@spin\",\"@prefix\"],[\"circle-notch\",true,\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"eq\",[[23,2,[]],\"submitted\"],null]],null,{\"statements\":[[0,\"    \"],[6,[23,1,[]],[[12,\"class\",\"text-purple-500\"]],[[\"@icon\",\"@prefix\"],[\"satellite-dish\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"eq\",[[23,2,[]],\"passed\"],null]],null,{\"statements\":[[0,\"    \"],[6,[23,1,[]],[[12,\"class\",\"text-green-500\"]],[[\"@icon\",\"@prefix\"],[\"check-circle\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"eq\",[[23,2,[]],\"failed\"],null]],null,{\"statements\":[[0,\"    \"],[6,[23,1,[]],[[12,\"class\",\"text-red-500\"]],[[\"@icon\",\"@prefix\"],[\"times-circle\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[4,\"if\",[[28,\"eq\",[[23,2,[]],\"errored\"],null]],null,{\"statements\":[[0,\"    \"],[6,[23,1,[]],[[12,\"class\",\"text-orange-500\"]],[[\"@icon\",\"@prefix\"],[\"exclamation-triangle\",\"fas\"]]],[0,\"\\n\"]],\"parameters\":[]},{\"statements\":[[0,\"    \"],[1,[23,2,[]],false],[0,\"\\n  \"]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}]],\"parameters\":[]}],[9]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "V4rjfgQ6",
+    "block": "{\"symbols\":[\"Icon\",\"@status\",\"&attrs\"],\"statements\":[[6,[37,3],[[30,[36,2],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[11,\"div\"],[17,3],[12],[2,\"\\n\"],[6,[37,1],[[30,[36,0],[[32,2],\"running\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-blue-500\"]],[[\"@icon\",\"@spin\",\"@prefix\"],[\"circle-notch\",true,\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"submitted\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-purple-500\"]],[[\"@icon\",\"@prefix\"],[\"satellite-dish\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"passed\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-green-500\"]],[[\"@icon\",\"@prefix\"],[\"check-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"failed\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-red-500\"]],[[\"@icon\",\"@prefix\"],[\"times-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"errored\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-orange-500\"]],[[\"@icon\",\"@prefix\"],[\"exclamation-triangle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[2,\"    \"],[1,[32,2]],[2,\"\\n  \"]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"eq\",\"if\",\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/-components/status/template.hbs"
     }
@@ -1655,8 +1655,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "VulK5Nv4",
-    "block": "{\"symbols\":[\"Job\",\"@model\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/job\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[6,[23,1,[]],[],[[\"@job\",\"@jobs\"],[[23,2,[\"job\"]],[23,2,[\"jobs\"]]]]]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "+8y2z/zF",
+    "block": "{\"symbols\":[\"Job\",\"@model\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"organization/repository/-components/job\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[8,[32,1],[],[[\"@job\",\"@jobs\"],[[32,2,[\"job\"]],[32,2,[\"jobs\"]]]],null]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/index/template.hbs"
     }
@@ -1751,8 +1751,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "NVkCLPW0",
-    "block": "{\"symbols\":[\"Job\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/job\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[6,[23,1,[]],[],[[\"@job\"],[[23,0,[\"live\",\"selectedJob\"]]]]],[0,\"\\n\"]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "SNwPaRbQ",
+    "block": "{\"symbols\":[\"Job\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"organization/repository/-components/job\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[8,[32,1],[],[[\"@job\"],[[32,0,[\"live\",\"selectedJob\"]]]],null],[2,\"\\n\"]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/job/template.hbs"
     }
@@ -1835,8 +1835,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "FDT06LsL",
-    "block": "{\"symbols\":[\"Controls\",\"Status\",\"Job\",\"LiveJob\",\"jobs\",\"jobItem\",\"@model\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/controls\"],null]],null,{\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/status\"],null]],null,{\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/job\"],null]],null,{\"statements\":[[4,\"let\",[[28,\"component\",[\"organization/repository/-components/live-job\"],null]],null,{\"statements\":[[0,\"\\n\\n\\n\\n\\n\\n\"],[7,\"h2\",true],[10,\"class\",\"flex justify-between items-center text-2xl mb-3\"],[8],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"flex items-center\"],[8],[0,\"\\n    \"],[1,[23,7,[\"job\",\"project\"]],false],[0,\"\\n  \"],[9],[0,\"\\n  \"],[6,[23,1,[]],[],[[\"@repo\",\"@onToggleRecentBuilds\"],[[23,7,[\"job\"]],[28,\"fn\",[[28,\"mut\",[[23,0,[\"showRecentBuilds\"]]],null],[28,\"not\",[[23,0,[\"showRecentBuilds\"]]],null]],null]]]],[0,\"\\n\"],[9],[0,\"\\n\\n\"],[7,\"div\",true],[10,\"class\",\"relative\"],[8],[0,\"\\n  \"],[1,[22,\"outlet\"],false],[0,\"\\n\\n  \"],[6,[23,4,[]],[],[[],[]],{\"statements\":[[0,\"\\n\"],[4,\"if\",[[23,0,[\"showRecentBuilds\"]]],null,{\"statements\":[[0,\"      \"],[7,\"section\",true],[10,\"class\",\"h-screen p-3 overflow-y-auto origin-top-right absolute right-0 top-0 w-64 bg-gray-200 rounded-lg shadow-lg\"],[8],[0,\"\\n        \"],[7,\"h3\",true],[10,\"class\",\"mb-4 bg-white text-gray-600 px-2 py-1 rounded-full\"],[8],[0,\"Recent Builds\"],[9],[0,\"\\n        \"],[7,\"ul\",true],[8],[0,\"\\n\"],[4,\"each\",[[23,5,[]]],null,{\"statements\":[[0,\"            \"],[7,\"li\",true],[10,\"class\",\"mb-3\"],[8],[0,\"\\n              \"],[5,\"link-to\",[[12,\"class\",[29,[\"flex flex-col bg-white p-2 rounded-lg shadow \",[28,\"if\",[[28,\"is-active\",[\"organization.repository.job\",[23,6,[\"_id\"]]],null],\"border border-pink-400\"],null]]]]],[[\"@route\",\"@model\",\"@queryParams\"],[\"organization.repository.job\",[23,6,[\"_id\"]],[28,\"hash\",null,[[\"ember\"],[true]]]]],{\"statements\":[[0,\"\\n                \"],[7,\"div\",true],[10,\"class\",\"flex items-center mb-2\"],[8],[0,\"\\n                  \"],[6,[23,2,[]],[[12,\"class\",\"mr-2\"]],[[\"@status\"],[[23,6,[\"status\"]]]]],[0,\"\\n                  \"],[1,[23,6,[\"trigger\",\"message\"]],false],[0,\"\\n                \"],[9],[0,\"\\n\\n                \"],[7,\"div\",true],[10,\"class\",\"flex justify-between items-end\"],[8],[0,\"\\n                  \"],[7,\"div\",true],[10,\"class\",\"flex flex-col\"],[8],[0,\"\\n                    \"],[7,\"div\",true],[10,\"class\",\"flex items-center mt-2\"],[8],[0,\"\\n                      \"],[7,\"img\",true],[11,\"src\",[23,6,[\"trigger\",\"author\",\"image\"]]],[10,\"class\",\"rounded-full w-6 mr-2\"],[10,\"alt\",\"Author avatar\"],[8],[9],[0,\"\\n                      \"],[1,[23,6,[\"trigger\",\"author\",\"name\"]],false],[0,\"\\n                    \"],[9],[0,\"\\n\\n                    \"],[7,\"div\",true],[10,\"class\",\"mt-1 text-gray-800 text-sm\"],[8],[0,\"\\n                      \"],[1,[28,\"format-date\",[[23,6,[\"created\"]]],null],false],[0,\"\\n                    \"],[9],[0,\"\\n                  \"],[9],[0,\"\\n\\n                  \"],[7,\"div\",true],[10,\"class\",\"flex flex-col text-gray-800 text-sm\"],[8],[0,\"\\n                    \"],[1,[23,6,[\"ref\",\"branch\"]],false],[0,\"\\n\"],[4,\"if\",[[23,6,[\"ref\",\"id\"]]],null,{\"statements\":[[0,\"                      \"],[7,\"div\",true],[10,\"class\",\"mt-1\"],[8],[0,\"\\n                        \"],[1,[28,\"truncate\",[[23,6,[\"ref\",\"id\"]]],null],false],[0,\"\\n                      \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"                  \"],[9],[0,\"\\n                \"],[9],[0,\"\\n              \"]],\"parameters\":[]}],[0,\"\\n            \"],[9],[0,\"\\n\"]],\"parameters\":[6]},null],[0,\"        \"],[9],[0,\"\\n      \"],[9],[0,\"\\n\"]],\"parameters\":[]},null],[0,\"  \"]],\"parameters\":[5]}],[0,\"\\n\"],[9]],\"parameters\":[4]},null]],\"parameters\":[3]},null]],\"parameters\":[2]},null]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "NQd/F9Q3",
+    "block": "{\"symbols\":[\"Controls\",\"Status\",\"Job\",\"LiveJob\",\"jobs\",\"jobItem\",\"@model\"],\"statements\":[[6,[37,12],[[30,[36,11],[\"organization/repository/-components/controls\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,12],[[30,[36,11],[\"organization/repository/-components/status\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,12],[[30,[36,11],[\"organization/repository/-components/job\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,12],[[30,[36,11],[\"organization/repository/-components/live-job\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\\n\\n\\n\\n\"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n    \"],[1,[32,7,[\"job\",\"project\"]]],[2,\"\\n  \"],[13],[2,\"\\n  \"],[8,[32,1],[],[[\"@repo\",\"@onToggleRecentBuilds\"],[[32,7,[\"job\"]],[30,[36,9],[[30,[36,8],[[32,0,[\"showRecentBuilds\"]]],null],[30,[36,7],[[32,0,[\"showRecentBuilds\"]]],null]],null]]],null],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"relative\"],[12],[2,\"\\n  \"],[1,[30,[36,11],[[30,[36,10],null,null]],null]],[2,\"\\n\\n  \"],[8,[32,4],[],[[],[]],[[\"default\"],[{\"statements\":[[2,\"\\n\"],[6,[37,3],[[32,0,[\"showRecentBuilds\"]]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"section\"],[14,0,\"h-screen p-3 overflow-y-auto origin-top-right absolute right-0 top-0 w-64 bg-gray-200 rounded-lg shadow-lg\"],[12],[2,\"\\n        \"],[10,\"h3\"],[14,0,\"mb-4 bg-white text-gray-600 px-2 py-1 rounded-full\"],[12],[2,\"Recent Builds\"],[13],[2,\"\\n        \"],[10,\"ul\"],[12],[2,\"\\n\"],[6,[37,6],[[30,[36,5],[[30,[36,5],[[32,5]],null]],null]],null,[[\"default\"],[{\"statements\":[[2,\"            \"],[10,\"li\"],[14,0,\"mb-3\"],[12],[2,\"\\n              \"],[8,\"link-to\",[[16,0,[31,[\"flex flex-col bg-white p-2 rounded-lg shadow \",[30,[36,3],[[30,[36,2],[\"organization.repository.job\",[32,6,[\"_id\"]]],null],\"border border-pink-400\"],null]]]]],[[\"@route\",\"@model\",\"@queryParams\"],[\"organization.repository.job\",[32,6,[\"_id\"]],[30,[36,1],null,[[\"ember\"],[true]]]]],[[\"default\"],[{\"statements\":[[2,\"\\n                \"],[10,\"div\"],[14,0,\"flex items-center mb-2\"],[12],[2,\"\\n                  \"],[8,[32,2],[[24,0,\"mr-2\"]],[[\"@status\"],[[32,6,[\"status\"]]]],null],[2,\"\\n                  \"],[1,[32,6,[\"trigger\",\"message\"]]],[2,\"\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"div\"],[14,0,\"flex justify-between items-end\"],[12],[2,\"\\n                  \"],[10,\"div\"],[14,0,\"flex flex-col\"],[12],[2,\"\\n                    \"],[10,\"div\"],[14,0,\"flex items-center mt-2\"],[12],[2,\"\\n                      \"],[10,\"img\"],[15,\"src\",[32,6,[\"trigger\",\"author\",\"image\"]]],[14,0,\"rounded-full w-6 mr-2\"],[14,\"alt\",\"Author avatar\"],[12],[13],[2,\"\\n                      \"],[1,[32,6,[\"trigger\",\"author\",\"name\"]]],[2,\"\\n                    \"],[13],[2,\"\\n\\n                    \"],[10,\"div\"],[14,0,\"mt-1 text-gray-800 text-sm\"],[12],[2,\"\\n                      \"],[1,[30,[36,4],[[32,6,[\"created\"]]],null]],[2,\"\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\\n                  \"],[10,\"div\"],[14,0,\"flex flex-col text-gray-800 text-sm\"],[12],[2,\"\\n                    \"],[1,[32,6,[\"ref\",\"branch\"]]],[2,\"\\n\"],[6,[37,3],[[32,6,[\"ref\",\"id\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                      \"],[10,\"div\"],[14,0,\"mt-1\"],[12],[2,\"\\n                        \"],[1,[30,[36,0],[[32,6,[\"ref\",\"id\"]]],null]],[2,\"\\n                      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"                  \"],[13],[2,\"\\n                \"],[13],[2,\"\\n              \"]],\"parameters\":[]}]]],[2,\"\\n            \"],[13],[2,\"\\n\"]],\"parameters\":[6]}]]],[2,\"        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"  \"]],\"parameters\":[5]}]]],[2,\"\\n\"],[13]],\"parameters\":[4]}]]]],\"parameters\":[3]}]]]],\"parameters\":[2]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"truncate\",\"hash\",\"is-active\",\"if\",\"format-date\",\"-track-array\",\"each\",\"not\",\"mut\",\"fn\",\"-outlet\",\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/organization/repository/template.hbs"
     }
@@ -1844,7 +1844,7 @@
 
   _exports.default = _default;
 });
-;define("strider-ui/pods/register/form/component", ["exports", "@glimmer/component", "ember-concurrency", "fetch"], function (_exports, _component, _emberConcurrency, _fetch) {
+;define("strider-ui/pods/register/form/component", ["exports", "@glimmer/component", "ember-concurrency-decorators", "fetch"], function (_exports, _component, _emberConcurrencyDecorators, _fetch) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -1873,38 +1873,40 @@
       _initializerDefineProperty(this, "password", _descriptor3, this);
 
       _initializerDefineProperty(this, "inviteCode", _descriptor4, this);
+    }
 
-      _defineProperty(this, "register", (0, _emberConcurrency.task)(function* () {
-        let response = yield (0, _fetch.default)('/register', {
-          method: 'post',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            inviteCode: this.inviteCode,
-            email: this.email,
-            password: this.password
-          })
-        });
+    *register() {
+      let response = yield (0, _fetch.default)('/register', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          inviteCode: this.inviteCode,
+          email: this.email,
+          password: this.password
+        })
+      });
 
-        if (response.status === 200) {
-          // TODO: navigate in ember once the main page is finished
-          return window.location.href = '/';
+      if (response.status === 200) {
+        // TODO: navigate in ember once the main page is finished
+        return window.location.href = '/';
+      }
+
+      try {
+        let result = yield response.json();
+
+        if (result === null || result === void 0 ? void 0 : result.errors) {
+          this.notifications.add(result.errors.join('\n'), {
+            appearance: 'error'
+          });
         }
 
-        try {
-          let result = yield response.json();
-
-          if (result === null || result === void 0 ? void 0 : result.errors) {
-            this.notifications.add(result.errors.join('\n'), {
-              appearance: 'error'
-            });
-          }
-        } catch (e) {
-          throw new Error('Not ok');
-        }
-      }));
+        return result;
+      } catch (e) {
+        throw new Error('Not ok');
+      }
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -1927,7 +1929,7 @@
     enumerable: true,
     writable: true,
     initializer: null
-  })), _class));
+  }), _applyDecoratedDescriptor(_class.prototype, "register", [_emberConcurrencyDecorators.task], Object.getOwnPropertyDescriptor(_class.prototype, "register"), _class.prototype)), _class));
   _exports.default = RegisterForm;
 });
 ;define("strider-ui/pods/register/form/template", ["exports"], function (_exports) {
@@ -1939,8 +1941,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "lNLttovx",
-    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[7,\"form\",false],[12,\"class\",\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[13,1],[3,\"on\",[\"submit\",[28,\"prevent-default\",[[28,\"perform\",[[23,0,[\"register\"]]],null]],null]]],[8],[0,\"\\n  \"],[7,\"h2\",true],[8],[0,\"Register\"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"my-4\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"invite-code\"],[8],[0,\"\\n      Invite Code\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"invite-code\"],[12,\"placeholder\",\"abc123\"]],[[\"@required\",\"@value\"],[true,[23,0,[\"inviteCode\"]]]]],[0,\"\\n  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"mb-4\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"email\"],[8],[0,\"\\n      Email\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"email\"],[12,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[23,0,[\"email\"]]]]],[0,\"\\n  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"mb-6\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"password\"],[8],[0,\"\\n      Password\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"password\"],[12,\"placeholder\",\"******************\"]],[[\"@type\",\"@value\"],[\"password\",[23,0,[\"password\"]]]]],[0,\"\\n\"],[0,\"  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"flex items-center justify-between\"],[8],[0,\"\\n     \"],[7,\"div\",true],[10,\"class\",\"flex flex-col\"],[8],[0,\"\\n      \"],[5,\"link-to\",[[12,\"class\",\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"login\"]],{\"statements\":[[0,\"\\n        Login\\n      \"]],\"parameters\":[]}],[0,\"\\n    \"],[9],[0,\"\\n\\n    \"],[7,\"button\",true],[10,\"class\",\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[10,\"type\",\"submit\"],[8],[0,\"\\n      Submit\\n    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
+    "id": "w7UoNOzh",
+    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[11,\"form\"],[24,0,\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[17,1],[4,[38,2],[\"submit\",[30,[36,1],[[30,[36,0],[[32,0,[\"register\"]]],null]],null]],null],[12],[2,\"\\n  \"],[10,\"h2\"],[12],[2,\"Register\"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"my-4\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"invite-code\"],[12],[2,\"\\n      Invite Code\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"invite-code\"],[24,\"placeholder\",\"abc123\"]],[[\"@required\",\"@value\"],[true,[32,0,[\"inviteCode\"]]]],null],[2,\"\\n  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"mb-4\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"email\"],[12],[2,\"\\n      Email\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"email\"],[24,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[32,0,[\"email\"]]]],null],[2,\"\\n  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"mb-6\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"password\"],[12],[2,\"\\n      Password\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"password\"],[24,\"placeholder\",\"******************\"]],[[\"@type\",\"@value\"],[\"password\",[32,0,[\"password\"]]]],null],[2,\"\\n\"],[2,\"  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center justify-between\"],[12],[2,\"\\n     \"],[10,\"div\"],[14,0,\"flex flex-col\"],[12],[2,\"\\n      \"],[8,\"link-to\",[[24,0,\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"login\"]],[[\"default\"],[{\"statements\":[[2,\"\\n        Login\\n      \"]],\"parameters\":[]}]]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"button\"],[14,0,\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[14,4,\"submit\"],[12],[2,\"\\n      Submit\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13]],\"hasEval\":false,\"upvars\":[\"perform\",\"prevent-default\",\"on\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/register/form/template.hbs"
     }
@@ -1957,8 +1959,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "p/jhfZa0",
-    "block": "{\"symbols\":[\"Form\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"register/form\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",true],[10,\"class\",\"flex justify-center w-full\"],[8],[0,\"\\n  \"],[6,[23,1,[]],[],[[],[]]],[0,\"\\n\"],[9]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "ROs7ezQw",
+    "block": "{\"symbols\":[\"Form\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"register/form\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"flex justify-center w-full\"],[12],[2,\"\\n  \"],[8,[32,1],[],[[],[]],null],[2,\"\\n\"],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/register/template.hbs"
     }
@@ -1975,8 +1977,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "KKZzx/6Z",
-    "block": "{\"symbols\":[\"@model\"],\"statements\":[[7,\"div\",true],[10,\"class\",\"flex justify-center w-full\"],[8],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[8],[0,\"\\n    \"],[7,\"h2\",true],[8],[0,\"\\n      Password Reset\\n    \"],[9],[0,\"\\n    \"],[7,\"p\",true],[10,\"class\",\"my-4 text-red-500\"],[8],[0,\"\\n      \"],[1,[23,1,[]],false],[0,\"\\n    \"],[9],[0,\"\\n\\n    \"],[5,\"link-to\",[[12,\"class\",\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"forgot-password\"]],{\"statements\":[[0,\"\\n      Try Resetting Again\\n    \"]],\"parameters\":[]}],[0,\"\\n  \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
+    "id": "3rZ402og",
+    "block": "{\"symbols\":[\"@model\"],\"statements\":[[10,\"div\"],[14,0,\"flex justify-center w-full\"],[12],[2,\"\\n  \"],[10,\"div\"],[14,0,\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[12],[2,\"\\n    \"],[10,\"h2\"],[12],[2,\"\\n      Password Reset\\n    \"],[13],[2,\"\\n    \"],[10,\"p\"],[14,0,\"my-4 text-red-500\"],[12],[2,\"\\n      \"],[1,[32,1]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[8,\"link-to\",[[24,0,\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"forgot-password\"]],[[\"default\"],[{\"statements\":[[2,\"\\n      Try Resetting Again\\n    \"]],\"parameters\":[]}]]],[2,\"\\n  \"],[13],[2,\"\\n\"],[13]],\"hasEval\":false,\"upvars\":[]}",
     "meta": {
       "moduleName": "strider-ui/pods/reset-error/template.hbs"
     }
@@ -1984,7 +1986,7 @@
 
   _exports.default = _default;
 });
-;define("strider-ui/pods/reset/form/component", ["exports", "@glimmer/component", "ember-concurrency", "fetch"], function (_exports, _component, _emberConcurrency, _fetch) {
+;define("strider-ui/pods/reset/form/component", ["exports", "@glimmer/component", "ember-concurrency-decorators", "fetch"], function (_exports, _component, _emberConcurrencyDecorators, _fetch) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -2013,40 +2015,40 @@
       _initializerDefineProperty(this, "password", _descriptor3, this);
 
       _initializerDefineProperty(this, "inviteCode", _descriptor4, this);
+    }
 
-      _defineProperty(this, "register", (0, _emberConcurrency.task)(function* () {
-        let response = yield (0, _fetch.default)('/register', {
-          method: 'post',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            inviteCode: this.inviteCode,
-            email: this.email,
-            password: this.password
-          })
-        });
+    *register() {
+      let response = yield (0, _fetch.default)('/register', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          inviteCode: this.inviteCode,
+          email: this.email,
+          password: this.password
+        })
+      });
 
-        if (response.status === 200) {
-          // TODO: navigate in ember once the main page is finished
-          return window.location.href = '/';
+      if (response.status === 200) {
+        // TODO: navigate in ember once the main page is finished
+        return window.location.href = '/';
+      }
+
+      try {
+        let result = yield response.json();
+
+        if (result === null || result === void 0 ? void 0 : result.errors) {
+          this.notifications.add(result.errors.join('\n'), {
+            appearance: 'error'
+          });
         }
 
-        try {
-          let result = yield response.json();
-
-          if (result === null || result === void 0 ? void 0 : result.errors) {
-            this.notifications.add(result.errors.join('\n'), {
-              appearance: 'error'
-            });
-          }
-
-          return;
-        } catch (e) {
-          throw new Error('Not ok');
-        }
-      }));
+        return result;
+      } catch (e) {
+        throw new Error('Not ok');
+      }
     }
 
   }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
@@ -2069,7 +2071,7 @@
     enumerable: true,
     writable: true,
     initializer: null
-  })), _class));
+  }), _applyDecoratedDescriptor(_class.prototype, "register", [_emberConcurrencyDecorators.task], Object.getOwnPropertyDescriptor(_class.prototype, "register"), _class.prototype)), _class));
   _exports.default = RegisterForm;
 });
 ;define("strider-ui/pods/reset/form/template", ["exports"], function (_exports) {
@@ -2081,8 +2083,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "UZw4CrBj",
-    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[7,\"form\",false],[12,\"class\",\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[13,1],[3,\"on\",[\"submit\",[28,\"prevent-default\",[[28,\"perform\",[[23,0,[\"register\"]]],null]],null]]],[8],[0,\"\\n  \"],[7,\"h2\",true],[8],[0,\"Register\"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"my-4\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"invite-code\"],[8],[0,\"\\n      Invite Code\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"invite-code\"],[12,\"placeholder\",\"abc123\"]],[[\"@required\",\"@value\"],[true,[23,0,[\"inviteCode\"]]]]],[0,\"\\n  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"mb-4\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"email\"],[8],[0,\"\\n      Email\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"email\"],[12,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[23,0,[\"email\"]]]]],[0,\"\\n  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"mb-6\"],[8],[0,\"\\n    \"],[7,\"label\",true],[10,\"class\",\"block text-gray-700 text-sm font-medium mb-2\"],[10,\"for\",\"password\"],[8],[0,\"\\n      Password\\n    \"],[9],[0,\"\\n    \"],[5,\"input\",[[12,\"class\",\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\"],[12,\"id\",\"password\"],[12,\"placeholder\",\"******************\"]],[[\"@type\",\"@value\"],[\"password\",[23,0,[\"password\"]]]]],[0,\"\\n\"],[0,\"  \"],[9],[0,\"\\n  \"],[7,\"div\",true],[10,\"class\",\"flex items-center justify-between\"],[8],[0,\"\\n     \"],[7,\"div\",true],[10,\"class\",\"flex flex-col\"],[8],[0,\"\\n      \"],[5,\"link-to\",[[12,\"class\",\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"login\"]],{\"statements\":[[0,\"\\n        Login\\n      \"]],\"parameters\":[]}],[0,\"\\n    \"],[9],[0,\"\\n\\n    \"],[7,\"button\",true],[10,\"class\",\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[10,\"type\",\"submit\"],[8],[0,\"\\n      Submit\\n    \"],[9],[0,\"\\n  \"],[9],[0,\"\\n\"],[9]],\"hasEval\":false}",
+    "id": "0gRiFBEa",
+    "block": "{\"symbols\":[\"&attrs\"],\"statements\":[[11,\"form\"],[24,0,\"bg-white shadow-md rounded px-8 pt-6 pb-8 my-4\"],[17,1],[4,[38,2],[\"submit\",[30,[36,1],[[30,[36,0],[[32,0,[\"register\"]]],null]],null]],null],[12],[2,\"\\n  \"],[10,\"h2\"],[12],[2,\"Register\"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"my-4\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"invite-code\"],[12],[2,\"\\n      Invite Code\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"invite-code\"],[24,\"placeholder\",\"abc123\"]],[[\"@required\",\"@value\"],[true,[32,0,[\"inviteCode\"]]]],null],[2,\"\\n  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"mb-4\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"email\"],[12],[2,\"\\n      Email\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"email\"],[24,\"placeholder\",\"Email\"]],[[\"@type\",\"@required\",\"@value\"],[\"email\",true,[32,0,[\"email\"]]]],null],[2,\"\\n  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"mb-6\"],[12],[2,\"\\n    \"],[10,\"label\"],[14,0,\"block text-gray-700 text-sm font-medium mb-2\"],[14,\"for\",\"password\"],[12],[2,\"\\n      Password\\n    \"],[13],[2,\"\\n    \"],[8,\"input\",[[24,0,\"shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline\"],[24,1,\"password\"],[24,\"placeholder\",\"******************\"]],[[\"@type\",\"@value\"],[\"password\",[32,0,[\"password\"]]]],null],[2,\"\\n\"],[2,\"  \"],[13],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center justify-between\"],[12],[2,\"\\n     \"],[10,\"div\"],[14,0,\"flex flex-col\"],[12],[2,\"\\n      \"],[8,\"link-to\",[[24,0,\"block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800\"]],[[\"@route\"],[\"login\"]],[[\"default\"],[{\"statements\":[[2,\"\\n        Login\\n      \"]],\"parameters\":[]}]]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"button\"],[14,0,\"bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-4\"],[14,4,\"submit\"],[12],[2,\"\\n      Submit\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13]],\"hasEval\":false,\"upvars\":[\"perform\",\"prevent-default\",\"on\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/reset/form/template.hbs"
     }
@@ -2123,8 +2125,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "PCa2Cax3",
-    "block": "{\"symbols\":[\"Form\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"reset/form\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[7,\"div\",true],[10,\"class\",\"flex justify-center w-full\"],[8],[0,\"\\n  \"],[6,[23,1,[]],[],[[],[]]],[0,\"\\n\"],[9]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "Rz1tGyjY",
+    "block": "{\"symbols\":[\"Form\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"reset/form\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[10,\"div\"],[14,0,\"flex justify-center w-full\"],[12],[2,\"\\n  \"],[8,[32,1],[],[[],[]],null],[2,\"\\n\"],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/reset/template.hbs"
     }
@@ -2153,8 +2155,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "eCzHobyg",
-    "block": "{\"symbols\":[\"FaIcon\",\"@name\",\"@spin\"],\"statements\":[[4,\"let\",[[28,\"component\",[\"fa-icon\"],null]],null,{\"statements\":[[0,\"\\n\\n\"],[6,[23,1,[]],[],[[\"@icon\",\"@prefix\",\"@spin\"],[[23,2,[]],\"fal\",[23,3,[]]]]]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "0YxZKHzt",
+    "block": "{\"symbols\":[\"FaIcon\",\"@name\",\"@spin\"],\"statements\":[[6,[37,1],[[30,[36,0],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[8,[32,1],[],[[\"@icon\",\"@prefix\",\"@spin\"],[[32,2],\"fal\",[32,3]]],null]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/ui/icon/template.hbs"
     }
@@ -2369,8 +2371,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "O5qa5lOn",
-    "block": "{\"symbols\":[],\"statements\":[[7,\"div\",true],[10,\"class\",\"flex items-center justify-center h-screen bg-gray-100\"],[8],[0,\"\\n  \"],[7,\"button\",true],[10,\"class\",\"shadow-md hover:shadow-lg hover:bg-green-500 bg-green-400 text-white px-8 py-5 rounded\"],[8],[0,\"\\n    A beautiful button!\\n  \"],[9],[0,\"\\n\"],[9],[0,\"\\n\\n\"],[1,[22,\"outlet\"],false]],\"hasEval\":false}",
+    "id": "MZ2E26eZ",
+    "block": "{\"symbols\":[],\"statements\":[[10,\"div\"],[14,0,\"flex items-center justify-center h-screen bg-gray-100\"],[12],[2,\"\\n  \"],[10,\"button\"],[14,0,\"shadow-md hover:shadow-lg hover:bg-green-500 bg-green-400 text-white px-8 py-5 rounded\"],[12],[2,\"\\n    A beautiful button!\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[1,[30,[36,1],[[30,[36,0],null,null]],null]]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
     "meta": {
       "moduleName": "strider-ui/templates/application.hbs"
     }
@@ -2508,7 +2510,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+74f538e3"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"strider_v2.4.18+b8dc8a73"});
           }
         
 //# sourceMappingURL=strider-ui.map
