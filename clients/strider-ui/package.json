@@ -30,6 +30,7 @@
     "@types/ember": "^3.15.0",
     "@types/ember-data": "^3.15.0",
     "@types/ember-qunit": "^3.4.8",
+    "@types/ember__object": "^3.12.0",
     "@types/ember__routing": "^3.15.0",
     "@types/ember__test-helpers": "^1.7.0",
     "@types/lodash-es": "^4.17.3",

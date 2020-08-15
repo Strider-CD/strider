@@ -19,6 +19,7 @@ dependencies:
   '@types/ember': 3.16.0
   '@types/ember-data': 3.16.2
   '@types/ember-qunit': 3.4.9
+  '@types/ember__object': 3.12.0
   '@types/ember__routing': 3.16.1
   '@types/ember__test-helpers': 1.7.0
   '@types/express': 4.17.0
@@ -20521,6 +20522,7 @@ packages:
       '@types/ember': 3.16.0
       '@types/ember-data': 3.16.2
       '@types/ember-qunit': 3.4.9
+      '@types/ember__object': 3.12.0
       '@types/ember__routing': 3.16.1
       '@types/ember__test-helpers': 1.7.0
       '@types/lodash-es': 4.17.3
@@ -20575,7 +20577,7 @@ packages:
     dev: false
     name: '@rush-temp/strider-ui'
     resolution:
-      integrity: sha512-ED9O86BvVRkoIv0ZinXV521W3OSgnuISquSuVXKRftcLy2EUMYbyrP1ogpzNBubSZFzWTjErLqHPOQUS/evRrg==
+      integrity: sha512-gnTMtSqS78UGa3MuxWJckpprZbz7qlq+XJOVBGlCcbIaOpjUOAg44/hFYK/EXOX90S4vm2lgpiRaPrW70gfqCQ==
       tarball: 'file:projects/strider-ui.tgz'
     version: 0.0.0
   'file:projects/strider-website.tgz':
@@ -20805,6 +20807,7 @@ specifiers:
   '@types/ember': ^3.15.0
   '@types/ember-data': ^3.15.0
   '@types/ember-qunit': ^3.4.8
+  '@types/ember__object': '*'
   '@types/ember__routing': ^3.15.0
   '@types/ember__test-helpers': ^1.7.0
   '@types/express': 4.17.0

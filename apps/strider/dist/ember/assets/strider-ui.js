@@ -93,24 +93,6 @@
     }
   });
 });
-;define("strider-ui/components/status/template", ["exports"], function (_exports) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  var _default = Ember.HTMLBars.template({
-    "id": "gB9mhfO9",
-    "block": "{\"symbols\":[\"Icon\",\"@status\",\"&attrs\"],\"statements\":[[6,[37,3],[[30,[36,2],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[11,\"div\"],[17,3],[12],[2,\"\\n\"],[6,[37,1],[[30,[36,0],[[32,2],\"running\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-blue-500\"]],[[\"@icon\",\"@spin\",\"@prefix\"],[\"circle-notch\",true,\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"submitted\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-purple-500\"]],[[\"@icon\",\"@prefix\"],[\"satellite-dish\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"passed\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-green-500\"]],[[\"@icon\",\"@prefix\"],[\"check-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"failed\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-red-500\"]],[[\"@icon\",\"@prefix\"],[\"times-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"errored\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-orange-500\"]],[[\"@icon\",\"@prefix\"],[\"exclamation-triangle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[2,\"    \"],[1,[32,2]],[2,\"\\n  \"]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"eq\",\"if\",\"component\",\"let\"]}",
-    "meta": {
-      "moduleName": "strider-ui/components/status/template.hbs"
-    }
-  });
-
-  _exports.default = _default;
-});
 ;define("strider-ui/components/visually-hidden", ["exports", "@frontile/core/components/visually-hidden"], function (_exports, _visuallyHidden) {
   "use strict";
 
@@ -1016,6 +998,24 @@
 
   _exports.default = _default;
 });
+;define("strider-ui/pods/components/status/template", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "J8QhCK6F",
+    "block": "{\"symbols\":[\"Icon\",\"@status\",\"&attrs\"],\"statements\":[[6,[37,3],[[30,[36,2],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[11,\"div\"],[17,3],[12],[2,\"\\n\"],[6,[37,1],[[30,[36,0],[[32,2],\"running\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-blue-500\"]],[[\"@icon\",\"@spin\",\"@prefix\"],[\"circle-notch\",true,\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"submitted\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-purple-500\"]],[[\"@icon\",\"@prefix\"],[\"satellite-dish\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"passed\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-green-500\"]],[[\"@icon\",\"@prefix\"],[\"check-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"failed\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-red-500\"]],[[\"@icon\",\"@prefix\"],[\"times-circle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[6,[37,1],[[30,[36,0],[[32,2],\"errored\"],null]],null,[[\"default\",\"else\"],[{\"statements\":[[2,\"    \"],[8,[32,1],[[24,0,\"text-orange-500\"]],[[\"@icon\",\"@prefix\"],[\"exclamation-triangle\",\"fas\"]],null],[2,\"\\n\"]],\"parameters\":[]},{\"statements\":[[2,\"    \"],[1,[32,2]],[2,\"\\n  \"]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]]],\"parameters\":[]}]]],[13]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"eq\",\"if\",\"component\",\"let\"]}",
+    "meta": {
+      "moduleName": "strider-ui/pods/components/status/template.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
 ;define("strider-ui/pods/forgot-password/form/component", ["exports", "@glimmer/component", "ember-concurrency-decorators", "fetch"], function (_exports, _component, _emberConcurrencyDecorators, _fetch) {
   "use strict";
 
@@ -1158,8 +1158,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "/ib+B+8Q",
-    "block": "{\"symbols\":[\"Status\",\"job\",\"@model\"],\"statements\":[[6,[37,7],[[30,[36,6],[\"components/status\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[1,[30,[36,4],[[32,3,[\"jobs\"]]],null]],[2,\"\\n\"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n    Your Projects\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[10,\"ul\"],[12],[2,\"\\n\"],[6,[37,5],[[32,3,[\"jobs\",\"yours\",\"length\"]]],null,[[\"default\",\"else\"],[{\"statements\":[[6,[37,3],[[30,[36,2],[[30,[36,2],[[32,3,[\"jobs\",\"yours\"]]],null]],null]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"li\"],[14,0,\"bg-white p-4 mb-4 rounded-lg shadow-lg\"],[12],[2,\"\\n        \"],[8,\"link-to\",[],[[\"@route\",\"@models\",\"@queryParams\"],[\"organization.repository.job\",[30,[36,0],[[32,2,[\"project\",\"ownerName\"]],[32,2,[\"project\",\"repoName\"]],[32,2,[\"_id\"]]],null],[30,[36,1],null,[[\"ember\"],[true]]]]],[[\"default\"],[{\"statements\":[[2,\"\\n          \"],[1,[32,2,[\"project\",\"display_name\"]]],[2,\"\\n          \"],[8,[32,1],[],[[\"@status\"],[[32,2,[\"status\"]]]],null],[2,\"\\n          \"],[1,[32,2,[\"trigger\",\"message\"]]],[2,\"\\n        \"]],\"parameters\":[]}]]],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[2]}]]]],\"parameters\":[]},{\"statements\":[[2,\"    \"],[10,\"li\"],[12],[2,\"\\n      You have no projects yet.\\n    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[13],[2,\"\\n\\n\"],[6,[37,5],[[32,3,[\"jobs\",\"public\",\"length\"]]],null,[[\"default\"],[{\"statements\":[[2,\"  \"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n      Public Projects\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"array\",\"hash\",\"-track-array\",\"each\",\"log\",\"if\",\"component\",\"let\"]}",
+    "id": "PKR+/Zhr",
+    "block": "{\"symbols\":[\"Status\",\"Icon\",\"job\",\"@model\"],\"statements\":[[6,[37,9],[[30,[36,8],[\"components/status\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,9],[[30,[36,8],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\\n\\n\"],[1,[30,[36,6],[[32,4,[\"jobs\"]]],null]],[2,\"\\n\"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n    Your Projects\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[10,\"ul\"],[12],[2,\"\\n\"],[6,[37,7],[[32,4,[\"jobs\",\"yours\",\"length\"]]],null,[[\"default\",\"else\"],[{\"statements\":[[6,[37,5],[[30,[36,4],[[30,[36,4],[[32,4,[\"jobs\",\"yours\"]]],null]],null]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"li\"],[12],[2,\"\\n        \"],[8,\"link-to\",[[24,0,\"bg-white p-4 mb-4 rounded-lg shadow hover:shadow-lg block\"]],[[\"@route\",\"@models\",\"@queryParams\"],[\"organization.repository.job\",[30,[36,0],[[32,3,[\"project\",\"ownerName\"]],[32,3,[\"project\",\"repoName\"]],[32,3,[\"_id\"]]],null],[30,[36,1],null,[[\"ember\"],[true]]]]],[[\"default\"],[{\"statements\":[[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex justify-between\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"text-lg\"],[12],[2,\"\\n              \"],[1,[32,3,[\"project\",\"display_name\"]]],[2,\"\\n            \"],[13],[2,\"\\n\\n             \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n              \"],[10,\"img\"],[15,\"src\",[32,3,[\"trigger\",\"author\",\"image\"]]],[14,0,\"rounded-full w-8 mr-2\"],[14,\"alt\",\"Author avatar\"],[12],[13],[2,\"\\n              \"],[1,[32,3,[\"trigger\",\"author\",\"name\"]]],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"div\"],[14,0,\"flex flex-cols mt-2\"],[12],[2,\"\\n            \"],[8,[32,1],[[24,0,\"mr-2\"]],[[\"@status\"],[[32,3,[\"status\"]]]],null],[2,\"\\n            \"],[1,[32,3,[\"trigger\",\"message\"]]],[2,\"\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"div\"],[14,0,\"flex flex-cols justify-between items-center\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"text-gray-800 text-sm\"],[12],[2,\"\\n              \"],[1,[32,3,[\"ref\",\"branch\"]]],[2,\"\\n              \"],[1,[30,[36,2],[[32,3,[\"ref\",\"id\"]]],null]],[2,\"\\n            \"],[13],[2,\"\\n\\n            \"],[10,\"div\"],[14,0,\"mt-1 text-gray-800 text-sm\"],[12],[2,\"\\n              \"],[1,[30,[36,3],[[32,3,[\"created\"]]],null]],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"]],\"parameters\":[]}]]],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[3]}]]]],\"parameters\":[]},{\"statements\":[[2,\"    \"],[10,\"li\"],[12],[2,\"\\n      You have no projects yet.\\n    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[13],[2,\"\\n\\n\"],[6,[37,7],[[32,4,[\"jobs\",\"public\",\"length\"]]],null,[[\"default\"],[{\"statements\":[[2,\"  \"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n      Public Projects\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]]],\"parameters\":[2]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"array\",\"hash\",\"truncate\",\"format-date\",\"-track-array\",\"each\",\"log\",\"if\",\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/index/template.hbs"
     }
@@ -2419,24 +2419,6 @@
     plugins: [require("@tailwindcss/ui"), require("@frontile/notifications/tailwind")]
   };
 });
-;define("strider-ui/templates/application", ["exports"], function (_exports) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  var _default = Ember.HTMLBars.template({
-    "id": "MZ2E26eZ",
-    "block": "{\"symbols\":[],\"statements\":[[10,\"div\"],[14,0,\"flex items-center justify-center h-screen bg-gray-100\"],[12],[2,\"\\n  \"],[10,\"button\"],[14,0,\"shadow-md hover:shadow-lg hover:bg-green-500 bg-green-400 text-white px-8 py-5 rounded\"],[12],[2,\"\\n    A beautiful button!\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[1,[30,[36,1],[[30,[36,0],null,null]],null]]],\"hasEval\":false,\"upvars\":[\"-outlet\",\"component\"]}",
-    "meta": {
-      "moduleName": "strider-ui/templates/application.hbs"
-    }
-  });
-
-  _exports.default = _default;
-});
 ;define("strider-ui/transforms/boolean", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
   "use strict";
 
@@ -2567,7 +2549,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+fde0eba6"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+e58ca632"});
           }
         
 //# sourceMappingURL=strider-ui.map

@@ -124,13 +124,13 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   "use strict";
 
   QUnit.module('TemplateLint');
-  QUnit.test('strider-ui/components/status/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/components/status/template.hbs should pass TemplateLint.\n\n');
-  });
   QUnit.test('strider-ui/pods/application/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/application/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/components/status/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/components/status/template.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('strider-ui/pods/forgot-password/form/template.hbs', function (assert) {
     assert.expect(1);
@@ -142,7 +142,7 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   });
   QUnit.test('strider-ui/pods/index/template.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'strider-ui/pods/index/template.hbs should pass TemplateLint.\n\nstrider-ui/pods/index/template.hbs\n  4:0  error  Unexpected {{log}} usage.  no-log\n');
+    assert.ok(false, 'strider-ui/pods/index/template.hbs should pass TemplateLint.\n\nstrider-ui/pods/index/template.hbs\n  5:0  error  Unexpected {{log}} usage.  no-log\n');
   });
   QUnit.test('strider-ui/pods/login/form/template.hbs', function (assert) {
     assert.expect(1);
@@ -203,10 +203,6 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   QUnit.test('strider-ui/pods/ui/icon/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/ui/icon/template.hbs should pass TemplateLint.\n\n');
-  });
-  QUnit.test('strider-ui/templates/application.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(false, 'strider-ui/templates/application.hbs should pass TemplateLint.\n\nstrider-ui/templates/application.hbs\n  2:2  error  All `<button>` elements should have a valid `type` attribute  require-button-type\n');
   });
 });
 define("strider-ui/tests/lint/tests.lint-test", [], function () {
