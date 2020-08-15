@@ -16,34 +16,12 @@
 platform. It is written in Node.js and Ember.js and uses MongoDB as a backing
 store. It is published under the BSD license.
 
-Strider is extremely customizable through plugins. Plugins can
-
-- add hooks to perform arbitrary actions during build.
-- modify the database schema to add custom fields.
-- register their own HTTP routes.
-- subscribe to and emit socket events.
-- create or modify user interfaces within Strider.
-- so much more! just use your imagination!
+Strider is extremely customizable through plugins.
 
 ## Getting Started
 
 Check out the [guides](http://strider-cd.github.io/) or see the [strider app README](apps/strider/README.md) for additional instructions.  
 For live help check out Strider's [Gitter].
-
-### Strider on Heroku
-
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/Strider-CD/strider/tree/master/apps/strider)
-
-To get up and running quickly on Heroku, you can simply use the button above.
-If you run into any issues, see the [wiki entry](https://github.com/Strider-CD/strider/wiki/Strider-on-Heroku).
-
-### Strider in Docker
-
-Many users like to run Strider within a Docker container.
-Although this works well, supporting it is outside the scope of the Strider project.
-
-We recommend using [docker-strider](https://github.com/Strider-CD/docker-strider) as a base image when designing your Docker-based Strider installation.
-Please post related issues in the [issues section](https://github.com/Strider-CD/docker-strider/issues) for that repository.
 
 ## Backers
 
@@ -143,10 +121,6 @@ See the [Contributing guide](./CONTRIBUTING.md).
 [david-badge]: https://david-dm.org/Strider-CD/strider.svg
 [david-badge-link]: https://david-dm.org/Strider-CD/strider
 [body-parser]: https://github.com/expressjs/body-parser
-[node-gyp]: https://github.com/TooTallNate/node-gyp#installation
-[git]: http://git-scm.com/
-[nodejs]: http://nodejs.org/
-[npm]: https://docs.npmjs.com/getting-started/installing-node
 [gitter]: https://gitter.im/Strider-CD
 [travis-badge]: https://travis-ci.org/Strider-CD/strider.svg?branch=master
 [travis-badge-link]: https://travis-ci.org/Strider-CD/strider
