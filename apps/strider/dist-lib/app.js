@@ -108,7 +108,7 @@ exports.init = function (config) {
         next();
     });
     auth.setup(app); // app.use(passport) is included
-    app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
+    app.use('/vendor', express.static(path.join(__dirname, '..', '..', '..', 'clients', 'classic-ui', 'vendor'), {
         maxAge: MONTH_IN_MILLISECONDS,
     }));
     if (config.developing) {
