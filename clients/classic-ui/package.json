@@ -29,12 +29,13 @@
     "styles": "lessc client/styles/strider.less > ../../apps/strider/dist/styles/styles.css",
     "styles-debug": "lessc --source-map client/styles/strider.less ../../apps/strider/dist/styles/styles.css",
     "watch": "npm run pre && watchify -e client/app.js -o ../../apps/strider/dist/scripts/app.js",
-    "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -p [minifyify --output ../../apps/strider/dist/scripts/bundle.map] -e client/app.js -o ../../apps/strider/dist/scripts/app.js",
+    "build": "npm run pre && npm run styles && browserify -d -t [babelify --presets [ es2015 ] --only client] -t [uglifyify] -e client/app.js -o ../../apps/strider/dist/scripts/app.js",
     "build-debug": "npm run pre && npm run styles-debug && browserify -d -t [babelify --presets [ es2015 ] --only client] -e client/app.js -o ../../apps/strider/dist/scripts/app.js"
   },
   "devDependencies": {
     "angular": "1.5.7",
     "angular-route": "1.5.7",
+    "ansi_up": "^4.0.3",
     "babel-preset-es2015": "^6.9.0",
     "babelify": "^7.3.0",
     "bower-installer": "^1.2.0",
@@ -44,14 +45,13 @@
     "eslint-config-prettier": "^6.10.0",
     "jquery": "^3.4.1",
     "less": "^3.9.0",
-    "minifyify": "^7.3.3",
-    "mkdirp": "^0.5.0",
-    "prettier": "^2.0.4",
-    "watchify": "^3.4.0",
-    "ansi_up": "^4.0.3",
     "lodash": "^4.14.0",
     "md5": "^2.0.0",
+    "mkdirp": "^0.5.0",
+    "prettier": "^2.0.4",
     "socket.io-client": "^2.0.1",
-    "strip-ansi": "^5.2.0"
+    "strip-ansi": "^5.2.0",
+    "watchify": "^3.4.0",
+    "uglifyify": "^5.0.2"
   }
 }

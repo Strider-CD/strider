@@ -111,10 +111,6 @@ define("strider-ui/tests/lint/app.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'tailwind/config.js should pass ESLint\n\n');
   });
-  QUnit.test('utils/legacy/phases.js', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'utils/legacy/phases.js should pass ESLint\n\n');
-  });
   QUnit.test('utils/legacy/skels.js', function (assert) {
     assert.expect(1);
     assert.ok(true, 'utils/legacy/skels.js should pass ESLint\n\n');
@@ -163,10 +159,6 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   QUnit.test('strider-ui/pods/organization/repository/-components/live-job/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/organization/repository/-components/live-job/template.hbs should pass TemplateLint.\n\n');
-  });
-  QUnit.test('strider-ui/pods/organization/repository/-components/status/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/pods/organization/repository/-components/status/template.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('strider-ui/pods/organization/repository/index/template.hbs', function (assert) {
     assert.expect(1);

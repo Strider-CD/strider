@@ -174,6 +174,7 @@ dependencies:
   touch: 3.1.0
   tracked-toolbox: 1.1.0
   ts-node: 8.10.2
+  uglifyify: 5.0.2
   validator: 7.2.0
   watchify: 3.11.1
   wd: 0.4.0
@@ -18639,6 +18640,17 @@ packages:
       webpack: ^4.0.0
     resolution:
       integrity: sha512-U4mACBHIegmfoEe5fdongHESNJWqsGU+W0S/9+BmYGVQDw1+c2Ow05TpMhxjPK1sRb7cuYq1BPl1e5YHJMTCqA==
+  /terser/3.17.0:
+    dependencies:
+      commander: 2.20.3
+      source-map: 0.6.1
+      source-map-support: 0.5.19
+    dev: false
+    engines:
+      node: '>=6.0.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-/FQzzPJmCpjAH9Xvk2paiWrFq+5M6aVOf+2KRbwhByISDX/EujxsK+BAvrhb6H+2rtrLCHK9N01wO014vrIwVQ==
   /terser/4.8.0:
     dependencies:
       commander: 2.20.3
@@ -19284,6 +19296,16 @@ packages:
     dev: false
     resolution:
       integrity: sha1-SH4IClp3mIgOaOkN75sGaB+xO9I=
+  /uglifyify/5.0.2:
+    dependencies:
+      convert-source-map: 1.1.3
+      minimatch: 3.0.4
+      terser: 3.17.0
+      through: 2.3.8
+      xtend: 4.0.2
+    dev: false
+    resolution:
+      integrity: sha512-NcSk6pgoC+IgwZZ2tVLVHq+VNKSvLPlLkF5oUiHPVOJI0s/OlSVYEGXG9PCAH0hcyFZLyvt4KBdPAQBRlVDn1Q==
   /uid-safe/2.1.5:
     dependencies:
       random-bytes: 1.0.0
@@ -20483,11 +20505,12 @@ packages:
       prettier: 2.0.5
       socket.io-client: 2.3.0
       strip-ansi: 5.2.0
+      uglifyify: 5.0.2
       watchify: 3.11.1
     dev: false
     name: '@rush-temp/strider-classic-ui'
     resolution:
-      integrity: sha512-Mv1mJigievHDshhSIsj5wYrTwzeHnRIQk5F4oOoA+6K5PaC32NQ32gjnsMdiABrtKH5AFbilZJkI10tG+R0JaA==
+      integrity: sha512-W+GKlE/7ahIa0SOz9qQC5dyhekAXxDWbv/3XFvFX1g7VoZO7n+hNvSZmGnc1conbClKNUZrH+aSIDqe3U5poGQ==
       tarball: 'file:projects/strider-classic-ui.tgz'
     version: 0.0.0
   'file:projects/strider-runner-core.tgz':
@@ -20964,6 +20987,7 @@ specifiers:
   touch: ^3.1.0
   tracked-toolbox: ^1.0.1
   ts-node: ^8.6.2
+  uglifyify: ^5.0.2
   validator: ^7.0.0
   watchify: ^3.4.0
   wd: ^0.4.0
