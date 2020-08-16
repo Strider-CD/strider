@@ -1,10 +1,8 @@
-import Status from 'components/status';
-import Icon from 'fa-icon';
+import Project from './project';
 ---hbs---
 
-{{log @model.jobs}}
 <h2 class='flex justify-between items-center text-2xl mb-3'>
-  <div class="flex items-center">
+  <div class='flex items-center'>
     Your Projects
   </div>
 </h2>
@@ -13,39 +11,7 @@ import Icon from 'fa-icon';
   {{#if @model.jobs.yours.length}}
     {{#each @model.jobs.yours as |job|}}
       <li>
-        <LinkTo
-          class='bg-white p-4 mb-4 rounded-lg shadow hover:shadow-lg block'
-          @route='organization.repository.job'
-          @models={{array job.project.ownerName job.project.repoName job._id}}
-          @queryParams={{hash ember=true}}
-        >
-          <div class="flex justify-between">
-            <div class="text-lg">
-              {{job.project.display_name}}
-            </div>
-
-             <div class='flex items-center'>
-              <img src={{job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
-              {{job.trigger.author.name}}
-            </div>
-          </div>
-
-          <div class="flex flex-cols mt-2">
-            <Status @status={{job.status}} class='mr-2' />
-            {{job.trigger.message}}
-          </div>
-
-          <div class="flex flex-cols justify-between items-center">
-            <div class='text-gray-800 text-sm'>
-              {{job.ref.branch}}
-              {{truncate job.ref.id}}
-            </div>
-
-            <div class="mt-1 text-gray-800 text-sm">
-              {{format-date job.created}}
-            </div>
-          </div>
-        </LinkTo>
+        <Project @job={{job}} />
       </li>
     {{/each}}
   {{else}}
@@ -57,8 +23,18 @@ import Icon from 'fa-icon';
 
 {{#if @model.jobs.public.length}}
   <h2 class='flex justify-between items-center text-2xl mb-3'>
-    <div class="flex items-center">
+    <div class='flex items-center'>
       Public Projects
     </div>
   </h2>
+
+  <ul>
+    {{#if @model.jobs.public.length}}
+      {{#each @model.jobs.public as |job|}}
+        <li>
+          <Project @job={{job}} />
+        </li>
+      {{/each}}
+    {{/if}}
+  </ul>
 {{/if}}
