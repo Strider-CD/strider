@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
 import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
-import PHASES from 'strider-ui/utils/legacy/phases';
+import PHASES, { Phase } from 'strider-ui/utils/legacy/phases';
 import SKELS from 'strider-ui/utils/legacy/skels';
 import Live from 'strider-ui/services/live';
 
@@ -41,7 +41,7 @@ export default class LiveJob extends Component<Args> {
     }
     if (!job.phases) {
       job.phases = {};
-      PHASES.forEach((phase) => {
+      PHASES.forEach((phase: Phase) => {
         job.phases[phase] = cloneDeep(SKELS.phase);
       });
       job.phases[job.phase].started = new Date();
