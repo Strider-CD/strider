@@ -83,10 +83,12 @@ exports.jobsStart = function (req, res) {
  */
 exports.jobs = function (req, res) {
     debug('api.jobs');
-    res.setHeader('Content-Type', 'application/json');
-    res.statusCode = 200;
     jobs.latestJobs(req.user, function (err, jobs) {
-        res.send(JSON.stringify(jobs, null, '\t'));
+        if (err) {
+            debug('Failed fetching latest jobs', e);
+            return res.status(400).json({ error: 'Failed fetching latest jobs' });
+        }
+        res.json(jobs);
     });
 };
 //# sourceMappingURL=jobs.js.map
