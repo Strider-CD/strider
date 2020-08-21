@@ -1,6 +1,13 @@
 # Change Log - strider
 
-This log was last generated on Fri, 24 Jul 2020 13:57:26 GMT and should not be manually modified.
+This log was last generated on Fri, 21 Aug 2020 17:16:49 GMT and should not be manually modified.
+
+## 2.4.20
+Fri, 21 Aug 2020 17:16:49 GMT
+
+### Patches
+
+- Fix vendor path
 
 ## 2.4.19
 Fri, 24 Jul 2020 13:57:26 GMT

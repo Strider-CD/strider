@@ -2,6 +2,20 @@
   "name": "strider",
   "entries": [
     {
+      "version": "2.4.20",
+      "tag": "strider_v2.4.20",
+      "date": "Fri, 21 Aug 2020 17:16:49 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "Fix vendor path",
+            "author": "Ilya Radchenko <knownasilya@gmail.com>",
+            "commit": "0c99729cb649891c5247740463e2d8e30ce9d4c0"
+          }
+        ]
+      }
+    },
+    {
       "version": "2.4.19",
       "tag": "strider_v2.4.19",
       "date": "Fri, 24 Jul 2020 13:57:26 GMT",
