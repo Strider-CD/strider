@@ -164,7 +164,7 @@ ProjectSchema.methods.branch = function (name) {
   return findBranch(this.branches, name);
 };
 
-ProjectSchema.statics.forUser = function (user, done) {
+ProjectSchema.statics.forUser = async function (user, done) {
   // Default to all projects
   let query = {};
 
@@ -187,7 +187,7 @@ ProjectSchema.statics.forUser = function (user, done) {
     };
   }
 
-  this.find(query, done);
+  return this.find(query, done);
 };
 
 module.exports = mongoose.model('Project', ProjectSchema);

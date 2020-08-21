@@ -126,10 +126,10 @@ function BackChannel(emitter, ws) {
 BackChannel.prototype = {
     send: function (project, event, args) {
         if (this.users[project]) {
-            this.ws.send(this.users[project], [event, args, 'yours']);
+            this.ws.send(this.users[project], [event, args, 'yours', project]);
         }
         if (this.public[project]) {
-            this.ws.sendPublic(this.users[project], [event, args, 'public']);
+            this.ws.sendPublic(this.users[project], [event, args, 'public', project]);
         }
     },
     sendJobs: function (project, event, args) {

@@ -1,4 +1,5 @@
-import Project from './project';
+import Project from './-components/project';
+import LiveProjects from './-components/live-projects';
 ---hbs---
 
 <h2 class='flex justify-between items-center text-2xl mb-3'>
@@ -7,34 +8,36 @@ import Project from './project';
   </div>
 </h2>
 
-<ul>
-  {{#if @model.jobs.yours.length}}
-    {{#each @model.jobs.yours as |job|}}
-      <li>
-        <Project @job={{job}} />
-      </li>
-    {{/each}}
-  {{else}}
-    <li>
-      You have no projects yet.
-    </li>
-  {{/if}}
-</ul>
-
-{{#if @model.jobs.public.length}}
-  <h2 class='flex justify-between items-center text-2xl mb-3'>
-    <div class='flex items-center'>
-      Public Projects
-    </div>
-  </h2>
-
+<LiveProjects @jobs={{@model.jobs}} as |jobs|>
   <ul>
-    {{#if @model.jobs.public.length}}
-      {{#each @model.jobs.public as |job|}}
+    {{#if jobs.yours.length}}
+      {{#each jobs.yours as |job|}}
         <li>
           <Project @job={{job}} />
         </li>
       {{/each}}
+    {{else}}
+      <li>
+        You have no projects yet.
+      </li>
     {{/if}}
   </ul>
-{{/if}}
+
+  {{#if jobs.public.length}}
+    <h2 class='flex justify-between items-center text-2xl mb-3'>
+      <div class='flex items-center'>
+        Public Projects
+      </div>
+    </h2>
+
+    <ul>
+      {{#if jobs.public.length}}
+        {{#each jobs.public as |job|}}
+          <li>
+            <Project @job={{job}} />
+          </li>
+        {{/each}}
+      {{/if}}
+    </ul>
+  {{/if}}
+</LiveProjects>

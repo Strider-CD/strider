@@ -39,12 +39,12 @@ export default class LiveProjects extends Component<Args> {
     socket.on('job.done', this.handleJobDone);
   }
 
-  // findJob(id: string) {
-  //   let yours = this.yours.find((item: any) => item._id )
-  // }
+  findJob(projectName: string, jobId: string) {
+    let yours = this.yours.find((item: any) => item._id);
+  }
 
   @action
-  getJob(jobId: string) {
+  getJob(projectName: string, jobId: string) {
     debugger;
     let job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
 
@@ -63,6 +63,7 @@ export default class LiveProjects extends Component<Args> {
 
   @action
   handleNewJob([job]: [any]) {
+    debugger;
     if (!job.phase) {
       job.phase = 'environment';
     }
@@ -85,8 +86,13 @@ export default class LiveProjects extends Component<Args> {
   }
 
   @action
-  handleJobStarted([jobId, time]: [string, string]) {
-    let job = this.getJob(jobId);
+  handleJobStarted([jobId, time, whos, projectName]: [
+    string,
+    string,
+    'yours' | 'public',
+    string
+  ]) {
+    let job = this.getJob(projectName, jobId);
 
     if (!job) {
       return;
