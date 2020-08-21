@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "strider",
+      "comment": "Fix vendor path",
+      "type": "patch"
+    }
+  ],
+  "packageName": "strider",
+  "email": "knownasilya@gmail.com"
+}

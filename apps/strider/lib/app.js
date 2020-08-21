@@ -138,9 +138,12 @@ exports.init = function (config) {
 
   app.use(
     '/vendor',
-    express.static(path.join(__dirname, '..', 'vendor'), {
-      maxAge: MONTH_IN_MILLISECONDS,
-    })
+    express.static(
+      path.join(__dirname, '..', '..', '..', 'clients', 'classic-ui', 'vendor'),
+      {
+        maxAge: MONTH_IN_MILLISECONDS,
+      }
+    )
   );
 
   if (config.developing) {
