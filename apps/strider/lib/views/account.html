@@ -119,6 +119,7 @@
                       <div class="controls">
                         <input class="xlarge" type="text" name="email" ng-model="user.email" ng-disabled="user.isAdUser" />
                         <span class="help-inline email"></span>
+                        <input type="hidden" name="_csrf" value="{{csrfToken}}">
                       </div>
                       <div class="actions">
                         <button class="btn" ng-click="changeEmail()" ng-disabled="user.isAdUser">Change Email</button>
@@ -148,6 +149,7 @@
                       </div>
                       <div class="controls">
                         <input class="xlarge" type="password" name="confirm_password" ng-model="confirm_password"  ng-disabled="user.isAdUser">
+                        <input class="csrfToken" type="hidden" name="_csrf" value="{{csrfToken}}">
                         <span class="help-inline password-confirm"></span>
                         <span ng-show="passwordForm.password.$valid && confirm_password !== password">Passwords must match</span>
                       </div>

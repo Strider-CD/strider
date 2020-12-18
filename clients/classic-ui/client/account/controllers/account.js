@@ -3,6 +3,7 @@
 var $ = require('jquery');
 var user = global.user || {};
 var providers = global.providers || {};
+var csrfToken = document.querySelector('.csrfToken').value;
 
 function AccountController($scope, $window) {
   $scope.user = user;
@@ -82,7 +83,10 @@ function AccountController($scope, $window) {
 
   $scope.changePassword = function () {
     $.ajax('/api/account/password', {
-      data: {password: $scope.password},
+      data: {
+        password: $scope.password,
+        _csrf: csrfToken
+      },
       dataType: 'json',
       error: function () {
         $scope.error('Unable to change password', true);
@@ -98,7 +102,10 @@ function AccountController($scope, $window) {
 
   $scope.changeEmail = function () {
     $.ajax('/api/account/email', {
-      data: {email: $scope.user.email},
+      data: {
+        email: $scope.user.email,
+        _csrf: csrfToken
+      },
       dataType: 'json',
       error: function (xhr) {
         var resp = $.parseJSON(xhr.responseText);
@@ -114,7 +121,7 @@ function AccountController($scope, $window) {
   $scope.changeJobsQuantityOnPage = function () {
     $.ajax('/api/account/jobsQuantityOnPage', {
       type: 'POST',
-      data: {quantity: $scope.user.jobsQuantityOnPage},
+      data: { quantity: $scope.user.jobsQuantityOnPage },
       dataType: 'json',
       error: function (xhr) {
         var resp = $.parseJSON(xhr.responseText);
