@@ -52,7 +52,6 @@ const env = process.env.NODE_ENV || 'development';
 const isDevelopment = env === 'development';
 const isProduction = env === 'production';
 const isTest = env === 'test';
-const csrfProtection = csrf({ cookie: true });
 let sessionStore;
 
 exports.init = function (config) {
@@ -114,6 +113,12 @@ exports.init = function (config) {
   app.use(cookieParser());
   app.use(compression());
   app.use(methodOverride());
+  app.use(csrf({ cookie: true }));
+  app.use(function (err, req, res, next) {
+    if (err.code !== 'EBADCSRFTOKEN')
+      return next(err)
+    res.status(403).send({ status: 'forbidden', errors: [{ message: 'invalid _csrf token' }] })
+  })
   app.use(
     serveFavicon(path.join(__dirname, '..', 'public', 'favicon.ico'), {
       maxAge: 2592000000,
@@ -249,7 +254,7 @@ exports.init = function (config) {
   );
 
   app.get('/admin/projects', auth.requireAdminOr401, routesAdmin.projects);
-  app.get('/admin/users', auth.requireAdminOr401, csrfProtection, routesAdmin.users);
+  app.get('/admin/users', auth.requireAdminOr401, routesAdmin.users);
   app.get('/admin/jobs', auth.requireAdminOr401, function (req, res) {
     res.render('admin/jobs.html', {
       version: pjson.version,
@@ -258,12 +263,10 @@ exports.init = function (config) {
   app.post(
     '/admin/make_admin',
     auth.requireAdminOr401,
-    csrfProtection,
     routesAdmin.makeAdmin);
   app.post(
     '/admin/remove_user',
     auth.requireAdminOr401,
-    csrfProtection,
     routesAdmin.removeUser
   );
   app.get('/admin/invites', auth.requireAdminOr401, routesAdmin.invites);

@@ -8,13 +8,8 @@ const Project = models.Project;
 const router = express.Router();
 const User = models.User;
 const validator = require('validator');
-const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
-
-const csrfProtection = csrf({ cookie: true })
 
 router.use(auth.requireUserOr401);
-router.use(cookieParser());
 
 router
   .route('/:provider/:id')
@@ -139,7 +134,7 @@ router
    *
    * @apiParam (RequestBody) {String{6..}} password The new password, which must be at least 6 characters long.
    */
-  .post(csrfProtection, function (req, res) {
+  .post(function (req, res) {
     if (req.user !== undefined) {
       debug(`password change by ${req.user.email}`);
     }
@@ -187,7 +182,7 @@ router
    *
    * @apiParam (RequestBody) {String} email The new email address. This must be a VALID email address.
    */
-  .post(csrfProtection, function (req, res) {
+  .post(function (req, res) {
     const newEmail = req.body.email;
 
     if (!validator.isEmail(newEmail)) {
