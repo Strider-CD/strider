@@ -176,6 +176,7 @@
                         </div>
                         <div class="controls">
                           <input class="xlarge" type="number" name="quantity" min="{{ jobsQuantityOnPage.min }}" max="{{ jobsQuantityOnPage.max }}" ng-model="user.jobsQuantityOnPage">
+                          <input class="csrfToken" type="hidden" name="_csrf" value="{{csrfToken}}">
                           <span class="help-inline jobsQuantityOnPage"></span>
                         </div>
                         <div class="actions">

@@ -39,6 +39,7 @@ exports.invites = function (req, res) {
         invite_code: makeInviteCode(),
         invite_codes: results,
         version: pjson.version,
+        csrfToken: req.csrfToken()
       });
     });
 };

@@ -8,6 +8,11 @@ const Project = models.Project;
 const router = express.Router();
 const User = models.User;
 const validator = require('validator');
+const csrf = require('csurf');
+
+const csrfProtection = csrf({ cookie: true })
+
+const csrfErrorHandler = require('../../middleware').csrfErrorHandler;
 
 router.use(auth.requireUserOr401);
 
@@ -134,7 +139,7 @@ router
    *
    * @apiParam (RequestBody) {String{6..}} password The new password, which must be at least 6 characters long.
    */
-  .post(function (req, res) {
+  .post(csrfProtection, csrfErrorHandler, function (req, res) {
     if (req.user !== undefined) {
       debug(`password change by ${req.user.email}`);
     }
@@ -182,7 +187,7 @@ router
    *
    * @apiParam (RequestBody) {String} email The new email address. This must be a VALID email address.
    */
-  .post(function (req, res) {
+  .post(csrfProtection, csrfErrorHandler, function (req, res) {
     const newEmail = req.body.email;
 
     if (!validator.isEmail(newEmail)) {
@@ -229,7 +234,7 @@ router
    *
    * @apiParam (RequestBody) {Number} quantity The new value.
    */
-  .post(function (req, res) {
+  .post(csrfProtection, csrfErrorHandler, function (req, res) {
     if (!config.jobsQuantityOnPage.enabled) {
       return res.status(400).json({
         status: 'error',

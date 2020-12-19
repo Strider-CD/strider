@@ -121,7 +121,10 @@ function AccountController($scope, $window) {
   $scope.changeJobsQuantityOnPage = function () {
     $.ajax('/api/account/jobsQuantityOnPage', {
       type: 'POST',
-      data: { quantity: $scope.user.jobsQuantityOnPage },
+      data: {
+        quantity: $scope.user.jobsQuantityOnPage,
+        _csrf: csrfToken
+      },
       dataType: 'json',
       error: function (xhr) {
         var resp = $.parseJSON(xhr.responseText);
