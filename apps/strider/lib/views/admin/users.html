@@ -28,13 +28,18 @@
           {% if (user.account_level === 1) %}
             <b>YES</b>
           {% else %}
-            <a href="/admin/make_admin?user={{user.email | url_encode}}">Make Admin</a>
+            <form method="post" class="remove-user" action="/admin/make_admin">
+              <input type="hidden" name="user" value="{{ user.email }}">
+              <input type="hidden" name="_csrf" value="{{ csrfToken }}">
+              <button type="submit" class="btn btn-link btn-small">Make Admin</button>
+            </form>
           {% endif %}
         </td>
         <td>
         {% if user._id.toString() !== currentUser._id.toString() %}
           <form method="post" class="remove-user" action="/admin/remove_user">
             <input type="hidden" name="email" value="{{ user.email }}">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             <button type="submit" class="btn btn-danger btn-small">Remove</button>
           </form>
         {% endif %}
