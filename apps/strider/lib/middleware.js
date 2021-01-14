@@ -14,6 +14,7 @@ module.exports = {
   project: project,
   projectPlugin: projectPlugin,
   projectProvider: projectProvider,
+  csrfErrorHandler: csrfErrorHandler,
 
   // Legacy aliases - don't use these:
   require_auth: auth.requireUserOr401,
@@ -274,4 +275,10 @@ function project(req, res, next) {
 
     res.status(401).send('Not authorized');
   });
+}
+
+function csrfErrorHandler(err, req, res, next) {
+  if (err.code !== 'EBADCSRFTOKEN')
+    return next(err);
+  res.status(403).send({ status: 'forbidden', errors: [{ message: 'invalid _csrf token' }] });
 }

@@ -19,6 +19,7 @@
         <label for="email">Recipient Email</label>
         <div class="input">
           <input type="text" name="email" class="xlarge"/>
+          <input type="hidden" name="_csrf" value="{{csrfToken}}">
         </div>
       </div>
       <div class="actions">
@@ -67,6 +68,7 @@
                 <td>
                   <form action="/api/admin/invite/revoke" method="POST">
                     <input type="hidden" name="invite_code" value="{{invite.code}}">
+                    <input type="hidden" name="_csrf" value="{{csrfToken}}">
                     <button type="submit" class="btn btn-danger">Revoke</button>
                   </form>
                 </td>

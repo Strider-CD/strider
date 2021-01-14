@@ -39,6 +39,7 @@ exports.invites = function (req, res) {
         invite_code: makeInviteCode(),
         invite_codes: results,
         version: pjson.version,
+        csrfToken: req.csrfToken()
       });
     });
 };
@@ -58,15 +59,16 @@ exports.users = function (req, res) {
           user.created_date = humane.humaneDate(utils.timeFromId(user.id));
           return user;
         }),
+        csrfToken: req.csrfToken()
       });
     });
 };
 
 exports.makeAdmin = function (req, res) {
-  if (!req.query.user) {
+  if (!req.body.user) {
     return res.redirect('/admin/users');
   }
-  users.makeAdmin(req.query.user, function (err) {
+  users.makeAdmin(req.body.user, function (err) {
     if (err) {
       debug(err);
       return res.send(500, 'Error making admin user');
@@ -180,7 +182,7 @@ exports.job = function (req, res) {
       } else {
         resultsDetail.duration = Math.round(
           (resultsDetail.finished_timestamp - resultsDetail.created_timestamp) /
-            1000
+          1000
         );
         resultsDetail.finished_at = humane.humaneDate(
           resultsDetail.finished_timestamp
