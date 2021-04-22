@@ -3,594 +3,564 @@
 
 Strider API
 
-- [Account](#account)
-	- [Change Email](#change-email)
-	- [Change Password](#change-password)
-	- [Delete Provider Account](#delete-provider-account)
-	- [Update Provider Account](#update-provider-account)
-	
-- [Admin](#admin)
-	- [Get All Users](#get-all-users)
-	- [Revoke Invite](#revoke-invite)
-	- [Send Invite](#send-invite)
-	
-- [Branch](#branch)
-	- [Add Branch](#add-branch)
-	- [Delete Branch](#delete-branch)
-	- [Reorder Branches](#reorder-branches)
-	
-- [Collaborators](#collaborators)
-	- [Add Collaborator](#add-collaborator)
-	- [Delete Collaborator](#delete-collaborator)
-	- [Get Collaborators](#get-collaborators)
-	
-- [Job](#job)
-	- [Get Latest Jobs](#get-latest-jobs)
-	- [Start Job](#start-job)
-	
-- [Provider](#provider)
-	- [Get Project Provider](#get-project-provider)
-	- [Update Project Provider](#update-project-provider)
-	
-- [Repo](#repo)
-	- [Clear Cache](#clear-cache)
-	- [Create Repo](#create-repo)
-	- [Delete Repo](#delete-repo)
-	
-- [Session](#session)
-	- [Create New Session](#create-new-session)
-	- [Get Session](#get-session)
-	
+# Table of contents
+
+- [Account](#Account)
+  - [Change Email](#Change-Email)
+  - [Change jobs quantity on page](#Change-jobs-quantity-on-page)
+  - [Change Password](#Change-Password)
+  - [Delete Provider Account](#Delete-Provider-Account)
+  - [Update Provider Account](#Update-Provider-Account)
+- [Admin](#Admin)
+  - [Get All Users](#Get-All-Users)
+  - [Revoke Invite](#Revoke-Invite)
+  - [Send Invite](#Send-Invite)
+- [Branch](#Branch)
+  - [Add Branch](#Add-Branch)
+  - [Delete Branch](#Delete-Branch)
+  - [Reorder Branches](#Reorder-Branches)
+- [Collaborators](#Collaborators)
+  - [Add Collaborator](#Add-Collaborator)
+  - [Delete Collaborator](#Delete-Collaborator)
+  - [Get Collaborators](#Get-Collaborators)
+- [Job](#Job)
+  - [Get Latest Jobs](#Get-Latest-Jobs)
+  - [Start Job](#Start-Job)
+- [Provider](#Provider)
+  - [Get Project Provider](#Get-Project-Provider)
+  - [Update Project Provider](#Update-Project-Provider)
+- [Repo](#Repo)
+  - [Clear Cache](#Clear-Cache)
+  - [Create Repo](#Create-Repo)
+  - [Delete Repo](#Delete-Repo)
+- [Session](#Session)
+  - [Create New Session](#Create-New-Session)
+  - [Get Session](#Get-Session)
+
+___
 
 
-# Account
+# <a name='Account'></a> Account
 
-## Change Email
+## <a name='Change-Email'></a> Change Email
 [Back to top](#top)
 
 <p>Changes the email address for the <em>active</em> user (the API user).</p>
 
-	POST /account/email
+```
+POST /account/email
+```
 
-
-
-### Request Body Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| email | String | <p>The new email address. This must be a VALID email address.</p>|
+|----------|------------|---------------------------------------|
+| email | `String` | <p>The new email address. This must be a VALID email address.</p> |
 
+## <a name='Change-jobs-quantity-on-page'></a> Change jobs quantity on page
+[Back to top](#top)
 
+<p>Changes the jobs quantity on page for the <em>active</em> user (the API user).</p>
 
-## Change Password
+```
+POST /account/jobsQuantityOnPage
+```
+
+### Parameters - `Request Body Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| quantity | `Number` | <p>The new value.</p> |
+
+## <a name='Change-Password'></a> Change Password
 [Back to top](#top)
 
 <p>Changes the password for the <em>active</em> user (the API user).</p>
 
-	POST /account/password
+```
+POST /account/password
+```
 
-
-
-### Request Body Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| password | String | <p>The new password, which must be at least 6 characters long.</p>_Size range: 6.._<br>|
+|----------|------------|---------------------------------------|
+| password | `String` | <p>The new password, which must be at least 6 characters long.</p>_Size range: 6.._<br> |
 
-
-
-## Delete Provider Account
+## <a name='Delete-Provider-Account'></a> Delete Provider Account
 [Back to top](#top)
 
 <p>Deletes a provider account for the <em>active</em> user (the API user).</p>
 
-	DELETE /account/:provider/:id
+```
+DELETE /account/:provider/:id
+```
 
-
-
-### Parameter Parameters
+### Parameters - `Parameter`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| provider | String | <p>Type of provider, e.g. github</p>|
-| id | Number | <p>Unique provider identification</p>|
+|----------|------------|---------------------------------------|
+| provider | `String` | <p>Type of provider, e.g. github</p> |
+| id | `Number` | <p>Unique provider identification</p> |
 
-
-
-## Update Provider Account
+## <a name='Update-Provider-Account'></a> Update Provider Account
 [Back to top](#top)
 
 <p>Updates a provider account for the <em>active</em> user (the API user).</p>
 
-	PUT /account/:provider/:id
+```
+PUT /account/:provider/:id
+```
 
-
-
-### Parameter Parameters
+### Parameters - `Parameter`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| provider | String | <p>Type of provider, e.g. github</p>|
-| id | Number | <p>Unique provider identification</p>|
+|----------|------------|---------------------------------------|
+| provider | `String` | <p>Type of provider, e.g. github</p> |
+| id | `Number` | <p>Unique provider identification</p> |
 
+# <a name='Admin'></a> Admin
 
-
-# Admin
-
-## Get All Users
+## <a name='Get-All-Users'></a> Get All Users
 [Back to top](#top)
 
 <p>Retrieves a list of all Strider users.</p>
 
-	GET /admin/users
+```
+GET /admin/users
+```
 
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X GET http://localhost/admin/users
 ```
 
-
-
-## Revoke Invite
+## <a name='Revoke-Invite'></a> Revoke Invite
 [Back to top](#top)
 
 <p>Revokes a previously sent Strider invitation.</p>
 
-	POST /admin/invite/revoke
+```
+POST /admin/invite/revoke
+```
 
-
-
-### Request Body Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| invite_code | String | <p>The invite code/token of the invite being revoked.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| invite_code | `String` | <p>The invite code/token of the invite being revoked.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X POST -d invite_code=xoxox http://localhost/invite/revoke
 ```
 
-
-
-## Send Invite
+## <a name='Send-Invite'></a> Send Invite
 [Back to top](#top)
 
 <p>Create &amp; email a new Strider invite.</p>
 
-	POST /admin/invite/new
+```
+POST /admin/invite/new
+```
 
-
-
-### Request Body Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| invite_code | String | <p>The invite code/token to use in the invitation</p>|
-| email | String | <p>The email address of the new user being invited</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| invite_code | `String` | <p>The invite code/token to use in the invitation</p> |
+| email | `String` | <p>The email address of the new user being invited</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X POST -d invite_code=xoxox -d email=new_guy@strider-cd.com http://localhost/invite/new
 ```
 
+# <a name='Branch'></a> Branch
 
-
-# Branch
-
-## Add Branch
+## <a name='Add-Branch'></a> Add Branch
 [Back to top](#top)
 
 <p>Add a new branch for a project.</p>
 
-	POST /:org/:repo/branches
+```
+POST /:org/:repo/branches
+```
 
-
-
-### Request Body Parameters Parameters
-
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| name | String | <p>The name of the new branch</p>|
-| cloneName | String | <p>The name of the cloned branch</p>|
-
-### Request URL Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
+|----------|------------|---------------------------------------|
+| name | `String` | <p>The name of the new branch</p> |
+| cloneName | `String` | <p>The name of the cloned branch</p> |
+
+### Parameters - `Request URL Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
+
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X POST -d name=newbranch http://localhost/api/strider-cd/strider/branches
 ```
 
-
-
-## Delete Branch
+## <a name='Delete-Branch'></a> Delete Branch
 [Back to top](#top)
 
 <p>Deletes a branch from a project</p>
 
-	DELETE /:org/:repo/branches
+```
+DELETE /:org/:repo/branches
+```
 
-
-
-### Request Body Parameters Parameters
-
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| name | String | <p>The name of the branch to delete</p>|
-
-### Request URL Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
+|----------|------------|---------------------------------------|
+| name | `String` | <p>The name of the branch to delete</p> |
+
+### Parameters - `Request URL Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
+
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X DELETE -d name=mybranch http://localhost/api/strider-cd/strider/branches
 ```
 
-
-
-## Reorder Branches
+## <a name='Reorder-Branches'></a> Reorder Branches
 [Back to top](#top)
 
 <p>Updates the branch order for a project.</p>
 
-	PUT /:org/:repo/branches
+```
+PUT /:org/:repo/branches
+```
 
-
-
-### Request Body Parameters Parameters
-
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| branches | String | <p>The new branch order, comma delimited</p>|
-
-### Request URL Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
+|----------|------------|---------------------------------------|
+| branches | `String` | <p>The new branch order, comma delimited</p> |
+
+### Parameters - `Request URL Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
+
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X PUT -d branches=master,testing http://localhost/api/strider-cd/strider/branches
 ```
 
+# <a name='Collaborators'></a> Collaborators
 
-
-# Collaborators
-
-## Add Collaborator
+## <a name='Add-Collaborator'></a> Add Collaborator
 [Back to top](#top)
 
 <p>Add a new collaborator to a repository/project.</p>
 
-	POST /:org/:repo/collaborators
+```
+POST /:org/:repo/collaborators
+```
 
-
-
-### Request Body Parameters Parameters
-
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| email | String | <p>Email address to add. If the user is not registered with Strider, we will send them an invite. If they are already registered, they will receive a notification of access.</p>|
-| access | Number | <p>Access level to grant to the new collaborator. This can be <code>0</code>, for read only access, or <code>2</code> for admin access.</p>_Default value: 0_<br>|
-
-### Request URL Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
+|----------|------------|---------------------------------------|
+| email | `String` | <p>Email address to add. If the user is not registered with Strider, we will send them an invite. If they are already registered, they will receive a notification of access.</p> |
+| access | `Number` | <p>Access level to grant to the new collaborator. This can be <code>0</code>, for read only access, or <code>2</code> for admin access.</p>_Default value: 0_<br> |
+
+### Parameters - `Request URL Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
+
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X GET -d '{"email":"new_guy@strider-cd.com", "access":2}' http://localhost/api/strider-cd/strider/collaborators
 ```
 
-
-
-## Delete Collaborator
+## <a name='Delete-Collaborator'></a> Delete Collaborator
 [Back to top](#top)
 
 <p>Remove a collaborator from a repository/project.</p>
 
-	DELETE /:org/:repo/collaborators
+```
+DELETE /:org/:repo/collaborators
+```
 
-
-
-### Request Body Parameters Parameters
-
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| email | String | <p>Email address to remove from the repo/project.</p>|
-
-### Request URL Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
+|----------|------------|---------------------------------------|
+| email | `String` | <p>Email address to remove from the repo/project.</p> |
+
+### Parameters - `Request URL Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
+
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X DELETE -d '{"email":"old_guy@strider-cd.com"}' http://localhost/api/strider-cd/strider/collaborators
 ```
 
-
-
-## Get Collaborators
+## <a name='Get-Collaborators'></a> Get Collaborators
 [Back to top](#top)
 
 <p>Gets a list of collaborators for a project</p>
 
-	GET /:org/:repo/collaborators
+```
+GET /:org/:repo/collaborators
+```
 
-
-
-### Request URL Parameters Parameters
+### Parameters - `Request URL Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X GET http://localhost/api/strider-cd/strider/collaborators
 ```
 
+# <a name='Job'></a> Job
 
-
-# Job
-
-## Get Latest Jobs
+## <a name='Get-Latest-Jobs'></a> Get Latest Jobs
 [Back to top](#top)
 
 <p>Return JSON object containing the most recent build status for each configured repo This function is used to build the main dashboard status page. The result is separated into <code>{public: [], yours: []}</code>.</p> <p>Note: the private ones are just ones that the current user is a collaborator on and are not necessarily private</p>
 
-	GET /api/jobs
+```
+GET /api/jobs
+```
 
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X GET http://localhost/api/jobs
 ```
 
-
-
-## Start Job
+## <a name='Start-Job'></a> Start Job
 [Back to top](#top)
 
 <p>Executes a strider test and, optionally, deployment.</p>
 
-	POST /:org/:repo/start
+```
+POST /:org/:repo/start
+```
 
-
-
-### Request Body Parameters Parameters
-
-| Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| type | String | <p>Denotes the type of job to run. This can be &quot;TEST_ONLY&quot;, which indicates that only the test stages of the job should be executed or &quot;TEST_AND_DEPLOY&quot;, which indicates that all stages should be executed.</p>_Default value: TEST_ONLY_<br>|
-| branch | String | <p>Indicates which branch configuration should be executed.</p>_Default value: master_<br>|
-| message | String | <p>An optional message to include as the title of the execution.</p>_Default value: Manually Retesting/Redeploying_<br>|
-
-### Request URL Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
+|----------|------------|---------------------------------------|
+| type | `String` | <p>Denotes the type of job to run. This can be &quot;TEST_ONLY&quot;, which indicates that only the test stages of the job should be executed or &quot;TEST_AND_DEPLOY&quot;, which indicates that all stages should be executed.</p>_Default value: TEST_ONLY_<br> |
+| branch | `String` | <p>Indicates which branch configuration should be executed.</p>_Default value: master_<br> |
+| message | `String` | <p>An optional message to include as the title of the execution.</p>_Default value: Manually Retesting/Redeploying_<br> |
+
+### Parameters - `Request URL Parameters`
+
+| Name     | Type       | Description                           |
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
+
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X POST http://localhost/api/strider-cd/strider/start
 ```
 
+# <a name='Provider'></a> Provider
 
-
-# Provider
-
-## Get Project Provider
+## <a name='Get-Project-Provider'></a> Get Project Provider
 [Back to top](#top)
 
 <p>Get the provider config for the specified project</p>
 
-	GET /:org/:repo/provider
+```
+GET /:org/:repo/provider
+```
 
-
-
-### Request URL Parameters Parameters
+### Parameters - `Request URL Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X GET http://localhost:3000/strider-cd/strider/provider
 ```
 
-
-
-## Update Project Provider
+## <a name='Update-Project-Provider'></a> Update Project Provider
 [Back to top](#top)
 
 <p>Update a project's provider</p>
 
-	POST /:org/:repo/provider
+```
+POST /:org/:repo/provider
+```
 
-
-
-### Request URL Parameters Parameters
+### Parameters - `Request URL Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X POST http://localhost:3000/strider-cd/strider/provider
 ```
 
+# <a name='Repo'></a> Repo
 
-
-# Repo
-
-## Clear Cache
+## <a name='Clear-Cache'></a> Clear Cache
 [Back to top](#top)
 
 <p>Clears/invalidates the cache for a project.</p>
 
-	DELETE /:org/:repo/cache
+```
+DELETE /:org/:repo/cache
+```
 
-
-
-### Request URL Parameters Parameters
+### Parameters - `Request URL Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X DELETE http://localhost/api/strider-cd/strider/cache
 ```
 
-
-
-## Create Repo
+## <a name='Create-Repo'></a> Create Repo
 [Back to top](#top)
 
 <p>Create a new project for a repo.</p>
 
-	PUT /:org
+```
+PUT /:org
+```
 
-
-
-### Request Body Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| name | String | <p>The name of the new branch</p>|
-| display_name | String | <p>Human-readable project name</p>|
-| display_url | String | <p>The URL for the repo (e.g. Github homepage)</p>|
-| public | Boolean | <p>Whether this project is public or not.</p>_Default value: false_<br>|
-| prefetch_config | Boolean | <p>Whether the strider.json should be fetched in advance.</p>_Default value: true_<br>|
-| account | String | <p>The ID of provider account</p>|
-| repo_id | String | <p>The ID of the repo</p>|
-| provider | Object | <p>A json object with 'id' and 'config' properties.</p>|
+|----------|------------|---------------------------------------|
+| name | `String` | <p>The name of the new branch</p> |
+| display_name | `String` | <p>Human-readable project name</p> |
+| display_url | `String` | <p>The URL for the repo (e.g. Github homepage)</p> |
+| public | `Boolean` | <p>Whether this project is public or not.</p>_Default value: false_<br> |
+| prefetch_config | `Boolean` | <p>Whether the strider.json should be fetched in advance.</p>_Default value: true_<br> |
+| account | `String` | <p>The ID of provider account</p> |
+| repo_id | `String` | <p>The ID of the repo</p> |
+| provider | `Object` | <p>A json object with 'id' and 'config' properties.</p> |
 
-
-
-## Delete Repo
+## <a name='Delete-Repo'></a> Delete Repo
 [Back to top](#top)
 
 <p>Deletes a repository/project. Also archives all jobs (marks as archived in DB which makes them hidden).</p>
 
-	DELETE /:org/:repo
+```
+DELETE /:org/:repo
+```
 
-
-
-### Request URL Parameters Parameters
+### Parameters - `Request URL Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| org | String | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p>|
-| repo | String | <p>The project's repository name.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| org | `String` | <p>The organization name for the project.  This is usually a GitHub user or organization name (e.g. &quot;strider&quot; in &quot;strider-cd/strider&quot;) but may vary from one project provider to another. (as another example, in GitLab this refers to the repository's &quot;group&quot;).</p> |
+| repo | `String` | <p>The project's repository name.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X DELETE http://localhost/api/strider-cd/strider
 ```
 
+# <a name='Session'></a> Session
 
-
-# Session
-
-## Create New Session
+## <a name='Create-New-Session'></a> Create New Session
 [Back to top](#top)
 
 <p>Creates a new user session after validating an email address and password pair.</p>
 
-	POST /api/session
+```
+POST /api/session
+```
 
-
-
-### Request Body Parameters Parameters
+### Parameters - `Request Body Parameters`
 
 | Name     | Type       | Description                           |
-|:---------|:-----------|:--------------------------------------|
-| email | String | <p>The email address to login as (which is used as the username).</p>|
-| password | String | <p>The user's password.</p>|
-### Examples
+|----------|------------|---------------------------------------|
+| email | `String` | <p>The email address to login as (which is used as the username).</p> |
+| password | `String` | <p>The user's password.</p> |
 
+### Examples
 CURL Example:
 
-```
+```curl
 curl -X POST -d email=me@me.com -d password=mypass http://localhost/api/session
 ```
 
-
-
-## Get Session
+## <a name='Get-Session'></a> Get Session
 [Back to top](#top)
 
 <p>Gets the current session information</p>
 
-	GET /api/session
+```
+GET /api/session
+```
 
 ### Examples
-
 CURL Example:
 
-```
+```curl
 curl -X GET http://localhost/api/session
 ```
-
-
-
 
