@@ -1,6 +1,3 @@
-import Icon from 'fa-icon';
----hbs---
-
 <div class='flex items-center' ...attributes>
   <button
     type='button'
@@ -22,7 +19,7 @@ import Icon from 'fa-icon';
     href="/{{@repo.project}}/config/"
     class='ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow'
   >
-    <Icon @icon='cog' @prefix='fas' />
+    <FaIcon @icon='cog' @prefix='fas' />
   </a>
 
   <button
@@ -30,7 +27,7 @@ import Icon from 'fa-icon';
     class='ml-2 bg-white hover:bg-gray-100 text-gray-800 text-sm py-1 px-2 border border-gray-400 rounded-full shadow'
     {{on 'click' @onToggleRecentBuilds}}
   >
-    <Icon class='mr-2' @icon='tasks' @prefix='fas' />
+    <FaIcon class='mr-2' @icon='tasks' @prefix='fas' />
     Recent Builds
   </button>
 </div>

@@ -1,7 +1,3 @@
-import Icon from 'fa-icon';
-import Status from 'components/status';
----hbs---
-
 <div class='flex' ...attributes>
   <section class='flex flex-1 flex-col w-8/12'>
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
@@ -66,31 +62,31 @@ import Status from 'components/status';
               {{on 'click' (fn (mut this.selectedPhase) key)}}
             >
               {{#if (eq @job.phase key)}}
-                <Icon
+                <FaIcon
                   class='text-gray-400 mr-2'
                   @icon='circle-notch'
                   @spin={{true}}
                   @prefix='fas'
                 />
               {{else if (gt phase.exitCode 0)}}
-                <Icon
+                <FaIcon
                   class='text-red-500 mr-2'
                   @icon='times-circle'
                   @prefix='fas'
                 />
               {{else if (eq phase.exitCode 0)}}
-                <Icon
+                <FaIcon
                   class='text-green-500 mr-2'
                   @icon='check-circle'
                   @prefix='fas'
                 />
               {{else if (eq phase.exitCode -1)}}
-                <Icon class='text-gray-300 mr-2' @icon='lock' @prefix='fas' />
+                <FaIcon class='text-gray-300 mr-2' @icon='lock' @prefix='fas' />
               {{else if
                 (and
                   (not phase.exitCode) phase.finished phase.commands.length
                 )}}
-                <Icon
+                <FaIcon
                   class='text-orange-500 mr-2'
                   @icon='exclamation-triangle'
                   @prefix='fas'
