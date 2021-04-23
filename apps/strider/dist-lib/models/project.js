@@ -1,3 +1,12 @@
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 const _ = require('lodash');
 const mongoose = require('../utils/mongoose-shim');
 const findBranch = require('../utils').findBranch;
@@ -140,24 +149,26 @@ ProjectSchema.methods.branch = function (name) {
     return findBranch(this.branches, name);
 };
 ProjectSchema.statics.forUser = function (user, done) {
-    // Default to all projects
-    let query = {};
-    // If we are not an admin i.e account level is not set or < 1, show only user projects
-    if (!user.account_level || user.account_level < 1) {
-        if (!user.projects) {
-            return done(null, []);
+    return __awaiter(this, void 0, void 0, function* () {
+        // Default to all projects
+        let query = {};
+        // If we are not an admin i.e account level is not set or < 1, show only user projects
+        if (!user.account_level || user.account_level < 1) {
+            if (!user.projects) {
+                return done(null, []);
+            }
+            const names = user.projects.map(function (p) {
+                return p.name.toLowerCase();
+            });
+            if (!names.length) {
+                return done(null, []);
+            }
+            query = {
+                name: { $in: names },
+            };
         }
-        const names = user.projects.map(function (p) {
-            return p.name.toLowerCase();
-        });
-        if (!names.length) {
-            return done(null, []);
-        }
-        query = {
-            name: { $in: names },
-        };
-    }
-    this.find(query, done);
+        return this.find(query, done);
+    });
 };
 module.exports = mongoose.model('Project', ProjectSchema);
 //# sourceMappingURL=project.js.map

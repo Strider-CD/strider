@@ -136,9 +136,17 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/forgot-password/template.hbs should pass TemplateLint.\n\n');
   });
+  QUnit.test('strider-ui/pods/index/-components/live-projects/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/index/-components/live-projects/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/index/-components/project/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/index/-components/project/template.hbs should pass TemplateLint.\n\n');
+  });
   QUnit.test('strider-ui/pods/index/template.hbs', function (assert) {
     assert.expect(1);
-    assert.ok(false, 'strider-ui/pods/index/template.hbs should pass TemplateLint.\n\nstrider-ui/pods/index/template.hbs\n  5:0  error  Unexpected {{log}} usage.  no-log\n');
+    assert.ok(true, 'strider-ui/pods/index/template.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('strider-ui/pods/login/form/template.hbs', function (assert) {
     assert.expect(1);

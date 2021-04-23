@@ -1128,6 +1128,300 @@
 
   _exports.default = _default;
 });
+;define("strider-ui/pods/index/-components/live-projects/component", ["exports", "@glimmer/component", "socket.io-client", "lodash-es", "strider-ui/utils/legacy/phases", "strider-ui/utils/legacy/skels"], function (_exports, _component, _socket, _lodashEs, _phases, _skels) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _descriptor, _descriptor2, _descriptor3, _temp;
+
+  function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
+
+  function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+  function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
+  function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
+
+  let LiveProjects = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, (_class = (_temp = class LiveProjects extends _component.default {
+    constructor(owner, args) {
+      super(owner, args);
+
+      _initializerDefineProperty(this, "live", _descriptor, this);
+
+      _initializerDefineProperty(this, "yours", _descriptor2, this);
+
+      _initializerDefineProperty(this, "public", _descriptor3, this);
+
+      _defineProperty(this, "socket", void 0);
+
+      this.yours = this.args.jobs.yours;
+      this.public = this.args.jobs.public;
+
+      let socket = _socket.default.connect();
+
+      this.socket = socket;
+      socket.on('job.new', this.handleNewJob);
+      socket.on('job.status.started', this.handleJobStarted); // socket.on('job.status.command.start', this.handleCommandStart);
+      // socket.on('job.status.command.comment', this.handleCommandComment);
+      // socket.on('job.status.command.done', this.handleCommandDone);
+      // socket.on('job.status.stdout', this.handleStdOut);
+      // socket.on('job.status.phase.done', this.handleJobPhaseDone);
+      // socket.on('job.status.warning', this.handleJobWarning);
+      // socket.on('job.status.errored', this.handleJobErrored);
+      // socket.on('job.status.canceled', this.handleJobErrored);
+
+      socket.on('job.done', this.handleJobDone);
+    }
+
+    findJob(projectName, jobId) {
+      let yours = this.yours.find(item => item._id);
+    }
+
+    getJob(projectName, jobId) {
+      debugger;
+      let job = (0, _lodashEs.cloneDeep)(this.live.jobs.find(item => item._id === jobId));
+
+      if (!job.phase) {
+        job.phase = 'environment';
+      }
+
+      if (!job.phases) {
+        job.phases = {};
+
+        _phases.default.forEach(phase => {
+          job.phases[phase] = (0, _lodashEs.cloneDeep)(_skels.default.phase);
+        });
+
+        job.phases[job.phase].started = new Date();
+      }
+
+      return job;
+    }
+
+    handleNewJob([job]) {
+      debugger;
+
+      if (!job.phase) {
+        job.phase = 'environment';
+      }
+
+      if (!job.std) {
+        job.std = {
+          out: '',
+          err: '',
+          merged: ''
+        };
+      }
+
+      if (!job.phases) {
+        job.phases = {};
+
+        _phases.default.forEach(phase => {
+          job.phases[phase] = (0, _lodashEs.cloneDeep)(_skels.default.phase);
+        });
+
+        job.phases[job.phase].started = new Date();
+      }
+
+      this.updateJob(job);
+    }
+
+    handleJobStarted([jobId, time, whos, projectName]) {
+      let job = this.getJob(projectName, jobId);
+
+      if (!job) {
+        return;
+      }
+
+      job.started = time;
+      job.phase = 'environment';
+      job.status = 'running';
+      this.updateJob(job);
+    } // @action
+    // handleCommandStart([jobId, data]: [string, any]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   let phase = job.phases[job.phase];
+    //   let command = Object.assign({}, SKELS.command, data);
+    //   command.started = data.time;
+    //   phase.commands.push(command);
+    //   this.updateJob(job);
+    // }
+    // @action
+    // handleCommandComment([jobId, data]: [string, any]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   let phase = job.phases[job.phase];
+    //   let command = Object.assign({}, SKELS.command) as any;
+    //   command.command = data.comment;
+    //   command.comment = true;
+    //   command.plugin = data.plugin;
+    //   command.finished = data.time;
+    //   phase.commands.push(command);
+    //   this.updateJob(job);
+    // }
+    // @action
+    // handleCommandDone([jobId, data]: [string, any]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   let phase = job.phases[job.phase];
+    //   let command = phase.commands[phase.commands.length - 1];
+    //   command.finished = data.time;
+    //   command.duration = data.elapsed;
+    //   command.exitCode = data.exitCode;
+    //   command.merged = command._merged;
+    //   this.updateJob(job);
+    // }
+    // @action
+    // handleJobPhaseDone([jobId, data]: [string, any]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   job.phases[data.phase].finished = data.time;
+    //   job.phases[data.phase].duration = data.elapsed;
+    //   job.phases[data.phase].exitCode = data.code;
+    //   if (data.phase === 'test') job.test_status = data.code;
+    //   if (data.phase === 'deploy') job.deploy_status = data.code;
+    //   if (!data.next || !job.phases[data.next]) return;
+    //   job.phase = data.next;
+    //   this.updateJob(job);
+    // }
+    // @action
+    // handleStdOut([jobId, text]: [string, string]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   let currentPhase = job.phase;
+    //   let phase = job.phases[currentPhase];
+    //   let command = ensureCommand(phase);
+    //   command.merged += text;
+    //   job.phases[currentPhase] = phase;
+    //   this.updateJob(job);
+    // }
+    // @action
+    // handleJobWarning([jobId, warning]: [string, string]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   if (!job.warnings) {
+    //     job.warnings = [];
+    //   }
+    //   job.warnings.push(warning);
+    //   this.updateJob(job);
+    // }
+    // @action
+    // handleJobErrored([jobId, error]: [string, any]) {
+    //   let job = this.getJob(jobId);
+    //   if (!job) {
+    //     return;
+    //   }
+    //   job.error = error;
+    //   job.status = 'errored';
+    //   job.phase = null;
+    //   this.updateJob(job);
+    // }
+
+
+    handleJobDone([job]) {
+      this.updateJob(job);
+    }
+
+    updateJob(job) {
+      this.live.updateJob(job);
+    }
+
+    willDestroy() {
+      super.willDestroy();
+      const socket = this.socket;
+      socket.off('job.new', this.handleNewJob);
+      socket.off('job.status.started', this.handleJobStarted); // socket.off('job.status.command.start', this.handleCommandStart);
+      // socket.off('job.status.command.comment', this.handleCommandComment);
+      // socket.off('job.status.command.done', this.handleCommandDone);
+      // socket.off('job.status.stdout', this.handleStdOut);
+      // socket.off('job.status.phase.done', this.handleJobPhaseDone);
+      // socket.off('job.status.warning', this.handleJobWarning);
+      // socket.off('job.status.errored', this.handleJobErrored);
+      // socket.off('job.status.canceled', this.handleJobErrored);
+
+      socket.off('job.done', this.handleJobDone);
+      socket.close();
+    }
+
+  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor2 = _applyDecoratedDescriptor(_class.prototype, "yours", [_dec2], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _descriptor3 = _applyDecoratedDescriptor(_class.prototype, "public", [_dec3], {
+    configurable: true,
+    enumerable: true,
+    writable: true,
+    initializer: null
+  }), _applyDecoratedDescriptor(_class.prototype, "getJob", [_dec4], Object.getOwnPropertyDescriptor(_class.prototype, "getJob"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleNewJob", [_dec5], Object.getOwnPropertyDescriptor(_class.prototype, "handleNewJob"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleJobStarted", [_dec6], Object.getOwnPropertyDescriptor(_class.prototype, "handleJobStarted"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "handleJobDone", [_dec7], Object.getOwnPropertyDescriptor(_class.prototype, "handleJobDone"), _class.prototype)), _class)); // function ensureCommand(phase: any) {
+  //   let command = phase.commands[phase.commands.length - 1];
+  //   if (!command || typeof command.finished !== 'undefined') {
+  //     command = Object.assign({}, SKELS.command);
+  //     phase.commands.push(command);
+  //   }
+  //   return command;
+  // }
+
+  _exports.default = LiveProjects;
+});
+;define("strider-ui/pods/index/-components/live-projects/template", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "W5XQq9K0",
+    "block": "{\"symbols\":[\"&default\"],\"statements\":[[18,1,[[30,[36,0],null,[[\"yours\",\"public\"],[[32,0,[\"yours\"]],[32,0,[\"public\"]]]]]]]],\"hasEval\":false,\"upvars\":[\"hash\"]}",
+    "meta": {
+      "moduleName": "strider-ui/pods/index/-components/live-projects/template.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
+;define("strider-ui/pods/index/-components/project/template", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "k0FGO2M8",
+    "block": "{\"symbols\":[\"Status\",\"@job\",\"&attrs\"],\"statements\":[[6,[37,5],[[30,[36,4],[\"components/status\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\"],[8,\"link-to\",[[24,0,\"bg-white p-4 mb-4 rounded-lg shadow hover:shadow-lg block\"],[17,3]],[[\"@route\",\"@models\",\"@queryParams\"],[\"organization.repository.job\",[30,[36,0],[[32,2,[\"project\",\"ownerName\"]],[32,2,[\"project\",\"repoName\"]],[32,2,[\"_id\"]]],null],[30,[36,1],null,[[\"ember\"],[true]]]]],[[\"default\"],[{\"statements\":[[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex justify-between\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"text-lg\"],[12],[2,\"\\n      \"],[1,[32,2,[\"project\",\"display_name\"]]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n      \"],[10,\"img\"],[15,\"src\",[32,2,[\"trigger\",\"author\",\"image\"]]],[14,0,\"rounded-full w-8 mr-2\"],[14,\"alt\",\"Author avatar\"],[12],[13],[2,\"\\n      \"],[1,[32,2,[\"trigger\",\"author\",\"name\"]]],[2,\"\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\\n  \"],[10,\"div\"],[14,0,\"flex flex-cols mt-2\"],[12],[2,\"\\n    \"],[8,[32,1],[[24,0,\"mr-2\"]],[[\"@status\"],[[32,2,[\"status\"]]]],null],[2,\"\\n    \"],[1,[32,2,[\"trigger\",\"message\"]]],[2,\"\\n  \"],[13],[2,\"\\n\\n  \"],[10,\"div\"],[14,0,\"flex flex-cols justify-between items-center\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"text-gray-800 text-sm\"],[12],[2,\"\\n      \"],[1,[32,2,[\"ref\",\"branch\"]]],[2,\"\\n      \"],[1,[30,[36,2],[[32,2,[\"ref\",\"id\"]]],null]],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"div\"],[14,0,\"mt-1 text-gray-800 text-sm\"],[12],[2,\"\\n      \"],[1,[30,[36,3],[[32,2,[\"created\"]]],null]],[2,\"\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"array\",\"hash\",\"truncate\",\"format-date\",\"component\",\"let\"]}",
+    "meta": {
+      "moduleName": "strider-ui/pods/index/-components/project/template.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
 ;define("strider-ui/pods/index/route", ["exports", "fetch"], function (_exports, _fetch) {
   "use strict";
 
@@ -1140,6 +1434,9 @@
     async model() {
       let response = await (0, _fetch.default)('/api/jobs');
       let jobs = await response.json();
+      let responsep = await (0, _fetch.default)('/api/v2/projects');
+      let projects = await responsep.json();
+      debugger;
       return {
         jobs
       };
@@ -1158,8 +1455,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "PKR+/Zhr",
-    "block": "{\"symbols\":[\"Status\",\"Icon\",\"job\",\"@model\"],\"statements\":[[6,[37,9],[[30,[36,8],[\"components/status\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,9],[[30,[36,8],[\"fa-icon\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\\n\\n\"],[1,[30,[36,6],[[32,4,[\"jobs\"]]],null]],[2,\"\\n\"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n    Your Projects\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[10,\"ul\"],[12],[2,\"\\n\"],[6,[37,7],[[32,4,[\"jobs\",\"yours\",\"length\"]]],null,[[\"default\",\"else\"],[{\"statements\":[[6,[37,5],[[30,[36,4],[[30,[36,4],[[32,4,[\"jobs\",\"yours\"]]],null]],null]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"li\"],[12],[2,\"\\n        \"],[8,\"link-to\",[[24,0,\"bg-white p-4 mb-4 rounded-lg shadow hover:shadow-lg block\"]],[[\"@route\",\"@models\",\"@queryParams\"],[\"organization.repository.job\",[30,[36,0],[[32,3,[\"project\",\"ownerName\"]],[32,3,[\"project\",\"repoName\"]],[32,3,[\"_id\"]]],null],[30,[36,1],null,[[\"ember\"],[true]]]]],[[\"default\"],[{\"statements\":[[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex justify-between\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"text-lg\"],[12],[2,\"\\n              \"],[1,[32,3,[\"project\",\"display_name\"]]],[2,\"\\n            \"],[13],[2,\"\\n\\n             \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n              \"],[10,\"img\"],[15,\"src\",[32,3,[\"trigger\",\"author\",\"image\"]]],[14,0,\"rounded-full w-8 mr-2\"],[14,\"alt\",\"Author avatar\"],[12],[13],[2,\"\\n              \"],[1,[32,3,[\"trigger\",\"author\",\"name\"]]],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"div\"],[14,0,\"flex flex-cols mt-2\"],[12],[2,\"\\n            \"],[8,[32,1],[[24,0,\"mr-2\"]],[[\"@status\"],[[32,3,[\"status\"]]]],null],[2,\"\\n            \"],[1,[32,3,[\"trigger\",\"message\"]]],[2,\"\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"div\"],[14,0,\"flex flex-cols justify-between items-center\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"text-gray-800 text-sm\"],[12],[2,\"\\n              \"],[1,[32,3,[\"ref\",\"branch\"]]],[2,\"\\n              \"],[1,[30,[36,2],[[32,3,[\"ref\",\"id\"]]],null]],[2,\"\\n            \"],[13],[2,\"\\n\\n            \"],[10,\"div\"],[14,0,\"mt-1 text-gray-800 text-sm\"],[12],[2,\"\\n              \"],[1,[30,[36,3],[[32,3,[\"created\"]]],null]],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"]],\"parameters\":[]}]]],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[3]}]]]],\"parameters\":[]},{\"statements\":[[2,\"    \"],[10,\"li\"],[12],[2,\"\\n      You have no projects yet.\\n    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[13],[2,\"\\n\\n\"],[6,[37,7],[[32,4,[\"jobs\",\"public\",\"length\"]]],null,[[\"default\"],[{\"statements\":[[2,\"  \"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n      Public Projects\\n    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]]],\"parameters\":[2]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"array\",\"hash\",\"truncate\",\"format-date\",\"-track-array\",\"each\",\"log\",\"if\",\"component\",\"let\"]}",
+    "id": "mIBgCbog",
+    "block": "{\"symbols\":[\"Project\",\"LiveProjects\",\"jobs\",\"job\",\"job\",\"@model\"],\"statements\":[[6,[37,4],[[30,[36,3],[\"index/-components/project\"],null]],null,[[\"default\"],[{\"statements\":[[6,[37,4],[[30,[36,3],[\"index/-components/live-projects\"],null]],null,[[\"default\"],[{\"statements\":[[2,\"\\n\\n\\n\\n\"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n  \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n    Your Projects\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[8,[32,2],[],[[\"@jobs\"],[[32,6,[\"jobs\"]]]],[[\"default\"],[{\"statements\":[[2,\"\\n  \"],[10,\"ul\"],[12],[2,\"\\n\"],[6,[37,2],[[32,3,[\"yours\",\"length\"]]],null,[[\"default\",\"else\"],[{\"statements\":[[6,[37,1],[[30,[36,0],[[30,[36,0],[[32,3,[\"yours\"]]],null]],null]],null,[[\"default\"],[{\"statements\":[[2,\"        \"],[10,\"li\"],[12],[2,\"\\n          \"],[8,[32,1],[],[[\"@job\"],[[32,5]]],null],[2,\"\\n        \"],[13],[2,\"\\n\"]],\"parameters\":[5]}]]]],\"parameters\":[]},{\"statements\":[[2,\"      \"],[10,\"li\"],[12],[2,\"\\n        You have no projects yet.\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"  \"],[13],[2,\"\\n\\n\"],[6,[37,2],[[32,3,[\"public\",\"length\"]]],null,[[\"default\"],[{\"statements\":[[2,\"    \"],[10,\"h2\"],[14,0,\"flex justify-between items-center text-2xl mb-3\"],[12],[2,\"\\n      \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n        Public Projects\\n      \"],[13],[2,\"\\n    \"],[13],[2,\"\\n\\n    \"],[10,\"ul\"],[12],[2,\"\\n\"],[6,[37,2],[[32,3,[\"public\",\"length\"]]],null,[[\"default\"],[{\"statements\":[[6,[37,1],[[30,[36,0],[[30,[36,0],[[32,3,[\"public\"]]],null]],null]],null,[[\"default\"],[{\"statements\":[[2,\"          \"],[10,\"li\"],[12],[2,\"\\n            \"],[8,[32,1],[],[[\"@job\"],[[32,4]]],null],[2,\"\\n          \"],[13],[2,\"\\n\"]],\"parameters\":[4]}]]]],\"parameters\":[]}]]],[2,\"    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]]],\"parameters\":[3]}]]]],\"parameters\":[2]}]]]],\"parameters\":[1]}]]]],\"hasEval\":false,\"upvars\":[\"-track-array\",\"each\",\"if\",\"component\",\"let\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/index/template.hbs"
     }
@@ -2531,7 +2828,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+a6ffce05"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+90b36424"});
           }
         
 //# sourceMappingURL=strider-ui.map

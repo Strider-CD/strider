@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import Router from 'co-router';
 import { User } from '../../models/user';
 import { requireUser } from '../../auth';
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import Project from '../../models/project';
 
@@ -19,7 +20,7 @@ router.get('/', requireUser, function (
     if (err) {
       return res.status(400).json(err);
     }
-    debugger;
+    // debugger;
     res.json(projects);
   });
 });
