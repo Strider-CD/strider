@@ -2,19 +2,6 @@
 
 
 
-;define("strider-ui/adapters/-json-api", ["exports", "@ember-data/adapter/json-api"], function (_exports, _jsonApi) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _jsonApi.default;
-    }
-  });
-});
 ;define("strider-ui/app", ["exports", "ember-resolver", "ember-load-initializers", "strider-ui/config/environment"], function (_exports, _emberResolver, _emberLoadInitializers, _environment) {
   "use strict";
 
@@ -51,6 +38,19 @@
     enumerable: true,
     get: function () {
       return _emberComponentManager.default;
+    }
+  });
+});
+;define("strider-ui/components/click-outside", ["exports", "ember-click-outside/component"], function (_exports, _component) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _component.default;
     }
   });
 });
@@ -123,19 +123,6 @@
    */
 
   _exports.default = _default;
-});
-;define("strider-ui/data-adapter", ["exports", "@ember-data/debug"], function (_exports, _debug) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _debug.default;
-    }
-  });
 });
 ;define("strider-ui/helpers/and", ["exports", "ember-truth-helpers/helpers/and"], function (_exports, _and) {
   "use strict";
@@ -518,16 +505,6 @@
     }
   });
 });
-;define("strider-ui/helpers/pluralize", ["exports", "ember-inflector/lib/helpers/pluralize"], function (_exports, _pluralize) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  var _default = _pluralize.default;
-  _exports.default = _default;
-});
 ;define("strider-ui/helpers/prevent-default", ["exports", "ember-event-helpers/helpers/prevent-default"], function (_exports, _preventDefault) {
   "use strict";
 
@@ -578,16 +555,6 @@
       return _set.default;
     }
   });
-});
-;define("strider-ui/helpers/singularize", ["exports", "ember-inflector/lib/helpers/singularize"], function (_exports, _singularize) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-  var _default = _singularize.default;
-  _exports.default = _default;
 });
 ;define("strider-ui/helpers/stop-propagation", ["exports", "ember-event-helpers/helpers/stop-propagation"], function (_exports, _stopPropagation) {
   "use strict";
@@ -753,39 +720,6 @@
     }
   });
 });
-;define("strider-ui/initializers/ember-data-data-adapter", ["exports", "@ember-data/debug/setup"], function (_exports, _setup) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _setup.default;
-    }
-  });
-});
-;define("strider-ui/initializers/ember-data", ["exports", "ember-data/setup-container", "ember-data"], function (_exports, _setupContainer, _emberData) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  /*
-    This code initializes EmberData in an Ember application.
-  
-    It ensures that the `store` service is automatically injected
-    as the `store` property on all routes and controllers.
-  */
-  var _default = {
-    name: 'ember-data',
-    initialize: _setupContainer.default
-  };
-  _exports.default = _default;
-});
 ;define("strider-ui/initializers/export-application-global", ["exports", "strider-ui/config/environment"], function (_exports, _environment) {
   "use strict";
 
@@ -840,18 +774,18 @@
   };
   _exports.default = _default;
 });
-;define("strider-ui/instance-initializers/ember-data", ["exports", "ember-data/initialize-store-service"], function (_exports, _initializeStoreService) {
+;define("strider-ui/mixins/click-outside", ["exports", "ember-click-outside/mixin"], function (_exports, _mixin) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.default = void 0;
-  var _default = {
-    name: 'ember-data',
-    initialize: _initializeStoreService.default
-  };
-  _exports.default = _default;
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _mixin.default;
+    }
+  });
 });
 ;define("strider-ui/modifiers/did-insert", ["exports", "@ember/render-modifiers/modifiers/did-insert"], function (_exports, _didInsert) {
   "use strict";
@@ -879,6 +813,19 @@
     }
   });
 });
+;define("strider-ui/modifiers/on-click-outside", ["exports", "ember-click-outside/modifier"], function (_exports, _modifier) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _modifier.default;
+    }
+  });
+});
 ;define("strider-ui/modifiers/will-destroy", ["exports", "@ember/render-modifiers/modifiers/will-destroy"], function (_exports, _willDestroy) {
   "use strict";
 
@@ -900,7 +847,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -910,7 +857,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ApplicationController = (_dec = Ember.inject.service, (_class = (_temp = class ApplicationController extends Ember.Controller {
+  let ApplicationController = (_dec = Ember.inject.service, (_class = class ApplicationController extends Ember.Controller {
     constructor(...args) {
       super(...args);
 
@@ -921,7 +868,7 @@
       _defineProperty(this, "ember", false);
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -937,7 +884,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -948,7 +895,7 @@
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
   const publicRoutes = ['login', 'register', 'forgot-password', 'reset'];
-  let ApplicationRoute = (_dec = Ember.inject.service, (_class = (_temp = class ApplicationRoute extends Ember.Route {
+  let ApplicationRoute = (_dec = Ember.inject.service, (_class = class ApplicationRoute extends Ember.Route {
     constructor(...args) {
       super(...args);
 
@@ -972,7 +919,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -989,8 +936,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "i/cxn8WS",
-    "block": "{\"symbols\":[],\"statements\":[[10,\"div\"],[12],[2,\"\\n  \"],[10,\"nav\"],[14,0,\"bg-gray-800\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\"],[12],[2,\"\\n      \"],[10,\"div\"],[14,0,\"flex items-center justify-between h-16\"],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex-shrink-0\"],[12],[2,\"\\n            \"],[10,\"img\"],[14,0,\"h-8 w-8\"],[14,\"src\",\"/assets/images/logo-250x250-transp.png\"],[14,\"alt\",\"Strider\"],[12],[13],[2,\"\\n          \"],[13],[2,\"\\n          \"],[10,\"div\"],[14,0,\"hidden md:block\"],[12],[2,\"\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"              \"],[10,\"div\"],[14,0,\"ml-4 flex items-baseline\"],[12],[2,\"\\n                \"],[10,\"a\"],[14,6,\"/\"],[14,0,\"ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n                  Dashboard\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"a\"],[14,6,\"/projects\"],[14,0,\"ml-2 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n                  Projects\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"div\"],[14,0,\"ml-2 relative\"],[12],[2,\"\\n                  \"],[10,\"div\"],[12],[2,\"\\n                    \"],[11,\"button\"],[24,0,\"max-w-xs px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,3],[[30,[36,2],[[32,0,[\"openAdmin\"]]],null],[30,[36,1],[[32,0,[\"openAdmin\"]]],null]],null]],null],[12],[2,\"\\n                      Admin\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"openAdmin\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                    \"],[10,\"div\"],[14,0,\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[12],[2,\"\\n                      \"],[10,\"div\"],[14,0,\"py-1 rounded-md bg-white shadow-xs\"],[12],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/invites\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Invites\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/users\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Users\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/projects\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Projects\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/plugins\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Plugins\\n                        \"],[13],[2,\"\\n                      \"],[13],[2,\"\\n                    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"                \"],[13],[2,\"\\n              \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"hidden md:block\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"ml-4 flex items-center md:ml-6\"],[12],[2,\"\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"              \"],[10,\"div\"],[14,0,\"ml-3 relative\"],[12],[2,\"\\n                \"],[10,\"div\"],[12],[2,\"\\n                  \"],[11,\"button\"],[24,0,\"max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,3],[[30,[36,2],[[32,0,[\"open\"]]],null],[30,[36,1],[[32,0,[\"open\"]]],null]],null]],null],[12],[2,\"\\n                    \"],[10,\"img\"],[14,0,\"h-8 w-8 rounded-full\"],[15,\"src\",[32,0,[\"currentUser\",\"user\",\"gravatar\"]]],[14,\"alt\",\"avatar\"],[12],[13],[2,\"\\n                  \"],[13],[2,\"\\n                \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"open\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                  \"],[10,\"div\"],[14,0,\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[12],[2,\"\\n                    \"],[10,\"div\"],[14,0,\"py-1 rounded-md bg-white shadow-xs\"],[12],[2,\"\\n                      \"],[10,\"a\"],[14,6,\"/account\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                        Account\\n                      \"],[13],[2,\"\\n                      \"],[10,\"a\"],[14,6,\"/logout\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                        Sign out\\n                      \"],[13],[2,\"\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"              \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"-mr-2 flex md:hidden\"],[12],[2,\"\\n          \"],[11,\"button\"],[24,0,\"inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,3],[[30,[36,2],[[32,0,[\"open\"]]],null],[30,[36,1],[[32,0,[\"open\"]]],null]],null]],null],[12],[2,\"\\n            \"],[10,\"svg\"],[14,0,\"h-6 w-6\"],[14,\"stroke\",\"currentColor\"],[14,\"fill\",\"none\"],[14,\"viewBox\",\"0 0 24 24\"],[12],[2,\"\\n              \"],[10,\"path\"],[15,0,[30,[36,0],[[32,0,[\"open\"]],\"hidden\",\"inline-flex\"],null]],[14,\"stroke-linecap\",\"round\"],[14,\"stroke-linejoin\",\"round\"],[14,\"stroke-width\",\"2\"],[14,\"d\",\"M4 6h16M4 12h16M4 18h16\"],[12],[13],[2,\"\\n              \"],[10,\"path\"],[15,0,[30,[36,0],[[32,0,[\"open\"]],\"inline-flex\",\"hidden\"],null]],[14,\"stroke-linecap\",\"round\"],[14,\"stroke-linejoin\",\"round\"],[14,\"stroke-width\",\"2\"],[14,\"d\",\"M6 18L18 6M6 6l12 12\"],[12],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n    \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"div\"],[15,0,[31,[\"hidden md:hidden \",[30,[36,0],[[32,0,[\"open\"]],\"block\",\"hidden\"],null]]]],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"px-2 pt-2 pb-3 sm:px-3\"],[12],[2,\"\\n          \"],[10,\"a\"],[14,6,\"/\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n            Dashboard\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"a\"],[14,6,\"/projects\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n            Projects\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"pt-4 pb-3 border-t border-gray-700\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex items-center px-5\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"flex-shrink-0\"],[12],[2,\"\\n              \"],[10,\"img\"],[14,0,\"h-10 w-10 rounded-full\"],[15,\"src\",[32,0,[\"currentUser\",\"user\",\"gravatar\"]]],[14,\"alt\",\"User avatar\"],[12],[13],[2,\"\\n            \"],[13],[2,\"\\n            \"],[10,\"div\"],[14,0,\"ml-3\"],[12],[2,\"\\n              \"],[10,\"div\"],[14,0,\"text-base font-medium leading-none text-white\"],[12],[2,\"\\n                \"],[1,[32,0,[\"currentUser\",\"user\",\"name\"]]],[2,\"\\n              \"],[13],[2,\"\\n              \"],[10,\"div\"],[14,0,\"mt-1 text-sm font-medium leading-none text-gray-400\"],[12],[2,\"\\n                \"],[1,[32,0,[\"currentUser\",\"user\",\"email\"]]],[2,\"\\n              \"],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n          \"],[10,\"div\"],[14,0,\"mt-3 px-2\"],[12],[2,\"\\n            \"],[10,\"a\"],[14,6,\"/account\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n              Account\\n            \"],[13],[2,\"\\n            \"],[10,\"a\"],[14,6,\"/logout\"],[14,0,\"mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n              Sign out\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"  \"],[13],[2,\"\\n\"],[2,\"  \"],[10,\"main\"],[14,0,\"bg-gray-100 main\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"max-w-7xl mx-auto py-6 sm:px-6 lg:px-8\"],[12],[2,\"\\n      \"],[1,[30,[36,6],[[30,[36,5],null,null]],null]],[2,\"\\n\"],[2,\"    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[8,\"notifications-container\",[],[[\"@placement\"],[\"bottom-right\"]],null],[2,\"\\n\"]],\"hasEval\":false,\"upvars\":[\"if\",\"not\",\"mut\",\"fn\",\"on\",\"-outlet\",\"component\"]}",
+    "id": "BHdyqU94",
+    "block": "{\"symbols\":[],\"statements\":[[10,\"div\"],[12],[2,\"\\n  \"],[10,\"nav\"],[14,0,\"bg-gray-800\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"max-w-7xl mx-auto px-4 sm:px-6 lg:px-8\"],[12],[2,\"\\n      \"],[10,\"div\"],[14,0,\"flex items-center justify-between h-16\"],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"flex items-center\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex-shrink-0\"],[12],[2,\"\\n            \"],[10,\"img\"],[14,0,\"h-8 w-8\"],[14,\"src\",\"/assets/images/logo-250x250-transp.png\"],[14,\"alt\",\"Strider\"],[12],[13],[2,\"\\n          \"],[13],[2,\"\\n          \"],[10,\"div\"],[14,0,\"hidden md:block\"],[12],[2,\"\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"              \"],[10,\"div\"],[14,0,\"ml-4 flex items-baseline\"],[12],[2,\"\\n                \"],[10,\"a\"],[14,6,\"/\"],[14,0,\"ml-4 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n                  Dashboard\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"a\"],[14,6,\"/projects\"],[14,0,\"ml-2 px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n                  Projects\\n                \"],[13],[2,\"\\n\\n                \"],[10,\"div\"],[14,0,\"ml-2 relative\"],[12],[2,\"\\n                  \"],[10,\"div\"],[12],[2,\"\\n                    \"],[11,\"button\"],[24,0,\"max-w-xs px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,1],[[32,0],\"openAdmin\",[30,[36,3],[[32,0,[\"openAdmin\"]]],null]],null]],null],[12],[2,\"\\n                      Admin\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"openAdmin\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                    \"],[11,\"div\"],[24,0,\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[4,[38,2],[[30,[36,1],[[32,0],\"openAdmin\",false],null]],null],[12],[2,\"\\n                      \"],[10,\"div\"],[14,0,\"py-1 rounded-md bg-white shadow-xs\"],[12],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/invites\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Invites\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/users\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Users\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/projects\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Projects\\n                        \"],[13],[2,\"\\n                        \"],[10,\"a\"],[14,6,\"/admin/plugins\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                          Plugins\\n                        \"],[13],[2,\"\\n                      \"],[13],[2,\"\\n                    \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"                \"],[13],[2,\"\\n              \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"hidden md:block\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"ml-4 flex items-center md:ml-6\"],[12],[2,\"\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"              \"],[10,\"div\"],[14,0,\"ml-3 relative\"],[12],[2,\"\\n                \"],[10,\"div\"],[12],[2,\"\\n                  \"],[11,\"button\"],[24,0,\"max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,1],[[32,0],\"open\",[30,[36,3],[[32,0,[\"open\"]]],null]],null]],null],[12],[2,\"\\n                    \"],[10,\"img\"],[14,0,\"h-8 w-8 rounded-full\"],[15,\"src\",[32,0,[\"currentUser\",\"user\",\"gravatar\"]]],[14,\"alt\",\"avatar\"],[12],[13],[2,\"\\n                  \"],[13],[2,\"\\n                \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"open\"]]],null,[[\"default\"],[{\"statements\":[[2,\"                  \"],[11,\"div\"],[24,0,\"origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg\"],[4,[38,2],[[30,[36,1],[[32,0],\"open\",false],null]],null],[12],[2,\"\\n                    \"],[10,\"div\"],[14,0,\"py-1 rounded-md bg-white shadow-xs\"],[12],[2,\"\\n                      \"],[10,\"a\"],[14,6,\"/account\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                        Account\\n                      \"],[13],[2,\"\\n                      \"],[10,\"a\"],[14,6,\"/logout\"],[14,0,\"block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100\"],[12],[2,\"\\n                        Sign out\\n                      \"],[13],[2,\"\\n                    \"],[13],[2,\"\\n                  \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"              \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"-mr-2 flex md:hidden\"],[12],[2,\"\\n          \"],[11,\"button\"],[24,0,\"inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white\"],[24,4,\"button\"],[4,[38,4],[\"click\",[30,[36,6],[[30,[36,5],[[32,0,[\"open\"]]],null],[30,[36,3],[[32,0,[\"open\"]]],null]],null]],null],[12],[2,\"\\n            \"],[10,\"svg\"],[14,0,\"h-6 w-6\"],[14,\"stroke\",\"currentColor\"],[14,\"fill\",\"none\"],[14,\"viewBox\",\"0 0 24 24\"],[12],[2,\"\\n              \"],[10,\"path\"],[15,0,[30,[36,0],[[32,0,[\"open\"]],\"hidden\",\"inline-flex\"],null]],[14,\"stroke-linecap\",\"round\"],[14,\"stroke-linejoin\",\"round\"],[14,\"stroke-width\",\"2\"],[14,\"d\",\"M4 6h16M4 12h16M4 18h16\"],[12],[13],[2,\"\\n              \"],[10,\"path\"],[15,0,[30,[36,0],[[32,0,[\"open\"]],\"inline-flex\",\"hidden\"],null]],[14,\"stroke-linecap\",\"round\"],[14,\"stroke-linejoin\",\"round\"],[14,\"stroke-width\",\"2\"],[14,\"d\",\"M6 18L18 6M6 6l12 12\"],[12],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n    \"],[13],[2,\"\\n\\n\"],[6,[37,0],[[32,0,[\"currentUser\",\"user\"]]],null,[[\"default\"],[{\"statements\":[[2,\"      \"],[10,\"div\"],[15,0,[31,[\"hidden md:hidden \",[30,[36,0],[[32,0,[\"open\"]],\"block\",\"hidden\"],null]]]],[12],[2,\"\\n        \"],[10,\"div\"],[14,0,\"px-2 pt-2 pb-3 sm:px-3\"],[12],[2,\"\\n          \"],[10,\"a\"],[14,6,\"/\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n            Dashboard\\n          \"],[13],[2,\"\\n\\n          \"],[10,\"a\"],[14,6,\"/projects\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-white bg-gray-900 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n            Projects\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n        \"],[10,\"div\"],[14,0,\"pt-4 pb-3 border-t border-gray-700\"],[12],[2,\"\\n          \"],[10,\"div\"],[14,0,\"flex items-center px-5\"],[12],[2,\"\\n            \"],[10,\"div\"],[14,0,\"flex-shrink-0\"],[12],[2,\"\\n              \"],[10,\"img\"],[14,0,\"h-10 w-10 rounded-full\"],[15,\"src\",[32,0,[\"currentUser\",\"user\",\"gravatar\"]]],[14,\"alt\",\"User avatar\"],[12],[13],[2,\"\\n            \"],[13],[2,\"\\n            \"],[10,\"div\"],[14,0,\"ml-3\"],[12],[2,\"\\n              \"],[10,\"div\"],[14,0,\"text-base font-medium leading-none text-white\"],[12],[2,\"\\n                \"],[1,[32,0,[\"currentUser\",\"user\",\"name\"]]],[2,\"\\n              \"],[13],[2,\"\\n              \"],[10,\"div\"],[14,0,\"mt-1 text-sm font-medium leading-none text-gray-400\"],[12],[2,\"\\n                \"],[1,[32,0,[\"currentUser\",\"user\",\"email\"]]],[2,\"\\n              \"],[13],[2,\"\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n          \"],[10,\"div\"],[14,0,\"mt-3 px-2\"],[12],[2,\"\\n            \"],[10,\"a\"],[14,6,\"/account\"],[14,0,\"block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n              Account\\n            \"],[13],[2,\"\\n            \"],[10,\"a\"],[14,6,\"/logout\"],[14,0,\"mt-1 block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:text-white focus:bg-gray-700\"],[12],[2,\"\\n              Sign out\\n            \"],[13],[2,\"\\n          \"],[13],[2,\"\\n        \"],[13],[2,\"\\n      \"],[13],[2,\"\\n\"]],\"parameters\":[]}]]],[2,\"  \"],[13],[2,\"\\n\"],[2,\"  \"],[10,\"main\"],[14,0,\"bg-gray-100 main\"],[12],[2,\"\\n    \"],[10,\"div\"],[14,0,\"max-w-7xl mx-auto py-6 sm:px-6 lg:px-8\"],[12],[2,\"\\n      \"],[1,[30,[36,8],[[30,[36,7],null,null]],null]],[2,\"\\n\"],[2,\"    \"],[13],[2,\"\\n  \"],[13],[2,\"\\n\"],[13],[2,\"\\n\\n\"],[8,\"notifications-container\",[],[[\"@placement\"],[\"bottom-right\"]],null],[2,\"\\n\"]],\"hasEval\":false,\"upvars\":[\"if\",\"set\",\"on-click-outside\",\"not\",\"on\",\"mut\",\"fn\",\"-outlet\",\"component\"]}",
     "meta": {
       "moduleName": "strider-ui/pods/application/template.hbs"
     }
@@ -1006,13 +953,13 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _class, _temp;
+  var _dec, _dec2, _class;
 
   function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
   function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
 
-  let RepoControls = (_dec = Ember._action, _dec2 = Ember._action, (_class = (_temp = class RepoControls extends _component.default {
+  let RepoControls = (_dec = Ember._action, _dec2 = Ember._action, (_class = class RepoControls extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1033,7 +980,7 @@
       this.socket.emit('test', this.args.repo.project, branch);
     }
 
-  }, _temp), (_applyDecoratedDescriptor(_class.prototype, "deploy", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "deploy"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "test", [_dec2], Object.getOwnPropertyDescriptor(_class.prototype, "test"), _class.prototype)), _class));
+  }, (_applyDecoratedDescriptor(_class.prototype, "deploy", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "deploy"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "test", [_dec2], Object.getOwnPropertyDescriptor(_class.prototype, "test"), _class.prototype)), _class));
   _exports.default = RepoControls;
 });
 ;define("strider-ui/pods/components/controls/template", ["exports"], function (_exports) {
@@ -1062,7 +1009,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _class, _descriptor, _temp;
+  var _dec, _dec2, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1072,7 +1019,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let Job = (_dec = Ember._tracked, _dec2 = Ember._action, (_class = (_temp = class Job extends _component.default {
+  let Job = (_dec = Ember._tracked, _dec2 = Ember._action, (_class = class Job extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1089,7 +1036,7 @@
       this.socket.emit('cancel', jobId);
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "isErrorStackVisible", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "isErrorStackVisible", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1125,7 +1072,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _class, _descriptor, _temp;
+  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1135,7 +1082,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let LiveJob = (_dec = Ember.inject.service, _dec2 = Ember._action, _dec3 = Ember._action, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, _dec8 = Ember._action, _dec9 = Ember._action, _dec10 = Ember._action, _dec11 = Ember._action, _dec12 = Ember._action, (_class = (_temp = class LiveJob extends _component.default {
+  let LiveJob = (_dec = Ember.inject.service, _dec2 = Ember._action, _dec3 = Ember._action, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, _dec8 = Ember._action, _dec9 = Ember._action, _dec10 = Ember._action, _dec11 = Ember._action, _dec12 = Ember._action, (_class = class LiveJob extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1351,7 +1298,7 @@
       socket.close();
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1396,7 +1343,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _descriptor, _descriptor2, _descriptor3, _temp;
+  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _class, _descriptor, _descriptor2, _descriptor3;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1406,7 +1353,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let LiveProjects = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, (_class = (_temp = class LiveProjects extends _component.default {
+  let LiveProjects = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, (_class = class LiveProjects extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1620,7 +1567,7 @@
       socket.close();
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1708,7 +1655,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _class, _descriptor, _descriptor2, _temp;
+  var _dec, _dec2, _class, _descriptor, _descriptor2;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1718,7 +1665,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ForgotPasswordForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, (_class = (_temp = class ForgotPasswordForm extends _component.default {
+  let ForgotPasswordForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, (_class = class ForgotPasswordForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1763,7 +1710,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1862,7 +1809,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3, _temp;
+  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1872,7 +1819,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let LoginForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, (_class = (_temp = class LoginForm extends _component.default {
+  let LoginForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, (_class = class LoginForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1916,7 +1863,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2008,7 +1955,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2018,14 +1965,14 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let JobController = (_dec = Ember.inject.service, (_class = (_temp = class JobController extends Ember.Controller {
+  let JobController = (_dec = Ember.inject.service, (_class = class JobController extends Ember.Controller {
     constructor(...args) {
       super(...args);
 
       _initializerDefineProperty(this, "live", _descriptor, this);
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2041,7 +1988,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2057,7 +2004,7 @@
   // interface RepoParams {
   //   repo: string;
   // }
-  let JobRoute = (_dec = Ember.inject.service, (_class = (_temp = class JobRoute extends Ember.Route {
+  let JobRoute = (_dec = Ember.inject.service, (_class = class JobRoute extends Ember.Route {
     constructor(...args) {
       super(...args);
 
@@ -2070,7 +2017,7 @@
       this.live.selectedJobId = jobId;
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2104,7 +2051,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2114,7 +2061,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RepositoryRoute = (_dec = Ember.inject.service, (_class = (_temp = class RepositoryRoute extends Ember.Route {
+  let RepositoryRoute = (_dec = Ember.inject.service, (_class = class RepositoryRoute extends Ember.Route {
     constructor(...args) {
       super(...args);
 
@@ -2154,7 +2101,7 @@
       };
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2188,7 +2135,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2198,7 +2145,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = (_temp = class RegisterForm extends _component.default {
+  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = class RegisterForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -2245,7 +2192,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2330,7 +2277,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2340,7 +2287,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = (_temp = class RegisterForm extends _component.default {
+  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = class RegisterForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -2387,7 +2334,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2542,45 +2489,6 @@
     });
   });
 });
-;define("strider-ui/serializers/-default", ["exports", "@ember-data/serializer/json"], function (_exports, _json) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _json.default;
-    }
-  });
-});
-;define("strider-ui/serializers/-json-api", ["exports", "@ember-data/serializer/json-api"], function (_exports, _jsonApi) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _jsonApi.default;
-    }
-  });
-});
-;define("strider-ui/serializers/-rest", ["exports", "@ember-data/serializer/rest"], function (_exports, _rest) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _rest.default;
-    }
-  });
-});
 ;define("strider-ui/services/current-user", ["exports"], function (_exports) {
   "use strict";
 
@@ -2601,7 +2509,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _temp;
+  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2611,7 +2519,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let Live = (_dec = Ember._tracked, _dec2 = Ember._tracked, _dec3 = Ember._action, (_class = (_temp = class Live extends Ember.Service {
+  let Live = (_dec = Ember._tracked, _dec2 = Ember._tracked, _dec3 = Ember._action, (_class = class Live extends Ember.Service {
     constructor(...args) {
       super(...args);
 
@@ -2638,7 +2546,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "jobs", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "jobs", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2667,19 +2575,6 @@
     }
   });
 });
-;define("strider-ui/services/store", ["exports", "ember-data/store"], function (_exports, _store) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _store.default;
-    }
-  });
-});
 ;define("strider-ui/tailwind/config", [], function () {
   "use strict";
 
@@ -2697,58 +2592,6 @@
     variants: {},
     plugins: [require("@tailwindcss/ui"), require("@frontile/notifications/tailwind")]
   };
-});
-;define("strider-ui/transforms/boolean", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _private.BooleanTransform;
-    }
-  });
-});
-;define("strider-ui/transforms/date", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _private.DateTransform;
-    }
-  });
-});
-;define("strider-ui/transforms/number", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _private.NumberTransform;
-    }
-  });
-});
-;define("strider-ui/transforms/string", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _private.StringTransform;
-    }
-  });
 });
 ;define("strider-ui/utils/legacy/phases", ["exports"], function (_exports) {
   "use strict";
@@ -2828,7 +2671,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+335e8568"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+8516a35d"});
           }
         
 //# sourceMappingURL=strider-ui.map
