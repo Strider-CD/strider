@@ -124,6 +124,26 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/application/template.hbs should pass TemplateLint.\n\n');
   });
+  QUnit.test('strider-ui/pods/components/controls/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/components/controls/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/components/job/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/components/job/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/components/live-job/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/components/live-job/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/components/live-projects/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/components/live-projects/template.hbs should pass TemplateLint.\n\n');
+  });
+  QUnit.test('strider-ui/pods/components/project/template.hbs', function (assert) {
+    assert.expect(1);
+    assert.ok(true, 'strider-ui/pods/components/project/template.hbs should pass TemplateLint.\n\n');
+  });
   QUnit.test('strider-ui/pods/components/status/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/components/status/template.hbs should pass TemplateLint.\n\n');
@@ -136,14 +156,6 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/forgot-password/template.hbs should pass TemplateLint.\n\n');
   });
-  QUnit.test('strider-ui/pods/index/-components/live-projects/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/pods/index/-components/live-projects/template.hbs should pass TemplateLint.\n\n');
-  });
-  QUnit.test('strider-ui/pods/index/-components/project/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/pods/index/-components/project/template.hbs should pass TemplateLint.\n\n');
-  });
   QUnit.test('strider-ui/pods/index/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/index/template.hbs should pass TemplateLint.\n\n');
@@ -155,18 +167,6 @@ define("strider-ui/tests/lint/templates.template.lint-test", [], function () {
   QUnit.test('strider-ui/pods/login/template.hbs', function (assert) {
     assert.expect(1);
     assert.ok(true, 'strider-ui/pods/login/template.hbs should pass TemplateLint.\n\n');
-  });
-  QUnit.test('strider-ui/pods/organization/repository/-components/controls/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/pods/organization/repository/-components/controls/template.hbs should pass TemplateLint.\n\n');
-  });
-  QUnit.test('strider-ui/pods/organization/repository/-components/job/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/pods/organization/repository/-components/job/template.hbs should pass TemplateLint.\n\n');
-  });
-  QUnit.test('strider-ui/pods/organization/repository/-components/live-job/template.hbs', function (assert) {
-    assert.expect(1);
-    assert.ok(true, 'strider-ui/pods/organization/repository/-components/live-job/template.hbs should pass TemplateLint.\n\n');
   });
   QUnit.test('strider-ui/pods/organization/repository/index/template.hbs', function (assert) {
     assert.expect(1);
