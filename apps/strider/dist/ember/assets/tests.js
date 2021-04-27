@@ -244,6 +244,18 @@ define("strider-ui/tests/unit/pods/application/controller-test", ["qunit", "embe
     });
   });
 });
+define("strider-ui/tests/unit/pods/index/controller-test", ["qunit", "ember-qunit"], function (_qunit, _emberQunit) {
+  "use strict";
+
+  (0, _qunit.module)('Unit | Controller | index', function (hooks) {
+    (0, _emberQunit.setupTest)(hooks); // Replace this with your real tests.
+
+    (0, _qunit.test)('it exists', function (assert) {
+      let controller = this.owner.lookup('controller:index');
+      assert.ok(controller);
+    });
+  });
+});
 define("strider-ui/tests/unit/pods/index/route-test", ["qunit", "ember-qunit"], function (_qunit, _emberQunit) {
   "use strict";
 

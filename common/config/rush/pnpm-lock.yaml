@@ -18,6 +18,7 @@ dependencies:
   '@types/debug': 4.1.5
   '@types/ember': 3.16.0
   '@types/ember-qunit': 3.4.9
+  '@types/ember__controller': 3.16.0
   '@types/ember__object': 3.12.0
   '@types/ember__routing': 3.16.1
   '@types/ember__service': 3.16.0
@@ -12544,6 +12545,7 @@ packages:
     resolution:
       integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==
   /ini/1.3.5:
+    deprecated: Please update to ini >=1.3.6 to avoid a prototype pollution issue
     dev: false
     resolution:
       integrity: sha512-RZY5huIKCMRWDUqZlEi72f/lmXKMvuszcMBduliQ3nnWbx9X/ZBQO7DijMEYS9EhHBb2qacRUMtC7svLwe0lcw==
@@ -21757,6 +21759,7 @@ packages:
       '@types/ember': 3.16.0
       '@types/ember-data': 3.16.2
       '@types/ember-qunit': 3.4.9
+      '@types/ember__controller': 3.16.0
       '@types/ember__object': 3.12.0
       '@types/ember__routing': 3.16.1
       '@types/ember__service': 3.16.0
@@ -21814,7 +21817,7 @@ packages:
     dev: false
     name: '@rush-temp/strider-ui'
     resolution:
-      integrity: sha512-8Wy8Cl4A+gF8w3NSZNOkYJlCca1RB9wXgDFg9gq46ZtS/xbRjQjettTv0Gn4SNsTFJ/tEU3Dw/aEJsy73vCavw==
+      integrity: sha512-ezAO+p81P2CC5rT/yTNEsMzBvQp4BWwqZS3c/LCkNJPW+9zxgFja39+cC2gxuacuOlXMPEt/RmENVMJG+TGgkQ==
       tarball: file:projects/strider-ui.tgz
     version: 0.0.0
   file:projects/strider-website.tgz:
@@ -22041,6 +22044,7 @@ specifiers:
   '@types/debug': ^4.1.5
   '@types/ember': ^3.15.0
   '@types/ember-qunit': ^3.4.8
+  '@types/ember__controller': ^3.15.0
   '@types/ember__object': ^3.12.0
   '@types/ember__routing': ^3.15.0
   '@types/ember__service': ^3.12.0

@@ -32,6 +32,7 @@
     "@types/ember__object": "^3.12.0",
     "@types/ember__service": "^3.12.0",
     "@types/ember__routing": "^3.15.0",
+    "@types/ember__controller": "^3.15.0",
     "@types/ember__test-helpers": "^1.7.0",
     "@types/lodash-es": "^4.17.3",
     "@types/qunit": "^2.9.1",

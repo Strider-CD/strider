@@ -104,7 +104,7 @@
                   <button
                     type='button'
                     class='max-w-xs flex items-center text-sm rounded-full text-white focus:outline-none focus:shadow-solid'
-                    {{on 'click' (set this.open (not this.open))}}
+                    {{on 'click' (set this.isAccountMenuOpen (not this.isAccountMenuOpen))}}
                   >
                     <img
                       class='h-8 w-8 rounded-full'
@@ -114,10 +114,10 @@
                   </button>
                 </div>
 
-                {{#if this.open}}
+                {{#if this.isAccountMenuOpen}}
                   <div
                     class='origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg'
-                    {{on-click-outside (set this.open false)}}
+                    {{on-click-outside (set this.isAccountMenuOpen false)}}
                   >
                     <div class='py-1 rounded-md bg-white shadow-xs'>
                       <a
@@ -143,7 +143,7 @@
           <button
             type='button'
             class='inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:bg-gray-700 focus:text-white'
-            {{on 'click' (fn (mut this.open) (not this.open))}}
+            {{on 'click' (set this.isAccountMenuOpen (not this.isAccountMenuOpen))}}
           >
             <svg
               class='h-6 w-6'
@@ -152,14 +152,14 @@
               viewBox='0 0 24 24'
             >
               <path
-                class={{if this.open 'hidden' 'inline-flex'}}
+                class={{if this.isAccountMenuOpen 'hidden' 'inline-flex'}}
                 stroke-linecap='round'
                 stroke-linejoin='round'
                 stroke-width='2'
                 d='M4 6h16M4 12h16M4 18h16'
               ></path>
               <path
-                class={{if this.open 'inline-flex' 'hidden'}}
+                class={{if this.isAccountMenuOpen 'inline-flex' 'hidden'}}
                 stroke-linecap='round'
                 stroke-linejoin='round'
                 stroke-width='2'
@@ -172,7 +172,7 @@
     </div>
 
     {{#if this.currentUser.user}}
-      <div class="hidden md:hidden {{if this.open 'block' 'hidden'}}">
+      <div class="hidden md:hidden {{if this.isAccountMenuOpen 'block' 'hidden'}}">
         <div class='px-2 pt-2 pb-3 sm:px-3'>
           <a
             href='/'
