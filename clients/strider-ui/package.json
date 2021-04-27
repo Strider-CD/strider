@@ -22,8 +22,8 @@
     "@ember/optional-features": "^1.1.0",
     "@ember/render-modifiers": "^1.0.2",
     "@fortawesome/ember-fontawesome": "knownasilya/ember-fontawesome#patch-2",
-    "@fortawesome/free-regular-svg-icons": "^5.13.0",
-    "@fortawesome/free-solid-svg-icons": "^5.13.0",
+    "@fortawesome/free-regular-svg-icons": "^5.15.3",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@frontile/notifications": "^0.2.1",
     "@glimmer/component": "^1.0.0",
     "@glimmer/tracking": "^1.0.0",
@@ -90,7 +90,8 @@
     "socket.io-client": "^2.3.0",
     "strip-ansi": "^6.0.0",
     "tracked-toolbox": "^1.0.1",
-    "ember-click-outside": "~2.0.0"
+    "ember-click-outside": "~2.0.0",
+    "@fortawesome/free-brands-svg-icons": "~5.15.3"
   },
   "volta": {
     "node": "10.13.0",

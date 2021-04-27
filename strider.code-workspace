@@ -27,7 +27,8 @@
       "*.json": "jsonc"
     },
     "cSpell.words": [
-      "errored"
+      "errored",
+      "gitlab"
     ]
   }
 }

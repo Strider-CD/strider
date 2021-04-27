@@ -27,9 +27,9 @@
             {{#each this.currentUser.availableProviders as |provider|}}
               {{#if provider.setupLink}}
                 <span class="link-accounts">
-                  <a href={{provider.setupLink}} class='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow'>
+                  <a href={{provider.setupLink}} class='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2'>
                     {{#if provider.inline_icon}}
-                      <i class="fa fa-{{provider.inline_icon}}"></i>
+                      <FaIcon @icon={{provider.id}} @prefix='fab'/>
                     {{/if}}
                     {{provider.title}}
                   </a>

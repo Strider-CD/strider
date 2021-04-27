@@ -2,8 +2,9 @@ dependencies:
   '@ember/optional-features': 1.3.0
   '@ember/render-modifiers': 1.0.2
   '@fortawesome/ember-fontawesome': github.com/knownasilya/ember-fontawesome/c2fac605f34958f36aab5849884d8c57d0fb17ab
-  '@fortawesome/free-regular-svg-icons': 5.13.1
-  '@fortawesome/free-solid-svg-icons': 5.13.1
+  '@fortawesome/free-brands-svg-icons': 5.15.3
+  '@fortawesome/free-regular-svg-icons': 5.15.3
+  '@fortawesome/free-solid-svg-icons': 5.15.3
   '@frontile/notifications': 0.2.1
   '@glimmer/component': 1.0.0
   '@glimmer/tracking': 1.0.0
@@ -2475,36 +2476,48 @@ packages:
     dev: false
     resolution:
       integrity: sha512-vq/Ny2ULpKxq60Sv5usSrz651dXFM5phP/O5G5MWDY8YOodIkRLGqtub34sB0OmwxpCuTntUzl9P/I4wkyQ3Kw==
-  /@fortawesome/fontawesome-common-types/0.2.29:
+  /@fortawesome/fontawesome-common-types/0.2.35:
     dev: false
     engines:
       node: '>=6'
+    requiresBuild: true
     resolution:
-      integrity: sha512-cY+QfDTbZ7XVxzx7jxbC98Oxr/zc7R2QpTLqTxqlfyXDrAJjzi/xUIqAUsygELB62JIrbsWxtSRhayKFkGI7MA==
+      integrity: sha512-IHUfxSEDS9dDGqYwIW7wTN6tn/O8E0n5PcAHz9cAaBoZw6UpG20IG/YM3NNLaGPwPqgjBAFjIURzqoQs3rrtuw==
   /@fortawesome/fontawesome-svg-core/1.2.29:
     dependencies:
-      '@fortawesome/fontawesome-common-types': 0.2.29
+      '@fortawesome/fontawesome-common-types': 0.2.35
     dev: false
     engines:
       node: '>=6'
     resolution:
       integrity: sha512-xmPmP2t8qrdo8RyKihTkGb09RnZoc+7HFBCnr0/6ZhStdGDSLeEd7ajV181+2W29NWIFfylO13rU+s3fpy3cnA==
-  /@fortawesome/free-regular-svg-icons/5.13.1:
+  /@fortawesome/free-brands-svg-icons/5.15.3:
     dependencies:
-      '@fortawesome/fontawesome-common-types': 0.2.29
+      '@fortawesome/fontawesome-common-types': 0.2.35
     dev: false
     engines:
       node: '>=6'
+    requiresBuild: true
     resolution:
-      integrity: sha512-sSeaqqmv2ovA5LKcrbh3VnEDZHVhaxijWKm4R0AdT0eG21pgxNsJbStD8lW9z6bgSuWXRNHhbhOmARuRCLS8tw==
-  /@fortawesome/free-solid-svg-icons/5.13.1:
+      integrity: sha512-1hirPcbjj72ZJtFvdnXGPbAbpn3Ox6mH3g5STbANFp3vGSiE5u5ingAKV06mK6ZVqNYxUPlh4DlTnaIvLtF2kw==
+  /@fortawesome/free-regular-svg-icons/5.15.3:
     dependencies:
-      '@fortawesome/fontawesome-common-types': 0.2.29
+      '@fortawesome/fontawesome-common-types': 0.2.35
     dev: false
     engines:
       node: '>=6'
+    requiresBuild: true
     resolution:
-      integrity: sha512-LQH/0L1p4+rqtoSHa9qFYR84hpuRZKqaQ41cfBQx8b68p21zoWSekTAeA54I/2x9VlCHDLFlG74Nmdg4iTPQOg==
+      integrity: sha512-q4/p8Xehy9qiVTdDWHL4Z+o5PCLRChePGZRTXkl+/Z7erDVL8VcZUuqzJjs6gUz6czss4VIPBRdCz6wP37/zMQ==
+  /@fortawesome/free-solid-svg-icons/5.15.3:
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 0.2.35
+    dev: false
+    engines:
+      node: '>=6'
+    requiresBuild: true
+    resolution:
+      integrity: sha512-XPeeu1IlGYqz4VWGRAT5ukNMd4VHUEEJ7ysZ7pSSgaEtNvSo+FLurybGJVmiqkQdK50OkSja2bfZXOeyMGRD8Q==
   /@frontile/core/0.2.1:
     dependencies:
       ember-cli-babel: 7.21.0
@@ -8919,7 +8932,7 @@ packages:
       broccoli-persistent-filter: 3.1.0
       broccoli-plugin: 4.0.3
       common-tags: 1.8.0
-      ember-cli-babel-plugin-helpers: 1.1.0
+      ember-cli-babel-plugin-helpers: 1.1.1
       fs-tree-diff: 2.0.1
       hash-for-dep: 1.5.1
       heimdalljs-logger: 0.1.10
@@ -21750,8 +21763,9 @@ packages:
       '@ember/optional-features': 1.3.0
       '@ember/render-modifiers': 1.0.2
       '@fortawesome/ember-fontawesome': github.com/knownasilya/ember-fontawesome/c2fac605f34958f36aab5849884d8c57d0fb17ab
-      '@fortawesome/free-regular-svg-icons': 5.13.1
-      '@fortawesome/free-solid-svg-icons': 5.13.1
+      '@fortawesome/free-brands-svg-icons': 5.15.3
+      '@fortawesome/free-regular-svg-icons': 5.15.3
+      '@fortawesome/free-solid-svg-icons': 5.15.3
       '@frontile/notifications': 0.2.1
       '@glimmer/component': 1.0.0
       '@glimmer/tracking': 1.0.0
@@ -21817,7 +21831,7 @@ packages:
     dev: false
     name: '@rush-temp/strider-ui'
     resolution:
-      integrity: sha512-ezAO+p81P2CC5rT/yTNEsMzBvQp4BWwqZS3c/LCkNJPW+9zxgFja39+cC2gxuacuOlXMPEt/RmENVMJG+TGgkQ==
+      integrity: sha512-XK2FIamQLp/tJgH0mrQaxoeJIbNlg2/287mCcR9dKeZa0/jT3m+UNCc94b/vdh60mZhtxf+StDb40KEHmtCelQ==
       tarball: file:projects/strider-ui.tgz
     version: 0.0.0
   file:projects/strider-website.tgz:
@@ -22028,8 +22042,9 @@ specifiers:
   '@ember/optional-features': ^1.1.0
   '@ember/render-modifiers': ^1.0.2
   '@fortawesome/ember-fontawesome': knownasilya/ember-fontawesome#patch-2
-  '@fortawesome/free-regular-svg-icons': ^5.13.0
-  '@fortawesome/free-solid-svg-icons': ^5.13.0
+  '@fortawesome/free-brands-svg-icons': ~5.15.3
+  '@fortawesome/free-regular-svg-icons': ^5.15.3
+  '@fortawesome/free-solid-svg-icons': ^5.15.3
   '@frontile/notifications': ^0.2.1
   '@glimmer/component': ^1.0.0
   '@glimmer/tracking': ^1.0.0
