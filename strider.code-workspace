@@ -29,6 +29,7 @@
     "cSpell.words": [
       "errored",
       "gitlab"
-    ]
+    ],
+    "python.pythonPath": "/usr/bin/python3"
   }
 }

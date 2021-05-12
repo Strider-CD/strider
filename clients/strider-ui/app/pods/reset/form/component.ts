@@ -1,14 +1,14 @@
 import Component from '@glimmer/component';
 import { tracked } from '@glimmer/tracking';
 import { inject as service } from '@ember/service';
-import { task } from 'ember-concurrency-decorators';
+import { task } from 'ember-concurrency';
 import fetch from 'fetch';
 import { NotificationsService } from '@frontile/notifications';
 
 interface Args {}
 
 export default class RegisterForm extends Component<Args> {
-  @service notifications!: NotificationsService;
+  @service declare notifications: NotificationsService;
 
   @tracked email?: string;
   @tracked password?: string;
