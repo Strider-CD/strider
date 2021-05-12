@@ -3,8 +3,19 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { cloneDeep } from 'lodash-es';
 
-interface Job {
+export interface Job {
   _id: string;
+  phase: 'environment' | null;
+  phases: Record<string, unknown>;
+  started?: unknown;
+  status?: 'running' | 'errored';
+  std?: {
+    out: string;
+    err: string;
+    merged: string;
+  };
+  warnings?: string[];
+  error?: unknown;
 }
 
 export default class Live extends Service {

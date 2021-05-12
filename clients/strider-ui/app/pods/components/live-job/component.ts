@@ -5,7 +5,7 @@ import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
 import PHASES, { Phase } from 'strider-ui/utils/legacy/phases';
 import SKELS from 'strider-ui/utils/legacy/skels';
-import Live from 'strider-ui/services/live';
+import Live, { Job } from 'strider-ui/services/live';
 
 interface Args {}
 
@@ -34,7 +34,11 @@ export default class LiveJob extends Component<Args> {
 
   @action
   getJob(jobId: string) {
-    const job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
+    const job = cloneDeep(this.live.jobs.find((item) => item._id === jobId));
+
+    if (!job) {
+      return;
+    }
 
     if (!job.phase) {
       job.phase = 'environment';
@@ -50,7 +54,7 @@ export default class LiveJob extends Component<Args> {
   }
 
   @action
-  handleNewJob([job]: [any]) {
+  handleNewJob([job]: [Job]) {
     if (!job.phase) {
       job.phase = 'environment';
     }
@@ -210,12 +214,11 @@ export default class LiveJob extends Component<Args> {
   }
 
   @action
-  handleJobDone([job]: [any]) {
-    debugger;
+  handleJobDone([job]: [Job]) {
     this.updateJob(job);
   }
 
-  updateJob(job: any) {
+  updateJob(job: Job) {
     this.live.updateJob(job);
   }
 

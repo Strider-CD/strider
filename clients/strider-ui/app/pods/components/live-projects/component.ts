@@ -5,17 +5,17 @@ import io from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
 import PHASES, { Phase } from 'strider-ui/utils/legacy/phases';
 import SKELS from 'strider-ui/utils/legacy/skels';
-import Live from 'strider-ui/services/live';
+import Live, { Job } from 'strider-ui/services/live';
 import { tracked } from '@glimmer/tracking';
 
 interface Args {
-  jobs: { yours: any[]; public: any[] };
+  jobs: { yours: Job[]; public: Job[] };
 }
 
 export default class LiveProjects extends Component<Args> {
   @service live!: Live;
-  @tracked yours!: any[];
-  @tracked public!: any[];
+  @tracked yours!: Job[];
+  @tracked public!: Job[];
 
   socket: SocketIOClient.Socket;
 
@@ -39,14 +39,17 @@ export default class LiveProjects extends Component<Args> {
     socket.on('job.done', this.handleJobDone);
   }
 
-  findJob(projectName: string, jobId: string) {
-    const yours = this.yours.find((item: any) => item._id);
+  findJob(_projectName: string, _jobId: string) {
+    const yours = this.yours.find((item) => item._id);
   }
 
   @action
-  getJob(projectName: string, jobId: string) {
-    debugger;
-    const job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
+  getJob(_projectName: string, jobId: string) {
+    const job = cloneDeep(this.live.jobs.find((item) => item._id === jobId));
+
+    if (!job) {
+      return;
+    }
 
     if (!job.phase) {
       job.phase = 'environment';
@@ -62,8 +65,7 @@ export default class LiveProjects extends Component<Args> {
   }
 
   @action
-  handleNewJob([job]: [any]) {
-    debugger;
+  handleNewJob([job]: [Job]) {
     if (!job.phase) {
       job.phase = 'environment';
     }
@@ -86,7 +88,7 @@ export default class LiveProjects extends Component<Args> {
   }
 
   @action
-  handleJobStarted([jobId, time, whos, projectName]: [
+  handleJobStarted([jobId, time, _whos, projectName]: [
     string,
     string,
     'yours' | 'public',
@@ -228,11 +230,11 @@ export default class LiveProjects extends Component<Args> {
   // }
 
   @action
-  handleJobDone([job]: [any]) {
+  handleJobDone([job]: [Job]) {
     this.updateJob(job);
   }
 
-  updateJob(job: any) {
+  updateJob(job: Job) {
     this.live.updateJob(job);
   }
 
