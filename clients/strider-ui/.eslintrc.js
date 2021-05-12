@@ -21,7 +21,8 @@ module.exports = {
   },
   rules: {
     'ember/no-jquery': 'error',
-    'ember/routes-segments-snake-case': 'off'
+    'ember/routes-segments-snake-case': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
   },
   overrides: [
     // node files
@@ -36,6 +37,7 @@ module.exports = {
         'config/**/*.js',
         'lib/*/index.js',
         'server/**/*.js',
+        'app/tailwind/*.js',
       ],
       parserOptions: {
         sourceType: 'script',
