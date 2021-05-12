@@ -23,7 +23,7 @@ export default class LiveProjects extends Component<Args> {
     super(owner, args);
     this.yours = this.args.jobs.yours;
     this.public = this.args.jobs.public;
-    let socket = io.connect();
+    const socket = io.connect();
     this.socket = socket;
 
     socket.on('job.new', this.handleNewJob);
@@ -40,13 +40,13 @@ export default class LiveProjects extends Component<Args> {
   }
 
   findJob(projectName: string, jobId: string) {
-    let yours = this.yours.find((item: any) => item._id);
+    const yours = this.yours.find((item: any) => item._id);
   }
 
   @action
   getJob(projectName: string, jobId: string) {
     debugger;
-    let job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
+    const job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
 
     if (!job.phase) {
       job.phase = 'environment';
@@ -92,7 +92,7 @@ export default class LiveProjects extends Component<Args> {
     'yours' | 'public',
     string
   ]) {
-    let job = this.getJob(projectName, jobId);
+    const job = this.getJob(projectName, jobId);
 
     if (!job) {
       return;

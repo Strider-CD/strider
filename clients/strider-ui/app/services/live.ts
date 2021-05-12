@@ -15,7 +15,7 @@ export default class Live extends Service {
   updateJob(job: any) {
     let item = this.jobs.find((item: any) => item._id === job._id);
     if (item) {
-      let original = item;
+      const original = item;
       item = Object.assign(cloneDeep(item), job);
       this.jobs.splice(this.jobs.indexOf(original), 1, item);
       this.jobs = [...this.jobs];

@@ -16,7 +16,7 @@ export default class LiveJob extends Component<Args> {
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);
-    let socket = io.connect();
+    const socket = io.connect();
     this.socket = socket;
 
     socket.on('job.new', this.handleNewJob);
@@ -34,7 +34,7 @@ export default class LiveJob extends Component<Args> {
 
   @action
   getJob(jobId: string) {
-    let job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
+    const job = cloneDeep(this.live.jobs.find((item: any) => item._id === jobId));
 
     if (!job.phase) {
       job.phase = 'environment';
@@ -74,7 +74,7 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleJobStarted([jobId, time]: [string, string]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
@@ -89,13 +89,13 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleCommandStart([jobId, data]: [string, any]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
     }
-    let phase = job.phases[job.phase];
-    let command = Object.assign({}, SKELS.command, data);
+    const phase = job.phases[job.phase];
+    const command = Object.assign({}, SKELS.command, data);
 
     command.started = data.time;
     phase.commands.push(command);
@@ -105,13 +105,13 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleCommandComment([jobId, data]: [string, any]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
     }
-    let phase = job.phases[job.phase];
-    let command = Object.assign({}, SKELS.command) as any;
+    const phase = job.phases[job.phase];
+    const command = Object.assign({}, SKELS.command) as any;
 
     command.command = data.comment;
     command.comment = true;
@@ -124,13 +124,13 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleCommandDone([jobId, data]: [string, any]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
     }
-    let phase = job.phases[job.phase];
-    let command = phase.commands[phase.commands.length - 1];
+    const phase = job.phases[job.phase];
+    const command = phase.commands[phase.commands.length - 1];
 
     command.finished = data.time;
     command.duration = data.elapsed;
@@ -142,7 +142,7 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleJobPhaseDone([jobId, data]: [string, any]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
@@ -163,14 +163,14 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleStdOut([jobId, text]: [string, string]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
     }
-    let currentPhase = job.phase;
-    let phase = job.phases[currentPhase];
-    let command = ensureCommand(phase);
+    const currentPhase = job.phase;
+    const phase = job.phases[currentPhase];
+    const command = ensureCommand(phase);
 
     command.merged += text;
     job.phases[currentPhase] = phase;
@@ -180,7 +180,7 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleJobWarning([jobId, warning]: [string, string]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;
@@ -196,7 +196,7 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleJobErrored([jobId, error]: [string, any]) {
-    let job = this.getJob(jobId);
+    const job = this.getJob(jobId);
 
     if (!job) {
       return;

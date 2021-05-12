@@ -15,7 +15,7 @@ export default class RegisterForm extends Component<Args> {
   @tracked inviteCode?: string;
 
   @task async register() {
-    let response = await fetch('/register', {
+    const response = await fetch('/register', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -34,7 +34,7 @@ export default class RegisterForm extends Component<Args> {
     }
 
     try {
-      let result = await response.json();
+      const result = await response.json();
 
       if (result?.errors) {
         this.notifications.add(result.errors.join('\n'), {

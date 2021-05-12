@@ -13,7 +13,7 @@ export default class ForgotPasswordForm extends Component<Args> {
   @tracked email?: string;
 
   @task async requestReset() {
-    let response = await fetch('/forgot', {
+    const response = await fetch('/forgot', {
       method: 'post',
       headers: {
         Accept: 'application/json',
@@ -26,7 +26,7 @@ export default class ForgotPasswordForm extends Component<Args> {
 
     if (response.status === 200) {
       // TODO: navigate in ember once the main page is finished
-      let result = await response.json();
+      const result = await response.json();
 
       if (result?.ok) {
         this.notifications.add(result.message);
@@ -35,7 +35,7 @@ export default class ForgotPasswordForm extends Component<Args> {
     }
 
     try {
-      let result = await response.json();
+      const result = await response.json();
 
       if (result?.errors) {
         this.notifications.add(result.errors.join('\n'), {

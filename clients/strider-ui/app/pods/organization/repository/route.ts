@@ -17,14 +17,14 @@ export default class RepositoryRoute extends Route {
   @service live!: Live;
 
   async model({ repo }: Params) {
-    let { org } = this.paramsFor('organization') as OrgParams;
-    let jobResponse = await fetch(`/api/v2/jobs/${org}/${repo}/latest`, {
+    const { org } = this.paramsFor('organization') as OrgParams;
+    const jobResponse = await fetch(`/api/v2/jobs/${org}/${repo}/latest`, {
       headers: { Accept: 'application/json' },
     });
-    let jobsResponse = await fetch(`/api/v2/jobs/${org}/${repo}`, {
+    const jobsResponse = await fetch(`/api/v2/jobs/${org}/${repo}`, {
       headers: { Accept: 'application/json' },
     });
-    let [job, jobs] = await Promise.all([
+    const [job, jobs] = await Promise.all([
       jobResponse.json(),
       jobsResponse.json(),
     ]);

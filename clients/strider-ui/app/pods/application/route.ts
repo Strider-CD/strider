@@ -10,10 +10,10 @@ export default class ApplicationRoute extends Route {
 
   async beforeModel(transition: any) {
     try {
-      let response = await fetch('/api/v2/account', {
+      const response = await fetch('/api/v2/account', {
         headers: { Accept: 'application/json' },
       });
-      let account = await response.json();
+      const account = await response.json();
       this.currentUser.setProperties(account);
       return account;
     } catch (e) {

@@ -3,10 +3,10 @@ import fetch from 'fetch';
 
 export default class Index extends Route {
   async model() {
-    let response = await fetch('/api/jobs');
-    let jobs = await response.json();
-    let responsep = await fetch('/api/v2/projects');
-    let projects = await responsep.json();
+    const response = await fetch('/api/jobs');
+    const jobs = await response.json();
+    const responsep = await fetch('/api/v2/projects');
+    const projects = await responsep.json();
     debugger;
 
     return {
