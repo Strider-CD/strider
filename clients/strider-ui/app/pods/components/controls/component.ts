@@ -1,17 +1,17 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 
 interface Args {
   repo: any;
 }
 
 export default class RepoControls extends Component<Args> {
-  socket: SocketIOClient.Socket;
+  socket: Socket;
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);
-    const socket = io.connect();
+    const socket = io();
     this.socket = socket;
   }
 
@@ -25,5 +25,10 @@ export default class RepoControls extends Component<Args> {
   test() {
     const branch = this.args.repo.job && this.args.repo.ref.branch;
     this.socket.emit('test', this.args.repo.project, branch);
+  }
+
+  willDestroy() {
+    super.willDestroy();
+    this.socket.disconnect();
   }
 }

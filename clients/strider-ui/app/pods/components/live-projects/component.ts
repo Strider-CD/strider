@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
 import PHASES, { Phase } from 'strider-ui/utils/legacy/phases';
 import SKELS from 'strider-ui/utils/legacy/skels';
@@ -17,13 +17,13 @@ export default class LiveProjects extends Component<Args> {
   @tracked yours!: Job[];
   @tracked public!: Job[];
 
-  socket: SocketIOClient.Socket;
+  socket: Socket;
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);
     this.yours = this.args.jobs.yours;
     this.public = this.args.jobs.public;
-    const socket = io.connect();
+    const socket = io();
     this.socket = socket;
 
     socket.on('job.new', this.handleNewJob);
@@ -32,11 +32,18 @@ export default class LiveProjects extends Component<Args> {
     // socket.on('job.status.command.comment', this.handleCommandComment);
     // socket.on('job.status.command.done', this.handleCommandDone);
     // socket.on('job.status.stdout', this.handleStdOut);
-    // socket.on('job.status.phase.done', this.handleJobPhaseDone);
+    socket.on('job.status.phase.done', this.handleJobPhaseDone);
     // socket.on('job.status.warning', this.handleJobWarning);
-    // socket.on('job.status.errored', this.handleJobErrored);
+    socket.on('job.status.errored', this.handleJobErrored);
     // socket.on('job.status.canceled', this.handleJobErrored);
     socket.on('job.done', this.handleJobDone);
+  }
+
+  @action
+  test(job: Job) {
+    debugger;
+    const branch = job?.ref?.branch;
+    this.socket.emit('test', job?.project?.name, branch);
   }
 
   findJob(_projectName: string, _jobId: string) {
@@ -44,9 +51,10 @@ export default class LiveProjects extends Component<Args> {
   }
 
   @action
-  getJob(_projectName: string, jobId: string) {
-    const job = cloneDeep(this.live.jobs.find((item) => item._id === jobId));
-
+  getJob(whos: 'yours' | 'public', projectName: string, jobId: string) {
+    let list = this[whos];
+    let job = list.find((item) => item._id === jobId);
+    debugger;
     if (!job) {
       return;
     }
@@ -65,7 +73,7 @@ export default class LiveProjects extends Component<Args> {
   }
 
   @action
-  handleNewJob([job]: [Job]) {
+  handleNewJob([job]: [Job], whos: 'yours' | 'public') {
     if (!job.phase) {
       job.phase = 'environment';
     }
@@ -84,17 +92,16 @@ export default class LiveProjects extends Component<Args> {
       job.phases[job.phase].started = new Date();
     }
 
-    this.updateJob(job);
+    this.updateJob(whos, job);
   }
 
   @action
-  handleJobStarted([jobId, time, _whos, projectName]: [
-    string,
-    string,
-    'yours' | 'public',
-    string
-  ]) {
-    const job = this.getJob(projectName, jobId);
+  handleJobStarted(
+    [jobId, time]: [string, string],
+    whos: 'yours' | 'public',
+    projectName: string
+  ) {
+    const job = this.getJob(whos, projectName, jobId);
 
     if (!job) {
       return;
@@ -104,7 +111,7 @@ export default class LiveProjects extends Component<Args> {
     job.phase = 'environment';
     job.status = 'running';
 
-    this.updateJob(job);
+    this.updateJob(whos, job);
   }
 
   // @action
@@ -160,26 +167,30 @@ export default class LiveProjects extends Component<Args> {
   //   this.updateJob(job);
   // }
 
-  // @action
-  // handleJobPhaseDone([jobId, data]: [string, any]) {
-  //   let job = this.getJob(jobId);
+  @action
+  handleJobPhaseDone(
+    [jobId, data]: [string, any],
+    whos: 'yours' | 'public',
+    projectName: string
+  ) {
+    let job = this.getJob(whos, projectName, jobId);
 
-  //   if (!job) {
-  //     return;
-  //   }
+    if (!job) {
+      return;
+    }
 
-  //   job.phases[data.phase].finished = data.time;
-  //   job.phases[data.phase].duration = data.elapsed;
-  //   job.phases[data.phase].exitCode = data.code;
+    job.phases[data.phase].finished = data.time;
+    job.phases[data.phase].duration = data.elapsed;
+    job.phases[data.phase].exitCode = data.code;
 
-  //   if (data.phase === 'test') job.test_status = data.code;
-  //   if (data.phase === 'deploy') job.deploy_status = data.code;
-  //   if (!data.next || !job.phases[data.next]) return;
+    if (data.phase === 'test') job.test_status = data.code;
+    if (data.phase === 'deploy') job.deploy_status = data.code;
+    if (!data.next || !job.phases[data.next]) return;
 
-  //   job.phase = data.next;
+    job.phase = data.next;
 
-  //   this.updateJob(job);
-  // }
+    this.updateJob(whos, job);
+  }
 
   // @action
   // handleStdOut([jobId, text]: [string, string]) {
@@ -214,28 +225,37 @@ export default class LiveProjects extends Component<Args> {
   //   this.updateJob(job);
   // }
 
-  // @action
-  // handleJobErrored([jobId, error]: [string, any]) {
-  //   let job = this.getJob(jobId);
-
-  //   if (!job) {
-  //     return;
-  //   }
-
-  //   job.error = error;
-  //   job.status = 'errored';
-  //   job.phase = null;
-
-  //   this.updateJob(job);
-  // }
-
   @action
-  handleJobDone([job]: [Job]) {
-    this.updateJob(job);
+  handleJobErrored(
+    [jobId, error]: [string, any],
+    whos: 'yours' | 'public',
+    projectName: string
+  ) {
+    let job = this.getJob(whos, projectName, jobId);
+
+    if (!job) {
+      return;
+    }
+
+    job.error = error;
+    job.status = 'errored';
+    job.phase = null;
+
+    this.updateJob(whos, { ...job });
   }
 
-  updateJob(job: Job) {
-    this.live.updateJob(job);
+  @action
+  handleJobDone([job]: [Job], whos) {
+    this.updateJob(whos, job);
+  }
+
+  updateJob(whos: 'yours' | 'public', job: Job) {
+    let list = this[whos];
+    let current = list.find((item) => item.project._id === job.project._id);
+    let index = list.indexOf(current);
+    list.splice(index, 1, job);
+
+    this[whos] = [...list];
   }
 
   willDestroy() {

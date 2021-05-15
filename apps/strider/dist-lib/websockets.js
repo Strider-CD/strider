@@ -72,7 +72,7 @@ UserSockets.prototype = {
                 continue;
             this.sockets[id].emit(args);
         }
-    }
+    },
 };
 function authorize(sessionStore, data, next) {
     if (data.handshake.headers.cookie) {
@@ -95,6 +95,8 @@ function authorize(sessionStore, data, next) {
     }
 }
 module.exports.init = function (server, sessionStore) {
-    return (common.ws = new UserSockets(io.listen(server), sessionStore));
+    return (common.ws = new UserSockets(io(server, {
+        allowEIO3: true,
+    }), sessionStore));
 };
 //# sourceMappingURL=websockets.js.map

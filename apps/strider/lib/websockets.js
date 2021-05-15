@@ -27,20 +27,20 @@ function UserSockets(sio, sessionStore) {
 module.exports = UserSockets;
 
 UserSockets.prototype = {
-  addSocket: function(uid, socket) {
+  addSocket: function (uid, socket) {
     if (!this.sockets[uid]) {
       this.sockets[uid] = new UserSocket(uid);
     }
     this.sockets[uid].add(socket);
   },
   // -> true if the socket was found and removed. false if it wasn't found
-  removeSocket: function(uid, socket) {
+  removeSocket: function (uid, socket) {
     const socks = this.sockets[uid];
     if (!socks) return false;
     return socks.remove(socket);
   },
   // socket callback. Adds a new socket
-  connected: function(socket) {
+  connected: function (socket) {
     const session = socket.handshake.session;
 
     if (session && session.passport) {
@@ -53,7 +53,7 @@ UserSockets.prototype = {
   },
   // send a message to a number of users
   // send([uid, uid, ...], arguments)
-  send: function(users, args) {
+  send: function (users, args) {
     for (let i = 0; i < users.length; i++) {
       if (!this.sockets[users[i]]) continue;
       this.sockets[users[i]].emit(args);
@@ -61,27 +61,27 @@ UserSockets.prototype = {
   },
   // send a message to a number of users running callback to get args
   // send([uid, uid, ...], callback)
-  sendEach: function(users, fn) {
+  sendEach: function (users, fn) {
     for (let i = 0; i < users.length; i++) {
       if (!this.sockets[users[i]] || !this.sockets[users[i]].user) continue;
       this.sockets[users[i]].emit(fn(this.sockets[users[i]].user));
     }
   },
   // send a public message - to all /but/ the specified users
-  sendPublic: function(users, args) {
+  sendPublic: function (users, args) {
     for (const id in this.sockets) {
       if (users.indexOf(id) !== -1) continue;
       this.sockets[id].emit(args);
     }
-  }
+  },
 };
 
 function authorize(sessionStore, data, next) {
   if (data.handshake.headers.cookie) {
     const req = data.handshake;
-    expressParser(req, {}, function() {
+    expressParser(req, {}, function () {
       const sessionID = req.signedCookies['connect.sid'];
-      sessionStore.get(sessionID, function(err, session) {
+      sessionStore.get(sessionID, function (err, session) {
         if (err || !session) {
           next(new Error('not authorized'));
         } else {
@@ -95,6 +95,11 @@ function authorize(sessionStore, data, next) {
   }
 }
 
-module.exports.init = function(server, sessionStore) {
-  return (common.ws = new UserSockets(io.listen(server), sessionStore));
+module.exports.init = function (server, sessionStore) {
+  return (common.ws = new UserSockets(
+    io(server, {
+      allowEIO3: true,
+    }),
+    sessionStore
+  ));
 };

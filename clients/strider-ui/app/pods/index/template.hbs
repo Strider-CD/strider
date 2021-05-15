@@ -4,11 +4,18 @@
   </div>
 </h2>
 
-<LiveProjects @jobs={{@model.jobs}} as |jobs|>
+<LiveProjects @jobs={{@model.jobs}} as |jobs api|>
   <ul>
     {{#if jobs.yours.length}}
       {{#each jobs.yours as |job|}}
         <li>
+          <button
+            type='button'
+            class='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2'
+            {{on 'click' (fn api.test job)}}
+          >
+            Test
+          </button>
           <Project @job={{job}} />
         </li>
       {{/each}}

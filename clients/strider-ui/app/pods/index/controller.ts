@@ -3,7 +3,7 @@ import { inject as service } from '@ember/service';
 import CurrentUserService from 'strider-ui/services/current-user';
 
 export default class Index extends Controller {
-  @service currentUser!: CurrentUserService;
+  @service declare currentUser: CurrentUserService;
 }
 
 // DO NOT DELETE: this is how TypeScript knows how to look up your controllers.

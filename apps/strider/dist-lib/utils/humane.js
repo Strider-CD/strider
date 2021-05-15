@@ -38,7 +38,7 @@ exports.humaneDate = function humaneDate(date, compareTo) {
         [604800, lang.day, lang.days, 86400],
         [2628000, lang.week, lang.weeks, 604800],
         [31536000, lang.month, lang.months, 2628000],
-        [Infinity, lang.year, lang.years, 31536000],
+        [Infinity, lang.year, lang.years, 31536000], // Infinity, 1 year
     ];
     const isString = typeof date == 'string';
     date = isString

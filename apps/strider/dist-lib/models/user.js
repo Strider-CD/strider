@@ -38,7 +38,7 @@ const UserSchema = new mongoose_1.Schema({
                     display_name: String,
                     config: {},
                     display_url: String,
-                    group: String,
+                    group: String, // a string for grouping the repos. In github, this would be the "organization"
                 },
             ],
             last_updated: Date,
@@ -52,7 +52,7 @@ const UserSchema = new mongoose_1.Schema({
         {
             name: { type: String, index: true },
             display_name: String,
-            access_level: Number,
+            access_level: Number, // 0 - view jobs, 1 - start jobs, 2 - configure/admin
         },
     ],
     jobs: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'Job' }],

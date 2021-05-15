@@ -1,7 +1,7 @@
 import Component from '@glimmer/component';
 import { inject as service } from '@ember/service';
 import { action } from '@ember/object';
-import io from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { cloneDeep } from 'lodash-es';
 import PHASES, { Phase } from 'strider-ui/utils/legacy/phases';
 import SKELS from 'strider-ui/utils/legacy/skels';
@@ -12,11 +12,11 @@ interface Args {}
 export default class LiveJob extends Component<Args> {
   @service live!: Live;
 
-  socket: SocketIOClient.Socket;
+  socket: Socket;
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);
-    const socket = io.connect();
+    const socket = io();
     this.socket = socket;
 
     socket.on('job.new', this.handleNewJob);
@@ -200,6 +200,7 @@ export default class LiveJob extends Component<Args> {
 
   @action
   handleJobErrored([jobId, error]: [string, any]) {
+    debugger;
     const job = this.getJob(jobId);
 
     if (!job) {

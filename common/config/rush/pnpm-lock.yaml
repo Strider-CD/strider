@@ -102,7 +102,7 @@ dependencies:
   ember-page-title: 6.2.1
   ember-qunit: 5.1.4_64a6cd61704e4f6500d875b3c5ddd86f
   ember-resolver: 8.0.2
-  ember-router-helpers: 0.2.0
+  ember-router-helpers: 0.4.0
   ember-simple-set-helper: 0.1.2
   ember-source: 3.26.1
   ember-template-lint: 3.4.2
@@ -153,7 +153,7 @@ dependencies:
   shell-quote: 1.7.2
   shelljs: 0.8.4
   sinon: 7.5.0
-  socket.io: 2.3.0
+  socket.io: 4.1.1
   sshpk: 1.16.1
   standard-version: 7.1.0
   step: 1.0.0
@@ -184,7 +184,8 @@ dependencies:
   thirty-two: 1.0.2
   touch: 3.1.0
   tracked-toolbox: 1.1.0
-  ts-node: 8.10.2
+  ts-node: 8.10.2_typescript@4.2.4
+  typescript: 4.2.4
   uglifyify: 5.0.2
   validator: 7.2.0
   watchify: 3.11.1
@@ -2539,7 +2540,7 @@ packages:
   /@eslint/eslintrc/0.4.1:
     dependencies:
       ajv: 6.12.6
-      debug: 4.1.1
+      debug: 4.3.1
       espree: 7.3.1
       globals: 12.4.0
       ignore: 4.0.6
@@ -3036,12 +3037,24 @@ packages:
     dev: false
     resolution:
       integrity: sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
+  /@types/component-emitter/1.2.10:
+    dev: false
+    resolution:
+      integrity: sha512-bsjleuRKWmGqajMerkzox19aGbscQX5rmmvvXl3wlIp5gMG1HgkiwPxsN5p070fBDKTNSPgojVbuY1+HWMbFhg==
   /@types/connect/3.4.33:
     dependencies:
       '@types/node': 14.0.14
     dev: false
     resolution:
       integrity: sha512-2+FrkXY4zllzTNfJth7jOqEHC+enpLeGslEhpnTAkg21GkRrWV4SsAtqchtT4YS9/nODBU2/ZfsBY2X4J/dX7A==
+  /@types/cookie/0.4.0:
+    dev: false
+    resolution:
+      integrity: sha512-y7mImlc/rNkvCRmg8gC3/lj87S7pTUIJ6QGjwHR9WQJcFs+ZMTOaoPrkdFA/YdbuqVEmEbb5RdhVxMkAcgOnpg==
+  /@types/cors/2.8.10:
+    dev: false
+    resolution:
+      integrity: sha512-C7srjHiVG3Ey1nR6d511dtDkCEjxuN9W1HWAEjGq8kpcwmNM6JJkpC0xvabM7BXTG2wDq8Eu33iH9aQKa7IvLQ==
   /@types/debug/4.1.5:
     dev: false
     resolution:
@@ -3479,15 +3492,15 @@ packages:
     dev: false
     resolution:
       integrity: sha512-Lja2xYuuf2B3knEsga8ShbOdsfNOtzT73GyJmZyY7eGl2+ajOqrs8yM5ze0fsSoYwvA6bw7/Qr7OZ7PEEmYwWg==
-  /@typescript-eslint/eslint-plugin/2.34.0_3787943315ebc5ea524d5c102dc9e452:
+  /@typescript-eslint/eslint-plugin/2.34.0_28deb19c9a1505f8eaba25f08813d781:
     dependencies:
-      '@typescript-eslint/experimental-utils': 2.34.0_eslint@6.8.0+typescript@3.9.6
-      '@typescript-eslint/parser': 2.34.0_eslint@6.8.0+typescript@3.9.6
+      '@typescript-eslint/experimental-utils': 2.34.0_eslint@6.8.0+typescript@4.2.4
+      '@typescript-eslint/parser': 2.34.0_eslint@6.8.0+typescript@4.2.4
       eslint: 6.8.0
       functional-red-black-tree: 1.0.1
       regexpp: 3.1.0
-      tsutils: 3.17.1_typescript@3.9.6
-      typescript: 3.9.6
+      tsutils: 3.17.1_typescript@4.2.4
+      typescript: 4.2.4
     dev: false
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3505,7 +3518,7 @@ packages:
       '@typescript-eslint/experimental-utils': 4.23.0_eslint@7.26.0+typescript@4.2.4
       '@typescript-eslint/parser': 4.23.0_eslint@7.26.0+typescript@4.2.4
       '@typescript-eslint/scope-manager': 4.23.0
-      debug: 4.1.1
+      debug: 4.3.1
       eslint: 7.26.0
       functional-red-black-tree: 1.0.1
       lodash: 4.17.21
@@ -3525,10 +3538,10 @@ packages:
         optional: true
     resolution:
       integrity: sha512-tGK1y3KIvdsQEEgq6xNn1DjiFJtl+wn8JJQiETtCbdQxw1vzjXyAaIkEmO2l6Nq24iy3uZBMFQjZ6ECf1QdgGw==
-  /@typescript-eslint/experimental-utils/2.34.0_eslint@6.8.0+typescript@3.9.6:
+  /@typescript-eslint/experimental-utils/2.34.0_eslint@6.8.0+typescript@4.2.4:
     dependencies:
       '@types/json-schema': 7.0.5
-      '@typescript-eslint/typescript-estree': 2.34.0_typescript@3.9.6
+      '@typescript-eslint/typescript-estree': 2.34.0_typescript@4.2.4
       eslint: 6.8.0
       eslint-scope: 5.1.1
       eslint-utils: 2.1.0
@@ -3557,14 +3570,14 @@ packages:
       typescript: '*'
     resolution:
       integrity: sha512-WAFNiTDnQfrF3Z2fQ05nmCgPsO5o790vOhmWKXbbYQTO9erE1/YsFot5/LnOUizLzU2eeuz6+U/81KV5/hFTGA==
-  /@typescript-eslint/parser/2.34.0_eslint@6.8.0+typescript@3.9.6:
+  /@typescript-eslint/parser/2.34.0_eslint@6.8.0+typescript@4.2.4:
     dependencies:
       '@types/eslint-visitor-keys': 1.0.0
-      '@typescript-eslint/experimental-utils': 2.34.0_eslint@6.8.0+typescript@3.9.6
-      '@typescript-eslint/typescript-estree': 2.34.0_typescript@3.9.6
+      '@typescript-eslint/experimental-utils': 2.34.0_eslint@6.8.0+typescript@4.2.4
+      '@typescript-eslint/typescript-estree': 2.34.0_typescript@4.2.4
       eslint: 6.8.0
       eslint-visitor-keys: 1.3.0
-      typescript: 3.9.6
+      typescript: 4.2.4
     dev: false
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3581,7 +3594,7 @@ packages:
       '@typescript-eslint/scope-manager': 4.23.0
       '@typescript-eslint/types': 4.23.0
       '@typescript-eslint/typescript-estree': 4.23.0_typescript@4.2.4
-      debug: 4.1.1
+      debug: 4.3.1
       eslint: 7.26.0
       typescript: 4.2.4
     dev: false
@@ -3610,16 +3623,16 @@ packages:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
     resolution:
       integrity: sha512-oqkNWyG2SLS7uTWLZf6Sr7Dm02gA5yxiz1RP87tvsmDsguVATdpVguHr4HoGOcFOpCvx9vtCSCyQUGfzq28YCw==
-  /@typescript-eslint/typescript-estree/2.34.0_typescript@3.9.6:
+  /@typescript-eslint/typescript-estree/2.34.0_typescript@4.2.4:
     dependencies:
-      debug: 4.1.1
+      debug: 4.3.1
       eslint-visitor-keys: 1.3.0
       glob: 7.1.6
       is-glob: 4.0.1
       lodash: 4.17.21
       semver: 7.3.5
-      tsutils: 3.17.1_typescript@3.9.6
-      typescript: 3.9.6
+      tsutils: 3.17.1_typescript@4.2.4
+      typescript: 4.2.4
     dev: false
     engines:
       node: ^8.10.0 || ^10.13.0 || >=11.10.1
@@ -3634,7 +3647,7 @@ packages:
     dependencies:
       '@typescript-eslint/types': 4.23.0
       '@typescript-eslint/visitor-keys': 4.23.0
-      debug: 4.1.1
+      debug: 4.3.1
       globby: 11.0.3
       is-glob: 4.0.1
       semver: 7.3.5
@@ -5474,6 +5487,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-5T6P4xPgpp0YDFvSWwEZ4NoE3aM4QBQXDzmVbraCkFj8zHM+mba8SyqB5DbZWyR7mYHo6Y7BdQo3MoA4m0TeQg==
+  /base64-arraybuffer/0.1.4:
+    dev: false
+    engines:
+      node: '>= 0.6.0'
+    resolution:
+      integrity: sha1-mBjHngWbE1X5fgQooBfIOOkLqBI=
   /base64-arraybuffer/0.1.5:
     dev: false
     engines:
@@ -7286,7 +7305,6 @@ packages:
     dev: false
     engines:
       node: '>= 8.10.0'
-    optional: true
     optionalDependencies:
       fsevents: 2.3.2
     resolution:
@@ -8225,6 +8243,12 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
+  /cookie/0.4.1:
+    dev: false
+    engines:
+      node: '>= 0.6'
+    resolution:
+      integrity: sha512-ZwrFkGJxUR3EIoXtO+yVE69Eb7KlixbaeAWfBQB9vVsNn/o+Yw69gBWSSDK825hQNdN+wF8zELf3dFNl/kxkUA==
   /cookiejar/1.3.0:
     dev: false
     resolution:
@@ -8614,6 +8638,19 @@ packages:
     dev: false
     resolution:
       integrity: sha512-pYAIzeRo8J6KPEaJ0VWOh5Pzkbw/RetuzehGM7QRRX5he4fPHx2rdKMB256ehJCkX+XRQm16eZLqLNS8RSZXZw==
+  /debug/4.3.1:
+    dependencies:
+      ms: 2.1.2
+    dev: false
+    engines:
+      node: '>=6.0'
+    peerDependencies:
+      supports-color: '*'
+    peerDependenciesMeta:
+      supports-color:
+        optional: true
+    resolution:
+      integrity: sha512-doEwdvm4PCeK4K3RQN2ZC2BYUBaxwLARCqZmMjtF8a51J2Rb0xpVloFRnCODwqjpwnAoao4pelN8l3RJdv3gRQ==
   /decamelize-keys/1.1.0:
     dependencies:
       decamelize: 1.2.0
@@ -9391,17 +9428,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-DXtZVVni+QUKvtgE8djv8bCLx3E=
-  /ember-cli-htmlbars/2.0.5:
-    dependencies:
-      broccoli-persistent-filter: 1.4.6
-      hash-for-dep: 1.5.1
-      json-stable-stringify: 1.0.1
-      strip-bom: 3.0.0
-    dev: false
-    engines:
-      node: '>= 4.0.0'
-    resolution:
-      integrity: sha512-3f3PAxdnQ/fhQa8XP/3z4RLRgLHxV8j4Ln75aHbRdemOCjBa048KxL9l+acRLhCulbGQCMnLiIUIC89PAzLrcA==
   /ember-cli-htmlbars/4.3.1:
     dependencies:
       '@ember/edition-utils': 1.2.0
@@ -10079,24 +10105,14 @@ packages:
       node: 8.* || 10.* || >= 12
     resolution:
       integrity: sha512-89oVHVJwmLDvGvAUWgS87KpBoRhy3aZ6U0Ql6HOmU4TrPkyaa8pM0W81wj9cIwjYprcQtN9EwzZMHnq46+oUyw==
-  /ember-router-helpers/0.2.0:
+  /ember-router-helpers/0.4.0:
     dependencies:
-      ember-cli-babel: 6.18.0
-      ember-cli-htmlbars: 2.0.5
-      ember-router-service-polyfill: 1.0.3
+      ember-cli-babel: 7.26.3
     dev: false
     engines:
-      node: 6.* || 8.* || >= 10.*
+      node: 10.* || >= 12
     resolution:
-      integrity: sha512-t2eGSwfiK+Ec2nZcPo3bR8NvmK9CxISupqrHEgMkeBpgtBX0sjoUzAewqz1nu3TTrcpkkrgxNiFQvkIpK6Zz+g==
-  /ember-router-service-polyfill/1.0.3:
-    dependencies:
-      ember-cli-babel: 6.18.0
-    dev: false
-    engines:
-      node: '>= 4'
-    resolution:
-      integrity: sha1-UG1/vXF5lRQQt//o2xcVQGAdiLE=
+      integrity: sha512-DiPyncEAACKV/XcmYqUwh0iHBPvGW75Fw1uerDudblofXTtAH/+QzeE/0wK2G6MUBWKyn0HyIuLXE3pJm0zKFg==
   /ember-simple-set-helper/0.1.2:
     dependencies:
       ember-cli-babel: 7.21.0
@@ -10282,6 +10298,20 @@ packages:
     dev: false
     resolution:
       integrity: sha512-0NGY+9hioejTEJCaSJZfWZLk4FPI9dN+1H1C4+wj2iuFba47UgZbJzfWs4aNFajnX/qAaYKbe2lLTfEEWzCmcw==
+  /engine.io-client/5.1.1:
+    dependencies:
+      base64-arraybuffer: 0.1.4
+      component-emitter: 1.3.0
+      debug: 4.3.1
+      engine.io-parser: 4.0.2
+      has-cors: 1.1.0
+      parseqs: 0.0.6
+      parseuri: 0.0.6
+      ws: 7.4.5
+      yeast: 0.1.2
+    dev: false
+    resolution:
+      integrity: sha512-jPFpw2HLL0lhZ2KY0BpZhIJdleQcUO9W1xkIpo0h3d6s+5D6+EV/xgQw9qWOmymszv2WXef/6KUUehyxEKomlQ==
   /engine.io-parser/2.2.0:
     dependencies:
       after: 0.8.2
@@ -10292,6 +10322,14 @@ packages:
     dev: false
     resolution:
       integrity: sha512-6I3qD9iUxotsC5HEMuuGsKA0cXerGz+4uGcXQEkfBidgKf0amsjrrtwcbwK/nzpZBxclXlV7gGl9dgWvu4LF6w==
+  /engine.io-parser/4.0.2:
+    dependencies:
+      base64-arraybuffer: 0.1.4
+    dev: false
+    engines:
+      node: '>=8.0.0'
+    resolution:
+      integrity: sha512-sHfEQv6nmtJrq6TKuIz5kyEKH/qSdK56H/A+7DnAuUPWosnIZAS2NHNcPLmyjtY3cGS/MqJdZbUjW97JU72iYg==
   /engine.io/3.4.2:
     dependencies:
       accepts: 1.3.7
@@ -10305,6 +10343,20 @@ packages:
       node: '>=8.0.0'
     resolution:
       integrity: sha512-b4Q85dFkGw+TqgytGPrGgACRUhsdKc9S9ErRAXpPGy/CXKs4tYoHDkvIRdsseAF7NjfVwjRFIn6KTnbw7LwJZg==
+  /engine.io/5.1.0:
+    dependencies:
+      accepts: 1.3.7
+      base64id: 2.0.0
+      cookie: 0.4.1
+      cors: 2.8.5
+      debug: 4.3.1
+      engine.io-parser: 4.0.2
+      ws: 7.4.5
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-A2i4kVvOA3qezQLlMz+FayGFdqOo0LP3fYrb0VqXMDXKoXcbgM0KxcEYnsdVzOMJQErIAb1GIStRj7UWFoiqlQ==
   /enhanced-resolve/4.2.0:
     dependencies:
       graceful-fs: 4.2.4
@@ -10816,10 +10868,10 @@ packages:
   /eslint/6.8.0:
     dependencies:
       '@babel/code-frame': 7.12.13
-      ajv: 6.12.3
+      ajv: 6.12.6
       chalk: 2.4.2
       cross-spawn: 6.0.5
-      debug: 4.1.1
+      debug: 4.3.1
       doctrine: 3.0.0
       eslint-scope: 5.1.1
       eslint-utils: 1.4.3
@@ -10848,7 +10900,7 @@ packages:
       regexpp: 2.0.1
       semver: 6.3.0
       strip-ansi: 5.2.0
-      strip-json-comments: 3.1.0
+      strip-json-comments: 3.1.1
       table: 5.4.6
       text-table: 0.2.0
       v8-compile-cache: 2.3.0
@@ -10862,10 +10914,10 @@ packages:
     dependencies:
       '@babel/code-frame': 7.12.11
       '@eslint/eslintrc': 0.4.1
-      ajv: 6.12.3
+      ajv: 6.12.6
       chalk: 4.1.1
       cross-spawn: 7.0.3
-      debug: 4.1.1
+      debug: 4.3.1
       doctrine: 3.0.0
       enquirer: 2.3.6
       eslint-scope: 5.1.1
@@ -10893,7 +10945,7 @@ packages:
       regexpp: 3.1.0
       semver: 7.3.5
       strip-ansi: 6.0.0
-      strip-json-comments: 3.1.0
+      strip-json-comments: 3.1.1
       table: 6.7.0
       text-table: 0.2.0
       v8-compile-cache: 2.3.0
@@ -11008,7 +11060,7 @@ packages:
       integrity: sha512-olpvt9QG0vniUBZspVRN6lwB7hOZoTRtT+jzR+tS4ffYx2mzbw+z0XCOk44aaLYKApNX5nMm+E+P6o25ip/DHQ==
   /esquery/1.4.0:
     dependencies:
-      estraverse: 5.1.0
+      estraverse: 5.2.0
     dev: false
     engines:
       node: '>=0.10'
@@ -16258,6 +16310,17 @@ packages:
       morgan: 1.x
     resolution:
       integrity: sha1-ukdWu3bL5+VYiWVrnxF/BRJEQ2c=
+  /morgan-debug/2.0.0_debug@4.3.1+morgan@1.10.0:
+    dependencies:
+      debug: 4.3.1
+      morgan: 1.10.0
+      through2: 2.0.5
+    dev: false
+    peerDependencies:
+      debug: '*'
+      morgan: 1.x
+    resolution:
+      integrity: sha1-ukdWu3bL5+VYiWVrnxF/BRJEQ2c=
   /morgan/1.10.0:
     dependencies:
       basic-auth: 2.0.1
@@ -16923,7 +16986,7 @@ packages:
     dependencies:
       define-properties: 1.1.3
       function-bind: 1.1.1
-      has-symbols: 1.0.1
+      has-symbols: 1.0.2
       object-keys: 1.1.1
     dev: false
     engines:
@@ -17385,12 +17448,20 @@ packages:
     dev: false
     resolution:
       integrity: sha1-1SCKNzjkZ2bikbouoXNoSSGouJ0=
+  /parseqs/0.0.6:
+    dev: false
+    resolution:
+      integrity: sha512-jeAGzMDbfSHHA091hr0r31eYfTig+29g3GKKE/PPbEQ65X0lmMwlEoqmhzu0iztID5uJpZsFlUPDP8ThPL7M8w==
   /parseuri/0.0.5:
     dependencies:
       better-assert: 1.0.2
     dev: false
     resolution:
       integrity: sha1-gCBKUNTbt3m/3G6+J3jZDkvOMgo=
+  /parseuri/0.0.6:
+    dev: false
+    resolution:
+      integrity: sha512-AUjen8sAkGgao7UyCX6Ahv0gIK2fABKmYjvP4xmy5JaKvcbTRueIqIPHLAfq30xJddqSE033IOMUSOMCcK3Sow==
   /parseurl/1.3.3:
     dev: false
     engines:
@@ -18559,7 +18630,6 @@ packages:
     dev: false
     engines:
       node: '>=8.10.0'
-    optional: true
     resolution:
       integrity: sha512-cMhu7c/8rdhkHXWsY+osBhfSy0JikwpHK/5+imo+LpeasTF8ouErHrlYkwT0++njiyuDvc7OFY5T3ukvZ8qmFQ==
   /recast/0.10.33:
@@ -19847,6 +19917,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-WzZRUj1kUjrTIrUKpZLEzFZ1OLj5FwLlAFQs9kuZJzJi5DKdU7FsWc36SNmA8iDOtwBQyT8FkrriRM8vXLYz8g==
+  /socket.io-adapter/2.3.0:
+    dev: false
+    resolution:
+      integrity: sha512-jdIbSFRWOkaZpo5mXy8T7rXEN6qo3bOFuq4nVeX1ZS7AtFlkbk39y153xTXEIW7W94vZfhVOux1wTU88YxcM1w==
   /socket.io-client/2.3.0:
     dependencies:
       backo2: 1.0.2
@@ -19866,6 +19940,20 @@ packages:
     dev: false
     resolution:
       integrity: sha512-cEQQf24gET3rfhxZ2jJ5xzAOo/xhZwK+mOqtGRg5IowZsMgwvHwnf/mCRapAAkadhM26y+iydgwsXGObBB5ZdA==
+  /socket.io-client/4.1.1:
+    dependencies:
+      '@types/component-emitter': 1.2.10
+      backo2: 1.0.2
+      component-emitter: 1.3.0
+      debug: 4.3.1
+      engine.io-client: 5.1.1
+      parseuri: 0.0.6
+      socket.io-parser: 4.0.4
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-avzRzFZIkmyNxqvhmm5ns0Itq5dgEkesDPB6Tl0Yben47U08MvdFnVXAuFDULQhDXjuYdCb6QUEILYLUKQEuGg==
   /socket.io-parser/3.3.0:
     dependencies:
       component-emitter: 1.2.1
@@ -19882,6 +19970,16 @@ packages:
     dev: false
     resolution:
       integrity: sha512-11hMgzL+WCLWf1uFtHSNvliI++tcRUWdoeYuwIl+Axvwy9z2gQM+7nJyN3STj1tLj5JyIUH8/gpDGxzAlDdi0A==
+  /socket.io-parser/4.0.4:
+    dependencies:
+      '@types/component-emitter': 1.2.10
+      component-emitter: 1.3.0
+      debug: 4.3.1
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-t+b0SS+IxG7Rxzda2EVvyBZbvFPBCjJoyHuE0P//7OAsN23GItzDRdWa6ALxZI/8R5ygK7jAR6t028/z+7295g==
   /socket.io/2.3.0:
     dependencies:
       debug: 4.1.1
@@ -19893,6 +19991,22 @@ packages:
     dev: false
     resolution:
       integrity: sha512-2A892lrj0GcgR/9Qk81EaY2gYhCBxurV0PfmmESO6p27QPrUK1J3zdns+5QPqvUYK2q657nSj0guoIil9+7eFg==
+  /socket.io/4.1.1:
+    dependencies:
+      '@types/cookie': 0.4.0
+      '@types/cors': 2.8.10
+      '@types/node': 14.0.14
+      accepts: 1.3.7
+      base64id: 2.0.0
+      debug: 4.3.1
+      engine.io: 5.1.0
+      socket.io-adapter: 2.3.0
+      socket.io-parser: 4.0.4
+    dev: false
+    engines:
+      node: '>=10.0.0'
+    resolution:
+      integrity: sha512-YKPdhaYRGEXjP+VqoKlfOEPgDjm0aMq1YWonjHg4rBU1xJCmgceNh2XL1vO4czWupH+WX1+d9Wqb768h7BC5kw==
   /sort-object-keys/1.1.3:
     dev: false
     resolution:
@@ -20746,12 +20860,6 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-PFMZQukIwml8DsNEhYwobHygpgo=
-  /strip-json-comments/3.1.0:
-    dev: false
-    engines:
-      node: '>=8'
-    resolution:
-      integrity: sha512-e6/d0eBu7gHtdCqFt0xJr642LdToM5/cN4Qb9DbHjVx1CP5RyeM+zH7pbecEmDv/lBqb0QH+6Uqq75rxFPkM0w==
   /strip-json-comments/3.1.1:
     dev: false
     engines:
@@ -21638,28 +21746,13 @@ packages:
     dev: false
     resolution:
       integrity: sha1-gUXkynyv9ArN48z5Rui4u3W0Fys=
-  /ts-node/8.10.2:
+  /ts-node/8.10.2_typescript@4.2.4:
     dependencies:
       arg: 4.1.3
       diff: 4.0.2
       make-error: 1.3.6
       source-map-support: 0.5.19
-      yn: 3.1.1
-    dev: false
-    engines:
-      node: '>=6.0.0'
-    hasBin: true
-    peerDependencies:
-      typescript: '>=2.7'
-    resolution:
-      integrity: sha512-ISJJGgkIpDdBhWVu3jufsWpK3Rzo7bdiIXJjQc0ynKxVOVcg2oIrf2H2cejminGrptVc6q6/uynAHNCuWGbpVA==
-  /ts-node/8.10.2_typescript@3.9.6:
-    dependencies:
-      arg: 4.1.3
-      diff: 4.0.2
-      make-error: 1.3.6
-      source-map-support: 0.5.19
-      typescript: 3.9.6
+      typescript: 4.2.4
       yn: 3.1.1
     dev: false
     engines:
@@ -21677,17 +21770,6 @@ packages:
     dev: false
     resolution:
       integrity: sha512-gS9GVHRU+RGn5KQM2rllAlR3dU6m7AcpJKdtH8gFvQiC4Otgk98XnmMU+nZenHt/+VhnBPWwgrJsyrdcw6i23w==
-  /tsutils/3.17.1_typescript@3.9.6:
-    dependencies:
-      tslib: 1.13.0
-      typescript: 3.9.6
-    dev: false
-    engines:
-      node: '>= 6'
-    peerDependencies:
-      typescript: '>=2.8.0 || >= 3.2.0-dev || >= 3.3.0-dev || >= 3.4.0-dev || >= 3.5.0-dev || >= 3.6.0-dev || >= 3.6.0-beta || >= 3.7.0-dev || >= 3.7.0-beta'
-    resolution:
-      integrity: sha512-kzeQ5B8H3w60nFY2g8cJIuH7JDpsALXySGtwGJ0p2LSjLgay3NdIpqq5SoOBe46bKDW2iq25irHCr8wjomUS2g==
   /tsutils/3.17.1_typescript@4.2.4:
     dependencies:
       tslib: 1.13.0
@@ -21812,13 +21894,6 @@ packages:
     dev: false
     resolution:
       integrity: sha1-aZpUFfiGaUqNbi5UUbwoo5prwvk=
-  /typescript/3.9.6:
-    dev: false
-    engines:
-      node: '>=4.2.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-Pspx3oKAPJtjNwE92YS05HQoY7z2SFyOpHo9MqJor3BXAGNaPUs83CuVp9VISFkSjyRfiTpmKuAYGJB7S7hOxw==
   /typescript/4.2.4:
     dev: false
     engines:
@@ -23202,7 +23277,7 @@ packages:
     dependencies:
       async: 0.2.10
       chai: 3.5.0
-      debug: 4.1.1
+      debug: 4.3.1
       eslint: 4.19.1
       execa: 0.4.0
       expect.js: 0.3.1
@@ -23290,7 +23365,7 @@ packages:
       ember-page-title: 6.2.1
       ember-qunit: 5.1.4_64a6cd61704e4f6500d875b3c5ddd86f
       ember-resolver: 8.0.2
-      ember-router-helpers: 0.2.0
+      ember-router-helpers: 0.4.0
       ember-simple-set-helper: 0.1.2
       ember-source: 3.26.1
       ember-template-component-import: 1.3.2
@@ -23308,7 +23383,7 @@ packages:
       prettier: 2.3.0
       qunit: 2.15.0
       qunit-dom: 1.6.0
-      socket.io-client: 2.3.0
+      socket.io-client: 4.1.1
       strip-ansi: 6.0.0
       tailwindcss: 1.4.6
       tracked-toolbox: 1.1.0
@@ -23316,7 +23391,7 @@ packages:
     dev: false
     name: '@rush-temp/strider-ui'
     resolution:
-      integrity: sha512-Rt3NX3YEA89c1RCs6jQMyB8CEtysd/1Zd+zD4aLc3zfT58YKhjsGBYodzwCOA9pH7LFgMicMW5kR9f8l1F6y1w==
+      integrity: sha512-tJvLuDYS2zVTta0CWe2sAZZd3jfhW3Jj79rui2de7N72xB9OwGHjrOj6LtQJSFQPb7Rlnh3aCRhfeGnjbmdmiA==
       tarball: file:projects/strider-ui.tgz
     version: 0.0.0
   file:projects/strider-website.tgz:
@@ -23339,8 +23414,8 @@ packages:
       '@types/lodash': 4.14.157
       '@types/mongoose': 5.7.29
       '@types/shelljs': 0.8.8
-      '@typescript-eslint/eslint-plugin': 2.34.0_3787943315ebc5ea524d5c102dc9e452
-      '@typescript-eslint/parser': 2.34.0_eslint@6.8.0+typescript@3.9.6
+      '@typescript-eslint/eslint-plugin': 2.34.0_28deb19c9a1505f8eaba25f08813d781
+      '@typescript-eslint/parser': 2.34.0_eslint@6.8.0+typescript@4.2.4
       activedirectory: 0.7.2
       angular: 1.5.7
       angular-route: 1.5.7
@@ -23359,7 +23434,7 @@ packages:
       chai: 4.2.0
       chai-as-promised: 7.1.1_chai@4.2.0
       chalk: 2.4.2
-      chokidar: 3.4.0
+      chokidar: 3.5.1
       cli-table3: 0.6.0
       co-router: 1.1.0
       colors: 1.4.0
@@ -23371,7 +23446,7 @@ packages:
       cookie-parser: 1.4.5
       cors: 2.8.5
       cross-spawn: 7.0.3
-      debug: 4.1.1
+      debug: 4.3.1
       ember-click-outside: 2.0.0
       errorhandler: 1.5.1
       eslint: 6.8.0
@@ -23397,7 +23472,7 @@ packages:
       mocha: 6.2.3
       mongoose: 5.9.21
       morgan: 1.10.0
-      morgan-debug: 2.0.0_debug@4.1.1+morgan@1.10.0
+      morgan-debug: 2.0.0_debug@4.3.1+morgan@1.10.0
       ndb: 1.1.5
       node-mocks-http: 1.8.1
       node-rsa: 0.4.2
@@ -23419,7 +23494,7 @@ packages:
       serve-favicon: 2.5.0
       shelljs: 0.8.4
       sinon: 7.5.0
-      socket.io: 2.3.0
+      socket.io: 4.1.1
       socket.io-client: 2.3.0
       sshpk: 1.16.1
       standard-version: 7.1.0
@@ -23450,8 +23525,8 @@ packages:
       swig: 0.14.0
       thirty-two: 1.0.2
       touch: 3.1.0
-      ts-node: 8.10.2_typescript@3.9.6
-      typescript: 3.9.6
+      ts-node: 8.10.2_typescript@4.2.4
+      typescript: 4.2.4
       validator: 7.2.0
       watchify: 3.11.1
       wd: 0.4.0
@@ -23459,7 +23534,7 @@ packages:
     dev: false
     name: '@rush-temp/strider'
     resolution:
-      integrity: sha512-BC+aJpWjB7vlCra2XWY6RgRIu4SARS9/PZyQiq7O7qKt/frMTy02njAI9KYdI0GxaOcloOarEeh8s5/o/uX4NA==
+      integrity: sha512-fOD+UJWdWd2DxgJZv8IlQHnVwJS/jrmb2aZdOKb27eslyMTafibz6GVfOEgiz82t7xoNHydcm4j9Uwc4qLi2tQ==
       tarball: file:projects/strider.tgz
     version: 0.0.0
   github.com/knownasilya/ember-fontawesome/c2fac605f34958f36aab5849884d8c57d0fb17ab:
@@ -23627,7 +23702,7 @@ specifiers:
   ember-page-title: ^6.2.1
   ember-qunit: ^5.1.4
   ember-resolver: ^8.0.2
-  ember-router-helpers: ^0.2.0
+  ember-router-helpers: ^0.4.0
   ember-simple-set-helper: ^0.1.2
   ember-source: ~3.26.1
   ember-template-lint: ^3.2.0
@@ -23678,7 +23753,7 @@ specifiers:
   shell-quote: ^1.6.0
   shelljs: ^0.8.3
   sinon: ^7.3.2
-  socket.io: ^2.0.1
+  socket.io: ^4.1.1
   sshpk: ^1.8.3
   standard-version: ^7.1.0
   step: ^1.0.0
@@ -23710,6 +23785,7 @@ specifiers:
   touch: ^3.1.0
   tracked-toolbox: ^1.0.1
   ts-node: ^8.6.2
+  typescript: ^4.2.4
   uglifyify: ^5.0.2
   validator: ^7.0.0
   watchify: ^3.4.0
