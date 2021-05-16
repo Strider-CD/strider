@@ -1,16 +1,19 @@
 import Route from '@ember/routing/route';
-import fetch from 'fetch';
+import { inject as service } from '@ember/service';
+import { hash } from 'rsvp';
+import Network from 'strider-ui/services/network';
 
 export default class Index extends Route {
-  async model() {
-    const response = await fetch('/api/jobs');
-    const jobs = await response.json();
-    const responseP = await fetch('/api/v2/projects');
-    const projects = await responseP.json();
+  @service declare network: Network;
 
-    return {
-      jobs,
-      projects,
-    };
+  async model() {
+    return hash({
+      jobs: this.network.request('/api/jobs'),
+      projects: this.network.request('/api/v2/projects'),
+    });
+  }
+
+  afterModel() {
+    debugger;
   }
 }
