@@ -47,7 +47,6 @@ dependencies:
   '@types/qunit': 2.11.1
   '@types/rsvp': 4.0.3
   '@types/shelljs': 0.8.8
-  '@types/socket.io-client': 1.4.33
   activedirectory: 0.7.2
   angular: 1.5.7
   angular-route: 1.5.7
@@ -106,7 +105,7 @@ dependencies:
   ember-simple-set-helper: 0.1.2
   ember-source: 3.26.1
   ember-template-lint: 3.4.2
-  ember-truth-helpers: 2.1.0
+  ember-truth-helpers: 3.0.0
   errorhandler: 1.5.1
   eslint-plugin-ember: 10.4.1
   eslint-plugin-node: 11.1.0
@@ -10228,14 +10227,14 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-MtjyYtr5jnE72i/jVkI3m2QOdozglLwXS3HN74Ge9cm7dz5GoDszVvUksyj/9xqpIP31LMXjs2bZetRGvinU1Q==
-  /ember-truth-helpers/2.1.0:
+  /ember-truth-helpers/3.0.0:
     dependencies:
-      ember-cli-babel: 6.18.0
+      ember-cli-babel: 7.26.3
     dev: false
     engines:
-      node: ^4.5 || 6.* || >= 7.*
+      node: 10.* || >= 12.*
     resolution:
-      integrity: sha512-BQlU8aTNl1XHKTYZ243r66yqtR9JU7XKWQcmMA+vkqfkE/c9WWQ9hQZM8YABihCmbyxzzZsngvldokmeX5GhAw==
+      integrity: sha512-hPKG9QqruAELh0li5xaiLZtr88ioWYxWCXisAWHWE0qCP4a2hgtuMzKUPpiTCkltvKjuqpzTZCU4VhQ+IlRmew==
   /emitter-component/1.0.0:
     dev: false
     resolution:
@@ -23370,7 +23369,7 @@ packages:
       ember-source: 3.26.1
       ember-template-component-import: 1.3.2
       ember-template-lint: 3.4.2
-      ember-truth-helpers: 2.1.0
+      ember-truth-helpers: 3.0.0
       eslint: 7.26.0
       eslint-config-prettier: 8.3.0_eslint@7.26.0
       eslint-plugin-ember: 10.4.1_eslint@7.26.0
@@ -23391,7 +23390,7 @@ packages:
     dev: false
     name: '@rush-temp/strider-ui'
     resolution:
-      integrity: sha512-tJvLuDYS2zVTta0CWe2sAZZd3jfhW3Jj79rui2de7N72xB9OwGHjrOj6LtQJSFQPb7Rlnh3aCRhfeGnjbmdmiA==
+      integrity: sha512-R2iLa0ltW8u6ydV7CHzdd0xe28au/9vm5+BzgQmcLZ1ZnEebnNitMvIAk/SVHEC/iotx0BG4RnGoXTAYyNsEtw==
       tarball: file:projects/strider-ui.tgz
     version: 0.0.0
   file:projects/strider-website.tgz:
@@ -23647,7 +23646,6 @@ specifiers:
   '@types/qunit': ^2.11.1
   '@types/rsvp': ^4.0.3
   '@types/shelljs': ^0.8.6
-  '@types/socket.io-client': ^1.4.32
   activedirectory: ^0.7.2
   angular: 1.5.7
   angular-route: 1.5.7
@@ -23706,7 +23704,7 @@ specifiers:
   ember-simple-set-helper: ^0.1.2
   ember-source: ~3.26.1
   ember-template-lint: ^3.2.0
-  ember-truth-helpers: ^2.1.0
+  ember-truth-helpers: ^3.0.0
   errorhandler: ^1.3.0
   eslint-plugin-ember: ^10.3.0
   eslint-plugin-node: ^11.1.0

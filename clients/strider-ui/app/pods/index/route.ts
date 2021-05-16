@@ -6,7 +6,7 @@ import Network from 'strider-ui/services/network';
 export default class Index extends Route {
   @service declare network: Network;
 
-  async model() {
+  model() {
     return hash({
       jobs: this.network.request('/api/jobs'),
       projects: this.network.request('/api/v2/projects'),
