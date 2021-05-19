@@ -128,7 +128,7 @@ const ProjectSchema = new Schema<Project>({
   },
   // used for user-level provider & plugin config.
   creator: {
-    type: Schema.ObjectId,
+    type: Schema.Types.ObjectId,
     ref: 'user',
     index: true,
   },
@@ -186,9 +186,12 @@ ProjectSchema.methods.addBranch = function (name, done) {
 };
 
 ProjectSchema.methods.cloneBranch = function (name, cloneName, done) {
-  let clone;
+  let clone: { name: string; mirror_master: boolean };
 
-  this.branches.forEach(function (branch) {
+  this.branches.forEach(function (branch: {
+    name: string;
+    mirror_master: boolean;
+  }) {
     if (branch.name === name) {
       clone = _.merge({}, branch);
     }
@@ -206,7 +209,7 @@ ProjectSchema.methods.cloneBranch = function (name, cloneName, done) {
     {
       $push: { branches: clone },
     },
-    function (err, changed) {
+    function (err: unknown, changed: number) {
       if (err) {
         return done(err);
       }

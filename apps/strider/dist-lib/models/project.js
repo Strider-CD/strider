@@ -80,7 +80,7 @@ const ProjectSchema = new mongoose_1.Schema({
     },
     // used for user-level provider & plugin config.
     creator: {
-        type: mongoose_1.Schema.ObjectId,
+        type: mongoose_1.Schema.Types.ObjectId,
         ref: 'user',
         index: true,
     },
