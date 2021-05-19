@@ -1,3 +1,4 @@
+"use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -7,11 +8,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-const _ = require('lodash');
-const mongoose = require('../utils/mongoose-shim');
-const findBranch = require('../utils').findBranch;
-const Schema = mongoose.Schema;
-const PluginConfig = new Schema({
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const lodash_1 = __importDefault(require("lodash"));
+const mongoose_1 = require("mongoose");
+const utils_1 = require("../utils");
+let ProjectModel;
+const PluginConfig = new mongoose_1.Schema({
     id: String,
     config: {},
     showStatus: {
@@ -20,7 +25,7 @@ const PluginConfig = new Schema({
     },
     enabled: Boolean,
 });
-const BranchConfig = new Schema({
+const BranchConfig = new mongoose_1.Schema({
     active: {
         type: Boolean,
         default: true,
@@ -52,7 +57,7 @@ const BranchConfig = new Schema({
     // for persistance, not configuration
     plugin_data: {},
 });
-const ProjectSchema = new Schema({
+const ProjectSchema = new mongoose_1.Schema({
     // name is always lower case!
     name: {
         type: String,
@@ -75,7 +80,7 @@ const ProjectSchema = new Schema({
     },
     // used for user-level provider & plugin config.
     creator: {
-        type: Schema.ObjectId,
+        type: mongoose_1.Schema.ObjectId,
         ref: 'user',
         index: true,
     },
@@ -125,7 +130,7 @@ ProjectSchema.methods.cloneBranch = function (name, cloneName, done) {
     let clone;
     this.branches.forEach(function (branch) {
         if (branch.name === name) {
-            clone = _.merge({}, branch);
+            clone = lodash_1.default.merge({}, branch);
         }
     });
     if (!clone) {
@@ -146,7 +151,7 @@ ProjectSchema.methods.cloneBranch = function (name, cloneName, done) {
     });
 };
 ProjectSchema.methods.branch = function (name) {
-    return findBranch(this.branches, name);
+    return utils_1.findBranch(this.branches, name);
 };
 ProjectSchema.statics.forUser = function (user, done) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -170,5 +175,7 @@ ProjectSchema.statics.forUser = function (user, done) {
         return this.find(query, done);
     });
 };
-module.exports = mongoose.model('Project', ProjectSchema);
+// eslint-disable-next-line prefer-const
+ProjectModel = mongoose_1.model('Project', ProjectSchema);
+exports.default = ProjectModel;
 //# sourceMappingURL=project.js.map

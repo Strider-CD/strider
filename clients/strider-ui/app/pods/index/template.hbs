@@ -3,7 +3,7 @@
     Your Projects
   </div>
 </h2>
-
+{{log this.projects}}
 <LiveProjects @jobs={{@model.jobs}} as |jobs api|>
   <ul>
     {{#if jobs.yours.length}}

@@ -1,7 +1,66 @@
-const _ = require('lodash');
-const mongoose = require('../utils/mongoose-shim');
-const findBranch = require('../utils').findBranch;
-const Schema = mongoose.Schema;
+import _ from 'lodash';
+import { Model, model, Schema, Document } from 'mongoose';
+import { findBranch } from '../utils';
+import { User } from './user';
+
+export interface Plugin {
+  id: string;
+  config: any;
+  showStatus: boolean;
+  enabled: boolean;
+}
+export interface Branch {
+  name: string;
+  active: boolean;
+  mirror_master: boolean;
+  deploy_on_green: boolean;
+  deploy_on_pull_request: boolean;
+  pubkey: string;
+  privkey: string;
+  envKeys: boolean;
+  plugins: Plugin[];
+  runner: {
+    id: string;
+    config: any;
+  };
+  plugin_data: any;
+}
+
+export interface Project extends Document {
+  name: string;
+  display_name: string;
+  public: boolean;
+  display_url: string;
+  prefetch_config: boolean;
+  creator: User['_id'];
+  branches: Branch[];
+  provider: {
+    id: string;
+    account: string;
+    repo_id: string;
+    config: any;
+  };
+
+  addBranch: (
+    name: string,
+    done: (
+      err?: unknown,
+      branch?: { name: string; mirror_master: boolean }
+    ) => void
+  ) => void;
+
+  cloneBranch: (
+    name: string,
+    cloneName: string,
+    done: (
+      err?: unknown,
+      branch?: { name: string; mirror_master: boolean }
+    ) => void
+  ) => void;
+  branch: (name: string) => any;
+}
+
+let ProjectModel: Model<Project>;
 
 const PluginConfig = new Schema({
   id: String,
@@ -46,7 +105,7 @@ const BranchConfig = new Schema({
   plugin_data: {},
 });
 
-const ProjectSchema = new Schema({
+const ProjectSchema = new Schema<Project>({
   // name is always lower case!
   name: {
     type: String,
@@ -112,7 +171,7 @@ ProjectSchema.methods.addBranch = function (name, done) {
     {
       $push: { branches: branch },
     },
-    function (err, changed) {
+    function (err: unknown, changed: number) {
       if (err) {
         return done(err);
       }
@@ -164,7 +223,10 @@ ProjectSchema.methods.branch = function (name) {
   return findBranch(this.branches, name);
 };
 
-ProjectSchema.statics.forUser = async function (user, done) {
+ProjectSchema.statics.forUser = async function (
+  user: User,
+  done: (err?: any, projects?: Project[]) => void
+) {
   // Default to all projects
   let query = {};
 
@@ -190,4 +252,7 @@ ProjectSchema.statics.forUser = async function (user, done) {
   return this.find(query, done);
 };
 
-module.exports = mongoose.model('Project', ProjectSchema);
+// eslint-disable-next-line prefer-const
+ProjectModel = model<Project>('Project', ProjectSchema);
+
+export default ProjectModel;
