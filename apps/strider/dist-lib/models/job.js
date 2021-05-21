@@ -15,6 +15,10 @@ const TriggerNotSchema = {
     timestamp: Date,
     url: String,
     source: {},
+    // source looks like:
+    // { type: "plugin", plugin: "github" } ||
+    // { type: "UI", page: "dashboard" } ||
+    // { type: "API", app: "MyApp" }
 };
 const PhaseNotSchema = {
     duration: Number,

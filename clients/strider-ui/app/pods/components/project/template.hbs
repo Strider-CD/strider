@@ -1,0 +1,38 @@
+<LinkTo
+  class='bg-white p-4 mb-4 rounded-lg shadow hover:shadow-lg block'
+  @route='organization.repository.job'
+  @models={{array @job.project.ownerName @job.project.repoName @job._id}}
+  @queryParams={{hash ember=true}}
+  ...attributes
+>
+  <div class='flex justify-between'>
+    <div class='text-lg'>
+      {{@job.project.display_name}}
+    </div>
+
+    <div class='flex items-center'>
+      <img
+        src={{@job.trigger.author.image}}
+        class='rounded-full w-8 mr-2'
+        alt='Author avatar'
+      />
+      {{@job.trigger.author.name}}
+    </div>
+  </div>
+
+  <div class='flex flex-cols mt-2'>
+    <Status @status={{@job.status}} class='mr-2' />
+    {{@job.trigger.message}}
+  </div>
+
+  <div class='flex flex-cols justify-between items-center'>
+    <div class='text-gray-800 text-sm'>
+      {{@job.ref.branch}}
+      {{truncate @job.ref.id}}
+    </div>
+
+    <div class='mt-1 text-gray-800 text-sm'>
+      {{format-date @job.created}}
+    </div>
+  </div>
+</LinkTo>

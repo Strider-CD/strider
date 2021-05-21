@@ -1,0 +1,21 @@
+<div ...attributes>
+  {{log @status}}
+  {{#if (eq @status 'running')}}
+    <FaIcon
+      class='text-blue-500'
+      @icon='circle-notch'
+      @spin={{true}}
+      @prefix='fas'
+    />
+  {{else if (eq @status 'submitted')}}
+    <FaIcon class='text-purple-500' @icon='satellite-dish' @prefix='fas' />
+  {{else if (eq @status 'passed')}}
+    <FaIcon class='text-green-500' @icon='check-circle' @prefix='fas' />
+  {{else if (eq @status 'failed')}}
+    <FaIcon class='text-red-500' @icon='times-circle' @prefix='fas' />
+  {{else if (eq @status 'errored')}}
+    <FaIcon class='text-orange-500' @icon='exclamation-triangle' @prefix='fas' />
+  {{else}}
+    {{@status}}
+  {{/if}}
+</div>

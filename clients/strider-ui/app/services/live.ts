@@ -3,19 +3,34 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 import { cloneDeep } from 'lodash-es';
 
+export interface Job {
+  _id: string;
+  phase: 'environment' | null;
+  phases: Record<string, unknown>;
+  started?: unknown;
+  status?: 'running' | 'errored';
+  std?: {
+    out: string;
+    err: string;
+    merged: string;
+  };
+  warnings?: string[];
+  error?: unknown;
+}
+
 export default class Live extends Service {
-  @tracked jobs: any = [];
+  @tracked jobs: Job[] = [];
   @tracked selectedJobId?: string;
 
   get selectedJob() {
-    return this.jobs.find((item: any) => item._id === this.selectedJobId);
+    return this.jobs.find((item: Job) => item._id === this.selectedJobId);
   }
 
   @action
-  updateJob(job: any) {
-    let item = this.jobs.find((item: any) => item._id === job._id);
+  updateJob(job: Job) {
+    let item = this.jobs.find((item: Job) => item._id === job._id);
     if (item) {
-      let original = item;
+      const original = item;
       item = Object.assign(cloneDeep(item), job);
       this.jobs.splice(this.jobs.indexOf(original), 1, item);
       this.jobs = [...this.jobs];

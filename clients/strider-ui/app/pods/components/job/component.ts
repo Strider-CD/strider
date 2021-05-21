@@ -10,11 +10,11 @@ interface Args {
 export default class Job extends Component<Args> {
   socket: SocketIOClient.Socket;
 
-  @tracked isErrorStackVisible: boolean = false;
+  @tracked isErrorStackVisible = false;
 
   constructor(owner: unknown, args: Args) {
     super(owner, args);
-    let socket = io.connect();
+    const socket = io.connect();
     this.socket = socket;
   }
 

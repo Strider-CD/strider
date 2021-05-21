@@ -23,6 +23,15 @@
     "[html]": {
       "editor.formatOnSave": false
     },
-    "files.associations": { "*.json": "jsonc" }
+    "files.associations": {
+      "*.json": "jsonc"
+    },
+    "cSpell.words": [
+      "errored",
+      "gitane",
+      "gitlab",
+      "skels"
+    ],
+    "python.pythonPath": "/usr/bin/python3"
   }
 }

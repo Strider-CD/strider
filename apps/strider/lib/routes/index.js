@@ -12,7 +12,10 @@ const utils = require('../utils');
 /*
  * GET home page dashboard
  */
-exports.index = function (req, res) {
+exports.index = function (req, res, next) {
+  if (req.query.ember) {
+    return next();
+  }
   // Work-around for Safari/Express etags bug on cookie logout.
   // Without it, Safari will cache the logged-in version despite logout!
   // See https://github.com/Strider-CD/strider/issues/284

@@ -111,6 +111,7 @@ function makeTrigger(job, commit) {
             type: 'manual',
             author: {
                 id: job._owner,
+                // TODO get more info about the user? Like email, gravatar, etc
             },
             message: job.type === 'TEST_AND_DEPLOY' ? 'Redeploy' : 'Retest',
             timestamp: job.created_timestamp,
@@ -292,6 +293,7 @@ function makeProvider(name, repo, user) {
             repo: parts[1],
             auth: {
                 type: 'https',
+                // with no username specified,
             },
         },
     };

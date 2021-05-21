@@ -1,0 +1,69 @@
+<h2 class='flex justify-between items-center text-2xl mb-3'>
+  <div class='flex items-center'>
+    Your Projects
+  </div>
+</h2>
+{{log this.projects}}
+<LiveProjects @jobs={{@model.jobs}} as |jobs api|>
+  <ul>
+    {{#if jobs.yours.length}}
+      {{#each jobs.yours as |job|}}
+        <li>
+          <button
+            type='button'
+            class='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2'
+            {{on 'click' (fn api.test job)}}
+          >
+            Test
+          </button>
+          <Project @job={{job}} />
+        </li>
+      {{/each}}
+    {{else}}
+      <li>
+        You have no projects yet.
+      </li>
+
+      {{#if this.currentUser.availableProviders.length}}
+        <li>
+          <h3>
+            Link Accounts
+          </h3>
+
+          <ul>
+            {{#each this.currentUser.availableProviders as |provider|}}
+              {{#if provider.setupLink}}
+                <span class="link-accounts">
+                  <a href={{provider.setupLink}} class='bg-transparent hover:bg-blue-500 text-blue-700 hover:text-white text-sm py-1 px-2 border border-blue-500 hover:border-transparent rounded-full shadow mr-2'>
+                    {{#if provider.inline_icon}}
+                      <FaIcon @icon={{provider.id}} @prefix='fab'/>
+                    {{/if}}
+                    {{provider.title}}
+                  </a>
+                </span>
+              {{/if}}
+            {{/each}}
+          </ul>
+        </li>
+      {{/if}}
+    {{/if}}
+  </ul>
+
+  {{#if jobs.public.length}}
+    <h2 class='flex justify-between items-center text-2xl mb-3'>
+      <div class='flex items-center'>
+        Public Projects
+      </div>
+    </h2>
+
+    <ul>
+      {{#if jobs.public.length}}
+        {{#each jobs.public as |job|}}
+          <li>
+            <Project @job={{job}} />
+          </li>
+        {{/each}}
+      {{/if}}
+    </ul>
+  {{/if}}
+</LiveProjects>

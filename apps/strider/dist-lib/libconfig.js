@@ -6,6 +6,7 @@ const debug = require('debug')('strider:config');
 const pjson = require('../package.json');
 const hasGithub = pjson && pjson.dependencies['strider-github'];
 const envDefaults = {
+    developing: process.env.DEVELOPING === 'true',
     host: process.env.HOST || '0.0.0.0',
     port: process.env.PORT || 3000,
     server_name: 'http://localhost',

@@ -1,14 +1,10 @@
-import Icon from 'fa-icon';
-import Status from '../status';
----hbs---
-
-<div class="flex">
+<div class='flex' ...attributes>
   <section class='flex flex-1 flex-col w-8/12'>
     <div class='bg-white p-4 mb-4 rounded-lg shadow-lg'>
       <div class='flex flex-col justify-center mb-4'>
         <div class='flex justify-between items-start'>
           <div class='flex'>
-            <Status class='flex text-3xl mr-2' @status={{@job.status}}/>
+            <Status class='flex text-3xl mr-2' @status={{@job.status}} />
 
             <div class='flex flex-col'>
               {{@job.trigger.message}}
@@ -18,7 +14,7 @@ import Status from '../status';
                 {{truncate @job.ref.id}}
               </div>
 
-              <div class="mt-1 text-gray-800 text-sm">
+              <div class='mt-1 text-gray-800 text-sm'>
                 {{format-date @job.created}}
               </div>
             </div>
@@ -36,7 +32,11 @@ import Status from '../status';
         </div>
 
         <div class='flex items-center mt-2'>
-          <img src={{@job.trigger.author.image}} class="rounded-full w-8 mr-2" alt="Author avatar">
+          <img
+            src={{@job.trigger.author.image}}
+            class='rounded-full w-8 mr-2'
+            alt='Author avatar'
+          />
           {{@job.trigger.author.name}}
         </div>
       </div>
@@ -47,26 +47,50 @@ import Status from '../status';
             <button
               type='button'
               class="
+
                 {{if
                   (eq this.selectedPhase key)
                   'bg-blue-800 border-blue-800 text-white'
                 }}
+
+
                 {{if (eq @job.phase key) 'border-pink-400'}}
-                flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
+
+                 flex items-center border border-gray-300 rounded-full flex item-center text-center px-3 py-1 mr-2
                 mb-2 md:mb-0
-              "
+                "
               {{on 'click' (fn (mut this.selectedPhase) key)}}
             >
               {{#if (eq @job.phase key)}}
-                <Icon class='text-gray-400 mr-2' @icon='circle-notch' @spin={{true}} @prefix='fas'/>
+                <FaIcon
+                  class='text-gray-400 mr-2'
+                  @icon='circle-notch'
+                  @spin={{true}}
+                  @prefix='fas'
+                />
               {{else if (gt phase.exitCode 0)}}
-                <Icon class='text-red-500 mr-2' @icon='times-circle' @prefix='fas'/>
+                <FaIcon
+                  class='text-red-500 mr-2'
+                  @icon='times-circle'
+                  @prefix='fas'
+                />
               {{else if (eq phase.exitCode 0)}}
-                <Icon class='text-green-500 mr-2' @icon='check-circle' @prefix='fas'/>
+                <FaIcon
+                  class='text-green-500 mr-2'
+                  @icon='check-circle'
+                  @prefix='fas'
+                />
               {{else if (eq phase.exitCode -1)}}
-                <Icon class='text-gray-300 mr-2' @icon='lock' @prefix='fas'/>
-              {{else if (and (not phase.exitCode) phase.finished phase.commands.length)}}
-                <Icon class='text-orange-500 mr-2' @icon='exclamation-triangle' @prefix='fas'/>
+                <FaIcon class='text-gray-300 mr-2' @icon='lock' @prefix='fas' />
+              {{else if
+                (and
+                  (not phase.exitCode) phase.finished phase.commands.length
+                )}}
+                <FaIcon
+                  class='text-orange-500 mr-2'
+                  @icon='exclamation-triangle'
+                  @prefix='fas'
+                />
               {{/if}}
 
               {{key}}
@@ -78,7 +102,13 @@ import Status from '../status';
 
     {{#if @job.error}}
       <div class='bg-white p-4 mb-4 rounded-lg shadow'>
-        <button type='button' {{on 'click' (set this.isErrorStackVisible (not this.isErrorStackVisible))}}>
+        <button
+          type='button'
+          {{on
+            'click'
+            (set this.isErrorStackVisible (not this.isErrorStackVisible))
+          }}
+        >
           {{@job.error.message}}
         </button>
 
@@ -94,7 +124,7 @@ import Status from '../status';
       <div>
         {{#let (get @job.phases this.selectedPhase) as |phase|}}
           {{#each phase.commands as |command|}}
-            <section class="mb-2">
+            <section class='mb-2'>
               <header
                 class='flex justify-between bg-gray-700 text-white text-sm rounded rounded-b-none p-2 block'
               >
@@ -109,19 +139,20 @@ import Status from '../status';
                 </div>
 
                 {{#if (gte command.duration 0)}}
-                  <div class="rounded p-1 bg-gray-600">
+                  <div class='rounded p-1 bg-gray-600'>
                     {{duration command.duration}}s
                   </div>
                 {{/if}}
               </header>
 
               {{#if command.merged}}
-                <code class="text-xs">
+                <code class='text-xs'>
                   <pre
                     class='bg-gray-800 text-white rounded rounded-t-none p-2 text-xs overflow-x-auto whitespace-normal'
                   >
-                    {{! template-lint-disable no-triple-curlies}}
-                    {{{ansi command.merged}}}
+                    {{! template-lint-disable no-triple-curlies}}{{{ansi
+                      command.merged
+                    }}}
                   </pre>
                 </code>
               {{/if}}

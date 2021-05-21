@@ -7,10 +7,10 @@ interface Params {
 
 export default class Reset extends Route {
   async model({ token }: Params) {
-    let response = await fetch(`/reset/${token}`);
+    const response = await fetch(`/reset/${token}`);
 
     if (response.status !== 200) {
-      let result = await response.json();
+      const result = await response.json();
       throw new Error(result.errors.join('\n'));
     }
   }
