@@ -1,7 +1,6 @@
 # ![Strider][logo]
 
 ![Strider Screenshot][screenshot]
-[more screenshots][more-screenshots]
 
 ---
 
@@ -115,7 +114,6 @@ See the [Contributing guide](./CONTRIBUTING.md).
 [backers-badge-img]: https://opencollective.com/strider/backers/badge.svg
 [sponsors-badge-img]: https://opencollective.com/strider/sponsors/badge.svg
 [screenshot]: /apps/website/docs/screenshots/job.png
-[more-screenshots]: https://github.com/Strider-CD/strider/wiki/Screenshots
 [cc-badge]: https://codeclimate.com/github/Strider-CD/strider/badges/gpa.svg
 [cc-badge-link]: https://codeclimate.com/github/Strider-CD/strider
 [david-badge]: https://david-dm.org/Strider-CD/strider.svg
