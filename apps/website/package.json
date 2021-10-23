@@ -15,7 +15,7 @@
   "author": "Ilya Radchenko",
   "license": "ISC",
   "devDependencies": {
-    "docpress": "~0.8.0",
+    "docpress": "~0.8.2",
     "git-update-ghpages": "^1.3.0"
   }
 }

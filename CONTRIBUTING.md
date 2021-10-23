@@ -31,6 +31,11 @@ How to get setup (if you're using docker, see the [Docker section in the README]
   [mongodb]. You could also
   develop using an externally hosted mongodb if you want, just set `DB_URI`.
 
+## Troubleshooting
+
+- Issues with `rush install`
+Run `rush purge` and delete the `common/config/rush/pnpm-lock.yaml`, than run `rush update`
+
 ## Making Code Contributions
 
 **Note:**: **Don't** make changes to the compiled files in the `dist/` directory, those
