@@ -25,7 +25,7 @@ How to get setup (if you're using docker, see the [Docker section in the README]
 - Install Rush (https://rushjs.io/pages/intro/get_started/)
 - `rush install`
 - `cd apps/strider && bower install`
-- `rush build`
+- `rush build` or `rush watch`
 - run the tests with `npm test` to make sure your environment is setup
   properly. If you don't have it already, install
   [mongodb]. You could also
