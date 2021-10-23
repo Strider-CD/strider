@@ -18,6 +18,7 @@ const errorHandler = require('errorhandler');
 const methodOverride = require('method-override');
 const connectFlash = require('connect-flash');
 const connectMongo = require('connect-mongo');
+const csrf = require('csurf');
 const setupDb = require('./utils/setup-db');
 const Backchannel = require('./backchannel');
 const common = require('./common');
@@ -45,6 +46,7 @@ const env = process.env.NODE_ENV || 'development';
 const isDevelopment = env === 'development';
 const isProduction = env === 'production';
 const isTest = env === 'test';
+const csrfProtection = csrf({ cookie: true });
 let sessionStore;
 exports.init = function (config) {
     const mongoose = setupDb(config, (err) => {
@@ -108,7 +110,7 @@ exports.init = function (config) {
         next();
     });
     auth.setup(app); // app.use(passport) is included
-    app.use('/vendor', express.static(path.join(__dirname, '..', 'vendor'), {
+    app.use('/vendor', express.static(path.join(__dirname, '..', '..', '..', 'clients', 'classic-ui', 'vendor'), {
         maxAge: MONTH_IN_MILLISECONDS,
     }));
     if (config.developing) {
@@ -173,15 +175,15 @@ exports.init = function (config) {
     app.get('/scripts/plugin-status-compiled.js', apiConfig.server('status', 'js'));
     app.get('/styles/plugin-status-compiled.css', apiConfig.server('status', 'css'));
     app.get('/admin/projects', auth.requireAdminOr401, routesAdmin.projects);
-    app.get('/admin/users', auth.requireAdminOr401, routesAdmin.users);
+    app.get('/admin/users', auth.requireAdminOr401, csrfProtection, routesAdmin.users);
     app.get('/admin/jobs', auth.requireAdminOr401, function (req, res) {
         res.render('admin/jobs.html', {
             version: pjson.version,
         });
     });
-    app.get('/admin/make_admin', auth.requireAdminOr401, routesAdmin.makeAdmin);
-    app.post('/admin/remove_user', auth.requireAdminOr401, routesAdmin.removeUser);
-    app.get('/admin/invites', auth.requireAdminOr401, routesAdmin.invites);
+    app.post('/admin/make_admin', auth.requireAdminOr401, csrfProtection, middleware.csrfErrorHandler, routesAdmin.makeAdmin);
+    app.post('/admin/remove_user', auth.requireAdminOr401, csrfProtection, middleware.csrfErrorHandler, routesAdmin.removeUser);
+    app.get('/admin/invites', auth.requireAdminOr401, csrfProtection, routesAdmin.invites);
     app.get('/admin/:org/:repo/job/:job_id', auth.requireAdminOr401, routesAdmin.job);
     app.get('/admin/plugins', auth.requireAdminOr401, routesAdmin.plugins.get);
     app.put('/admin/plugins', auth.requireAdminOr401, routesAdmin.plugins.put);

@@ -33,6 +33,7 @@
     "lint-lib": "eslint \"lib/**/*.ts\" --quiet --fix",
     "watch:lib": "nodemon",
     "build-and-start": "npm run build-ts && npm start",
+    "build-and-debug": "npm run build-ts && npm run debug",
     "copy-static-assets": "ts-node copy-static-assets.ts",
     "build-ember": "cd ../../clients/strider-ui/ && ember build -prod --output-path=../apps/strider/dist/ember && cd ../../",
     "test-unit": "mocha --recursive test/unit",

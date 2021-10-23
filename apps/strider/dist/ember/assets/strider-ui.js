@@ -143,16 +143,16 @@
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function () {
-      return _and.default;
-    }
-  });
   Object.defineProperty(_exports, "and", {
     enumerable: true,
     get: function () {
       return _and.and;
+    }
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function () {
+      return _and.default;
     }
   });
 });
@@ -240,12 +240,10 @@
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.duration = duration;
   _exports.default = void 0;
+  _exports.duration = duration;
 
-  function duration([value])
-  /*, hash*/
-  {
+  function duration([value]) {
     try {
       return Math.round(Number(value) / 1000);
     } catch (e) {
@@ -282,12 +280,10 @@
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.formatDate = formatDate;
   _exports.default = void 0;
+  _exports.formatDate = formatDate;
 
-  function formatDate([date])
-  /*, hash*/
-  {
+  function formatDate([date]) {
     return new Intl.DateTimeFormat('en-US', {
       year: 'numeric',
       month: 'numeric',
@@ -646,12 +642,10 @@
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.truncate = truncate;
   _exports.default = void 0;
+  _exports.truncate = truncate;
 
-  function truncate([value])
-  /*, hash*/
-  {
+  function truncate([value]) {
     try {
       return value && value.slice(0, 10);
     } catch (e) {
@@ -792,8 +786,8 @@
   Object.defineProperty(_exports, "__esModule", {
     value: true
   });
-  _exports.initialize = initialize;
   _exports.default = void 0;
+  _exports.initialize = initialize;
 
   function initialize() {
     var application = arguments[1] || arguments[0];
@@ -900,7 +894,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -910,7 +904,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ApplicationController = (_dec = Ember.inject.service, (_class = (_temp = class ApplicationController extends Ember.Controller {
+  let ApplicationController = (_dec = Ember.inject.service, (_class = class ApplicationController extends Ember.Controller {
     constructor(...args) {
       super(...args);
 
@@ -921,7 +915,7 @@
       _defineProperty(this, "ember", false);
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -937,7 +931,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -948,7 +942,7 @@
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
   const publicRoutes = ['login', 'register', 'forgot-password', 'reset'];
-  let ApplicationRoute = (_dec = Ember.inject.service, (_class = (_temp = class ApplicationRoute extends Ember.Route {
+  let ApplicationRoute = (_dec = Ember.inject.service, (_class = class ApplicationRoute extends Ember.Route {
     constructor(...args) {
       super(...args);
 
@@ -972,7 +966,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "currentUser", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1006,7 +1000,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _class, _descriptor, _descriptor2, _temp;
+  var _dec, _dec2, _class, _descriptor, _descriptor2;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1016,7 +1010,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let ForgotPasswordForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, (_class = (_temp = class ForgotPasswordForm extends _component.default {
+  let ForgotPasswordForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, (_class = class ForgotPasswordForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1041,7 +1035,7 @@
         // TODO: navigate in ember once the main page is finished
         let result = yield response.json();
 
-        if (result === null || result === void 0 ? void 0 : result.ok) {
+        if (result !== null && result !== void 0 && result.ok) {
           this.notifications.add(result.message);
         }
 
@@ -1051,7 +1045,7 @@
       try {
         let result = yield response.json();
 
-        if (result === null || result === void 0 ? void 0 : result.errors) {
+        if (result !== null && result !== void 0 && result.errors) {
           this.notifications.add(result.errors.join('\n'), {
             appearance: 'error'
           });
@@ -1061,7 +1055,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1118,7 +1112,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3, _temp;
+  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _descriptor3;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1128,7 +1122,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let LoginForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, (_class = (_temp = class LoginForm extends _component.default {
+  let LoginForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, (_class = class LoginForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1160,7 +1154,7 @@
       try {
         let result = yield response.json();
 
-        if (result === null || result === void 0 ? void 0 : result.errors) {
+        if (result !== null && result !== void 0 && result.errors) {
           this.notifications.add(result.errors.join('\n'), {
             appearance: 'error'
           });
@@ -1172,7 +1166,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1246,13 +1240,13 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _class, _temp;
+  var _dec, _dec2, _class;
 
   function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
   function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
 
-  let RepoControls = (_dec = Ember._action, _dec2 = Ember._action, (_class = (_temp = class RepoControls extends _component.default {
+  let RepoControls = (_dec = Ember._action, _dec2 = Ember._action, (_class = class RepoControls extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1273,7 +1267,7 @@
       this.socket.emit('test', this.args.repo.project, branch);
     }
 
-  }, _temp), (_applyDecoratedDescriptor(_class.prototype, "deploy", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "deploy"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "test", [_dec2], Object.getOwnPropertyDescriptor(_class.prototype, "test"), _class.prototype)), _class));
+  }, (_applyDecoratedDescriptor(_class.prototype, "deploy", [_dec], Object.getOwnPropertyDescriptor(_class.prototype, "deploy"), _class.prototype), _applyDecoratedDescriptor(_class.prototype, "test", [_dec2], Object.getOwnPropertyDescriptor(_class.prototype, "test"), _class.prototype)), _class));
   _exports.default = RepoControls;
 });
 ;define("strider-ui/pods/organization/repository/-components/controls/template", ["exports"], function (_exports) {
@@ -1302,7 +1296,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _class, _descriptor, _temp;
+  var _dec, _dec2, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1312,7 +1306,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let Job = (_dec = Ember._tracked, _dec2 = Ember._action, (_class = (_temp = class Job extends _component.default {
+  let Job = (_dec = Ember._tracked, _dec2 = Ember._action, (_class = class Job extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1329,7 +1323,7 @@
       this.socket.emit('cancel', jobId);
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "isErrorStackVisible", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "isErrorStackVisible", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1365,7 +1359,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _class, _descriptor, _temp;
+  var _dec, _dec2, _dec3, _dec4, _dec5, _dec6, _dec7, _dec8, _dec9, _dec10, _dec11, _dec12, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1375,7 +1369,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let LiveJob = (_dec = Ember.inject.service, _dec2 = Ember._action, _dec3 = Ember._action, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, _dec8 = Ember._action, _dec9 = Ember._action, _dec10 = Ember._action, _dec11 = Ember._action, _dec12 = Ember._action, (_class = (_temp = class LiveJob extends _component.default {
+  let LiveJob = (_dec = Ember.inject.service, _dec2 = Ember._action, _dec3 = Ember._action, _dec4 = Ember._action, _dec5 = Ember._action, _dec6 = Ember._action, _dec7 = Ember._action, _dec8 = Ember._action, _dec9 = Ember._action, _dec10 = Ember._action, _dec11 = Ember._action, _dec12 = Ember._action, (_class = class LiveJob extends _component.default {
     constructor(owner, args) {
       super(owner, args);
 
@@ -1591,7 +1585,7 @@
       socket.close();
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1672,7 +1666,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1682,14 +1676,14 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let JobController = (_dec = Ember.inject.service, (_class = (_temp = class JobController extends Ember.Controller {
+  let JobController = (_dec = Ember.inject.service, (_class = class JobController extends Ember.Controller {
     constructor(...args) {
       super(...args);
 
       _initializerDefineProperty(this, "live", _descriptor, this);
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1705,7 +1699,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1721,7 +1715,7 @@
   // interface RepoParams {
   //   repo: string;
   // }
-  let JobRoute = (_dec = Ember.inject.service, (_class = (_temp = class JobRoute extends Ember.Route {
+  let JobRoute = (_dec = Ember.inject.service, (_class = class JobRoute extends Ember.Route {
     constructor(...args) {
       super(...args);
 
@@ -1734,7 +1728,7 @@
       this.live.selectedJobId = jobId;
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1768,7 +1762,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _class, _descriptor, _temp;
+  var _dec, _class, _descriptor;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1778,7 +1772,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RepositoryRoute = (_dec = Ember.inject.service, (_class = (_temp = class RepositoryRoute extends Ember.Route {
+  let RepositoryRoute = (_dec = Ember.inject.service, (_class = class RepositoryRoute extends Ember.Route {
     constructor(...args) {
       super(...args);
 
@@ -1818,7 +1812,7 @@
       };
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "live", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1852,7 +1846,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -1862,7 +1856,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = (_temp = class RegisterForm extends _component.default {
+  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = class RegisterForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -1897,7 +1891,7 @@
       try {
         let result = yield response.json();
 
-        if (result === null || result === void 0 ? void 0 : result.errors) {
+        if (result !== null && result !== void 0 && result.errors) {
           this.notifications.add(result.errors.join('\n'), {
             appearance: 'error'
           });
@@ -1909,7 +1903,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -1994,7 +1988,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4, _temp;
+  var _dec, _dec2, _dec3, _dec4, _class, _descriptor, _descriptor2, _descriptor3, _descriptor4;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2004,7 +1998,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = (_temp = class RegisterForm extends _component.default {
+  let RegisterForm = (_dec = Ember.inject.service, _dec2 = Ember._tracked, _dec3 = Ember._tracked, _dec4 = Ember._tracked, (_class = class RegisterForm extends _component.default {
     constructor(...args) {
       super(...args);
 
@@ -2039,7 +2033,7 @@
       try {
         let result = yield response.json();
 
-        if (result === null || result === void 0 ? void 0 : result.errors) {
+        if (result !== null && result !== void 0 && result.errors) {
           this.notifications.add(result.errors.join('\n'), {
             appearance: 'error'
           });
@@ -2051,7 +2045,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "notifications", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2265,7 +2259,7 @@
   });
   _exports.default = void 0;
 
-  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2, _temp;
+  var _dec, _dec2, _dec3, _class, _descriptor, _descriptor2;
 
   function _initializerDefineProperty(target, property, descriptor, context) { if (!descriptor) return; Object.defineProperty(target, property, { enumerable: descriptor.enumerable, configurable: descriptor.configurable, writable: descriptor.writable, value: descriptor.initializer ? descriptor.initializer.call(context) : void 0 }); }
 
@@ -2275,7 +2269,7 @@
 
   function _initializerWarningHelper(descriptor, context) { throw new Error('Decorating class property failed. Please ensure that ' + 'proposal-class-properties is enabled and runs after the decorators transform.'); }
 
-  let Live = (_dec = Ember._tracked, _dec2 = Ember._tracked, _dec3 = Ember._action, (_class = (_temp = class Live extends Ember.Service {
+  let Live = (_dec = Ember._tracked, _dec2 = Ember._tracked, _dec3 = Ember._action, (_class = class Live extends Ember.Service {
     constructor(...args) {
       super(...args);
 
@@ -2302,7 +2296,7 @@
       }
     }
 
-  }, _temp), (_descriptor = _applyDecoratedDescriptor(_class.prototype, "jobs", [_dec], {
+  }, (_descriptor = _applyDecoratedDescriptor(_class.prototype, "jobs", [_dec], {
     configurable: true,
     enumerable: true,
     writable: true,
@@ -2510,7 +2504,7 @@ catch(err) {
 
 ;
           if (!runningTests) {
-            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"strider_v2.4.18+b8dc8a73"});
+            require("strider-ui/app")["default"].create({"name":"strider-ui","version":"0.0.0+3489a88e"});
           }
         
 //# sourceMappingURL=strider-ui.map

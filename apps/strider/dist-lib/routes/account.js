@@ -1,13 +1,15 @@
 const express = require('express');
+const csrf = require('csurf');
 const pjson = require('../../package.json');
 const utils = require('../utils');
 const common = require('../common');
 const router = express.Router();
 const config = require('../config');
+const csrfProtection = csrf({ cookie: true });
 /*
  * GET /account - account settings page
  */
-router.get('/', function (req, res) {
+router.get('/', csrfProtection, function (req, res) {
     const hosted = {};
     const providers = common.userConfigs.provider;
     for (const id in providers) {
@@ -24,6 +26,7 @@ router.get('/', function (req, res) {
                 jobsQuantityOnPage: config.jobsQuantityOnPage,
                 flash: req.flash('account'),
                 version: pjson.version,
+                csrfToken: req.csrfToken()
             });
         },
         json: function () {

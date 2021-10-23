@@ -2,10 +2,13 @@ const auth = require('../../../auth');
 const debug = require('debug')('strider:routes:api:admin');
 const email = require('../../../email');
 const express = require('express');
+const csrf = require('csurf');
 const requireBody = require('../../../utils/require-body');
 const router = new express.Router();
 const InviteCode = require('../../../models').InviteCode;
 const User = require('../../../models').User;
+const csrfProtection = csrf({ cookie: true });
+const csrfErrorHandler = require('../../../middleware').csrfErrorHandler;
 router.use(auth.requireAdminOr401);
 /**
  * @api {get} /admin/users Get All Users
@@ -61,7 +64,7 @@ router.route('/jobs').get(function (req, res) {
  * @apiParam (RequestBody) {String} invite_code The invite code/token to use in the invitation
  * @apiParam (RequestBody) {String} email The email address of the new user being invited
  */
-router.route('/invite/new').post(function (req, res) {
+router.route('/invite/new').post(csrfProtection, csrfErrorHandler, function (req, res) {
     const inviteCode = requireBody('invite_code', req, res);
     const emailAddr = requireBody('email', req, res);
     if (inviteCode === undefined || emailAddr === undefined) {
@@ -90,7 +93,7 @@ router.route('/invite/new').post(function (req, res) {
  * @apiParam (RequestBody) {String} invite_code The invite code/token of the invite
  * being revoked.
  */
-router.route('/invite/revoke').post(function (req, res) {
+router.route('/invite/revoke').post(csrfProtection, csrfErrorHandler, function (req, res) {
     const inviteCode = requireBody('invite_code', req, res);
     InviteCode.remove({ code: inviteCode, consumed_timestamp: { $exists: false } }, function (err) {
         if (err) {
