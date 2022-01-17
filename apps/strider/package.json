@@ -162,5 +162,8 @@
     "type": "opencollective",
     "url": "https://opencollective.com/strider",
     "logo": "https://opencollective.com/opencollective/logo.txt"
+  },
+  "volta": {
+    "extends": "../common/package.json"
   }
 }

@@ -44,5 +44,8 @@
     "lodash": "^4.17.15",
     "mkdirp": "~0.3.5",
     "shell-quote": "^1.6.0"
+  },
+  "volta": {
+    "extends": "../../common/package.json"
   }
 }

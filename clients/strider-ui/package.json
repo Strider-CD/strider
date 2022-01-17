@@ -120,7 +120,6 @@
     "tracked-toolbox": "^1.0.1"
   },
   "volta": {
-    "node": "12.22.1",
-    "yarn": "1.22.4"
+    "extends": "../../common/package.json"
   }
 }
